@@ -50,4 +50,7 @@ For the Charm++ backend, this would be:
 -DDarmaCharmBackend_DIR=/path/to/darma/install/cmake
 ```
 
-By using this approach, your app will be built with the same compilers, flags, etc. that were used in the DARMA build.  Additional convenience variables may also be set (e.g., `DARMA_BACKEND_RUN_SCRIPT`).  Some backends (e.g., the Charm++ backend) may change the way your build system compiles and links executables.  As mentioned previously, you will need to manually add `DARMA_BACKEND_LIBRARIES` to the `target_link_libraries()` command for each executable you want to link against DARMA.
+By using this approach, your app will be built with the same compilers, flags, etc. that were used in the DARMA build.  Additional convenience variables may also be set (e.g., `DARMA_BACKEND_RUN_SCRIPT`).  As mentioned previously, you will need to manually add `DARMA_BACKEND_LIBRARIES` to the `target_link_libraries()` command for each executable you want to link against DARMA.
+
+Because the Charm++ backend changes the way your build system compiles and links executables, it will not work with CMake 3.3.2 or earlier.  We have had success with CMake 3.4.3 or greater.  If you are linking against the threads backend, you may only need CMake 2.8 (we have tested 2.8.12 successfully).
+
