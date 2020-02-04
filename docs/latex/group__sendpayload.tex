@@ -1,0 +1,101 @@
+\hypertarget{group__sendpayload}{}\section{Send Data Message with data payload}
+\label{group__sendpayload}\index{Send Data Message with data payload@{Send Data Message with data payload}}
+
+
+Send message that includes a payload of data.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename MessageT $>$ }\\\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{Pending\+Send\+Type} \hyperlink{group__sendpayload_ga0b1f1f3e364e7b1358a36a386b2e6537}{vt\+::messaging\+::\+Active\+Messenger\+::send\+Msg} (\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{Node\+Type} const \&dest, \hyperlink{namespacevt_af64846b57dfcaf104da3ef6967917573}{Handler\+Type} const \&han, MessageT $\ast$const msg, \hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{User\+Send\+Fn\+Type} send\+\_\+payload\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Send a message with a byte payload for pre-\/registered manual handler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MessageT , Active\+Typed\+Fn\+Type$<$ Message\+T $>$ $\ast$ f$>$ }\\\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{Pending\+Send\+Type} \hyperlink{group__sendpayload_ga887dfedb337701fc731c67ba19cf86c8}{vt\+::messaging\+::\+Active\+Messenger\+::send\+Msg} (\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{Node\+Type} const \&dest, MessageT $\ast$const msg, \hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{User\+Send\+Fn\+Type} send\+\_\+payload\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Send a message with a byte payload for typesafe auto handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Send message that includes a payload of data. 
+
+Send message that includes a payload that can be arbitrary data that is coordinated by the system
+
+
+\begin{DoxyCode}
+\textcolor{keyword}{struct }\hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage} : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{
+  \hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage}() \{ \}
+  \hyperlink{namespacevt_a84ab281dae04a52a4b243d6bf62d0e52}{vt::TagType} mpi\_tag\_to\_recv = vt::no\_tag;
+\};
+
+\textcolor{keywordtype}{void} myHandler(\hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage}* msg) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} send\_node = 0;
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{structvt_1_1messaging_1_1_active_messenger_a33b2e3e047d0b1f6eb1398691f075b31}{recvDataMsg}(
+    msg->mpi\_tag\_to\_recv, send\_node,
+    [=](\hyperlink{namespacevt_a1cab7f4860f65a49ad2c042d6240f288}{RDMA\_GetType} ptr, \hyperlink{namespacevt_ae0a5a7b18cc99d7b732cb4d44f46b0f3}{ActionType} deleter)\{
+       \textcolor{comment}{// do something with ptr}
+       deleter();
+    \}
+  );
+\}
+
+\textcolor{keywordtype}{void} sendCode() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} put\_node = 1;
+  \textcolor{comment}{// The user's payload function that invokes the system send function}
+  \textcolor{comment}{// passed to the lambda}
+  \textcolor{keyword}{auto} send\_payload = [&](\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9821bc2d924729107f08fadf5a217537}{Active::SendFnType} \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send})\{
+    \textcolor{keyword}{auto} ret = \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send}(\hyperlink{namespacevt_a1cab7f4860f65a49ad2c042d6240f288}{vt::RDMA\_GetType}\{ptr, num\_bytes\}, put\_node, vt::no\_tag);
+    msg->mpi\_tag\_to\_recv = std::get<1>(ret);
+  \};
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__preregister_ga55c6ea91181ae20c681e73a356750916}{sendMsg}<\hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage}, myHandler>(1, msg);
+\}
+\end{DoxyCode}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__sendpayload_ga0b1f1f3e364e7b1358a36a386b2e6537}\label{group__sendpayload_ga0b1f1f3e364e7b1358a36a386b2e6537}} 
+\index{Send Data Message with data payload@{Send Data Message with data payload}!send\+Msg@{send\+Msg}}
+\index{send\+Msg@{send\+Msg}!Send Data Message with data payload@{Send Data Message with data payload}}
+\subsubsection{\texorpdfstring{send\+Msg()}{sendMsg()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MessageT $>$ \\
+\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{Active\+Messenger\+::\+Pending\+Send\+Type} vt\+::messaging\+::\+Active\+Messenger\+::send\+Msg (\begin{DoxyParamCaption}\item[{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{Node\+Type} const \&}]{dest,  }\item[{\hyperlink{namespacevt_af64846b57dfcaf104da3ef6967917573}{Handler\+Type} const \&}]{han,  }\item[{MessageT $\ast$const}]{msg,  }\item[{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{User\+Send\+Fn\+Type}}]{send\+\_\+payload\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Send a message with a byte payload for pre-\/registered manual handler. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em dest} & the destination node to send the message to \\
+\hline
+\mbox{\tt in}  & {\em han} & the handler to send to \\
+\hline
+\mbox{\tt in}  & {\em msg} & the message to broadcast \\
+\hline
+\mbox{\tt in}  & {\em send\+\_\+payload\+\_\+fn} & send function with payload {\ttfamily User\+Send\+Fn\+Type} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the {\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}} for the send 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__sendpayload_ga887dfedb337701fc731c67ba19cf86c8}\label{group__sendpayload_ga887dfedb337701fc731c67ba19cf86c8}} 
+\index{Send Data Message with data payload@{Send Data Message with data payload}!send\+Msg@{send\+Msg}}
+\index{send\+Msg@{send\+Msg}!Send Data Message with data payload@{Send Data Message with data payload}}
+\subsubsection{\texorpdfstring{send\+Msg()}{sendMsg()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename MessageT , Active\+Typed\+Fn\+Type$<$ Message\+T $>$ $\ast$ f$>$ \\
+\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{Active\+Messenger\+::\+Pending\+Send\+Type} vt\+::messaging\+::\+Active\+Messenger\+::send\+Msg (\begin{DoxyParamCaption}\item[{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{Node\+Type} const \&}]{dest,  }\item[{MessageT $\ast$const}]{msg,  }\item[{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{User\+Send\+Fn\+Type}}]{send\+\_\+payload\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Send a message with a byte payload for typesafe auto handler. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em dest} & the destination node to send the message to \\
+\hline
+\mbox{\tt in}  & {\em msg} & the message to broadcast \\
+\hline
+\mbox{\tt in}  & {\em send\+\_\+payload\+\_\+fn} & send function with payload {\ttfamily User\+Send\+Fn\+Type} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the {\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}} for the send 
+\end{DoxyReturn}

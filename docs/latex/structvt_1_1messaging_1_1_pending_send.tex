@@ -1,0 +1,207 @@
+\hypertarget{structvt_1_1messaging_1_1_pending_send}{}\section{vt\+:\+:messaging\+:\+:Pending\+Send Struct Reference}
+\label{structvt_1_1messaging_1_1_pending_send}\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+
+
+A pending send (or other similar operation) that is delayed until this holder goes out of scope.  
+
+
+
+
+{\ttfamily \#include $<$pending\+\_\+send.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}{Send\+Action\+Type} = std\+::function$<$ void(\hyperlink{namespacevt_a82b5c92ea7ca3ddd2e8a2e27df87fa1a}{Msg\+Virtual\+Ptr}$<$ \hyperlink{namespacevt_a44d0d4e144748f2b19a1cfd962f50338}{Base\+Msg\+Type} $>$)$>$
+\begin{DoxyCompactList}\small\item\em Function for complex action on send---takes a message to operate on. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send_a026f0aed2099e7e1017aee5bd62ea9cd}{Pending\+Send} (\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{Msg\+Shared\+Ptr}$<$ \hyperlink{namespacevt_a44d0d4e144748f2b19a1cfd962f50338}{Base\+Msg\+Type} $>$ const \&in\+\_\+msg, \hyperlink{namespacevt_aab8d55968084610ce3b17057981e9300}{Byte\+Type} const \&in\+\_\+msg\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Construct a pending send from a message and size. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT $>$ }\\\hyperlink{structvt_1_1messaging_1_1_pending_send_a002fd7c23b5b53c49576fc0d7ba078fa}{Pending\+Send} (\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{Msg\+Shared\+Ptr}$<$ MsgT $>$ in\+\_\+msg, \hyperlink{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}{Send\+Action\+Type} const \&in\+\_\+action)
+\begin{DoxyCompactList}\small\item\em Construct a pending send from a message and complex action. \end{DoxyCompactList}\item 
+\hyperlink{namespacevt_a985a5adf291c34a3ca263b3378388236}{Epoch\+Type} \hyperlink{structvt_1_1messaging_1_1_pending_send_a6e6d77bd24d90496826371b900d1979b}{get\+Produce\+Epoch} () const
+\begin{DoxyCompactList}\small\item\em Get the epoch produced when holder was created. \end{DoxyCompactList}\item 
+void \hyperlink{structvt_1_1messaging_1_1_pending_send_af5961bb21b4a427732be91ac699d570b}{produce\+Msg} ()
+\begin{DoxyCompactList}\small\item\em Produce on the messages epoch to inhibit early termination. \end{DoxyCompactList}\item 
+void \hyperlink{structvt_1_1messaging_1_1_pending_send_a0f249a127a798ba0823fae82c925ed3b}{consume\+Msg} ()
+\begin{DoxyCompactList}\small\item\em Consume on the messages epoch to inhibit early termination. \end{DoxyCompactList}\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send_a129a9c509eacf26111013105affe5931}{Pending\+Send} (std\+::nullptr\+\_\+t)
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send_a20551a473781d22c7ccfb6664d88e0ef}{Pending\+Send} (\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&\&in)
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send_a951912c336cf3cdaf91f8ccde13092af}{Pending\+Send} (const \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&)=delete
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \& \hyperlink{structvt_1_1messaging_1_1_pending_send_aecef2d10d22564d142b9de52a57d81c8}{operator=} (\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&\&in)=delete
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \& \hyperlink{structvt_1_1messaging_1_1_pending_send_addfa1d51e3b8f272b5e711867e893bca}{operator=} (\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&in)=delete
+\item 
+\hyperlink{structvt_1_1messaging_1_1_pending_send_ade803ff2903a92eaf62b6e330593871b}{$\sim$\+Pending\+Send} ()
+\begin{DoxyCompactList}\small\item\em Release the pending send on destruction (when this goes out of scope) \end{DoxyCompactList}\item 
+void \hyperlink{structvt_1_1messaging_1_1_pending_send_ad4b41412f953dcd22b3e3020a812f757}{release} ()
+\begin{DoxyCompactList}\small\item\em Release the message, run action if needed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A pending send (or other similar operation) that is delayed until this holder goes out of scope. 
+
+{\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}} holds the message and dispatch function for a send (or broadcast or similar event) to a node, collection, objgroup, etc. This allows VT to expand the D\+AG before it actually violates a data or control dependency by expanding and prematurely performing the operation. We can then wire future sends up with past ones by associating future events with termination sequencing---see {\ttfamily \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}} 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}\label{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Send\+Action\+Type@{Send\+Action\+Type}}
+\index{Send\+Action\+Type@{Send\+Action\+Type}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Send\+Action\+Type}{SendActionType}}
+{\footnotesize\ttfamily using \hyperlink{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}{vt\+::messaging\+::\+Pending\+Send\+::\+Send\+Action\+Type} =  std\+::function$<$void(\hyperlink{namespacevt_a82b5c92ea7ca3ddd2e8a2e27df87fa1a}{Msg\+Virtual\+Ptr}$<$\hyperlink{namespacevt_a44d0d4e144748f2b19a1cfd962f50338}{Base\+Msg\+Type}$>$)$>$}
+
+
+
+Function for complex action on send---takes a message to operate on. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a026f0aed2099e7e1017aee5bd62ea9cd}\label{structvt_1_1messaging_1_1_pending_send_a026f0aed2099e7e1017aee5bd62ea9cd}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Pending\+Send@{Pending\+Send}}
+\index{Pending\+Send@{Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Pending\+Send()}{PendingSend()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily vt\+::messaging\+::\+Pending\+Send\+::\+Pending\+Send (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{Msg\+Shared\+Ptr}$<$ \hyperlink{namespacevt_a44d0d4e144748f2b19a1cfd962f50338}{Base\+Msg\+Type} $>$ const \&}]{in\+\_\+msg,  }\item[{\hyperlink{namespacevt_aab8d55968084610ce3b17057981e9300}{Byte\+Type} const \&}]{in\+\_\+msg\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a pending send from a message and size. 
+
+This constructor is for a simple {\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}} that does not have a complex action and is dispatched to the {\ttfamily \hyperlink{structvt_1_1messaging_1_1_active_messenger}{Active\+Messenger}} when released.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em in\+\_\+msg} & the message to send \\
+\hline
+\mbox{\tt in}  & {\em in\+\_\+msg\+\_\+size} & the size of the message (type is erased) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a002fd7c23b5b53c49576fc0d7ba078fa}\label{structvt_1_1messaging_1_1_pending_send_a002fd7c23b5b53c49576fc0d7ba078fa}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Pending\+Send@{Pending\+Send}}
+\index{Pending\+Send@{Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Pending\+Send()}{PendingSend()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+vt\+::messaging\+::\+Pending\+Send\+::\+Pending\+Send (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{Msg\+Shared\+Ptr}$<$ MsgT $>$}]{in\+\_\+msg,  }\item[{\hyperlink{structvt_1_1messaging_1_1_pending_send_a758cf5a064cb5198b47e979c891fecd6}{Send\+Action\+Type} const \&}]{in\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a pending send from a message and complex action. 
+
+This constructor is for a complex {\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}} that holds a {\ttfamily std\+::function} for performing the send (e.\+g., sending to a collection element). When released, it will run the {\ttfamily in\+\_\+action} of type {\ttfamily Send\+Action\+Type}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em in\+\_\+msg} & the message to send \\
+\hline
+\mbox{\tt in}  & {\em in\+\_\+action} & the \char`\"{}send\char`\"{} action to run \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a129a9c509eacf26111013105affe5931}\label{structvt_1_1messaging_1_1_pending_send_a129a9c509eacf26111013105affe5931}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Pending\+Send@{Pending\+Send}}
+\index{Pending\+Send@{Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Pending\+Send()}{PendingSend()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily vt\+::messaging\+::\+Pending\+Send\+::\+Pending\+Send (\begin{DoxyParamCaption}\item[{std\+::nullptr\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a20551a473781d22c7ccfb6664d88e0ef}\label{structvt_1_1messaging_1_1_pending_send_a20551a473781d22c7ccfb6664d88e0ef}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Pending\+Send@{Pending\+Send}}
+\index{Pending\+Send@{Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Pending\+Send()}{PendingSend()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily vt\+::messaging\+::\+Pending\+Send\+::\+Pending\+Send (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&\&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a951912c336cf3cdaf91f8ccde13092af}\label{structvt_1_1messaging_1_1_pending_send_a951912c336cf3cdaf91f8ccde13092af}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!Pending\+Send@{Pending\+Send}}
+\index{Pending\+Send@{Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{Pending\+Send()}{PendingSend()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily vt\+::messaging\+::\+Pending\+Send\+::\+Pending\+Send (\begin{DoxyParamCaption}\item[{const \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_ade803ff2903a92eaf62b6e330593871b}\label{structvt_1_1messaging_1_1_pending_send_ade803ff2903a92eaf62b6e330593871b}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!````~Pending\+Send@{$\sim$\+Pending\+Send}}
+\index{````~Pending\+Send@{$\sim$\+Pending\+Send}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{$\sim$\+Pending\+Send()}{~PendingSend()}}
+{\footnotesize\ttfamily vt\+::messaging\+::\+Pending\+Send\+::$\sim$\+Pending\+Send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Release the pending send on destruction (when this goes out of scope) 
+
+
+\begin{DoxyCode}
+\{
+  \textcolor{keyword}{auto} ps = \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga55c6ea91181ae20c681e73a356750916}{sendMsg}<MyMsg, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{handler}>(msg);
+\} \textcolor{comment}{// Message is sent here when the destructor runs}
+
+\textcolor{comment}{// Message is sent right away on this following line as the PendingSend}
+\textcolor{comment}{// is not captured}
+\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga55c6ea91181ae20c681e73a356750916}{sendMsg}<MyMsg, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{handler}>(msg);
+\end{DoxyCode}
+ 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a0f249a127a798ba0823fae82c925ed3b}\label{structvt_1_1messaging_1_1_pending_send_a0f249a127a798ba0823fae82c925ed3b}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!consume\+Msg@{consume\+Msg}}
+\index{consume\+Msg@{consume\+Msg}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{consume\+Msg()}{consumeMsg()}}
+{\footnotesize\ttfamily void vt\+::messaging\+::\+Pending\+Send\+::consume\+Msg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Consume on the messages epoch to inhibit early termination. 
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_a6e6d77bd24d90496826371b900d1979b}\label{structvt_1_1messaging_1_1_pending_send_a6e6d77bd24d90496826371b900d1979b}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!get\+Produce\+Epoch@{get\+Produce\+Epoch}}
+\index{get\+Produce\+Epoch@{get\+Produce\+Epoch}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{get\+Produce\+Epoch()}{getProduceEpoch()}}
+{\footnotesize\ttfamily \hyperlink{namespacevt_a985a5adf291c34a3ca263b3378388236}{Epoch\+Type} vt\+::messaging\+::\+Pending\+Send\+::get\+Produce\+Epoch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the epoch produced when holder was created. 
+
+This is required because the epoch on the envelope can change in some cases in between when this is created and actually released.
+
+\begin{DoxyReturn}{Returns}
+the produce epoch 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_aecef2d10d22564d142b9de52a57d81c8}\label{structvt_1_1messaging_1_1_pending_send_aecef2d10d22564d142b9de52a57d81c8}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!operator=@{operator=}}
+\index{operator=@{operator=}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}\& vt\+::messaging\+::\+Pending\+Send\+::operator= (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&\&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_addfa1d51e3b8f272b5e711867e893bca}\label{structvt_1_1messaging_1_1_pending_send_addfa1d51e3b8f272b5e711867e893bca}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!operator=@{operator=}}
+\index{operator=@{operator=}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}\& vt\+::messaging\+::\+Pending\+Send\+::operator= (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send} \&}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_af5961bb21b4a427732be91ac699d570b}\label{structvt_1_1messaging_1_1_pending_send_af5961bb21b4a427732be91ac699d570b}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!produce\+Msg@{produce\+Msg}}
+\index{produce\+Msg@{produce\+Msg}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{produce\+Msg()}{produceMsg()}}
+{\footnotesize\ttfamily void vt\+::messaging\+::\+Pending\+Send\+::produce\+Msg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Produce on the messages epoch to inhibit early termination. 
+
+\mbox{\Hypertarget{structvt_1_1messaging_1_1_pending_send_ad4b41412f953dcd22b3e3020a812f757}\label{structvt_1_1messaging_1_1_pending_send_ad4b41412f953dcd22b3e3020a812f757}} 
+\index{vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}!release@{release}}
+\index{release@{release}!vt\+::messaging\+::\+Pending\+Send@{vt\+::messaging\+::\+Pending\+Send}}
+\subsubsection{\texorpdfstring{release()}{release()}}
+{\footnotesize\ttfamily void vt\+::messaging\+::\+Pending\+Send\+::release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Release the message, run action if needed. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/vt/messaging/\hyperlink{pending__send_8h}{pending\+\_\+send.\+h}\item 
+src/vt/messaging/\hyperlink{pending__send_8cc}{pending\+\_\+send.\+cc}\end{DoxyCompactItemize}

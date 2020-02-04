@@ -1,0 +1,68 @@
+\hypertarget{runtime_8cc}{}\section{src/vt/runtime/runtime.cc File Reference}
+\label{runtime_8cc}\index{src/vt/runtime/runtime.\+cc@{src/vt/runtime/runtime.\+cc}}
+{\ttfamily \#include \char`\"{}vt/config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/runtime/runtime.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/context/context.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/context/context\+\_\+attorney.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/registry/registry.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/messaging/active.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/event/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/termination/termination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/pool/pool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/rdma/rdma\+\_\+headers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/parameterization/parameterization.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/sequence/sequencer\+\_\+headers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/pipe/pipe\+\_\+manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/objgroup/manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/scheduler/scheduler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/topos/location/location\+\_\+headers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/context/context\+\_\+vrtmanager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/lb\+\_\+type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/collection\+\_\+headers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/worker/worker\+\_\+headers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/configs/generated/vt\+\_\+git\+\_\+revision.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/configs/debug/debug\+\_\+colorize.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/configs/arguments/args.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/configs/error/stack\+\_\+out.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/configs/error/pretty\+\_\+print\+\_\+stack.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$csignal$>$}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacevt}{vt}
+\item 
+ \hyperlink{namespacevt_1_1runtime}{vt\+::runtime}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{runtime_8cc_abb0a67fd2a0f08e4f6e0d459f93de2ee}{vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile}(opt)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{runtime_8cc_abb0a67fd2a0f08e4f6e0d459f93de2ee}\label{runtime_8cc_abb0a67fd2a0f08e4f6e0d459f93de2ee}} 
+\index{runtime.\+cc@{runtime.\+cc}!vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile@{vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile}}
+\index{vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile@{vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile}!runtime.\+cc@{runtime.\+cc}}
+\subsubsection{\texorpdfstring{vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile}{vt\_runtime\_debug\_warn\_compile}}
+{\footnotesize\ttfamily \#define vt\+\_\+runtime\+\_\+debug\+\_\+warn\+\_\+compile(\begin{DoxyParamCaption}\item[{}]{opt }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                  \(\backslash\)
+    if (!\hyperlink{features__enableif_8h_ae014d8cf546241edd49b0a2863cef3c3}{vt\_backend\_debug\_enabled}(opt) and ArgType::vt\_debug\_ ## opt) \{ \(\backslash\)
+      auto f9 = warn\_cr(\textcolor{stringliteral}{"--vt\_debug\_"} #opt, \textcolor{stringliteral}{"debug\_"} #opt);             \(\backslash\)
+      fmt::print(\textcolor{stringliteral}{"\{\}\(\backslash\)t\{\}\{\}"}, vt\_pre, f9, \hyperlink{namespacevt_1_1debug_a4456c051bd468fe024334f24887867af}{reset});                        \(\backslash\)
+    \}                                                                   \(\backslash\)
+  \} \textcolor{keywordflow}{while} (0);
+\end{DoxyCode}

@@ -1,0 +1,44 @@
+\hypertarget{greedylb_8cc}{}\section{src/vt/vrt/collection/balance/greedylb/greedylb.cc File Reference}
+\label{greedylb_8cc}\index{src/vt/vrt/collection/balance/greedylb/greedylb.\+cc@{src/vt/vrt/collection/balance/greedylb/greedylb.\+cc}}
+{\ttfamily \#include \char`\"{}vt/config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/greedylb/greedylb.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/greedylb/greedylb.\+fwd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/greedylb/greedylb\+\_\+types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/greedylb/greedylb\+\_\+constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/greedylb/greedylb\+\_\+msgs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/read\+\_\+lb.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/balance/stats\+\_\+msg.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/serialization/messaging/serialized\+\_\+messenger.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/context/context.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/vrt/collection/manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vt/collective/reduce/reduce.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacevt}{vt}
+\item 
+ \hyperlink{namespacevt_1_1vrt}{vt\+::vrt}
+\item 
+ \hyperlink{namespacevt_1_1vrt_1_1collection}{vt\+::vrt\+::collection}
+\item 
+ \hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb}{vt\+::vrt\+::collection\+::lb}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{greedylb_8cc_af8a8ba522c37449d860b5a4f3e584542}{I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{greedylb_8cc_af8a8ba522c37449d860b5a4f3e584542}\label{greedylb_8cc_af8a8ba522c37449d860b5a4f3e584542}} 
+\index{greedylb.\+cc@{greedylb.\+cc}!I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC@{I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC}}
+\index{I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC@{I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC}!greedylb.\+cc@{greedylb.\+cc}}
+\subsubsection{\texorpdfstring{I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC}{INCLUDED\_VRT\_COLLECTION\_BALANCE\_GREEDYLB\_GREEDYLB\_CC}}
+{\footnotesize\ttfamily \#define I\+N\+C\+L\+U\+D\+E\+D\+\_\+\+V\+R\+T\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+O\+N\+\_\+\+B\+A\+L\+A\+N\+C\+E\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+G\+R\+E\+E\+D\+Y\+L\+B\+\_\+\+CC}
+

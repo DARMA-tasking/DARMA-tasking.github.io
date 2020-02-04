@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['virtualcontextattorney',['VirtualContextAttorney',['../structvt_1_1vrt_1_1_virtual_context.html#a3c098ac4f050b85316f4ae9eef22a43e',1,'vt::vrt::VirtualContext']]],
+  ['virtualcontextmanager',['VirtualContextManager',['../structvt_1_1vrt_1_1_virtual_context_attorney.html#a93a95e040b1875a105c62f3465731412',1,'vt::vrt::VirtualContextAttorney']]],
+  ['virtualmakeclosure',['VirtualMakeClosure',['../structvt_1_1vrt_1_1_virtual_context_attorney.html#a6d27b32cd35d056a4d8bf6ba43f28f62',1,'vt::vrt::VirtualContextAttorney::VirtualMakeClosure()'],['../structvt_1_1vrt_1_1_virtual_info.html#a6d27b32cd35d056a4d8bf6ba43f28f62',1,'vt::vrt::VirtualInfo::VirtualMakeClosure()']]]
+];
