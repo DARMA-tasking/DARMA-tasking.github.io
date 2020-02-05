@@ -72,7 +72,7 @@ var searchData=
   ['begininserting',['beginInserting',['../structvt_1_1vrt_1_1collection_1_1_insertable.html#abe80dfadbd83ac7cd64922fdf1a38a9c',1,'vt::vrt::collection::Insertable']]],
   ['begininterrupt',['BeginInterrupt',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1daa88e8548ff90dfb2101e853549a6e085',1,'vt::trace']]],
   ['beginpack',['BeginPack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da139b31a46ec7a806d66751cafd0d822f',1,'vt::trace']]],
-  ['beginprocessing',['beginProcessing',['../structvt_1_1trace_1_1_trace.html#a4106e70e0093724a1728dd638ab89d28',1,'vt::trace::Trace::beginProcessing()'],['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da933e53e33f27ed240a0eb7a9e6b94c14',1,'vt::trace::BeginProcessing()']]],
+  ['beginprocessing',['beginProcessing',['../structvt_1_1trace_1_1_trace.html#a5389adce729277dca43664902ead591e',1,'vt::trace::Trace::beginProcessing()'],['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da933e53e33f27ed240a0eb7a9e6b94c14',1,'vt::trace::BeginProcessing()']]],
   ['begintrace',['BeginTrace',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da052e139ef40865e0ea57809542259e2e',1,'vt::trace']]],
   ['beginunpack',['BeginUnpack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da345ded25a364981430ac7be0702dd6ad',1,'vt::trace']]],
   ['beginusereventpair',['BeginUserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da566366b99702f7603997d1407afee876',1,'vt::trace']]],

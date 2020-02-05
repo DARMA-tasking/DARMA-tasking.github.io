@@ -22,7 +22,7 @@ var searchData=
   ['beginexecution',['beginExecution',['../structvt_1_1lb_1_1instrumentation_1_1_entity.html#a89aef535e92de0f4a4034545c062fd56',1,'vt::lb::instrumentation::Entity']]],
   ['beginidle',['beginIdle',['../structvt_1_1trace_1_1_trace.html#a530af1b7b48cf389744325f6f7e7f05e',1,'vt::trace::Trace']]],
   ['begininserting',['beginInserting',['../structvt_1_1vrt_1_1collection_1_1_insertable.html#abe80dfadbd83ac7cd64922fdf1a38a9c',1,'vt::vrt::collection::Insertable']]],
-  ['beginprocessing',['beginProcessing',['../structvt_1_1trace_1_1_trace.html#a4106e70e0093724a1728dd638ab89d28',1,'vt::trace::Trace']]],
+  ['beginprocessing',['beginProcessing',['../structvt_1_1trace_1_1_trace.html#a5389adce729277dca43664902ead591e',1,'vt::trace::Trace']]],
   ['blockmapdenseflatindex',['blockMapDenseFlatIndex',['../namespacevt_1_1mapping.html#abaff3ea69ef07a3762befc3628b8b577',1,'vt::mapping']]],
   ['blue',['blue',['../namespacevt_1_1debug.html#a26b73aa7586b78f4c148b26e5414ebe1',1,'vt::debug']]],
   ['bold',['bold',['../namespacevt_1_1debug.html#a7a1e7bc4a250917d20840a4d48e27388',1,'vt::debug']]],

@@ -20,6 +20,7 @@ var searchData=
   ['trace',['Trace',['../structvt_1_1trace_1_1_trace.html',1,'vt::trace']]],
   ['tracecontainers',['TraceContainers',['../classvt_1_1trace_1_1_trace_containers.html',1,'vt::trace']]],
   ['traceeventseqcompare',['TraceEventSeqCompare',['../structvt_1_1trace_1_1_trace_event_seq_compare.html',1,'vt::trace']]],
+  ['traceprocessingtag',['TraceProcessingTag',['../structvt_1_1trace_1_1_trace_processing_tag.html',1,'vt::trace']]],
   ['traceregistry',['TraceRegistry',['../structvt_1_1trace_1_1_trace_registry.html',1,'vt::trace']]],
   ['tracescopedevent',['TraceScopedEvent',['../structvt_1_1trace_1_1_trace_scoped_event.html',1,'vt::trace']]],
   ['tracescopedeventhash',['TraceScopedEventHash',['../structvt_1_1trace_1_1_trace_scoped_event_hash.html',1,'vt::trace']]],
