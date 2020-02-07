@@ -284,6 +284,7 @@ var searchData=
   ['compressedsize',['compressedSize',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a48ab16ffe03b4285c7210df3084904af',1,'vt::term::interval::IntegralSetBase']]],
   ['compression',['compression',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1897d55d5f300ad209d2ce014240680d',1,'vt::term::interval::IntegralSetBase']]],
   ['computestatistics',['computeStatistics',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a44ab2755595d800e50576fa53bee7d91',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['computestatisticsover',['computeStatisticsOver',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#aa1f71784724c125fbf25cfc1c0e90cac',1,'vt::vrt::collection::lb::BaseLB']]],
   ['concurrent_5fdeque_2eh',['concurrent_deque.h',['../concurrent__deque_8h.html',1,'']]],
   ['concurrent_5fdeque_5flocked_2eh',['concurrent_deque_locked.h',['../concurrent__deque__locked_8h.html',1,'']]],
   ['concurrent_5fdeque_5flocked_2eimpl_2eh',['concurrent_deque_locked.impl.h',['../concurrent__deque__locked_8impl_8h.html',1,'']]],
