@@ -129,7 +129,7 @@ var searchData=
   ['broadcastroothandler',['broadcastRootHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9859d8346c9aac1fb0b65e6db82969db',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcasts',['Broadcasts',['../structvt_1_1vrt_1_1collection_1_1details_1_1_broadcasts.html',1,'vt::vrt::collection::details']]],
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#a2e905fb9eca8c4352522f998f94f4de8',1,'vt::serialization::SerializedMessenger::broadcastSerialMsg(MsgT *msg)'],['../structvt_1_1serialization_1_1_serialized_messenger.html#a2a1f3beaf021915bcf3bcaa224895cbb',1,'vt::serialization::SerializedMessenger::broadcastSerialMsg(MsgT *msg)']]],
-  ['broadcastserialmsghandler',['broadcastSerialMsgHandler',['../structvt_1_1serialization_1_1_serialized_messenger.html#a209c944b63b053317a99b51eb3269d8a',1,'vt::serialization::SerializedMessenger']]],
+  ['broadcastserialmsghandler',['broadcastSerialMsgHandler',['../structvt_1_1serialization_1_1_serialized_messenger.html#a75710db0c5f165ae4939a73571a311a2',1,'vt::serialization::SerializedMessenger']]],
   ['buf',['buf',['../structvt_1_1messaging_1_1_in_progress_i_recv.html#a9b9fa3b3405847857324d448dee6abc9',1,'vt::messaging::InProgressIRecv']]],
   ['buffer',['buffer',['../unionvt_1_1pool_1_1_alloc_view.html#ac3bfb82a8b9841cf3c4bd9aace2e559b',1,'vt::pool::AllocView']]],
   ['buffercallbacktype',['BufferCallbackType',['../namespaceserialization_1_1interface.html#ae1f3fc9ceb0366ab6a877a78ee7377a2',1,'serialization::interface']]],

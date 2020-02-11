@@ -154,7 +154,6 @@ var searchData=
   ['settagmessage',['setTagMessage',['../structvt_1_1messaging_1_1_active_messenger.html#a3f93d594757e59cefcf6b07ba33c561b',1,'vt::messaging::ActiveMessenger']]],
   ['settagtype',['setTagType',['../namespacevt.html#ad088db89648b82eef7ca9b4837a907cd',1,'vt']]],
   ['setterminated',['setTerminated',['../structvt_1_1term_1_1_term_state.html#abcf1c80b28edf803367d9c047fd52bf7',1,'vt::term::TermState']]],
-  ['settermmessage',['setTermMessage',['../structvt_1_1messaging_1_1_active_messenger.html#a118cce5305dc29493af96565c5b5d4a5',1,'vt::messaging::ActiveMessenger']]],
   ['settermtype',['setTermType',['../namespacevt.html#aa42d7e0adc8b283dd10602ece422699d',1,'vt']]],
   ['settracename',['setTraceName',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a922a82ded79fdefb5fd7de60bde77aad',1,'vt::objgroup::ObjGroupManager::setTraceName()'],['../structvt_1_1trace_1_1_trace_registry.html#ac7de433a12632737154a38ed50bbc82e',1,'vt::trace::TraceRegistry::setTraceName()']]],
   ['settriggeredaction',['setTriggeredAction',['../structvt_1_1seq_1_1_seq_parallel.html#a19b3844758dcb47670d7fa428f6c7b7c',1,'vt::seq::SeqParallel']]],
