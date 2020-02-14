@@ -87,6 +87,8 @@ var searchData=
   ['vt_5ftrace_5fflush_5fsize',['vt_trace_flush_size',['../structvt_1_1arguments_1_1_arg_config.html#a8f122ed882f2de1f03091edbe64f1f2b',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fmod',['vt_trace_mod',['../structvt_1_1arguments_1_1_arg_config.html#acb14bb6b6f58db2a35bc71a4c6c06799',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fmpi',['vt_trace_mpi',['../structvt_1_1arguments_1_1_arg_config.html#a50f49d87bb92a729b22102b4da66030a',1,'vt::arguments::ArgConfig']]],
+  ['vt_5ftrace_5fspec',['vt_trace_spec',['../structvt_1_1arguments_1_1_arg_config.html#a5985e792d6c3810293b54dda059460bd',1,'vt::arguments::ArgConfig']]],
+  ['vt_5ftrace_5fspec_5ffile',['vt_trace_spec_file',['../structvt_1_1arguments_1_1_arg_config.html#a0369ed37706b8e7d563cd8f25763a56c',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fsys_5fall',['vt_trace_sys_all',['../structvt_1_1arguments_1_1_arg_config.html#a0f29a730468e776a3281e5cb2694395c',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fsys_5fcollection',['vt_trace_sys_collection',['../structvt_1_1arguments_1_1_arg_config.html#ac4afb6f023f686f3ed1643394d3ea80c',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fsys_5flocation',['vt_trace_sys_location',['../structvt_1_1arguments_1_1_arg_config.html#ad810a33c24ce08006af0bafeffce9ec8',1,'vt::arguments::ArgConfig']]],

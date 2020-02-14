@@ -165,6 +165,7 @@ var searchData=
   ['tracescopedeventhash',['TraceScopedEventHash',['../structvt_1_1trace_1_1_trace_scoped_event_hash.html',1,'vt::trace::TraceScopedEventHash'],['../structvt_1_1trace_1_1_trace_scoped_event_hash.html#a47bf49378624ed567d669457a0cedef0',1,'vt::trace::TraceScopedEventHash::TraceScopedEventHash()']]],
   ['tracescopednote',['TraceScopedNote',['../structvt_1_1trace_1_1_trace_scoped_note.html',1,'vt::trace::TraceScopedNote'],['../structvt_1_1trace_1_1_trace_scoped_note.html#ab7dda5555f9118355f6cc77f7b3cdec8',1,'vt::trace::TraceScopedNote::TraceScopedNote()']]],
   ['traceserialmsg',['traceSerialMsg',['../namespacevt_1_1arguments.html#ad239f3b085f99c963780dbcb0efd5668',1,'vt::arguments']]],
+  ['tracespec',['TraceSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html',1,'vt::trace::file_spec']]],
   ['tracestacktype',['TraceStackType',['../structvt_1_1trace_1_1_trace.html#ade12ee481e9ac72e94fe614ed03aa0dc',1,'vt::trace::Trace']]],
   ['traceterm',['traceTerm',['../namespacevt_1_1arguments.html#a60b229dc93c6fce2f24faa8237137a89',1,'vt::arguments']]],
   ['traits_2eh',['traits.h',['../traits_8h.html',1,'']]],

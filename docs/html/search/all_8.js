@@ -51,7 +51,7 @@ var searchData=
   ['hasnodemap',['hasNodeMap',['../structvt_1_1vrt_1_1_virtual_info.html#ae5153180aa0fdc89268929e9fa334692',1,'vt::vrt::VirtualInfo']]],
   ['hasparent',['hasParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5d112306bb319f8d5f542a104ccb87a6',1,'vt::term::ds::TermDS']]],
   ['hasschedrun',['hasSchedRun',['../structvt_1_1runtime_1_1_runtime.html#ae0f66c530a72122874079b52fb259dfb',1,'vt::runtime::Runtime::hasSchedRun()'],['../structvt_1_1sched_1_1_scheduler.html#ac7a9512a4a616d51915d5dfee84ff986',1,'vt::sched::Scheduler::hasSchedRun()']]],
-  ['hasspec',['hasSpec',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a38f65064cd81275eb9c9d596d0f0a35f',1,'vt::vrt::collection::balance::ReadLBSpec']]],
+  ['hasspec',['hasSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#ad83e3bc71e3ebcd794fc38e7c2b7a74c',1,'vt::trace::file_spec::TraceSpec::hasSpec()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a38f65064cd81275eb9c9d596d0f0a35f',1,'vt::vrt::collection::balance::ReadLBSpec::hasSpec()']]],
   ['hasstaticsize_5f',['hasStaticSize_',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#a0894dcc0522db61d302b14d9d28bffdf',1,'vt::vrt::collection::CollectionBase']]],
   ['hassuccessor',['hasSuccessor',['../structvt_1_1term_1_1_epoch_dependency.html#a01f81598ae37bbe81e667ae7b92a924b',1,'vt::term::EpochDependency']]],
   ['hassuccessors',['hasSuccessors',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a1ab5f8a6b8107f2f08216f6036a81aa8',1,'vt::termination::graph::EpochGraph']]],

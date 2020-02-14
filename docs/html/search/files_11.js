@@ -67,6 +67,8 @@ var searchData=
   ['sizing_2eh',['sizing.h',['../sizing_8h.html',1,'']]],
   ['smart_5fptr_2eh',['smart_ptr.h',['../smart__ptr_8h.html',1,'']]],
   ['soft_5ferror_2eh',['soft_error.h',['../soft__error_8h.html',1,'']]],
+  ['spec_2ecc',['spec.cc',['../spec_8cc.html',1,'']]],
+  ['spec_2eh',['spec.h',['../spec_8h.html',1,'']]],
   ['stack_5fout_2ecc',['stack_out.cc',['../stack__out_8cc.html',1,'']]],
   ['stack_5fout_2eh',['stack_out.h',['../stack__out_8h.html',1,'']]],
   ['start_5flb_5fmsg_2eh',['start_lb_msg.h',['../start__lb__msg_8h.html',1,'']]],

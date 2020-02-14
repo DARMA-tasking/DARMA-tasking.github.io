@@ -25,6 +25,7 @@ var searchData=
   ['epoch',['epoch',['../namespacevt_1_1epoch.html',1,'vt']]],
   ['error',['error',['../namespacevt_1_1error.html',1,'vt::error'],['../namespacevt_1_1util_1_1error.html',1,'vt::util::error']]],
   ['event',['event',['../namespacevt_1_1event.html',1,'vt']]],
+  ['file_5fspec',['file_spec',['../namespacevt_1_1trace_1_1file__spec.html',1,'vt::trace']]],
   ['global',['global',['../namespacevt_1_1group_1_1global.html',1,'vt::group']]],
   ['graph',['graph',['../namespacevt_1_1termination_1_1graph.html',1,'vt::termination']]],
   ['group',['group',['../namespacevt_1_1group.html',1,'vt']]],

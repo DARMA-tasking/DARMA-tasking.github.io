@@ -67,6 +67,7 @@ var searchData=
   ['load_5f',['load_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_proc.html#a139e7722596ed8f891af1b16da8d8f3d',1,'vt::vrt::collection::lb::GreedyProc']]],
   ['load_5fdata',['load_data',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ac430d066bb19421d6241753059e8f4c8',1,'vt::vrt::collection::lb::BaseLB']]],
   ['load_5fprofile_5f',['load_profile_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#afb95c0d993a5e23a1b66d7c411d5a415',1,'vt::vrt::collection::lb::GreedyPayload']]],
+  ['loadandbroadcastspec',['loadAndBroadcastSpec',['../structvt_1_1trace_1_1_trace.html#a06f74f8d2c0c2fb97be14a264fd36a45',1,'vt::trace::Trace']]],
   ['loaddata',['LoadData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html',1,'vt::vrt::collection::balance::LoadData'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#afc2d1f780b2a168ec80f0cf28c830847',1,'vt::vrt::collection::balance::LoadData::LoadData()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ab15ccb21a9dd47492da6af32ca57cc5a',1,'vt::vrt::collection::balance::LoadData::LoadData(TimeType const y)']]],
   ['loadmilli',['loadMilli',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a9293a46022910a7b0b93938dfb886477',1,'vt::vrt::collection::lb::BaseLB']]],
   ['loadoverbin',['loadOverBin',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a81e03ca1264d0b2cf9b0ee3eef7f792a',1,'vt::vrt::collection::lb::HierarchicalLB']]],
