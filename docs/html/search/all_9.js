@@ -230,6 +230,7 @@ var searchData=
   ['istupletype',['isTupleType',['../structvt_1_1serialization_1_1_byte_copyable_traits.html#ac6700c34f3c9642a029d3d3857811f59',1,'vt::serialization::ByteCopyableTraits']]],
   ['istypeless',['isTypeless',['../structvt_1_1pipe_1_1_pipe_state.html#a0e20b860728e1aded738be02074c5861',1,'vt::pipe::PipeState']]],
   ['isunderloaded',['isUnderloaded',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a8714236643dcb620aa29956a6ff26b48',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['isunderloadedrelaxed',['isUnderloadedRelaxed',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a292dbba1aaa750b5c1303570874d5e38',1,'vt::vrt::collection::lb::GossipLB']]],
   ['isuser',['isUser',['../structvt_1_1epoch_1_1_epoch_manip.html#afb2b55c1d422512bc266f04e1aff7904',1,'vt::epoch::EpochManip']]],
   ['isvector',['isVector',['../structvt_1_1serialization_1_1is_vector.html',1,'vt::serialization']]],
   ['isvector_3c_20std_3a_3avector_3c_20u_20_3e_20_3e',['isVector&lt; std::vector&lt; U &gt; &gt;',['../structvt_1_1serialization_1_1is_vector_3_01std_1_1vector_3_01_u_01_4_01_4.html',1,'vt::serialization']]],

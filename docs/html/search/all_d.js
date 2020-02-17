@@ -90,7 +90,7 @@ var searchData=
   ['makestrclstls',['MakeStrClsTLS',['../tls_8impl_8h.html#abe5a93769b42a309c82f262d272d4da4',1,'tls.impl.h']]],
   ['makestrtls',['MakeStrTLS',['../tls_8impl_8h.html#a8e38d5580ef9904380411143b823a5d1',1,'tls.impl.h']]],
   ['maketracecreationsend',['makeTraceCreationSend',['../structvt_1_1messaging_1_1_active_messenger.html#a527858e860bb7b373489ae425fd3fdcc',1,'vt::messaging::ActiveMessenger']]],
-  ['makeunderloaded',['makeUnderloaded',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a244326d030b7b9b82328d2ce617fef43',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['makeunderloadedrelaxed',['makeUnderloadedRelaxed',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a8be50d7877433de416d325d44b5e669a',1,'vt::vrt::collection::lb::GossipLB']]],
   ['makevirtual',['makeVirtual',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ab6d6601aa3ad04d10b944f9f7f9f478d',1,'vt::vrt::VirtualContextManager']]],
   ['makevirtualmap',['makeVirtualMap',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a51d6fd5ce3ca5998b99f113d44297dd6',1,'vt::vrt::VirtualContextManager::makeVirtualMap(Args ... args)'],['../structvt_1_1vrt_1_1_virtual_context_manager.html#a281e670da4eb6e06ecdb4ef470e1a61d',1,'vt::vrt::VirtualContextManager::makeVirtualMap(Args... args)']]],
   ['makevirtualnode',['makeVirtualNode',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a18c6dad4c4c963f883c59f64f78e36cb',1,'vt::vrt::VirtualContextManager']]],
