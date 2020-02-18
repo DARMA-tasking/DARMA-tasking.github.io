@@ -34,6 +34,7 @@ var searchData=
   ['channel',['Channel',['../structvt_1_1rdma_1_1_channel.html#ae15a5cd0e393f64192675d5a33796523',1,'vt::rdma::Channel']]],
   ['channellookup',['ChannelLookup',['../structvt_1_1rdma_1_1_channel_lookup.html#a6e438b399a526542f97ef6cbf96a7378',1,'vt::rdma::ChannelLookup::ChannelLookup(RDMA_HandleType const &amp;han, NodeType const &amp;in_target, NodeType const &amp;in_non_target)'],['../structvt_1_1rdma_1_1_channel_lookup.html#af5ffd2e82bd5972d35f03be34279e4d6',1,'vt::rdma::ChannelLookup::ChannelLookup(ChannelLookup const &amp;)=default']]],
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html#ad6ee8a328480b24231dd247397774d49',1,'vt::rdma::ChannelMessage']]],
+  ['checkallowedkeys',['checkAllowedKeys',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#a86ea05b64615f7be99e8db3baf195aae',1,'vt::vrt::collection::balance::SpecEntry']]],
   ['checkdynamicruntimeenabled',['checkDynamicRuntimeEnabled',['../structvt_1_1trace_1_1_trace.html#a4b911a4f90a4b6b76c03341db7d94fdd',1,'vt::trace::Trace']]],
   ['checkeventfinished',['checkEventFinished',['../structvt_1_1event_1_1_async_event.html#a5493f4402db0fffba5300246247523b9',1,'vt::event::AsyncEvent']]],
   ['checkforargumenterrors',['checkForArgumentErrors',['../structvt_1_1runtime_1_1_runtime.html#af8fa48f3990ff2640f99f7cd1944f73f',1,'vt::runtime::Runtime']]],

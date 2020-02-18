@@ -141,6 +141,7 @@ var searchData=
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html',1,'vt::rdma::ChannelMessage'],['../structvt_1_1rdma_1_1_channel_message.html#ad6ee8a328480b24231dd247397774d49',1,'vt::rdma::ChannelMessage::ChannelMessage()']]],
   ['check_5fevent_5ffinished_5fhan',['check_event_finished_han',['../namespacevt.html#a9764c5fa4f463d23a7db5d56cc121881',1,'vt']]],
   ['check_5fthd',['CHECK_THD',['../runtime__get_8cc.html#a07e425df5ef4db01ceef05b82ec57b82',1,'runtime_get.cc']]],
+  ['checkallowedkeys',['checkAllowedKeys',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#a86ea05b64615f7be99e8db3baf195aae',1,'vt::vrt::collection::balance::SpecEntry']]],
   ['checkdynamicruntimeenabled',['checkDynamicRuntimeEnabled',['../structvt_1_1trace_1_1_trace.html#a4b911a4f90a4b6b76c03341db7d94fdd',1,'vt::trace::Trace']]],
   ['checkenabled',['CheckEnabled',['../structvt_1_1config_1_1_check_enabled.html',1,'vt::config']]],
   ['checkeventfinished',['checkEventFinished',['../structvt_1_1event_1_1_async_event.html#a5493f4402db0fffba5300246247523b9',1,'vt::event::AsyncEvent']]],
