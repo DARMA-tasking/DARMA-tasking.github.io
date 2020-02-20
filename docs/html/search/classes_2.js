@@ -84,6 +84,7 @@ var searchData=
   ['converter_3c_20bool_20_3e',['Converter&lt; bool &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01bool_01_4.html',1,'vt::vrt::collection::balance']]],
   ['converter_3c_20double_20_3e',['Converter&lt; double &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01double_01_4.html',1,'vt::vrt::collection::balance']]],
   ['converter_3c_20int32_5ft_20_3e',['Converter&lt; int32_t &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01int32__t_01_4.html',1,'vt::vrt::collection::balance']]],
+  ['converter_3c_20std_3a_3astring_20_3e',['Converter&lt; std::string &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01std_1_1string_01_4.html',1,'vt::vrt::collection::balance']]],
   ['countmsg',['CountMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_count_msg.html',1,'vt::vrt::collection::lb']]],
   ['createchannel',['CreateChannel',['../structvt_1_1rdma_1_1_create_channel.html',1,'vt::rdma']]],
   ['criterion',['Criterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion.html',1,'vt::vrt::collection::lb']]],

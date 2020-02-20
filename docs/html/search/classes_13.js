@@ -6,7 +6,7 @@ var searchData=
   ['virtualcontextattorney',['VirtualContextAttorney',['../structvt_1_1vrt_1_1_virtual_context_attorney.html',1,'vt::vrt']]],
   ['virtualcontextmanager',['VirtualContextManager',['../structvt_1_1vrt_1_1_virtual_context_manager.html',1,'vt::vrt']]],
   ['virtualelemproxybuilder',['VirtualElemProxyBuilder',['../structvt_1_1vrt_1_1collection_1_1_virtual_elem_proxy_builder.html',1,'vt::vrt::collection']]],
-  ['virtualinfo',['VirtualInfo',['../structvt_1_1seq_1_1_virtual_info.html',1,'vt::seq::VirtualInfo'],['../structvt_1_1vrt_1_1_virtual_info.html',1,'vt::vrt::VirtualInfo']]],
+  ['virtualinfo',['VirtualInfo',['../structvt_1_1vrt_1_1_virtual_info.html',1,'vt::vrt::VirtualInfo'],['../structvt_1_1seq_1_1_virtual_info.html',1,'vt::seq::VirtualInfo']]],
   ['virtualmakeclosure',['VirtualMakeClosure',['../structvt_1_1vrt_1_1_virtual_make_closure.html',1,'vt::vrt']]],
   ['virtualmessage',['VirtualMessage',['../structvt_1_1vrt_1_1_virtual_message.html',1,'vt::vrt']]],
   ['virtualproxybuilder',['VirtualProxyBuilder',['../structvt_1_1vrt_1_1_virtual_proxy_builder.html',1,'vt::vrt']]],
