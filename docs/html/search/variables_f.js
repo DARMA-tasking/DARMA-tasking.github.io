@@ -1,11 +1,14 @@
 var searchData=
 [
+  ['range_5f',['range_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#a02ed7f7329f9df6a6655702029ad534a',1,'vt::rdma::impl::InformRDMAMsg::range_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a7545e2edae28878b31bfc7bccadc0171',1,'vt::rdma::SubHandle::range_()']]],
   ['rdma_5felm_5fsize',['rdma_elm_size',['../namespacevt_1_1rdma.html#ad167cbb60749088647bbeee80ded6100',1,'vt::rdma']]],
   ['rdma_5fempty_5fbyte',['rdma_empty_byte',['../namespacevt_1_1rdma.html#aa4cbaba7c412337495b61a42d3eb134c',1,'vt::rdma']]],
   ['rdma_5ffrom',['rdma_from',['../namespacevt.html#ae446ed1f5bb8bba34af5c747ea1f244d',1,'vt']]],
   ['rdma_5fhandle',['rdma_handle',['../structvt_1_1rdma_1_1_request_data_message.html#af405c0926174a99b19e148795461ce13',1,'vt::rdma::RequestDataMessage::rdma_handle()'],['../structvt_1_1rdma_1_1_send_data_message.html#ad9577ac0894f4d2457d7ac31d85e9042',1,'vt::rdma::SendDataMessage::rdma_handle()'],['../structvt_1_1rdma_1_1_create_channel.html#a27cb16b5aedbf0f2a905dc61fd89d783',1,'vt::rdma::CreateChannel::rdma_handle()']]],
+  ['rdma_5fhandle_5f',['rdma_handle_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#a0f87b0ef4707c5784b166e464b466681',1,'vt::rdma::impl::InformRDMAMsg']]],
   ['rdma_5fto',['rdma_to',['../namespacevt.html#a627aea388cdbf2818bf1393dca90938e',1,'vt']]],
   ['rdma_5ftype',['rdma_type',['../structvt_1_1rdma_1_1_info.html#a123ce7dd75200e49c67ba513802c6e53',1,'vt::rdma::Info']]],
+  ['ready_5f',['ready_',['../structvt_1_1rdma_1_1_sub_handle.html#a17f367f36559b48d0f18ec869e4ded8c',1,'vt::rdma::SubHandle']]],
   ['ready_5fcollections_5f',['ready_collections_',['../structvt_1_1vrt_1_1collection_1_1_universal_index_holder.html#a68ef587e677d634684e27732e9cbf8e8',1,'vt::vrt::collection::UniversalIndexHolder']]],
   ['recs',['recs',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#abd242f75213e90ed5cbf4add465c1e3c',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['recs_5f',['recs_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_proc.html#a601dd3243831370af2d1e791152902b3',1,'vt::vrt::collection::lb::GreedyProc']]],

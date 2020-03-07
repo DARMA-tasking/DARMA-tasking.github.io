@@ -8,6 +8,7 @@ var searchData=
   ['eeventrecord',['eEventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9',1,'vt::event']]],
   ['egroupidbits',['eGroupIDBits',['../namespacevt_1_1group.html#a5a472f320821bf638e6df82757b71163',1,'vt::group']]],
   ['ehandlerbits',['eHandlerBits',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2',1,'vt']]],
+  ['elementeventenum',['ElementEventEnum',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012',1,'vt::vrt::collection::listener']]],
   ['elocstate',['eLocState',['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547',1,'vt::location']]],
   ['eobjgroupproxybits',['eObjGroupProxyBits',['../namespacevt_1_1objgroup_1_1proxy.html#a5cfde1a666e49070fcc0312e51d53777',1,'vt::objgroup::proxy']]],
   ['epipeidbits',['ePipeIDBits',['../namespacevt_1_1pipe.html#a21eef17afd7b326e3b65894dffa25901',1,'vt::pipe']]],

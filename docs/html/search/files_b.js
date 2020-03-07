@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['manager_2ecc',['manager.cc',['../objgroup_2manager_8cc.html',1,'(Global Namespace)'],['../topos_2location_2manager_8cc.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8cc.html',1,'(Global Namespace)']]],
-  ['manager_2efwd_2eh',['manager.fwd.h',['../objgroup_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8fwd_8h.html',1,'(Global Namespace)']]],
-  ['manager_2eh',['manager.h',['../objgroup_2manager_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8h.html',1,'(Global Namespace)']]],
-  ['manager_2eimpl_2eh',['manager.impl.h',['../objgroup_2manager_8impl_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8impl_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8impl_8h.html',1,'(Global Namespace)']]],
+  ['manager_2ecc',['manager.cc',['../objgroup_2manager_8cc.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8cc.html',1,'(Global Namespace)'],['../topos_2location_2manager_8cc.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8cc.html',1,'(Global Namespace)']]],
+  ['manager_2ecollection_2eimpl_2eh',['manager.collection.impl.h',['../manager_8collection_8impl_8h.html',1,'']]],
+  ['manager_2efwd_2eh',['manager.fwd.h',['../objgroup_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8fwd_8h.html',1,'(Global Namespace)']]],
+  ['manager_2eh',['manager.h',['../objgroup_2manager_8h.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8h.html',1,'(Global Namespace)']]],
+  ['manager_2eimpl_2eh',['manager.impl.h',['../objgroup_2manager_8impl_8h.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8impl_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8impl_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8impl_8h.html',1,'(Global Namespace)']]],
   ['manager_2estatic_2eh',['manager.static.h',['../manager_8static_8h.html',1,'']]],
   ['manager_5fdestroy_5fattorney_2efwd_2eh',['manager_destroy_attorney.fwd.h',['../manager__destroy__attorney_8fwd_8h.html',1,'']]],
   ['manager_5fdestroy_5fattorney_2eh',['manager_destroy_attorney.h',['../manager__destroy__attorney_8h.html',1,'']]],

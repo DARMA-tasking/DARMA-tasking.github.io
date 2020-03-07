@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['u_5f',['u_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#aed6003f71632d33c5281872d7841cb4f',1,'vt::pipe::callback::cbunion::GeneralCallback']]],
+  ['u_5f',['u_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#aed6003f71632d33c5281872d7841cb4f',1,'vt::pipe::callback::cbunion::GeneralCallback::u_()'],['../structvt_1_1rdma_1_1_handle_key.html#a589ac313252f97d907c2c03a000130f7',1,'vt::rdma::HandleKey::u_()']]],
+  ['uniform_5fsize_5f',['uniform_size_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#a863c6d2d07d1cd4dc8ff73e4a3f052c2',1,'vt::rdma::impl::InformRDMAMsg::uniform_size_()'],['../structvt_1_1rdma_1_1_sub_handle.html#ab6c87db6739367bdbd95be5a8f673fc8',1,'vt::rdma::SubHandle::uniform_size_()']]],
   ['unsized_5f',['unsized_',['../structvt_1_1rdma_1_1_group.html#a670e96730f19cc80e7b55a391d96f0b4',1,'vt::rdma::Group']]],
   ['user',['user',['../unionvt_1_1trace_1_1_log_1_1_data.html#a8d893c0de3ee2fca0852607fa908a2e6',1,'vt::trace::Log::Data']]],
   ['user_5f',['user_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6317d5623c1edcce684641fe0115824c',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['user_5fargc_5f',['user_argc_',['../structvt_1_1runtime_1_1_runtime.html#ae5c7bb8fdec028e2d505bf29906d5da5',1,'vt::runtime::Runtime']]],
   ['user_5fargv_5f',['user_argv_',['../structvt_1_1runtime_1_1_runtime.html#af4be4be9a635dc6ed19117d5dfecf420',1,'vt::runtime::Runtime']]],
   ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a18d11f650583c3da5a7362e0c998be5d',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#abe6d7de2eeb0aaa8bd453a7cb24969a8',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],
+  ['user_5fbuffer_5f',['user_buffer_',['../structvt_1_1rdma_1_1_base_typed_handle.html#af48b31b6d8f1319ee58c5544ad251bf9',1,'vt::rdma::BaseTypedHandle']]],
   ['user_5fdata',['user_data',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#ade431a285a79e18cfe816f03d1ae7285',1,'vt::trace::Log::Data::UserData']]],
   ['user_5fevent',['user_event',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a00002c986ccb5d7e267eecfad00941fc',1,'vt::trace::Log::Data::UserData']]],
   ['user_5fhan',['user_han',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#ab99b929e800794c73fe3b845c8d9f794',1,'vt::collective::scatter::ScatterMsg']]],

@@ -13,6 +13,7 @@ var searchData=
   ['base_5fcollection_5fproxy_2eimpl_2eh',['base_collection_proxy.impl.h',['../base__collection__proxy_8impl_8h.html',1,'']]],
   ['base_5fcontainer_2eh',['base_container.h',['../base__container_8h.html',1,'']]],
   ['base_5felm_5fproxy_2eh',['base_elm_proxy.h',['../base__elm__proxy_8h.html',1,'']]],
+  ['base_5fhandle_2eh',['base_handle.h',['../base__handle_8h.html',1,'']]],
   ['base_5fholder_2eh',['base_holder.h',['../base__holder_8h.html',1,'']]],
   ['base_5findex_2eh',['base_index.h',['../base__index_8h.html',1,'']]],
   ['baselb_2ecc',['baselb.cc',['../baselb_8cc.html',1,'']]],

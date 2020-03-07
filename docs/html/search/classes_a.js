@@ -1,6 +1,7 @@
 var searchData=
 [
   ['mainvirtualcontext',['MainVirtualContext',['../structvt_1_1vrt_1_1_main_virtual_context.html',1,'vt::vrt']]],
+  ['manager',['Manager',['../structvt_1_1rdma_1_1_manager.html',1,'vt::rdma']]],
   ['map',['Map',['../structvt_1_1rdma_1_1_map.html',1,'vt::rdma']]],
   ['mappednode',['MappedNode',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html',1,'vt::vrt::collection']]],
   ['mask',['Mask',['../structvt_1_1sched_1_1_mask.html',1,'vt::sched']]],

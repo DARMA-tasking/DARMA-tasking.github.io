@@ -31,6 +31,8 @@ var searchData=
   ['procstats',['ProcStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html',1,'vt::vrt::collection::balance']]],
   ['procstatsmsg',['ProcStatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats_msg.html',1,'vt::vrt::collection::balance']]],
   ['proxy',['Proxy',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
+  ['proxy_3c_20manager_20_3e',['Proxy&lt; Manager &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
+  ['proxy_3c_20subhandle_3c_20t_2c_20e_2c_20indext_20_3e_20_3e',['Proxy&lt; SubHandle&lt; T, E, IndexT &gt; &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20tracespec_20_3e',['Proxy&lt; TraceSpec &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3abalance_3a_3albmanager_20_3e',['Proxy&lt; vt::vrt::collection::balance::LBManager &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3abalance_3a_3astatsrestartreader_20_3e',['Proxy&lt; vt::vrt::collection::balance::StatsRestartReader &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],

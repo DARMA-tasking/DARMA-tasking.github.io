@@ -29,5 +29,19 @@ var searchData=
   ['transfermsg',['TransferMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_transfer_msg.html',1,'vt::vrt::collection::lb']]],
   ['tree',['Tree',['../structvt_1_1collective_1_1tree_1_1_tree.html',1,'vt::collective::tree']]],
   ['true_5ftype_20_3e_3e',['true_type &gt;&gt;',['../structvt_1_1serialization_1_1_size_3_01_msg_t_00_01typename_01std_1_1enable__if__t_3_01std_1_1true__type_01_4_4.html',1,'vt::serialization']]],
-  ['type',['Type',['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry']]]
+  ['type',['Type',['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry']]],
+  ['typempi',['TypeMPI',['../structvt_1_1rdma_1_1_type_m_p_i.html',1,'vt::rdma']]],
+  ['typempi_3c_20char_20_3e',['TypeMPI&lt; char &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01char_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20double_20_3e',['TypeMPI&lt; double &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01double_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20float_20_3e',['TypeMPI&lt; float &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01float_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20int16_5ft_20_3e',['TypeMPI&lt; int16_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01int16__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20int32_5ft_20_3e',['TypeMPI&lt; int32_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01int32__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20int64_5ft_20_3e',['TypeMPI&lt; int64_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01int64__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20int8_5ft_20_3e',['TypeMPI&lt; int8_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01int8__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20long_20double_20_3e',['TypeMPI&lt; long double &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01long_01double_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20uint16_5ft_20_3e',['TypeMPI&lt; uint16_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01uint16__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20uint32_5ft_20_3e',['TypeMPI&lt; uint32_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01uint32__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20uint64_5ft_20_3e',['TypeMPI&lt; uint64_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01uint64__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20uint8_5ft_20_3e',['TypeMPI&lt; uint8_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01uint8__t_01_4.html',1,'vt::rdma']]],
+  ['typempi_3c_20wchar_5ft_20_3e',['TypeMPI&lt; wchar_t &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01wchar__t_01_4.html',1,'vt::rdma']]]
 ];

@@ -50,5 +50,6 @@ var searchData=
   ['statsmaplb',['StatsMapLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_stats_map_l_b.html',1,'vt::vrt::collection::lb']]],
   ['statsmsg',['StatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_msg.html',1,'vt::vrt::collection::balance']]],
   ['statsrestartreader',['StatsRestartReader',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html',1,'vt::vrt::collection::balance']]],
+  ['subhandle',['SubHandle',['../structvt_1_1rdma_1_1_sub_handle.html',1,'vt::rdma']]],
   ['sysdata',['SysData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html',1,'vt::trace::Log::Data']]]
 ];

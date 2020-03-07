@@ -21,6 +21,7 @@ var searchData=
   ['locationmsg',['LocationMsg',['../structvt_1_1location_1_1_location_msg.html',1,'vt::location']]],
   ['locentity',['LocEntity',['../structvt_1_1location_1_1_loc_entity.html',1,'vt::location']]],
   ['lockguardptr',['LockGuardPtr',['../structvt_1_1util_1_1mutex_1_1_lock_guard_ptr.html',1,'vt::util::mutex']]],
+  ['lockmpi',['LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html',1,'vt::rdma']]],
   ['locrecord',['LocRecord',['../structvt_1_1location_1_1_loc_record.html',1,'vt::location']]],
   ['log',['Log',['../structvt_1_1trace_1_1_log.html',1,'vt::trace']]]
 ];

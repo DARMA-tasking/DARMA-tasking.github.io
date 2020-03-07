@@ -6,6 +6,7 @@ var searchData=
   ['actionconttype',['ActionContType',['../structvt_1_1term_1_1_term_action.html#a3b7ff49ce82fc33a7a1ebda8797c02b7',1,'vt::term::TermAction']]],
   ['actioncounttype',['ActionCountType',['../structvt_1_1rdma_1_1_action.html#a7c893809966c9c8c871002d5283728f0',1,'vt::rdma::Action']]],
   ['actiondatasend',['ActionDataSend',['../namespacevt_1_1serialization.html#afffcac0da80b78e77ef8043dba4e814f',1,'vt::serialization']]],
+  ['actiondatatype',['ActionDataType',['../structvt_1_1rdma_1_1_base_typed_handle.html#a20c231fb671a38c3bb761d613dd42b3c',1,'vt::rdma::BaseTypedHandle']]],
   ['actioneagersend',['ActionEagerSend',['../namespacevt_1_1serialization.html#a009aa1de8d42a3c97643b947fcc6f0b6',1,'vt::serialization']]],
   ['actionfinishedlbtype',['ActionFinishedLBType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a2649daab7b437e1e2bdb5f2eefff29b6',1,'vt::vrt::collection::CollectionManager']]],
   ['actiongrouptype',['ActionGroupType',['../structvt_1_1group_1_1_group_manager.html#ae871c5871ad62b530220009c1ee4d4b9',1,'vt::group::GroupManager']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['c',['C',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5d909caa14a0da42d9809d83e0f79f40',1,'vt::term::ds::TermDS']]],
+  ['cache_5f',['cache_',['../structvt_1_1rdma_1_1_sub_handle.html#aa4d5fc9bb2240a72af8af9164e1d8bf3',1,'vt::rdma::SubHandle']]],
   ['cat_5f',['cat_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#aa1d2709bdb4721255b0ac7ab7706ad31',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['category',['category',['../structvt_1_1config_1_1_configuration.html#ab1a561a6e497fe269eae090de3a56e4e',1,'vt::config::Configuration']]],
   ['cb',['cb',['../structvt_1_1rdma_1_1_create_channel.html#a0672669be0eb2cb8cf293e60a88af2ad',1,'vt::rdma::CreateChannel::cb()'],['../structvt_1_1rdma_1_1_channel_message.html#a70ba36eb1157e5c095c5acc79f9ba4f4',1,'vt::rdma::ChannelMessage::cb()']]],
@@ -11,6 +12,7 @@ var searchData=
   ['children',['children',['../unionvt_1_1seq_1_1u_seq_node_payload.html#a5bb3768b1f46e996b61b460b6b4a66d2',1,'vt::seq::uSeqNodePayload']]],
   ['col_5fproxy_5f',['col_proxy_',['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#a6613b91da1dbba1f1aa220ac684dfe84',1,'vt::vrt::collection::BaseCollectionElmProxy']]],
   ['coll_5fwait_5fcount_5f',['coll_wait_count_',['../structvt_1_1group_1_1_info_coll.html#a960af04b6804a2000017f9358b689c02',1,'vt::group::InfoColl']]],
+  ['collection_5fexpected_5fcount_5f',['collection_expected_count_',['../structvt_1_1rdma_1_1_sub_handle.html#a4bec3a89845f7818e60afd1bc9ad611e',1,'vt::rdma::SubHandle']]],
   ['collectionloc',['collectionLoc',['../structvt_1_1location_1_1_location_manager.html#a748aa3659f6aee39fb0936e694aa74ac',1,'vt::location::LocationManager']]],
   ['collectionmanager',['CollectionManager',['../structvt_1_1vrt_1_1collection_1_1_insert_token_rval.html#a10b822803e1ad9860efabbb9d979c842',1,'vt::vrt::collection::InsertTokenRval::CollectionManager()'],['../structvt_1_1vrt_1_1collection_1_1_insert_token.html#a42b6dc06fe8e840dd6ad6c9254b937c3',1,'vt::vrt::collection::InsertToken::CollectionManager()']]],
   ['collective_5f',['collective_',['../structvt_1_1group_1_1_info_coll.html#a36715c6570b0b82320b42f43932881d3',1,'vt::group::InfoColl']]],
@@ -32,6 +34,8 @@ var searchData=
   ['context',['context',['../structvt_1_1config_1_1_configuration.html#afb853fae433b15ebdb22a19a96423b23',1,'vt::config::Configuration']]],
   ['context_5f',['context_',['../structvt_1_1seq_1_1_tagged_sequencer.html#a57d1b3af64ea25946f7431237ee1acd8',1,'vt::seq::TaggedSequencer']]],
   ['count',['count',['../structvt_1_1term_1_1ds_1_1_ack_request.html#adc7efe7df809adf8b7cefeb121509e5e',1,'vt::term::ds::AckRequest']]],
+  ['count_5f',['count_',['../structvt_1_1rdma_1_1_base_typed_handle.html#ac474123342ec5f8f82d2346b09331fc4',1,'vt::rdma::BaseTypedHandle::count_()'],['../structvt_1_1rdma_1_1impl_1_1_handle_data.html#ae4c0e267300c40b8de9233c0e968d1ad',1,'vt::rdma::impl::HandleData::count_()']]],
+  ['count_5fif_5funiform_5f',['count_if_uniform_',['../structvt_1_1rdma_1_1_sub_handle.html#a0e764c3fd8c4601a58ae396b2253d1fd',1,'vt::rdma::SubHandle']]],
   ['criterion_5f',['criterion_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion.html#abec00c435938c265ec0b3e3d984c09a6',1,'vt::vrt::collection::lb::Criterion']]],
   ['ctx',['ctx',['../namespacevt_1_1config.html#a0551245b6b893932b95aaf8eac94eed1',1,'vt::config']]],
   ['cur_5fbcast_5fepoch_5f',['cur_bcast_epoch_',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#a5f4feabd19ea4a986ee9da06bd7aeae0',1,'vt::vrt::collection::CollectionBase']]],

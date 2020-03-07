@@ -22,6 +22,7 @@ var searchData=
   ['seq_5fmsg_5ftagged',['seq_msg_tagged',['../structvt_1_1seq_1_1_seq_msg_state.html#ae18d41c6d80d485db4aecf3e6fc9ca28',1,'vt::seq::SeqMsgState::seq_msg_tagged()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#af7c7ba482e8b8833b9a92614150bffd0',1,'vt::seq::SeqMsgStateVirtual::seq_msg_tagged()']]],
   ['seq_5fult',['seq_ult',['../structvt_1_1seq_1_1_seq_context.html#a8b90e0946bbef6e744a1030699b047ef',1,'vt::seq::SeqContext']]],
   ['sig_5fuser_5f1_5f',['sig_user_1_',['../structvt_1_1runtime_1_1_runtime.html#ac0373f2326b45f348e2db166d328e2d6',1,'vt::runtime::Runtime']]],
+  ['size_5f',['size_',['../structvt_1_1rdma_1_1impl_1_1_handle_data.html#a2a540d55d5fff52c4de6e677892f6374',1,'vt::rdma::impl::HandleData']]],
   ['skip_5fterm',['skip_term',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#a8fbd915e535fbf2e6302617adff036bc',1,'vt::collective::barrier::BarrierMsg']]],
   ['spec_5fentry_5f',['spec_entry_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a20ee2c313345b2fe60de1141f69774bd',1,'vt::vrt::collection::lb::BaseLB']]],
   ['start_5ftime_5f',['start_time_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a457dff7a12e34494fa0537c78120eb41',1,'vt::vrt::collection::lb::BaseLB']]],
@@ -31,6 +32,10 @@ var searchData=
   ['stats_5f',['stats_',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a311e171ef2dafb9d26975f3677e4fdaa',1,'vt::vrt::collection::Migratable']]],
   ['stats_5felm_5fid_5f',['stats_elm_id_',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a905932dd92539fb68fa811c8a21e8e30',1,'vt::vrt::collection::Migratable']]],
   ['sub_5fhan',['sub_han',['../structvt_1_1param_1_1_data_msg.html#a5356937e3d47eff93d8b0c59247c5809',1,'vt::param::DataMsg']]],
+  ['sub_5fhandles_5f',['sub_handles_',['../structvt_1_1rdma_1_1_sub_handle.html#ae5300cda983bbb530edff53b377a71a8',1,'vt::rdma::SubHandle']]],
+  ['sub_5fhandles_5fstaged_5f',['sub_handles_staged_',['../structvt_1_1rdma_1_1_sub_handle.html#a5643ad6c60d3cf3478bc9d16dfe72489',1,'vt::rdma::SubHandle']]],
+  ['sub_5flayout_5f',['sub_layout_',['../structvt_1_1rdma_1_1_sub_handle.html#aefa1426200c59256792c6e048d28d162',1,'vt::rdma::SubHandle']]],
+  ['sub_5fprefix_5f',['sub_prefix_',['../structvt_1_1rdma_1_1_sub_handle.html#a964f4cb2857f1d970253f89ad5bb708c',1,'vt::rdma::SubHandle']]],
   ['subtree_5f',['subtree_',['../structvt_1_1group_1_1_info_coll.html#a42a225abb3f2d734ae4eddaecdb56b9e',1,'vt::group::InfoColl']]],
   ['sum_5f',['sum_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ab20f34a82481f573b8db44d7d2f9111c',1,'vt::vrt::collection::balance::LoadData']]],
   ['sys',['sys',['../unionvt_1_1trace_1_1_log_1_1_data.html#a71322b10139cee6014cd6be83c99b3d9',1,'vt::trace::Log::Data']]]

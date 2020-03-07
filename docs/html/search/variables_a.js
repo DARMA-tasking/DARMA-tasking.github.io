@@ -16,6 +16,8 @@ var searchData=
   ['load_5fdata',['load_data',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ac430d066bb19421d6241753059e8f4c8',1,'vt::vrt::collection::lb::BaseLB']]],
   ['load_5fprofile_5f',['load_profile_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#afb95c0d993a5e23a1b66d7c411d5a415',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['loc_5fevent',['loc_event',['../structvt_1_1location_1_1_location_msg.html#a9550d842c2e1dcd3a5c48675c6b5c080',1,'vt::location::LocationMsg']]],
+  ['loc_5fhandle_5f',['loc_handle_',['../structvt_1_1rdma_1_1_sub_handle.html#a2283d4e38954f446ae4a76ccfae5f19b',1,'vt::rdma::SubHandle']]],
   ['loc_5fman_5finst',['loc_man_inst',['../structvt_1_1location_1_1_location_msg.html#ad685e327f058d12836ed9743d44b14b7',1,'vt::location::LocationMsg']]],
-  ['local_5fmigration_5fcount_5f',['local_migration_count_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ae2beaf58c52b6ac2ccca8ab0c266f203',1,'vt::vrt::collection::lb::BaseLB']]]
+  ['local_5fmigration_5fcount_5f',['local_migration_count_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ae2beaf58c52b6ac2ccca8ab0c266f203',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['lock_5f',['lock_',['../structvt_1_1rdma_1_1_base_typed_handle.html#accff417789be0a3556fdc4695aba5a85',1,'vt::rdma::BaseTypedHandle']]]
 ];

@@ -2,6 +2,7 @@ var searchData=
 [
   ['range',['Range',['../structvt_1_1group_1_1region_1_1_range.html',1,'vt::group::region']]],
   ['rangedata',['RangeData',['../structvt_1_1group_1_1region_1_1_range_data.html',1,'vt::group::region']]],
+  ['rdmaable',['RDMAable',['../structvt_1_1vrt_1_1collection_1_1_r_d_m_aable.html',1,'vt::vrt::collection']]],
   ['rdmacollectionmanager',['RDMACollectionManager',['../structvt_1_1rdma_1_1_r_d_m_a_collection_manager.html',1,'vt::rdma']]],
   ['rdmamanager',['RDMAManager',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html',1,'vt::rdma']]],
   ['rdmaopfinishedmessage',['RDMAOpFinishedMessage',['../structvt_1_1rdma_1_1_r_d_m_a_op_finished_message.html',1,'vt::rdma']]],
@@ -16,6 +17,7 @@ var searchData=
   ['reducedatamsg_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e',['ReduceDataMsg&lt; std::array&lt; T, N &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html',1,'vt::collective::reduce::operators']]],
   ['reducedatamsg_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['ReduceDataMsg&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html',1,'vt::collective::reduce::operators']]],
   ['reducedatamsg_3c_20t_20_3e',['ReduceDataMsg&lt; T &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html',1,'vt::collective::reduce::operators']]],
+  ['reducelbmsg',['ReduceLBMsg',['../structvt_1_1rdma_1_1impl_1_1_reduce_l_b_msg.html',1,'vt::rdma::impl']]],
   ['reducelink',['ReduceLink',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html',1,'vt::collective::reduce']]],
   ['reducemsg',['ReduceMsg',['../structvt_1_1collective_1_1reduce_1_1_reduce_msg.html',1,'vt::collective::reduce']]],
   ['reducestate',['ReduceState',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html',1,'vt::collective::reduce']]],
@@ -42,6 +44,7 @@ var searchData=
   ['repeatnimpl',['RepeatNImpl',['../structvt_1_1pipe_1_1_repeat_n_impl.html',1,'vt::pipe']]],
   ['repeatnimpl_3c_200_2c_20valuet_20_3e',['RepeatNImpl&lt; 0, ValueT &gt;',['../structvt_1_1pipe_1_1_repeat_n_impl_3_010_00_01_value_t_01_4.html',1,'vt::pipe']]],
   ['requestdatamessage',['RequestDataMessage',['../structvt_1_1rdma_1_1_request_data_message.html',1,'vt::rdma']]],
+  ['requestholder',['RequestHolder',['../structvt_1_1rdma_1_1_request_holder.html',1,'vt::rdma']]],
   ['requiredserialization',['RequiredSerialization',['../structvt_1_1serialization_1_1auto__dispatch_1_1_required_serialization.html',1,'vt::serialization::auto_dispatch']]],
   ['requiredserializationfunctor',['RequiredSerializationFunctor',['../structvt_1_1serialization_1_1auto__dispatch_1_1_required_serialization_functor.html',1,'vt::serialization::auto_dispatch']]],
   ['requiredserializationhandler',['RequiredSerializationHandler',['../structvt_1_1serialization_1_1auto__dispatch_1_1_required_serialization_handler.html',1,'vt::serialization::auto_dispatch']]],

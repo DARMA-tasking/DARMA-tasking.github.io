@@ -1,6 +1,10 @@
 var searchData=
 [
   ['edgeratio',['EdgeRatio',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a4cb758191f8118403f2c08be986a99e1',1,'vt::vrt::collection::lb']]],
+  ['elementcreated',['ElementCreated',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a13f83c592fd326a19a0b4e5196bcbc27',1,'vt::vrt::collection::listener']]],
+  ['elementdestroyed',['ElementDestroyed',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a74a4ebfb91a5d2efd17810fcf21b0d6a',1,'vt::vrt::collection::listener']]],
+  ['elementmigratedin',['ElementMigratedIn',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a52681015b599c7461eeea5c717df6a25',1,'vt::vrt::collection::listener']]],
+  ['elementmigratedout',['ElementMigratedOut',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a83a275aac9439b3fe0cff1b3f685d14d',1,'vt::vrt::collection::listener']]],
   ['elementnotlocal',['ElementNotLocal',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804ac91f9652bd569b0888f3c2b24b3a6f62',1,'vt::vrt::collection']]],
   ['endcomputation',['EndComputation',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da0d5ba4cd78a559f54b16584d58d231ab',1,'vt::trace']]],
   ['endfunc',['EndFunc',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dac7bdf66ce4d86bdc8cb3ae7a08ef2896',1,'vt::trace']]],
@@ -34,5 +38,6 @@ var searchData=
   ['eventready',['EventReady',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429cac39388d25cc07031a0e9939837999e92',1,'vt::event']]],
   ['eventremote',['EventRemote',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429ca6c1cd1c5d55dc05e2b16a4f5f2d2dadd',1,'vt::event']]],
   ['eventwaiting',['EventWaiting',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429ca9fa9370ca123bee33d77fccd7ee8c459',1,'vt::event']]],
+  ['exclusive',['Exclusive',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70a2ef50b4c466304dc6ac77bac8a779971',1,'vt::rdma']]],
   ['exitmsg',['ExitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea586d1c3fef924d2b2f0c0a8580436086',1,'vt::trace']]]
 ];
