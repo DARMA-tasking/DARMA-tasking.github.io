@@ -24,6 +24,7 @@ var searchData=
   ['updatephase',['updatePhase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a6ba8726a871702870d76dca6de298d07',1,'vt::vrt::collection::balance::ElementStats']]],
   ['uphan',['upHan',['../structvt_1_1group_1_1_info_coll.html#a18031bc67be6fe75bf4bb04dbf4f5156',1,'vt::group::InfoColl']]],
   ['upper',['upper',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a88ef66995c9fd0c1d8ba031dab28da9b',1,'vt::term::interval::IntegralSetBase::upper()'],['../structvt_1_1term_1_1interval_1_1_interval.html#acbe552f15a1f22a89fa43bcba34fe27f',1,'vt::term::interval::Interval::upper()']]],
+  ['useds',['UseDS',['../structvt_1_1term_1_1_use_d_s.html#a29261f18f8f9303bbad2c8ee27f352ad',1,'vt::term::UseDS']]],
   ['useeagerprotocol',['useEagerProtocol',['../structvt_1_1location_1_1_entity_location_coord.html#a5d41b90c998e6de566868868c9cc4ba1',1,'vt::location::EntityLocationCoord']]],
   ['usegroup',['useGroup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#af9a9e5dbf89d84e9fb4d267f720bfa4e',1,'vt::vrt::collection::Holder']]],
   ['user',['user',['../structvt_1_1trace_1_1_user_event_registry.html#a6a2156b87f22007a4a20ca1b7e96d2fe',1,'vt::trace::UserEventRegistry']]],

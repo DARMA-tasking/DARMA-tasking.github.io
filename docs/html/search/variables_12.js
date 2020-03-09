@@ -3,6 +3,7 @@ var searchData=
   ['u_5f',['u_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#aed6003f71632d33c5281872d7841cb4f',1,'vt::pipe::callback::cbunion::GeneralCallback::u_()'],['../structvt_1_1rdma_1_1_handle_key.html#a589ac313252f97d907c2c03a000130f7',1,'vt::rdma::HandleKey::u_()']]],
   ['uniform_5fsize_5f',['uniform_size_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#a863c6d2d07d1cd4dc8ff73e4a3f052c2',1,'vt::rdma::impl::InformRDMAMsg::uniform_size_()'],['../structvt_1_1rdma_1_1_sub_handle.html#ab6c87db6739367bdbd95be5a8f673fc8',1,'vt::rdma::SubHandle::uniform_size_()']]],
   ['unsized_5f',['unsized_',['../structvt_1_1rdma_1_1_group.html#a670e96730f19cc80e7b55a391d96f0b4',1,'vt::rdma::Group']]],
+  ['use_5fit_5f',['use_it_',['../structvt_1_1term_1_1_use_d_s.html#a90e938697cc42b12536e2b5d1a6c6c2d',1,'vt::term::UseDS']]],
   ['user',['user',['../unionvt_1_1trace_1_1_log_1_1_data.html#a8d893c0de3ee2fca0852607fa908a2e6',1,'vt::trace::Log::Data']]],
   ['user_5f',['user_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6317d5623c1edcce684641fe0115824c',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['user_5fargc_5f',['user_argc_',['../structvt_1_1runtime_1_1_runtime.html#ae5c7bb8fdec028e2d505bf29906d5da5',1,'vt::runtime::Runtime']]],

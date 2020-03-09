@@ -135,6 +135,7 @@ var searchData=
   ['getinst',['getInst',['../structvt_1_1location_1_1_entity_location_coord.html#abff79ccad9dcd168217f99ee97048beb',1,'vt::location::EntityLocationCoord']]],
   ['getinstance',['getInstance',['../structvt_1_1location_1_1_location_manager.html#a1533939b198e3d7a2d5298995b87ab21',1,'vt::location::LocationManager']]],
   ['getinstanceid',['getInstanceID',['../structvt_1_1runtime_1_1_runtime.html#a06400b91b766f83d4b630bdc9ed840b1',1,'vt::runtime::Runtime']]],
+  ['getlabel',['getLabel',['../structvt_1_1term_1_1_epoch_label.html#af480e2eb3a58aa315923ed241caac916',1,'vt::term::EpochLabel']]],
   ['getlast',['getLast',['../structvt_1_1term_1_1_epoch_window.html#a3e3f2c54fef79025183e4edb61f404dd',1,'vt::term::EpochWindow']]],
   ['getlb',['getLB',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#a265df7d1bc8ac20e92c7799fd4973018',1,'vt::vrt::collection::balance::SpecEntry::getLB()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a55d8e971ad0821c272aeb3c20455c389',1,'vt::vrt::collection::balance::ReadLBSpec::getLB()']]],
   ['getlevel',['getLevel',['../structvt_1_1group_1_1_group_collective_info_msg.html#a368f82322f36599841188bfe9fb8d4e6',1,'vt::group::GroupCollectiveInfoMsg']]],

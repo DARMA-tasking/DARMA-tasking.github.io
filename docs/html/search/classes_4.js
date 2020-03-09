@@ -13,6 +13,7 @@ var searchData=
   ['epochdependency',['EpochDependency',['../structvt_1_1term_1_1_epoch_dependency.html',1,'vt::term']]],
   ['epochgraph',['EpochGraph',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html',1,'vt::termination::graph']]],
   ['epochgraphmsg',['EpochGraphMsg',['../structvt_1_1termination_1_1graph_1_1_epoch_graph_msg.html',1,'vt::termination::graph']]],
+  ['epochlabel',['EpochLabel',['../structvt_1_1term_1_1_epoch_label.html',1,'vt::term']]],
   ['epochmanip',['EpochManip',['../structvt_1_1epoch_1_1_epoch_manip.html',1,'vt::epoch']]],
   ['epochtagactiveenvelope',['EpochTagActiveEnvelope',['../structvt_1_1messaging_1_1_epoch_tag_active_envelope.html',1,'vt::messaging']]],
   ['epochwindow',['EpochWindow',['../structvt_1_1term_1_1_epoch_window.html',1,'vt::term']]],
