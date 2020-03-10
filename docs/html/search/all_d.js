@@ -172,6 +172,7 @@ var searchData=
   ['memorypoolptrtype',['MemoryPoolPtrType',['../structvt_1_1pool_1_1_pool.html#a21e20f5b56c3bae4f0d0cc36ed9c5eee',1,'vt::pool::Pool']]],
   ['memorypooltype',['MemoryPoolType',['../structvt_1_1pool_1_1_pool.html#a06673914350d933ad5205155eca14a3b',1,'vt::pool::Pool']]],
   ['memoryunitenum',['MemoryUnitEnum',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6',1,'vt::util::memory']]],
+  ['memoryunittype',['MemoryUnitType',['../namespacestd.html#ad7105ed4fa94bea7fce7b09cea2c7165',1,'std']]],
   ['memoryusage',['MemoryUsage',['../structvt_1_1util_1_1memory_1_1_memory_usage.html',1,'vt::util::memory::MemoryUsage'],['../structvt_1_1util_1_1memory_1_1_memory_usage.html#a5838280c7b2b24ab8ed2aff450b5e98f',1,'vt::util::memory::MemoryUsage::MemoryUsage()']]],
   ['memoryusagecurrent',['MemoryUsageCurrent',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dad042d19d714f2a9996f219b290e9f293',1,'vt::trace']]],
   ['message',['Message',['../namespacevt.html#a3a3ddfef40b4c90915fa43cdd5f129ea',1,'vt']]],
