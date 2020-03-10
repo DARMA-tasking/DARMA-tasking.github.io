@@ -4,6 +4,7 @@ var searchData=
   ['key_5f',['key_',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456.html#a1219d32435dff7029290180c23004b93',1,'vt::rdma::value &gt;&gt;::key_()'],['../structvt_1_1rdma_1_1impl_1_1_handle_data.html#a7dce9ae3b0d1704b479feb32063efee0',1,'vt::rdma::impl::HandleData::key_()']]],
   ['keyval_5fprinter_2eh',['keyval_printer.h',['../keyval__printer_8h.html',1,'']]],
   ['keyval_5fprinter_2eimpl_2eh',['keyval_printer.impl.h',['../keyval__printer_8impl_8h.html',1,'']]],
+  ['kilobytes',['Kilobytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6aa3a6c675a174320497f3bed7e8dc3329',1,'vt::util::memory']]],
   ['known_5froot_5fnode_5f',['known_root_node_',['../structvt_1_1group_1_1_info_coll.html#a89e612584c480324a5d11c2c5d672c81',1,'vt::group::InfoColl']]],
   ['krte',['krte',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a01ab8ead157e42fa39ac1ab19ab109c0',1,'vt::vrt::collection::balance::LoadData']]],
   ['kur',['kur',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea7663d8c57a4fe7d83db6bbc1bff52586',1,'vt::vrt::collection::lb']]]

@@ -40,6 +40,7 @@ var searchData=
   ['addlistenerfunctorvoid',['addListenerFunctorVoid',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a12cd5abf9d9a082369419a5cc5b7b0f8',1,'vt::pipe::PipeManagerTL::addListenerFunctorVoid(CbkT const &amp;cb, NodeType const &amp;node)'],['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a12039964ec1deb173f0ee83ad4c8a543',1,'vt::pipe::PipeManagerTL::addListenerFunctorVoid(CallbackT const &amp;cb, NodeType const &amp;node)']]],
   ['addlistenervoid',['addListenerVoid',['../structvt_1_1pipe_1_1_pipe_manager_base.html#ae486f94f76733fd3d97ff393c35d0e5e',1,'vt::pipe::PipeManagerBase']]],
   ['addlocalindex',['addLocalIndex',['../structvt_1_1rdma_1_1_sub_handle.html#a24f366ba0fe9d2228d82a2c766bdbf45',1,'vt::rdma::SubHandle']]],
+  ['addmemoryevent',['addMemoryEvent',['../structvt_1_1trace_1_1_trace.html#abc497f6fa641ac1c2c20889815b06dbc',1,'vt::trace::Trace']]],
   ['addnode',['addNode',['../structvt_1_1seq_1_1_seq_list.html#a3dd63f53576d65c85eb840d1ac4ddb27',1,'vt::seq::SeqList']]],
   ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html#ad71cb026dce420d7c5e48d0fd87c2e61',1,'vt::vrt::collection::balance::GossipMsg']]],
   ['addparallelfunction',['addParallelFunction',['../structvt_1_1seq_1_1_seq_node.html#adfe191e3f7ff499909c222cd4dbc3525',1,'vt::seq::SeqNode']]],

@@ -16,5 +16,6 @@ var searchData=
   ['beginunpack',['BeginUnpack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da345ded25a364981430ac7be0702dd6ad',1,'vt::trace']]],
   ['beginusereventpair',['BeginUserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da566366b99702f7603997d1407afee876',1,'vt::trace']]],
   ['bocinitmsg',['BocInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea73578cc48815262a4bbdaa2da8bdbc60',1,'vt::trace']]],
-  ['broadcast',['broadcast',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a96457a80e68a41a3c6283126efe6200e',1,'vt::config::broadcast()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57abe55b6387170df0ca68f41225268e842',1,'vt::vrt::collection::balance::Broadcast()']]]
+  ['broadcast',['broadcast',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a96457a80e68a41a3c6283126efe6200e',1,'vt::config::broadcast()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57abe55b6387170df0ca68f41225268e842',1,'vt::vrt::collection::balance::Broadcast()']]],
+  ['bytes',['Bytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a600e754f49b68aa0fc90a9cd64eb7051',1,'vt::util::memory']]]
 ];

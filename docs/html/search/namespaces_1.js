@@ -39,6 +39,7 @@ var searchData=
   ['listener',['listener',['../namespacevt_1_1vrt_1_1collection_1_1listener.html',1,'vt::vrt::collection']]],
   ['location',['location',['../namespacevt_1_1location.html',1,'vt']]],
   ['mapping',['mapping',['../namespacevt_1_1mapping.html',1,'vt']]],
+  ['memory',['memory',['../namespacevt_1_1util_1_1memory.html',1,'vt::util']]],
   ['messaging',['messaging',['../namespacevt_1_1messaging.html',1,'vt']]],
   ['mutex',['mutex',['../namespacevt_1_1util_1_1mutex.html',1,'vt::util']]],
   ['objgroup',['objgroup',['../namespacevt_1_1objgroup.html',1,'vt']]],

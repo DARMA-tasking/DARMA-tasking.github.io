@@ -80,6 +80,7 @@ var searchData=
   ['hassuccessor',['hasSuccessor',['../structvt_1_1term_1_1_epoch_dependency.html#a01f81598ae37bbe81e667ae7b92a924b',1,'vt::term::EpochDependency']]],
   ['hassuccessors',['hasSuccessors',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a1ab5f8a6b8107f2f08216f6036a81aa8',1,'vt::termination::graph::EpochGraph']]],
   ['hasworkers',['hasWorkers',['../structvt_1_1ctx_1_1_context.html#a17b1fd9fd7bfc2afdd55707d1f321f76',1,'vt::ctx::Context']]],
+  ['hasworkingreporter',['hasWorkingReporter',['../structvt_1_1util_1_1memory_1_1_memory_usage.html#aee12dfad3c08673967dd1fcd6a6adfb5',1,'vt::util::memory::MemoryUsage']]],
   ['head',['head',['../structvt_1_1group_1_1region_1_1_list.html#a99c726e227dbac4f8efaa45a37033238',1,'vt::group::region::List::head()'],['../structvt_1_1group_1_1region_1_1_range.html#ab6abce20eb32475d0ae734770b6586c0',1,'vt::group::region::Range::head()'],['../structvt_1_1group_1_1region_1_1_region.html#a09d21333389937f11dd5d3e6ba566c54',1,'vt::group::region::Region::head()'],['../structvt_1_1group_1_1region_1_1_shallow_list.html#a249b65b9cc1a44131cf52488baea9a41',1,'vt::group::region::ShallowList::head()']]],
   ['header',['Header',['../structvt_1_1pool_1_1_header.html',1,'vt::pool']]],
   ['headermanager',['HeaderManager',['../structvt_1_1pool_1_1_header_manager.html',1,'vt::pool']]],

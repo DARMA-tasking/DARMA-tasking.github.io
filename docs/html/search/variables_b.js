@@ -11,6 +11,7 @@ var searchData=
   ['map_5fhan_5f',['map_han_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#aba52b95e5d133121d335c90b0b6101e1',1,'vt::rdma::impl::InformRDMAMsg::map_han_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a5ecf30f3c569bbfe574df42843cf0059',1,'vt::rdma::SubHandle::map_han_()']]],
   ['max_5f',['max_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ab40f4437905013cad01f9cd2dcc2325b',1,'vt::vrt::collection::balance::LoadData::max_()'],['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a8e6cba1aa922c74d219db407343530b1',1,'vt::vrt::collection::InsertMsg::max_()']]],
   ['max_5fidx',['max_idx',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#a1d6e15b6f578ae048c11c2c367651f00',1,'vt::vrt::collection::CollectionHolder::max_idx()'],['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#afcd1a1a4cb305f3dd9f783ae07492a2e',1,'vt::vrt::collection::ElementHolder::max_idx()']]],
+  ['memory_5funit_5fnames',['memory_unit_names',['../namespacevt_1_1util_1_1memory.html#aa772e07fd4860ed4086654c53eed51c2',1,'vt::util::memory']]],
   ['migrate_5fin_5f',['migrate_in_',['../structvt_1_1rdma_1_1_sub_handle.html#a2832d6a83d0ecc36d342d33fcf5ce6dd',1,'vt::rdma::SubHandle']]],
   ['migrate_5fout_5f',['migrate_out_',['../structvt_1_1rdma_1_1_sub_handle.html#a13c434425c8ab69abfd202acf8979119',1,'vt::rdma::SubHandle']]],
   ['migration_5fepoch_5f',['migration_epoch_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a542fc9b588392bd5bc30554b2b53c96c',1,'vt::vrt::collection::lb::BaseLB']]],

@@ -5,6 +5,7 @@ var searchData=
   ['mapping',['Mapping',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a0014f8b96d996135614c21355a053994',1,'vt::error']]],
   ['max',['max',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea2ffe4e77325d9a7152f7086ea7aa5114',1,'vt::vrt::collection::lb']]],
   ['medium',['Medium',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5',1,'vt::pool::Pool']]],
+  ['megabytes',['Megabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a2276a1b157f2813f3b65d04c0b1c56f6',1,'vt::util::memory']]],
   ['memoryfree',['MemoryFree',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da183cc2f17a6c69923fc44e71f41e21d2',1,'vt::trace']]],
   ['memorymalloc',['MemoryMalloc',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da5e5983c9162dc8f45b2154848599abbf',1,'vt::trace']]],
   ['memoryusagecurrent',['MemoryUsageCurrent',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dad042d19d714f2a9996f219b290e9f293',1,'vt::trace']]],

@@ -106,6 +106,7 @@ var searchData=
   ['maybepropagate',['maybePropagate',['../structvt_1_1term_1_1_termination_detector.html#a4a54157fff0152b531b26c4a18393049',1,'vt::term::TerminationDetector']]],
   ['mediumarray',['mediumArray',['../namespacevt_1_1sched.html#a05afd033ab9ecc1f0d1dc37b8b9b7827',1,'vt::sched::mediumArray(std::integer_sequence&lt; PriorityType, i... &gt;)'],['../namespacevt_1_1sched.html#a3f4c11ddd24523a16b3f3606a4662014',1,'vt::sched::mediumArray()']]],
   ['memorypoolequal',['MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html#a588ccd66ce55b16d85ee47a739ec7cdd',1,'vt::pool::MemoryPoolEqual']]],
+  ['memoryusage',['MemoryUsage',['../structvt_1_1util_1_1memory_1_1_memory_usage.html#a5838280c7b2b24ab8ed2aff450b5e98f',1,'vt::util::memory::MemoryUsage']]],
   ['messageconverttoshared',['messageConvertToShared',['../namespacevt.html#a7ac01602b963535c7fb59fa22fe16895',1,'vt']]],
   ['messagecreation',['messageCreation',['../structvt_1_1trace_1_1_trace.html#a5b5091197568d7ed104bb40d68b4ddd7',1,'vt::trace::Trace']]],
   ['messagecreationbcast',['messageCreationBcast',['../structvt_1_1trace_1_1_trace.html#ad034b14649101fb530eccfb4e2b958ce',1,'vt::trace::Trace']]],

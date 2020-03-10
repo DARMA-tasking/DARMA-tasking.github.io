@@ -1,6 +1,8 @@
 var searchData=
 [
+  ['machtaskinfo',['MachTaskInfo',['../structvt_1_1util_1_1memory_1_1_mach_task_info.html',1,'vt::util::memory']]],
   ['mainvirtualcontext',['MainVirtualContext',['../structvt_1_1vrt_1_1_main_virtual_context.html',1,'vt::vrt']]],
+  ['mallinfo',['Mallinfo',['../structvt_1_1util_1_1memory_1_1_mallinfo.html',1,'vt::util::memory']]],
   ['manager',['Manager',['../structvt_1_1rdma_1_1_manager.html',1,'vt::rdma']]],
   ['map',['Map',['../structvt_1_1rdma_1_1_map.html',1,'vt::rdma']]],
   ['mappednode',['MappedNode',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html',1,'vt::vrt::collection']]],
@@ -15,6 +17,7 @@ var searchData=
   ['maxop_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e',['MaxOp&lt; std::array&lt; T, N &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['maxop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['MaxOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['memorypoolequal',['MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html',1,'vt::pool']]],
+  ['memoryusage',['MemoryUsage',['../structvt_1_1util_1_1memory_1_1_memory_usage.html',1,'vt::util::memory']]],
   ['meta_5fand',['meta_and',['../structvt_1_1util_1_1meta__and.html',1,'vt::util']]],
   ['meta_5fand_3c_20t_2c_20ts_2e_2e_2e_20_3e',['meta_and&lt; T, Ts... &gt;',['../structvt_1_1util_1_1meta__and_3_01_t_00_01_ts_8_8_8_01_4.html',1,'vt::util']]],
   ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1_migratable.html',1,'vt::vrt::collection']]],
@@ -37,5 +40,6 @@ var searchData=
   ['msgsharedptr',['MsgSharedPtr',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsharedptr_3c_20basemsgtype_20_3e',['MsgSharedPtr&lt; BaseMsgType &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsharedptr_3c_20vt_3a_3amessaging_3a_3aactivemsg_20_3e',['MsgSharedPtr&lt; vt::messaging::ActiveMsg &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
-  ['msgsizer',['MsgSizer',['../structvt_1_1serialization_1_1_msg_sizer.html',1,'vt::serialization']]]
+  ['msgsizer',['MsgSizer',['../structvt_1_1serialization_1_1_msg_sizer.html',1,'vt::serialization']]],
+  ['mstats',['Mstats',['../structvt_1_1util_1_1memory_1_1_mstats.html',1,'vt::util::memory']]]
 ];

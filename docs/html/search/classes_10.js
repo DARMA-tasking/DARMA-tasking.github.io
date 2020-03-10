@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sbrk',['Sbrk',['../structvt_1_1util_1_1memory_1_1_sbrk.html',1,'vt::util::memory']]],
   ['scatter',['Scatter',['../structvt_1_1collective_1_1scatter_1_1_scatter.html',1,'vt::collective::scatter']]],
   ['scattermsg',['ScatterMsg',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html',1,'vt::collective::scatter']]],
   ['scheduler',['Scheduler',['../structvt_1_1sched_1_1_scheduler.html',1,'vt::sched']]],
@@ -42,11 +43,13 @@ var searchData=
   ['size',['Size',['../structvt_1_1serialization_1_1_size.html',1,'vt::serialization']]],
   ['specentry',['SpecEntry',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html',1,'vt::vrt::collection::balance']]],
   ['startlbmsg',['StartLBMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_start_l_b_msg.html',1,'vt::vrt::collection::balance']]],
+  ['stat',['Stat',['../structvt_1_1util_1_1memory_1_1_stat.html',1,'vt::util::memory']]],
   ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma']]],
   ['stateds',['StateDS',['../structvt_1_1term_1_1ds_1_1_state_d_s.html',1,'vt::term::ds']]],
   ['statemessage',['StateMessage',['../structvt_1_1rdma_1_1_state_message.html',1,'vt::rdma']]],
   ['staticcollectionbase',['StaticCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_static_collection_base.html',1,'vt::vrt::collection']]],
   ['staticinsertablecollectionbase',['StaticInsertableCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_static_insertable_collection_base.html',1,'vt::vrt::collection']]],
+  ['statm',['StatM',['../structvt_1_1util_1_1memory_1_1_stat_m.html',1,'vt::util::memory']]],
   ['statsmaplb',['StatsMapLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_stats_map_l_b.html',1,'vt::vrt::collection::lb']]],
   ['statsmsg',['StatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_msg.html',1,'vt::vrt::collection::balance']]],
   ['statsrestartreader',['StatsRestartReader',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html',1,'vt::vrt::collection::balance']]],

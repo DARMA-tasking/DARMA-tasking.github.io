@@ -154,7 +154,7 @@ var searchData=
   ['byte_5fcopy_5ftrait_2eh',['byte_copy_trait.h',['../byte__copy__trait_8h.html',1,'']]],
   ['bytecopyabletraits',['ByteCopyableTraits',['../structvt_1_1serialization_1_1_byte_copyable_traits.html',1,'vt::serialization']]],
   ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]],
-  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg']]],
+  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg::bytes()'],['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a600e754f49b68aa0fc90a9cd64eb7051',1,'vt::util::memory::Bytes()']]],
   ['byteserializedbuffer',['ByteSerializedBuffer',['../structvt_1_1serialization_1_1_byte_serialized_buffer.html',1,'vt::serialization::ByteSerializedBuffer'],['../structvt_1_1serialization_1_1_byte_serialized_buffer.html#acd835ccd045487a2aff8fc7a6a0bac8e',1,'vt::serialization::ByteSerializedBuffer::ByteSerializedBuffer()']]],
   ['byteserializedbufferptrtype',['ByteSerializedBufferPtrType',['../namespacevt_1_1serialization.html#a8f2372c7f89aee28287323667fac2cf5',1,'vt::serialization']]],
   ['bytetype',['ByteType',['../structvt_1_1serialization_1_1_byte_serialized_buffer.html#a26d694dbba219f7c127ab9fc65d840ef',1,'vt::serialization::ByteSerializedBuffer::ByteType()'],['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt::ByteType()']]],

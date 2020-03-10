@@ -2,6 +2,7 @@ var searchData=
 [
   ['generalcallback',['GeneralCallback',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html',1,'vt::pipe::callback::cbunion']]],
   ['getinfochannel',['GetInfoChannel',['../structvt_1_1rdma_1_1_get_info_channel.html',1,'vt::rdma']]],
+  ['getrusage',['Getrusage',['../structvt_1_1util_1_1memory_1_1_getrusage.html',1,'vt::util::memory']]],
   ['gettable',['Gettable',['../structvt_1_1vrt_1_1collection_1_1_gettable.html',1,'vt::vrt::collection']]],
   ['gossiplb',['GossipLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html',1,'vt::vrt::collection::lb']]],
   ['gossipmsg',['GossipMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html',1,'vt::vrt::collection::balance']]],
