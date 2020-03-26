@@ -28,6 +28,7 @@ var searchData=
   ['message_2eh',['message.h',['../message_2message_8h.html',1,'(Global Namespace)'],['../message_8h.html',1,'(Global Namespace)']]],
   ['message_5fpriority_2eh',['message_priority.h',['../message__priority_8h.html',1,'']]],
   ['message_5fpriority_2eimpl_2eh',['message_priority.impl.h',['../message__priority_8impl_8h.html',1,'']]],
+  ['message_5fserialize_2eh',['message_serialize.h',['../message__serialize_8h.html',1,'']]],
   ['meta_5ftype_5feq_5f_2eh',['meta_type_eq_.h',['../meta__type__eq___8h.html',1,'']]],
   ['migratable_2ecc',['migratable.cc',['../migratable_8cc.html',1,'']]],
   ['migratable_2efwd_2eh',['migratable.fwd.h',['../migratable_8fwd_8h.html',1,'']]],

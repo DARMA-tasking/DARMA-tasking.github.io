@@ -3,7 +3,6 @@ var searchData=
   ['arguments',['arguments',['../namespacevt_1_1arguments.html',1,'vt']]],
   ['assert',['assert',['../namespacevt_1_1debug_1_1assert.html',1,'vt::debug']]],
   ['atomic',['atomic',['../namespacevt_1_1util_1_1atomic.html',1,'vt::util']]],
-  ['auto_5fdispatch',['auto_dispatch',['../namespacevt_1_1serialization_1_1auto__dispatch.html',1,'vt::serialization']]],
   ['auto_5fregistry',['auto_registry',['../namespacevt_1_1auto__registry.html',1,'vt']]],
   ['balance',['balance',['../namespacevt_1_1vrt_1_1collection_1_1balance.html',1,'vt::vrt::collection']]],
   ['barrier',['barrier',['../namespacevt_1_1collective_1_1barrier.html',1,'vt::collective']]],

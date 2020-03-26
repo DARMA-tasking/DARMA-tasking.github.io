@@ -59,7 +59,6 @@ var searchData=
   ['collectioninfo',['CollectionInfo',['../structvt_1_1vrt_1_1collection_1_1_collection_info.html',1,'vt::vrt::collection::CollectionInfo&lt; ColT, IndexT &gt;'],['../structvt_1_1rdma_1_1_collection_info.html',1,'vt::rdma::CollectionInfo']]],
   ['collectionmanager',['CollectionManager',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html',1,'vt::vrt::collection']]],
   ['collectionmessage',['CollectionMessage',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html',1,'vt::vrt::collection']]],
-  ['collectionmessage_3c_20colt_20_3e',['CollectionMessage&lt; ColT &gt;',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html',1,'vt::vrt::collection']]],
   ['collectionphasemsg',['CollectionPhaseMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_phase_msg.html',1,'vt::vrt::collection']]],
   ['collectionproxy',['CollectionProxy',['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html',1,'vt::vrt::collection']]],
   ['collectiontag',['CollectionTag',['../structvt_1_1rdma_1_1_handle_key_1_1_collection_tag.html',1,'vt::rdma::HandleKey::CollectionTag'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key_1_1_collection_tag.html',1,'vt::vrt::collection::balance::LBCommKey::CollectionTag']]],
@@ -92,5 +91,9 @@ var searchData=
   ['createchannel',['CreateChannel',['../structvt_1_1rdma_1_1_create_channel.html',1,'vt::rdma']]],
   ['criterion',['Criterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion.html',1,'vt::vrt::collection::lb']]],
   ['criterionbase',['CriterionBase',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion_base.html',1,'vt::vrt::collection::lb']]],
-  ['curident',['CurIdent',['../structvt_1_1vrt_1_1collection_1_1details_1_1_cur_ident.html',1,'vt::vrt::collection::details']]]
+  ['curident',['CurIdent',['../structvt_1_1vrt_1_1collection_1_1details_1_1_cur_ident.html',1,'vt::vrt::collection::details']]],
+  ['cxx14_5fconjunction',['cxx14_conjunction',['../structvt_1_1messaging_1_1cxx14__conjunction.html',1,'vt::messaging']]],
+  ['cxx14_5fconjunction_3c_20b1_20_3e',['cxx14_conjunction&lt; B1 &gt;',['../structvt_1_1messaging_1_1cxx14__conjunction_3_01_b1_01_4.html',1,'vt::messaging']]],
+  ['cxx14_5fconjunction_3c_20b1_2c_20bn_2e_2e_2e_20_3e',['cxx14_conjunction&lt; B1, Bn... &gt;',['../structvt_1_1messaging_1_1cxx14__conjunction_3_01_b1_00_01_bn_8_8_8_01_4.html',1,'vt::messaging']]],
+  ['cxx14_5fmake_5fvoid',['cxx14_make_void',['../structvt_1_1messaging_1_1cxx14__make__void.html',1,'vt::messaging']]]
 ];

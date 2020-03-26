@@ -38,7 +38,7 @@ var searchData=
   ['triggertype',['TriggerType',['../structvt_1_1sched_1_1_scheduler.html#aa0c06d6e1c31a5f1c3db474036ad7d29',1,'vt::sched::Scheduler']]],
   ['tuple',['tuple',['../structvt_1_1serialization_1_1_serialization_traits.html#ab7e5dd1f060f8077a26dc1c539e7c4fa',1,'vt::serialization::SerializationTraits']]],
   ['tupletype',['TupleType',['../structvt_1_1vrt_1_1_virtual_make_closure.html#a19b5a051873fa150d9e8ef778fa8afb2',1,'vt::vrt::VirtualMakeClosure']]],
-  ['type',['type',['../structvt_1_1util_1_1cond__.html#a28c21b3840f7bf044e1384c1c853b621',1,'vt::util::cond_::type()'],['../structvt_1_1util_1_1cond___3_01false_00_01_t_00_01_f_01_4.html#a0e8210e2bf4aa9bb68f76e767cd26743',1,'vt::util::cond_&lt; false, T, F &gt;::type()']]],
+  ['type',['type',['../structvt_1_1messaging_1_1cxx14__make__void.html#a7322d20f987efd6028d1d56e579c2783',1,'vt::messaging::cxx14_make_void::type()'],['../structvt_1_1util_1_1cond__.html#a28c21b3840f7bf044e1384c1c853b621',1,'vt::util::cond_::type()'],['../structvt_1_1util_1_1cond___3_01false_00_01_t_00_01_f_01_4.html#a0e8210e2bf4aa9bb68f76e767cd26743',1,'vt::util::cond_&lt; false, T, F &gt;::type()']]],
   ['typedeventcontainertype',['TypedEventContainerType',['../structvt_1_1event_1_1_async_event.html#af0397f32fb9d7dd136c544737eeb7796',1,'vt::event::AsyncEvent']]],
   ['typedindexcontainer',['TypedIndexContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ae8d4ff940c971d52b237cf4d6049380a',1,'vt::vrt::collection::Holder']]],
   ['typedlbcontainer',['TypedLBContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a9738cadcf89ace9c3d0c23990e4f919e',1,'vt::vrt::collection::Holder']]],

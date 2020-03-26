@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()']]],
+  ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
   ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
   ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
   ['reduce',['Reduce',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'vt::error::Reduce()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af558c370706b5e7bd8ba5224657ca9b4',1,'vt::config::reduce()']]],
@@ -19,10 +19,11 @@ var searchData=
   ['remoteid',['RemoteID',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7eafa45aa15be6f922c8e1e4c78dbdad535',1,'vt::vrt']]],
   ['remotenode',['RemoteNode',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7ea8fb0adb36660bd05ba5033e93cc8c3f0',1,'vt::vrt']]],
   ['reqstatmsg',['ReqStatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eace6c5e6f2ca4c2ec0d3257ec10740684',1,'vt::trace']]],
+  ['require',['require',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850',1,'vt::messaging']]],
   ['rodatamsg',['RODataMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea8e6cd7fce645bd4666f05491d7ae9a21',1,'vt::trace']]],
   ['romsgmsg',['ROMsgMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea09bbab67779987ee507b5e261f92d8b9',1,'vt::trace']]],
   ['root',['Root',['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a8c67b09b2de7f4bd3371d6239b02a045',1,'vt::trace']]],
   ['rootedepoch',['RootedEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada4bbf8ef3641b58f81dc5320f32df0178',1,'vt::epoch']]],
   ['rotatelb',['RotateLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca5b1f9f84eddef3d97637267cbf0f7039',1,'vt::vrt::collection::balance']]],
-  ['runtime',['runtime',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()']]]
+  ['runtime',['Runtime',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()']]]
 ];

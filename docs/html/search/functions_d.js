@@ -24,6 +24,7 @@ var searchData=
   ['nextstepcollective',['nextStepCollective',['../classvt_1_1messaging_1_1_collection_chain_set.html#a095bc4907c3bd60668483de52b79b08e',1,'vt::messaging::CollectionChainSet::nextStepCollective(std::string const &amp;label, std::function&lt; PendingSend(Index)&gt; step_action)'],['../classvt_1_1messaging_1_1_collection_chain_set.html#a7d226984e696278b9ca7e539c974bab4',1,'vt::messaging::CollectionChainSet::nextStepCollective(std::function&lt; PendingSend(Index)&gt; step_action)']]],
   ['node',['node',['../structvt_1_1epoch_1_1_epoch_manip.html#a7120f73ef583ab8f061334fc0bc519c3',1,'vt::epoch::EpochManip']]],
   ['nolocalunits',['noLocalUnits',['../structvt_1_1term_1_1_term_state.html#a6fd3b2a3c99002110ed7cfea8e30f021',1,'vt::term::TermState']]],
+  ['nonserializedmsg',['NonSerializedMsg',['../structvt_1_1messaging_1_1_non_serialized_msg.html#aaaf8f519b382fdad6f9fab8191a2950f',1,'vt::messaging::NonSerializedMsg']]],
   ['nontarget',['NonTarget',['../structvt_1_1rdma_1_1_non_target.html#a69f1bc7ca64bafacd10449b8a7b24d38',1,'vt::rdma::NonTarget']]],
   ['notifychildreceive',['notifyChildReceive',['../structvt_1_1term_1_1_term_state.html#a15191c2002809d73cd7f6d4c1a22b480',1,'vt::term::TermState']]],
   ['notifylocalterminated',['notifyLocalTerminated',['../structvt_1_1term_1_1_term_state.html#a6b18d41b5a88a20e5231c236c996cfff',1,'vt::term::TermState']]],

@@ -38,5 +38,6 @@ var searchData=
   ['sub_5fprefix_5f',['sub_prefix_',['../structvt_1_1rdma_1_1_sub_handle.html#a964f4cb2857f1d970253f89ad5bb708c',1,'vt::rdma::SubHandle']]],
   ['subtree_5f',['subtree_',['../structvt_1_1group_1_1_info_coll.html#a42a225abb3f2d734ae4eddaecdb56b9e',1,'vt::group::InfoColl']]],
   ['sum_5f',['sum_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ab20f34a82481f573b8db44d7d2f9111c',1,'vt::vrt::collection::balance::LoadData']]],
+  ['supported',['supported',['../structvt_1_1messaging_1_1msg__serialization__mode.html#ab0dc8ca8b40b6e796c4d6b3ee63a69e1',1,'vt::messaging::msg_serialization_mode::supported()'],['../structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp859af933e7cec0c00885df897a55208a.html#a98da648b67d20fb70bc0fa10c605f3ce',1,'vt::messaging::vt_serialize_mode)&gt;&gt;::supported()']]],
   ['sys',['sys',['../unionvt_1_1trace_1_1_log_1_1_data.html#a71322b10139cee6014cd6be83c99b3d9',1,'vt::trace::Log::Data']]]
 ];

@@ -10,6 +10,8 @@ var searchData=
   ['defaultmap',['DefaultMap',['../structvt_1_1vrt_1_1collection_1_1_default_map.html',1,'vt::vrt::collection']]],
   ['defaultmapbase',['DefaultMapBase',['../structvt_1_1vrt_1_1collection_1_1_default_map_base.html',1,'vt::vrt::collection']]],
   ['defaultmask',['DefaultMask',['../structvt_1_1sched_1_1_default_mask.html',1,'vt::sched']]],
+  ['definesserializationmode',['DefinesSerializationMode',['../structvt_1_1messaging_1_1_defines_serialization_mode.html',1,'vt::messaging']]],
+  ['definesserializationmode_3c_20selft_20_3e',['DefinesSerializationMode&lt; SelfT &gt;',['../structvt_1_1messaging_1_1_defines_serialization_mode.html',1,'vt::messaging']]],
   ['deletable',['Deletable',['../structvt_1_1vrt_1_1collection_1_1_deletable.html',1,'vt::vrt::collection']]],
   ['deletableepoch',['DeletableEpoch',['../structvt_1_1vrt_1_1collection_1_1_deletable_epoch.html',1,'vt::vrt::collection']]],
   ['demanglerutils',['DemanglerUtils',['../structvt_1_1util_1_1demangle_1_1_demangler_utils.html',1,'vt::util::demangle']]],

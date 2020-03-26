@@ -24,5 +24,6 @@ var searchData=
   ['msg_5flen',['msg_len',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html#a514d2e0977e4acf99920ed45a910ae0a',1,'vt::trace::Log::Data::SysData']]],
   ['msgs',['msgs',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#aa2939e96ffecd6fbe4a942414cb10624',1,'vt::collective::reduce::ReduceState']]],
   ['msgs_5f',['msgs_',['../structvt_1_1group_1_1_info_coll.html#a30fc9a06654d5213b3355834938d6034',1,'vt::group::InfoColl']]],
+  ['msgsize_5fnot_5fspecified',['msgsize_not_specified',['../namespacevt_1_1messaging.html#adefd943a6421b1b7120526f969bee20f',1,'vt::messaging']]],
   ['msgsreceived',['msgsReceived',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#aac24c7a1c06519aaa6b3af18276415b4',1,'vt::vrt::collection::balance::StatsRestartReader']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['large',['Large',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743',1,'vt::pool::Pool']]],
-  ['lb',['lb',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aecb25779c74e06cc3e6baf03ed8289ed',1,'vt::config::lb()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ac951270e425b15fc20c64da4341c1d89',1,'vt::error::LB()']]],
+  ['lb',['LB',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ac951270e425b15fc20c64da4341c1d89',1,'vt::error::LB()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aecb25779c74e06cc3e6baf03ed8289ed',1,'vt::config::lb()']]],
   ['leafnode',['LeafNode',['../namespacevt_1_1seq.html#ae721d4e8b95cf57a7e4169db1929e0f1a267b9f7cb10c41f037e84a25ef20801f',1,'vt::seq']]],
   ['line_5ffile',['line_file',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a761d0adb1e300a27f04ef50f3fff51f6',1,'vt::config']]],
   ['loadovergreaterthan',['LoadOverGreaterThan',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5ea3d8879d16ae598961ef15af199863c40',1,'vt::vrt::collection::lb']]],

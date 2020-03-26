@@ -31,6 +31,7 @@ var searchData=
   ['request_5fid',['request_id',['../structvt_1_1vrt_1_1_virtual_proxy_request_msg.html#a1cbd1a90c8e622e455d2d9dffd7631cf',1,'vt::vrt::VirtualProxyRequestMsg']]],
   ['request_5fnode',['request_node',['../structvt_1_1vrt_1_1_virtual_proxy_request_msg.html#a17ef52708baa6ba8c47e5a8b7e3a0eb9',1,'vt::vrt::VirtualProxyRequestMsg']]],
   ['requesting',['requesting',['../structvt_1_1rdma_1_1_request_data_message.html#aaa35273a1209ef165ff196930c5d1891',1,'vt::rdma::RequestDataMessage']]],
+  ['required',['required',['../structvt_1_1messaging_1_1msg__serialization__mode.html#a8f8d90f9eb1935c504685abe11600a57',1,'vt::messaging::msg_serialization_mode::required()'],['../structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp859af933e7cec0c00885df897a55208a.html#aa61ad4431413be76f64e45ddb00349bc',1,'vt::messaging::vt_serialize_mode)&gt;&gt;::required()']]],
   ['resolved_5fnode',['resolved_node',['../structvt_1_1location_1_1_location_msg.html#a4c047bbd95901a1543e17e7924e1d2d3',1,'vt::location::LocationMsg']]],
   ['root_5f',['root_',['../structvt_1_1group_1_1_group_msg.html#a79b75c7a2a3e2788132bd494148e5952',1,'vt::group::GroupMsg']]],
   ['rt',['rt',['../structvt_1_1runtime_1_1_runtime_inst.html#a19ed3095efba69b6ab453eb9129eafd0',1,'vt::runtime::RuntimeInst::rt()'],['../namespacevt.html#acce65ec10b513659274e722365aaa36d',1,'vt::rt()']]],
