@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
+  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()']]],
   ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
   ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
   ['reduce',['Reduce',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'vt::error::Reduce()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af558c370706b5e7bd8ba5224657ca9b4',1,'vt::config::reduce()']]],

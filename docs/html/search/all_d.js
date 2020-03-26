@@ -233,6 +233,7 @@ var searchData=
   ['migration_5fepoch_5f',['migration_epoch_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a542fc9b588392bd5bc30554b2b53c96c',1,'vt::vrt::collection::lb::BaseLB']]],
   ['migrationdone',['migrationDone',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ac8ed2cc09aec1f84e179ba734da71960',1,'vt::vrt::collection::lb::BaseLB']]],
   ['migrations_5f',['migrations_',['../structvt_1_1lb_1_1_migrate_info.html#a2ae34d58ae8b7e0d353c790fceed7395',1,'vt::lb::MigrateInfo']]],
+  ['mimalloc',['Mimalloc',['../structvt_1_1util_1_1memory_1_1_mimalloc.html',1,'vt::util::memory']]],
   ['min',['min',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a3a4fc0cb3206cb552e83ef1caa8975eb',1,'vt::vrt::collection::balance::LoadData::min()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead8bd79cc131920d5de426f914d17405a',1,'vt::vrt::collection::lb::min()']]],
   ['min_5f',['min_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a2ce7f969bd102daebb5071f5a3da8396',1,'vt::vrt::collection::balance::LoadData']]],
   ['min_5fop_2eh',['min_op.h',['../min__op_8h.html',1,'']]],

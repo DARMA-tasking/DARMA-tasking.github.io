@@ -24,6 +24,7 @@ var searchData=
   ['vt_5ffeature_5ffcontext',['vt_feature_fcontext',['../features__defines_8h.html#afb6a9b0a96ad9b4437c5f8d275fe5faf',1,'features_defines.h']]],
   ['vt_5ffeature_5flblite',['vt_feature_lblite',['../features__defines_8h.html#afbce8968392aeea733b5f5b631df873a',1,'features_defines.h']]],
   ['vt_5ffeature_5fmemory_5fpool',['vt_feature_memory_pool',['../features__defines_8h.html#afb68c9062332ccd009aa5c440339244d',1,'features_defines.h']]],
+  ['vt_5ffeature_5fmimalloc',['vt_feature_mimalloc',['../features__defines_8h.html#a5e9334f8e982fccb7f258eb20ca3ec7c',1,'features_defines.h']]],
   ['vt_5ffeature_5fmpi_5frdma',['vt_feature_mpi_rdma',['../features__defines_8h.html#ace828b7a13395de71eeba2a5a849d101',1,'features_defines.h']]],
   ['vt_5ffeature_5fno_5ffeature',['vt_feature_no_feature',['../features__defines_8h.html#ae35ea80881cd8e5f9c018c12af6e48ca',1,'features_defines.h']]],
   ['vt_5ffeature_5fno_5fpool_5falloc_5fenv',['vt_feature_no_pool_alloc_env',['../features__defines_8h.html#a419d738d575a3dea72052b35e3bae2d5',1,'features_defines.h']]],
