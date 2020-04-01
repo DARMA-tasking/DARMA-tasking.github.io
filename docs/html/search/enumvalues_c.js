@@ -11,7 +11,7 @@ var searchData=
   ['nolb',['NoLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5cad12268b59a4f1098aee001f9a1750020',1,'vt::vrt::collection::balance']]],
   ['nomigrationnecessary',['NoMigrationNecessary',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804a78899246a56068be54717497c5ccc112',1,'vt::vrt::collection']]],
   ['nomoreexpansionsstate',['NoMoreExpansionsState',['../namespacevt_1_1seq.html#ad7b0496818667d816e00f717491d3b92a9da7cf202a0fae808aa12e7b84d3d2b9',1,'vt::seq']]],
-  ['none',['None',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70a6adf97f83acf6453d4a6a4b1070f3754',1,'vt::rdma::None()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a58436a9330bb7d9e28934e496ce96bfe',1,'vt::config::none()']]],
+  ['none',['none',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a58436a9330bb7d9e28934e496ce96bfe',1,'vt::config::none()'],['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70a6adf97f83acf6453d4a6a4b1070f3754',1,'vt::rdma::None()']]],
   ['normal',['normal',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a6865573ccc58716514eb9a164a52c256',1,'vt::config']]],
   ['normaleventrecord',['NormalEventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9abd225f70b1ce49f73ff00c2bdf3392a2',1,'vt::event']]],
   ['nottangent',['NotTangent',['../structvt_1_1term_1_1interval_1_1_interval.html#adfdde0c1b12f536189432b168f6df6b3ad2a5d0f2a4b974799f671c29ffc6449c',1,'vt::term::interval::Interval']]],
