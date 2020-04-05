@@ -42,6 +42,7 @@ var searchData=
   ['_7ependingsend',['~PendingSend',['../structvt_1_1messaging_1_1_pending_send.html#ade803ff2903a92eaf62b6e330593871b',1,'vt::messaging::PendingSend']]],
   ['_7eregion',['~Region',['../structvt_1_1group_1_1region_1_1_region.html#adb017be8010659a0da19f66c8265fe10',1,'vt::group::region::Region']]],
   ['_7eregistrargeninfobase',['~RegistrarGenInfoBase',['../structvt_1_1auto__registry_1_1_registrar_gen_info_base.html#a39ece894c94aa15f384c9ddc46246fc7',1,'vt::auto_registry::RegistrarGenInfoBase']]],
+  ['_7ereporter',['~Reporter',['../structvt_1_1util_1_1memory_1_1_reporter.html#a9b5c8c4345a2e1d758fd9f583d5ea63a',1,'vt::util::memory::Reporter']]],
   ['_7erequestholder',['~RequestHolder',['../structvt_1_1rdma_1_1_request_holder.html#a3853124a44bcbf4c3446f7d68fdfa0ed',1,'vt::rdma::RequestHolder']]],
   ['_7erotatelb',['~RotateLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_l_b.html#ae2a8e40cf47a9ea3be9d4ec6f44d9f50',1,'vt::vrt::collection::lb::RotateLB']]],
   ['_7eruntime',['~Runtime',['../structvt_1_1runtime_1_1_runtime.html#ae164ab301b823d985a62b7a5fb62cf07',1,'vt::runtime::Runtime']]],
