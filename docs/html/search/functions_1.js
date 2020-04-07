@@ -44,7 +44,7 @@ var searchData=
   ['broadcastroothandler',['broadcastRootHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9859d8346c9aac1fb0b65e6db82969db',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#addd144d5384b068bc4bf37eaf17461a5',1,'vt::serialization::SerializedMessenger']]],
   ['broadcastspec',['broadcastSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a3a5ececf49f827a057a7bea8ac7e7584',1,'vt::trace::file_spec::TraceSpec']]],
-  ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a91e25c090c27544b5bf5949438b60501',1,'vt::messaging::BufferedActiveMsg']]],
+  ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a76b964a87805d59f20d0cbf861f546a2',1,'vt::messaging::BufferedActiveMsg']]],
   ['bufferunmatchedaction',['bufferUnmatchedAction',['../structvt_1_1seq_1_1_seq_matcher.html#aca3ab24ab457f57cd341c21aff0c0951',1,'vt::seq::SeqMatcher::bufferUnmatchedAction()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a1679c1eba073362e70808fb89a174c6c',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedAction()']]],
   ['bufferunmatchedmessage',['bufferUnmatchedMessage',['../structvt_1_1seq_1_1_seq_matcher.html#a1dc8c34d3611f4eac7e21089e1484e52',1,'vt::seq::SeqMatcher::bufferUnmatchedMessage()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a60dd673159850b4dea0b0d5e69f2ddef',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedMessage()']]],
   ['builddata',['buildData',['../namespacevt.html#a3fb362f6f25b91b86680b78569e3b2d0',1,'vt']]],
