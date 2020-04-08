@@ -428,7 +428,7 @@ var searchData=
   ['stat',['Stat',['../structvt_1_1util_1_1memory_1_1_stat.html',1,'vt::util::memory']]],
   ['stat_5f',['stat_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats_msg.html#ae66687243df03f02aa5e0f5d884cc575',1,'vt::vrt::collection::balance::ProcStatsMsg']]],
   ['statdonemsg',['StatDoneMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaba14871248009cab8f27ec99089d6c44',1,'vt::trace']]],
-  ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma::State'],['../structvt_1_1rdma_1_1_state.html#a7ab4e08a915e4b8357e8f079844c9378',1,'vt::rdma::State::State()'],['../structvt_1_1rdma_1_1_state_message.html#a9a80ddef962eae297172e1f269a59b7f',1,'vt::rdma::StateMessage::state()']]],
+  ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma::State'],['../structvt_1_1rdma_1_1_state_message.html#a9a80ddef962eae297172e1f269a59b7f',1,'vt::rdma::StateMessage::state()'],['../structvt_1_1rdma_1_1_state.html#a7ab4e08a915e4b8357e8f079844c9378',1,'vt::rdma::State::State()']]],
   ['state_2eh',['state.h',['../state_8h.html',1,'']]],
   ['state_5fprinter_2eh',['state_printer.h',['../state__printer_8h.html',1,'']]],
   ['state_5fstringize_2eh',['state_stringize.h',['../state__stringize_8h.html',1,'']]],

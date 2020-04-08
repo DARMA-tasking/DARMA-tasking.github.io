@@ -26,6 +26,7 @@ var searchData=
   ['destroychannel',['DestroyChannel',['../namespacevt_1_1rdma.html#a1273aeddd73c1ffac0d7383ef7a314d8',1,'vt::rdma']]],
   ['difference_5ftype',['difference_type',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html#aba8b3805fbc28a4fbb78cad61e0f2ed4',1,'vt::term::interval::IntegralSetBase::IntervalSetIter']]],
   ['dijkstrascholtenterm',['DijkstraScholtenTerm',['../namespacevt_1_1term.html#a886197ad3670cebba77f6b87ca59b4c9',1,'vt::term']]],
+  ['directorymaptype',['DirectoryMapType',['../structvt_1_1location_1_1_directory.html#a6a897ff3929eccb2d334eb0b87b53f57',1,'vt::location::Directory']]],
   ['dispatchbaseowningptrtype',['DispatchBaseOwningPtrType',['../namespacevt_1_1vrt_1_1collection.html#a124f83d203352b6bccc4f12ca489b68b',1,'vt::vrt::collection']]],
   ['dispatchbaseptrtype',['DispatchBasePtrType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a8f2ded4cfa63faa119c2bd550764878f',1,'vt::objgroup::ObjGroupManager::DispatchBasePtrType()'],['../namespacevt_1_1vrt_1_1collection.html#aa3b9731ae16d60fac43d68840f3606a5',1,'vt::vrt::collection::DispatchBasePtrType()']]],
   ['dispatchbasetype',['DispatchBaseType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ae89a82f6bfca9bbd007791f1cac88f8f',1,'vt::objgroup::ObjGroupManager::DispatchBaseType()'],['../namespacevt_1_1vrt_1_1collection.html#a9e2462f78f56998464ffc7f35369c70f',1,'vt::vrt::collection::DispatchBaseType()']]],

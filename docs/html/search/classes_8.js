@@ -4,7 +4,7 @@ var searchData=
   ['indexholder',['IndexHolder',['../structvt_1_1auto__registry_1_1_index_holder.html',1,'vt::auto_registry']]],
   ['indexinfo',['IndexInfo',['../structvt_1_1rdma_1_1_index_info.html',1,'vt::rdma']]],
   ['indextagtype',['IndexTagType',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_1ceedd6f8d829061f3897a02dba9ce2d.html',1,'vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; not std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;']]],
-  ['info',['Info',['../structvt_1_1rdma_1_1_info.html',1,'vt::rdma::Info'],['../structvt_1_1group_1_1_info.html',1,'vt::group::Info']]],
+  ['info',['Info',['../structvt_1_1group_1_1_info.html',1,'vt::group::Info'],['../structvt_1_1rdma_1_1_info.html',1,'vt::rdma::Info']]],
   ['infobase',['InfoBase',['../structvt_1_1group_1_1_info_base.html',1,'vt::group']]],
   ['infocoll',['InfoColl',['../structvt_1_1group_1_1_info_coll.html',1,'vt::group']]],
   ['informrdmamsg',['InformRDMAMsg',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html',1,'vt::rdma::impl']]],

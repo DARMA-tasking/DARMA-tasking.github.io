@@ -51,6 +51,7 @@ var searchData=
   ['destroynow',['destroyNow',['../structvt_1_1vrt_1_1collection_1_1_destroy_handlers.html#a27d991f4d45f8ec50b6f32a49ca84970',1,'vt::vrt::collection::DestroyHandlers']]],
   ['destroyworkerpools',['destroyWorkerPools',['../structvt_1_1pool_1_1_pool.html#a7667904b82ae8b830a6038e8bbf4939d',1,'vt::pool::Pool']]],
   ['detectcycles',['detectCycles',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#ab1b5d635c0d47e17fe1b5302370bf2d0',1,'vt::termination::graph::EpochGraph']]],
+  ['directory',['Directory',['../structvt_1_1location_1_1_directory.html#a166cb46d3274d1bc09e4b852d70172af',1,'vt::location::Directory']]],
   ['disabletracing',['disableTracing',['../structvt_1_1trace_1_1_trace.html#a54f34dbcf8960de7b319e44ef9b76eb0',1,'vt::trace::Trace']]],
   ['disengage',['disengage',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#a55a5290621f7de06a421793daba374e8',1,'vt::term::ds::StateDS']]],
   ['disengaged',['disengaged',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a7f77705496eed386505e5bd266fc9800',1,'vt::term::ds::TermDS']]],

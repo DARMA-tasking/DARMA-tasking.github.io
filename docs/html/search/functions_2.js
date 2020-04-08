@@ -52,6 +52,7 @@ var searchData=
   ['clearactionsepoch',['clearActionsEpoch',['../structvt_1_1term_1_1_term_action.html#a942136955ad91cd2e464e05956115ed3',1,'vt::term::TermAction']]],
   ['clearalllisteners',['clearAllListeners',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a5ef82532eb8d0d65fe7b07f7fb53491d',1,'vt::pipe::signal::SignalHolder']]],
   ['clearallsignals',['clearAllSignals',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a9907ff2a131c6aafe6771c09b6ae9415',1,'vt::pipe::signal::SignalHolder']]],
+  ['clearcache',['clearCache',['../structvt_1_1location_1_1_entity_location_coord.html#ac20c510b73a5f6f753269b6d05b389aa',1,'vt::location::EntityLocationCoord::clearCache()'],['../structvt_1_1location_1_1_loc_lookup.html#aae2c3e418b59b36c0a53da17fe7fb3b8',1,'vt::location::LocLookup::clearCache()']]],
   ['clearlisteners',['clearListeners',['../structvt_1_1messaging_1_1_active_messenger.html#af7bcc5ce345c1138a67b6f80abb56705',1,'vt::messaging::ActiveMessenger']]],
   ['clearpipe',['clearPipe',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a9f31fab057a4e9af38547859572b6127',1,'vt::pipe::signal::SignalHolder']]],
   ['clearready',['clearReady',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a2a16bdae9bb011c1f32cd1cbf4a93f55',1,'vt::vrt::collection::Holder']]],

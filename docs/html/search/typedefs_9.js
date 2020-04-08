@@ -24,7 +24,7 @@ var searchData=
   ['locationcachetype',['LocationCacheType',['../structvt_1_1rdma_1_1_collection_info.html#a25a687ebde2ae64ae23dd9a7216071be',1,'vt::rdma::CollectionInfo']]],
   ['locationroutedmsg',['LocationRoutedMsg',['../namespacevt.html#a0cb65f2151629893480ef391def4e733',1,'vt']]],
   ['locationsizetype',['LocationSizeType',['../namespacevt_1_1location.html#ab1c4c5849012a23eee2fbd1fce6159d7',1,'vt::location']]],
-  ['loccachetype',['LocCacheType',['../structvt_1_1location_1_1_entity_location_coord.html#a458ea45b5583c8096af7e11533876e47',1,'vt::location::EntityLocationCoord']]],
+  ['loccachetype',['LocCacheType',['../structvt_1_1location_1_1_entity_location_coord.html#a8824e120b11c3234534a6dce11fe0c69',1,'vt::location::EntityLocationCoord']]],
   ['loccoordptrtype',['LocCoordPtrType',['../structvt_1_1location_1_1_location_manager.html#a98ed824c058080e538546fc731cb8f4c',1,'vt::location::LocationManager']]],
   ['locdeletertype',['LocDeleterType',['../structvt_1_1location_1_1_location_manager.html#ab0ce8907fcf9b36cf884af08c744ddb1',1,'vt::location::LocationManager']]],
   ['locentitymsg',['LocEntityMsg',['../structvt_1_1location_1_1_entity_location_coord.html#ab0db07ed0b9f75712922733dd467b100',1,'vt::location::EntityLocationCoord']]],
