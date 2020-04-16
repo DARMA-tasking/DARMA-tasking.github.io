@@ -92,7 +92,6 @@ var searchData=
   ['colorizeoutput',['colorizeOutput',['../namespacevt_1_1debug.html#adf5702c2e0469340d30ee8882848f304',1,'vt::debug']]],
   ['combine',['combine',['../structvt_1_1lb_1_1instrumentation_1_1_central_collect.html#a38b6e55982754362cbea1921e044038c',1,'vt::lb::instrumentation::CentralCollect']]],
   ['commscheduler',['commScheduler',['../structvt_1_1worker_1_1_worker_group_any.html#ad935117e72318af02e1554be480d3db6',1,'vt::worker::WorkerGroupAny']]],
-  ['compress',['compress',['../structvt_1_1messaging_1_1_i_recv_holder.html#acfbf80c561c8aa8e75d27d2ee2892b09',1,'vt::messaging::IRecvHolder']]],
   ['compressedsize',['compressedSize',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a48ab16ffe03b4285c7210df3084904af',1,'vt::term::interval::IntegralSetBase']]],
   ['compression',['compression',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1897d55d5f300ad209d2ce014240680d',1,'vt::term::interval::IntegralSetBase']]],
   ['computestatistics',['computeStatistics',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a44ab2755595d800e50576fa53bee7d91',1,'vt::vrt::collection::lb::BaseLB']]],

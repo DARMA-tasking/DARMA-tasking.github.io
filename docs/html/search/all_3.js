@@ -288,7 +288,6 @@ var searchData=
   ['communicator_5f',['communicator_',['../structvt_1_1runtime_1_1_runtime.html#aac7791a6c4e45d1bb55a2567a5e8901a',1,'vt::runtime::Runtime']]],
   ['comparetype',['CompareType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a8788c1d68e2b4348c341c120363c95e7',1,'vt::term::interval::IntegralSetBase']]],
   ['componentptrtype',['ComponentPtrType',['../structvt_1_1runtime_1_1_runtime.html#a7be844b7ff254b9877ec5309068e7bac',1,'vt::runtime::Runtime']]],
-  ['compress',['compress',['../structvt_1_1messaging_1_1_i_recv_holder.html#acfbf80c561c8aa8e75d27d2ee2892b09',1,'vt::messaging::IRecvHolder']]],
   ['compressedsize',['compressedSize',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a48ab16ffe03b4285c7210df3084904af',1,'vt::term::interval::IntegralSetBase']]],
   ['compression',['compression',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1897d55d5f300ad209d2ce014240680d',1,'vt::term::interval::IntegralSetBase']]],
   ['computestatistics',['computeStatistics',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a44ab2755595d800e50576fa53bee7d91',1,'vt::vrt::collection::lb::BaseLB']]],
