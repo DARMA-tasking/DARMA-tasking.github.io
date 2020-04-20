@@ -79,6 +79,7 @@ var searchData=
   ['statisticmaptype',['StatisticMapType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a6e8dead5546b2054f604ca258e1e815e',1,'vt::vrt::collection::lb::BaseLB']]],
   ['statistictype',['StatisticType',['../namespacestd.html#a77b0310083adc8639f9659f5c8b3cf0d',1,'std']]],
   ['statsmsgtype',['StatsMsgType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#acebfe78fa7dbafe6e9e5e5e514cda278',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['subphasetype',['SubphaseType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#af9ec1f2527b6569a003579f7950db71e',1,'vt::vrt::collection::balance::ElementStats']]],
   ['successorbagtype',['SuccessorBagType',['../structvt_1_1term_1_1_epoch_dependency.html#a3f00b47c33158f3241ebbeb0a0cb7b1d',1,'vt::term::EpochDependency::SuccessorBagType()'],['../structvt_1_1term_1_1_termination_detector.html#ac8df9c8a604ee2073ce195a994aaf252',1,'vt::term::TerminationDetector::SuccessorBagType()']]],
   ['systemseqfuntype',['SystemSeqFunType',['../namespacevt_1_1seq.html#a80eeb50c74a4a3bd46fcf4d5213c5ebe',1,'vt::seq']]]
 ];

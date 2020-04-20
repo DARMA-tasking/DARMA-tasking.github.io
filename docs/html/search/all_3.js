@@ -413,6 +413,7 @@ var searchData=
   ['cur_5frt',['CUR_RT',['../runtime__get_8cc.html#aea43b6878d7b8849c44e498ae189ebb6',1,'runtime_get.cc']]],
   ['cur_5frt_5fsafe',['CUR_RT_SAFE',['../runtime__get_8cc.html#aca15cd29123ffd9da46962e7fb89de34',1,'runtime_get.cc']]],
   ['cur_5frt_5fts',['CUR_RT_TS',['../runtime__get_8cc.html#a8cce177717c7a0d78b4c9090de310f92',1,'runtime_get.cc']]],
+  ['cur_5fsubphase_5f',['cur_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a1a8a5e855950900f0f1b470ff5f6071b',1,'vt::vrt::collection::balance::ElementStats']]],
   ['cur_5ftime_5f',['cur_time_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ab0538c11d7a658e43f80c48023f7b8c6',1,'vt::vrt::collection::balance::ElementStats']]],
   ['cur_5ftime_5fstarted_5f',['cur_time_started_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a4fa029e81c6907ace700b8c3df10457f',1,'vt::vrt::collection::balance::ElementStats']]],
   ['curepoch_5f',['curEpoch_',['../structvt_1_1vrt_1_1collection_1_1_deletable_epoch.html#acba17c908f0511a830712bb44894ceac',1,'vt::vrt::collection::DeletableEpoch::curEpoch_()'],['../structvt_1_1vrt_1_1collection_1_1_insertable_epoch.html#acaadf611bda2cb1cd810efdac251057d',1,'vt::vrt::collection::InsertableEpoch::curEpoch_()']]],

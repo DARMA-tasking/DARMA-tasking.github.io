@@ -46,6 +46,7 @@ var searchData=
   ['flushtracesfile',['flushTracesFile',['../structvt_1_1trace_1_1_trace.html#a2e07094a48c47b9c591003f0b57305c7',1,'vt::trace::Trace']]],
   ['fnparamtype',['FnParamType',['../structvt_1_1runnable_1_1_runnable.html#aaad8725f31ab762ded7babaaf83574a3',1,'vt::runnable::Runnable::FnParamType()'],['../structvt_1_1runnable_1_1_runnable_void.html#a30afc667067328b9bc264b206ac607ba',1,'vt::runnable::RunnableVoid::FnParamType()']]],
   ['fntype',['FnType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#ac2c474a68a93bbc8e1d86eb99dabf1dc',1,'vt::pipe::PipeManagerTL::FnType()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_listener.html#af3b881f723f2d7850f6941261449e4d9',1,'vt::vrt::collection::balance::LBListener::FnType()']]],
+  ['focused_5fsubphase_5f',['focused_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#adcb9398a6c5bc0b5f66a55d23694743c',1,'vt::vrt::collection::balance::ElementStats']]],
   ['for_5floop',['for_loop',['../structvt_1_1seq_1_1_tagged_sequencer.html#a798c857fbac821760fbdf54cd4515505',1,'vt::seq::TaggedSequencer']]],
   ['forarrayeltmsg',['ForArrayEltMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eabbc8fa262b92a316cd83bc9a1dfbc97b',1,'vt::trace']]],
   ['forbocmsg',['ForBocMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaa3ce6e46f0554f800a109f72c6463a97',1,'vt::trace']]],

@@ -5,6 +5,7 @@ var searchData=
   ['finalize_5fon_5fterm_5f',['finalize_on_term_',['../structvt_1_1runtime_1_1_runtime.html#a1a7a0e6783b3326a4ded84f829a1d0b3',1,'vt::runtime::Runtime']]],
   ['finalized_5f',['finalized_',['../structvt_1_1runtime_1_1_runtime.html#a2a798a2bf9b8c0a70785cde3cc8119c4',1,'vt::runtime::Runtime']]],
   ['finished_5finit_5f',['finished_init_',['../structvt_1_1group_1_1_info_coll.html#a46f40eb8a2394642b362b08024454af0',1,'vt::group::InfoColl']]],
+  ['focused_5fsubphase_5f',['focused_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#adcb9398a6c5bc0b5f66a55d23694743c',1,'vt::vrt::collection::balance::ElementStats']]],
   ['forward_5fnode_5f',['forward_node_',['../structvt_1_1group_1_1_info_rooted.html#a04c0511b4cc3745e079f03b60d9bc189',1,'vt::group::InfoRooted']]],
   ['from_5f',['from_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a9bf6895070fbbce25ac12307bf606036',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['from_5fnode',['from_node',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a54ea3b62b0e7f9ec65d866c7afc82770',1,'vt::messaging::BufferedActiveMsg::from_node()'],['../structvt_1_1serialization_1_1_serialized_data_msg_any.html#aca0ea3cc0037b1d171d610a44a2b8e43',1,'vt::serialization::SerializedDataMsgAny::from_node()'],['../structvt_1_1vrt_1_1_remote_vrt_info.html#a3c792ce47e50024104e88ca6c8c7708e',1,'vt::vrt::RemoteVrtInfo::from_node()']]],

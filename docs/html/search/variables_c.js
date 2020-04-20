@@ -6,6 +6,7 @@ var searchData=
   ['next',['next',['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#a5ad86cdc45485f33d787fdc691735fbe',1,'vt::messaging::InProgressDataIRecv']]],
   ['nfrom_5f',['nfrom_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#abc9aa99cd2f176756be39d326e808cbf',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['no_5fgroup_5fpos',['no_group_pos',['../structvt_1_1rdma_1_1_channel.html#a5b8e4d79d272951f51a9856705110d24',1,'vt::rdma::Channel']]],
+  ['no_5fsubphase',['no_subphase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a26682687c88b2c607365b040a9804096',1,'vt::vrt::collection::balance::ElementStats']]],
   ['node',['node',['../structvt_1_1trace_1_1_log.html#a39a932cb9c4775f83117d0be477bc8c8',1,'vt::trace::Log::node()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#a366bc483a75657b3dba66e0657c874fb',1,'vt::vrt::collection::lb::HierLBChild::node()']]],
   ['node_5f',['node_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_proc.html#aad516b90985606d8d27ddd89e0109a6a',1,'vt::vrt::collection::lb::GreedyProc']]],
   ['node_5fsize',['node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#ac03c38a79a387b33024a98d788fc5afe',1,'vt::vrt::collection::lb::HierLBChild']]],

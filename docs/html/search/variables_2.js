@@ -42,6 +42,7 @@ var searchData=
   ['cur_5fload',['cur_load',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#a5dd23bde0bd84e45f15ee9f144f7fb9e',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['cur_5floc_5finst',['cur_loc_inst',['../structvt_1_1location_1_1_location_manager.html#a644b4b030fd616375728316281295250',1,'vt::location::LocationManager']]],
   ['cur_5fphase_5f',['cur_phase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a661531ffc78883018a8e553179f9324d',1,'vt::vrt::collection::balance::ElementStats']]],
+  ['cur_5fsubphase_5f',['cur_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a1a8a5e855950900f0f1b470ff5f6071b',1,'vt::vrt::collection::balance::ElementStats']]],
   ['cur_5ftime_5f',['cur_time_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ab0538c11d7a658e43f80c48023f7b8c6',1,'vt::vrt::collection::balance::ElementStats']]],
   ['cur_5ftime_5fstarted_5f',['cur_time_started_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a4fa029e81c6907ace700b8c3df10457f',1,'vt::vrt::collection::balance::ElementStats']]],
   ['curepoch_5f',['curEpoch_',['../structvt_1_1vrt_1_1collection_1_1_deletable_epoch.html#acba17c908f0511a830712bb44894ceac',1,'vt::vrt::collection::DeletableEpoch::curEpoch_()'],['../structvt_1_1vrt_1_1collection_1_1_insertable_epoch.html#acaadf611bda2cb1cd810efdac251057d',1,'vt::vrt::collection::InsertableEpoch::curEpoch_()']]],
