@@ -88,7 +88,7 @@ var searchData=
   ['makespecfromparams',['makeSpecFromParams',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a4a3fc33794511c6d74d6e4a70eb72682',1,'vt::vrt::collection::balance::ReadLBSpec']]],
   ['makesubhandles',['makeSubHandles',['../structvt_1_1rdma_1_1_sub_handle.html#a24d2a25c3d1ed517b3d38fdc23067c14',1,'vt::rdma::SubHandle']]],
   ['maketracecreationsend',['makeTraceCreationSend',['../structvt_1_1messaging_1_1_active_messenger.html#a527858e860bb7b373489ae425fd3fdcc',1,'vt::messaging::ActiveMessenger']]],
-  ['makeunderloadedrelaxed',['makeUnderloadedRelaxed',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a8be50d7877433de416d325d44b5e669a',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['makeunderloaded',['makeUnderloaded',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a244326d030b7b9b82328d2ce617fef43',1,'vt::vrt::collection::lb::GossipLB']]],
   ['makevirtual',['makeVirtual',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ab6d6601aa3ad04d10b944f9f7f9f478d',1,'vt::vrt::VirtualContextManager']]],
   ['makevirtualmap',['makeVirtualMap',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a51d6fd5ce3ca5998b99f113d44297dd6',1,'vt::vrt::VirtualContextManager::makeVirtualMap(Args ... args)'],['../structvt_1_1vrt_1_1_virtual_context_manager.html#a281e670da4eb6e06ecdb4ef470e1a61d',1,'vt::vrt::VirtualContextManager::makeVirtualMap(Args... args)']]],
   ['makevirtualnode',['makeVirtualNode',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a18c6dad4c4c963f883c59f64f78e36cb',1,'vt::vrt::VirtualContextManager']]],
