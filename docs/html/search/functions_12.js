@@ -7,7 +7,7 @@ var searchData=
   ['scattermsg',['ScatterMsg',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#ab393af0a9d5fafdbb6524e0526626757',1,'vt::collective::scatter::ScatterMsg::ScatterMsg()=default'],['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#a7803844bde5a3de0bec52aa713371c50',1,'vt::collective::scatter::ScatterMsg::ScatterMsg(std::size_t in_total_bytes, std::size_t in_elm_bytes)']]],
   ['scheduleactivemsg',['scheduleActiveMsg',['../structvt_1_1messaging_1_1_active_messenger.html#a877d3a681b48e386a1fe67201181b6bd',1,'vt::messaging::ActiveMessenger']]],
   ['schedulemsg',['scheduleMsg',['../namespacevt_1_1objgroup.html#a7beec0700b3e4d81e0ea31027b445ecf',1,'vt::objgroup']]],
-  ['scheduler',['Scheduler',['../structvt_1_1sched_1_1_scheduler.html#a54b61f09996bca1d5ed5332e1a4e2b60',1,'vt::sched::Scheduler::Scheduler()'],['../structvt_1_1sched_1_1_scheduler.html#ad2653b260780c89a20e9253608ef1282',1,'vt::sched::Scheduler::scheduler(bool msg_only=false)']]],
+  ['scheduler',['scheduler',['../structvt_1_1sched_1_1_scheduler.html#ad2653b260780c89a20e9253608ef1282',1,'vt::sched::Scheduler::scheduler(bool msg_only=false)'],['../structvt_1_1sched_1_1_scheduler.html#a54b61f09996bca1d5ed5332e1a4e2b60',1,'vt::sched::Scheduler::Scheduler()']]],
   ['schedulercomm',['schedulerComm',['../structvt_1_1worker_1_1_worker_group_comm.html#a2801e1bc38337507fd6f14ff8b439b84',1,'vt::worker::WorkerGroupComm']]],
   ['schedulerforever',['schedulerForever',['../structvt_1_1sched_1_1_scheduler.html#aeb4e90d08783fe7adf2b8f726b888285',1,'vt::sched::Scheduler']]],
   ['schedulethenfinalize',['scheduleThenFinalize',['../structvt_1_1_collective_any_ops.html#a10be760566e5c50ce6d35ab93d7736ce',1,'vt::CollectiveAnyOps']]],

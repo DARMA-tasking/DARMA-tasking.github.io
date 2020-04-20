@@ -9,5 +9,5 @@ var searchData=
   ['loadoveroneeach',['LoadOverOneEach',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5eaa3040fb94a8691e32930a5836d830ec4',1,'vt::vrt::collection::lb']]],
   ['loadoverrandom',['LoadOverRandom',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5eabde3377fc5ba5b092a195c8ac4b6ea09',1,'vt::vrt::collection::lb']]],
   ['local',['Local',['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4',1,'vt::location']]],
-  ['location',['Location',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ace5bf551379459c1c61d2a204061c455',1,'vt::error::Location()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d8501591ca3859c828489054b17640',1,'vt::config::location()']]]
+  ['location',['location',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d8501591ca3859c828489054b17640',1,'vt::config::location()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ace5bf551379459c1c61d2a204061c455',1,'vt::error::Location()']]]
 ];

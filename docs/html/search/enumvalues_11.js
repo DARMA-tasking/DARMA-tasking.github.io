@@ -7,6 +7,6 @@ var searchData=
   ['terminated',['Terminated',['../namespacevt_1_1term.html#ad8ec9b371608fc88e7fdeef219785b27afba9c4daa2dd29d1077d32d965320ac1',1,'vt::term']]],
   ['termination',['Termination',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a61e77370e51c7ffa489700cbd32f2ad9',1,'vt::error']]],
   ['timing',['Timing',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ad3b69e993f4e9bf9c479c7e794ede387',1,'vt::error']]],
-  ['trace',['trace',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa14cb3132cde2e74239755b4c3944f43',1,'vt::config::trace()'],['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2aee391b103987f3eb488e081ecc1fc5e8',1,'vt::Trace()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12add4ec0ac4e58f7c32a01244ae91150b1',1,'vt::error::Trace()']]],
+  ['trace',['Trace',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2aee391b103987f3eb488e081ecc1fc5e8',1,'vt::Trace()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12add4ec0ac4e58f7c32a01244ae91150b1',1,'vt::error::Trace()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa14cb3132cde2e74239755b4c3944f43',1,'vt::config::trace()']]],
   ['typeidx',['TypeIdx',['../namespacevt_1_1objgroup_1_1proxy.html#a5cfde1a666e49070fcc0312e51d53777a3993e012fc4525e4ddc1a6e30a75714c',1,'vt::objgroup::proxy']]]
 ];
