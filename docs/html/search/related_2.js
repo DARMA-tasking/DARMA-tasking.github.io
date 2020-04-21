@@ -9,5 +9,5 @@ var searchData=
   ['collectiontypeattorney',['CollectionTypeAttorney',['../structvt_1_1vrt_1_1collection_1_1_indexable.html#abb4eb03ec2c75b459ceec69021d22a2b',1,'vt::vrt::collection::Indexable::CollectionTypeAttorney()'],['../structvt_1_1vrt_1_1collection_1_1_static_collection_base.html#abb4eb03ec2c75b459ceec69021d22a2b',1,'vt::vrt::collection::StaticCollectionBase::CollectionTypeAttorney()']]],
   ['collectmsg',['CollectMsg',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#a3775df26b6b7ed805def8013957fd548',1,'vt::lb::instrumentation::Database']]],
   ['contextattorney',['ContextAttorney',['../structvt_1_1ctx_1_1_context.html#a75c33a90ea59b21ab5375343af0f8e26',1,'vt::ctx::Context']]],
-  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a7bbe05894c87d4c1c75375b8be72934d',1,'vt::vrt::collection::balance::ElementStats']]]
+  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ad16bcfc5db0df5769bebcb8888c723d0',1,'vt::vrt::collection::balance::ElementStats']]]
 ];

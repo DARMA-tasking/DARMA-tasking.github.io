@@ -116,7 +116,7 @@ var searchData=
   ['messageresetdeserdes',['messageResetDeserdes',['../namespacevt.html#a0f350257a0ce26c241d4e5505bc5c68c',1,'vt']]],
   ['messagesetunmanaged',['messageSetUnmanaged',['../namespacevt.html#a93eca5e291bd6c27ea008f2b6cd8e9d0',1,'vt']]],
   ['messagetypechecks',['messageTypeChecks',['../namespacevt.html#a142f0176ac9370a75ae1311f7364a174',1,'vt']]],
-  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#aed21a92808d62ff482cb44d750267b0c',1,'vt::vrt::collection::Migratable']]],
+  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a598f0bb3acfb602d437eab3625b105c5',1,'vt::vrt::collection::Migratable']]],
   ['migrate',['migrate',['../structvt_1_1lb_1_1centralized_1_1_central_migrate.html#ac71e322fccc6b6cceefb3f74e9d8e311',1,'vt::lb::centralized::CentralMigrate::migrate()'],['../structvt_1_1_has_migrate.html#a7b35a6214b83de93380f5fc568a744c8',1,'vt::HasMigrate::migrate()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#ab4ea54ee62ebad9105d79ece61f41b50',1,'vt::vrt::collection::lb::GossipLB::migrate()'],['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a195df30bb149ade0000c5c5118b57d87',1,'vt::vrt::collection::CollectionManager::migrate()'],['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#a34f089d6f08e84b1745a265ad865807a',1,'vt::vrt::collection::CollectionBase::migrate()']]],
   ['migratedinindex',['migratedInIndex',['../structvt_1_1rdma_1_1_sub_handle.html#a0497a34f8aeb5636e5adaa8d8286c5c8',1,'vt::rdma::SubHandle']]],
   ['migratedoutindex',['migratedOutIndex',['../structvt_1_1rdma_1_1_sub_handle.html#a6723f3d3ff525c3fd8aaca76f781c95d',1,'vt::rdma::SubHandle']]],

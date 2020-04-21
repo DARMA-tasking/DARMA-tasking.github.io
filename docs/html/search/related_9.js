@@ -1,6 +1,6 @@
 var searchData=
 [
   ['manager',['Manager',['../structvt_1_1rdma_1_1_base_typed_handle.html#a1fd6b9bc3f72bb2b64e602de3982929d',1,'vt::rdma::BaseTypedHandle::Manager()'],['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a.html#a1fd6b9bc3f72bb2b64e602de3982929d',1,'vt::rdma::value &gt;&gt;::Manager()'],['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456.html#a1fd6b9bc3f72bb2b64e602de3982929d',1,'vt::rdma::value &gt;&gt;::Manager()'],['../structvt_1_1rdma_1_1_handle_set.html#a1fd6b9bc3f72bb2b64e602de3982929d',1,'vt::rdma::HandleSet::Manager()'],['../structvt_1_1rdma_1_1_holder.html#a1fd6b9bc3f72bb2b64e602de3982929d',1,'vt::rdma::Holder::Manager()']]],
-  ['migratable_3c_20colt_20_3e',['Migratable&lt; ColT &gt;',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html#a84862bfff2c5474deebea7c6cb8511a7',1,'vt::vrt::collection::CollectionElmAttorney']]],
+  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html#a5137563a7cb738979426be13c3089839',1,'vt::vrt::collection::CollectionElmAttorney']]],
   ['migratehandlers',['MigrateHandlers',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html#af2ee449d95081faa04ebc6b8ae6516ed',1,'vt::vrt::collection::CollectionElmAttorney']]]
 ];

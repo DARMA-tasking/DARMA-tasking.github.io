@@ -47,7 +47,7 @@ var searchData=
   ['index_5fexample_2eh',['index_example.h',['../index__example_8h.html',1,'']]],
   ['index_5finfo_2eh',['index_info.h',['../index__info_8h.html',1,'']]],
   ['index_5fmax_5fsize',['index_max_size',['../structvt_1_1auto__registry_1_1_max_index_holder.html#a44a1c78f9cd85a6c7f0f68315254c0f9',1,'vt::auto_registry::MaxIndexHolder']]],
-  ['indexable',['Indexable',['../structvt_1_1vrt_1_1collection_1_1_indexable.html',1,'vt::vrt::collection::Indexable&lt; ColT, IndexT &gt;'],['../structvt_1_1vrt_1_1collection_1_1_indexable.html#ad398d2870a2cd045a87adf71722eb3d3',1,'vt::vrt::collection::Indexable::Indexable(IndexT &amp;&amp;in_index)'],['../structvt_1_1vrt_1_1collection_1_1_indexable.html#a6ead4d5d60a5ae95fd846f0a81916e96',1,'vt::vrt::collection::Indexable::Indexable()=default']]],
+  ['indexable',['Indexable',['../structvt_1_1vrt_1_1collection_1_1_indexable.html',1,'vt::vrt::collection::Indexable&lt; IndexT &gt;'],['../structvt_1_1vrt_1_1collection_1_1_indexable.html#ad3f327a35771a31ec63241b9be57569c',1,'vt::vrt::collection::Indexable::Indexable(IndexT &amp;&amp;in_index)'],['../structvt_1_1vrt_1_1collection_1_1_indexable.html#a6390131bf531b7128367c51c788305c2',1,'vt::vrt::collection::Indexable::Indexable()=default']]],
   ['indexable_2eh',['indexable.h',['../indexable_8h.html',1,'']]],
   ['indexable_2eimpl_2eh',['indexable.impl.h',['../indexable_8impl_8h.html',1,'']]],
   ['indexargs',['indexArgs',['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html#a0119b05e9284408d0b6dfc8fc47b12d6',1,'vt::vrt::collection::CollectionProxy']]],

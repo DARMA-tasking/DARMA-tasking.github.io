@@ -425,5 +425,5 @@ var searchData=
   ['cxx14_5fconjunction_3c_20b1_2c_20bn_2e_2e_2e_20_3e',['cxx14_conjunction&lt; B1, Bn... &gt;',['../structvt_1_1messaging_1_1cxx14__conjunction_3_01_b1_00_01_bn_8_8_8_01_4.html',1,'vt::messaging']]],
   ['cxx14_5fmake_5fvoid',['cxx14_make_void',['../structvt_1_1messaging_1_1cxx14__make__void.html',1,'vt::messaging']]],
   ['cxx14_5fvoid_5ft',['cxx14_void_t',['../namespacevt_1_1messaging.html#a9724e719b301289eb8b3afbf9c44cf46',1,'vt::messaging']]],
-  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a7bbe05894c87d4c1c75375b8be72934d',1,'vt::vrt::collection::balance::ElementStats']]]
+  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ad16bcfc5db0df5769bebcb8888c723d0',1,'vt::vrt::collection::balance::ElementStats']]]
 ];
