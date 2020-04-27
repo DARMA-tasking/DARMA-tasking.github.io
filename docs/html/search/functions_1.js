@@ -47,7 +47,7 @@ var searchData=
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a76b964a87805d59f20d0cbf861f546a2',1,'vt::messaging::BufferedActiveMsg']]],
   ['bufferunmatchedaction',['bufferUnmatchedAction',['../structvt_1_1seq_1_1_seq_matcher.html#aca3ab24ab457f57cd341c21aff0c0951',1,'vt::seq::SeqMatcher::bufferUnmatchedAction()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a1679c1eba073362e70808fb89a174c6c',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedAction()']]],
   ['bufferunmatchedmessage',['bufferUnmatchedMessage',['../structvt_1_1seq_1_1_seq_matcher.html#a1dc8c34d3611f4eac7e21089e1484e52',1,'vt::seq::SeqMatcher::bufferUnmatchedMessage()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a60dd673159850b4dea0b0d5e69f2ddef',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedMessage()']]],
-  ['builddata',['buildData',['../namespacevt.html#a3fb362f6f25b91b86680b78569e3b2d0',1,'vt']]],
+  ['builddata',['buildData',['../namespacevt.html#a59494f92a4811ae4f2b5264a50aa78dd',1,'vt']]],
   ['buildmulticb',['buildMultiCB',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#aace7b9169efa610aa1d006eef4e68510',1,'vt::pipe::PipeManagerTyped']]],
   ['byellow',['byellow',['../namespacevt_1_1debug.html#afb3aac4faf63d7f2aac0d6d142d0b599',1,'vt::debug']]],
   ['byteserializedbuffer',['ByteSerializedBuffer',['../structvt_1_1serialization_1_1_byte_serialized_buffer.html#acd835ccd045487a2aff8fc7a6a0bac8e',1,'vt::serialization::ByteSerializedBuffer']]]

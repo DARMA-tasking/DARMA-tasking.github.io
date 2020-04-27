@@ -61,7 +61,7 @@ var searchData=
   ['collectionmessage',['CollectionMessage',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html',1,'vt::vrt::collection']]],
   ['collectionphasemsg',['CollectionPhaseMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_phase_msg.html',1,'vt::vrt::collection']]],
   ['collectionproxy',['CollectionProxy',['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html',1,'vt::vrt::collection']]],
-  ['collectiontag',['CollectionTag',['../structvt_1_1rdma_1_1_handle_key_1_1_collection_tag.html',1,'vt::rdma::HandleKey::CollectionTag'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key_1_1_collection_tag.html',1,'vt::vrt::collection::balance::LBCommKey::CollectionTag']]],
+  ['collectiontag',['CollectionTag',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key_1_1_collection_tag.html',1,'vt::vrt::collection::balance::LBCommKey::CollectionTag'],['../structvt_1_1rdma_1_1_handle_key_1_1_collection_tag.html',1,'vt::rdma::HandleKey::CollectionTag']]],
   ['collectiontonodetag',['CollectionToNodeTag',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key_1_1_collection_to_node_tag.html',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['collectiontypeattorney',['CollectionTypeAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_type_attorney.html',1,'vt::vrt::collection']]],
   ['collectionuntypedproxy',['CollectionUntypedProxy',['../structvt_1_1vrt_1_1collection_1_1_collection_untyped_proxy.html',1,'vt::vrt::collection']]],

@@ -137,7 +137,7 @@ var searchData=
   ['bufferptrtype',['BufferPtrType',['../structvt_1_1serialization_1_1_byte_copyable_traits.html#ab06bcaa790f4a227936f6d6854d2bf41',1,'vt::serialization::ByteCopyableTraits::BufferPtrType()'],['../namespacevt_1_1serialization.html#a88fa9b491e54f71b1a16d8464e5fc0a9',1,'vt::serialization::BufferPtrType()']]],
   ['bufferunmatchedaction',['bufferUnmatchedAction',['../structvt_1_1seq_1_1_seq_matcher.html#aca3ab24ab457f57cd341c21aff0c0951',1,'vt::seq::SeqMatcher::bufferUnmatchedAction()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a1679c1eba073362e70808fb89a174c6c',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedAction()']]],
   ['bufferunmatchedmessage',['bufferUnmatchedMessage',['../structvt_1_1seq_1_1_seq_matcher.html#a1dc8c34d3611f4eac7e21089e1484e52',1,'vt::seq::SeqMatcher::bufferUnmatchedMessage()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a60dd673159850b4dea0b0d5e69f2ddef',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedMessage()']]],
-  ['builddata',['buildData',['../namespacevt.html#a3fb362f6f25b91b86680b78569e3b2d0',1,'vt']]],
+  ['builddata',['buildData',['../namespacevt.html#a59494f92a4811ae4f2b5264a50aa78dd',1,'vt']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],
   ['buildindextype',['BuildIndexType',['../structvt_1_1index_1_1_dense_index_array.html#a84d2aa360d257c9b1d7e324088c7763b',1,'vt::index::DenseIndexArray::BuildIndexType()'],['../structvt_1_1index_1_1_example_index.html#ad5d24fa38ed7adc651d0b1178b53e421',1,'vt::index::ExampleIndex::BuildIndexType()']]],
   ['buildmulticb',['buildMultiCB',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#aace7b9169efa610aa1d006eef4e68510',1,'vt::pipe::PipeManagerTyped']]],
