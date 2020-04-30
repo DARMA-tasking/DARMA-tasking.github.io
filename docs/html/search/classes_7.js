@@ -29,7 +29,7 @@ var searchData=
   ['hierarchicallb',['HierarchicalLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html',1,'vt::vrt::collection::lb']]],
   ['hierlbchild',['HierLBChild',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html',1,'vt::vrt::collection::lb']]],
   ['hierlbtypes',['HierLBTypes',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_types.html',1,'vt::vrt::collection::lb']]],
-  ['holder',['Holder',['../structvt_1_1messaging_1_1statics_1_1_holder.html',1,'vt::messaging::statics::Holder'],['../structvt_1_1vrt_1_1collection_1_1_holder.html',1,'vt::vrt::collection::Holder&lt; ColT, IndexT &gt;'],['../structvt_1_1objgroup_1_1holder_1_1_holder.html',1,'vt::objgroup::holder::Holder&lt; ObjT &gt;'],['../structvt_1_1rdma_1_1_holder.html',1,'vt::rdma::Holder&lt; T, E &gt;']]],
+  ['holder',['Holder',['../structvt_1_1rdma_1_1_holder.html',1,'vt::rdma::Holder&lt; T, E &gt;'],['../structvt_1_1messaging_1_1statics_1_1_holder.html',1,'vt::messaging::statics::Holder'],['../structvt_1_1vrt_1_1collection_1_1_holder.html',1,'vt::vrt::collection::Holder&lt; ColT, IndexT &gt;'],['../structvt_1_1objgroup_1_1holder_1_1_holder.html',1,'vt::objgroup::holder::Holder&lt; ObjT &gt;']]],
   ['holderbase',['HolderBase',['../structvt_1_1objgroup_1_1holder_1_1_holder_base.html',1,'vt::objgroup::holder']]],
   ['holderbasic',['HolderBasic',['../structvt_1_1objgroup_1_1holder_1_1_holder_basic.html',1,'vt::objgroup::holder']]],
   ['holderobjbase',['HolderObjBase',['../structvt_1_1objgroup_1_1holder_1_1_holder_obj_base.html',1,'vt::objgroup::holder']]],

@@ -59,7 +59,7 @@ var searchData=
   ['commkeytype',['CommKeyType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a01c9a1060d83d052604a3ff12918033a',1,'vt::vrt::collection::balance']]],
   ['commmaptype',['CommMapType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#aa50d4cbbfa3c643e7303fc6e08f411fb',1,'vt::vrt::collection::balance']]],
   ['comparetype',['CompareType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a8788c1d68e2b4348c341c120363c95e7',1,'vt::term::interval::IntegralSetBase']]],
-  ['componentptrtype',['ComponentPtrType',['../structvt_1_1runtime_1_1_runtime.html#a7be844b7ff254b9877ec5309068e7bac',1,'vt::runtime::Runtime']]],
+  ['componentptrtype',['ComponentPtrType',['../structvt_1_1runtime_1_1_runtime.html#a0893bf0a8c03b898e8ab66b52cec80ad',1,'vt::runtime::Runtime']]],
   ['concurrentdeque',['ConcurrentDeque',['../namespacevt_1_1util_1_1container.html#a495a137e297e892f4e474d4aaad77c8a',1,'vt::util::container']]],
   ['containerpendingtype',['ContainerPendingType',['../structvt_1_1messaging_1_1_active_messenger.html#a388e97eeb72592e57551e045b43bcfde',1,'vt::messaging::ActiveMessenger']]],
   ['containerremotetype',['ContainerRemoteType',['../structvt_1_1vrt_1_1_virtual_context_manager.html#aa0314e4b3f1b39a531c7ba5b630fc72e',1,'vt::vrt::VirtualContextManager']]],

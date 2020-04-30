@@ -5,7 +5,7 @@ var searchData=
   ['barrier_5fmsg_2eh',['barrier_msg.h',['../barrier__msg_8h.html',1,'']]],
   ['barrier_5fstate_2eh',['barrier_state.h',['../barrier__state_8h.html',1,'']]],
   ['base_2efwd_2eh',['base.fwd.h',['../base_8fwd_8h.html',1,'']]],
-  ['base_2eh',['base.h',['../base_2base_8h.html',1,'(Global Namespace)'],['../collection_2types_2base_8h.html',1,'(Global Namespace)']]],
+  ['base_2eh',['base.h',['../runtime_2component_2base_8h.html',1,'(Global Namespace)'],['../vrt_2base_2base_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2types_2base_8h.html',1,'(Global Namespace)']]],
   ['base_2eimpl_2eh',['base.impl.h',['../base_8impl_8h.html',1,'']]],
   ['base_5fcollection_5felm_5fproxy_2eh',['base_collection_elm_proxy.h',['../base__collection__elm__proxy_8h.html',1,'']]],
   ['base_5fcollection_5felm_5fproxy_2eimpl_2eh',['base_collection_elm_proxy.impl.h',['../base__collection__elm__proxy_8impl_8h.html',1,'']]],
@@ -30,5 +30,6 @@ var searchData=
   ['bits_5fpacker_2eimpl_2eh',['bits_packer.impl.h',['../bits__packer_8impl_8h.html',1,'']]],
   ['broadcastable_2eh',['broadcastable.h',['../broadcastable_8h.html',1,'']]],
   ['broadcastable_2eimpl_2eh',['broadcastable.impl.h',['../broadcastable_8impl_8h.html',1,'']]],
+  ['bufferable_2eh',['bufferable.h',['../bufferable_8h.html',1,'']]],
   ['byte_5fcopy_5ftrait_2eh',['byte_copy_trait.h',['../byte__copy__trait_8h.html',1,'']]]
 ];

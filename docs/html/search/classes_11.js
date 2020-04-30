@@ -2,7 +2,9 @@ var searchData=
 [
   ['tagactiveenvelope',['TagActiveEnvelope',['../structvt_1_1messaging_1_1_tag_active_envelope.html',1,'vt::messaging']]],
   ['taggedsequencer',['TaggedSequencer',['../structvt_1_1seq_1_1_tagged_sequencer.html',1,'vt::seq']]],
+  ['taggedsequencer_3c_20seqtype_2c_20seqmigratabletriggertype_20_3e',['TaggedSequencer&lt; SeqType, SeqMigratableTriggerType &gt;',['../structvt_1_1seq_1_1_tagged_sequencer.html',1,'vt::seq']]],
   ['taggedsequencervrt',['TaggedSequencerVrt',['../structvt_1_1seq_1_1_tagged_sequencer_vrt.html',1,'vt::seq']]],
+  ['taggedsequencervrt_3c_20seqtype_2c_20seqmigratabletriggertype_20_3e',['TaggedSequencerVrt&lt; SeqType, SeqMigratableTriggerType &gt;',['../structvt_1_1seq_1_1_tagged_sequencer_vrt.html',1,'vt::seq']]],
   ['target',['Target',['../structvt_1_1rdma_1_1_target.html',1,'vt::rdma']]],
   ['templateextract',['TemplateExtract',['../structvt_1_1util_1_1demangle_1_1_template_extract.html',1,'vt::util::demangle']]],
   ['termaction',['TermAction',['../structvt_1_1term_1_1_term_action.html',1,'vt::term']]],
@@ -29,7 +31,7 @@ var searchData=
   ['transfermsg',['TransferMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_transfer_msg.html',1,'vt::vrt::collection::lb']]],
   ['tree',['Tree',['../structvt_1_1collective_1_1tree_1_1_tree.html',1,'vt::collective::tree']]],
   ['true_5ftype_20_3e_3e',['true_type &gt;&gt;',['../structvt_1_1serialization_1_1_size_3_01_msg_t_00_01typename_01std_1_1enable__if__t_3_01std_1_1true__type_01_4_4.html',1,'vt::serialization']]],
-  ['type',['Type',['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry']]],
+  ['type',['Type',['../structvt_1_1runtime_1_1component_1_1registry_1_1_type.html',1,'vt::runtime::component::registry::Type&lt; ObjT &gt;'],['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry::Type&lt; ObjT &gt;']]],
   ['typempi',['TypeMPI',['../structvt_1_1rdma_1_1_type_m_p_i.html',1,'vt::rdma']]],
   ['typempi_3c_20char_20_3e',['TypeMPI&lt; char &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01char_01_4.html',1,'vt::rdma']]],
   ['typempi_3c_20double_20_3e',['TypeMPI&lt; double &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01double_01_4.html',1,'vt::rdma']]],

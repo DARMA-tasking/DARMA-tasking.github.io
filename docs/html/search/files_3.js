@@ -29,6 +29,7 @@ var searchData=
   ['destroy_5fmsg_2eh',['destroy_msg.h',['../destroy__msg_8h.html',1,'']]],
   ['destroyable_2eh',['destroyable.h',['../destroyable_8h.html',1,'']]],
   ['destroyable_2eimpl_2eh',['destroyable.impl.h',['../destroyable_8impl_8h.html',1,'']]],
+  ['diagnostic_2eh',['diagnostic.h',['../diagnostic_8h.html',1,'']]],
   ['directory_2eh',['directory.h',['../directory_8h.html',1,'']]],
   ['directory_2eimpl_2eh',['directory.impl.h',['../directory_8impl_8h.html',1,'']]],
   ['dispatch_2eh',['dispatch.h',['../objgroup_2dispatch_2dispatch_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2dispatch_2dispatch_8h.html',1,'(Global Namespace)']]],

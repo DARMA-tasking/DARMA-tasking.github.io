@@ -15,7 +15,6 @@ var searchData=
   ['objgroupmanager',['ObjGroupManager',['../structvt_1_1objgroup_1_1_obj_group_manager.html',1,'vt::objgroup::ObjGroupManager'],['../structvt_1_1objgroup_1_1_obj_group_manager.html#a2de45aef25bff09a2fafabe227aa0ee7',1,'vt::objgroup::ObjGroupManager::ObjGroupManager()']]],
   ['objgroupproxy',['ObjGroupProxy',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html',1,'vt::objgroup::proxy']]],
   ['objgroupproxytype',['ObjGroupProxyType',['../namespacevt.html#ad7cae989df485fccca57f0792a880a8e',1,'vt']]],
-  ['objgroupptrtype',['ObjGroupPtrType',['../structvt_1_1runtime_1_1_runtime.html#a0ee26ca67f3590dcf7e973c31bec9800',1,'vt::runtime::Runtime']]],
   ['objgrouptag',['ObjGroupTag',['../structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag.html',1,'vt::rdma::HandleKey']]],
   ['objidtype',['ObjIDType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a15a2f756b59c8c2437985206b32aa403',1,'vt::vrt::collection::lb::BaseLB::ObjIDType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b_types.html#a201f3d97240fe881e1ed6c0d2cfde262',1,'vt::vrt::collection::lb::GreedyLBTypes::ObjIDType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_types.html#a52254678ca07c280dba927d688a0202f',1,'vt::vrt::collection::lb::HierLBTypes::ObjIDType()']]],
   ['objmemtype',['ObjMemType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a1a8a2e05fd84f8ac7b7dda4b64e5abe5',1,'vt::pipe::PipeManagerTL']]],
