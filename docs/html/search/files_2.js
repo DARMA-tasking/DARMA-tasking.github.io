@@ -82,6 +82,8 @@ var searchData=
   ['collective_5falg_2eh',['collective_alg.h',['../collective__alg_8h.html',1,'']]],
   ['collective_5fops_2ecc',['collective_ops.cc',['../collective__ops_8cc.html',1,'']]],
   ['collective_5fops_2eh',['collective_ops.h',['../collective__ops_8h.html',1,'']]],
+  ['collective_5fscope_2ecc',['collective_scope.cc',['../collective__scope_8cc.html',1,'']]],
+  ['collective_5fscope_2eh',['collective_scope.h',['../collective__scope_8h.html',1,'']]],
   ['comm_2ecc',['comm.cc',['../comm_8cc.html',1,'']]],
   ['comm_2efwd_2eh',['comm.fwd.h',['../comm_8fwd_8h.html',1,'']]],
   ['comm_2eh',['comm.h',['../comm_8h.html',1,'']]],

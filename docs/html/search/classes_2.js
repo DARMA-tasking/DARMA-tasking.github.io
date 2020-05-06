@@ -67,6 +67,7 @@ var searchData=
   ['collectionuntypedproxy',['CollectionUntypedProxy',['../structvt_1_1vrt_1_1collection_1_1_collection_untyped_proxy.html',1,'vt::vrt::collection']]],
   ['collectivealg',['CollectiveAlg',['../structvt_1_1collective_1_1_collective_alg.html',1,'vt::collective']]],
   ['collectiveanyops',['CollectiveAnyOps',['../structvt_1_1_collective_any_ops.html',1,'vt']]],
+  ['collectivescope',['CollectiveScope',['../structvt_1_1collective_1_1_collective_scope.html',1,'vt::collective']]],
   ['collectmsg',['CollectMsg',['../structvt_1_1lb_1_1instrumentation_1_1_collect_msg.html',1,'vt::lb::instrumentation']]],
   ['colmsgtraits',['ColMsgTraits',['../structvt_1_1vrt_1_1collection_1_1_col_msg_traits.html',1,'vt::vrt::collection']]],
   ['colmsgwrap',['ColMsgWrap',['../structvt_1_1vrt_1_1collection_1_1_col_msg_wrap.html',1,'vt::vrt::collection']]],

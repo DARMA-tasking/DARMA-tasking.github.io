@@ -5,6 +5,7 @@ var searchData=
   ['scattermsg',['ScatterMsg',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html',1,'vt::collective::scatter']]],
   ['scheduler',['Scheduler',['../structvt_1_1sched_1_1_scheduler.html',1,'vt::sched']]],
   ['scoped',['Scoped',['../structvt_1_1term_1_1_termination_detector_1_1_scoped.html',1,'vt::term::TerminationDetector']]],
+  ['scopeimpl',['ScopeImpl',['../structvt_1_1collective_1_1detail_1_1_scope_impl.html',1,'vt::collective::detail']]],
   ['sendable',['Sendable',['../structvt_1_1vrt_1_1collection_1_1_sendable.html',1,'vt::vrt::collection']]],
   ['sendcoldircb',['SendColDirCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_col_dir_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['sendcolmsgcb',['SendColMsgCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_col_msg_c_b.html',1,'vt::pipe::callback::cbunion']]],

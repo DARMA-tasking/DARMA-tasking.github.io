@@ -69,6 +69,7 @@ var searchData=
   ['iscollection',['isCollection',['../structvt_1_1vrt_1_1_virtual_proxy_builder.html#a87543511e2cbf4af1fc98ebf1b12161f',1,'vt::vrt::VirtualProxyBuilder']]],
   ['iscollective',['isCollective',['../structvt_1_1group_1_1_group_i_d_builder.html#a5b2f2ee5ba75baeadec6ef06ad7d9234',1,'vt::group::GroupIDBuilder::isCollective()'],['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html#a457aec12597def45b485d3dc12023a32',1,'vt::objgroup::proxy::ObjGroupProxy::isCollective()'],['../structvt_1_1rdma_1_1_handle_manager.html#a0aa955ef0d6bea53f38eaf82fa428beb',1,'vt::rdma::HandleManager::isCollective()']]],
   ['iscollectivecomm',['isCollectiveComm',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ab13d4ad9a3523ef5416ea4f3558a06df',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['iscollectivedone',['isCollectiveDone',['../structvt_1_1collective_1_1_collective_scope.html#acc386201ec9e82dbe2691b4ce528a4c2',1,'vt::collective::CollectiveScope']]],
   ['iscommworld',['isCommWorld',['../structvt_1_1ctx_1_1_context.html#a78d9926c3f75b1296e81607fd303f8f1',1,'vt::ctx::Context']]],
   ['isconstructed',['isConstructed',['../structvt_1_1vrt_1_1_virtual_info.html#a138ef8d178b91215ef63627b73df5ad4',1,'vt::vrt::VirtualInfo']]],
   ['iscontrol',['isControl',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html#a165dce2ea9c2f711132ed70e38c7835d',1,'vt::objgroup::proxy::ObjGroupProxy']]],

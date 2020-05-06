@@ -10,6 +10,7 @@ var searchData=
   ['_7ecollectionbase',['~CollectionBase',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#aa343e5527cb05addb8bbb04994ebc23e',1,'vt::vrt::collection::CollectionBase']]],
   ['_7ecollectionholder',['~CollectionHolder',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#a80360d38dc40e4bf2253288b01595de6',1,'vt::vrt::collection::CollectionHolder']]],
   ['_7ecollectionmanager',['~CollectionManager',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aea0c10371b37041bcc855eef0c767b85',1,'vt::vrt::collection::CollectionManager']]],
+  ['_7ecollectivescope',['~CollectiveScope',['../structvt_1_1collective_1_1_collective_scope.html#a0b8d9664cdc7f94bed4b17e0eb5c2b77',1,'vt::collective::CollectiveScope']]],
   ['_7ecomponentpack',['~ComponentPack',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#ad850ada38f5f4397fa414885a545fdaf',1,'vt::runtime::component::ComponentPack']]],
   ['_7econcurrentdequelocked',['~ConcurrentDequeLocked',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a03ce93cd5ef587d5fa6dfd494ece5e73',1,'vt::util::container::ConcurrentDequeLocked']]],
   ['_7edata',['~Data',['../unionvt_1_1trace_1_1_log_1_1_data.html#a756ed898d9a1df126b2e214050f158e1',1,'vt::trace::Log::Data']]],
