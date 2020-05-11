@@ -243,7 +243,6 @@ var searchData=
   ['minop',['MinOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_min_op.html',1,'vt::collective::reduce::operators::MinOp&lt; T &gt;'],['../namespacevt_1_1collective.html#a0d9f013f61a3e2a15a9e0491409f50f2',1,'vt::collective::MinOp()']]],
   ['minop_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e',['MinOp&lt; std::array&lt; T, N &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_min_op_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['minop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['MinOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_min_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
-  ['mock_5fserializer_2eh',['mock_serializer.h',['../mock__serializer_8h.html',1,'']]],
   ['mode',['mode',['../structvt_1_1config_1_1_configuration.html#afaa170a7f047944c3ba69cc3aa624ab0',1,'vt::config::Configuration']]],
   ['mode_20_26mod_29_20not_5feq_200_20_3e_3e',['mode &amp;mod) not_eq 0 &gt;&gt;',['../structvt_1_1config_1_1_check_enabled_3_01_op_00_01_c_00_01cat_00_01ctx_00_01mod_00_01typename_01b5559c30be7945adbd887e9215f6d30d.html',1,'vt::config']]],
   ['modeenum',['ModeEnum',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0',1,'vt::config']]],

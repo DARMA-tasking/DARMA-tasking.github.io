@@ -33,7 +33,5 @@ var searchData=
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html',1,'vt::messaging']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],
   ['buildsettagtype',['BuildSetTagType',['../structvt_1_1rdma_1_1_handle_set_1_1_build_set_tag_type.html',1,'vt::rdma::HandleSet']]],
-  ['bytecopyabletraits',['ByteCopyableTraits',['../structvt_1_1serialization_1_1_byte_copyable_traits.html',1,'vt::serialization']]],
-  ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]],
-  ['byteserializedbuffer',['ByteSerializedBuffer',['../structvt_1_1serialization_1_1_byte_serialized_buffer.html',1,'vt::serialization']]]
+  ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]]
 ];

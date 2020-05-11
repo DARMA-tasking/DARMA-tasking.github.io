@@ -18,7 +18,6 @@ var searchData=
   ['denseindexarray',['DenseIndexArray',['../structvt_1_1index_1_1_dense_index_array.html',1,'vt::index']]],
   ['dependentsendchain',['DependentSendChain',['../classvt_1_1messaging_1_1_dependent_send_chain.html',1,'vt::messaging']]],
   ['depspack',['DepsPack',['../structvt_1_1runtime_1_1component_1_1_base_component_1_1_deps_pack.html',1,'vt::runtime::component::BaseComponent']]],
-  ['desertraits',['DeserTraits',['../structvt_1_1serialization_1_1_deser_traits.html',1,'vt::serialization']]],
   ['destroyable',['Destroyable',['../structvt_1_1vrt_1_1collection_1_1_destroyable.html',1,'vt::vrt::collection']]],
   ['destroyhandlers',['DestroyHandlers',['../structvt_1_1vrt_1_1collection_1_1_destroy_handlers.html',1,'vt::vrt::collection']]],
   ['destroymsg',['DestroyMsg',['../structvt_1_1vrt_1_1collection_1_1_destroy_msg.html',1,'vt::vrt::collection']]],

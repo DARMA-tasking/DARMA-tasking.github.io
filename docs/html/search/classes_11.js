@@ -30,7 +30,6 @@ var searchData=
   ['tracespec',['TraceSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html',1,'vt::trace::file_spec']]],
   ['transfermsg',['TransferMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_transfer_msg.html',1,'vt::vrt::collection::lb']]],
   ['tree',['Tree',['../structvt_1_1collective_1_1tree_1_1_tree.html',1,'vt::collective::tree']]],
-  ['true_5ftype_20_3e_3e',['true_type &gt;&gt;',['../structvt_1_1serialization_1_1_size_3_01_msg_t_00_01typename_01std_1_1enable__if__t_3_01std_1_1true__type_01_4_4.html',1,'vt::serialization']]],
   ['type',['Type',['../structvt_1_1runtime_1_1component_1_1registry_1_1_type.html',1,'vt::runtime::component::registry::Type&lt; ObjT &gt;'],['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry::Type&lt; ObjT &gt;']]],
   ['typempi',['TypeMPI',['../structvt_1_1rdma_1_1_type_m_p_i.html',1,'vt::rdma']]],
   ['typempi_3c_20char_20_3e',['TypeMPI&lt; char &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01char_01_4.html',1,'vt::rdma']]],

@@ -28,9 +28,5 @@ var searchData=
   ['irecvholder',['IRecvHolder',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
   ['irecvholder_3c_20vt_3a_3amessaging_3a_3ainprogressdatairecv_20_3e',['IRecvHolder&lt; vt::messaging::InProgressDataIRecv &gt;',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
   ['irecvholder_3c_20vt_3a_3amessaging_3a_3ainprogressirecv_20_3e',['IRecvHolder&lt; vt::messaging::InProgressIRecv &gt;',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
-  ['is_5fbyte_5fcopyable_5ft',['is_byte_copyable_t',['../structvt_1_1messaging_1_1is__byte__copyable__t.html',1,'vt::messaging']]],
-  ['istuple',['isTuple',['../structvt_1_1serialization_1_1is_tuple.html',1,'vt::serialization']]],
-  ['istuple_3c_20std_3a_3atuple_3c_20args_2e_2e_2e_20_3e_20_3e',['isTuple&lt; std::tuple&lt; Args... &gt; &gt;',['../structvt_1_1serialization_1_1is_tuple_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html',1,'vt::serialization']]],
-  ['isvector',['isVector',['../structvt_1_1serialization_1_1is_vector.html',1,'vt::serialization']]],
-  ['isvector_3c_20std_3a_3avector_3c_20u_20_3e_20_3e',['isVector&lt; std::vector&lt; U &gt; &gt;',['../structvt_1_1serialization_1_1is_vector_3_01std_1_1vector_3_01_u_01_4_01_4.html',1,'vt::serialization']]]
+  ['is_5fbyte_5fcopyable_5ft',['is_byte_copyable_t',['../structvt_1_1messaging_1_1is__byte__copyable__t.html',1,'vt::messaging']]]
 ];

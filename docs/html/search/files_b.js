@@ -42,7 +42,6 @@ var searchData=
   ['migrate_5fmsg_2eh',['migrate_msg.h',['../migrate__msg_8h.html',1,'']]],
   ['migrate_5fstatus_2eh',['migrate_status.h',['../migrate__status_8h.html',1,'']]],
   ['min_5fop_2eh',['min_op.h',['../min__op_8h.html',1,'']]],
-  ['mock_5fserializer_2eh',['mock_serializer.h',['../mock__serializer_8h.html',1,'']]],
   ['msg_2eh',['msg.h',['../msg_8h.html',1,'']]],
   ['msg_5fptr_2eh',['msg_ptr.h',['../msg__ptr_8h.html',1,'']]],
   ['mutex_2eh',['mutex.h',['../mutex_8h.html',1,'']]],
