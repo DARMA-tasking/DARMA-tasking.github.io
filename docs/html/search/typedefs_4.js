@@ -38,6 +38,7 @@ var searchData=
   ['eventcounttype',['EventCountType',['../structvt_1_1term_1_1_term_state.html#a900fe4e9d98c81a320ae1dca27b71c2c',1,'vt::term::TermState']]],
   ['eventholderptrtype',['EventHolderPtrType',['../structvt_1_1event_1_1_async_event.html#aaa94fd7e3a63b17dc5b5e5751e5d05e8',1,'vt::event::AsyncEvent']]],
   ['eventholdertype',['EventHolderType',['../structvt_1_1event_1_1_async_event.html#a6b529d829ccb5b12c50c2b1978c41a86',1,'vt::event::AsyncEvent']]],
+  ['eventholdstacktype',['EventHoldStackType',['../structvt_1_1trace_1_1_trace.html#a727542f4171681f2ef03df2c3abce04c',1,'vt::trace::Trace']]],
   ['eventidbitstype',['EventIDBitsType',['../structvt_1_1event_1_1_event_i_d_manager.html#a24c0cbdfa3e28c477d3f7010c6cba7e2',1,'vt::event::EventIDManager']]],
   ['eventidentifiertype',['EventIdentifierType',['../namespacevt_1_1event.html#a0893245b7a220f3fe6951382e3038afa',1,'vt::event']]],
   ['eventlistptrtype',['EventListPtrType',['../namespacevt_1_1event.html#aa507caad8ea8ee959ccef2d57753dceb',1,'vt::event']]],

@@ -27,7 +27,7 @@ var searchData=
   ['traceeventidtype',['TraceEventIDType',['../namespacevt_1_1trace.html#a64a7185f3e102df8d8258f263ccd1582',1,'vt::trace']]],
   ['traceeventtype',['TraceEventType',['../namespacevt_1_1trace.html#a79b7fa947245c08d04a3ea67fbff2c30',1,'vt::trace']]],
   ['tracemsglentype',['TraceMsgLenType',['../namespacevt_1_1trace.html#aeb598f45d67d41db7902e494f2f0ce59',1,'vt::trace']]],
-  ['tracestacktype',['TraceStackType',['../structvt_1_1trace_1_1_trace.html#ade12ee481e9ac72e94fe614ed03aa0dc',1,'vt::trace::Trace']]],
+  ['tracestacktype',['TraceStackType',['../structvt_1_1trace_1_1_trace.html#af27d223028d10a196680513defcef3d6',1,'vt::trace::Trace']]],
   ['transferdesttype',['TransferDestType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#add886785f64ea725005f1263fd1393be',1,'vt::vrt::collection::lb::BaseLB']]],
   ['transfertype',['TransferType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a0a5f834082d85c558bdaf84c464c1ead',1,'vt::vrt::collection::lb::BaseLB::TransferType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#af15e80ab3cfa9337647801dfa08fbf53',1,'vt::vrt::collection::lb::GreedyLB::TransferType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a83550b541c35c8a1cc0c97779d1c8184',1,'vt::vrt::collection::lb::HierarchicalLB::TransferType()']]],
   ['transfervectype',['TransferVecType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a329e8179ec41a1bd4924c79fe23a79af',1,'vt::vrt::collection::lb::BaseLB']]],

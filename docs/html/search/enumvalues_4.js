@@ -14,6 +14,7 @@ var searchData=
   ['endpack',['EndPack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da9ba237cf1d372313b154c22e4de8a148',1,'vt::trace']]],
   ['endphase',['EndPhase',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da1191f047047152bb875666aa7d54fccb',1,'vt::trace']]],
   ['endprocessing',['EndProcessing',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1daa7d31e56ac5fe25c3f6428a0b204efba',1,'vt::trace']]],
+  ['endschedulerloop',['EndSchedulerLoop',['../namespacevt_1_1sched.html#a54756ec39b60951d6765fcfa692d1616ac5e4d564fc096f6e9e7a4e43347dc98c',1,'vt::sched']]],
   ['endtrace',['EndTrace',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da22a9e52079c3ba87b855e9d83c31d54b',1,'vt::trace']]],
   ['endunpack',['EndUnpack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da83473e3dd00fc1a54eb21ea1b7e5e590',1,'vt::trace']]],
   ['endusereventpair',['EndUserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1daa3a7bdadf312a942594ff66d98fe1675',1,'vt::trace']]],

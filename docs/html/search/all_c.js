@@ -4,6 +4,7 @@ var searchData=
   ['l_5fprod',['l_prod',['../structvt_1_1term_1_1_term_state.html#afec657b7e75164bdc75f464dd4dbe13b',1,'vt::term::TermState']]],
   ['large',['Large',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743',1,'vt::pool::Pool']]],
   ['lastnamedpftype',['lastNamedPfType',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a8fe842098a300f5b31f5ab1b0a76804b',1,'vt::util::demangle::TemplateExtract']]],
+  ['lastschedulerevent',['LastSchedulerEvent',['../namespacevt_1_1sched.html#a54756ec39b60951d6765fcfa692d1616a51c718670af733bf6cdb3c39ed9ce42d',1,'vt::sched']]],
   ['layout',['layout',['../unionvt_1_1pool_1_1_alloc_view.html#a332dd2cdc50fc0101cb07a00f692daec',1,'vt::pool::AllocView']]],
   ['lazymigrateobjsto',['lazyMigrateObjsTo',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a12cd87d3d0f4c186ffca1b554f5086dc',1,'vt::vrt::collection::lb::GossipLB']]],
   ['lazymigrationmsg',['LazyMigrationMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html',1,'vt::vrt::collection::balance::LazyMigrationMsg'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html#a05c45988e43b726f0792e8fb43183036',1,'vt::vrt::collection::balance::LazyMigrationMsg::LazyMigrationMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html#aa63fe960ff146d67756b83b5e7d529e9',1,'vt::vrt::collection::balance::LazyMigrationMsg::LazyMigrationMsg(NodeType in_to_node, ObjsType const &amp;in_objs)']]],
