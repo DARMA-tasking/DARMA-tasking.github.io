@@ -9,6 +9,7 @@ var searchData=
   ['included_5fvt_5fruntime_5fcomponent_5fcomponent_5fpack_5fcc',['INCLUDED_VT_RUNTIME_COMPONENT_COMPONENT_PACK_CC',['../component__pack_8cc.html#acac9d12dbd83bc6123db2fe23d993298',1,'component_pack.cc']]],
   ['included_5fvt_5fscheduler_5fpriority_5fmanip_5fcc',['INCLUDED_VT_SCHEDULER_PRIORITY_MANIP_CC',['../priority__manip_8cc.html#adff1d84250f6745efa08c47cbcf93531',1,'priority_manip.cc']]],
   ['included_5fvt_5fvrt_5fcollection_5fbalance_5fbaselb_5fbaselb_5fcc',['INCLUDED_VT_VRT_COLLECTION_BALANCE_BASELB_BASELB_CC',['../baselb_8cc.html#ada3161fe6cbeba9bcbf390bc5d750b3e',1,'baselb.cc']]],
+  ['included_5fvt_5fvrt_5fcollection_5fbalance_5fstats_5frestart_5freader_5fcc',['INCLUDED_VT_VRT_COLLECTION_BALANCE_STATS_RESTART_READER_CC',['../stats__restart__reader_8cc.html#a623a95674b7139449a817593f401d278',1,'stats_restart_reader.cc']]],
   ['initstrtls',['InitStrTLS',['../tls_8impl_8h.html#aefb6d24b38701955143669700c5d13f0',1,'tls.impl.h']]],
   ['inittemptls',['InitTempTLS',['../tls_8impl_8h.html#a1b805cfbf614e3c5c80c2da21950f176',1,'tls.impl.h']]],
   ['innerclsintls',['InnerClsInTLS',['../tls_8impl_8h.html#a5e8cb36ccd61e0f1f456bcf64bab1f69',1,'tls.impl.h']]],

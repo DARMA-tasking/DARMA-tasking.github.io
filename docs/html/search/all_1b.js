@@ -52,7 +52,6 @@ var searchData=
   ['_7eruntimeholder',['~RuntimeHolder',['../structvt_1_1runtime_1_1_runtime_holder.html#a835f3a9c7d875e05d4a8fffee0c1d430',1,'vt::runtime::RuntimeHolder']]],
   ['_7eseqnode',['~SeqNode',['../structvt_1_1seq_1_1_seq_node.html#a6254d7b3d17294368a42153ac4164df1',1,'vt::seq::SeqNode']]],
   ['_7estatsmaplb',['~StatsMapLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_stats_map_l_b.html#afd879aa0258b984785b70249c7f06846',1,'vt::vrt::collection::lb::StatsMapLB']]],
-  ['_7estatsrestartreader',['~StatsRestartReader',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#a36e6bd38bef113f48b5d8c2398c5bd31',1,'vt::vrt::collection::balance::StatsRestartReader']]],
   ['_7etaggedsequencer',['~TaggedSequencer',['../structvt_1_1seq_1_1_tagged_sequencer.html#aceb5a6bcf3915be2cc5d046c6b789af2',1,'vt::seq::TaggedSequencer']]],
   ['_7etermds',['~TermDS',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#ab7990eff9ce88551b3e2133f1664593a',1,'vt::term::ds::TermDS']]],
   ['_7eterminationdetector',['~TerminationDetector',['../structvt_1_1term_1_1_termination_detector.html#a1a1a29c2374a70427d8173ec31d55421',1,'vt::term::TerminationDetector']]],

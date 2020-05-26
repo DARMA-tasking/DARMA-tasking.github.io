@@ -74,6 +74,7 @@ var searchData=
   ['load_5fprofile_5f',['load_profile_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#afb95c0d993a5e23a1b66d7c411d5a415',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['loadandbroadcastspec',['loadAndBroadcastSpec',['../structvt_1_1trace_1_1_trace.html#a06f74f8d2c0c2fb97be14a264fd36a45',1,'vt::trace::Trace']]],
   ['loaddata',['LoadData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html',1,'vt::vrt::collection::balance::LoadData'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#afc2d1f780b2a168ec80f0cf28c830847',1,'vt::vrt::collection::balance::LoadData::LoadData()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ab15ccb21a9dd47492da6af32ca57cc5a',1,'vt::vrt::collection::balance::LoadData::LoadData(TimeType const y)']]],
+  ['loadmaptype',['LoadMapType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#aa810fd21680061ec5d50f6526f66be31',1,'vt::vrt::collection::balance::ProcStats']]],
   ['loadmilli',['loadMilli',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a9293a46022910a7b0b93938dfb886477',1,'vt::vrt::collection::lb::BaseLB']]],
   ['loadoverbin',['loadOverBin',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a81e03ca1264d0b2cf9b0ee3eef7f792a',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['loadovergreaterthan',['LoadOverGreaterThan',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5ea3d8879d16ae598961ef15af199863c40',1,'vt::vrt::collection::lb']]],
@@ -146,6 +147,5 @@ var searchData=
   ['lookupelementtype',['LookupElementType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a3206c3e5eb5d6deb4667409222163b77',1,'vt::vrt::collection::Holder']]],
   ['lookuplocation',['lookupLocation',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html#a881a52cad96b7fb7754da0fa7dbe3c98',1,'vt::vrt::collection::MappedNode']]],
   ['lookuptype',['LookupType',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ab3383c5963e7187cf360f6c483d3c5cb',1,'vt::collective::reduce::ReduceStateHolder::LookupType()'],['../structvt_1_1rdma_1_1_handle_set.html#a81d333ec397f0becb9fe692e53145441',1,'vt::rdma::HandleSet::LookupType()'],['../structvt_1_1location_1_1_location_cache.html#a8a5ea74b02aaaa77820bf2504bda1175',1,'vt::location::LocationCache::LookupType()']]],
-  ['lower',['lower',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a5d0984e302e0ddb9828130261b86ec50',1,'vt::term::interval::IntegralSetBase::lower()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a36da58c3174932da9889d973c2940789',1,'vt::term::interval::Interval::lower()']]],
-  ['statsmaplb',['StatsMapLB',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#aa707ee9cd218bee0d66e58418a06f7f5',1,'vt::vrt::collection::balance::ProcStats']]]
+  ['lower',['lower',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a5d0984e302e0ddb9828130261b86ec50',1,'vt::term::interval::IntegralSetBase::lower()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a36da58c3174932da9889d973c2940789',1,'vt::term::interval::Interval::lower()']]]
 ];

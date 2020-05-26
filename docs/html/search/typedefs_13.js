@@ -3,6 +3,7 @@ var searchData=
   ['v',['V',['../structvt_1_1pipe_1_1interface_1_1_callback_types.html#aa4679a7719d01aefcc378cac3d3fa7a2',1,'vt::pipe::interface::CallbackTypes::V()'],['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a8d394521df58abfd90c1d81c998f22e3',1,'vt::pipe::PipeManagerTL::V()']]],
   ['value_5ftype',['value_type',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html#abc7b9a7a287957cc11f7f8679084fad8',1,'vt::term::interval::IntegralSetBase::IntervalSetIter']]],
   ['valueiter',['ValueIter',['../structvt_1_1location_1_1_location_cache.html#a67dc1e71785f1c8aa3b1e02d802977b8',1,'vt::location::LocationCache']]],
+  ['vecmsg',['VecMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#a7e2a74977e595242bf3abb6c83b7e27b',1,'vt::vrt::collection::balance::StatsRestartReader']]],
   ['vectortype',['VectorType',['../structvt_1_1util_1_1error_1_1_printer_name_value_3_010_00_01_cons_t_00_01_cons_u_01_4.html#a1578540c95029bb5f6a8345efe655486',1,'vt::util::error::PrinterNameValue&lt; 0, ConsT, ConsU &gt;::VectorType()'],['../structvt_1_1util_1_1error_1_1_printer_name_value.html#a9fa3936ec282d02e03775d8a7c098678',1,'vt::util::error::PrinterNameValue::VectorType()']]],
   ['virtualcontexttype',['VirtualContextType',['../structvt_1_1vrt_1_1_vrt_construct_msg.html#aa5ff9ea61a1fcefeb0272fa0f5b6adc9',1,'vt::vrt::VrtConstructMsg']]],
   ['virtualelmcounttype',['VirtualElmCountType',['../namespacevt.html#ac115668758184050beff7a9281a2c490',1,'vt']]],
