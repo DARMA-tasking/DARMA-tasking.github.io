@@ -98,7 +98,7 @@ var searchData=
   ['rdmaable_2eh',['rdmaable.h',['../rdmaable_8h.html',1,'']]],
   ['rdmaable_2eimpl_2eh',['rdmaable.impl.h',['../rdmaable_8impl_8h.html',1,'']]],
   ['rdmacollectionmanager',['RDMACollectionManager',['../structvt_1_1rdma_1_1_r_d_m_a_collection_manager.html',1,'vt::rdma::RDMACollectionManager'],['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a59e73ef8c81ddf4094802bfda5ac42cc',1,'vt::rdma::RDMAManager::RDMACollectionManager()']]],
-  ['rdmamanager',['RDMAManager',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html',1,'vt::rdma']]],
+  ['rdmamanager',['RDMAManager',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html',1,'vt::rdma::RDMAManager'],['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#aef98ba273bd7756fcf6ff71c96db391b',1,'vt::rdma::RDMAManager::RDMAManager()']]],
   ['rdmaopfinishedmessage',['RDMAOpFinishedMessage',['../structvt_1_1rdma_1_1_r_d_m_a_op_finished_message.html',1,'vt::rdma::RDMAOpFinishedMessage&lt; EnvelopeT &gt;'],['../structvt_1_1rdma_1_1_r_d_m_a_op_finished_message.html#a21b774aed56ddcef56fc49526647a0c7',1,'vt::rdma::RDMAOpFinishedMessage::RDMAOpFinishedMessage()']]],
   ['read_5flb_2ecc',['read_lb.cc',['../read__lb_8cc.html',1,'']]],
   ['read_5flb_2eh',['read_lb.h',['../read__lb_8h.html',1,'']]],

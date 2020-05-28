@@ -2,6 +2,7 @@ var searchData=
 [
   ['callbacktyped',['CallbackTyped',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a983194428523f2cd409417e221cc51c3',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle']]],
   ['centralcollect',['CentralCollect',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#aeab4bdfa8ef385d221a4bb517e4d01fc',1,'vt::lb::instrumentation::Database']]],
+  ['channel',['Channel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a5786d652b263a505c6c74f25e7c0994a',1,'vt::rdma::RDMAManager']]],
   ['collectionbase_3c_20colt_2c_20indext_20_3e',['CollectionBase&lt; ColT, IndexT &gt;',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html#a4fb39ed9be2f0de84b237088ececde3f',1,'vt::vrt::collection::CollectionElmAttorney']]],
   ['collectionelmattorney',['CollectionElmAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aafd1972e5767dec26c8872f4aafa6864',1,'vt::vrt::collection::CollectionManager']]],
   ['collectionelmdestroyattorney',['CollectionElmDestroyAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a4089cdff4218109fffb5884f51244a6e',1,'vt::vrt::collection::CollectionManager']]],
