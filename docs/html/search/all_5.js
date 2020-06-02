@@ -1,6 +1,8 @@
 var searchData=
 [
   ['eatwhitespace',['eatWhitespace',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a605ea184edf7f99b0022f960f71bf4d4',1,'vt::vrt::collection::balance']]],
+  ['edge_5fid_5f',['edge_id_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#acf007a220cdcb4ca6ebc8a8f781f1e75',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['edgeid',['edgeID',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a3b7b746ea062d7e71c372e7c4028f71e',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['edgeratio',['EdgeRatio',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a4cb758191f8118403f2c08be986a99e1',1,'vt::vrt::collection::lb']]],
   ['eenvelopetype',['eEnvelopeType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6c',1,'vt::messaging']]],
   ['eenvtype',['eEnvType',['../namespacevt.html#abdfe9ac50e3799705ee21853c1509bf6',1,'vt']]],
