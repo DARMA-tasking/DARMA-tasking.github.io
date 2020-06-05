@@ -52,6 +52,7 @@ var searchData=
   ['collectionchainset',['CollectionChainSet',['../classvt_1_1messaging_1_1_collection_chain_set.html',1,'vt::messaging']]],
   ['collectionconsmsg',['CollectionConsMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_cons_msg.html',1,'vt::vrt::collection']]],
   ['collectioncreatemsg',['CollectionCreateMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_create_msg.html',1,'vt::vrt::collection']]],
+  ['collectiondirectory',['CollectionDirectory',['../structvt_1_1vrt_1_1collection_1_1_collection_directory.html',1,'vt::vrt::collection']]],
   ['collectionelmattorney',['CollectionElmAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html',1,'vt::vrt::collection']]],
   ['collectionelmdestroyattorney',['CollectionElmDestroyAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_destroy_attorney.html',1,'vt::vrt::collection']]],
   ['collectiongroupmsg',['CollectionGroupMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_group_msg.html',1,'vt::vrt::collection']]],

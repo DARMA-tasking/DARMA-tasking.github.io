@@ -69,6 +69,7 @@ var searchData=
   ['collection_2eh',['collection.h',['../collection_8h.html',1,'']]],
   ['collection_2eimpl_2eh',['collection.impl.h',['../collection_8impl_8h.html',1,'']]],
   ['collection_5fchain_5fset_2eh',['collection_chain_set.h',['../collection__chain__set_8h.html',1,'']]],
+  ['collection_5fdirectory_2eh',['collection_directory.h',['../collection__directory_8h.html',1,'']]],
   ['collection_5felm_5fproxy_2eh',['collection_elm_proxy.h',['../collection__elm__proxy_8h.html',1,'']]],
   ['collection_5fheaders_2eh',['collection_headers.h',['../collection__headers_8h.html',1,'']]],
   ['collection_5finfo_2eh',['collection_info.h',['../collection__info_8h.html',1,'']]],

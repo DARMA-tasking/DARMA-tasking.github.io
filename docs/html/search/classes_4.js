@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['element',['Element',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html',1,'vt::vrt::collection::CollectionDirectory']]],
   ['elementholder',['ElementHolder',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html',1,'vt::vrt::collection']]],
   ['elementstats',['ElementStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html',1,'vt::vrt::collection::balance']]],
   ['elminsertable',['ElmInsertable',['../structvt_1_1vrt_1_1collection_1_1_elm_insertable.html',1,'vt::vrt::collection']]],

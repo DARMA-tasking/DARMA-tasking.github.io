@@ -13,5 +13,6 @@ var searchData=
   ['buf',['buf',['../structvt_1_1messaging_1_1_in_progress_i_recv.html#a9b9fa3b3405847857324d448dee6abc9',1,'vt::messaging::InProgressIRecv']]],
   ['buffer',['buffer',['../unionvt_1_1pool_1_1_alloc_view.html#ac3bfb82a8b9841cf3c4bd9aace2e559b',1,'vt::pool::AllocView']]],
   ['buffered_5fmsg',['buffered_msg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a88906175db478caa759a279ba6c43bea',1,'vt::messaging::BufferedActiveMsg']]],
-  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg']]]
+  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg']]],
+  ['bytes_5f',['bytes_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab88e568797e11c5ccc8c5313d85df527',1,'vt::vrt::collection::CollectionDirectory::Element']]]
 ];

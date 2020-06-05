@@ -148,6 +148,7 @@ var searchData=
   ['byte_5fcopy_5ftrait_2eh',['byte_copy_trait.h',['../byte__copy__trait_8h.html',1,'']]],
   ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]],
   ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg::bytes()'],['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a600e754f49b68aa0fc90a9cd64eb7051',1,'vt::util::memory::Bytes()']]],
+  ['bytes_5f',['bytes_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab88e568797e11c5ccc8c5313d85df527',1,'vt::vrt::collection::CollectionDirectory::Element']]],
   ['bytetype',['ByteType',['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt']]],
   ['elementstats',['ElementStats',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#abdce9596911e092af07635bdcc13acd1',1,'vt::vrt::collection::CollectionManager::ElementStats()'],['../structvt_1_1vrt_1_1collection_1_1_migratable.html#abdce9596911e092af07635bdcc13acd1',1,'vt::vrt::collection::Migratable::ElementStats()']]],
   ['basic_20active_20message_20send_20with_20pre_2dregistered_20handler',['Basic Active Message Send with Pre-Registered Handler',['../group__preregister.html',1,'']]],

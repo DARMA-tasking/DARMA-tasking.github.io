@@ -1,6 +1,7 @@
 var searchData=
 [
   ['edge_5fid_5f',['edge_id_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#acf007a220cdcb4ca6ebc8a8f781f1e75',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['elements_5f',['elements_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory.html#abd9de4d084eb8cf4206c4729af70f734',1,'vt::vrt::collection::CollectionDirectory']]],
   ['elm_5f',['elm_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#aa074fd362c469f1a0aae30d1cf9888bf',1,'vt::vrt::collection::MigrateMsg']]],
   ['elm_5fbytes_5f',['elm_bytes_',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#a14af4f6a3037beeb5048797c7cf15fdb',1,'vt::collective::scatter::ScatterMsg']]],
   ['elm_5fmap',['elm_map',['../structvt_1_1rdma_1_1_map.html#ab333842b2ae2f3efe15f1190bac32df2',1,'vt::rdma::Map']]],
