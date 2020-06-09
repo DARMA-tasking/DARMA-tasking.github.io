@@ -46,6 +46,7 @@ var searchData=
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3agossiplb_20_3e',['Proxy&lt; vt::vrt::collection::lb::GossipLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3agreedylb_20_3e',['Proxy&lt; vt::vrt::collection::lb::GreedyLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3ahierarchicallb_20_3e',['Proxy&lt; vt::vrt::collection::lb::HierarchicalLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
+  ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3arandomlb_20_3e',['Proxy&lt; vt::vrt::collection::lb::RandomLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3arotatelb_20_3e',['Proxy&lt; vt::vrt::collection::lb::RotateLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20vt_3a_3avrt_3a_3acollection_3a_3alb_3a_3astatsmaplb_20_3e',['Proxy&lt; vt::vrt::collection::lb::StatsMapLB &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxycollectionelmtraits',['ProxyCollectionElmTraits',['../structvt_1_1vrt_1_1collection_1_1_proxy_collection_elm_traits.html',1,'vt::vrt::collection']]],
