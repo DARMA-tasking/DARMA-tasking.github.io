@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['safeunion',['SafeUnion',['../namespacevt_1_1adt.html#ad2a7bbcb5f4735ae9d847f96ee62f144',1,'vt::adt']]],
   ['schedulereventtype',['SchedulerEventType',['../structvt_1_1sched_1_1_scheduler.html#ad40b8136b7810da5bab9b27e317e4eb3',1,'vt::sched::Scheduler']]],
   ['seedmaptype',['SeedMapType',['../namespacevt_1_1mapping.html#a1c1409d9af8d1ac402af022a65be4a4d',1,'vt::mapping']]],
   ['seedtype',['SeedType',['../namespacevt.html#ae2e13198bdef4d5b8e603d6c1c7f0969',1,'vt']]],
@@ -75,6 +76,14 @@ var searchData=
   ['statisticmaptype',['StatisticMapType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a6e8dead5546b2054f604ca258e1e815e',1,'vt::vrt::collection::lb::BaseLB']]],
   ['statistictype',['StatisticType',['../namespacestd.html#a77b0310083adc8639f9659f5c8b3cf0d',1,'std']]],
   ['statsmsgtype',['StatsMsgType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#acebfe78fa7dbafe6e9e5e5e514cda278',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['strongcom',['StrongCom',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a6ea2d8e8f8ba226a6e704a9041aebaec',1,'vt::collective::reduce::detail']]],
+  ['strongepoch',['StrongEpoch',['../namespacevt_1_1collective_1_1reduce.html#a0b5fbe1e89aea537d76fda4c57f2099e',1,'vt::collective::reduce::StrongEpoch()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a9e57fa5e7a2557a92ce0739edae200fe',1,'vt::collective::reduce::detail::StrongEpoch()']]],
+  ['stronggroup',['StrongGroup',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#adcad97800459415ff6ea4b5feb90e0f2',1,'vt::collective::reduce::detail']]],
+  ['strongobjgroup',['StrongObjGroup',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#afd4940b3a4ac2ef740f0e3844a09dd08',1,'vt::collective::reduce::detail']]],
+  ['strongseq',['StrongSeq',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#affec2854d7d65bafb17eb259714e9443',1,'vt::collective::reduce::detail']]],
+  ['strongtag',['StrongTag',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a5e1b708dc12ad0d1209a354ed21ed744',1,'vt::collective::reduce::detail']]],
+  ['stronguserid',['StrongUserID',['../namespacevt_1_1collective_1_1reduce.html#a49e47347201b1b0fdb552ed4b7c86331',1,'vt::collective::reduce::StrongUserID()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#af9e42b20d1be7dccc1b5e587f0387e02',1,'vt::collective::reduce::detail::StrongUserID()']]],
+  ['strongvrtproxy',['StrongVrtProxy',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a492943cffff6d1a92386468d46f589df',1,'vt::collective::reduce::detail']]],
   ['subphasetype',['SubphaseType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#af9ec1f2527b6569a003579f7950db71e',1,'vt::vrt::collection::balance::ElementStats']]],
   ['successorbagtype',['SuccessorBagType',['../structvt_1_1term_1_1_epoch_dependency.html#a3f00b47c33158f3241ebbeb0a0cb7b1d',1,'vt::term::EpochDependency::SuccessorBagType()'],['../structvt_1_1term_1_1_termination_detector.html#ac8df9c8a604ee2073ce195a994aaf252',1,'vt::term::TerminationDetector::SuccessorBagType()']]],
   ['systemseqfuntype',['SystemSeqFunType',['../namespacevt_1_1seq.html#a80eeb50c74a4a3bd46fcf4d5213c5ebe',1,'vt::seq']]]

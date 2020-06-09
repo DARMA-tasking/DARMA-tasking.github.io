@@ -1,23 +1,5 @@
 var searchData=
 [
-  ['l_5fcons',['l_cons',['../structvt_1_1term_1_1_term_state.html#a4f44e5ddcb585df5ad215f10bc195d4c',1,'vt::term::TermState']]],
-  ['l_5fprod',['l_prod',['../structvt_1_1term_1_1_term_state.html#afec657b7e75164bdc75f464dd4dbe13b',1,'vt::term::TermState']]],
-  ['layout',['layout',['../unionvt_1_1pool_1_1_alloc_view.html#a332dd2cdc50fc0101cb07a00f692daec',1,'vt::pool::AllocView']]],
-  ['lb_5f',['lb_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_base_msg.html#ad6ac7cd0c9908958dd11ddd35d88b476',1,'vt::vrt::collection::balance::InvokeBaseMsg']]],
-  ['lb_5fnames_5f',['lb_names_',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a25f2d26f8832c24be922ebbb2cd7c119',1,'vt::vrt::collection::balance']]],
-  ['lb_5fstat_5fname_5f',['lb_stat_name_',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a93087d8eb275a6113b9d32e41ef87277',1,'vt::vrt::collection::lb']]],
-  ['lc',['lC',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a7b24d9eb35f71de23824ea8434a52cfd',1,'vt::term::ds::TermDS']]],
-  ['ld',['lD',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#acd01a2b3778d0510fe35f6497f33eda9',1,'vt::term::ds::TermDS']]],
-  ['leaf_5fclosure',['leaf_closure',['../structvt_1_1seq_1_1_seq_closure.html#a8489de87b5b4d74cbcfb7e8624068907',1,'vt::seq::SeqClosure']]],
-  ['live_5fcollections_5f',['live_collections_',['../structvt_1_1vrt_1_1collection_1_1_universal_index_holder.html#af67ddae79d782cc9c51a13e34997cd59',1,'vt::vrt::collection::UniversalIndexHolder']]],
-  ['live_5fcollections_5fmap_5f',['live_collections_map_',['../structvt_1_1vrt_1_1collection_1_1_universal_index_holder.html#a42b948be40223918c12a531e2f7a290e',1,'vt::vrt::collection::UniversalIndexHolder']]],
-  ['lo',['lo',['../structvt_1_1rdma_1_1_region.html#af2308f5160a4900ab6597d11fc2e51df',1,'vt::rdma::Region']]],
-  ['load_5f',['load_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_proc.html#a139e7722596ed8f891af1b16da8d8f3d',1,'vt::vrt::collection::lb::GreedyProc']]],
-  ['load_5fdata',['load_data',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ac430d066bb19421d6241753059e8f4c8',1,'vt::vrt::collection::lb::BaseLB']]],
-  ['load_5fprofile_5f',['load_profile_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#afb95c0d993a5e23a1b66d7c411d5a415',1,'vt::vrt::collection::lb::GreedyPayload']]],
-  ['loc_5fevent',['loc_event',['../structvt_1_1location_1_1_location_msg.html#a9550d842c2e1dcd3a5c48675c6b5c080',1,'vt::location::LocationMsg']]],
-  ['loc_5fhandle_5f',['loc_handle_',['../structvt_1_1rdma_1_1_sub_handle.html#a2283d4e38954f446ae4a76ccfae5f19b',1,'vt::rdma::SubHandle']]],
-  ['loc_5fman_5finst',['loc_man_inst',['../structvt_1_1location_1_1_location_msg.html#ad685e327f058d12836ed9743d44b14b7',1,'vt::location::LocationMsg']]],
-  ['local_5fmigration_5fcount_5f',['local_migration_count_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ae2beaf58c52b6ac2ccca8ab0c266f203',1,'vt::vrt::collection::lb::BaseLB']]],
-  ['lock_5f',['lock_',['../structvt_1_1rdma_1_1_base_typed_handle.html#accff417789be0a3556fdc4695aba5a85',1,'vt::rdma::BaseTypedHandle']]]
+  ['key_5f',['key_',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456.html#a1219d32435dff7029290180c23004b93',1,'vt::rdma::value &gt;&gt;::key_()'],['../structvt_1_1rdma_1_1impl_1_1_handle_data.html#a7dce9ae3b0d1704b479feb32063efee0',1,'vt::rdma::impl::HandleData::key_()']]],
+  ['known_5froot_5fnode_5f',['known_root_node_',['../structvt_1_1group_1_1_info_coll.html#a89e612584c480324a5d11c2c5d672c81',1,'vt::group::InfoColl']]]
 ];

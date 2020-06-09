@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['adt',['adt',['../namespacevt_1_1adt.html',1,'vt::adt'],['../namespacevt_1_1util_1_1adt.html',1,'vt::util::adt']]],
   ['arguments',['arguments',['../namespacevt_1_1arguments.html',1,'vt']]],
   ['assert',['assert',['../namespacevt_1_1debug_1_1assert.html',1,'vt::debug']]],
   ['atomic',['atomic',['../namespacevt_1_1util_1_1atomic.html',1,'vt::util']]],
@@ -18,7 +19,7 @@ var searchData=
   ['ctx',['ctx',['../namespacevt_1_1ctx.html',1,'vt']]],
   ['debug',['debug',['../namespacevt_1_1debug.html',1,'vt']]],
   ['demangle',['demangle',['../namespacevt_1_1util_1_1demangle.html',1,'vt::util']]],
-  ['detail',['detail',['../namespacevt_1_1collective_1_1detail.html',1,'vt::collective']]],
+  ['detail',['detail',['../namespacevt_1_1collective_1_1detail.html',1,'vt::collective::detail'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html',1,'vt::collective::reduce::detail'],['../namespacevt_1_1util_1_1adt_1_1detail.html',1,'vt::util::adt::detail']]],
   ['details',['details',['../namespacevt_1_1location_1_1details.html',1,'vt::location::details'],['../namespacevt_1_1vrt_1_1collection_1_1details.html',1,'vt::vrt::collection::details']]],
   ['dispatch',['dispatch',['../namespacevt_1_1objgroup_1_1dispatch.html',1,'vt::objgroup']]],
   ['ds',['ds',['../namespacevt_1_1term_1_1ds.html',1,'vt::term']]],
@@ -64,6 +65,7 @@ var searchData=
   ['stack',['stack',['../namespacevt_1_1debug_1_1stack.html',1,'vt::debug']]],
   ['standalone',['standalone',['../namespacevt_1_1standalone.html',1,'vt']]],
   ['statics',['statics',['../namespacevt_1_1messaging_1_1statics.html',1,'vt::messaging']]],
+  ['tags',['tags',['../namespacevt_1_1collective_1_1reduce_1_1detail_1_1tags.html',1,'vt::collective::reduce::detail']]],
   ['term',['term',['../namespacevt_1_1term.html',1,'vt']]],
   ['termination',['termination',['../namespacevt_1_1termination.html',1,'vt']]],
   ['timing',['timing',['../namespacevt_1_1timing.html',1,'vt']]],

@@ -12,7 +12,6 @@ var searchData=
   ['groupidtype',['GroupIDType',['../namespacevt_1_1group.html#a805a6643787ae841525c371fd0cefeb3',1,'vt::group']]],
   ['groupinfoptrtype',['GroupInfoPtrType',['../structvt_1_1group_1_1_group_manager.html#adedebd6e550efd2bee5bb118f816b2e0',1,'vt::group::GroupManager']]],
   ['groupinfotype',['GroupInfoType',['../structvt_1_1group_1_1_group_manager.html#a556f65e569f3e3f2dfc4a247e137b409',1,'vt::group::GroupManager']]],
-  ['grouplookuptype',['GroupLookupType',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#a945472a204b8db45e2fdb7f49b7b020a',1,'vt::collective::reduce::ReduceStateHolder']]],
   ['grouponlymsg',['GroupOnlyMsg',['../namespacevt_1_1group.html#a864fcf6bc821eacf8350bf4ad15e51b3',1,'vt::group']]],
   ['grouptype',['GroupType',['../namespacevt.html#a27b5e4411c9b6140c49100e050e2f743',1,'vt']]]
 ];

@@ -5,6 +5,7 @@ var searchData=
   ['taggedactioncontainertype',['TaggedActionContainerType',['../structvt_1_1seq_1_1_seq_msg_state.html#a0f9787d4224b8017484093f967200209',1,'vt::seq::SeqMsgState::TaggedActionContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a1298c226eeddc2e8fbd58bf1b92ef2aa',1,'vt::seq::SeqMsgStateVirtual::TaggedActionContainerType()']]],
   ['taggedmsgcontainertype',['TaggedMsgContainerType',['../structvt_1_1seq_1_1_seq_msg_state.html#a57de558c4a7efb36b5358117c6f6d4c5',1,'vt::seq::SeqMsgState::TaggedMsgContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a9760353cffc9071f3e24054562a86db3',1,'vt::seq::SeqMsgStateVirtual::TaggedMsgContainerType()']]],
   ['taggerhandlertype',['TaggerHandlerType',['../structvt_1_1registry_1_1_registry.html#aed8ec48ac909aea3e4dbc21aa6f8e898',1,'vt::registry::Registry']]],
+  ['tagpair',['TagPair',['../namespacevt_1_1collective_1_1reduce.html#ae3111ccd7e2214f079222e4c016b6652',1,'vt::collective::reduce']]],
   ['tagtype',['TagType',['../namespacevt.html#a84ab281dae04a52a4b243d6bf62d0e52',1,'vt']]],
   ['tconstref',['TConstRef',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a9da9776dff836c013a95431f3ab15e35',1,'vt::util::container::ConcurrentDequeLocked']]],
   ['termcountertype',['TermCounterType',['../namespacevt_1_1term.html#a4fd378cdb0c36683afc1b3399d685f7f',1,'vt::term']]],

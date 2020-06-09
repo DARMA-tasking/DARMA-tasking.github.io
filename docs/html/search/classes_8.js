@@ -28,5 +28,9 @@ var searchData=
   ['irecvholder',['IRecvHolder',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
   ['irecvholder_3c_20vt_3a_3amessaging_3a_3ainprogressdatairecv_20_3e',['IRecvHolder&lt; vt::messaging::InProgressDataIRecv &gt;',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
   ['irecvholder_3c_20vt_3a_3amessaging_3a_3ainprogressirecv_20_3e',['IRecvHolder&lt; vt::messaging::InProgressIRecv &gt;',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],
-  ['is_5fbyte_5fcopyable_5ft',['is_byte_copyable_t',['../structvt_1_1messaging_1_1is__byte__copyable__t.html',1,'vt::messaging']]]
+  ['is_5fbyte_5fcopyable_5ft',['is_byte_copyable_t',['../structvt_1_1messaging_1_1is__byte__copyable__t.html',1,'vt::messaging']]],
+  ['istriviallycopyable',['IsTriviallyCopyable',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable.html',1,'vt::util::adt::detail']]],
+  ['istriviallycopyable_3c_20t_20_3e',['IsTriviallyCopyable&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
+  ['istriviallydestructible',['IsTriviallyDestructible',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible.html',1,'vt::util::adt::detail']]],
+  ['istriviallydestructible_3c_20t_20_3e',['IsTriviallyDestructible&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible_3_01_t_01_4.html',1,'vt::util::adt::detail']]]
 ];

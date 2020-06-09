@@ -84,6 +84,8 @@ var searchData=
   ['std_5fatomic_2eh',['std_atomic.h',['../std__atomic_8h.html',1,'']]],
   ['std_5fmutex_2eh',['std_mutex.h',['../std__mutex_8h.html',1,'']]],
   ['std_5ftls_2eh',['std_tls.h',['../std__tls_8h.html',1,'']]],
+  ['strong_2eh',['strong.h',['../strong_8h.html',1,'']]],
+  ['strong_5ftypes_2eh',['strong_types.h',['../strong__types_8h.html',1,'']]],
   ['sub_5fhandle_2eh',['sub_handle.h',['../sub__handle_8h.html',1,'']]],
   ['sub_5fhandle_2eimpl_2eh',['sub_handle.impl.h',['../sub__handle_8impl_8h.html',1,'']]],
   ['system_5fcreate_2eh',['system_create.h',['../system__create_8h.html',1,'']]]

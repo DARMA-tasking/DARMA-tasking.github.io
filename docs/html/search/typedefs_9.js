@@ -46,5 +46,5 @@ var searchData=
   ['logtype',['LogType',['../structvt_1_1trace_1_1_trace.html#a43306d96a91e49db081eaea016f1dd0a',1,'vt::trace::Trace::LogType()'],['../namespacevt_1_1trace.html#abf816ddd3c20f0f8d974662f373b088d',1,'vt::trace::LogType()']]],
   ['lookupcontainertype',['LookupContainerType',['../structvt_1_1location_1_1_location_cache.html#af56948d938dcc38705b777a96b3100be',1,'vt::location::LocationCache']]],
   ['lookupelementtype',['LookupElementType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a3206c3e5eb5d6deb4667409222163b77',1,'vt::vrt::collection::Holder']]],
-  ['lookuptype',['LookupType',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ab3383c5963e7187cf360f6c483d3c5cb',1,'vt::collective::reduce::ReduceStateHolder::LookupType()'],['../structvt_1_1rdma_1_1_handle_set.html#a81d333ec397f0becb9fe692e53145441',1,'vt::rdma::HandleSet::LookupType()'],['../structvt_1_1location_1_1_location_cache.html#a8a5ea74b02aaaa77820bf2504bda1175',1,'vt::location::LocationCache::LookupType()']]]
+  ['lookuptype',['LookupType',['../structvt_1_1rdma_1_1_handle_set.html#a81d333ec397f0becb9fe692e53145441',1,'vt::rdma::HandleSet::LookupType()'],['../structvt_1_1location_1_1_location_cache.html#a8a5ea74b02aaaa77820bf2504bda1175',1,'vt::location::LocationCache::LookupType()']]]
 ];

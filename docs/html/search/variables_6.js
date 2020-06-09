@@ -1,13 +1,19 @@
 var searchData=
 [
-  ['g_5fcons1',['g_cons1',['../structvt_1_1term_1_1_term_state.html#a91952f12d457df3a7e5f634957e9cbd7',1,'vt::term::TermState']]],
-  ['g_5fcons2',['g_cons2',['../structvt_1_1term_1_1_term_state.html#aaaf3c5cec9c925c420082bb284a5a78e',1,'vt::term::TermState']]],
-  ['g_5fepoch_5f',['g_epoch_',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a7d080a6dc4e89607097f79e751dbbd70',1,'vt::vrt::collection::InsertMsg']]],
-  ['g_5fprod1',['g_prod1',['../structvt_1_1term_1_1_term_state.html#a75ab01f0dcceb86687a3e26edada0620',1,'vt::term::TermState']]],
-  ['g_5fprod2',['g_prod2',['../structvt_1_1term_1_1_term_state.html#a5e7029af1dca0645c92f5a00316dc039',1,'vt::term::TermState']]],
-  ['gen_5fobj_5fidx_5f',['gen_obj_idx_',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a5803e0771ae948d91d73a4721fc01fcb',1,'vt::auto_registry::AutoRegInfo']]],
-  ['global_5fterm_5factions_5f',['global_term_actions_',['../structvt_1_1term_1_1_term_action.html#ab3254cc3e17bf4649173323eedb10ae7',1,'vt::term::TermAction']]],
-  ['group',['group',['../structvt_1_1messaging_1_1_active_envelope.html#a99173c33673ca13d681910bb07b9a7a0',1,'vt::messaging::ActiveEnvelope']]],
-  ['group_5f',['group_',['../structvt_1_1group_1_1_group_msg.html#a490c257a68f857c6833804c065cb5d4f',1,'vt::group::GroupMsg']]],
-  ['group_5finfo',['group_info',['../structvt_1_1rdma_1_1_state.html#ad8dc4c1a674c5a0b14789a53e54815d3',1,'vt::rdma::State']]]
+  ['file_5fname_5f',['file_name_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#a831648ee90fa0d8dbda3d987ce2a441c',1,'vt::vrt::collection::CollectionDirectory::Element']]],
+  ['file_5ftype',['file_type',['../structvt_1_1trace_1_1vt__gz_file.html#ad76fc8569dffe67628ad492daee76dbf',1,'vt::trace::vt_gzFile']]],
+  ['final_5fchild',['final_child',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#adc83bddfb1fc46d47c4b3b2c0d75038a',1,'vt::vrt::collection::lb::HierLBChild']]],
+  ['finalize_5fon_5fterm_5f',['finalize_on_term_',['../structvt_1_1runtime_1_1_runtime.html#a1a7a0e6783b3326a4ded84f829a1d0b3',1,'vt::runtime::Runtime']]],
+  ['finalized_5f',['finalized_',['../structvt_1_1runtime_1_1_runtime.html#a2a798a2bf9b8c0a70785cde3cc8119c4',1,'vt::runtime::Runtime']]],
+  ['finished_5finit_5f',['finished_init_',['../structvt_1_1group_1_1_info_coll.html#a46f40eb8a2394642b362b08024454af0',1,'vt::group::InfoColl']]],
+  ['focused_5fsubphase_5f',['focused_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#adcb9398a6c5bc0b5f66a55d23694743c',1,'vt::vrt::collection::balance::ElementStats']]],
+  ['forward_5fnode_5f',['forward_node_',['../structvt_1_1group_1_1_info_rooted.html#a04c0511b4cc3745e079f03b60d9bc189',1,'vt::group::InfoRooted']]],
+  ['from_5f',['from_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a9bf6895070fbbce25ac12307bf606036',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['from_5fnode',['from_node',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a54ea3b62b0e7f9ec65d866c7afc82770',1,'vt::messaging::BufferedActiveMsg::from_node()'],['../structvt_1_1serialization_1_1_serialized_data_msg_any.html#aca0ea3cc0037b1d171d610a44a2b8e43',1,'vt::serialization::SerializedDataMsgAny::from_node()'],['../structvt_1_1vrt_1_1_remote_vrt_info.html#a3c792ce47e50024104e88ca6c8c7708e',1,'vt::vrt::RemoteVrtInfo::from_node()']]],
+  ['from_5ftemp_5f',['from_temp_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#add033f95cac2f80b6ccd8ae55e73dcfe',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['fst_5fbarrier',['fst_barrier',['../namespacevt_1_1collective_1_1barrier.html#a43d35d830e81f62b5dfb571ce5e0939e',1,'vt::collective::barrier']]],
+  ['fst_5fcoll_5fbarrier',['fst_coll_barrier',['../namespacevt_1_1collective_1_1barrier.html#a02bc7e6a890bd33f1e0b1b264326099c',1,'vt::collective::barrier']]],
+  ['fst_5fcollective_5falg',['fst_collective_alg',['../namespacevt_1_1collective.html#a162001be7dbe7f94163297a57f6b53e8',1,'vt::collective']]],
+  ['fst_5fpool_5fslot',['fst_pool_slot',['../structvt_1_1pool_1_1_memory_pool_equal.html#ae0435baf515fefccc015b600357bc6bb',1,'vt::pool::MemoryPoolEqual']]],
+  ['funcs',['funcs',['../unionvt_1_1seq_1_1u_seq_node_payload.html#ae29c56313f829840c64f9712fd457f5e',1,'vt::seq::uSeqNodePayload']]]
 ];

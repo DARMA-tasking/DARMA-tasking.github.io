@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['aborted_5f',['aborted_',['../structvt_1_1runtime_1_1_runtime.html#a19b9ad0859c6fb417b734ac1cc8be1a7',1,'vt::runtime::Runtime']]],
-  ['ackedarbitrary',['ackedArbitrary',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a3d2853955fae8dbf0180704c67e6eec2',1,'vt::term::ds::TermDS']]],
-  ['ackedparent',['ackedParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a694ea9720fa7137d823a58b55250119f',1,'vt::term::ds::TermDS']]],
-  ['action',['action',['../structvt_1_1seq_1_1_action.html#aff78400db5a8a2ba0faaa80acb90ec78',1,'vt::seq::Action::action()'],['../structvt_1_1seq_1_1_action_virtual.html#a438e5137b43bd3b61f8125ce55561d71',1,'vt::seq::ActionVirtual::action()'],['../structvt_1_1vrt_1_1_pending_request.html#af6fddf631eb75dd7045f14ce76e30178',1,'vt::vrt::PendingRequest::action()']]],
-  ['action_5fnode_5f',['action_node_',['../structvt_1_1vrt_1_1collection_1_1_done_insert_msg.html#a73c8173c2b8170bfd6be91491d79a0ae',1,'vt::vrt::collection::DoneInsertMsg']]],
-  ['action_5fto_5ftrigger',['action_to_trigger',['../structvt_1_1rdma_1_1_action.html#a4a559b38b1e3d551f25f4874d0c17bec',1,'vt::rdma::Action']]],
-  ['actions_5f',['actions_',['../structvt_1_1rdma_1_1_base_typed_handle.html#a448710fab012c50cd4eb02b955d2a240',1,'vt::rdma::BaseTypedHandle']]],
-  ['active_5f',['active_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#ad141aa2bd6b52ff3ac0469c54786649f',1,'vt::pipe::callback::cbunion::GeneralCallback']]],
-  ['activefunt',['activeFunT',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a0ce7e02e8be36c770dead608e23709c6',1,'vt::auto_registry::AutoRegInfo']]],
-  ['alloc_5fsize',['alloc_size',['../structvt_1_1pool_1_1_header.html#ad1f8e915eee733cd6b4d8efbfe51d551',1,'vt::pool::Header']]],
-  ['alloc_5fworker',['alloc_worker',['../structvt_1_1pool_1_1_header.html#a054f2ad817d27c9725677c10ee487875',1,'vt::pool::Header']]],
-  ['anon_5fcb_5f',['anon_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a6aa8eaee0ef4ebdc6e4a420f8e0780d4',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
-  ['args_5f',['args_',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a861ecaa80da263959457a5429c3a3716',1,'vt::auto_registry::AutoRegInfo']]],
-  ['arrived_5fcount_5f',['arrived_count_',['../structvt_1_1group_1_1_info_coll.html#aceffca2aa6280f325f394e1e64ebc130',1,'vt::group::InfoColl']]],
-  ['ask_5fnode',['ask_node',['../structvt_1_1location_1_1_location_msg.html#ab99a70172011e251d4abec4f2110fc08',1,'vt::location::LocationMsg']]],
-  ['avg_5f',['avg_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a3e0f760e59dfb3d80cedac64d36d2e4f',1,'vt::vrt::collection::balance::LoadData']]]
+  ['_5fcur',['_cur',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer.html#ab659dbf40d7aefdf14f206a1df10a441',1,'vt::util::adt::detail::Sizer::_cur()'],['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer_3_01_t_01_4.html#a7ca91bcf14c50fcf19feaafd673d7d60',1,'vt::util::adt::detail::Sizer&lt; T &gt;::_cur()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner.html#aafdf38bb15e0136c6c529108f28c2dee',1,'vt::util::adt::detail::Aligner::_cur()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner_3_01_t_01_4.html#a7dd4c938c142ee94477bf484cdbde0c9',1,'vt::util::adt::detail::Aligner&lt; T &gt;::_cur()']]],
+  ['_5frest',['_rest',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer.html#a7e30375672bcb283804e3589c96ffccf',1,'vt::util::adt::detail::Sizer::_rest()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner.html#a4115223efc04e8781590dea362fc36f0',1,'vt::util::adt::detail::Aligner::_rest()']]]
 ];

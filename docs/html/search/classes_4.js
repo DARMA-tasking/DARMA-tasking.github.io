@@ -16,6 +16,7 @@ var searchData=
   ['epochgraphmsg',['EpochGraphMsg',['../structvt_1_1termination_1_1graph_1_1_epoch_graph_msg.html',1,'vt::termination::graph']]],
   ['epochlabel',['EpochLabel',['../structvt_1_1term_1_1_epoch_label.html',1,'vt::term']]],
   ['epochmanip',['EpochManip',['../structvt_1_1epoch_1_1_epoch_manip.html',1,'vt::epoch']]],
+  ['epochtag',['EpochTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_epoch_tag.html',1,'vt::collective::reduce::detail::tags']]],
   ['epochtagactiveenvelope',['EpochTagActiveEnvelope',['../structvt_1_1messaging_1_1_epoch_tag_active_envelope.html',1,'vt::messaging']]],
   ['epochwindow',['EpochWindow',['../structvt_1_1term_1_1_epoch_window.html',1,'vt::term']]],
   ['event',['Event',['../structvt_1_1trace_1_1_event.html',1,'vt::trace']]],

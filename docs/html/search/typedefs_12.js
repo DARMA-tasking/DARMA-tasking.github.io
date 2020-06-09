@@ -8,6 +8,7 @@ var searchData=
   ['unittype',['UnitType',['../structvt_1_1sched_1_1_scheduler.html#a398229f29b0940cea85aba4bae78b0be',1,'vt::sched::Scheduler']]],
   ['userdatatype',['UserDataType',['../structvt_1_1trace_1_1_log.html#af392c3825bf45d286a0f77bddf7a96cf',1,'vt::trace::Log']]],
   ['usereventidtype',['UserEventIDType',['../namespacevt_1_1trace.html#a5908920d051c144c89f17c69ed262350',1,'vt::trace']]],
+  ['useridtype',['UserIDType',['../namespacevt_1_1collective_1_1reduce.html#a6cdf1adaf7aedc9df00c92fe55cdcecd',1,'vt::collective::reduce::UserIDType()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#ae82d7b96b0885b9b7dfb0104398beead',1,'vt::collective::reduce::detail::UserIDType()']]],
   ['usermsgtype',['UserMsgType',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#ace5b4eaa94f5b209ae321edd6c0b6c19',1,'vt::vrt::collection::CollectionMessage::UserMsgType()'],['../structvt_1_1vrt_1_1collection_1_1_col_msg_wrap.html#a168446c6b2feea3a003dbfa02f21e227',1,'vt::vrt::collection::ColMsgWrap::UserMsgType()']]],
   ['usersendfntype',['UserSendFnType',['../structvt_1_1messaging_1_1_active_messenger.html#a4b1993ad77436b6ed6c7fd32801c50ed',1,'vt::messaging::ActiveMessenger']]],
   ['userseqfunindextype',['UserSeqFunIndexType',['../namespacevt_1_1seq.html#ab8466502cdb46b9f1d17e3e5630ed65a',1,'vt::seq']]],
