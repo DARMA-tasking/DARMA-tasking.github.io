@@ -189,8 +189,6 @@ var searchData=
   ['proc',['proc',['../namespacevt_1_1debug.html#a13a11e278ff8e5a4093396437511aeb7',1,'vt::debug']]],
   ['proc_5fstats_2ecc',['proc_stats.cc',['../proc__stats_8cc.html',1,'']]],
   ['proc_5fstats_2eh',['proc_stats.h',['../proc__stats_8h.html',1,'']]],
-  ['proc_5fstats_2eimpl_2eh',['proc_stats.impl.h',['../proc__stats_8impl_8h.html',1,'']]],
-  ['proc_5fstats_2eutil_2eh',['proc_stats.util.h',['../proc__stats_8util_8h.html',1,'']]],
   ['proccontainertype',['ProcContainerType',['../namespacevt_1_1lb.html#af7c6ee21a7b3966b7ab64c5b626d30f8',1,'vt::lb']]],
   ['procdatain',['procDataIn',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#afcd789adcc57348b7da92801119bd8f1',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['process_5fready_5fbuffer_2eh',['process_ready_buffer.h',['../process__ready__buffer_8h.html',1,'']]],

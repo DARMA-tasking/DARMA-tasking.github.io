@@ -49,8 +49,6 @@ var searchData=
   ['priority_5fqueue_2eh',['priority_queue.h',['../priority__queue_8h.html',1,'']]],
   ['proc_5fstats_2ecc',['proc_stats.cc',['../proc__stats_8cc.html',1,'']]],
   ['proc_5fstats_2eh',['proc_stats.h',['../proc__stats_8h.html',1,'']]],
-  ['proc_5fstats_2eimpl_2eh',['proc_stats.impl.h',['../proc__stats_8impl_8h.html',1,'']]],
-  ['proc_5fstats_2eutil_2eh',['proc_stats.util.h',['../proc__stats_8util_8h.html',1,'']]],
   ['process_5fready_5fbuffer_2eh',['process_ready_buffer.h',['../process__ready__buffer_8h.html',1,'']]],
   ['progressable_2eh',['progressable.h',['../progressable_8h.html',1,'']]],
   ['proxy_2eh',['proxy.h',['../proxy_8h.html',1,'']]],

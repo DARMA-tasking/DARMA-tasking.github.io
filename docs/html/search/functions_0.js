@@ -44,7 +44,7 @@ var searchData=
   ['addnode',['addNode',['../structvt_1_1seq_1_1_seq_list.html#a3dd63f53576d65c85eb840d1ac4ddb27',1,'vt::seq::SeqList']]],
   ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html#ad71cb026dce420d7c5e48d0fd87c2e61',1,'vt::vrt::collection::balance::GossipMsg']]],
   ['addparallelfunction',['addParallelFunction',['../structvt_1_1seq_1_1_seq_node.html#adfe191e3f7ff499909c222cd4dbc3525',1,'vt::seq::SeqNode']]],
-  ['addprocstats',['addProcStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#ae9ec0e9f6af7d5e84c2260170a56c611',1,'vt::vrt::collection::balance::ProcStats']]],
+  ['addprocstats',['addProcStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a21164188d5d1d09724959e95e5c4f2e4',1,'vt::vrt::collection::balance::ProcStats']]],
   ['addready',['addReady',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ac41862395e0a1f6d0e68ebcd17c44824',1,'vt::vrt::collection::Holder']]],
   ['addsendlistener',['addSendListener',['../structvt_1_1messaging_1_1_active_messenger.html#a3083324696bb4f6e55164da2cb00a1c6',1,'vt::messaging::ActiveMessenger']]],
   ['addsequencedchild',['addSequencedChild',['../structvt_1_1seq_1_1_seq_node.html#a7554b8cdfe9a983d937554979505b76e',1,'vt::seq::SeqNode']]],
