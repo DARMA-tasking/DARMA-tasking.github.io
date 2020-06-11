@@ -56,6 +56,8 @@ var searchData=
   ['haselmsize',['hasElmSize',['../structvt_1_1rdma_1_1_region.html#a5cc8077a08a31b1662feac8a1a6c257e',1,'vt::rdma::Region']]],
   ['hasfirstelem',['hasFirstElem',['../structvt_1_1seq_1_1_seq_matcher.html#a7dd06bfe1aae5a02abbdecea398bd1ec',1,'vt::seq::SeqMatcher::hasFirstElem()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#ac21aec817ce2f7a0ff64f39e6a7bce62',1,'vt::seq::SeqMatcherVirtual::hasFirstElem()']]],
   ['hash',['Hash',['../structvt_1_1util_1_1adt_1_1detail_1_1_hash.html',1,'vt::util::adt::detail::Hash&lt; T, Ts &gt;'],['../structvt_1_1trace_1_1_user_event_registry.html#a99ef8a7f7df7a11fac6ada816f83cfbf',1,'vt::trace::UserEventRegistry::hash()'],['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html#a5cdce588713b9d1e65b0be90bbeaa771',1,'vt::util::adt::AlignedCharUnion::hash()'],['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a6732f36a551215fcc6c89d5eab8c1478',1,'vt::trace::Hash()']]],
+  ['hash_3c_20bufferreleaseenum_20_3e',['hash&lt; BufferReleaseEnum &gt;',['../structstd_1_1hash_3_01_buffer_release_enum_01_4.html',1,'std']]],
+  ['hash_3c_20buffertypeenum_20_3e',['hash&lt; BufferTypeEnum &gt;',['../structstd_1_1hash_3_01_buffer_type_enum_01_4.html',1,'std']]],
   ['hash_3c_20commcategorytype_20_3e',['hash&lt; CommCategoryType &gt;',['../structstd_1_1hash_3_01_comm_category_type_01_4.html',1,'std']]],
   ['hash_3c_20elmproxytype_3c_20colt_2c_20indext_20_3e_20_3e',['hash&lt; ElmProxyType&lt; ColT, IndexT &gt; &gt;',['../structstd_1_1hash_3_01_elm_proxy_type_3_01_col_t_00_01_index_t_01_4_01_4.html',1,'std']]],
   ['hash_3c_20elmtype_3c_20colt_2c_20indext_20_3e_20_3e',['hash&lt; ElmType&lt; ColT, IndexT &gt; &gt;',['../structstd_1_1hash_3_01_elm_type_3_01_col_t_00_01_index_t_01_4_01_4.html',1,'std']]],
