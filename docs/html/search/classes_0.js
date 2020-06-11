@@ -30,6 +30,7 @@ var searchData=
   ['anonlistener',['AnonListener',['../structvt_1_1pipe_1_1callback_1_1_anon_listener.html',1,'vt::pipe::callback']]],
   ['applyop',['ApplyOp',['../structvt_1_1config_1_1_apply_op.html',1,'vt::config']]],
   ['argconfig',['ArgConfig',['../structvt_1_1arguments_1_1_arg_config.html',1,'vt::arguments']]],
+  ['argparse',['ArgParse',['../structvt_1_1arguments_1_1_arg_parse.html',1,'vt::arguments']]],
   ['asyncevent',['AsyncEvent',['../structvt_1_1event_1_1_async_event.html',1,'vt::event']]],
   ['autoreginfo',['AutoRegInfo',['../structvt_1_1auto__registry_1_1_auto_reg_info.html',1,'vt::auto_registry']]]
 ];

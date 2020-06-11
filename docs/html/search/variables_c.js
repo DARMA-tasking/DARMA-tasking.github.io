@@ -19,6 +19,7 @@ var searchData=
   ['min_5f',['min_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a2ce7f969bd102daebb5071f5a3da8396',1,'vt::vrt::collection::balance::LoadData']]],
   ['mode',['mode',['../structvt_1_1config_1_1_configuration.html#afaa170a7f047944c3ba69cc3aa624ab0',1,'vt::config::Configuration']]],
   ['mpi2_5f',['mpi2_',['../structvt_1_1rdma_1_1_sub_handle.html#a780ccbe4a6a728cba4a45d0d7cabe02b',1,'vt::rdma::SubHandle']]],
+  ['mpi_5finit_5fargs',['mpi_init_args',['../structvt_1_1arguments_1_1_arg_config.html#a742020618b402b1eeafb9898d34978d7',1,'vt::arguments::ArgConfig']]],
   ['mpi_5freq',['mpi_req',['../unionvt_1_1event_1_1u_event_payload.html#a36fd9f8a09add70a3379f3e646cc5b27',1,'vt::event::uEventPayload']]],
   ['mpi_5ftag_5fto_5frecv',['mpi_tag_to_recv',['../structvt_1_1rdma_1_1_send_data_message.html#a012836b7e2327b722e73bb52f416fe25',1,'vt::rdma::SendDataMessage']]],
   ['msg_5flen',['msg_len',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html#a514d2e0977e4acf99920ed45a910ae0a',1,'vt::trace::Log::Data::SysData']]],

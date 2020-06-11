@@ -77,7 +77,7 @@ var searchData=
   ['vt_5fprint_5fforce_5fimpl',['vt_print_force_impl',['../debug__print_8h.html#a5ada7889c8b09eef23b1d1854014bf3f',1,'debug_print.h']]],
   ['vt_5fproc_5fprint_5fcolorize',['vt_proc_print_colorize',['../debug__print_8h.html#ac1a7508e8b106cb1f8556659af8e7e79',1,'debug_print.h']]],
   ['vt_5fregister_5fmain_5fcontext',['VT_REGISTER_MAIN_CONTEXT',['../vt__main_8h.html#a7163bccc8b5526674128464be994492a',1,'vt_main.h']]],
-  ['vt_5fruntime_5fdebug_5fwarn_5fcompile',['vt_runtime_debug_warn_compile',['../runtime_8cc.html#abb0a67fd2a0f08e4f6e0d459f93de2ee',1,'runtime.cc']]],
+  ['vt_5fruntime_5fdebug_5fwarn_5fcompile',['vt_runtime_debug_warn_compile',['../runtime__banner_8cc.html#abb0a67fd2a0f08e4f6e0d459f93de2ee',1,'runtime_banner.cc']]],
   ['vt_5fxpaste',['vt_xpaste',['../config__assert_8h.html#a3706aede8cf2a4f7d3890884fc8364f1',1,'config_assert.h']]],
   ['vtabort',['vtAbort',['../hard__error_8h.html#afc4cdafa6d3b99f94c26a5d4290999a9',1,'hard_error.h']]],
   ['vtabortcode',['vtAbortCode',['../hard__error_8h.html#acb73437702c59d2af35164f95b669fbd',1,'hard_error.h']]],

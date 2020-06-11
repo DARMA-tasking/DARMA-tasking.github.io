@@ -67,6 +67,7 @@ var searchData=
   ['rotatelb_2eh',['rotatelb.h',['../rotatelb_8h.html',1,'']]],
   ['runtime_2ecc',['runtime.cc',['../runtime_8cc.html',1,'']]],
   ['runtime_2eh',['runtime.h',['../runtime_8h.html',1,'']]],
+  ['runtime_5fbanner_2ecc',['runtime_banner.cc',['../runtime__banner_8cc.html',1,'']]],
   ['runtime_5fcommon_2eh',['runtime_common.h',['../runtime__common_8h.html',1,'']]],
   ['runtime_5fcomponent_5ffwd_2eh',['runtime_component_fwd.h',['../runtime__component__fwd_8h.html',1,'']]],
   ['runtime_5fget_2ecc',['runtime_get.cc',['../runtime__get_8cc.html',1,'']]],
