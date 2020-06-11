@@ -2,11 +2,11 @@ var searchData=
 [
   ['samplefromcmf',['sampleFromCMF',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a1a9e88510b1b61a181c9b4dcb3a8c153',1,'vt::vrt::collection::lb::GossipLB']]],
   ['saveinfo',['saveInfo',['../structvt_1_1rdma_1_1_cache.html#ab8f9bc1877a3be2f277e7280f3db1075',1,'vt::rdma::Cache']]],
-  ['scatter',['Scatter',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a33ea9a78c5d43dcea4ec2cb69d8b00b4',1,'vt::collective::scatter::Scatter::Scatter()'],['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a0873f5fd4b890ad95e6ed6c097efe8bd',1,'vt::collective::scatter::Scatter::scatter(std::size_t const &amp;total_size, std::size_t const &amp;max_proc_size, FuncSizeType size_fn, FuncDataType data_fn)']]],
+  ['scatter',['scatter',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a0873f5fd4b890ad95e6ed6c097efe8bd',1,'vt::collective::scatter::Scatter::scatter(std::size_t const &amp;total_size, std::size_t const &amp;max_proc_size, FuncSizeType size_fn, FuncDataType data_fn)'],['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a33ea9a78c5d43dcea4ec2cb69d8b00b4',1,'vt::collective::scatter::Scatter::Scatter()']]],
   ['scatterin',['scatterIn',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#aa80a957377cce3126058f3d7d30d2fed',1,'vt::collective::scatter::Scatter']]],
   ['scattermsg',['ScatterMsg',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#ab393af0a9d5fafdbb6524e0526626757',1,'vt::collective::scatter::ScatterMsg::ScatterMsg()=default'],['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#a7803844bde5a3de0bec52aa713371c50',1,'vt::collective::scatter::ScatterMsg::ScatterMsg(std::size_t in_total_bytes, std::size_t in_elm_bytes)']]],
   ['scheduleactivemsg',['scheduleActiveMsg',['../structvt_1_1messaging_1_1_active_messenger.html#a877d3a681b48e386a1fe67201181b6bd',1,'vt::messaging::ActiveMessenger']]],
-  ['schedulemsg',['scheduleMsg',['../namespacevt_1_1objgroup.html#a7beec0700b3e4d81e0ea31027b445ecf',1,'vt::objgroup']]],
+  ['schedulemsg',['scheduleMsg',['../namespacevt_1_1objgroup.html#ab154142df9cf5401462e1b4cabb3b480',1,'vt::objgroup']]],
   ['scheduler',['scheduler',['../structvt_1_1sched_1_1_scheduler.html#ad2653b260780c89a20e9253608ef1282',1,'vt::sched::Scheduler::scheduler(bool msg_only=false)'],['../structvt_1_1sched_1_1_scheduler.html#a54b61f09996bca1d5ed5332e1a4e2b60',1,'vt::sched::Scheduler::Scheduler()']]],
   ['schedulercomm',['schedulerComm',['../structvt_1_1worker_1_1_worker_group_comm.html#a2801e1bc38337507fd6f14ff8b439b84',1,'vt::worker::WorkerGroupComm']]],
   ['schedulethenfinalize',['scheduleThenFinalize',['../structvt_1_1_collective_any_ops.html#a10be760566e5c50ce6d35ab93d7736ce',1,'vt::CollectiveAnyOps']]],

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['barrier',['barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()']]],
-  ['base_5fserialize_5fcalled_5f',['base_serialize_called_',['../structvt_1_1messaging_1_1_active_msg.html#a853a59ae8106507e216809c828fdc7f2',1,'vt::messaging::ActiveMsg']]],
   ['bcast_5fcol_5fdir_5fcb_5f',['bcast_col_dir_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#aa402256d18ac8a5c5d14bc96ef1d332e',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['bcast_5fcol_5fmsg_5fcb_5f',['bcast_col_msg_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a320cc06910f2718b164878e3f3b33394',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['bcast_5fmsg_5fcb_5f',['bcast_msg_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#af02a6e32bea02dffbb3be84bbfbed00a',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
