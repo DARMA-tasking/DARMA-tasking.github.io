@@ -71,7 +71,7 @@ var searchData=
   ['phasereducemsg',['PhaseReduceMsg',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a04cf83e524629461fafc8d349af8ac8a',1,'vt::vrt::collection::balance']]],
   ['phasetype',['PhaseType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a6edee983bb2ae96a341763520af33c66',1,'vt::vrt::collection::balance::ElementStats::PhaseType()'],['../namespacevt.html#a46ce6733d5cdbd735d561b7b4029f6d7',1,'vt::PhaseType()'],['../namespacevt_1_1group_1_1global.html#a1ad2576a1029e469969bdcd577122ee3',1,'vt::group::global::PhaseType()']]],
   ['physicalresourcetype',['PhysicalResourceType',['../namespacevt.html#a2dc36fcada816dc6d11774d650328ee9',1,'vt']]],
-  ['pipe',['pipe',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()']]],
+  ['pipe',['Pipe',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()']]],
   ['pipe_2eh',['pipe.h',['../pipe_8h.html',1,'']]],
   ['pipe_5f',['pipe_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a7cff39d219279b2075d7db56e6b87944',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle']]],
   ['pipe_5fcallback_5fonly_2eh',['pipe_callback_only.h',['../pipe__callback__only_8h.html',1,'']]],

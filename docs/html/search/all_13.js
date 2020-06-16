@@ -14,7 +14,7 @@ var searchData=
   ['rangetype',['RangeType',['../structvt_1_1group_1_1_group_list_msg.html#a4b6524168e2e6f3308b1957083fafb45',1,'vt::group::GroupListMsg::RangeType()'],['../structvt_1_1group_1_1_group_range_msg.html#a49fdcbb2ae53a4c5778e60f306c8f5e6',1,'vt::group::GroupRangeMsg::RangeType()']]],
   ['raw',['raw',['../structvt_1_1index_1_1_dense_index_array.html#a2bde995d206bb72e0f5973a78e100eea',1,'vt::index::DenseIndexArray']]],
   ['rbegin',['rbegin',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#ab253d070e9a28940a9b727696b0bb25c',1,'vt::term::interval::IntegralSetBase']]],
-  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()']]],
+  ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
   ['rdma_2ecc',['rdma.cc',['../rdma_8cc.html',1,'']]],
   ['rdma_2eh',['rdma.h',['../rdma_8h.html',1,'']]],
   ['rdma_5faction_2eh',['rdma_action.h',['../rdma__action_8h.html',1,'']]],

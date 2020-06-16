@@ -43,6 +43,7 @@ var searchData=
   ['_7emsgsharedptr',['~MsgSharedPtr',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a41b62019acea0627ce3297d31257524c',1,'vt::messaging::MsgSharedPtr']]],
   ['_7enullmutex',['~NullMutex',['../structvt_1_1util_1_1mutex_1_1_null_mutex.html#a09433197f2e0967c72fc9e77e514fcfb',1,'vt::util::mutex::NullMutex']]],
   ['_7ependingsend',['~PendingSend',['../structvt_1_1messaging_1_1_pending_send.html#ade803ff2903a92eaf62b6e330593871b',1,'vt::messaging::PendingSend']]],
+  ['_7epipemanagerbase',['~PipeManagerBase',['../structvt_1_1pipe_1_1_pipe_manager_base.html#af7b66141f69a485c6fce5e02bbbd3f89',1,'vt::pipe::PipeManagerBase']]],
   ['_7eregion',['~Region',['../structvt_1_1group_1_1region_1_1_region.html#adb017be8010659a0da19f66c8265fe10',1,'vt::group::region::Region']]],
   ['_7eregistrargeninfobase',['~RegistrarGenInfoBase',['../structvt_1_1auto__registry_1_1_registrar_gen_info_base.html#a39ece894c94aa15f384c9ddc46246fc7',1,'vt::auto_registry::RegistrarGenInfoBase']]],
   ['_7ereporter',['~Reporter',['../structvt_1_1util_1_1memory_1_1_reporter.html#a9b5c8c4345a2e1d758fd9f583d5ea63a',1,'vt::util::memory::Reporter']]],

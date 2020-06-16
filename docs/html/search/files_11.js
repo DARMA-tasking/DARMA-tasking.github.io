@@ -57,6 +57,7 @@ var searchData=
   ['shared_5fmessage_2eh',['shared_message.h',['../shared__message_8h.html',1,'']]],
   ['shared_5fmessage_2eimpl_2eh',['shared_message.impl.h',['../shared__message_8impl_8h.html',1,'']]],
   ['signal_2eh',['signal.h',['../signal_8h.html',1,'']]],
+  ['signal_5fholder_2ecc',['signal_holder.cc',['../signal__holder_8cc.html',1,'']]],
   ['signal_5fholder_2eh',['signal_holder.h',['../signal__holder_8h.html',1,'']]],
   ['signal_5fholder_2eimpl_2eh',['signal_holder.impl.h',['../signal__holder_8impl_8h.html',1,'']]],
   ['sizer_2eh',['sizer.h',['../sizer_8h.html',1,'']]],
