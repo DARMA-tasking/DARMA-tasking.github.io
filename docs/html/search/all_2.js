@@ -97,6 +97,7 @@ var searchData=
   ['addcleanupaction',['addCleanupAction',['../structvt_1_1group_1_1_group_manager.html#a79edddb814a77d2ff45fea14291e95df',1,'vt::group::GroupManager']]],
   ['addcleanupfn',['addCleanupFn',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a3ef00b90a3a2d066a7f83b9c32b301d2',1,'vt::vrt::collection::CollectionManager']]],
   ['addcolorargs',['addColorArgs',['../namespacevt_1_1arguments.html#ad20ec30a52a3746760ec7ce8eaaf9af4',1,'vt::arguments']]],
+  ['addconfigfileargs',['addConfigFileArgs',['../namespacevt_1_1arguments.html#a51a78d08f9d27671e3865515311af00a',1,'vt::arguments']]],
   ['adddebuggerargs',['addDebuggerArgs',['../namespacevt_1_1arguments.html#a0ac7bcdb2013e7b486c1f6e052cd8731',1,'vt::arguments']]],
   ['adddebugprintargs',['addDebugPrintArgs',['../namespacevt_1_1arguments.html#aed7df943038a6c703af79f7bf81b0fdd',1,'vt::arguments']]],
   ['adddefaultaction',['addDefaultAction',['../structvt_1_1term_1_1_term_action.html#a9e9e174482720b4886ea4e8c38ead0d7',1,'vt::term::TermAction']]],
