@@ -55,6 +55,8 @@ var searchData=
   ['reduce',['reduce',['../namespacevt_1_1collective_1_1reduce.html',1,'vt::collective']]],
   ['region',['region',['../namespacevt_1_1group_1_1region.html',1,'vt::group']]],
   ['registry',['registry',['../namespacevt_1_1objgroup_1_1registry.html',1,'vt::objgroup::registry'],['../namespacevt_1_1registry.html',1,'vt::registry'],['../namespacevt_1_1runtime_1_1component_1_1registry.html',1,'vt::runtime::component::registry']]],
+  ['runinepochcollective',['runInEpochCollective',['../structvt_1_1sched_1_1_scheduler.html#a1724d1352c428bcb2bfc5a32a6a27404',1,'vt::sched::Scheduler']]],
+  ['runinepochrooted',['runInEpochRooted',['../structvt_1_1sched_1_1_scheduler.html#a915d5c24603b0f28e812e95106d2ca09',1,'vt::sched::Scheduler']]],
   ['runnable',['runnable',['../namespacevt_1_1runnable.html',1,'vt']]],
   ['runtime',['runtime',['../namespacevt_1_1runtime.html',1,'vt']]],
   ['scatter',['scatter',['../namespacevt_1_1collective_1_1scatter.html',1,'vt::collective']]],

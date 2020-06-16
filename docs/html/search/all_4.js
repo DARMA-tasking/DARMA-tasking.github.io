@@ -146,7 +146,7 @@ var searchData=
   ['check_5fthd',['CHECK_THD',['../runtime__get_8cc.html#a07e425df5ef4db01ceef05b82ec57b82',1,'runtime_get.cc']]],
   ['checkallowedkeys',['checkAllowedKeys',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#a86ea05b64615f7be99e8db3baf195aae',1,'vt::vrt::collection::balance::SpecEntry']]],
   ['checkchanged',['checkChanged',['../structvt_1_1rdma_1_1_sub_handle.html#af872a0071eac521cb813d998763f5a31',1,'vt::rdma::SubHandle']]],
-  ['checkdynamicruntimeenabled',['checkDynamicRuntimeEnabled',['../structvt_1_1trace_1_1_trace.html#a4b911a4f90a4b6b76c03341db7d94fdd',1,'vt::trace::Trace']]],
+  ['checkdynamicruntimeenabled',['checkDynamicRuntimeEnabled',['../structvt_1_1trace_1_1_trace.html#a995bc2b464af735323a4c07f10b5c55b',1,'vt::trace::Trace']]],
   ['checkenabled',['CheckEnabled',['../structvt_1_1config_1_1_check_enabled.html',1,'vt::config']]],
   ['checkeventfinished',['checkEventFinished',['../structvt_1_1event_1_1_async_event.html#a5493f4402db0fffba5300246247523b9',1,'vt::event::AsyncEvent']]],
   ['checkforargumenterrors',['checkForArgumentErrors',['../structvt_1_1runtime_1_1_runtime.html#af8fa48f3990ff2640f99f7cd1944f73f',1,'vt::runtime::Runtime']]],
