@@ -221,7 +221,7 @@ var searchData=
   ['priorityunit',['PriorityUnit',['../structvt_1_1sched_1_1_priority_unit.html',1,'vt::sched::PriorityUnit'],['../structvt_1_1sched_1_1_priority_unit.html#ae0f822497e235515829b196c0a78d07f',1,'vt::sched::PriorityUnit::PriorityUnit()']]],
   ['probe_5fbytes',['probe_bytes',['../structvt_1_1messaging_1_1_in_progress_i_recv.html#a5964aaf33b76900f1dc5bb2b4ec739ef',1,'vt::messaging::InProgressIRecv']]],
   ['proc',['proc',['../namespacevt_1_1debug.html#a13a11e278ff8e5a4093396437511aeb7',1,'vt::debug']]],
-  ['processor_20statistics',['Processor Statistics',['../proc-stats.html',1,'collection']]],
+  ['processor_20statistics',['Processor Statistics',['../proc-stats.html',1,'introduction']]],
   ['proc_2dstats_2emd',['proc-stats.md',['../proc-stats_8md.html',1,'']]],
   ['proc_5fcomm_5f',['proc_comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a528f63fad3b42c387d0b38ba3c0eea11',1,'vt::vrt::collection::balance::ProcStats']]],
   ['proc_5fdata_5f',['proc_data_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a62c01980c4f0eadf09dc29615301234d',1,'vt::vrt::collection::balance::ProcStats']]],

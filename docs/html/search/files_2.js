@@ -93,7 +93,6 @@ var searchData=
   ['common_2eh',['common.h',['../configs_2error_2common_8h.html',1,'(Global Namespace)'],['../objgroup_2common_8h.html',1,'(Global Namespace)'],['../rdmahandle_2common_8h.html',1,'(Global Namespace)']]],
   ['component_2eh',['component.h',['../component_8h.html',1,'']]],
   ['component_5fdep_2eh',['component_dep.h',['../component__dep_8h.html',1,'']]],
-  ['component_5fname_2eh',['component_name.h',['../component__name_8h.html',1,'']]],
   ['component_5fpack_2ecc',['component_pack.cc',['../component__pack_8cc.html',1,'']]],
   ['component_5fpack_2eh',['component_pack.h',['../component__pack_8h.html',1,'']]],
   ['component_5fpack_2eimpl_2eh',['component_pack.impl.h',['../component__pack_8impl_8h.html',1,'']]],

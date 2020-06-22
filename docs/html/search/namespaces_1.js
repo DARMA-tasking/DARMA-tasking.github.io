@@ -19,7 +19,7 @@ var searchData=
   ['ctx',['ctx',['../namespacevt_1_1ctx.html',1,'vt']]],
   ['debug',['debug',['../namespacevt_1_1debug.html',1,'vt']]],
   ['demangle',['demangle',['../namespacevt_1_1util_1_1demangle.html',1,'vt::util']]],
-  ['detail',['detail',['../namespacevt_1_1collective_1_1detail.html',1,'vt::collective::detail'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html',1,'vt::collective::reduce::detail'],['../namespacevt_1_1detail.html',1,'vt::detail'],['../namespacevt_1_1runtime_1_1component_1_1detail.html',1,'vt::runtime::component::detail'],['../namespacevt_1_1util_1_1adt_1_1detail.html',1,'vt::util::adt::detail']]],
+  ['detail',['detail',['../namespacevt_1_1collective_1_1detail.html',1,'vt::collective::detail'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html',1,'vt::collective::reduce::detail'],['../namespacevt_1_1detail.html',1,'vt::detail'],['../namespacevt_1_1util_1_1adt_1_1detail.html',1,'vt::util::adt::detail']]],
   ['details',['details',['../namespacevt_1_1location_1_1details.html',1,'vt::location::details'],['../namespacevt_1_1vrt_1_1collection_1_1details.html',1,'vt::vrt::collection::details']]],
   ['dispatch',['dispatch',['../namespacevt_1_1objgroup_1_1dispatch.html',1,'vt::objgroup']]],
   ['ds',['ds',['../namespacevt_1_1term_1_1ds.html',1,'vt::term']]],

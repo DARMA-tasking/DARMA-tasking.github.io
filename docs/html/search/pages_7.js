@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lb_20manager',['LB Manager',['../lb-manager.html',1,'proc-stats']]],
+  ['lb_20manager',['LB Manager',['../lb-manager.html',1,'introduction']]],
   ['learn',['Learn',['../learn.html',1,'']]],
   ['location_20manager',['Location Manager',['../location.html',1,'introduction']]],
   ['lb_20restart_20reader',['LB Restart Reader',['../stats-reader.html',1,'introduction']]],
