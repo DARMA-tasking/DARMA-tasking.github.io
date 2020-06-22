@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="building_8md" kind="file" language="Markdown">
+    <compoundname>building.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>vt-build<sp/>How<sp/>to<sp/>Build</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Building<sp/>DARMA/vt<sp/>with<sp/>cmake</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\vt<sp/>can<sp/>be<sp/>built<sp/>with<sp/>`cmake`<sp/>or<sp/>built<sp/>inside<sp/>a<sp/>`docker`<sp/>container.<sp/>Most<sp/>of<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">external<sp/>dependencies<sp/>come<sp/>bundled<sp/>with<sp/>\vt<sp/>for<sp/>ease<sp/>of<sp/>compiling.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>how-to-build<sp/>Building</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>build<sp/>\vt,<sp/>one<sp/>must<sp/>obtain<sp/>the<sp/>following<sp/>dependencies:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>required-deps<sp/>Required</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>detector,<sp/><sp/><sp/>(*vt*<sp/>ecosystem)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>checkpoint,<sp/>(*vt*<sp/>ecosystem)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>MPI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(mpich/openmpi/mvapich/IBM<sp/>Spectrum<sp/>MPI/Cray<sp/>MPICH/etc.)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>optional-deps<sp/>Optional<sp/>(if<sp/>threading<sp/>enabled)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>OpenMP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>_or_</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Default<sp/>to<sp/>`std::thread`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>automatic-build-deps<sp/>Automatically<sp/>build<sp/>dependencies</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Assuming<sp/>MPI<sp/>is<sp/>installed<sp/>and<sp/>accessible<sp/>via<sp/>CC/CXX,<sp/>the<sp/>only<sp/>other<sp/>dependencies</highlight></codeline>
+<codeline><highlight class="normal">that<sp/>are<sp/>required<sp/>are<sp/>checkpoint<sp/>and<sp/>detector.<sp/>The<sp/>easiest<sp/>way<sp/>to<sp/>get<sp/>these</highlight></codeline>
+<codeline><highlight class="normal">built<sp/>are<sp/>to<sp/>clone<sp/>them<sp/>inside<sp/>`vt/lib`:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>git<sp/>clone<sp/>git@github.com:DARMA-tasking/vt</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>cd<sp/>vt/lib</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>git<sp/>clone<sp/>git@github.com:DARMA-tasking/checkpoint</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>git<sp/>clone<sp/>git@github.com:DARMA-tasking/detector</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">With<sp/>these<sp/>in<sp/>`vt/lib`,<sp/>cmake<sp/>will<sp/>automatically<sp/>build<sp/>them<sp/>and<sp/>stitch<sp/>them<sp/>into</highlight></codeline>
+<codeline><highlight class="normal">*vt*&apos;s<sp/>linking<sp/>process.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>use-cmake-directly-vars<sp/>Using<sp/>cmake<sp/>directly</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">One<sp/>may<sp/>use<sp/>`cmake`<sp/>as<sp/>normal<sp/>on<sp/>*vt*,<sp/>with<sp/>checkpoint<sp/>and<sp/>detector<sp/>cloned<sp/>in</highlight></codeline>
+<codeline><highlight class="normal">`vt/lib`<sp/>to<sp/>compile<sp/>them<sp/>all<sp/>together<sp/>as<sp/>explained<sp/>above.<sp/>The<sp/>following<sp/>are<sp/>some</highlight></codeline>
+<codeline><highlight class="normal">custom<sp/>configuration<sp/>build<sp/>options<sp/>that<sp/>can<sp/>be<sp/>provided<sp/>to<sp/>`cmake`<sp/>to<sp/>change<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">build<sp/>configuration:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>CMake<sp/>Variable<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Default<sp/>Value<sp/><sp/><sp/>|<sp/>Description<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>------------------<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>---------------<sp/>|<sp/>-----------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_lb_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Compile<sp/>with<sp/>support<sp/>for<sp/>runtime<sp/>load<sp/>balancing<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_trace_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Compile<sp/>with<sp/>support<sp/>for<sp/>runtime<sp/>tracing<sp/>(Projections-format)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_test_trace_runtime_enabled`<sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Force<sp/>tracing<sp/>on<sp/>at<sp/>runtime<sp/>for<sp/>VT<sp/>tests<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_doxygen_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>doxygen<sp/>generation<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_mimalloc_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>`mimalloc`,<sp/>alternative<sp/>allocator<sp/>for<sp/>debugging<sp/>memory<sp/>usage/frees/corruption<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_asan_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>building<sp/>with<sp/>address<sp/>sanitizer<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_pool_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Use<sp/>memory<sp/>pool<sp/>in<sp/>*vt*<sp/>for<sp/>message<sp/>allocation<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_zoltan_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Build<sp/>with<sp/>Zoltan<sp/>enabled<sp/>for<sp/>`ZoltanLB`<sp/>support<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_mpi_guards`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Guards<sp/>against<sp/>mis-use<sp/>of<sp/>MPI<sp/>calls<sp/>in<sp/>code<sp/>using<sp/>*vt*<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_fcontext_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>user-level<sp/>threads<sp/>through<sp/>boost<sp/>fcontext<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_priorities_enabled`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>prioritization<sp/>of<sp/>work<sp/>(adds<sp/>bits<sp/>in<sp/>envelope)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`vt_priority_bits_per_level`<sp/><sp/><sp/><sp/>|<sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Number<sp/>of<sp/>bits<sp/>per<sp/>level<sp/>of<sp/>priority<sp/>in<sp/>envelope<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`CODE_COVERAGE`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>code<sp/>coverage<sp/>for<sp/>VT<sp/>examples/tests<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_BUILD_TESTS`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Build<sp/>all<sp/>VT<sp/>tests<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_BUILD_EXAMPLES`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Build<sp/>all<sp/>VT<sp/>examples<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>using-the-build-script<sp/>Using<sp/>the<sp/>Build<sp/>Script</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Instead<sp/>of<sp/>running<sp/>`cmake`,<sp/>one<sp/>may<sp/>invoke<sp/>the<sp/>`vt/ci/build_cpp.sh`<sp/>script<sp/>which</highlight></codeline>
+<codeline><highlight class="normal">will<sp/>run<sp/>`cmake`<sp/>for<sp/>*vt*<sp/>with<sp/>environment<sp/>variables<sp/>for<sp/>most<sp/>configuration</highlight></codeline>
+<codeline><highlight class="normal">parameters.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>building-environment-variables<sp/>Build<sp/>Script<sp/>Environment<sp/>Variables</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Variable<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Default<sp/>Value<sp/><sp/><sp/>|<sp/>Description<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>------------------<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>---------------<sp/>|<sp/>-----------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`CMAKE_BUILD_TYPE`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Release<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>The<sp/>`cmake`<sp/>build<sp/>type<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_LB_ENABLED`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Compile<sp/>with<sp/>support<sp/>for<sp/>runtime<sp/>load<sp/>balancing<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_TRACE_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Compile<sp/>with<sp/>support<sp/>for<sp/>runtime<sp/>tracing<sp/>(Projections-format)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_TRACE_RUNTIME_ENABLED<sp/>`<sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Force<sp/>tracing<sp/>on<sp/>at<sp/>runtime<sp/>(used<sp/>in<sp/>CI<sp/>for<sp/>automatically<sp/>testing<sp/>tracing<sp/>on<sp/>all<sp/>tests/examples)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_DOXYGEN_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>doxygen<sp/>generation<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_MIMALLOC_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>`mimalloc`,<sp/>alternative<sp/>allocator<sp/>for<sp/>debugging<sp/>memory<sp/>usage/frees/corruption<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_ASAN_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Enable<sp/>building<sp/>with<sp/>address<sp/>sanitizer<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_POOL_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Use<sp/>memory<sp/>pool<sp/>in<sp/>*vt*<sp/>for<sp/>message<sp/>allocation<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_ZOLTAN_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Build<sp/>with<sp/>Zoltan<sp/>enabled<sp/>for<sp/>`ZoltanLB`<sp/>support<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`ZOLTAN_DIR<sp/>`<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>&lt;empty&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Directory<sp/>pointing<sp/>to<sp/>Zoltan<sp/>installation<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>`VT_MPI_GUARD_ENABLED<sp/>`<sp/><sp/><sp/><sp/><sp/>|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Guards<sp/>against<sp/>mis-use<sp/>of<sp/>MPI<sp/>calls<sp/>in<sp/>code<sp/>using<sp/>*vt*<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">With<sp/>these<sp/>set,<sp/>invoke<sp/>the<sp/>script<sp/>with<sp/>two<sp/>arguments:<sp/>the<sp/>path<sp/>to<sp/>the<sp/>*vt*<sp/>root</highlight></codeline>
+<codeline><highlight class="normal">directory<sp/>and<sp/>the<sp/>build<sp/>path.<sp/>Here&apos;s<sp/>an<sp/>example<sp/>assuming<sp/>that<sp/>*vt*<sp/>is<sp/>cloned</highlight></codeline>
+<codeline><highlight class="normal">into<sp/>`/usr/src/vt`<sp/>with<sp/>trace<sp/>enabled<sp/>in<sp/>debug<sp/>mode.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**Usage<sp/>for<sp/>building:**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>vt/ci/build_cpp.sh<sp/>&lt;full-path-to-vt-source&gt;<sp/>&lt;full-path-to-build-dir&gt;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**Example:**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>cd<sp/>/usr/src</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>git<sp/>clone<sp/>git@github.com:DARMA-tasking/vt</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>VT_TRACE_ENABLED=1<sp/>CMAKE_BUILD_TYPE=Debug<sp/>/usr/src/vt/ci/build_cpp.sh<sp/>/usr/src/vt<sp/>/usr/build/vt</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>docker-build<sp/>Building<sp/>with<sp/>`docker`<sp/>containerization</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>easiest<sp/>way<sp/>to<sp/>build<sp/>*vt*<sp/>is<sp/>by<sp/>using<sp/>`docker`<sp/>with<sp/>the<sp/>available<sp/>containers</highlight></codeline>
+<codeline><highlight class="normal">that<sp/>contain<sp/>the<sp/>proper<sp/>compilers,<sp/>MPI,<sp/>and<sp/>all<sp/>other<sp/>dependencies.<sp/>First,</highlight></codeline>
+<codeline><highlight class="normal">install<sp/>`docker`<sp/>on<sp/>the<sp/>system.<sp/>On<sp/>some<sp/>systems,<sp/>`docker-compose`<sp/>might<sp/>also</highlight></codeline>
+<codeline><highlight class="normal">need<sp/>to<sp/>be<sp/>installed.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>`docker`<sp/>builds<sp/>are<sp/>configured<sp/>through<sp/>`docker-compose`<sp/>to<sp/>use<sp/>a<sp/>shared,</highlight></codeline>
+<codeline><highlight class="normal">cached<sp/>filesystem<sp/>mount<sp/>with<sp/>the<sp/>host<sp/>for<sp/>`ccache`<sp/>to<sp/>enable<sp/>fast<sp/>re-builds.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>`docker-compose`,<sp/>the<sp/>following<sp/>variables<sp/>can<sp/>be<sp/>set<sp/>to<sp/>configure<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">build.<sp/>One<sp/>may<sp/>configure<sp/>the<sp/>architecture,<sp/>compiler<sp/>type<sp/>and<sp/>version,<sp/>Linux</highlight></codeline>
+<codeline><highlight class="normal">distro<sp/>(ubuntu<sp/>or<sp/>alpine),<sp/>and<sp/>distro<sp/>version.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>default<sp/>set<sp/>of<sp/>the<sp/>docker<sp/>configuration<sp/>options<sp/>is<sp/>located<sp/>in<sp/>`vt/.env`,</highlight></codeline>
+<codeline><highlight class="normal">which<sp/>`docker-compose`<sp/>will<sp/>read.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Variables:</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>ARCH={amd64,<sp/>arm64v8,<sp/>...}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>COMPILER_TYPE={gnu,<sp/>clang}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>COMPILER={gcc-5,<sp/>gcc-6,<sp/>gcc-7,<sp/>gcc-8,<sp/>gcc-9,<sp/>gcc-10,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clang-3.9,<sp/>clang-4.0,<sp/>clang-5.0,<sp/>clang-6.0,<sp/>clang-7,<sp/>clang-8,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clang-9,<sp/>clang-10}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>REPO=lifflander1/vt</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>UBUNTU={18.04,<sp/>20.04}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>ULIMIT_CORE=0</highlight></codeline>
+<codeline><highlight class="normal">#</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>DARMA/vt<sp/>Configuration<sp/>Variables:</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_LB=1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>load<sp/>balancing</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_TRACE=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>tracing</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_MIMALLOC=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>mimalloc<sp/>memory<sp/>allocator</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_DOCS=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>doxygen<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_TRACE_RT=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>tracing<sp/>at<sp/>runtime<sp/>(for<sp/>testing)</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>VT_ASAN=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>address<sp/>sanitizer</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>BUILD_TYPE=release<sp/><sp/><sp/>#<sp/>CMake<sp/>build<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">With<sp/>these<sp/>set,<sp/>run<sp/>the<sp/>following<sp/>for<sp/>a<sp/>non-interactive<sp/>build<sp/>with<sp/>ubuntu:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>cd<sp/>vt</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>docker-compose<sp/>run<sp/>-e<sp/>BUILD_TYPE=debug<sp/>-e<sp/>VT_TRACE=1<sp/>ubuntu-cpp</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Or,<sp/>alternatively,<sp/>run<sp/>a<sp/>non-interactive<sp/>build<sp/>with<sp/>alpine:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>cd<sp/>vt</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>docker-compose<sp/>run<sp/>-e<sp/>BUILD_TYPE=debug<sp/>-e<sp/>VT_TRACE=1<sp/>alpine-cpp</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>an<sp/>interactive<sp/>build<sp/>with<sp/>ubuntu,<sp/>where<sp/>one<sp/>can<sp/>build,<sp/>debug,<sp/>and<sp/>run</highlight></codeline>
+<codeline><highlight class="normal">`valgrind`,<sp/>etc:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>cd<sp/>vt</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>docker-compose<sp/>run<sp/>-e<sp/>BUILD_TYPE=debug<sp/>-e<sp/>VT_TRACE=1<sp/>ubuntu-cpp-interactive</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>/vt/ci/build_cpp.sh<sp/>/vt<sp/>/build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>/vt/ci/test_cpp.sh<sp/>/vt<sp/>/build</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>same<sp/>call<sp/>applies<sp/>to<sp/>alpine<sp/>distro<sp/>builds<sp/>if<sp/>you<sp/>swap</highlight></codeline>
+<codeline><highlight class="normal">`ubuntu-cpp-interactive`<sp/>for<sp/>`alpine-cpp-interactive`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>more<sp/>detailed<sp/>information<sp/>on<sp/>configuring<sp/>the<sp/>docker<sp/>build,<sp/>read<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">documentation<sp/>in<sp/>`vt/docker-compose.yml`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>test-vt<sp/>Testing</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">After<sp/>*vt*<sp/>is<sp/>built<sp/>succesfully,<sp/>one<sp/>may<sp/>invoke<sp/>the<sp/>tests<sp/>several<sp/>ways.<sp/>One<sp/>may</highlight></codeline>
+<codeline><highlight class="normal">run<sp/>`make<sp/>test`<sp/>or<sp/>`ninja<sp/>test`<sp/>(depending<sp/>on<sp/>the<sp/>generator<sp/>used)<sp/>or<sp/>`ctest`,<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">run<sp/>all<sp/>the<sp/>tests.<sp/>Alternatively,<sp/>the<sp/>tests<sp/>can<sp/>be<sp/>run<sp/>automatically<sp/>from<sp/>the<sp/>CI</highlight></codeline>
+<codeline><highlight class="normal">script:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>vt/ci/test_cpp.sh<sp/>&lt;full-path-to-vt-source&gt;<sp/>&lt;full-path-to-build-dir&gt;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/building.md"/>
+  </compounddef>
+</doxygen>

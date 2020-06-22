@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="trace_8md" kind="file" language="Markdown">
+    <compoundname>trace.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>trace<sp/>Tracing</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Trace<sp/>distributed<sp/>events</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>optional<sp/>trace<sp/>component<sp/>`vt::trace::Trace`,<sp/>accessed<sp/>via<sp/>`vt::theTrace()`</highlight></codeline>
+<codeline><highlight class="normal">builds<sp/>a<sp/>distributed<sp/>trace<sp/>of<sp/>events,<sp/>including<sp/>VT<sp/>handlers,<sp/>user<sp/>events,<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">MPI<sp/>invocations<sp/>via<sp/>the<sp/>PMPI<sp/>interface.<sp/>It<sp/>outputs</highlight></codeline>
+<codeline><highlight class="normal">[Projections](http://charm.cs.uiuc.edu/software)<sp/>log<sp/>and<sp/>sts<sp/>files<sp/>to<sp/>enable</highlight></codeline>
+<codeline><highlight class="normal">performance<sp/>analysis<sp/>after<sp/>execution.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>enable<sp/>tracing<sp/>at<sp/>runtime,<sp/>the<sp/>trace<sp/>component<sp/>must<sp/>be<sp/>enabled<sp/>at<sp/>compile</highlight></codeline>
+<codeline><highlight class="normal">time<sp/>with<sp/>cmake.<sp/>To<sp/>enable<sp/>tracing<sp/>pass<sp/>the<sp/>cmake<sp/>flag:</highlight></codeline>
+<codeline><highlight class="normal">\code{.cmake}</highlight></codeline>
+<codeline><highlight class="normal">-Dvt_trace_enabled=1</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>tracing-spec-file<sp/>Tracing<sp/>Specification<sp/>File</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>order<sp/>to<sp/>customize<sp/>when<sp/>tracing<sp/>is<sp/>enabled<sp/>and<sp/>disabled,<sp/>a<sp/>trace</highlight></codeline>
+<codeline><highlight class="normal">specification<sp/>file<sp/>can<sp/>be<sp/>passed<sp/>to<sp/>\vt<sp/>via<sp/>a<sp/>command-line<sp/>flag:</highlight></codeline>
+<codeline><highlight class="normal">`--vt_trace_spec<sp/>--vt_trace_spec_file=filename.spec`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>parser<sp/>will<sp/>read<sp/>the<sp/><sp/>following<sp/>format:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">[%]<sp/>&lt;phase&gt;<sp/>&lt;range<sp/>negative&gt;<sp/>&lt;range<sp/>positive&gt;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>is<sp/>an<sp/>example<sp/>of<sp/>a<sp/>trace<sp/>specification:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">0<sp/>0<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">%100<sp/>-3<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">200<sp/>-5<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>specifies<sp/>that<sp/>tracing<sp/>will<sp/>be<sp/>enabled<sp/>on<sp/>the<sp/>following<sp/>phases:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[0,10],<sp/>#<sp/>phase<sp/>0<sp/>with<sp/>offsets<sp/>0,+10<sp/>(subsumes<sp/>[0,3]<sp/>from<sp/>%100<sp/>-3<sp/>3)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[97,103]<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[195,205]<sp/>#<sp/>phase<sp/>200<sp/>with<sp/>offsets<sp/>-5,+5<sp/>(subsumes<sp/>[197,203]<sp/>from<sp/>%100<sp/>-3<sp/>3)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[297,303]<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[n%100-3,n%100+3]<sp/>...<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>sets<sp/>of<sp/>mod-phase<sp/>and<sp/>phase-specific<sp/>entries<sp/>must<sp/>be<sp/>unique.<sp/>There<sp/>may<sp/>be</highlight></codeline>
+<codeline><highlight class="normal">overlap<sp/>across<sp/>the<sp/>two<sp/>sets,<sp/>but<sp/>not<sp/>within<sp/>them.<sp/>Having<sp/>two<sp/>entries<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">start<sp/>with<sp/>`%100`<sp/>or<sp/>two<sp/>entries<sp/>that<sp/>start<sp/>with<sp/>`100`<sp/>would<sp/>be<sp/>invalid<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">trigger<sp/>a<sp/>parsing<sp/>error.<sp/>But<sp/>having<sp/>a<sp/>`%100`<sp/>and<sp/>`100`<sp/>entry<sp/>is<sp/>valid.</highlight></codeline>
+<codeline><highlight class="normal">Whether<sp/>tracing<sp/>is<sp/>enabled<sp/>is<sp/>calculated<sp/>as<sp/>an<sp/>OR<sp/>across<sp/>all<sp/>specification</highlight></codeline>
+<codeline><highlight class="normal">entries.<sp/>Thus,<sp/>if<sp/>a<sp/>given<sp/>phase<sp/>is<sp/>contained<sp/>in<sp/>any<sp/>spec<sp/>line,<sp/>it<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">enabled.<sp/>Note<sp/>that<sp/>`0<sp/>%<sp/>100<sp/>=<sp/>0`.<sp/>Therefore,<sp/>if<sp/>the<sp/>above<sp/>example<sp/>did<sp/>not</highlight></codeline>
+<codeline><highlight class="normal">contain<sp/>the<sp/>first<sp/>line,<sp/>tracing<sp/>would<sp/>be<sp/>enabled<sp/>as:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[0,3],<sp/>#<sp/>any<sp/>phase<sp/>mod<sp/>100<sp/>from<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[97,103],</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[195,205],</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[297,303],<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/trace.md"/>
+  </compounddef>
+</doxygen>

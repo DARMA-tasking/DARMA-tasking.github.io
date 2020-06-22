@@ -23,7 +23,7 @@ var searchData=
   ['require',['require',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850',1,'vt::messaging']]],
   ['rodatamsg',['RODataMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea8e6cd7fce645bd4666f05491d7ae9a21',1,'vt::trace']]],
   ['romsgmsg',['ROMsgMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea09bbab67779987ee507b5e261f92d8b9',1,'vt::trace']]],
-  ['root',['Root',['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a8c67b09b2de7f4bd3371d6239b02a045',1,'vt::trace']]],
+  ['root',['Root',['../structvt_1_1term_1_1_termination_detector.html#a4f3ede9a87f39d86e85f92b36a6c6a30a4beac8e3ddc4064785a61aa7949e3bda',1,'vt::term::TerminationDetector::Root()'],['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a8c67b09b2de7f4bd3371d6239b02a045',1,'vt::trace::Root()']]],
   ['rootedepoch',['RootedEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada4bbf8ef3641b58f81dc5320f32df0178',1,'vt::epoch']]],
   ['rotatelb',['RotateLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca5b1f9f84eddef3d97637267cbf0f7039',1,'vt::vrt::collection::balance']]],
   ['runtime',['runtime',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()']]]

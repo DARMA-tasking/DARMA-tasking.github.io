@@ -2,6 +2,11 @@
 \label{structvt_1_1pool_1_1_pool}\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 
 
+A core VT component that manages efficient pools of memory for quick allocation/deallocation.  
+
+
+
+
 {\ttfamily \#include $<$pool.\+h$>$}
 
 Inheritance diagram for vt\+:\+:pool\+:\+:Pool\+:\begin{figure}[H]
@@ -17,7 +22,7 @@ enum \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+
 \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5}{e\+Pool\+Size\+::\+Medium} = 2, 
 \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743}{e\+Pool\+Size\+::\+Large} = 3, 
 \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a1131a914388fac73e5f07b0ba0aad523}{e\+Pool\+Size\+::\+Malloc} = 4
- \}
+ \}\begin{DoxyCompactList}\small\item\em Different pool sizes\+: small, medium, large, and the backup malloc. \end{DoxyCompactList}
 \item 
 using \hyperlink{structvt_1_1pool_1_1_pool_a4030898e09d0160c24743a7b949c0d46}{Size\+Type} = size\+\_\+t
 \item 
@@ -37,23 +42,68 @@ using \hyperlink{structvt_1_1pool_1_1_pool_acc5ad2d64bf6ff58fead958a69c12d74}{He
 std\+::string \hyperlink{structvt_1_1pool_1_1_pool_a02fa54fc3cca0d388f25f397dfd997ab}{name} () override
 \item 
 void $\ast$ \hyperlink{structvt_1_1pool_1_1_pool_a0bf20e8b4ad1b85fb8952d81d433da55}{alloc} (size\+\_\+t const \&num\+\_\+bytes, size\+\_\+t oversize=0)
-\item 
+\begin{DoxyCompactList}\small\item\em Allocate some number of bytes plus extra size at the end. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1pool_1_1_pool_a73ef123aa04b44ae875716e2c7b95cab}{dealloc} (void $\ast$const buf)
-\item 
+\begin{DoxyCompactList}\small\item\em De-\/allocate a pool-\/allocated buffer. \end{DoxyCompactList}\item 
 \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+Pool\+Size} \hyperlink{structvt_1_1pool_1_1_pool_a9aa5afbbea5a61265746c4d461502d62}{get\+Pool\+Type} (size\+\_\+t const \&num\+\_\+bytes, size\+\_\+t const \&oversize)
 \item 
 \hyperlink{structvt_1_1pool_1_1_pool_a4030898e09d0160c24743a7b949c0d46}{Size\+Type} \hyperlink{structvt_1_1pool_1_1_pool_a7d6742d6abc615255e25363a1be067be}{remaining\+Size} (void $\ast$const buf)
 \item 
 bool \hyperlink{structvt_1_1pool_1_1_pool_a3f34112821d767815d5049dc83503033}{active} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Whether the pool is enabled at compile-\/time. \end{DoxyCompactList}\item 
 bool \hyperlink{structvt_1_1pool_1_1_pool_aa11bdd76d9f6491ac412d5abc5c63274}{active\+\_\+env} () const
-\item 
+\begin{DoxyCompactList}\small\item\em Whether the pool is enabled at compile-\/time and used as the default allocator for messages. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1pool_1_1_pool_aeb8ad6a3ac3cf168dc4f2d2be2714edc}{init\+Worker\+Pools} (\hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type} const \&num\+\_\+workers)
-\item 
+\begin{DoxyCompactList}\small\item\em Initialize worker-\/specific pools due to the lack of thread-\/safety of the memory allocator. This will create distinct memory pool instances for each worker thread to access. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1pool_1_1_pool_a45a2880809625a77bb93c3dfcd9c7603}{finalize} () override
-\begin{DoxyCompactList}\small\item\em Empty default overridden finalize method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Cleanup/free the memory pools. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type} = \hyperlink{structvt_1_1pool_1_1_pool_a21e20f5b56c3bae4f0d0cc36ed9c5eee}{Memory\+Pool\+Ptr\+Type}$<$ memory\+\_\+size\+\_\+small $>$
+\item 
+using \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type} = \hyperlink{structvt_1_1pool_1_1_pool_a21e20f5b56c3bae4f0d0cc36ed9c5eee}{Memory\+Pool\+Ptr\+Type}$<$ memory\+\_\+size\+\_\+medium $>$
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{structvt_1_1pool_1_1_pool_abd5f079910c28493ad3b0d5a9469f00a}{try\+Pooled\+Alloc} (size\+\_\+t const \&num\+\_\+bytes, size\+\_\+t const \&oversize)
+\item 
+bool \hyperlink{structvt_1_1pool_1_1_pool_adf32f4660575880101522e5d6b640edd}{try\+Pooled\+Dealloc} (void $\ast$const buf)
+\item 
+void $\ast$ \hyperlink{structvt_1_1pool_1_1_pool_a8a6ff684a26b2229cbf263e99a1bc2ee}{pooled\+Alloc} (size\+\_\+t const \&num\+\_\+bytes, size\+\_\+t const \&oversize, \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+Pool\+Size} const pool\+\_\+type)
+\item 
+void \hyperlink{structvt_1_1pool_1_1_pool_aa9ae08727c21035461d6f60b93ea19ab}{pool\+Dealloc} (void $\ast$const buf, \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+Pool\+Size} const pool\+\_\+type)
+\item 
+void $\ast$ \hyperlink{structvt_1_1pool_1_1_pool_ad9eb4c0efa76dc46487e23e265554943}{default\+Alloc} (size\+\_\+t const \&num\+\_\+bytes, size\+\_\+t const \&oversize)
+\item 
+void \hyperlink{structvt_1_1pool_1_1_pool_a8d8654019bf80cd274bea1797645db37}{default\+Dealloc} (void $\ast$const ptr)
+\end{DoxyCompactItemize}
+\subsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type} \hyperlink{structvt_1_1pool_1_1_pool_a833da3cd4d410ba607b6e7b000810882}{init\+S\+Pool} ()
+\item 
+static \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type} \hyperlink{structvt_1_1pool_1_1_pool_ab768c364b348107112f960ce0704565d}{init\+M\+Pool} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type} \hyperlink{structvt_1_1pool_1_1_pool_a8f14f2f9b344882cf727200eb8d41845}{small\+\_\+msg} = nullptr
+\item 
+\hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type} \hyperlink{structvt_1_1pool_1_1_pool_a268cb9b30cde3272c49e67e781f0345e}{medium\+\_\+msg} = nullptr
+\item 
+std\+::vector$<$ \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type} $>$ \hyperlink{structvt_1_1pool_1_1_pool_a9551faed42cf337990287481e158b01e}{s\+\_\+msg\+\_\+worker\+\_\+}
+\item 
+std\+::vector$<$ \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type} $>$ \hyperlink{structvt_1_1pool_1_1_pool_a86b8d7208cd3e42c821e23f0ab654d26}{m\+\_\+msg\+\_\+worker\+\_\+}
+\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
+
+\subsection{Detailed Description}
+A core VT component that manages efficient pools of memory for quick allocation/deallocation. 
+
+Highly efficient memory pool that is not thread-\/safe. Utilizes fixed-\/size buckets with free-\/list to quickly allocate and de-\/allocate. 
 
 \subsection{Member Typedef Documentation}
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_acc5ad2d64bf6ff58fead958a69c12d74}\label{structvt_1_1pool_1_1_pool_acc5ad2d64bf6ff58fead958a69c12d74}} 
@@ -82,6 +132,18 @@ using \hyperlink{structvt_1_1pool_1_1_pool_a21e20f5b56c3bae4f0d0cc36ed9c5eee}{vt
 {\footnotesize\ttfamily template$<$int64\+\_\+t num\+\_\+bytes\+\_\+t$>$ \\
 using \hyperlink{structvt_1_1pool_1_1_pool_a06673914350d933ad5205155eca14a3b}{vt\+::pool\+::\+Pool\+::\+Memory\+Pool\+Type} =  \hyperlink{structvt_1_1pool_1_1_memory_pool_equal}{Memory\+Pool\+Equal}$<$num\+\_\+bytes\+\_\+t$>$}
 
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}\label{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Mem\+Pool\+M\+Type@{Mem\+Pool\+M\+Type}}
+\index{Mem\+Pool\+M\+Type@{Mem\+Pool\+M\+Type}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{Mem\+Pool\+M\+Type}{MemPoolMType}}
+{\footnotesize\ttfamily using \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{vt\+::pool\+::\+Pool\+::\+Mem\+Pool\+M\+Type} =  \hyperlink{structvt_1_1pool_1_1_pool_a21e20f5b56c3bae4f0d0cc36ed9c5eee}{Memory\+Pool\+Ptr\+Type}$<$memory\+\_\+size\+\_\+medium$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}\label{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Mem\+Pool\+S\+Type@{Mem\+Pool\+S\+Type}}
+\index{Mem\+Pool\+S\+Type@{Mem\+Pool\+S\+Type}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{Mem\+Pool\+S\+Type}{MemPoolSType}}
+{\footnotesize\ttfamily using \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{vt\+::pool\+::\+Pool\+::\+Mem\+Pool\+S\+Type} =  \hyperlink{structvt_1_1pool_1_1_pool_a21e20f5b56c3bae4f0d0cc36ed9c5eee}{Memory\+Pool\+Ptr\+Type}$<$memory\+\_\+size\+\_\+small$>$\hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a4030898e09d0160c24743a7b949c0d46}\label{structvt_1_1pool_1_1_pool_a4030898e09d0160c24743a7b949c0d46}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Size\+Type@{Size\+Type}}
 \index{Size\+Type@{Size\+Type}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
@@ -97,21 +159,25 @@ using \hyperlink{structvt_1_1pool_1_1_pool_a06673914350d933ad5205155eca14a3b}{vt
 \subsubsection{\texorpdfstring{e\+Pool\+Size}{ePoolSize}}
 {\footnotesize\ttfamily enum \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{vt\+::pool\+::\+Pool\+::e\+Pool\+Size}\hspace{0.3cm}{\ttfamily [strong]}}
 
+
+
+Different pool sizes\+: small, medium, large, and the backup malloc. 
+
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{Small@{Small}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Small@{Small}}}\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a2660064e68655415da2628c2ae2f7592}\label{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a2660064e68655415da2628c2ae2f7592}} 
-Small&\\
+Small&Small bucket \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{Medium@{Medium}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Medium@{Medium}}}\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5}\label{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5}} 
-Medium&\\
+Medium&Medium bucket \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{Large@{Large}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Large@{Large}}}\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743}\label{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743}} 
-Large&\\
+Large&Large bucket \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{Malloc@{Malloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!Malloc@{Malloc}}}\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a1131a914388fac73e5f07b0ba0aad523}\label{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28a1131a914388fac73e5f07b0ba0aad523}} 
-Malloc&\\
+Malloc&Backup malloc allocation \\
 \hline
 
 \end{DoxyEnumFields}
@@ -133,23 +199,72 @@ Malloc&\\
 \subsubsection{\texorpdfstring{active()}{active()}}
 {\footnotesize\ttfamily bool vt\+::pool\+::\+Pool\+::active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Whether the pool is enabled at compile-\/time. 
+
+\begin{DoxyReturn}{Returns}
+whether its enabled 
+\end{DoxyReturn}
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_aa11bdd76d9f6491ac412d5abc5c63274}\label{structvt_1_1pool_1_1_pool_aa11bdd76d9f6491ac412d5abc5c63274}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!active\+\_\+env@{active\+\_\+env}}
 \index{active\+\_\+env@{active\+\_\+env}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 \subsubsection{\texorpdfstring{active\+\_\+env()}{active\_env()}}
 {\footnotesize\ttfamily bool vt\+::pool\+::\+Pool\+::active\+\_\+env (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Whether the pool is enabled at compile-\/time and used as the default allocator for messages. 
+
+\begin{DoxyReturn}{Returns}
+whether its enabled 
+\end{DoxyReturn}
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a0bf20e8b4ad1b85fb8952d81d433da55}\label{structvt_1_1pool_1_1_pool_a0bf20e8b4ad1b85fb8952d81d433da55}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!alloc@{alloc}}
 \index{alloc@{alloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 \subsubsection{\texorpdfstring{alloc()}{alloc()}}
 {\footnotesize\ttfamily void $\ast$ vt\+::pool\+::\+Pool\+::alloc (\begin{DoxyParamCaption}\item[{size\+\_\+t const \&}]{num\+\_\+bytes,  }\item[{size\+\_\+t}]{oversize = {\ttfamily 0} }\end{DoxyParamCaption})}
 
+
+
+Allocate some number of bytes plus extra size at the end. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em num\+\_\+bytes} & main payload \\
+\hline
+\mbox{\tt in}  & {\em oversize} & extra bytes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to new allocation 
+\end{DoxyReturn}
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a73ef123aa04b44ae875716e2c7b95cab}\label{structvt_1_1pool_1_1_pool_a73ef123aa04b44ae875716e2c7b95cab}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!dealloc@{dealloc}}
 \index{dealloc@{dealloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 \subsubsection{\texorpdfstring{dealloc()}{dealloc()}}
 {\footnotesize\ttfamily void vt\+::pool\+::\+Pool\+::dealloc (\begin{DoxyParamCaption}\item[{void $\ast$const}]{buf }\end{DoxyParamCaption})}
+
+
+
+De-\/allocate a pool-\/allocated buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em buf} & the buffer to deallocate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ad9eb4c0efa76dc46487e23e265554943}\label{structvt_1_1pool_1_1_pool_ad9eb4c0efa76dc46487e23e265554943}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!default\+Alloc@{default\+Alloc}}
+\index{default\+Alloc@{default\+Alloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{default\+Alloc()}{defaultAlloc()}}
+{\footnotesize\ttfamily void $\ast$ vt\+::pool\+::\+Pool\+::default\+Alloc (\begin{DoxyParamCaption}\item[{size\+\_\+t const \&}]{num\+\_\+bytes,  }\item[{size\+\_\+t const \&}]{oversize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a8d8654019bf80cd274bea1797645db37}\label{structvt_1_1pool_1_1_pool_a8d8654019bf80cd274bea1797645db37}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!default\+Dealloc@{default\+Dealloc}}
+\index{default\+Dealloc@{default\+Dealloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{default\+Dealloc()}{defaultDealloc()}}
+{\footnotesize\ttfamily void vt\+::pool\+::\+Pool\+::default\+Dealloc (\begin{DoxyParamCaption}\item[{void $\ast$const}]{ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a45a2880809625a77bb93c3dfcd9c7603}\label{structvt_1_1pool_1_1_pool_a45a2880809625a77bb93c3dfcd9c7603}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!finalize@{finalize}}
@@ -159,7 +274,7 @@ Malloc&\\
 
 
 
-Empty default overridden finalize method. 
+Cleanup/free the memory pools. 
 
 
 
@@ -171,12 +286,33 @@ Reimplemented from \hyperlink{structvt_1_1runtime_1_1component_1_1_component_a09
 \subsubsection{\texorpdfstring{get\+Pool\+Type()}{getPoolType()}}
 {\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{Pool\+::e\+Pool\+Size} vt\+::pool\+::\+Pool\+::get\+Pool\+Type (\begin{DoxyParamCaption}\item[{size\+\_\+t const \&}]{num\+\_\+bytes,  }\item[{size\+\_\+t const \&}]{oversize }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_ab768c364b348107112f960ce0704565d}\label{structvt_1_1pool_1_1_pool_ab768c364b348107112f960ce0704565d}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!init\+M\+Pool@{init\+M\+Pool}}
+\index{init\+M\+Pool@{init\+M\+Pool}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{init\+M\+Pool()}{initMPool()}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Pool\+::\+Mem\+Pool\+M\+Type} vt\+::pool\+::\+Pool\+::init\+M\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a833da3cd4d410ba607b6e7b000810882}\label{structvt_1_1pool_1_1_pool_a833da3cd4d410ba607b6e7b000810882}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!init\+S\+Pool@{init\+S\+Pool}}
+\index{init\+S\+Pool@{init\+S\+Pool}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{init\+S\+Pool()}{initSPool()}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Pool\+::\+Mem\+Pool\+S\+Type} vt\+::pool\+::\+Pool\+::init\+S\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_aeb8ad6a3ac3cf168dc4f2d2be2714edc}\label{structvt_1_1pool_1_1_pool_aeb8ad6a3ac3cf168dc4f2d2be2714edc}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!init\+Worker\+Pools@{init\+Worker\+Pools}}
 \index{init\+Worker\+Pools@{init\+Worker\+Pools}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 \subsubsection{\texorpdfstring{init\+Worker\+Pools()}{initWorkerPools()}}
 {\footnotesize\ttfamily void vt\+::pool\+::\+Pool\+::init\+Worker\+Pools (\begin{DoxyParamCaption}\item[{\hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type} const \&}]{num\+\_\+workers }\end{DoxyParamCaption})}
 
+
+
+Initialize worker-\/specific pools due to the lack of thread-\/safety of the memory allocator. This will create distinct memory pool instances for each worker thread to access. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em num\+\_\+workers} & number of workers on this node \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a02fa54fc3cca0d388f25f397dfd997ab}\label{structvt_1_1pool_1_1_pool_a02fa54fc3cca0d388f25f397dfd997ab}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!name@{name}}
 \index{name@{name}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
@@ -187,11 +323,62 @@ Reimplemented from \hyperlink{structvt_1_1runtime_1_1component_1_1_component_a09
 
 Implements \hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_a7701485f3539f78d42e6bad47fc7eb78}{vt\+::runtime\+::component\+::\+Base\+Component}.
 
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_aa9ae08727c21035461d6f60b93ea19ab}\label{structvt_1_1pool_1_1_pool_aa9ae08727c21035461d6f60b93ea19ab}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!pool\+Dealloc@{pool\+Dealloc}}
+\index{pool\+Dealloc@{pool\+Dealloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{pool\+Dealloc()}{poolDealloc()}}
+{\footnotesize\ttfamily void vt\+::pool\+::\+Pool\+::pool\+Dealloc (\begin{DoxyParamCaption}\item[{void $\ast$const}]{buf,  }\item[{\hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+Pool\+Size} const}]{pool\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a8a6ff684a26b2229cbf263e99a1bc2ee}\label{structvt_1_1pool_1_1_pool_a8a6ff684a26b2229cbf263e99a1bc2ee}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!pooled\+Alloc@{pooled\+Alloc}}
+\index{pooled\+Alloc@{pooled\+Alloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{pooled\+Alloc()}{pooledAlloc()}}
+{\footnotesize\ttfamily void $\ast$ vt\+::pool\+::\+Pool\+::pooled\+Alloc (\begin{DoxyParamCaption}\item[{size\+\_\+t const \&}]{num\+\_\+bytes,  }\item[{size\+\_\+t const \&}]{oversize,  }\item[{\hyperlink{structvt_1_1pool_1_1_pool_ace8d36439e5e599a8ee68b2f1a6a6b28}{e\+Pool\+Size} const}]{pool\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a7d6742d6abc615255e25363a1be067be}\label{structvt_1_1pool_1_1_pool_a7d6742d6abc615255e25363a1be067be}} 
 \index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!remaining\+Size@{remaining\+Size}}
 \index{remaining\+Size@{remaining\+Size}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
 \subsubsection{\texorpdfstring{remaining\+Size()}{remainingSize()}}
 {\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_a4030898e09d0160c24743a7b949c0d46}{Pool\+::\+Size\+Type} vt\+::pool\+::\+Pool\+::remaining\+Size (\begin{DoxyParamCaption}\item[{void $\ast$const}]{buf }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_abd5f079910c28493ad3b0d5a9469f00a}\label{structvt_1_1pool_1_1_pool_abd5f079910c28493ad3b0d5a9469f00a}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!try\+Pooled\+Alloc@{try\+Pooled\+Alloc}}
+\index{try\+Pooled\+Alloc@{try\+Pooled\+Alloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{try\+Pooled\+Alloc()}{tryPooledAlloc()}}
+{\footnotesize\ttfamily void $\ast$ vt\+::pool\+::\+Pool\+::try\+Pooled\+Alloc (\begin{DoxyParamCaption}\item[{size\+\_\+t const \&}]{num\+\_\+bytes,  }\item[{size\+\_\+t const \&}]{oversize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_adf32f4660575880101522e5d6b640edd}\label{structvt_1_1pool_1_1_pool_adf32f4660575880101522e5d6b640edd}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!try\+Pooled\+Dealloc@{try\+Pooled\+Dealloc}}
+\index{try\+Pooled\+Dealloc@{try\+Pooled\+Dealloc}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{try\+Pooled\+Dealloc()}{tryPooledDealloc()}}
+{\footnotesize\ttfamily bool vt\+::pool\+::\+Pool\+::try\+Pooled\+Dealloc (\begin{DoxyParamCaption}\item[{void $\ast$const}]{buf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a86b8d7208cd3e42c821e23f0ab654d26}\label{structvt_1_1pool_1_1_pool_a86b8d7208cd3e42c821e23f0ab654d26}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!m\+\_\+msg\+\_\+worker\+\_\+@{m\+\_\+msg\+\_\+worker\+\_\+}}
+\index{m\+\_\+msg\+\_\+worker\+\_\+@{m\+\_\+msg\+\_\+worker\+\_\+}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{m\+\_\+msg\+\_\+worker\+\_\+}{m\_msg\_worker\_}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type}$>$ vt\+::pool\+::\+Pool\+::m\+\_\+msg\+\_\+worker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a268cb9b30cde3272c49e67e781f0345e}\label{structvt_1_1pool_1_1_pool_a268cb9b30cde3272c49e67e781f0345e}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!medium\+\_\+msg@{medium\+\_\+msg}}
+\index{medium\+\_\+msg@{medium\+\_\+msg}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{medium\+\_\+msg}{medium\_msg}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_a8a201b9a843e47cd4e7b568a8e4483da}{Mem\+Pool\+M\+Type} vt\+::pool\+::\+Pool\+::medium\+\_\+msg = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a9551faed42cf337990287481e158b01e}\label{structvt_1_1pool_1_1_pool_a9551faed42cf337990287481e158b01e}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!s\+\_\+msg\+\_\+worker\+\_\+@{s\+\_\+msg\+\_\+worker\+\_\+}}
+\index{s\+\_\+msg\+\_\+worker\+\_\+@{s\+\_\+msg\+\_\+worker\+\_\+}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{s\+\_\+msg\+\_\+worker\+\_\+}{s\_msg\_worker\_}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type}$>$ vt\+::pool\+::\+Pool\+::s\+\_\+msg\+\_\+worker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structvt_1_1pool_1_1_pool_a8f14f2f9b344882cf727200eb8d41845}\label{structvt_1_1pool_1_1_pool_a8f14f2f9b344882cf727200eb8d41845}} 
+\index{vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}!small\+\_\+msg@{small\+\_\+msg}}
+\index{small\+\_\+msg@{small\+\_\+msg}!vt\+::pool\+::\+Pool@{vt\+::pool\+::\+Pool}}
+\subsubsection{\texorpdfstring{small\+\_\+msg}{small\_msg}}
+{\footnotesize\ttfamily \hyperlink{structvt_1_1pool_1_1_pool_a9f94985824d12c43357cfe50eaaefd38}{Mem\+Pool\+S\+Type} vt\+::pool\+::\+Pool\+::small\+\_\+msg = nullptr\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

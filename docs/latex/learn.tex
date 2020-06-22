@@ -1,0 +1,2087 @@
+To learn how to use {\bfseries {\itshape vt}}, there are several resources that will help.
+
+
+\begin{DoxyItemize}
+\item Learn \hyperlink{vt-build}{How to Build}
+\item Walk through the \hyperlink{tutorial}{Tutorial}
+\item Read the small example programs
+\begin{DoxyItemize}
+\item Read the \hyperlink{examples}{Examples} walk-\/through
+\item Examine {\ttfamily vt/examples/$\ast$}
+\end{DoxyItemize}
+\item Read about the different \hyperlink{introduction_vt-components}{Components in vt} 
+\end{DoxyItemize}\hypertarget{vt-build}{}\section{How to Build}\label{vt-build}
+Building D\+A\+R\+M\+A/vt with cmake
+
+{\bfseries {\itshape vt}} can be built with {\ttfamily cmake} or built inside a {\ttfamily docker} container. Most of the external dependencies come bundled with {\bfseries {\itshape vt}} for ease of compiling.\hypertarget{vt-build_how-to-build}{}\subsection{Building}\label{vt-build_how-to-build}
+To build {\bfseries {\itshape vt}}, one must obtain the following dependencies\+:\hypertarget{vt-build_required-deps}{}\subsubsection{Required}\label{vt-build_required-deps}
+
+\begin{DoxyItemize}
+\item detector, ({\itshape vt} ecosystem)
+\item checkpoint, ({\itshape vt} ecosystem)
+\item M\+PI (mpich/openmpi/mvapich/\+I\+BM Spectrum M\+P\+I/\+Cray M\+P\+I\+C\+H/etc.)
+\end{DoxyItemize}\hypertarget{vt-build_optional-deps}{}\subsubsection{Optional (if threading enabled)}\label{vt-build_optional-deps}
+
+\begin{DoxyItemize}
+\item Open\+MP {\itshape or}
+\item Default to {\ttfamily std\+::thread}
+\end{DoxyItemize}\hypertarget{vt-build_automatic-build-deps}{}\subsubsection{Automatically build dependencies}\label{vt-build_automatic-build-deps}
+Assuming M\+PI is installed and accessible via C\+C/\+C\+XX, the only other dependencies that are required are checkpoint and detector. The easiest way to get these built are to clone them inside {\ttfamily vt/lib}\+:
+
+
+\begin{DoxyCode}
+$ git clone git@github.com:DARMA-tasking/vt
+$ cd vt/lib
+$ git clone git@github.com:DARMA-tasking/checkpoint
+$ git clone git@github.com:DARMA-tasking/detector
+\end{DoxyCode}
+
+
+With these in {\ttfamily vt/lib}, cmake will automatically build them and stitch them into {\itshape vt}\textquotesingle{}s linking process.\hypertarget{vt-build_use-cmake-directly-vars}{}\subsubsection{Using cmake directly}\label{vt-build_use-cmake-directly-vars}
+One may use {\ttfamily cmake} as normal on {\itshape vt}, with checkpoint and detector cloned in {\ttfamily vt/lib} to compile them all together as explained above. The following are some custom configuration build options that can be provided to {\ttfamily cmake} to change the build configuration\+:
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ C\+Make Variable }&\textbf{ Default Value }&\textbf{ Description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ C\+Make Variable }&\textbf{ Default Value }&\textbf{ Description  }\\\cline{1-3}
+\endhead
+{\ttfamily vt\+\_\+lb\+\_\+enabled} &0 &Compile with support for runtime load balancing \\\cline{1-3}
+{\ttfamily vt\+\_\+trace\+\_\+enabled} &0 &Compile with support for runtime tracing (Projections-\/format) \\\cline{1-3}
+{\ttfamily vt\+\_\+test\+\_\+trace\+\_\+runtime\+\_\+enabled} &0 &Force tracing on at runtime for VT tests \\\cline{1-3}
+{\ttfamily vt\+\_\+doxygen\+\_\+enabled} &0 &Enable doxygen generation \\\cline{1-3}
+{\ttfamily vt\+\_\+mimalloc\+\_\+enabled} &0 &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption \\\cline{1-3}
+{\ttfamily vt\+\_\+asan\+\_\+enabled} &0 &Enable building with address sanitizer \\\cline{1-3}
+{\ttfamily vt\+\_\+pool\+\_\+enabled} &1 &Use memory pool in {\itshape vt} for message allocation \\\cline{1-3}
+{\ttfamily vt\+\_\+zoltan\+\_\+enabled} &0 &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support \\\cline{1-3}
+{\ttfamily vt\+\_\+mpi\+\_\+guards} &0 &Guards against mis-\/use of M\+PI calls in code using {\itshape vt} \\\cline{1-3}
+{\ttfamily vt\+\_\+fcontext\+\_\+enabled} &0 &Enable user-\/level threads through boost fcontext \\\cline{1-3}
+{\ttfamily vt\+\_\+priorities\+\_\+enabled} &1 &Enable prioritization of work (adds bits in envelope) \\\cline{1-3}
+{\ttfamily vt\+\_\+priority\+\_\+bits\+\_\+per\+\_\+level} &3 &Number of bits per level of priority in envelope \\\cline{1-3}
+{\ttfamily C\+O\+D\+E\+\_\+\+C\+O\+V\+E\+R\+A\+GE} &0 &Enable code coverage for VT examples/tests \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+E\+S\+TS} &1 &Build all VT tests \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+B\+U\+I\+L\+D\+\_\+\+E\+X\+A\+M\+P\+L\+ES} &1 &Build all VT examples \\\cline{1-3}
+\end{longtabu}
+\hypertarget{vt-build_using-the-build-script}{}\subsubsection{Using the Build Script}\label{vt-build_using-the-build-script}
+Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily vt/ci/build\+\_\+cpp.\+sh} script which will run {\ttfamily cmake} for {\itshape vt} with environment variables for most configuration parameters.\hypertarget{vt-build_building-environment-variables}{}\paragraph{Build Script Environment Variables}\label{vt-build_building-environment-variables}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Variable }&\textbf{ Default Value }&\textbf{ Description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Variable }&\textbf{ Default Value }&\textbf{ Description  }\\\cline{1-3}
+\endhead
+{\ttfamily C\+M\+A\+K\+E\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+Y\+PE} &Release &The {\ttfamily cmake} build type \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+L\+B\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Compile with support for runtime load balancing \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+R\+A\+C\+E\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Compile with support for runtime tracing (Projections-\/format) \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+R\+A\+C\+E\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Force tracing on at runtime (used in CI for automatically testing tracing on all tests/examples) \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+D\+O\+X\+Y\+G\+E\+N\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable doxygen generation \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+M\+I\+M\+A\+L\+L\+O\+C\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+A\+S\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable building with address sanitizer \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+P\+O\+O\+L\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Use memory pool in {\itshape vt} for message allocation \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+Z\+O\+L\+T\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support \\\cline{1-3}
+{\ttfamily Z\+O\+L\+T\+A\+N\+\_\+\+D\+IR} &$<$empty$>$ &Directory pointing to Zoltan installation \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+M\+P\+I\+\_\+\+G\+U\+A\+R\+D\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Guards against mis-\/use of M\+PI calls in code using {\itshape vt} \\\cline{1-3}
+\end{longtabu}
+With these set, invoke the script with two arguments\+: the path to the {\itshape vt} root directory and the build path. Here\textquotesingle{}s an example assuming that {\itshape vt} is cloned into {\ttfamily /usr/src/vt} with trace enabled in debug mode.
+
+{\bfseries Usage for building\+:}
+
+
+\begin{DoxyCode}
+$ vt/ci/build\_cpp.sh <full-path-to-vt-source> <full-path-to-build-dir>
+\end{DoxyCode}
+
+
+{\bfseries Example\+:}
+
+
+\begin{DoxyCode}
+$ cd /usr/src
+$ git clone git@github.com:DARMA-tasking/vt
+$ VT\_TRACE\_ENABLED=1 CMAKE\_BUILD\_TYPE=Debug /usr/src/vt/ci/build\_cpp.sh /usr/src/vt /usr/build/vt
+\end{DoxyCode}
+\hypertarget{vt-build_docker-build}{}\subsubsection{Building with `docker` containerization}\label{vt-build_docker-build}
+The easiest way to build {\itshape vt} is by using {\ttfamily docker} with the available containers that contain the proper compilers, M\+PI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker-\/compose} might also need to be installed.
+
+The {\ttfamily docker} builds are configured through {\ttfamily docker-\/compose} to use a shared, cached filesystem mount with the host for {\ttfamily ccache} to enable fast re-\/builds.
+
+For {\ttfamily docker-\/compose}, the following variables can be set to configure the build. One may configure the architecture, compiler type and version, Linux distro (ubuntu or alpine), and distro version.
+
+The default set of the docker configuration options is located in {\ttfamily vt/.env}, which {\ttfamily docker-\/compose} will read.
+
+
+\begin{DoxyCode}
+# Variables:
+#   ARCH=\{amd64, arm64v8, ...\}
+#   COMPILER\_TYPE=\{gnu, clang\}
+#   COMPILER=\{gcc-5, gcc-6, gcc-7, gcc-8, gcc-9, gcc-10,
+#             clang-3.9, clang-4.0, clang-5.0, clang-6.0, clang-7, clang-8,
+#             clang-9, clang-10\}
+#   REPO=lifflander1/vt
+#   UBUNTU=\{18.04, 20.04\}
+#   ULIMIT\_CORE=0
+#
+# DARMA/vt Configuration Variables:
+#   VT\_LB=1              # Enable load balancing
+#   VT\_TRACE=0           # Enable tracing
+#   VT\_MIMALLOC=0        # Enable mimalloc memory allocator
+#   VT\_DOCS=0            # Enable doxygen build
+#   VT\_TRACE\_RT=0        # Enable tracing at runtime (for testing)
+#   VT\_ASAN=0            # Enable address sanitizer
+#   BUILD\_TYPE=release   # CMake build type
+\end{DoxyCode}
+
+
+With these set, run the following for a non-\/interactive build with ubuntu\+:
+
+
+\begin{DoxyCode}
+$ cd vt
+$ docker-compose run -e BUILD\_TYPE=debug -e VT\_TRACE=1 ubuntu-cpp
+\end{DoxyCode}
+
+
+Or, alternatively, run a non-\/interactive build with alpine\+:
+
+
+\begin{DoxyCode}
+$ cd vt
+$ docker-compose run -e BUILD\_TYPE=debug -e VT\_TRACE=1 alpine-cpp
+\end{DoxyCode}
+
+
+For an interactive build with ubuntu, where one can build, debug, and run {\ttfamily valgrind}, etc\+:
+
+
+\begin{DoxyCode}
+$ cd vt
+$ docker-compose run -e BUILD\_TYPE=debug -e VT\_TRACE=1 ubuntu-cpp-interactive
+# /vt/ci/build\_cpp.sh /vt /build
+# /vt/ci/test\_cpp.sh /vt /build
+\end{DoxyCode}
+
+
+The same call applies to alpine distro builds if you swap {\ttfamily ubuntu-\/cpp-\/interactive} for {\ttfamily alpine-\/cpp-\/interactive}.
+
+For more detailed information on configuring the docker build, read the documentation in {\ttfamily vt/docker-\/compose.\+yml}.\hypertarget{vt-build_test-vt}{}\subsection{Testing}\label{vt-build_test-vt}
+After {\itshape vt} is built succesfully, one may invoke the tests several ways. One may run {\ttfamily make test} or {\ttfamily ninja test} (depending on the generator used) or {\ttfamily ctest}, to run all the tests. Alternatively, the tests can be run automatically from the CI script\+:
+
+
+\begin{DoxyCode}
+$ vt/ci/test\_cpp.sh <full-path-to-vt-source> <full-path-to-build-dir>
+\end{DoxyCode}
+ \hypertarget{tutorial}{}\section{Tutorial}\label{tutorial}
+Tutorial of how to use {\bfseries {\itshape vt}}\hypertarget{tutorial_tutorial-init-finalize-vt}{}\subsection{Initializing/\+Finalizing}\label{tutorial_tutorial-init-finalize-vt}
+To initialize {\bfseries {\itshape vt}} all you must do is invoke the {\ttfamily \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt\+::initialize}} call with the program arguments, which creates and initializes a new {\bfseries {\itshape vt}} runtime. The initialize call reads the {\bfseries {\itshape vt}} arguments and removes them, leaving the remaining for the program.
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+   \textcolor{comment}{// program here}
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+\}
+\end{DoxyCode}
+
+
+If you are already using M\+PI in your program already, you don\textquotesingle{}t want to call initialize like this because {\bfseries {\itshape vt}} will initialize M\+PI itself. Instead, you should pass a pointer to the live M\+PI communicator to {\bfseries {\itshape vt}} for it to clone, as so\+:
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  MPI\_Init(&argc, &argv);
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv, &MPI\_COMM\_WORLD);
+   \textcolor{comment}{// program here}
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+  MPI\_Finalize();
+\}
+\end{DoxyCode}
+\hypertarget{tutorial_tutorial-walkthrough}{}\subsection{Tutorial Code Snippets}\label{tutorial_tutorial-walkthrough}
+This page walks through the tutorial that exists in the source code. See {\ttfamily vt/tutorial/$\ast$.h} for the tutorial pieces in the repository. The main tutorial example code that stitches the pieces together is located in example\+: {\ttfamily vt/tutorial/tutorial\+\_\+main.\+h}. The actual code that compiles into an example is in {\ttfamily vt/examples/tutorial.\+cc}.
+
+
+\begin{DoxyItemize}
+\item Tutorial 1---Basic Concepts
+\begin{DoxyItemize}
+\item 1a\+: \hyperlink{tutorial-1a}{Learning about context}
+\item 1b\+: \hyperlink{tutorial-1b}{Learning about active handlers}
+\item 1c\+: \hyperlink{tutorial-1c}{Learning about serialization}
+\item 1d\+: \hyperlink{tutorial-1d}{Learning about broadcasts}
+\item 1e\+: \hyperlink{tutorial-1e}{Learning about rooted groups}
+\item 1f\+: \hyperlink{tutorial-1f}{Learning about collective groups}
+\item 1g\+: \hyperlink{tutorial-1g}{Learning about callbacks}
+\item 1h\+: \hyperlink{tutorial-1h}{Learning about reductions}
+\end{DoxyItemize}
+\item Tutorial 2---Collections
+\begin{DoxyItemize}
+\item 2a\+: \hyperlink{tutorial-2a}{Learning about collections}
+\item 2b\+: \hyperlink{tutorial-2b}{Learning about collection reductions}
+\end{DoxyItemize}
+\item Tutorial 3---Epochs
+\begin{DoxyItemize}
+\item 3a\+: \hyperlink{tutorial-3a}{Learning about collective epochs} 
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{tutorial-1a}{}\subsection{Learning about context}\label{tutorial-1a}
+
+\begin{DoxyCodeInclude}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} context() \{
+  \textcolor{comment}{/*}
+\textcolor{comment}{   *  ::vt::theContext() can be used to obtain the node and number of nodes:}
+\textcolor{comment}{   *  these correlate exactly to the MPI ranks and MPI size.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   *  By default if you initialize VT without passing an MPI communication, VT}
+\textcolor{comment}{   *  will initialize MPI and use an internal communicator. If you want VT to}
+\textcolor{comment}{   *  interoperate, you can pass a communicator to the initialize invocation.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   */}
+
+  \textcolor{comment}{// Equivalent to: MPI\_Comm\_rank(...)}
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+
+  \textcolor{comment}{// Equivalent to: MPI\_Comm\_size(...)}
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+
+  \textcolor{comment}{// The header-only library fmt is used for printing throughout VT. You can use}
+  \textcolor{comment}{// it because the headers are included by default}
+  ::fmt::print(\textcolor{stringliteral}{"this\_node=\{\}, num\_ndoes=\{\}\(\backslash\)n"}, this\_node, num\_nodes);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1b}{}\subsection{Learning about active handlers}\label{tutorial-1b}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{/*}
+\textcolor{comment}{ * This is a user-defined message that can be sent to a node via VT's active}
+\textcolor{comment}{ * message interface. A message in VT must be derived from the type}
+\textcolor{comment}{ * vt::Message. The derived class will include the ``envelope'', which includes}
+\textcolor{comment}{ * the handler, and other information for processing the message}
+\textcolor{comment}{ */}
+
+\textcolor{comment}{//            VT Base Message}
+\textcolor{comment}{//           \(\backslash\)----------------/}
+\textcolor{comment}{//            \(\backslash\)              /}
+\textcolor{keyword}{struct }MyMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
+  \textcolor{comment}{// In general, a default constructor is required for the a message because it}
+  \textcolor{comment}{// may be reconstructed by VT}
+  MyMsg() = \textcolor{keywordflow}{default};
+
+  \textcolor{comment}{// A normal constructor}
+  MyMsg(\textcolor{keywordtype}{int} in\_a, \textcolor{keywordtype}{int} in\_b) : a\_(in\_a), b\_(in\_b) \{ \}
+
+  \textcolor{keywordtype}{int} getA()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} a\_; \}
+  \textcolor{keywordtype}{int} getB()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} b\_; \}
+
+\textcolor{keyword}{private}:
+  \textcolor{keywordtype}{int} a\_ = 0, b\_ = 0;
+\};
+
+\textcolor{comment}{/*}
+\textcolor{comment}{ * Following are two active message handler declarations. These are the}
+\textcolor{comment}{ * functions that can be remotely invoked by sending a message in VT. VT allows}
+\textcolor{comment}{ * for multiple styles for handlers. The first (msgHandlerA) is the C-style}
+\textcolor{comment}{ * active message handler. It is exactly equivalent (in terms of practical use}
+\textcolor{comment}{ * ramifications) to the functor style, which follows (MsgHandlerB). Either}
+\textcolor{comment}{ * style can be used to define a message handler. The only slight benefit the}
+\textcolor{comment}{ * functor has is uniqueness in type, when enables introspection of the message}
+\textcolor{comment}{ * type. This is realized in the sending side code: the function style requires}
+\textcolor{comment}{ * the message type before the value function template parameter. However, both}
+\textcolor{comment}{ * are *fully type checked* and will not allow the wrong message type to be}
+\textcolor{comment}{ * sent.}
+\textcolor{comment}{ */}
+
+\textcolor{comment}{// Forward declaration for the active message handler (function ptr style)}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerA(MyMsg* msg);
+
+\textcolor{comment}{// Forward declaration for the active message handler (functor style)}
+\textcolor{keyword}{struct }MsgHandlerB \{
+  \textcolor{keywordtype}{void} operator()(MyMsg* msg);
+\};
+
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageNode() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * A basic active message send essentially does an}
+\textcolor{comment}{   * ``MPI\_Send(..,destination,...)'' to the destination node passed to}
+\textcolor{comment}{   * ::vt::theMsg()->sendMsg(destination). The handler, which is passed as the}
+\textcolor{comment}{   * second template argument, is the function that is triggered when the}
+\textcolor{comment}{   * message arrives on the destination node.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * The theMsg()->sendMsg(..) does not serialize the message sent to the}
+\textcolor{comment}{   * destination node. Even if the message has a serialize method (the above}
+\textcolor{comment}{   * example does not), it is sent as bytes. This is because sendMsg always just}
+\textcolor{comment}{   * sends the data directly that is passed to it.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * This example uses the function pointer style compared to the send inside of}
+\textcolor{comment}{   * msgHandlerA, which uses the functor style send.}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 1;
+    \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyMsg>(29,32);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MyMsg,msgHandlerA>(to\_node, msg.get());
+  \}
+\}
+
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerA(MyMsg* msg) \{
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * VT provides vtAssert (and a half-dozen variants) that replace the simple}
+\textcolor{comment}{   * the assert call found in cassert.}
+\textcolor{comment}{   */}
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->getA() == 29, \textcolor{stringliteral}{"Value a incorrect"});
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->getB() == 32, \textcolor{stringliteral}{"Value b incorrect"});
+
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+
+  ::fmt::print(\textcolor{stringliteral}{"msgHandlerA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+
+  \textcolor{comment}{/* Node 0 sends MyMsg to node 1 in the above code so this should execute on}
+\textcolor{comment}{   * node 1 */}
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(cur\_node == 1, \textcolor{stringliteral}{"This handler should execute on node 1"});
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * In response to this message, node 1 sends a message back to node 0. This}
+\textcolor{comment}{   * invocation uses the functor style send.}
+\textcolor{comment}{   */}
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 0;
+  \textcolor{keyword}{auto} msg2 = ::vt::makeMessage<MyMsg>(10,20);
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgHandlerB>(to\_node, msg2.get());
+\}
+
+\textcolor{keywordtype}{void} MsgHandlerB::operator()(MyMsg* msg) \{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->getA() == 10, \textcolor{stringliteral}{"Value a incorrect"});
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->getB() == 20, \textcolor{stringliteral}{"Value b incorrect"});
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(cur\_node == 0, \textcolor{stringliteral}{"This handler should execute on node 0"});
+  ::fmt::print(\textcolor{stringliteral}{"msgHandlerB: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1c}{}\subsection{Learning about serialization}\label{tutorial-1c}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{/*}
+\textcolor{comment}{ * Some user defined data structures}
+\textcolor{comment}{ */}
+\textcolor{keyword}{struct }Particle \{
+  Particle() = \textcolor{keywordflow}{default};
+  Particle(\textcolor{keywordtype}{double} in\_x, \textcolor{keywordtype}{double} in\_y, \textcolor{keywordtype}{double} in\_z)
+    : x(in\_x), y(in\_y), z(in\_z)
+  \{ \}
+
+  \textcolor{comment}{// Non-message types can use serializers like this.}
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
+  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
+    s | x | y | z;
+  \}
+
+  \textcolor{keywordtype}{double} x, y, z;
+\};
+
+\textcolor{keyword}{struct }Data \{
+  \textcolor{keywordtype}{int} a;
+
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
+  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
+    s | a;
+  \}
+\};
+
+\textcolor{comment}{// TODO - show data with non-intrusive serialization}
+\textcolor{comment}{// TODO - show data that does not need serialization}
+
+\textcolor{comment}{//                  VT Base Message}
+\textcolor{comment}{//                 \(\backslash\)----------------/}
+\textcolor{comment}{//                  \(\backslash\)              /}
+\textcolor{keyword}{struct }ParticleMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
+  \textcolor{keyword}{using} MessageParentType = \hyperlink{namespacevt_a3a3ddfef40b4c90915fa43cdd5f129ea}{::vt::Message}; \textcolor{comment}{// base message}
+  \hyperlink{message__serialize_8h_a54128d5338aaa9c918179826085e13d1}{vt\_msg\_serialize\_required}();         \textcolor{comment}{// mark serialization mode}
+
+  ParticleMsg() = \textcolor{keywordflow}{default};
+
+  ParticleMsg(\textcolor{keywordtype}{int} in\_x, \textcolor{keywordtype}{int} in\_y, \textcolor{keywordtype}{int} in\_z)
+    : x(in\_x), y(in\_y), z(in\_z)
+  \{ \}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * Implement a serialize method so the std::vector and pointer are properly}
+\textcolor{comment}{   * serialization on the send.}
+\textcolor{comment}{   */}
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
+  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
+    \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);    \textcolor{comment}{// ensure parent is serialized
+       consistently}
+
+    s | particles;
+    s | x | y | z;
+
+    \textcolor{comment}{// Serialize a pointer by first serializing whether it is non-null and then}
+    \textcolor{comment}{// the actual value if it's not non-null}
+    \textcolor{keywordtype}{bool} has\_a = a != \textcolor{keyword}{nullptr};
+    s | has\_a;
+    \textcolor{keywordflow}{if} (has\_a) \{
+      s | *a;
+    \}
+  \}
+
+\textcolor{keyword}{public}:
+  std::vector<Particle> particles;
+  \textcolor{keywordtype}{int} x = 0, y = 0, z = 0;
+  Data* a = \textcolor{keyword}{nullptr};
+\};
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgSerialA(ParticleMsg* msg);
+
+\textcolor{comment}{// Tutorial code to demonstrate serialization in active message sends}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageSerialization() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * The theMsg()->sendMsg(..) will serialize the message sent to the}
+\textcolor{comment}{   * destination node if it has a serialize method. If not, it will send the}
+\textcolor{comment}{   * message as if it is sent directly the sendMsg.}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 1;
+    \textcolor{keyword}{auto} msg = ::vt::makeMessage<ParticleMsg>(1,2,3);
+    msg->particles.push\_back(Particle\{10,11,12\});
+    msg->particles.push\_back(Particle\{13,14,15\});
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ParticleMsg,msgSerialA>(to\_node, msg.get());
+  \}
+\}
+
+\textcolor{comment}{// Message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgSerialA(ParticleMsg* msg) \{
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->particles.size() == 2, \textcolor{stringliteral}{"Should be two particles"});
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(msg->x == 1 && msg->y == 2 && msg->z == 3, \textcolor{stringliteral}{"Values x,y,z incorrect"});
+
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+
+  \textcolor{comment}{/* Node 0 sends MyMsg to node 1 in the above code so this should execute on}
+\textcolor{comment}{   * node 1 */}
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(cur\_node == 1, \textcolor{stringliteral}{"This handler should execute on node 1"});
+
+  ::fmt::print(\textcolor{stringliteral}{"msgSerialA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1d}{}\subsection{Learning about broadcasts}\label{tutorial-1d}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//                  VT Base Message}
+\textcolor{comment}{//                 \(\backslash\)----------------/}
+\textcolor{comment}{//                  \(\backslash\)              /}
+\textcolor{keyword}{struct }MyDataMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
+  MyDataMsg() = \textcolor{keywordflow}{default};
+  MyDataMsg(\textcolor{keywordtype}{double} in\_x, \textcolor{keywordtype}{double} in\_y, \textcolor{keywordtype}{double} in\_z)
+    : x(in\_x), y(in\_y), z(in\_z)
+  \{ \}
+
+  \textcolor{keywordtype}{double} getX()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} x; \}
+  \textcolor{keywordtype}{double} getY()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} y; \}
+  \textcolor{keywordtype}{double} getZ()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} z; \}
+
+\textcolor{keyword}{private}:
+  \textcolor{keywordtype}{double} x = 0.0, y = 0.0, z = 0.0;
+\};
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerX(MyDataMsg* msg);
+
+\textcolor{comment}{// Tutorial code to demonstrate broadcasting a message to the entire system}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageBroadcast() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * The theMsg()->broadcastMsg(..) will send the message to every node in the}
+\textcolor{comment}{   * system. Every node will include all the nodes that VT has depending on the}
+\textcolor{comment}{   * MPI communicator passed in or the size attained (number of ranks) when}
+\textcolor{comment}{   * executing MPI init directly in non-interoperability mode.}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyDataMsg>(1.0,2.0,3.0);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MyDataMsg,msgHandlerX>(msg.get());
+  \}
+\}
+
+\textcolor{comment}{// Message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerX(MyDataMsg* msg) \{
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(
+    msg->getX() == 1.0 && msg->getY() == 2.0 && msg->getZ() == 3.0,
+    \textcolor{stringliteral}{"Values x,y,z incorrect"}
+  );
+
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  ::fmt::print(\textcolor{stringliteral}{"msgHandlerX: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1e}{}\subsection{Learning about rooted groups}\label{tutorial-1e}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//                  VT Base Message}
+\textcolor{comment}{//                 \(\backslash\)----------------/}
+\textcolor{comment}{//                  \(\backslash\)              /}
+\textcolor{keyword}{struct }MySimpleMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{ \};
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupA(MySimpleMsg* msg);
+
+\textcolor{comment}{// Tutorial code to demonstrate broadcasting a message to the entire system}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageGroupRoot() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * This is an example of the rooted group creation and broadcast to that}
+\textcolor{comment}{   * group. A group allows the user to create a subset of nodes. A broadcast by}
+\textcolor{comment}{   * default sends the message to every node in the default group (which}
+\textcolor{comment}{   * includes all nodes). If a explicit group is set in the envelope, the}
+\textcolor{comment}{   * broadcast will only arrive on the nodes in that group.}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{comment}{// Create range for the group [1,num\_nodes);}
+    \textcolor{keyword}{auto} range = std::make\_unique<::vt::group::region::Range>(1, num\_nodes);
+    \textcolor{comment}{// The non-collective group is created by a single node based on a range or}
+    \textcolor{comment}{// list of nodes. The lambda is executed once the group is created. By}
+    \textcolor{comment}{// setting the group in the envelope of the message and broadcasting the}
+    \textcolor{comment}{// message will arrive on the set of nodes included in the group}
+    \textcolor{keyword}{auto} \textcolor{keywordtype}{id} = \hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}()->\hyperlink{structvt_1_1group_1_1_group_manager_aaf9941faced23021a420185203219149}{newGroup}(std::move(range), [](
+      \hyperlink{namespacevt_a27b5e4411c9b6140c49100e050e2f743}{GroupType} group\_id)\{
+      fmt::print(\textcolor{stringliteral}{"Group is created: id=\{:x\}\(\backslash\)n"}, group\_id);
+      \textcolor{keyword}{auto} msg = makeMessage<MySimpleMsg>();
+      \hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}(msg->env, group\_id);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MySimpleMsg,msgHandlerGroupA>(msg.get());
+    \});
+    \textcolor{comment}{// The `id' that is returned from the newGroup invocation, can be used}
+    \textcolor{comment}{// anywhere in the system to broadcast (multicast) to this group.}
+    (void)\textcolor{keywordtype}{id};  \textcolor{comment}{// don't warn about unused variable}
+  \}
+\}
+
+\textcolor{comment}{// Message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupA(MySimpleMsg* msg) \{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(cur\_node >= 1, \textcolor{stringliteral}{"This handler should only execute on nodes >= 1"});
+
+  ::fmt::print(\textcolor{stringliteral}{"msgHandlerGroupA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1f}{}\subsection{Learning about collective groups}\label{tutorial-1f}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//                  VT Base Message}
+\textcolor{comment}{//                 \(\backslash\)----------------/}
+\textcolor{comment}{//                  \(\backslash\)              /}
+\textcolor{keyword}{struct }MySimpleMsg2 : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{ \};
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupB(MySimpleMsg2* msg);
+
+\textcolor{comment}{// Tutorial code to demonstrate broadcasting a message to the entire system}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageGroupCollective() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * This is an example of the collective group creation and broadcast to that}
+\textcolor{comment}{   * group. A group allows the user to create a subset of nodes. The collective}
+\textcolor{comment}{   * group allows all nodes to participate in creating the group by passing a}
+\textcolor{comment}{   * boolean that indicates if they are apart of the group.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * Unlike the rooted group creation (which requires an initial set at a root}
+\textcolor{comment}{   * node), the collective group is fully distributed: its creation and}
+\textcolor{comment}{   * storage. The set of all nodes included is never stored in a central}
+\textcolor{comment}{   * location. This is managed by efficient distributed algorithms that create a}
+\textcolor{comment}{   * spanning tree based on the filter and rebalance it depending on outcomes.}
+\textcolor{comment}{   */}
+
+  \textcolor{keyword}{auto} \textcolor{keyword}{const}& is\_even\_node = this\_node % 2 == 0;
+
+  \textcolor{keyword}{auto} group = \hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}()->\hyperlink{structvt_1_1group_1_1_group_manager_a92b301d6cf77af7d57ed822c6f044d58}{newGroupCollective}(
+    is\_even\_node, [](\hyperlink{namespacevt_a27b5e4411c9b6140c49100e050e2f743}{GroupType} group\_id)\{
+      fmt::print(\textcolor{stringliteral}{"Group is created: id=\{:x\}\(\backslash\)n"}, group\_id);
+
+      \textcolor{comment}{// In this example, node 1 broadcasts to the group of even nodes}
+      \textcolor{keyword}{auto} \textcolor{keyword}{const} my\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+      \textcolor{keywordflow}{if} (my\_node == 1) \{
+        \textcolor{keyword}{auto} msg = makeMessage<MySimpleMsg2>();
+        \hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}(msg->env, group\_id);
+        \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MySimpleMsg2,msgHandlerGroupB>(msg.get());
+      \}
+    \}
+  );
+  (void)group;  \textcolor{comment}{// don't warn about unused variable}
+\}
+
+\textcolor{comment}{// Message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupB(MySimpleMsg2* msg) \{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(cur\_node % 2 == 0, \textcolor{stringliteral}{"This handler should only execute on even nodes"});
+
+  ::fmt::print(\textcolor{stringliteral}{"msgHandlerGroupB: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1g}{}\subsection{Learning about callbacks}\label{tutorial-1g}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//              VT Base Message}
+\textcolor{comment}{//             \(\backslash\)----------------/}
+\textcolor{comment}{//              \(\backslash\)              /}
+\textcolor{keyword}{struct }DataMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{ \};
+
+\textcolor{keyword}{struct }MsgWithCallback : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
+  MsgWithCallback() = \textcolor{keywordflow}{default};
+  \textcolor{keyword}{explicit} MsgWithCallback(Callback<DataMsg> in\_cb) : cb(in\_cb) \{\}
+
+  Callback<DataMsg> cb;
+\};
+
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(MsgWithCallback* msg);
+
+\textcolor{comment}{// An active message handler used as the target for a callback}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackHandler(DataMsg* msg) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback\(\backslash\)n"}, cur\_node);
+\}
+
+\textcolor{comment}{// An active message handler used as the target for a callback}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackBcastHandler(DataMsg* msg) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback bcast\(\backslash\)n"}, cur\_node);
+\}
+
+\textcolor{comment}{// A simple context object}
+\textcolor{keyword}{struct }MyContext \{ \};
+\textcolor{keyword}{static} MyContext \hyperlink{namespacevt_1_1config_a0551245b6b893932b95aaf8eac94eed1}{ctx} = \{\};
+
+\textcolor{comment}{// A message handler with context used as the target for a callback}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackCtx(DataMsg* msg, MyContext* cbctx) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering context callback\(\backslash\)n"}, cur\_node);
+\}
+
+
+\textcolor{comment}{// Tutorial code to demonstrate using a callback}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageCallback() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * Callbacks allow one to generalize the notion of an endpoint with a abstract}
+\textcolor{comment}{   * interface the callee can use without changing code. A callback can trigger}
+\textcolor{comment}{   * a lambda, handler on a node, handler broadcast, handler/lambda with a}
+\textcolor{comment}{   * context, message send of virtual context collection (element or broadcast)}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{comment}{// Node sending the callback message to, which shall invoke the callback}
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 1;
+    \textcolor{comment}{// Node that we want to callback to execute on}
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cb\_node = 0;
+
+    \textcolor{comment}{// Example lambda callback (void)}
+    \textcolor{keyword}{auto} void\_fn = [=]\{
+      ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering void function callback\(\backslash\)n"}, this\_node);
+    \};
+
+    \textcolor{comment}{// Example of a void lambda callback}
+    \{
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adb73a299b634a180ae3814b41b9ce255}{makeFunc}(void\_fn);
+      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+    \}
+
+    \textcolor{comment}{// Example of active message handler callback with send node}
+    \{
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<DataMsg,callbackHandler>(cb\_node);
+      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+    \}
+
+    \textcolor{comment}{// Example of active message handler callback with broadcast}
+    \{
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<DataMsg,callbackBcastHandler>();
+      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+    \}
+
+    \textcolor{comment}{// Example of context callback}
+    \{
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adb73a299b634a180ae3814b41b9ce255}{makeFunc}<DataMsg,MyContext>(&
+      \hyperlink{namespacevt_1_1config_a0551245b6b893932b95aaf8eac94eed1}{ctx}, callbackCtx);
+      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+    \}
+  \}
+\}
+
+\textcolor{comment}{// Message handler for to receive callback and invoke it}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(MsgWithCallback* msg) \{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  ::fmt::print(\textcolor{stringliteral}{"getCallbackHandler: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
+
+  \textcolor{comment}{// Create a msg to trigger to callback}
+  \textcolor{keyword}{auto} data\_msg = ::vt::makeMessage<DataMsg>();
+  \textcolor{comment}{// Send the callback with the message}
+  msg->cb.send(data\_msg.get());
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-1h}{}\subsection{Learning about reductions}\label{tutorial-1h}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//                       Reduce Message VT Base Class}
+\textcolor{comment}{//                 \(\backslash\)--------------------------------------------/}
+\textcolor{comment}{//                  \(\backslash\)                                          /}
+\textcolor{comment}{//                   \(\backslash\)                            Reduce Data /}
+\textcolor{comment}{//                    \(\backslash\)                          \(\backslash\)-----------/}
+\textcolor{comment}{//                     \(\backslash\)                          \(\backslash\)         /}
+\textcolor{keyword}{struct }ReduceDataMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{::vt::collective::ReduceTMsg}<int32\_t> \{\};
+
+
+\textcolor{comment}{// Functor that is the target of the reduction}
+\textcolor{keyword}{struct }ReduceResult \{
+  \textcolor{keywordtype}{void} operator()(ReduceDataMsg* msg) \{
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+    fmt::print(\textcolor{stringliteral}{"reduction value=\{\}\(\backslash\)n"}, msg->getConstVal());
+    assert(num\_nodes * 50 == msg->getConstVal());
+    (void)num\_nodes;  \textcolor{comment}{// don't warn about unused value when not debugging}
+  \}
+\};
+
+
+\textcolor{comment}{// Tutorial code to demonstrate using a callback}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageReduce() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  (void)this\_node;  \textcolor{comment}{// don't warn about unused variable}
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * Perform reduction over all the nodes.}
+\textcolor{comment}{   */}
+
+  \textcolor{comment}{// This is the type of the reduction (uses the plus operator over the data}
+  \textcolor{comment}{// type). Once can implement their own data type and overload the plus}
+  \textcolor{comment}{// operator for the combine during the reduce}
+  \textcolor{keyword}{using} ReduceOp = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{::vt::collective::PlusOp<int32\_t>};
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} root\_reduce\_node = 0;
+
+  \textcolor{keyword}{auto} reduce\_msg = ::vt::makeMessage<ReduceDataMsg>();
+
+  \textcolor{comment}{// Get a reference to the value to set it in this reduce msg}
+  reduce\_msg->getVal() = 50;
+
+  \hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{::vt::theCollective}()->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afa3c814ff0e1c7ef1a9f76ed4036512b}{global}()->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_ac41b433147b957df5639d72ac8946090}{reduce}<ReduceOp,ReduceResult>(
+    root\_reduce\_node, reduce\_msg.get()
+  );
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-2a}{}\subsection{Learning about collections}\label{tutorial-2a}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{// Forward declaration for message}
+\textcolor{keyword}{struct }MyCollMsg;
+
+\textcolor{comment}{//               VT Base Class for a collection}
+\textcolor{comment}{//         \(\backslash\)-------------------------------------/}
+\textcolor{comment}{//          \(\backslash\)                                   /}
+\textcolor{comment}{//           \(\backslash\)                         Index   /}
+\textcolor{comment}{//            \(\backslash\)                     \(\backslash\)---------/}
+\textcolor{comment}{//             \(\backslash\)                     \(\backslash\)       /}
+\textcolor{keyword}{struct }MyCol : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{::vt::Collection}<MyCol,Index1D> \{
+
+  \textcolor{keywordtype}{void} msgHandler(MyCollMsg* msg);
+
+\};
+
+\textcolor{comment}{//                 VT Base Message for Collections}
+\textcolor{comment}{//               \(\backslash\)--------------------------------/}
+\textcolor{comment}{//                \(\backslash\)                              /}
+\textcolor{keyword}{struct }MyCollMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{::vt::CollectionMessage}<MyCol> \{ \};
+
+\textcolor{keywordtype}{void} MyCol::msgHandler(MyCollMsg* msg) \{
+  \textcolor{keyword}{auto} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \textcolor{keyword}{auto} idx = this->getIndex();
+  ::fmt::print(\textcolor{stringliteral}{"MyCol::msgHandler index=\{\}, node=\{\}\(\backslash\)n"}, idx.x(), cur\_node);
+\}
+
+\textcolor{comment}{// Tutorial code to demonstrate creating a collection}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} collection() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * This is an example of creating a virtual context collection with an index}
+\textcolor{comment}{   * range}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{comment}{// Range of 32 elements for the collection}
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_1_1index_a091a4f5a7a2c993d9727eaa60cf67d81}{::vt::Index1D}(32);
+    \textcolor{comment}{// Construct the collection: invoked by one node. By default, the elements}
+    \textcolor{comment}{// will be block mapped to the nodes}
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<MyCol>(range);
+
+    \textcolor{comment}{// Broadcast a message to the entire collection. The msgHandler will be}
+    \textcolor{comment}{// invoked on every element to the collection}
+    \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyCollMsg>();
+    proxy.broadcast<MyCollMsg,&MyCol::msgHandler>(msg.get());
+
+    \textcolor{comment}{// Send a message to the 5th element of the collection}
+    \textcolor{keyword}{auto} msg2 = ::vt::makeMessage<MyCollMsg>();
+    proxy[5].send<MyCollMsg,&MyCol::msgHandler>(msg2.get());
+  \}
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-2b}{}\subsection{Learning about collection reductions}\label{tutorial-2b}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{// Forward declaration for message}
+\textcolor{keyword}{struct }ColRedMsg;
+
+\textcolor{comment}{//                  VT Base Class for a collection}
+\textcolor{comment}{//            \(\backslash\)------------------------------------------/}
+\textcolor{comment}{//             \(\backslash\)                                        /}
+\textcolor{comment}{//              \(\backslash\)                              Index   /}
+\textcolor{comment}{//               \(\backslash\)                          \(\backslash\)---------/}
+\textcolor{comment}{//                \(\backslash\)                          \(\backslash\)       /}
+\textcolor{keyword}{struct }ReduceCol : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{::vt::Collection}<ReduceCol,Index1D> \{
+
+  \textcolor{keywordtype}{void} reduceHandler(ColRedMsg* msg);
+
+\};
+
+\textcolor{comment}{//                  VT Base Message for Collections}
+\textcolor{comment}{//               \(\backslash\)-----------------------------------/}
+\textcolor{comment}{//                \(\backslash\)                                 /}
+\textcolor{keyword}{struct }ColRedMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{::vt::CollectionMessage}<ReduceCol> \{ \};
+
+\textcolor{comment}{//                    Reduce Message VT Base Class}
+\textcolor{comment}{//              \(\backslash\)-------------------------------------------/}
+\textcolor{comment}{//               \(\backslash\)                                         /}
+\textcolor{comment}{//                \(\backslash\)                           Reduce Type /}
+\textcolor{comment}{//                 \(\backslash\)                          \(\backslash\)----------/}
+\textcolor{comment}{//                  \(\backslash\)                          \(\backslash\)        /}
+\textcolor{keyword}{struct }ReduceMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{::vt::collective::ReduceTMsg}<int32\_t> \{\};
+
+\textcolor{comment}{// Functor that is the target of the collection reduction}
+\textcolor{keyword}{struct }PrintReduceResult \{
+  \textcolor{keywordtype}{void} operator()(ReduceMsg* msg) \{
+    fmt::print(\textcolor{stringliteral}{"collection reduce value=\{\}\(\backslash\)n"}, msg->getConstVal());
+    assert(32 * 100 == msg->getConstVal());
+  \}
+\};
+
+
+\textcolor{keywordtype}{void} ReduceCol::reduceHandler(ColRedMsg* msg) \{
+  \textcolor{keyword}{auto} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  (void)cur\_node;  \textcolor{comment}{// don't warn about unused variable}
+  \textcolor{keyword}{auto} idx = this->getIndex();
+  (void)idx;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{//::fmt::print("MyCol::reduceHandler index=\{\}, node=\{\}\(\backslash\)n", idx.x(), cur\_node);}
+
+  \textcolor{keyword}{using} ReduceOp = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<int32\_t>};
+
+  \textcolor{keyword}{auto} proxy = getCollectionProxy();
+  \textcolor{keyword}{auto} reduce\_msg = makeMessage<ReduceMsg>();
+
+  \textcolor{comment}{// Get a reference to the value to set it in this reduce msg}
+  reduce\_msg->getVal() = 100;
+
+  \textcolor{comment}{// Invoke the reduce!}
+  proxy.reduce<ReduceOp,PrintReduceResult>(reduce\_msg.get());
+\}
+
+\textcolor{comment}{// Tutorial code to demonstrate reducing a collection}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} collectionReduce() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * This is an example of reducing over a virtual context collection}
+\textcolor{comment}{   */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{comment}{// Range of 32 elements for the collection}
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_1_1index_a091a4f5a7a2c993d9727eaa60cf67d81}{::vt::Index1D}(32);
+    \textcolor{comment}{// Construct the collection: invoked by one node. By default, the elements}
+    \textcolor{comment}{// will be block mapped to the nodes}
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<ReduceCol>(range);
+
+    \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}
+    \textcolor{comment}{// invoked on every element to the collection}
+    \textcolor{keyword}{auto} msg = ::vt::makeMessage<ColRedMsg>();
+    proxy.broadcast<ColRedMsg,&ReduceCol::reduceHandler>(msg.get());
+  \}
+\}
+\end{DoxyCodeInclude}
+\hypertarget{tutorial-3a}{}\subsection{Learning about collective epochs}\label{tutorial-3a}
+
+\begin{DoxyCodeInclude}
+\textcolor{comment}{//              VT Base Message}
+\textcolor{comment}{//             \(\backslash\)----------------/}
+\textcolor{comment}{//              \(\backslash\)              /}
+\textcolor{keyword}{struct }ExampleMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
+  ExampleMsg() = \textcolor{keywordflow}{default};
+  \textcolor{keyword}{explicit} ExampleMsg(int32\_t in\_ttl) : ttl(in\_ttl-1) \{ \}
+
+  int32\_t ttl = 0;
+\};
+
+\textcolor{comment}{// Forward declaration for the active message handler}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} recurHandler(ExampleMsg* msg);
+
+\textcolor{comment}{// Tutorial code to demonstrate using a callback}
+\textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageTerm() \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{   * Termination will allow us to track a subcomputation with causality to}
+\textcolor{comment}{   * determine when a sub-computation terminated in a distributed-manner. The}
+\textcolor{comment}{   * tutorial demonstrates how to use `collective` epochs. Rooted epoch will be}
+\textcolor{comment}{   * demonstrated in a follow-on tutorial.}
+\textcolor{comment}{   */}
+
+  \textcolor{comment}{// Create a new epoch: this is a collective invocation}
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} new\_epoch = \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_a748dfa37925107b37bde702e6c5f4aa4}{makeEpochCollective}();
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{keyword}{auto} msg = vt::makeMessage<ExampleMsg>(8);
+    \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{envelopeSetEpoch}(msg->env, new\_epoch);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ExampleMsg,recurHandler>(this\_node+1,msg.get());
+  \}
+
+  \textcolor{comment}{// Any node that wishes to have a notification on termination for a given}
+  \textcolor{comment}{// epoch can add actions for the termination detector}
+  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}()->\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}(
+    new\_epoch, []\{
+      \textcolor{keyword}{auto} \textcolor{keyword}{const} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+      fmt::print(\textcolor{stringliteral}{"\{\}: recurHandler terminated\(\backslash\)n"}, \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node});
+    \}
+  );
+
+  \textcolor{comment}{// This is not explicitly a collective, but all nodes need to call}
+  \textcolor{comment}{// `finishedEpoch` to tell the system they are finished sending messages}
+  \textcolor{comment}{// for the epoch.}
+  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(new\_epoch);
+\}
+
+\textcolor{comment}{// Message handler that recursively sends messages}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} recurHandler(ExampleMsg* msg) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+
+  ::fmt::print(
+    \textcolor{stringliteral}{"\{\}: recurHandler: ttl=\{\}, triggered\(\backslash\)n"}, this\_node, msg->ttl
+  );
+
+  \textcolor{keywordflow}{if} (msg->ttl > 0) \{
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} num\_send = \textcolor{keyword}{static\_cast<}int32\_t\textcolor{keyword}{>}(drand48() * 3);
+    \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0; i < num\_send; i++) \{
+      \textcolor{keyword}{auto} next\_node = (this\_node + 1 > num\_nodes - 1) ? 0 : (this\_node + 1);
+
+      ::fmt::print(
+        \textcolor{stringliteral}{"\{\}: recurHandler: i=\{\}, next\_node=\{\}, num\_send=\{\}\(\backslash\)n"},
+        this\_node, i, next\_node, num\_send
+      );
+
+      \textcolor{keyword}{auto} msg\_send = vt::makeMessage<ExampleMsg>(msg->ttl);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ExampleMsg,recurHandler>(next\_node,msg\_send.get());
+    \}
+  \}
+\}
+\end{DoxyCodeInclude}
+\hypertarget{examples}{}\section{Examples}\label{examples}
+Small example programs to learn {\bfseries {\itshape vt}}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Example }&\textbf{ Description }&\textbf{ Link  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Example }&\textbf{ Description }&\textbf{ Link  }\\\cline{1-3}
+\endhead
+Jacobi1D &1-\/D Jacobi linear system solver with homogeneous Dirichlet condition &\hyperlink{jacobi1d-example}{Example Jacobi 1D Program} \\\cline{1-3}
+Jacobi2D &2-\/D Jacobi linear system solver with homogeneous Dirichlet condition &\hyperlink{jacobi2d-example}{Example Jacobi 2D Program} \\\cline{1-3}
+Reduce\+Integral &Composite trapezoidal rule for the integral {\ttfamily \textbackslash{}int\+\_\+\{0\}$^\wedge$\{1\} f(x) dx} &\hyperlink{reduce-integral-example}{Example Integral Reduction Program} \\\cline{1-3}
+\end{longtabu}
+\hypertarget{jacobi1d-example}{}\subsection{Example Jacobi 1D Program}\label{jacobi1d-example}
+The full code for this example can be found here\+: {\ttfamily examples/collection/jacobi1d\+\_\+vt.\+cc}.
+
+
+\begin{DoxyCodeInclude}
+
+\textcolor{comment}{//}
+\textcolor{comment}{// This code applies a few steps of the Jacobi iteration to}
+\textcolor{comment}{// the linear system  A x = 0}
+\textcolor{comment}{// where is the tridiagonal matrix with pattern [-1 2 -1]}
+\textcolor{comment}{// The initial guess for x is a made-up non-zero vector.}
+\textcolor{comment}{// The exact solution is the vector 0.}
+\textcolor{comment}{//}
+\textcolor{comment}{// The matrix A is square and invertible.}
+\textcolor{comment}{// The number of rows is ((number of objects) * (number of rows per object))}
+\textcolor{comment}{//}
+\textcolor{comment}{// Such a matrix A is obtained when using 2nd-order finite difference}
+\textcolor{comment}{// for discretizing (-d^2 u /dx^2 = f) on [0, 1] with homogeneous}
+\textcolor{comment}{// Dirichlet condition (u(0) = u(1) = 0) using a uniform grid}
+\textcolor{comment}{// with grid size 1 / ((number of objects) * (number of rows per object) + 1)}
+\textcolor{comment}{//}
+
+
+\textcolor{preprocessor}{#include <\hyperlink{transport_8h}{vt/transport.h}>}
+
+\textcolor{preprocessor}{#include <cstdlib>}
+\textcolor{preprocessor}{#include <cassert>}
+\textcolor{preprocessor}{#include <iostream>}
+
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_nrow\_object = 8;
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_num\_objs = 4;
+\textcolor{keyword}{static} constexpr \textcolor{keywordtype}{double} \textcolor{keyword}{const} default\_tol = 1.0e-02;
+
+\textcolor{keyword}{struct }LinearPb1DJacobi : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<LinearPb1DJacobi,vt::Index1D> \{
+
+\textcolor{keyword}{private}:
+
+  std::vector<double> tcur\_, told\_;
+  std::vector<double> rhs\_;
+  \textcolor{keywordtype}{size\_t} iter\_ = 0;
+  \textcolor{keywordtype}{size\_t} msgReceived\_ = 0, totalReceive\_ = 0;
+  \textcolor{keywordtype}{size\_t} numObjs\_ = 1;
+  \textcolor{keywordtype}{size\_t} numRowsPerObject\_ = 1;
+  \textcolor{keywordtype}{size\_t} maxIter\_ = 8;
+
+\textcolor{keyword}{public}:
+
+  \textcolor{keyword}{explicit} LinearPb1DJacobi() :
+    tcur\_(), told\_(), rhs\_(), iter\_(0),
+    msgReceived\_(0), totalReceive\_(0),
+    numObjs\_(1), numRowsPerObject\_(1), maxIter\_(8)
+  \{ \}
+
+
+  \textcolor{keyword}{using} BlankMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<LinearPb1DJacobi>};
+
+  \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceNoneMsg} \{ \};
+
+  \textcolor{keyword}{struct }LPMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb1DJacobi> \{
+
+    \textcolor{keywordtype}{size\_t} numObjects = 0;
+    \textcolor{keywordtype}{size\_t} nRowPerObject = 0;
+    \textcolor{keywordtype}{size\_t} iterMax = 0;
+
+    LPMsg() = \textcolor{keywordflow}{default};
+
+    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nobjs, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nrow, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} itMax) :
+      numObjects(nobjs), nRowPerObject(nrow), iterMax(itMax)
+    \{ \}
+
+  \};
+
+  \textcolor{keyword}{struct }ReduxMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg}<double> \{
+    ReduxMsg() = \textcolor{keywordflow}{default};
+    \textcolor{keyword}{explicit} ReduxMsg(\textcolor{keywordtype}{double} in\_val) : \hyperlink{namespacevt_1_1collective_a28b82d5d48c9bc6e4fd738fcbf9e0f62}{ReduceTMsg}<double>(in\_val) \{ \}
+  \};
+
+  \textcolor{keywordtype}{void} checkCompleteCB(ReduxMsg* msg) \{
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Only one object for the reduction will visit}
+    \textcolor{comment}{// this function}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{double} normRes = msg->getConstVal();
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} iter = iter\_;
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} maxIter = maxIter\_;
+
+    \textcolor{keywordflow}{if} ((iter <= maxIter) and (normRes >= default\_tol)) \{
+      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter, normRes);
+      \textcolor{comment}{//}
+      \textcolor{comment}{// Start a new iteration}
+      \textcolor{comment}{//}
+      \textcolor{keyword}{auto} proxy = getCollectionProxy();
+      \textcolor{keyword}{auto} loopMsg = vt::makeMessage<BlankMsg>();
+      proxy.broadcast<BlankMsg, &LinearPb1DJacobi::sendInfo>(loopMsg.get());
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
+      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
+    \}
+    \textcolor{keywordflow}{else}\{
+      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+    \}
+  \}
+
+  \textcolor{keywordtype}{void} doIteration() \{
+
+    iter\_ += 1;
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{//--- Copy extremal values}
+    \textcolor{comment}{//}
+    tcur\_[0] = told\_[0];
+    tcur\_[numRowsPerObject\_+1] = told\_[numRowsPerObject\_+1];
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{//---- Jacobi iteration step}
+    \textcolor{comment}{//---- A tridiagonal matrix = "tridiag" ( [-1.0  2.0  -1.0] )}
+    \textcolor{comment}{//---- rhs\_ right hand side vector}
+    \textcolor{comment}{//}
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 1; ii <= numRowsPerObject\_; ++ii) \{
+      tcur\_[ii] = 0.5*(rhs\_[ii] + told\_[ii-1] + told\_[ii+1]);
+    \}
+
+    std::copy(tcur\_.begin(), tcur\_.end(), told\_.begin());
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Compute the maximum entries among the rows on this object}
+    \textcolor{comment}{// We do not take into account the "ghost" entries}
+    \textcolor{comment}{// as they may be "out of date".}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{double} maxNorm = 0.0;
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 1; ii < tcur\_.size()-1; ++ii) \{
+      \textcolor{keywordtype}{double} val = tcur\_[ii];
+      maxNorm = (maxNorm > std::fabs(val)) ? maxNorm : std::fabs(val);
+    \}
+
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<
+      LinearPb1DJacobi,ReduxMsg,&LinearPb1DJacobi::checkCompleteCB
+    >(proxy[0]);
+    \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
+    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+
+  \}
+
+
+  \textcolor{keyword}{struct }VecMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb1DJacobi> \{
+    \textcolor{keyword}{using} MessageParentType = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<LinearPb1DJacobi>}
+      ;
+    \hyperlink{message__serialize_8h_a3452798707ea3a45f9da58f7b4673990}{vt\_msg\_serialize\_if\_needed\_by\_parent\_or\_type1}(
+      \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase});
+
+    VecMsg() = \textcolor{keywordflow}{default};
+
+    VecMsg(\hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} \textcolor{keyword}{const}& in\_index, \textcolor{keywordtype}{double} \textcolor{keyword}{const}& ref) :
+      \hyperlink{namespacevt}{vt}::\hyperlink{namespacevt_ae7700e12f79c0fec16964aab84838428}{CollectionMessage}<LinearPb1DJacobi>(),
+      from\_index(in\_index), val(ref)
+    \{ \}
+
+    \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
+    \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(Serializer& s) \{
+      \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);
+      s | from\_index;
+      s | val;
+    \}
+
+    \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} from\_index = 0;
+    \textcolor{keywordtype}{double} val = 0.0;
+  \};
+
+  \textcolor{keywordtype}{void} exchange(VecMsg *msg) \{
+
+    \textcolor{comment}{// Receive and treat the message from a neighboring object.}
+
+    \textcolor{keyword}{const} \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} myIdx = getIndex().x();
+
+    \textcolor{keywordflow}{if} (myIdx > msg->from\_index) \{
+      this->told\_[0] = msg->val;
+      msgReceived\_ += 1;
+    \}
+
+    \textcolor{keywordflow}{if} (myIdx < msg->from\_index) \{
+      this->told\_[numRowsPerObject\_ + 1] = msg->val;
+      msgReceived\_ += 1;
+    \}
+
+    \textcolor{comment}{// Check whether this 'object' has received all the expected messages.}
+    \textcolor{keywordflow}{if} (msgReceived\_ == totalReceive\_) \{
+      msgReceived\_ = 0;
+      doIteration();
+    \}
+
+  \}
+
+  \textcolor{keywordtype}{void} doneInit(InitMsg *msg) \{
+    sendInfo(\textcolor{keyword}{nullptr});
+  \}
+
+  \textcolor{keywordtype}{void} sendInfo(BlankMsg *msg) \{
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Treat the particular case of 1 object}
+    \textcolor{comment}{// where no communication is needed.}
+    \textcolor{comment}{// Without this treatment, the code would not iterate.}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordflow}{if} (numObjs\_ == 1) \{
+      doIteration();
+      \textcolor{keywordflow}{return};
+    \}
+    \textcolor{comment}{//---------------------------------------}
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Routine to send information to a different object}
+    \textcolor{comment}{//}
+
+    \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} \textcolor{keyword}{const} myIdx = getIndex().x();
+
+    \textcolor{comment}{//--- Send the values to the left}
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keywordflow}{if} (myIdx > 0) \{
+      \textcolor{keyword}{auto} leftMsg = vt::makeMessage<VecMsg>(myIdx, told\_[1]);
+      proxy[myIdx-1].send<VecMsg, &LinearPb1DJacobi::exchange>(leftMsg.get());
+    \}
+
+    \textcolor{comment}{//--- Send values to the right}
+    \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(myIdx) < numObjs\_ - 1) \{
+      \textcolor{keyword}{auto} rightMsg = vt::makeMessage<VecMsg>(myIdx, told\_[numRowsPerObject\_]);
+      proxy[myIdx+1].send<VecMsg, &LinearPb1DJacobi::exchange>(rightMsg.get());
+    \}
+  \}
+
+
+  \textcolor{keywordtype}{void} init() \{
+
+    tcur\_.assign(numRowsPerObject\_ + 2, 0.0);
+    told\_.assign(numRowsPerObject\_ + 2, 0.0);
+    rhs\_.assign(numRowsPerObject\_ + 2, 0.0);
+
+    \textcolor{keywordtype}{double} h = 1.0 / (numRowsPerObject\_ * numObjs\_ + 1.0);
+    \textcolor{keywordtype}{int} nf = 3 * int(numRowsPerObject\_ * numObjs\_ + 1) / 4;
+
+    \textcolor{keywordtype}{size\_t} \textcolor{keyword}{const} myIdx = getIndex().x();
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii < tcur\_.size(); ++ii) \{
+      \textcolor{keywordtype}{double} x0 = ( numRowsPerObject\_ * myIdx + ii) * h;
+      tcur\_[ii] = sin(nf * M\_PI * x0 * x0);
+    \}
+
+    totalReceive\_ = 2;
+
+    \textcolor{keywordflow}{if} (myIdx == 0) \{
+      tcur\_[0] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    \textcolor{keywordflow}{if} (myIdx == numObjs\_ - 1) \{
+      tcur\_[numRowsPerObject\_+1] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    std::copy(tcur\_.begin(), tcur\_.end(), told\_.begin());
+
+  \}
+
+
+  \textcolor{keywordtype}{void} solve(LPMsg* msg) \{
+
+    numObjs\_ = msg->numObjects;
+    numRowsPerObject\_ = msg->nRowPerObject;
+    maxIter\_ = msg->iterMax;
+
+    \textcolor{comment}{// Initialize the starting vector}
+    init();
+
+    \textcolor{comment}{// Wait for all initializations to complete, reduce, and then:}
+    \textcolor{comment}{// Start the algorithm with a neighbor-to-neighbor communication}
+    \textcolor{keyword}{using} CollType = LinearPb1DJacobi;
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<CollType, InitMsg, &CollType::doneInit>(proxy);
+    \textcolor{keyword}{auto} empty = vt::makeMessage<InitMsg>();
+    proxy.reduce(empty.get(),cb);
+  \}
+
+\};
+
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+
+  \textcolor{keywordtype}{size\_t} num\_objs = default\_num\_objs;
+  \textcolor{keywordtype}{size\_t} numRowsPerObject = default\_nrow\_object;
+  \textcolor{keywordtype}{size\_t} maxIter = 8;
+
+  std::string name(argv[0]);
+
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+
+  \textcolor{keywordflow}{if} (argc == 1) \{
+    \textcolor{keywordflow}{if} (this\_node == 0) \{
+      fmt::print(
+        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name
+      );
+    \}
+    num\_objs = default\_num\_objs * num\_nodes;
+  \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 2) \{
+    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));
+  \}
+  \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 3) \{
+    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));
+    numRowsPerObject = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));
+  \}
+  \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 4) \{
+    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));
+    numRowsPerObject = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));
+    maxIter = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[3], \textcolor{keyword}{nullptr}, 10));
+  \}
+  \textcolor{keywordflow}{else} \{
+    fmt::print(
+      stderr, \textcolor{stringliteral}{"usage: \{\} <num-objects> <num-rows-per-object> <maxiter>\(\backslash\)n"},
+      name
+    );
+    \textcolor{keywordflow}{return} 1;
+  \}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+
+    \textcolor{comment}{// Create the decomposition into objects}
+    \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
+
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb1DJacobi>(range);
+    \textcolor{keyword}{auto} rootMsg = vt::makeMessage<LinearPb1DJacobi::LPMsg>(
+      num\_objs, numRowsPerObject, maxIter
+    );
+    proxy.broadcast<LinearPb1DJacobi::LPMsg,&LinearPb1DJacobi::solve>(rootMsg.get());
+
+  \}
+
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+
+  \textcolor{keywordflow}{return} 0;
+
+\}
+\end{DoxyCodeInclude}
+\hypertarget{jacobi2d-example}{}\subsection{Example Jacobi 2D Program}\label{jacobi2d-example}
+The full code for this example can be found here\+: {\ttfamily examples/collection/jacobi2d\+\_\+vt.\+cc}.
+
+
+\begin{DoxyCodeInclude}
+
+\textcolor{comment}{//}
+\textcolor{comment}{// This code applies a few steps of the Jacobi iteration to}
+\textcolor{comment}{// the linear system  A x = 0}
+\textcolor{comment}{// where is a banded symmetric positive definite matrix.}
+\textcolor{comment}{// The initial guess for x is a made-up non-zero vector.}
+\textcolor{comment}{// The exact solution is the vector 0.}
+\textcolor{comment}{//}
+\textcolor{comment}{// The matrix A is square and invertible.}
+\textcolor{comment}{// The number of rows is ((number of objects) * (number of rows per object))}
+\textcolor{comment}{//}
+\textcolor{comment}{// Such a matrix A is obtained when using 2nd-order finite difference}
+\textcolor{comment}{// for discretizing}
+\textcolor{comment}{//}
+\textcolor{comment}{// -d^2 u / dx^2 -d^2 u / dy^2 = f   on  [0, 1] x [0, 1]}
+\textcolor{comment}{//}
+\textcolor{comment}{// with homogeneous Dirichlet condition}
+\textcolor{comment}{//}
+\textcolor{comment}{// u = 0 on the boundary of [0, 1] x [0, 1]}
+\textcolor{comment}{//}
+\textcolor{comment}{// using a uniform grid with grid size}
+\textcolor{comment}{//}
+\textcolor{comment}{// 1 / ((number of objects) * (number of rows per object) + 1)}
+\textcolor{comment}{//}
+
+
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_nrow\_object = 8;
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_num\_objs = 4;
+\textcolor{keyword}{static} constexpr \textcolor{keywordtype}{double} \textcolor{keyword}{const} default\_tol = 1.0e-02;
+
+
+\textcolor{keyword}{struct }LinearPb2DJacobi : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<LinearPb2DJacobi,vt::Index2D> \{
+
+\textcolor{keyword}{private}:
+
+  std::vector<double> tcur\_, told\_;
+  std::vector<double> rhs\_;
+  \textcolor{keywordtype}{size\_t} iter\_ = 0;
+  \textcolor{keywordtype}{size\_t} msgReceived\_ = 0, totalReceive\_ = 0;
+  \textcolor{keywordtype}{size\_t} numObjsX\_ = 1, numObjsY\_ = 1;
+  \textcolor{keywordtype}{size\_t} numRowsPerObject\_ = default\_nrow\_object;
+  \textcolor{keywordtype}{size\_t} maxIter\_ = 5;
+
+\textcolor{keyword}{public}:
+
+  LinearPb2DJacobi()
+    : tcur\_(), told\_(), rhs\_(), iter\_(0),
+      msgReceived\_(0), totalReceive\_(0),
+      numObjsX\_(1), numObjsY\_(1),
+      numRowsPerObject\_(default\_nrow\_object),
+      maxIter\_(5)
+  \{ \}
+
+
+  \textcolor{keyword}{struct }BlankMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{ \};
+
+  \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceNoneMsg} \{ \};
+
+  \textcolor{keyword}{struct }LPMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{
+
+    \textcolor{keywordtype}{size\_t} numXObjs = 0;
+    \textcolor{keywordtype}{size\_t} numYObjs = 0;
+    \textcolor{keywordtype}{size\_t} numIter = 0;
+
+    LPMsg() = \textcolor{keywordflow}{default};
+
+    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nx, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ny, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nref)
+      : numXObjs(nx), numYObjs(ny), numIter(nref)
+    \{ \}
+
+  \};
+
+
+  \textcolor{keyword}{struct }ReduxMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg}<double> \{
+    ReduxMsg() = \textcolor{keywordflow}{default};
+    \textcolor{keyword}{explicit} ReduxMsg(\textcolor{keywordtype}{double} in\_val) : \hyperlink{namespacevt_1_1collective_a28b82d5d48c9bc6e4fd738fcbf9e0f62}{ReduceTMsg}<double>(in\_val) \{ \}
+  \};
+
+
+  \textcolor{keywordtype}{void} checkCompleteCB(ReduxMsg* msg) \{
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Only one object for the reduction will visit}
+    \textcolor{comment}{// this function}
+    \textcolor{comment}{//}
+
+    \textcolor{keyword}{const} \textcolor{keywordtype}{double} normRes = msg->getConstVal();
+    \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} iter = iter\_;
+    \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} maxIter = maxIter\_;
+
+    \textcolor{keywordflow}{if} ((iter <= maxIter) and (normRes >= default\_tol)) \{
+      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter, normRes);
+      \textcolor{comment}{//}
+      \textcolor{comment}{// Start a new iteration}
+      \textcolor{comment}{//}
+      \textcolor{keyword}{auto} proxy = getCollectionProxy();
+      \textcolor{keyword}{auto} loopMsg = vt::makeMessage<BlankMsg>();
+      proxy.broadcast<BlankMsg, &LinearPb2DJacobi::sendInfo>(loopMsg.get());
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
+      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
+    \}
+    \textcolor{keywordflow}{else}\{
+      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+    \}
+  \}
+
+
+  \textcolor{keywordtype}{void} doIteration() \{
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{//--- Copy ghost values}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2;
+    \textcolor{keywordtype}{size\_t} ldy = numRowsPerObject\_ + 2;
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 0; jx < ldx; ++jx)
+      tcur\_[jx] = told\_[jx];
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 0; jx < ldx; ++jx)
+      tcur\_[jx + (ldy-1) * ldx] = told\_[jx + (ldy-1) * ldx];
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < ldy; ++jy)
+      tcur\_[jy * ldx] = told\_[jy * ldx];
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < ldy; ++jy)
+      tcur\_[ldx-1 + jy * ldx] = told\_[ldx-1 + jy * ldx];
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{//--- Update my row values}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} iy = 1; iy <= numRowsPerObject\_; ++iy) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ix = 1; ix <= numRowsPerObject\_; ++ix) \{
+        \textcolor{comment}{//}
+        \textcolor{comment}{//---- Jacobi iteration step for}
+        \textcolor{comment}{//---- A banded matrix for the 5-point stencil}
+        \textcolor{comment}{//---- [ 0.0  -1.0   0.0]}
+        \textcolor{comment}{//---- [-1.0   4.0  -1.0]}
+        \textcolor{comment}{//---- [ 0.0  -1.0   0.0]}
+        \textcolor{comment}{//---- rhs\_ right hand side vector}
+        \textcolor{comment}{//}
+        \textcolor{keywordtype}{size\_t} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = ix + iy * ldx;
+        tcur\_[\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}] = 0.25 * (rhs\_[\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}]
+                              + told\_[node - 1] + told\_[node + 1]
+                              + told\_[node - ldx] + told\_[node + ldx]);
+      \}
+    \}
+
+    iter\_ += 1;
+
+    std::copy(tcur\_.begin(), tcur\_.end(), told\_.begin());
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Compute the maximum entries among the rows on this object}
+    \textcolor{comment}{// We do not take into account the "ghost" entries}
+    \textcolor{comment}{// as they may be "out of date".}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{double} maxNorm = 0.0;
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} iy = 1; iy <= numRowsPerObject\_; ++iy) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ix = 1; ix <= numRowsPerObject\_; ++ix) \{
+        \textcolor{keywordtype}{size\_t} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = ix + iy * ldx;
+        \textcolor{keywordtype}{double} val = tcur\_[\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}];
+        maxNorm = (maxNorm > std::fabs(val)) ? maxNorm : std::fabs(val);
+      \}
+    \}
+
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<
+      LinearPb2DJacobi,ReduxMsg,&LinearPb2DJacobi::checkCompleteCB
+    >(proxy(0,0));
+    \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
+    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+  \}
+
+  \textcolor{keyword}{struct }VecMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{
+    \textcolor{keyword}{using} MessageParentType = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<LinearPb2DJacobi>}
+      ;
+    \hyperlink{message__serialize_8h_a54128d5338aaa9c918179826085e13d1}{vt\_msg\_serialize\_required}(); \textcolor{comment}{// stl vector}
+
+    VecMsg() = \textcolor{keywordflow}{default};
+    VecMsg(IndexType \textcolor{keyword}{const}& in\_index, \textcolor{keyword}{const} std::vector<double> &ref) :
+      \hyperlink{namespacevt}{vt}::\hyperlink{namespacevt_ae7700e12f79c0fec16964aab84838428}{CollectionMessage}<LinearPb2DJacobi>(),
+      from\_index(in\_index), val(ref)
+    \{ \}
+
+    \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
+    \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(Serializer& s) \{
+      \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);
+      s | from\_index;
+      s | val;
+    \}
+
+    IndexType from\_index;
+    std::vector<double> val;
+  \};
+
+  \textcolor{keywordtype}{void} exchange(VecMsg *msg) \{
+
+    \textcolor{comment}{// Receive and treat the message from a neighboring object.}
+
+    \textcolor{keywordflow}{if} (this->getIndex().x() > msg->from\_index.x()) \{
+      \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2;
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < msg->val.size(); ++jy) \{
+        this->told\_[jy*ldx] = msg->val[jy];
+      \}
+      msgReceived\_ += 1;
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().x() < msg->from\_index.x()) \{
+      \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2;
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < msg->val.size(); ++jy) \{
+        this->told\_[numRowsPerObject\_ + 1 + jy*ldx] = msg->val[jy];
+      \}
+      msgReceived\_ += 1;
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().y() > msg->from\_index.y()) \{
+      std::copy(msg->val.begin(), msg->val.end(), this->told\_.begin());
+      msgReceived\_ += 1;
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().y() < msg->from\_index.y()) \{
+      std::copy(msg->val.begin(), msg->val.end(),
+                &this->told\_[(numRowsPerObject\_ + 1)*(numRowsPerObject\_ + 2)]);
+      msgReceived\_ += 1;
+    \}
+
+    \textcolor{keywordflow}{if} (msgReceived\_ == totalReceive\_) \{
+      msgReceived\_ = 0;
+      doIteration();
+    \}
+
+  \}
+
+  \textcolor{keywordtype}{void} doneInit(InitMsg *msg) \{
+    sendInfo(\textcolor{keyword}{nullptr});
+  \}
+
+  \textcolor{keywordtype}{void} sendInfo(BlankMsg *msg) \{
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Treat the particular case of 1 object}
+    \textcolor{comment}{// where no communication is needed.}
+    \textcolor{comment}{// Without this treatment, the code would not iterate.}
+    \textcolor{comment}{//}
+    \textcolor{keywordflow}{if} (numObjsX\_*numObjsY\_ <= 1) \{
+      doIteration();
+      \textcolor{keywordflow}{return};
+    \}
+    \textcolor{comment}{//---------------------------------------}
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Routine to send information to a neighboring object}
+    \textcolor{comment}{//}
+
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} idx = this->getIndex();
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} x = idx.x();
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} y = idx.y();
+
+    \textcolor{keywordflow}{if} (x > 0) \{
+      std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 1; jy <= numRowsPerObject\_; ++jy)
+        tcopy[jy] = told\_[1 + jy * (numRowsPerObject\_ + 2)];
+      \textcolor{keyword}{auto} leftX = vt::makeMessage<VecMsg>(idx, tcopy);
+      proxy(x-1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(leftX.get());
+    \}
+
+    \textcolor{keywordflow}{if} (y > 0) \{
+      std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 1; jx <= numRowsPerObject\_; ++jx)
+        tcopy[jx] = told\_[jx + (numRowsPerObject\_ + 2)];
+      \textcolor{keyword}{auto} bottomY = vt::makeMessage<VecMsg>(idx, tcopy);
+      proxy(x, y-1).send<VecMsg, &LinearPb2DJacobi::exchange>(bottomY.get());
+    \}
+
+    \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(x) < numObjsX\_ - 1) \{
+      std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 1; jy <= numRowsPerObject\_; ++jy) \{
+        tcopy[jy] = told\_[numRowsPerObject\_ +
+                          jy * (numRowsPerObject\_ + 2)];
+      \}
+      \textcolor{keyword}{auto} rightX = vt::makeMessage<VecMsg>(idx, tcopy);
+      proxy(x+1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(rightX.get());
+    \}
+
+    \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(y) < numObjsY\_ - 1) \{
+      std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 1; jx <= numRowsPerObject\_; ++jx)
+        tcopy[jx] = told\_[jx + numRowsPerObject\_ * (numRowsPerObject\_ + 2)];
+      \textcolor{keyword}{auto} topY = vt::makeMessage<VecMsg>(idx, tcopy);
+      proxy(x, y+1).send<VecMsg, &LinearPb2DJacobi::exchange>(topY.get());
+    \}
+
+  \}
+
+
+  \textcolor{keywordtype}{void} init() \{
+
+    \textcolor{comment}{//--- Each object will work with (numRowsPerObject\_ + 2) unknowns}
+    \textcolor{comment}{//--- or (numRowsPerObject\_ + 2) rows of the matrix}
+    \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2, ldy = ldx;
+
+    \textcolor{keywordtype}{size\_t} vecSize = ldx * ldy;
+    tcur\_.assign(vecSize, 0.0);
+    told\_.assign(vecSize, 0.0);
+    rhs\_.assign(vecSize, 0.0);
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Set the initial vector to the values of}
+    \textcolor{comment}{// a "high-frequency" function}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{double} hx = 1.0 / (numRowsPerObject\_ * numObjsX\_ + 1.0);
+    \textcolor{keywordtype}{double} hy = 1.0 / (numRowsPerObject\_ * numObjsY\_ + 1.0);
+
+    \textcolor{keywordtype}{size\_t} maxNObjs = (size\_t) std::max(numObjsX\_, numObjsY\_);
+    \textcolor{keywordtype}{int} nf = 3 * int(numRowsPerObject\_ * maxNObjs + 1) / 4;
+
+    \textcolor{keyword}{auto} idx = this->getIndex();
+
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} iy = 0; iy < ldy; ++iy) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ix = 0; ix < ldx; ++ix) \{
+        \textcolor{keywordtype}{double} x0 = ( numRowsPerObject\_ * idx.x() + ix) * hx;
+        \textcolor{keywordtype}{double} y0 = ( numRowsPerObject\_ * idx.y() + iy) * hy;
+        \textcolor{keywordtype}{size\_t} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = ix + iy * ldx;
+        tcur\_[\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}] = sin(nf * M\_PI * (x0 * x0 + y0 * y0));
+      \}
+    \}
+
+    totalReceive\_ = 4;
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{//--- The unknowns correspond to the interior nodes}
+    \textcolor{comment}{//--- of a regular orthogonal grid on [0, 1] x [0, 1]}
+    \textcolor{comment}{//--- The total number of grid points in X-direction is}
+    \textcolor{comment}{//--- (numRowsPerObject\_ * numObjsX\_) + 2}
+    \textcolor{comment}{//--- The total number of grid points in Y-direction is}
+    \textcolor{comment}{//--- (numRowsPerObject\_ * numObjsY\_) + 2}
+    \textcolor{comment}{//}
+    \textcolor{keywordflow}{if} (idx.x() == 0) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < ldy; ++jy)
+        tcur\_[jy * ldy] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    \textcolor{keywordflow}{if} (idx.y() == 0) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 0; jx < ldx; ++jx)
+        tcur\_[jx] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    \textcolor{keywordflow}{if} (numObjsX\_ == \textcolor{keywordtype}{size\_t}(idx.x()) + 1) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < ldy; ++jy)
+        tcur\_[jy * ldy + (ldx - 1)] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    \textcolor{keywordflow}{if} (numObjsY\_ == \textcolor{keywordtype}{size\_t}(idx.y()) + 1) \{
+      \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 0; jx < ldx; ++jx)
+        tcur\_[jx + (ldx - 1)*ldy] = 0.0;
+      totalReceive\_ -= 1;
+    \}
+
+    std::copy(tcur\_.begin(), tcur\_.end(), told\_.begin());
+
+  \}
+
+
+  \textcolor{keywordtype}{void} solve(LPMsg* msg) \{
+
+    numObjsX\_ = msg->numXObjs;
+    numObjsY\_ = msg->numYObjs;
+    maxIter\_ = msg->numIter;
+
+    \textcolor{comment}{// Initialize the starting vector}
+    init();
+
+    \textcolor{comment}{// Wait for all initializations to complete, reduce, and then:}
+    \textcolor{comment}{// Start the algorithm with a neighbor-to-neighbor communication}
+    \textcolor{keyword}{using} CollType = LinearPb2DJacobi;
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<CollType, InitMsg, &CollType::doneInit>(proxy);
+    \textcolor{keyword}{auto} empty = vt::makeMessage<InitMsg>();
+    proxy.reduce(empty.get(),cb);
+  \}
+
+\};
+
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+
+  \textcolor{keywordtype}{size\_t} numX\_objs = default\_num\_objs;
+  \textcolor{keywordtype}{size\_t} numY\_objs = default\_num\_objs;
+  \textcolor{keywordtype}{size\_t} maxIter = 10;
+
+  std::string name(argv[0]);
+
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+
+  \textcolor{keywordflow}{if} (argc == 1) \{
+    \textcolor{keywordflow}{if} (this\_node == 0) \{
+      fmt::print(
+        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name
+      );
+    \}
+  \} \textcolor{keywordflow}{else} \{
+    \textcolor{keywordflow}{if} (argc == 3) \{
+      numX\_objs = (size\_t) strtol(argv[1], \textcolor{keyword}{nullptr}, 10);
+      numY\_objs = (size\_t) strtol(argv[2], \textcolor{keyword}{nullptr}, 10);
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 4) \{
+      numX\_objs = (size\_t) strtol(argv[1], \textcolor{keyword}{nullptr}, 10);
+      numY\_objs = (size\_t) strtol(argv[2], \textcolor{keyword}{nullptr}, 10);
+      maxIter = (size\_t) strtol(argv[3], \textcolor{keyword}{nullptr}, 10);
+    \}
+    \textcolor{keywordflow}{else} \{
+      fmt::print(
+        stderr, \textcolor{stringliteral}{"usage: \{\} <num-objects-X-direction> <num-objects-Y-direction> <maxiter>\(\backslash\)n"},
+        name
+      );
+      \textcolor{keywordflow}{return} 1;
+    \}
+  \}
+
+  \textcolor{comment}{/* --- Print information about the simulation */}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    fmt::print(
+      stdout, \textcolor{stringliteral}{"\(\backslash\)n - Solve the linear system for the Laplacian with homogeneous Dirichlet"}
+      \textcolor{stringliteral}{" on [0, 1] x [0, 1]\(\backslash\)n"}
+    );
+    fmt::print(stdout, \textcolor{stringliteral}{" - Second-order centered finite difference\(\backslash\)n"});
+    fmt::print(
+      stdout, \textcolor{stringliteral}{" - Uniform grid with (\{\} x \{\} = \{\}) points in the x-direction and "}
+      \textcolor{stringliteral}{" (\{\} x \{\} = \{\}) points in the y-direction\(\backslash\)n"},
+      numX\_objs, default\_nrow\_object, numX\_objs * default\_nrow\_object,
+      numY\_objs, default\_nrow\_object, numY\_objs * default\_nrow\_object
+    );
+    fmt::print(stdout, \textcolor{stringliteral}{" - Maximum number of iterations \{\}\(\backslash\)n"}, maxIter);
+    fmt::print(stdout, \textcolor{stringliteral}{" - Convergence tolerance \{\}\(\backslash\)n"}, default\_tol);
+    fmt::print(stdout, \textcolor{stringliteral}{"\(\backslash\)n"});
+  \}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+
+    \textcolor{comment}{// Create the decomposition into objects}
+    \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index2D::DenseIndexType};
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a3bab786053b74a3d856fff1412ffa73a}{vt::Index2D}(
+      static\_cast<BaseIndexType>(numX\_objs),
+      static\_cast<BaseIndexType>(numY\_objs)
+    );
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb2DJacobi>(range);
+    \textcolor{keyword}{auto} rootMsg = vt::makeMessage<LinearPb2DJacobi::LPMsg>(
+      numX\_objs,
+      numY\_objs,
+      maxIter
+    );
+    proxy.broadcast<LinearPb2DJacobi::LPMsg,&LinearPb2DJacobi::solve>(rootMsg.get());
+
+  \}
+
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+
+  \textcolor{keywordflow}{return} 0;
+
+\}
+\end{DoxyCodeInclude}
+\hypertarget{reduce-integral-example}{}\subsection{Example Integral Reduction Program}\label{reduce-integral-example}
+The full code for this example can be found here\+: {\ttfamily examples/collection/reduce\+\_\+integral.\+cc}.
+
+
+\begin{DoxyCodeInclude}
+
+\textcolor{comment}{//}
+\textcolor{comment}{// This code computes a composite trapezoidal rule for the integral}
+\textcolor{comment}{// \(\backslash\)int\_\{0\}^\{1\} f(x) dx}
+\textcolor{comment}{//}
+\textcolor{comment}{// The function 'f' is defined in the code.}
+\textcolor{comment}{//}
+\textcolor{comment}{// The interval [0, 1] is broken into uniform sub-intervals of length}
+\textcolor{comment}{//}
+\textcolor{comment}{// H = 1.0 / (# of objects)}
+\textcolor{comment}{//}
+\textcolor{comment}{// Each sub-interval [xi, xi + H] is broken into smaller parts of length}
+\textcolor{comment}{//}
+\textcolor{comment}{// h = H / (# of parts per object)}
+\textcolor{comment}{//}
+
+
+\textcolor{preprocessor}{#include <\hyperlink{transport_8h}{vt/transport.h}>}
+\textcolor{preprocessor}{#include <cmath>}
+
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_nparts\_object = 8;
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_num\_objs = 4;
+\textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} \hyperlink{namespacevt_1_1config_a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27}{verbose} = 1;
+\textcolor{keyword}{static} constexpr \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} \textcolor{keyword}{const} reduce\_root\_node = 0;
+
+\textcolor{keyword}{static} \textcolor{keywordtype}{bool} root\_reduce\_finished = \textcolor{keyword}{false};
+\textcolor{keyword}{static} \textcolor{keywordtype}{double} exactIntegral = 0.0;
+
+
+\textcolor{comment}{//}
+\textcolor{comment}{// Function 'f' to integrate over [0, 1]}
+\textcolor{comment}{//}
+
+
+\textcolor{keywordtype}{double} f(\textcolor{keywordtype}{double} x) \{
+  \textcolor{comment}{//----}
+  \textcolor{comment}{//exactIntegral = 1.0 / 3.0;}
+  \textcolor{comment}{//return x*x;}
+  \textcolor{comment}{//----}
+  exactIntegral = M\_2\_PI;
+  \textcolor{keywordflow}{return} sin(M\_PI * x);
+\}
+
+\textcolor{keyword}{using} ReduceMsg = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg<double>};
+
+\textcolor{keyword}{struct }Integration1D : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<Integration1D, vt::Index1D> \{
+
+\textcolor{keyword}{private}:
+
+  \textcolor{keywordtype}{size\_t} numObjs\_ = default\_num\_objs;
+  \textcolor{keywordtype}{size\_t} numPartsPerObject\_ = default\_nparts\_object;
+
+\textcolor{keyword}{public}:
+
+  \textcolor{keyword}{explicit} Integration1D()
+    : numObjs\_(default\_num\_objs),
+      numPartsPerObject\_(default\_nparts\_object)
+  \{ \}
+
+  \textcolor{keyword}{struct }CheckIntegral \{
+
+    \textcolor{keywordtype}{void} operator()(ReduceMsg* msg) \{
+      fmt::print(\textcolor{stringliteral}{" >> The integral over [0, 1] is \{\}\(\backslash\)n"}, msg->getConstVal());
+      fmt::print(
+        \textcolor{stringliteral}{" >> The absolute error is \{\}\(\backslash\)n"},
+        std::fabs(msg->getConstVal() - exactIntegral)
+      );
+      \textcolor{comment}{//}
+      \textcolor{comment}{// Set the 'root\_reduce\_finished' variable to true.}
+      \textcolor{comment}{//}
+      root\_reduce\_finished = \textcolor{keyword}{true};
+    \}
+
+  \};
+
+  \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<Integration1D> \{
+
+    \textcolor{keywordtype}{size\_t} numObjects = 0;
+    \textcolor{keywordtype}{size\_t} nIntervalPerObject = 0;
+
+    InitMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nobjs, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nint)
+      : numObjects(nobjs), nIntervalPerObject(nint)
+    \{ \}
+
+  \};
+
+  \textcolor{keywordtype}{void} compute(InitMsg *msg) \{
+
+    numObjs\_ = msg->numObjects;
+    numPartsPerObject\_ = msg->nIntervalPerObject;
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Compute the integral with the trapezoidal rule}
+    \textcolor{comment}{// over the interval [a, b]}
+    \textcolor{comment}{//}
+    \textcolor{comment}{// a = numPartsPerObject\_ * (IndexID) * h}
+    \textcolor{comment}{//}
+    \textcolor{comment}{// b = a + numPartsPerObject\_ * h}
+    \textcolor{comment}{//}
+    \textcolor{comment}{// where h = 1.0 / (numPartsPerObject\_ * numObjs\_ )}
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Since 0 <= (IndexID) < numObjs\_, the union of these intervals}
+    \textcolor{comment}{// covers [0, 1]}
+    \textcolor{comment}{//}
+
+    \textcolor{keywordtype}{double} h = 1.0 / (numPartsPerObject\_ * numObjs\_ );
+    \textcolor{keywordtype}{double} quadsum = 0.0;
+
+    \textcolor{keywordtype}{double} a = numPartsPerObject\_ * getIndex().x() * h;
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Apply composite trapezoidal rule over}
+    \textcolor{comment}{//}
+    \textcolor{comment}{// [a, a + numPartsPerObject\_ * h]}
+    \textcolor{comment}{//}
+    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii < numPartsPerObject\_; ++ii) \{
+      \textcolor{keywordtype}{double} x0 = a + ii * h;
+      \textcolor{comment}{/* --- Trapeze Quadrature Rule over the interval [x0, x0+h] */}
+      quadsum += 0.5 * h * ( f(x0) + f(x0+h) );
+    \}
+
+    \textcolor{keywordflow}{if} (verbose > 0) \{
+      \textcolor{keywordtype}{double} b = a + numPartsPerObject\_ * h;
+      fmt::print(
+        \textcolor{stringliteral}{" Interval [\{\}, \{\}], on node \{\} & object \{\}, "}
+        \textcolor{stringliteral}{"has integral \{\}.\(\backslash\)n"}, a, b, \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->getNode(),
+        getIndex(), quadsum
+      );
+    \}
+
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Reduce the partial sum to get the integral over [0, 1]}
+    \textcolor{comment}{//}
+
+    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
+    \textcolor{keyword}{auto} msgCB = vt::makeMessage<ReduceMsg>(quadsum);
+    \textcolor{keyword}{auto} cback = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<CheckIntegral>(reduce\_root\_node);
+    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<double>}>(msgCB.get(),cback);
+  \}
+
+\};
+
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+
+  \textcolor{keywordtype}{size\_t} num\_objs = default\_num\_objs;
+  \textcolor{keywordtype}{size\_t} numIntPerObject = default\_nparts\_object;
+
+  std::string name(argv[0]);
+
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+
+  \textcolor{keywordflow}{if} (argc == 1) \{
+    \textcolor{keywordflow}{if} (this\_node == 0) \{
+      fmt::print(
+        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name
+      );
+    \}
+    num\_objs = default\_num\_objs * num\_nodes;
+  \} \textcolor{keywordflow}{else} \{
+    \textcolor{keywordflow}{if} (argc == 2) \{
+      num\_objs = (size\_t) strtol(argv[1], \textcolor{keyword}{nullptr}, 10);
+    \}
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 3) \{
+      num\_objs = (size\_t) strtol(argv[1], \textcolor{keyword}{nullptr}, 10);
+      numIntPerObject = (size\_t) strtol(argv[2], \textcolor{keyword}{nullptr}, 10);
+    \}
+    \textcolor{keywordflow}{else} \{
+      fmt::print(
+        stderr,
+        \textcolor{stringliteral}{"usage: \{\} <num-objects> <num-interval-per-object>\(\backslash\)n"}, name
+      );
+      \textcolor{keywordflow}{return} 1;
+    \}
+  \}
+
+  \hyperlink{namespacevt_a291cca514e6f66292df339cd92a54502}{vt::runInEpochCollective}([=]\{
+      \textcolor{keywordflow}{if} (this\_node == 0) \{
+        \textcolor{comment}{//}
+        \textcolor{comment}{// Create the interval decomposition into objects}
+        \textcolor{comment}{//}
+        \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
+        \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
+
+        \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<Integration1D>(range);
+        proxy.broadcast<Integration1D::InitMsg,&Integration1D::compute>
+          (
+           num\_objs, numIntPerObject
+          );
+      \}
+    \});
+
+  \textcolor{comment}{// Add something like this to validate the reduction.}
+  \textcolor{comment}{// Create the variable root\_reduce\_finished as a static variable,}
+  \textcolor{comment}{// which is only checked on one node.}
+  \textcolor{keywordflow}{if} (\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}() == reduce\_root\_node) \{
+    \hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}(root\_reduce\_finished == \textcolor{keyword}{true});
+  \}
+
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+
+  \textcolor{keywordflow}{return} 0;
+
+\}
+\end{DoxyCodeInclude}

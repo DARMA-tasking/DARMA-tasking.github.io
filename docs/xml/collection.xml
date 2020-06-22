@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="collection" kind="page">
+    <compoundname>collection</compoundname>
+    <title>Virtual Context Collection</title>
+    <innerpage refid="group">Group Manager</innerpage>
+    <innerpage refid="proc-stats">Processor Statistics</innerpage>
+    <innerpage refid="lb-manager">LB Manager</innerpage>
+    <detaileddescription>
+<para>Collection of tasks</para><para>The virtual context collection component <computeroutput><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager" kindref="compound">vt::vrt::collection::CollectionManager</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection()</ref></computeroutput> is a core VT component that manages multi-dimensional collections of <emphasis>virtual context</emphasis> (or a migratable C++ object registered with <bold><emphasis>vt</emphasis></bold>) elements. It manages the creation, deletion, and messaging across elements at runtime supporting dense, sparse, on-demand, and staged insert modes. It utilizes the <ref refid="location" kindref="compound">Location Manager</ref> to manage the location of these elements to efficiently deliver messages. It also utilizes the <ref refid="group" kindref="compound">Group Manager</ref> to build a spanning tree across the nodes that the collection is currently mapped to. This group makes broadcasts efficient and allows reductions to make progress without waiting for nodes that do not have collection elements. The <ref refid="proc-stats" kindref="compound">Processor Statistics</ref> component stores the statistics for live collections that then passes the instrumented data to the <ref refid="lb-manager" kindref="compound">LB Manager</ref> component to apply load balancing strategies.</para><sect1 id="collection_1rooted-hello-world-collection">
+<title>Hello World 1D Dense Collection (Rooted)</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Hello<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;Hello,<sp/>vt::Index1D&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>Hello()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~Hello()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(counter_<sp/>==<sp/>1,<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>equal&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage&lt;Hello&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;Hello<sp/>from<sp/>{}\n&quot;</highlight><highlight class="normal">,<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>counter_++;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>int32_t<sp/>counter_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_elms<sp/>=<sp/>64;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>num_elms<sp/>=<sp/>atoi(argv[1]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;Hello&gt;(range);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;Hello::TestMsg,&amp;Hello::doWork&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para></sect1>
+<sect1 id="collection_1collective-hello-world-collection">
+<title>Hello World 1D Dense Collection (Collective)</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Hello<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;Hello,<sp/>vt::Index1D&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>Hello()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~Hello()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(counter_<sp/>==<sp/>num_nodes,<sp/></highlight><highlight class="stringliteral">&quot;Should<sp/>receive<sp/>#<sp/>nodes<sp/>broadcasts&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage&lt;Hello&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>counter_++;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;Hello<sp/>from<sp/>{},<sp/>counter_={}\n&quot;</highlight><highlight class="normal">,<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>().x(),<sp/>counter_);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>counter_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>int32_t<sp/>num_elms<sp/>=<sp/>16;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>num_elms<sp/>=<sp/>atoi(argv[1]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a619d6e576f0d108e442b16ca4f68f1f3" kindref="member">constructCollective</ref>&lt;Hello&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>range,<sp/>[](<ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_unique&lt;Hello&gt;();<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>All<sp/>nodes<sp/>send<sp/>a<sp/>broadcast<sp/>to<sp/>all<sp/>elements</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>proxy.broadcast&lt;Hello::TestMsg,&amp;Hello::doWork&gt;();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para></sect1>
+<sect1 id="collection_1reduce-hello-world-collection">
+<title>Hello World 1D Collection Reduce</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Hello<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;Hello,<sp/>vt::Index1D&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1collective_1a4c5bf7769ad4396573d6bcc85ec430a4" kindref="member">ReduceMsg</ref><sp/>=<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg" kindref="compound">vt::collective::ReduceTMsg&lt;int&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>done(<ref refid="namespacevt_1_1collective_1a4c5bf7769ad4396573d6bcc85ec430a4" kindref="member">ReduceMsg</ref>*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;Reduce<sp/>complete<sp/>at<sp/>{}<sp/>value<sp/>{}\n&quot;</highlight><highlight class="normal">,<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>(),<sp/>msg-&gt;getVal());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage&lt;Hello&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;Hello<sp/>from<sp/>{}\n&quot;</highlight><highlight class="normal">,<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>());</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>proxy<sp/>for<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_base_1ad97d9ab1a28fb535c5d7f82c15e99791" kindref="member">getCollectionProxy</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>callback<sp/>for<sp/>when<sp/>the<sp/>reduction<sp/>finishes</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;Hello,<ref refid="namespacevt_1_1collective_1a4c5bf7769ad4396573d6bcc85ec430a4" kindref="member">ReduceMsg</ref>,&amp;Hello::done&gt;(proxy(2));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>and<sp/>send<sp/>the<sp/>reduction<sp/>message<sp/>holding<sp/>an<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>red_msg<sp/>=<sp/>vt::makeMessage&lt;ReduceMsg&gt;(this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>().x());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.reduce&lt;<ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op" kindref="compound">vt::collective::PlusOp&lt;int&gt;</ref>&gt;(red_msg.get(),cb);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>int32_t<sp/>num_elms<sp/>=<sp/>16;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>num_elms<sp/>=<sp/>atoi(argv[1]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;Hello&gt;(range);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;Hello::TestMsg,&amp;Hello::doWork&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para></sect1>
+<sect1 id="collection_1staged-insert-hello-world-collection">
+<title>Hello World 1D Collection Staged Insert</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Hello<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;Hello,<sp/>vt::Index1D&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>constructor<sp/>for<sp/>migration</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>Hello()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Constructor<sp/>used<sp/>during<sp/>insertion</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>Hello(std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>input_string)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>in(input_string)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~Hello()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(counter_<sp/>==<sp/>1,<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>equal&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage&lt;Hello&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>counter_++;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>Hello<sp/>from<sp/>{}:<sp/>{}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>this-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_indexable_1a28d05f23e7a20e12e94b8235305c1e82" kindref="member">getIndex</ref>(),<sp/>in);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>counter_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::string<sp/>in;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_elms<sp/>=<sp/>32;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(argc<sp/>&gt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>num_elms<sp/>=<sp/>atoi(argv[1]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>token<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a0e15cc861c0d979d8977b226efd7c271" kindref="member">constructInsert</ref>&lt;Hello&gt;(range);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>num_elms;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>even<sp/>elements,<sp/>round-robin<sp/>the<sp/>insertions<sp/>from<sp/>each<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((i<sp/>/<sp/>2)<sp/>%<sp/>num_nodes<sp/>==<sp/>this_node<sp/>and<sp/>i<sp/>%<sp/>2<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>str<sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;inserted<sp/>from<sp/>{}&quot;</highlight><highlight class="normal">,<sp/>this_node);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Construct<sp/>the<sp/>i&apos;th<sp/>element<sp/>on<sp/>this<sp/>node,<sp/>passing<sp/>str<sp/>to<sp/>the<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>token[i].insert(str);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Finish<sp/>all<sp/>inserts<sp/>on<sp/>this<sp/>node<sp/>by<sp/>invalidating<sp/>the<sp/>insert<sp/>token</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a9275a4f6a7c33389813ba7fe4cc75d7e" kindref="member">finishedInsert</ref>(std::move(token));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;Hello::TestMsg,&amp;Hello::doWork&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -19,6 +19,7 @@ var searchData=
   ['bufferedactiontype',['BufferedActionType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a7b32db0e6ccafa771ddd72f534a1cf8c',1,'vt::vrt::collection::CollectionManager']]],
   ['bufferedmsgtype',['BufferedMsgType',['../structvt_1_1messaging_1_1_active_messenger.html#a80a9cbda399d7bf035bfcecc761f4b02',1,'vt::messaging::ActiveMessenger']]],
   ['bufferreleaseenum',['BufferReleaseEnum',['../namespacestd.html#a881b600944be212a7a1b9ac199fb2f88',1,'std']]],
+  ['buffertorelease',['BufferToRelease',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a47d2def9bdf4fb84026c615602779053',1,'vt::vrt::collection::CollectionManager']]],
   ['buffertypeenum',['BufferTypeEnum',['../namespacestd.html#ab5492c80007bc5a00cc49a954c809d6f',1,'std']]],
   ['buildindextype',['BuildIndexType',['../structvt_1_1index_1_1_dense_index_array.html#a84d2aa360d257c9b1d7e324088c7763b',1,'vt::index::DenseIndexArray::BuildIndexType()'],['../structvt_1_1index_1_1_example_index.html#ad5d24fa38ed7adc651d0b1178b53e421',1,'vt::index::ExampleIndex::BuildIndexType()']]],
   ['bytetype',['ByteType',['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt']]]

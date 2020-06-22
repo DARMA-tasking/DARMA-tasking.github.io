@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="active-messenger" kind="page">
+    <compoundname>active-messenger</compoundname>
+    <title>Active Messenger</title>
+    <innerpage refid="scheduler">Scheduler</innerpage>
+    <detaileddescription>
+<para>Asynchronous send/receive of messages</para><para>The active messenger <computeroutput><ref refid="structvt_1_1messaging_1_1_active_messenger" kindref="compound">vt::messaging::ActiveMessenger</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg()</ref></computeroutput>, asynchronously sends and receives messages across nodes using MPI internally. When sending a message, it uses the <bold><emphasis>vt</emphasis></bold> registry to consistently dispatch messages and data to handlers (function pointers, functors, or methods) across nodes.</para><para>Each message contains an envelope <computeroutput><ref refid="namespacevt_1aa9c8cc094b5361482021d63012987814" kindref="member">vt::Envelope</ref></computeroutput> to store meta-data associated with the message, such as the destination and handler to trigger when it arrives. Sending a message entails setting up the envelope, optionally serializing the message (depending on whether the serialize overload is present), and then using <computeroutput>MPI_Isend</computeroutput> to asynchronously transfer the bytes to the destination node. On the receive side, the active messenger is always probing for an incoming message and begins a transfer when it discovers one. The <bold><emphasis>vt</emphasis></bold> <ref refid="scheduler" kindref="compound">Scheduler</ref> polls the active messenger to make progress on any incoming messages.</para><sect1 id="active-messenger_1am-simple-example">
+<title>Sending a message</title>
+<para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="transport_8h" kindref="compound">vt/transport.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Declare<sp/>a<sp/>serializable<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>MessageParentType<sp/>=<sp/><ref refid="namespacevt_1a3a3ddfef40b4c90915fa43cdd5f129ea" kindref="member">vt::Message</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="message__serialize_8h_1a54128d5338aaa9c918179826085e13d1" kindref="member">vt_msg_serialize_required</ref>();<sp/></highlight><highlight class="comment">//<sp/>for<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>default<sp/>constructor<sp/>for<sp/>de-serialize</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_val,<sp/>std::vector&lt;double&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>in_vec)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>val(in_val),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>my_vec(in_vec)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_msg_1a758f02bef5991c48d6c9a56c30ca7ad9" kindref="member">serialize</ref>(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1a783d95de203cabd0f599440e9869c313" kindref="member">MessageParentType::serialize</ref>(s);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>my_vec;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>my_vec;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Active<sp/>function<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>myHandler(MyMsg*<sp/>m)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>val={},<sp/>vec<sp/>size={}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>m-&gt;val,<sp/>m-&gt;my_vec.size());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Active<sp/>functor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyFunctor<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(MyMsg*<sp/>m)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>val={},<sp/>vec<sp/>size={}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>m-&gt;val,<sp/>m-&gt;my_vec.size());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>spins<sp/>in<sp/>scheduler<sp/>until<sp/>termination<sp/>of<sp/>the<sp/>enclosed<sp/>work</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1ad419c00d2e4ac8601ea3b1dec633f3f7" kindref="member">vt::runInEpochRooted</ref>([=]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>vec_to_send;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec_to_send.push_back(29.);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec_to_send.push_back(54.);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;MyMsg&gt;(10,<sp/>vec_to_send);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MyMsg,<sp/>myHandler&gt;(1,<sp/>msg.get());<sp/></highlight><highlight class="comment">//<sp/>send<sp/>to<sp/>node<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg2<sp/>=<sp/>vt::makeMessage&lt;MyMsg&gt;(11,<sp/>vec_to_send);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MyFunctor&gt;(1,<sp/>msg2.get());<sp/><sp/></highlight><highlight class="comment">//<sp/>send<sp/>to<sp/>node<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para>Program output:</para><para><programlisting><codeline><highlight class="normal">1:<sp/>val=10,<sp/>vec<sp/>size=2</highlight></codeline>
+<codeline><highlight class="normal">1:<sp/>val=11,<sp/>vec<sp/>size=2</highlight></codeline>
+</programlisting> </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

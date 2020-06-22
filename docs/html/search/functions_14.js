@@ -22,11 +22,14 @@ var searchData=
   ['updateinfo',['updateInfo',['../structvt_1_1rdma_1_1_sub_handle.html#a3bd9d6c4854f47bf9cc6eebfa9c18fca',1,'vt::rdma::SubHandle']]],
   ['updateinsertepochhandler',['updateInsertEpochHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#afe9a779bc2dd8c639cf0dea5d910ec4b',1,'vt::vrt::collection::CollectionManager']]],
   ['updateinsertmsg',['UpdateInsertMsg',['../structvt_1_1vrt_1_1collection_1_1_update_insert_msg.html#aae10dc2f0e158e40397336160f5dad64',1,'vt::vrt::collection::UpdateInsertMsg::UpdateInsertMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1_update_insert_msg.html#a379f7f91b839a1e691de20ac789f010e',1,'vt::vrt::collection::UpdateInsertMsg::UpdateInsertMsg(CollectionProxy&lt; ColT, IndexT &gt; in_proxy, EpochType const &amp;in_epoch)']]],
+  ['updatelocation',['updateLocation',['../structvt_1_1location_1_1_entity_location_coord.html#a6102920cd3ab80156a77e5f15d92ffcf',1,'vt::location::EntityLocationCoord']]],
   ['updatenode',['updateNode',['../structvt_1_1location_1_1_loc_record.html#aa66e4f13e89526636b87b3c950bdd91c',1,'vt::location::LocRecord']]],
   ['updatependingrequest',['updatePendingRequest',['../structvt_1_1location_1_1_entity_location_coord.html#a96e4c5c2a943450554b17c34f05995d0',1,'vt::location::EntityLocationCoord']]],
   ['updatephase',['updatePhase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a6ba8726a871702870d76dca6de298d07',1,'vt::vrt::collection::balance::ElementStats']]],
+  ['updateresolvedepochs',['updateResolvedEpochs',['../structvt_1_1term_1_1_termination_detector.html#a7637035e3f3c0f898d8dc79bbc2d8bf4',1,'vt::term::TerminationDetector']]],
   ['uphan',['upHan',['../structvt_1_1group_1_1_info_coll.html#a18031bc67be6fe75bf4bb04dbf4f5156',1,'vt::group::InfoColl']]],
   ['upper',['upper',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a88ef66995c9fd0c1d8ba031dab28da9b',1,'vt::term::interval::IntegralSetBase::upper()'],['../structvt_1_1term_1_1interval_1_1_interval.html#acbe552f15a1f22a89fa43bcba34fe27f',1,'vt::term::interval::Interval::upper()']]],
+  ['uptree',['upTree',['../structvt_1_1group_1_1_info_coll.html#a74f2c524bbd2e2b07207420e70e347d7',1,'vt::group::InfoColl']]],
   ['useds',['UseDS',['../structvt_1_1term_1_1_use_d_s.html#a29261f18f8f9303bbad2c8ee27f352ad',1,'vt::term::UseDS']]],
   ['useeagerprotocol',['useEagerProtocol',['../structvt_1_1location_1_1_entity_location_coord.html#a5d41b90c998e6de566868868c9cc4ba1',1,'vt::location::EntityLocationCoord']]],
   ['usegroup',['useGroup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#af9a9e5dbf89d84e9fb4d267f720bfa4e',1,'vt::vrt::collection::Holder']]],
@@ -35,6 +38,7 @@ var searchData=
   ['user2',['user2',['../namespacevt_1_1arguments.html#ae58fe1d056c863f7d8103e9c240d17f2',1,'vt::arguments']]],
   ['user3',['user3',['../namespacevt_1_1arguments.html#afedf2c9949568b862ec5f8274ef6846b',1,'vt::arguments']]],
   ['user_5fdata',['user_data',['../structvt_1_1trace_1_1_log.html#a7b251bc7dcebcbbafa29cc2ca6ea4c12',1,'vt::trace::Log']]],
+  ['userdata',['UserData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#af2033632789150e8ba193d61e3480168',1,'vt::trace::Log::Data::UserData::UserData(std::string const &amp;in_user_note, UserDataType in_user_data, UserEventIDType in_user_event, bool in_user_start)'],['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a84fcb7ee8c663b8d97092b18f1b9d67b',1,'vt::trace::Log::Data::UserData::UserData()=delete'],['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a6773521e1beab14097cfdd43c921751f',1,'vt::trace::Log::Data::UserData::UserData(UserData const &amp;)=default'],['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a1ca52ac6118f62e8a29d4439ce30c1d6',1,'vt::trace::Log::Data::UserData::UserData(UserData &amp;&amp;)=default']]],
   ['usevars',['useVars',['../namespacevt_1_1debug.html#aeff93f73b5ac173a53dcf778ff771c2e',1,'vt::debug']]],
   ['usevarsdummy',['useVarsDummy',['../namespacevt_1_1debug.html#a4417ee390fd826c2135e06abe59719dd',1,'vt::debug']]]
 ];

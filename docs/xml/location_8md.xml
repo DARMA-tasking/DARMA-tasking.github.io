@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="location_8md" kind="file" language="Markdown">
+    <compoundname>location.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>location<sp/>Location<sp/>Manager</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Virtual<sp/>entity<sp/>location<sp/>management</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>location<sp/>manager<sp/>component<sp/>`vt::location::LocationManager`,<sp/>accessed<sp/>via</highlight></codeline>
+<codeline><highlight class="normal">`vt::theLocMan()`<sp/>manages<sp/>the<sp/>location<sp/>of<sp/>arbitrary<sp/>virtual<sp/>entities<sp/>in<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">system.<sp/>It<sp/>holds<sp/>a<sp/>set<sp/>of<sp/>live<sp/>`vt::location::EntityLocationCoord`<sp/>across<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">distributed<sp/>system<sp/>which<sp/>allow<sp/>users<sp/>to<sp/>register/unregister<sp/>entities<sp/>and<sp/>inform</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>system<sp/>when<sp/>migrations<sp/>occur.<sp/>With<sp/>the<sp/>entities<sp/>registered,<sp/>the<sp/>location</highlight></codeline>
+<codeline><highlight class="normal">coordinator<sp/>can<sp/>route<sp/>messages<sp/>to<sp/>them<sp/>even<sp/>in<sp/>the<sp/>presence<sp/>of<sp/>migrations<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">may<sp/>occur<sp/>at<sp/>any<sp/>time.<sp/>The<sp/>location<sp/>coordinator<sp/>maintains<sp/>a<sp/>cache<sp/>of<sp/>locations</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>entities<sp/>registered<sp/>off-node<sp/>and<sp/>forwards<sp/>messages<sp/>using<sp/>a<sp/>communication</highlight></codeline>
+<codeline><highlight class="normal">protocol<sp/>that<sp/>depends<sp/>on<sp/>the<sp/>size<sp/>of<sp/>the<sp/>message.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Every<sp/>entity<sp/>in<sp/>the<sp/>system<sp/>has<sp/>a<sp/>&quot;home<sp/>node&quot;,<sp/>which<sp/>is<sp/>the<sp/>node<sp/>that<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">ultimately<sp/>responsible<sp/>for<sp/>knowing<sp/>the<sp/>location<sp/>of<sp/>the<sp/>entity.<sp/>When<sp/>an<sp/>entity</highlight></codeline>
+<codeline><highlight class="normal">migrates,<sp/>it<sp/>informs<sp/>the<sp/>home<sp/>node<sp/>of<sp/>its<sp/>new<sp/>location<sp/>in<sp/>the<sp/>system.<sp/>Nodes<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">try<sp/>to<sp/>route<sp/>messages<sp/>to<sp/>that<sp/>entity<sp/>will<sp/>inquire<sp/>the<sp/>home<sp/>node<sp/>unless<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">location<sp/>is<sp/>already<sp/>in<sp/>cache.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>comm-protocol<sp/>Eager<sp/>vs.<sp/>Rendezvous<sp/>Routing<sp/>Protocol</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>variable<sp/>`vt::location::small_msg_max_size`<sp/>controls<sp/>whether<sp/>a<sp/>message<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">routed<sp/>with<sp/>an<sp/>eager<sp/>or<sp/>rendezvous<sp/>protocol.<sp/>If<sp/>the<sp/>message<sp/>is<sp/>under<sp/>that<sp/>size</highlight></codeline>
+<codeline><highlight class="normal">limit,<sp/>the<sp/>message<sp/>is<sp/>routed<sp/>eagerly---forwarded<sp/>to<sp/>the<sp/>&quot;home<sp/>node&quot;<sp/>for</highlight></codeline>
+<codeline><highlight class="normal">resolution<sp/>if<sp/>the<sp/>location<sp/>is<sp/>not<sp/>in<sp/>the<sp/>cache.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>the<sp/>size<sp/>of<sp/>the<sp/>message<sp/>is<sp/>greater<sp/>than<sp/>`vt::location::small_msg_max_size`,</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>location<sp/>coordinator<sp/>will<sp/>inquire<sp/>with<sp/>a<sp/>control<sp/>message<sp/>to<sp/>resolve<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">location<sp/>before<sp/>the<sp/>large<sp/>message<sp/>is<sp/>actually<sp/>sent.<sp/>This<sp/>reduces<sp/>the<sp/>number<sp/>of</highlight></codeline>
+<codeline><highlight class="normal">hops<sp/>required<sp/>to<sp/>send<sp/>large<sp/>messages.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>location-migrations<sp/>Entity<sp/>Migrations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>migrations<sp/>occur<sp/>at<sp/>any<sp/>time,<sp/>it&apos;s<sp/>always<sp/>possible<sp/>for<sp/>the<sp/>message<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">arrive<sp/>on<sp/>a<sp/>node<sp/>where<sp/>the<sp/>entity<sp/>*used<sp/>to<sp/>be*.<sp/>In<sp/>this<sp/>case,<sp/>the<sp/>location</highlight></codeline>
+<codeline><highlight class="normal">coordinator<sp/>knows<sp/>to<sp/>follow<sp/>the<sp/>breadcrumb<sp/>to<sp/>get<sp/>the<sp/>message<sp/>delivered<sp/>properly</highlight></codeline>
+<codeline><highlight class="normal">where<sp/>the<sp/>entity<sp/>exists<sp/>now.<sp/>If<sp/>the<sp/>entity<sp/>continues<sp/>to<sp/>move,<sp/>the<sp/>message<sp/>will</highlight></codeline>
+<codeline><highlight class="normal">&quot;chase&quot;<sp/>it<sp/>until<sp/>it<sp/>catches<sp/>up.</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/location.md"/>
+  </compounddef>
+</doxygen>

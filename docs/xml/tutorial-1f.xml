@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="tutorial-1f" kind="page">
+    <compoundname>tutorial-1f</compoundname>
+    <title>Learning about collective groups</title>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VT<sp/>Base<sp/>Message</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\----------------/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MySimpleMsg2<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">::vt::Message</ref><sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration<sp/>for<sp/>the<sp/>active<sp/>message<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>msgHandlerGroupB(MySimpleMsg2*<sp/>msg);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Tutorial<sp/>code<sp/>to<sp/>demonstrate<sp/>broadcasting<sp/>a<sp/>message<sp/>to<sp/>the<sp/>entire<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>activeMessageGroupCollective()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>(void)num_nodes;<sp/><sp/></highlight><highlight class="comment">//<sp/>don&apos;t<sp/>warn<sp/>about<sp/>unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>This<sp/>is<sp/>an<sp/>example<sp/>of<sp/>the<sp/>collective<sp/>group<sp/>creation<sp/>and<sp/>broadcast<sp/>to<sp/>that</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>group.<sp/>A<sp/>group<sp/>allows<sp/>the<sp/>user<sp/>to<sp/>create<sp/>a<sp/>subset<sp/>of<sp/>nodes.<sp/>The<sp/>collective</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>group<sp/>allows<sp/>all<sp/>nodes<sp/>to<sp/>participate<sp/>in<sp/>creating<sp/>the<sp/>group<sp/>by<sp/>passing<sp/>a</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>boolean<sp/>that<sp/>indicates<sp/>if<sp/>they<sp/>are<sp/>apart<sp/>of<sp/>the<sp/>group.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>Unlike<sp/>the<sp/>rooted<sp/>group<sp/>creation<sp/>(which<sp/>requires<sp/>an<sp/>initial<sp/>set<sp/>at<sp/>a<sp/>root</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>node),<sp/>the<sp/>collective<sp/>group<sp/>is<sp/>fully<sp/>distributed:<sp/>its<sp/>creation<sp/>and</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>storage.<sp/>The<sp/>set<sp/>of<sp/>all<sp/>nodes<sp/>included<sp/>is<sp/>never<sp/>stored<sp/>in<sp/>a<sp/>central</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>location.<sp/>This<sp/>is<sp/>managed<sp/>by<sp/>efficient<sp/>distributed<sp/>algorithms<sp/>that<sp/>create<sp/>a</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>spanning<sp/>tree<sp/>based<sp/>on<sp/>the<sp/>filter<sp/>and<sp/>rebalance<sp/>it<sp/>depending<sp/>on<sp/>outcomes.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>is_even_node<sp/>=<sp/>this_node<sp/>%<sp/>2<sp/>==<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>group<sp/>=<sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1a92b301d6cf77af7d57ed822c6f044d58" kindref="member">newGroupCollective</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>is_even_node,<sp/>[](<ref refid="namespacevt_1a27b5e4411c9b6140c49100e050e2f743" kindref="member">GroupType</ref><sp/>group_id){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;Group<sp/>is<sp/>created:<sp/>id={:x}\n&quot;</highlight><highlight class="normal">,<sp/>group_id);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>In<sp/>this<sp/>example,<sp/>node<sp/>1<sp/>broadcasts<sp/>to<sp/>the<sp/>group<sp/>of<sp/>even<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>my_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(my_node<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>makeMessage&lt;MySimpleMsg2&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f9d4ce6034c0eaaf98bdffd33d0e1c7" kindref="member">envelopeSetGroup</ref>(msg-&gt;env,<sp/>group_id);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="group__typesafehan_1ga4a7106231ba8a26a1214a6f133e381eb" kindref="member">broadcastMsg</ref>&lt;MySimpleMsg2,msgHandlerGroupB&gt;(msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>(void)group;<sp/><sp/></highlight><highlight class="comment">//<sp/>don&apos;t<sp/>warn<sp/>about<sp/>unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Message<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>msgHandlerGroupB(MySimpleMsg2*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cur_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(cur_node<sp/>%<sp/>2<sp/>==<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;This<sp/>handler<sp/>should<sp/>only<sp/>execute<sp/>on<sp/>even<sp/>nodes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>::fmt::print(</highlight><highlight class="stringliteral">&quot;msgHandlerGroupB:<sp/>triggered<sp/>on<sp/>node={}\n&quot;</highlight><highlight class="normal">,<sp/>cur_node);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>    </detaileddescription>
+  </compounddef>
+</doxygen>

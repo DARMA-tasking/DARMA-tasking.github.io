@@ -24,6 +24,8 @@ var searchData=
   ['destroyhandlers',['DestroyHandlers',['../structvt_1_1vrt_1_1collection_1_1_destroy_handlers.html',1,'vt::vrt::collection']]],
   ['destroymsg',['DestroyMsg',['../structvt_1_1vrt_1_1collection_1_1_destroy_msg.html',1,'vt::vrt::collection']]],
   ['diagnostic',['Diagnostic',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html',1,'vt::runtime::component']]],
+  ['diagnosticholder',['DiagnosticHolder',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_holder.html',1,'vt::runtime::component::detail']]],
+  ['diagnosticvalue',['DiagnosticValue',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value.html',1,'vt::runtime::component::detail']]],
   ['directory',['Directory',['../structvt_1_1location_1_1_directory.html',1,'vt::location']]],
   ['directory_3c_20entityid_2c_20locrectype_20_3e',['Directory&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_directory.html',1,'vt::location']]],
   ['dispatch',['Dispatch',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch.html',1,'vt::objgroup::dispatch']]],

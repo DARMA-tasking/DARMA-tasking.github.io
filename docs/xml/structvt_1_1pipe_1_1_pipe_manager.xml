@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="82" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="82" bodyend="-1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="97" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structvt_1_1pipe_1_1_pipe_manager_1ab720c2580ecfd3ab36e49aeaaff64cc6" prot="public" static="no">
         <type><ref refid="structvt_1_1pipe_1_1_pipe_manager_t_l_1a8d394521df58abfd90c1d81c998f22e3" kindref="member">V</ref></type>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="83" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="83" bodyend="-1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="98" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -42,12 +42,12 @@
         <name>group_id_</name>
         <initializer>= no_group</initializer>
         <briefdescription>
-        </briefdescription>
+<para>The group ID used to indicate that the message is being used as a pipe. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="140" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="140" bodyend="-1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="362" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="362" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="85" column="1" bodyfile="src/vt/pipe/pipe_manager.cc" bodystart="54" bodyend="58"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="103" column="1" bodyfile="src/vt/pipe/pipe_manager.cc" bodystart="54" bodyend="58"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1aad60c922d604dd1b9ff47e428d265eed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="87" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="87" bodyend="87"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="105" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="105" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1adb73a299b634a180ae3814b41b9ce255" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -100,12 +100,41 @@
           <declname>fn</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make callback to a function (including lambdas) with a context pointer to any object on this node. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="warning"><para>One must ensure that the lifetime of context pointer provided to the callback persists at least as long as the last time the callback might be invoked.</para></simplesect>
+Example snippet:</para><para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">DataMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Context<sp/>{<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>129;<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a0551245b6b893932b95aaf8eac94eed1" kindref="member">ctx</ref><sp/>=<sp/>std::make_unique&lt;Context&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1adb73a299b634a180ae3814b41b9ce255" kindref="member">makeFunc</ref>&lt;DataMsg,Context&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a0551245b6b893932b95aaf8eac94eed1" kindref="member">ctx</ref>.get(),<sp/>[](DataMsg*<sp/>msg,<sp/>Context*<sp/>my_ctx){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>callback<sp/>triggered<sp/>with<sp/>message<sp/>and<sp/>associated<sp/>context</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>my_msg<sp/>=<sp/>vt::makeMessage&lt;DataMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>cb.send(my_msg.get());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the object context passed to callback function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>endpoint function that takes a message and context pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="90" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="138" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a53201c2a1d558751fd3f2473a86678ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -126,12 +155,39 @@
           <declname>fn</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a void callback to a function (including lambdas) with a context pointer to any object on this node. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="warning"><para>One must ensure that the lifetime of context pointer provided to the callback persists at least as long as the last time the callback might be invoked.</para></simplesect>
+Example snippet:</para><para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Context<sp/>{<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>129;<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a0551245b6b893932b95aaf8eac94eed1" kindref="member">ctx</ref><sp/>=<sp/>std::make_unique&lt;Context&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1adb73a299b634a180ae3814b41b9ce255" kindref="member">makeFunc</ref>&lt;Context&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a0551245b6b893932b95aaf8eac94eed1" kindref="member">ctx</ref>.get(),<sp/>[](Context*<sp/>my_ctx){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>callback<sp/>triggered<sp/>with<sp/>associated<sp/>context</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>cb.send();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the object context passed to callback function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>endpoint function that takes a context pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="92" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="169" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1af51eea8377c2ee25afeaabc891b86ee2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -148,12 +204,31 @@
           <declname>fn</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a function (including lambdas) on this node with a message. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Example snippet:</para><para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">DataMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1adb73a299b634a180ae3814b41b9ce255" kindref="member">makeFunc</ref>&lt;DataMsg&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>[](DataMsg*<sp/>msg){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>callback<sp/>triggered<sp/>with<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>my_msg<sp/>=<sp/>vt::makeMessage&lt;DataMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>cb.send(my_msg.get());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>endpoint function that takes a message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="94" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="91" bodyend="93"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="195" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="91" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a073827ad7a9c387e8f0e28bc1767f641" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a36db99df4c973d48b1118a293fff533f" kindref="member">Callback</ref>&lt; <ref refid="structvt_1_1pipe_1_1_pipe_manager_1ab720c2580ecfd3ab36e49aeaaff64cc6" kindref="member">Void</ref> &gt;</type>
@@ -165,12 +240,27 @@
           <declname>fn</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a void callback to a function (including lambdas) on this node. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Example snippet:</para><para><programlisting><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1adb73a299b634a180ae3814b41b9ce255" kindref="member">makeFunc</ref>([]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>callback<sp/>triggered<sp/>with<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>cb.send();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>void endpoint function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="95" column="1" bodyfile="src/vt/pipe/pipe_manager.cc" bodystart="60" bodyend="62"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="215" column="1" bodyfile="src/vt/pipe/pipe_manager.cc" bodystart="60" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -192,12 +282,21 @@
           <declname>node</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a active message handler to be invoked on a certain node with a message. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>node to invoke callback on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="98" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="96" bodyend="98"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="226" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="96" bodyend="98"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a0fc60c66ec9c02e2c1874e08194cac44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -218,12 +317,21 @@
           <declname>node</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a functor handler to be invoked on a certain node with a message. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>node to invoke callback on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="100" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="237" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a89f95b27b13c69f2fe84dc29fd604082" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -244,12 +352,21 @@
           <declname>node</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a void functor handler to be invoked on a certain node. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>node to invoke callback on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="105" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="106" bodyend="108"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="251" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="106" bodyend="108"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a612b59953b949edc575577e313e3b187" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -274,12 +391,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a particular collection element invoking a non-intrusive collection active function handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>element proxy to collection</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="107" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="111" bodyend="113"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="262" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="111" bodyend="113"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a87e25e6a0151c0a9a48b58e6f4679b02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -304,12 +430,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a particular collection element invoking an intrusive collection member handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>element proxy to collection</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="109" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="273" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1aa5d48a3b64820bec240a6a61bdfb4524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -334,12 +469,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a particular objgroup element (node) invoking a objgroup member handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>element proxy to objgroup</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="111" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="121" bodyend="123"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="284" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="121" bodyend="123"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a2ea6bd5ea3e001662681b1e5a1971e9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -357,12 +501,13 @@
         <argsstring>()</argsstring>
         <name>makeBcast</name>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a active message handler with a message to be broadcast to all nodes. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="114" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="126" bodyend="128"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="293" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="126" bodyend="128"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a50e15818da3bc48ac9f129fbd30c3e31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -379,12 +524,13 @@
         <argsstring>()</argsstring>
         <name>makeBcast</name>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a functor handler with a message to be broadcast to all nodes. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="116" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="302" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a42e6860c842d31411b7d90154a0c6a17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -401,12 +547,13 @@
         <argsstring>()</argsstring>
         <name>makeBcast</name>
         <briefdescription>
-        </briefdescription>
+<para>Make a void callback to a functor handler to be broadcast to all nodes. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="121" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="136" bodyend="138"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="314" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="136" bodyend="138"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a1fefc503b58bbdf791e76a6c8f339df6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -431,12 +578,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a whole collection invoking a non-intrusive collection active function handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>proxy to collection</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="123" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="141" bodyend="143"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="325" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="141" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a6fb7d87f8beb2c1e80d492df47036158" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -461,12 +617,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a whole collection invoking an intrusive collection member handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>proxy to collection</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="125" column="1"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="336" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a4d561c17ce6861401a32892223e434c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -491,12 +656,21 @@
           <declname>proxy</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Make a callback to a whole objgroup invoking a objgroup member handler. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">proxy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>proxy to objgroup</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the new callback </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="127" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="151" bodyend="153"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="347" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="151" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1aaddd05d4eec8fbcbe8134f9c907a7306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -522,7 +696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/pipe/pipe_manager.h" line="136" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="68" bodyend="78"/>
+        <location file="src/vt/pipe/pipe_manager.h" line="358" column="1" bodyfile="src/vt/pipe/pipe_manager.impl.h" bodystart="68" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1pipe_1_1_pipe_manager_1a64be0df0367ac73feff93acdd11f9a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -581,122 +755,122 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Core VT component that provides an interface to create type-erased callbacks to many endpoint types. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>Allows creation of callback to many types of handlers with different modes<mdash/>like send and broadcast. </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="2195">
+      <node id="2261">
         <label>vt::runtime::component::BaseComponent</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_base_component"/>
-        <childnode refid="2196" relation="public-inheritance">
+        <childnode refid="2262" relation="public-inheritance">
         </childnode>
-        <childnode refid="2197" relation="public-inheritance">
+        <childnode refid="2263" relation="public-inheritance">
         </childnode>
-        <childnode refid="2198" relation="public-inheritance">
+        <childnode refid="2264" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2193">
+      <node id="2259">
         <label>vt::pipe::PipeManager</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager"/>
-        <childnode refid="2194" relation="public-inheritance">
+        <childnode refid="2260" relation="public-inheritance">
         </childnode>
-        <childnode refid="2199" relation="public-inheritance">
+        <childnode refid="2265" relation="public-inheritance">
         </childnode>
-        <childnode refid="2201" relation="public-inheritance">
+        <childnode refid="2267" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2194">
+      <node id="2260">
         <label>vt::runtime::component::Component&lt; PipeManager &gt;</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_component"/>
-        <childnode refid="2195" relation="public-inheritance">
+        <childnode refid="2261" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2196">
+      <node id="2262">
         <label>vt::runtime::component::Diagnostic</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_diagnostic"/>
       </node>
-      <node id="2197">
+      <node id="2263">
         <label>vt::runtime::component::Bufferable</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_bufferable"/>
       </node>
-      <node id="2198">
+      <node id="2264">
         <label>vt::runtime::component::Progressable</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_progressable"/>
       </node>
-      <node id="2201">
+      <node id="2267">
         <label>vt::pipe::PipeManagerTyped</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_typed"/>
-        <childnode refid="2200" relation="public-inheritance">
+        <childnode refid="2266" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2199">
+      <node id="2265">
         <label>vt::pipe::PipeManagerTL</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_t_l"/>
-        <childnode refid="2200" relation="public-inheritance">
+        <childnode refid="2266" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2200">
+      <node id="2266">
         <label>vt::pipe::PipeManagerBase</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2204">
+      <node id="2270">
         <label>vt::runtime::component::BaseComponent</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_base_component"/>
-        <childnode refid="2205" relation="public-inheritance">
+        <childnode refid="2271" relation="public-inheritance">
         </childnode>
-        <childnode refid="2206" relation="public-inheritance">
+        <childnode refid="2272" relation="public-inheritance">
         </childnode>
-        <childnode refid="2207" relation="public-inheritance">
+        <childnode refid="2273" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2202">
+      <node id="2268">
         <label>vt::pipe::PipeManager</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager"/>
-        <childnode refid="2203" relation="public-inheritance">
+        <childnode refid="2269" relation="public-inheritance">
         </childnode>
-        <childnode refid="2208" relation="public-inheritance">
+        <childnode refid="2274" relation="public-inheritance">
         </childnode>
-        <childnode refid="2210" relation="public-inheritance">
+        <childnode refid="2276" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2203">
+      <node id="2269">
         <label>vt::runtime::component::Component&lt; PipeManager &gt;</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_component"/>
-        <childnode refid="2204" relation="public-inheritance">
+        <childnode refid="2270" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2205">
+      <node id="2271">
         <label>vt::runtime::component::Diagnostic</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_diagnostic"/>
       </node>
-      <node id="2206">
+      <node id="2272">
         <label>vt::runtime::component::Bufferable</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_bufferable"/>
       </node>
-      <node id="2207">
+      <node id="2273">
         <label>vt::runtime::component::Progressable</label>
         <link refid="structvt_1_1runtime_1_1component_1_1_progressable"/>
       </node>
-      <node id="2210">
+      <node id="2276">
         <label>vt::pipe::PipeManagerTyped</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_typed"/>
-        <childnode refid="2209" relation="public-inheritance">
+        <childnode refid="2275" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2208">
+      <node id="2274">
         <label>vt::pipe::PipeManagerTL</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_t_l"/>
-        <childnode refid="2209" relation="public-inheritance">
+        <childnode refid="2275" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2209">
+      <node id="2275">
         <label>vt::pipe::PipeManagerBase</label>
         <link refid="structvt_1_1pipe_1_1_pipe_manager_base"/>
       </node>
     </collaborationgraph>
-    <location file="src/vt/pipe/pipe_manager.h" line="80" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="77" bodyend="141"/>
+    <location file="src/vt/pipe/pipe_manager.h" line="95" column="1" bodyfile="src/vt/pipe/pipe_manager.h" bodystart="92" bodyend="363"/>
     <listofallmembers>
       <member refid="structvt_1_1pipe_1_1_pipe_manager_t_l_1a379d983dfbf654ed01281d96148175f3" prot="public" virt="non-virtual"><scope>vt::pipe::PipeManager</scope><name>addListener</name></member>
       <member refid="structvt_1_1pipe_1_1_pipe_manager_t_l_1ae1aee468ba813cc359e3d3602722b161" prot="public" virt="non-virtual"><scope>vt::pipe::PipeManager</scope><name>addListener</name></member>

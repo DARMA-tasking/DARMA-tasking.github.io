@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="group" kind="page">
+    <compoundname>group</compoundname>
+    <title>Group Manager</title>
+    <detaileddescription>
+<para>Create a grouping of nodes</para><para>The group manager component <computeroutput><ref refid="structvt_1_1group_1_1_group_manager" kindref="compound">vt::group::GroupManager</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup()</ref></computeroutput> manages both rooted and collective groups (or subsets) of nodes that can be broadcast to or reduced over. The group manager implements a fully distributed algorithm for constructing groups collectively with each node deciding if it should be included. The group manager builds a reasonably balanced distributed spanning tree based on these collective votes.</para><para>One major use case for the group manager is creating spanning trees for reductions over virtual collections that do not span all the nodes.</para><para>When creating a group, one may ask <bold><emphasis>vt</emphasis></bold> to create a underlying MPI group, which can be accessed once the group has finished construction.</para><sect1 id="group_1collective-group-example">
+<title>Example creating a collective group</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HelloGroupMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>hello_group_handler(HelloGroupMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>Hello<sp/>from<sp/>group<sp/>handler\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;getNode());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ReduceMsg<sp/>=<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg" kindref="compound">vt::collective::ReduceTMsg&lt;int&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">Print<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(ReduceMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;final<sp/>value={}\n&quot;</highlight><highlight class="normal">,<sp/>msg-&gt;getConstVal());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_nodes<sp/>&lt;<sp/>2)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aff96ace008dc847d4c0f44cfa5dfb3a0" kindref="member">vt::rerror</ref>(</highlight><highlight class="stringliteral">&quot;requires<sp/>at<sp/>least<sp/>2<sp/>nodes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>srand48(this_node<sp/>*<sp/>29);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>odd_node_filter<sp/>=<sp/>this_node<sp/>%<sp/>2<sp/>==<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a27b5e4411c9b6140c49100e050e2f743" kindref="member">vt::GroupType</ref><sp/>new_group<sp/>=<sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1a92b301d6cf77af7d57ed822c6f044d58" kindref="member">newGroupCollective</ref>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>odd_node_filter,<sp/>[=](<ref refid="namespacevt_1a27b5e4411c9b6140c49100e050e2f743" kindref="member">vt::GroupType</ref><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a132506d2b8e888d0a91ae4470d4197c1" kindref="member">group</ref>){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>root<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>in_group<sp/>=<sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1a9a0520b8e8e35f0f0127db0669c9b648" kindref="member">inGroup</ref>(group);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>root_node<sp/>=<sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1ae813f2b894016f05569d7d06aae55315" kindref="member">groupRoot</ref>(group);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>is_default_group<sp/>=<sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1ad9ae779b8223ad458edd62ae5e8a9003" kindref="member">groupDefault</ref>(group);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{}:<sp/>Group<sp/>is<sp/>created:<sp/>group={:x},<sp/>in_group={},<sp/>root={},<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;is_default_group={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this_node,<sp/>group,<sp/>in_group,<sp/>root_node,<sp/>is_default_group</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(in_group)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Op<sp/>=<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op" kindref="compound">vt::collective::PlusOp&lt;int&gt;</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;ReduceMsg&gt;(1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup</ref>()-&gt;<ref refid="structvt_1_1group_1_1_group_manager_1ab6ee94facc8da1e80e52cf0eda26dc5e" kindref="member">groupReducer</ref>(group)-&gt;<ref refid="structvt_1_1collective_1_1reduce_1_1_reduce_1ac41b433147b957df5639d72ac8946090" kindref="member">reduce</ref>&lt;Op,<sp/>Print&gt;(root,<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;HelloGroupMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f9d4ce6034c0eaaf98bdffd33d0e1c7" kindref="member">vt::envelopeSetGroup</ref>(msg-&gt;env,<sp/>group);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__typesafehan_1ga4a7106231ba8a26a1214a6f133e381eb" kindref="member">broadcastMsg</ref>&lt;HelloGroupMsg,<sp/>hello_group_handler&gt;(msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>New<sp/>group={}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>new_group);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

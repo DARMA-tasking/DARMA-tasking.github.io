@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="location" kind="page">
+    <compoundname>location</compoundname>
+    <title>Location Manager</title>
+    <detaileddescription>
+<para>Virtual entity location management</para><para>The location manager component <computeroutput><ref refid="structvt_1_1location_1_1_location_manager" kindref="compound">vt::location::LocationManager</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1ace1c9d64e09732e3b7414d02517ecfdb" kindref="member">vt::theLocMan()</ref></computeroutput> manages the location of arbitrary virtual entities in the system. It holds a set of live <computeroutput><ref refid="structvt_1_1location_1_1_entity_location_coord" kindref="compound">vt::location::EntityLocationCoord</ref></computeroutput> across the distributed system which allow users to register/unregister entities and inform the system when migrations occur. With the entities registered, the location coordinator can route messages to them even in the presence of migrations that may occur at any time. The location coordinator maintains a cache of locations for entities registered off-node and forwards messages using a communication protocol that depends on the size of the message.</para><para>Every entity in the system has a &quot;home node&quot;, which is the node that is ultimately responsible for knowing the location of the entity. When an entity migrates, it informs the home node of its new location in the system. Nodes that try to route messages to that entity will inquire the home node unless the location is already in cache.</para><sect1 id="location_1comm-protocol">
+<title>Eager vs. Rendezvous Routing Protocol</title>
+<para>The variable <computeroutput>vt::location::small_msg_max_size</computeroutput> controls whether a message is routed with an eager or rendezvous protocol. If the message is under that size limit, the message is routed eagerly<mdash/>forwarded to the &quot;home node&quot; for resolution if the location is not in the cache.</para><para>If the size of the message is greater than <computeroutput>vt::location::small_msg_max_size</computeroutput>, the location coordinator will inquire with a control message to resolve the location before the large message is actually sent. This reduces the number of hops required to send large messages.</para></sect1>
+<sect1 id="location_1location-migrations">
+<title>Entity Migrations</title>
+<para>When migrations occur at any time, it&apos;s always possible for the message to arrive on a node where the entity <emphasis>used to be</emphasis>. In this case, the location coordinator knows to follow the breadcrumb to get the message delivered properly where the entity exists now. If the entity continues to move, the message will &quot;chase&quot; it until it catches up. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="term" kind="page">
+    <compoundname>term</compoundname>
+    <title>Termination Detector</title>
+    <detaileddescription>
+<para>Detect termination of work</para><para>The termination component <computeroutput><ref refid="structvt_1_1term_1_1_termination_detector" kindref="compound">vt::term::TerminationDetector</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm()</ref></computeroutput> detects the completion of the transitive closure of work by following the causal chain of messages/events across multiple nodes. It provides global termination to determine when all work is complete and the schedulers can stop running. Additionally, it enables the creation of epochs (which stamp message envelopes) to mark messages as part of a work grouping to detect termination of all events causally related to a subset of messages in the system.</para><para>The termination detector comes with two different detection algorithms: (1) 4-counter wave-based termination for large collective or large rooted epochs across the whole system; and, (2) Dijkstra-Scholten parental responsibility termination for rooted epochs. Epochs are allowed to have other epochs nested within them, thus forming a graph. The detector tracks the relation between epochs, only making progress on epochs that do not have a dependency on another epoch terminating first.</para><para>The termination detector also comes with hang detection to detect causes where no progress can be made due to bugs in an application&apos;s code or the runtime implementation. When a hang is detected, if configured as such by the user, the detector will dump a DOT graph of the live epochs and their dependencies.</para><sect1 id="term_1term-collective-example">
+<title>Example of creating a collective epoch</title>
+<para><programlisting><codeline><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="namespacevt_1a3a3ddfef40b4c90915fa43cdd5f129ea" kindref="member">vt::Message</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>nextNode()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(this_node<sp/>+<sp/>1)<sp/>%<sp/>num_nodes;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_handler(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num<sp/>=<sp/>3;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/><ref refid="namespacevt_1ad5495e7900227550b44837e899c5bb13" kindref="member">vt::envelopeGetEpoch</ref>(msg-&gt;env);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>test_handler:<sp/>num={},<sp/>epoch={:x}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>num,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>num--;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg_send<sp/>=<sp/>vt::makeMessage&lt;TestMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;TestMsg,<sp/>test_handler&gt;(nextNode(),<sp/>msg_send.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_nodes<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aff96ace008dc847d4c0f44cfa5dfb3a0" kindref="member">vt::rerror</ref>(</highlight><highlight class="stringliteral">&quot;requires<sp/>at<sp/>least<sp/>2<sp/>nodes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a748dfa37925107b37bde702e6c5f4aa4" kindref="member">makeEpochCollective</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>action<sp/>will<sp/>not<sp/>run<sp/>until<sp/>all<sp/>messages<sp/>originating<sp/>from<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>sends<sp/>are<sp/>completed</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_term_action_1a1227042cb4eb38937fb8ed34bcbdf998" kindref="member">addAction</ref>(epoch,<sp/>[=]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>finished<sp/>epoch={:x}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Message<sp/>must<sp/>go<sp/>out<sp/>of<sp/>scope<sp/>before<sp/>finalize</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;TestMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a4a0a9928690206b588dbcac2afb71088" kindref="member">vt::envelopeSetEpoch</ref>(msg-&gt;env,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;TestMsg,<sp/>test_handler&gt;(nextNode(),<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1ad54d75c50bd3f34f30247817737bc303" kindref="member">finishedEpoch</ref>(epoch);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para></sect1>
+<sect1 id="term_1term-rooted-example">
+<title>Example of creating a rooted epoch</title>
+<para><programlisting><codeline><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TestMsg<sp/>=<sp/><ref refid="namespacevt_1a3a3ddfef40b4c90915fa43cdd5f129ea" kindref="member">vt::Message</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>nextNode()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(this_node<sp/>+<sp/>1)<sp/>%<sp/>num_nodes;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test_handler(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num<sp/>=<sp/>3;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/><ref refid="namespacevt_1ad5495e7900227550b44837e899c5bb13" kindref="member">vt::envelopeGetEpoch</ref>(msg-&gt;env);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>test_handler:<sp/>num={},<sp/>epoch={:x}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>num,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>num--;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg_send<sp/>=<sp/>vt::makeMessage&lt;TestMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;TestMsg,<sp/>test_handler&gt;(nextNode(),<sp/>msg_send.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_nodes<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aff96ace008dc847d4c0f44cfa5dfb3a0" kindref="member">vt::rerror</ref>(</highlight><highlight class="stringliteral">&quot;requires<sp/>at<sp/>least<sp/>2<sp/>nodes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1ab0724773b4856bfe8225bc5bc0ca6ec0" kindref="member">makeEpochRooted</ref>(<ref refid="structvt_1_1term_1_1_use_d_s" kindref="compound">vt::term::UseDS</ref>{</highlight><highlight class="keyword">true</highlight><highlight class="normal">});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>action<sp/>will<sp/>not<sp/>run<sp/>until<sp/>all<sp/>messages<sp/>originating<sp/>from<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>following<sp/>send<sp/>are<sp/>completed</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_term_action_1a1227042cb4eb38937fb8ed34bcbdf998" kindref="member">addAction</ref>(epoch,<sp/>[=]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>finished<sp/>epoch={:x}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;TestMsg&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a4a0a9928690206b588dbcac2afb71088" kindref="member">vt::envelopeSetEpoch</ref>(msg-&gt;env,<sp/>epoch);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;TestMsg,<sp/>test_handler&gt;(nextNode(),<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1ad54d75c50bd3f34f30247817737bc303" kindref="member">finishedEpoch</ref>(epoch);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

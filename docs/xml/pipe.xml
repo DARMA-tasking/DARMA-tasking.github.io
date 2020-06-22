@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="pipe" kind="page">
+    <compoundname>pipe</compoundname>
+    <title>Pipe Manager</title>
+    <detaileddescription>
+<para>Create opaque callback endpoints</para><para>The pipe manager component <computeroutput><ref refid="structvt_1_1pipe_1_1_pipe_manager" kindref="compound">vt::pipe::PipeManager</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB()</ref></computeroutput> allows the creation of general pipes and callbacks between opaque endpoints that are not revealed through the type. Callbacks allow one to supply a general endpoint that accepts a type of data without revealing the actual endpoint instance. For example, one may create a callback that triggers a handler invocation on a certain node, broadcasts to a handler, sends to a collection or objgroup, or broadcasts to a collection or objgroup, etc.</para><para>The pipe manager supports more complex use cases of multi-listener endpoints if one wants to trigger multiple endpoints on potentially different nodes. The lifetime of a pipe can also be configured<mdash/>how many invocations are allowed before the callback is invalid. The pipe manager has a reference count for each pipe which gets decremented with each signal arrival. By default, callbacks are infinitely callable and do not expire.</para><para>The pipe manager also supports &quot;typed&quot; callbacks where the callee type is revealed to the caller. Typed callbacks are slightly more efficient because the type is exposed and registered type-erasure is not required (using lambdas).</para><sect1 id="pipe_1callback-example">
+<title>Example callbacks</title>
+<para><programlisting><codeline><highlight class="comment">//<sp/>Message<sp/>sent<sp/>from<sp/>the<sp/>callback<sp/>to<sp/>the<sp/>callback<sp/>endpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>MessageParentType<sp/>=<sp/><ref refid="namespacevt_1a3a3ddfef40b4c90915fa43cdd5f129ea" kindref="member">::vt::Message</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="message__serialize_8h_1a54128d5338aaa9c918179826085e13d1" kindref="member">vt_msg_serialize_required</ref>();<sp/></highlight><highlight class="comment">//<sp/>for<sp/>string</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestMsg()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>TestMsg(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_val,<sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>in_s<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;hello&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>val_(in_val),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s_(in_s)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_msg_1a758f02bef5991c48d6c9a56c30ca7ad9" kindref="member">serialize</ref>(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1a783d95de203cabd0f599440e9869c313" kindref="member">MessageParentType::serialize</ref>(s);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val_;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>s_;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::string<sp/>s_;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Message<sp/>containing<sp/>the<sp/>callback<sp/>to<sp/>invoke</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HelloMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>HelloMsg(<ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed" kindref="compound">vt::Callback&lt;TestMsg&gt;</ref><sp/>in_cb)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>cb_(in_cb)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed" kindref="compound">vt::Callback&lt;TestMsg&gt;</ref><sp/>cb_;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Handler<sp/>function<sp/>to<sp/>invoke<sp/>the<sp/>callback<sp/>from</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>hello_world(HelloMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>Sending<sp/>callback\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;getNode());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>to_send<sp/>=<sp/>vt::makeMessage&lt;TestMsg&gt;(292<sp/>+<sp/>val++,<sp/></highlight><highlight class="stringliteral">&quot;test<sp/>string&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>msg-&gt;cb_.send(to_send.get());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>printOutput(TestMsg*<sp/>msg,<sp/>std::string<sp/>type)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>cb<sp/>{}:<sp/>val={},<sp/>str={}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>type,<sp/>msg-&gt;val_,<sp/>msg-&gt;s_);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Functor<sp/>callback<sp/>endpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CallbackFunctor<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printOutput(msg,<sp/></highlight><highlight class="stringliteral">&quot;CallbackFunctor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>callback<sp/>endpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>callbackFunc(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>printOutput(msg,<sp/></highlight><highlight class="stringliteral">&quot;callbackFunc&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyObj<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Objgroup<sp/>callback<sp/>endpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7" kindref="member">handler</ref>(TestMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printOutput(msg,<sp/></highlight><highlight class="stringliteral">&quot;MyObj::handler&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyCol<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;MyCol,<sp/>vt::Index1D&gt;<sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Collection<sp/>handler<sp/>callback<sp/>endpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>colHan(TestMsg*<sp/>msg,<sp/>MyCol*<sp/>col)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>printOutput(msg,<sp/></highlight><highlight class="stringliteral">&quot;MyCol<sp/>colHan<sp/>(non-intrusive)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>bounceCallback(<ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed" kindref="compound">vt::Callback&lt;TestMsg&gt;</ref><sp/>cb)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>vt::makeMessage&lt;HelloMsg&gt;(cb);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;HelloMsg,<sp/>hello_world&gt;(1,<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_nodes<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aff96ace008dc847d4c0f44cfa5dfb3a0" kindref="member">vt::rerror</ref>(</highlight><highlight class="stringliteral">&quot;requires<sp/>at<sp/>least<sp/>2<sp/>nodes&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>obj<sp/>=<sp/><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup</ref>()-&gt;<ref refid="structvt_1_1objgroup_1_1_obj_group_manager_1a651c44a47c6bcdc9f1b6c9e857fa03f2" kindref="member">makeCollective</ref>&lt;MyObj&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>col<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a619d6e576f0d108e442b16ca4f68f1f3" kindref="member">constructCollective</ref>&lt;MyCol&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(8),<sp/>[](<ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_unique&lt;MyCol&gt;();<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>dest<sp/>=<sp/>num_nodes<sp/>&gt;<sp/>2<sp/>?<sp/>2<sp/>:<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_functor<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;CallbackFunctor&gt;(dest);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_functor);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_func<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;TestMsg,callbackFunc&gt;(dest);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_func);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_obj<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;MyObj,TestMsg,&amp;<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7" kindref="member">MyObj::handler</ref>&gt;(obj[dest]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_obj);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_obj_bcast<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a2ea6bd5ea3e001662681b1e5a1971e9d" kindref="member">makeBcast</ref>&lt;MyObj,TestMsg,&amp;<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7" kindref="member">MyObj::handler</ref>&gt;(obj);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_obj_bcast);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_col<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;MyCol,TestMsg,colHan&gt;(col[5]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_col);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb_col_bcast<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a2ea6bd5ea3e001662681b1e5a1971e9d" kindref="member">makeBcast</ref>&lt;MyCol,TestMsg,colHan&gt;(col);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bounceCallback(cb_col_bcast);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

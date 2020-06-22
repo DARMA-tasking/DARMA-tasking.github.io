@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="tutorial-1b" kind="page">
+    <compoundname>tutorial-1b</compoundname>
+    <title>Learning about active handlers</title>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>a<sp/>user-defined<sp/>message<sp/>that<sp/>can<sp/>be<sp/>sent<sp/>to<sp/>a<sp/>node<sp/>via<sp/>VT&apos;s<sp/>active</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>message<sp/>interface.<sp/>A<sp/>message<sp/>in<sp/>VT<sp/>must<sp/>be<sp/>derived<sp/>from<sp/>the<sp/>type</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>vt::Message.<sp/>The<sp/>derived<sp/>class<sp/>will<sp/>include<sp/>the<sp/>``envelope&apos;&apos;,<sp/>which<sp/>includes</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>the<sp/>handler,<sp/>and<sp/>other<sp/>information<sp/>for<sp/>processing<sp/>the<sp/>message</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VT<sp/>Base<sp/>Message</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\----------------/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">::vt::Message</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>In<sp/>general,<sp/>a<sp/>default<sp/>constructor<sp/>is<sp/>required<sp/>for<sp/>the<sp/>a<sp/>message<sp/>because<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>may<sp/>be<sp/>reconstructed<sp/>by<sp/>VT</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>A<sp/>normal<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_b)<sp/>:<sp/>a_(in_a),<sp/>b_(in_b)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getA()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>a_;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getB()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>b_;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a_<sp/>=<sp/>0,<sp/>b_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>Following<sp/>are<sp/>two<sp/>active<sp/>message<sp/>handler<sp/>declarations.<sp/>These<sp/>are<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>functions<sp/>that<sp/>can<sp/>be<sp/>remotely<sp/>invoked<sp/>by<sp/>sending<sp/>a<sp/>message<sp/>in<sp/>VT.<sp/>VT<sp/>allows</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>for<sp/>multiple<sp/>styles<sp/>for<sp/>handlers.<sp/>The<sp/>first<sp/>(msgHandlerA)<sp/>is<sp/>the<sp/>C-style</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>active<sp/>message<sp/>handler.<sp/>It<sp/>is<sp/>exactly<sp/>equivalent<sp/>(in<sp/>terms<sp/>of<sp/>practical<sp/>use</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>ramifications)<sp/>to<sp/>the<sp/>functor<sp/>style,<sp/>which<sp/>follows<sp/>(MsgHandlerB).<sp/>Either</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>style<sp/>can<sp/>be<sp/>used<sp/>to<sp/>define<sp/>a<sp/>message<sp/>handler.<sp/>The<sp/>only<sp/>slight<sp/>benefit<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>functor<sp/>has<sp/>is<sp/>uniqueness<sp/>in<sp/>type,<sp/>when<sp/>enables<sp/>introspection<sp/>of<sp/>the<sp/>message</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>type.<sp/>This<sp/>is<sp/>realized<sp/>in<sp/>the<sp/>sending<sp/>side<sp/>code:<sp/>the<sp/>function<sp/>style<sp/>requires</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>the<sp/>message<sp/>type<sp/>before<sp/>the<sp/>value<sp/>function<sp/>template<sp/>parameter.<sp/>However,<sp/>both</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>are<sp/>*fully<sp/>type<sp/>checked*<sp/>and<sp/>will<sp/>not<sp/>allow<sp/>the<sp/>wrong<sp/>message<sp/>type<sp/>to<sp/>be</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>sent.</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration<sp/>for<sp/>the<sp/>active<sp/>message<sp/>handler<sp/>(function<sp/>ptr<sp/>style)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>msgHandlerA(MyMsg*<sp/>msg);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration<sp/>for<sp/>the<sp/>active<sp/>message<sp/>handler<sp/>(functor<sp/>style)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MsgHandlerB<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(MyMsg*<sp/>msg);</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>activeMessageNode()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>(void)num_nodes;<sp/><sp/></highlight><highlight class="comment">//<sp/>don&apos;t<sp/>warn<sp/>about<sp/>unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>A<sp/>basic<sp/>active<sp/>message<sp/>send<sp/>essentially<sp/>does<sp/>an</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>``MPI_Send(..,destination,...)&apos;&apos;<sp/>to<sp/>the<sp/>destination<sp/>node<sp/>passed<sp/>to</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>::vt::theMsg()-&gt;sendMsg(destination).<sp/>The<sp/>handler,<sp/>which<sp/>is<sp/>passed<sp/>as<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>second<sp/>template<sp/>argument,<sp/>is<sp/>the<sp/>function<sp/>that<sp/>is<sp/>triggered<sp/>when<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>message<sp/>arrives<sp/>on<sp/>the<sp/>destination<sp/>node.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>The<sp/>theMsg()-&gt;sendMsg(..)<sp/>does<sp/>not<sp/>serialize<sp/>the<sp/>message<sp/>sent<sp/>to<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>destination<sp/>node.<sp/>Even<sp/>if<sp/>the<sp/>message<sp/>has<sp/>a<sp/>serialize<sp/>method<sp/>(the<sp/>above</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>example<sp/>does<sp/>not),<sp/>it<sp/>is<sp/>sent<sp/>as<sp/>bytes.<sp/>This<sp/>is<sp/>because<sp/>sendMsg<sp/>always<sp/>just</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>sends<sp/>the<sp/>data<sp/>directly<sp/>that<sp/>is<sp/>passed<sp/>to<sp/>it.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>This<sp/>example<sp/>uses<sp/>the<sp/>function<sp/>pointer<sp/>style<sp/>compared<sp/>to<sp/>the<sp/>send<sp/>inside<sp/>of</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>msgHandlerA,<sp/>which<sp/>uses<sp/>the<sp/>functor<sp/>style<sp/>send.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>::vt::makeMessage&lt;MyMsg&gt;(29,32);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MyMsg,msgHandlerA&gt;(to_node,<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>msgHandlerA(MyMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>VT<sp/>provides<sp/>vtAssert<sp/>(and<sp/>a<sp/>half-dozen<sp/>variants)<sp/>that<sp/>replace<sp/>the<sp/>simple</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>the<sp/>assert<sp/>call<sp/>found<sp/>in<sp/>cassert.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(msg-&gt;getA()<sp/>==<sp/>29,<sp/></highlight><highlight class="stringliteral">&quot;Value<sp/>a<sp/>incorrect&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(msg-&gt;getB()<sp/>==<sp/>32,<sp/></highlight><highlight class="stringliteral">&quot;Value<sp/>b<sp/>incorrect&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cur_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>::fmt::print(</highlight><highlight class="stringliteral">&quot;msgHandlerA:<sp/>triggered<sp/>on<sp/>node={}\n&quot;</highlight><highlight class="normal">,<sp/>cur_node);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Node<sp/>0<sp/>sends<sp/>MyMsg<sp/>to<sp/>node<sp/>1<sp/>in<sp/>the<sp/>above<sp/>code<sp/>so<sp/>this<sp/>should<sp/>execute<sp/>on</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>node<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(cur_node<sp/>==<sp/>1,<sp/></highlight><highlight class="stringliteral">&quot;This<sp/>handler<sp/>should<sp/>execute<sp/>on<sp/>node<sp/>1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>In<sp/>response<sp/>to<sp/>this<sp/>message,<sp/>node<sp/>1<sp/>sends<sp/>a<sp/>message<sp/>back<sp/>to<sp/>node<sp/>0.<sp/>This</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>invocation<sp/>uses<sp/>the<sp/>functor<sp/>style<sp/>send.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg2<sp/>=<sp/>::vt::makeMessage&lt;MyMsg&gt;(10,20);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MsgHandlerB&gt;(to_node,<sp/>msg2.get());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MsgHandlerB::operator()(MyMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cur_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(msg-&gt;getA()<sp/>==<sp/>10,<sp/></highlight><highlight class="stringliteral">&quot;Value<sp/>a<sp/>incorrect&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(msg-&gt;getB()<sp/>==<sp/>20,<sp/></highlight><highlight class="stringliteral">&quot;Value<sp/>b<sp/>incorrect&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(cur_node<sp/>==<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;This<sp/>handler<sp/>should<sp/>execute<sp/>on<sp/>node<sp/>0&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>::fmt::print(</highlight><highlight class="stringliteral">&quot;msgHandlerB:<sp/>triggered<sp/>on<sp/>node={}\n&quot;</highlight><highlight class="normal">,<sp/>cur_node);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>    </detaileddescription>
+  </compounddef>
+</doxygen>

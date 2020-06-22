@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="collective" kind="page">
+    <compoundname>collective</compoundname>
+    <title>Collectives</title>
+    <detaileddescription>
+<para>Collective operations</para><para>The collective component <computeroutput><ref refid="structvt_1_1collective_1_1_collective_alg" kindref="compound">vt::collective::CollectiveAlg</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">vt::theCollective()</ref></computeroutput> implements active-message-based distributed collectives over the <bold><emphasis>vt</emphasis></bold> runtime. It performs asynchronous reductions, scatters, barriers, and allows one to safely use MPI interspersed through <bold><emphasis>vt</emphasis></bold> code, while running in a handler.</para><sect1 id="collective_1collective-reductions">
+<title>Reductions</title>
+<para><bold><emphasis>vt</emphasis></bold> comes with several reduction operators built in that can operate over types where the operator already applies (like integers, doubles, etc.) or user-defined overloaded operators. These operators also have specializations for <computeroutput>std::vector&lt;T&gt;</computeroutput> and <computeroutput>std::array&lt;T&gt;</computeroutput>.</para><para><table rows="10" cols="2"><row>
+<entry thead="yes"><para>Operator </para></entry><entry thead="yes"><para>Reference  </para></entry></row>
+<row>
+<entry thead="no"><para>operator&amp;&amp; </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1ae6f54eb36ce2d4203174e55167c4cd87" kindref="member">vt::collective::AndOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>operator|| </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a47e3b11aa019f643f23effceb60ee94a" kindref="member">vt::collective::OrOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>operator+ </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a7a695a8e6ed8247f643918113b7bf881" kindref="member">vt::collective::PlusOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>std::min </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a0d9f013f61a3e2a15a9e0491409f50f2" kindref="member">vt::collective::MinOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>std::max </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1aee17b1e7ed3266f7407f01253ecc2807" kindref="member">vt::collective::MaxOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>operator&amp; </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a64c800cae2fcb4ec24d2c5540cca0f9e" kindref="member">vt::collective::BitAndOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>operator| </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a07085d466f47337de6f1d6ea30023c11" kindref="member">vt::collective::BitOrOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>operator^ </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a834c8e21559219187ec9ef79f72cf474" kindref="member">vt::collective::BitXorOp</ref></computeroutput> </para></entry></row>
+<row>
+<entry thead="no"><para>&lt;no-operator&gt; </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1_1collective_1a812e9225d75c8888457b29f971c33f75" kindref="member">vt::collective::NoneOp</ref></computeroutput> </para></entry></row>
+</table>
+</para><sect2 id="collective_1collective-reduce-example">
+<title>A Simple Reduction</title>
+<para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="transport_8h" kindref="compound">vt/transport.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Reduce<sp/>ints</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ReduceDataMsg<sp/>:<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg" kindref="compound">vt::collective::ReduceTMsg</ref>&lt;int&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>ReduceDataMsg(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="namespacevt" kindref="compound">vt</ref>::collective::<ref refid="namespacevt_1_1collective_1a28b82d5d48c9bc6e4fd738fcbf9e0f62" kindref="member">ReduceTMsg</ref>&lt;int&gt;(val)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>Handler<sp/>to<sp/>target<sp/>for<sp/>reduction</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ReduceResult<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator()(ReduceDataMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1ad3ca3e8710dd3c8badff897f8de3c858" kindref="member">output</ref><sp/>=<sp/>msg-&gt;getConstVal();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;reduction<sp/>value={}\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1ad3ca3e8710dd3c8badff897f8de3c858" kindref="member">output</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(num_nodes<sp/>*<sp/>50<sp/>==<sp/><ref refid="namespacevt_1ad3ca3e8710dd3c8badff897f8de3c858" kindref="member">output</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>equal);</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="stringliteral">};</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral">int<sp/>main(int<sp/>argc,<sp/>char**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>vt::initialize(argc,<sp/>argv);</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>auto<sp/>reduce_msg<sp/>=<sp/>vt::makeMessage&lt;ReduceDataMsg&gt;(50);</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>NodeType<sp/>const<sp/>root_reduce_node<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>vt::theCollective()-&gt;global()-&gt;reduce&lt;vt::collective::PlusOp&lt;int&gt;,ReduceResult&gt;(</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>root_reduce_node,<sp/>reduce_msg.get()</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="stringliteral"></highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>vt::finalize();<sp/>//<sp/>spins<sp/>in<sp/>scheduler<sp/>until<sp/>termination</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="stringliteral">}</highlight></codeline>
+</programlisting> </para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

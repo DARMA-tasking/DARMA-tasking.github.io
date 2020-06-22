@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="objgroup" kind="page">
+    <compoundname>objgroup</compoundname>
+    <title>Object Group Manager</title>
+    <detaileddescription>
+<para>Create object instances across nodes</para><para>The object group manager component <computeroutput><ref refid="structvt_1_1objgroup_1_1_obj_group_manager" kindref="compound">vt::objgroup::ObjGroupManager</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup()</ref></computeroutput> allows the creation and management of instances of a group of objects (one per node) that have a collective proxy for performing operations like sends, broadcasts, or reductions across the object group.</para><sect1 id="objgroup_1objgroup-example">
+<title>Example creating an object group</title>
+<para><programlisting><codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>in_b)<sp/>:<sp/>a(in_a),<sp/>b(in_b)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>0,<sp/>b<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyObjGroup<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7" kindref="member">handler</ref>(MyMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref><sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>MyObjGroup::handler<sp/>on<sp/>a={},<sp/>b={}\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>,<sp/>msg-&gt;a,<sp/>msg-&gt;b);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aaa266774ea8339c58be0202b00fafa62" kindref="member">vt::initialize</ref>(argc,<sp/>argv,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup</ref>()-&gt;<ref refid="structvt_1_1objgroup_1_1_obj_group_manager_1a651c44a47c6bcdc9f1b6c9e857fa03f2" kindref="member">makeCollective</ref>&lt;MyObjGroup&gt;();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy[0].send&lt;MyMsg,&amp;<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7" kindref="member">MyObjGroup::handler</ref>&gt;(5,10);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(num_nodes<sp/>&gt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy[1].send&lt;MyMsg,&amp;MyObjGroup::handler&gt;(10,20);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;MyMsg,&amp;MyObjGroup::handler&gt;(400,500);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="collective_8md" kind="file" language="Markdown">
+    <compoundname>collective.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>collective<sp/>Collectives</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Collective<sp/>operations</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>collective<sp/>component<sp/>`vt::collective::CollectiveAlg`,<sp/>accessed<sp/>via</highlight></codeline>
+<codeline><highlight class="normal">`vt::theCollective()`<sp/>implements<sp/>active-message-based<sp/>distributed<sp/>collectives</highlight></codeline>
+<codeline><highlight class="normal">over<sp/>the<sp/>\vt<sp/>runtime.<sp/>It<sp/>performs<sp/>asynchronous<sp/>reductions,<sp/>scatters,<sp/>barriers,</highlight></codeline>
+<codeline><highlight class="normal">and<sp/>allows<sp/>one<sp/>to<sp/>safely<sp/>use<sp/>MPI<sp/>interspersed<sp/>through<sp/>\vt<sp/>code,<sp/>while<sp/>running<sp/>in</highlight></codeline>
+<codeline><highlight class="normal">a<sp/>handler.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>collective-reductions<sp/>Reductions</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\vt<sp/>comes<sp/>with<sp/>several<sp/>reduction<sp/>operators<sp/>built<sp/>in<sp/>that<sp/>can<sp/>operate<sp/>over<sp/>types</highlight></codeline>
+<codeline><highlight class="normal">where<sp/>the<sp/>operator<sp/>already<sp/>applies<sp/>(like<sp/>integers,<sp/>doubles,<sp/>etc.)<sp/>or</highlight></codeline>
+<codeline><highlight class="normal">user-defined<sp/>overloaded<sp/>operators.<sp/>These<sp/>operators<sp/>also<sp/>have<sp/>specializations<sp/>for</highlight></codeline>
+<codeline><highlight class="normal">`std::vector&lt;T&gt;`<sp/>and<sp/>`std::array&lt;T&gt;`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Operator<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Reference<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-------------<sp/>|<sp/>--------------------------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator&amp;&amp;<sp/><sp/><sp/><sp/>|<sp/>`vt::collective::AndOp`<sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator\|\|<sp/><sp/>|<sp/>`vt::collective::OrOp`<sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator+<sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::collective::PlusOp`<sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>std::min<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::collective::MinOp`<sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>std::max<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::collective::MaxOp`<sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator&amp;<sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::collective::BitAndOp`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator\|<sp/><sp/><sp/><sp/>|<sp/>`vt::collective::BitOrOp`<sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>operator^<sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::collective::BitXorOp`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>&lt;no-operator&gt;<sp/>|<sp/>`vt::collective::NoneOp`<sp/><sp/><sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>collective-reduce-example<sp/>A<sp/>Simple<sp/>Reduction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;vt/transport.h&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Reduce<sp/>ints</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>ReduceDataMsg<sp/>:<sp/>vt::collective::ReduceTMsg&lt;int&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>explicit<sp/>ReduceDataMsg(int<sp/>val)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>vt::collective::ReduceTMsg&lt;int&gt;(val)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Handler<sp/>to<sp/>target<sp/>for<sp/>reduction</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>ReduceResult<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>void<sp/>operator()(ReduceDataMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>num_nodes<sp/>=<sp/>vt::theContext()-&gt;getNumNodes();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>output<sp/>=<sp/>msg-&gt;getConstVal();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(&quot;reduction<sp/>value={}\n&quot;,<sp/>output);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>vtAssert(num_nodes<sp/>*<sp/>50<sp/>==<sp/>output,<sp/>&quot;Must<sp/>be<sp/>equal);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main(int<sp/>argc,<sp/>char**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::initialize(argc,<sp/>argv);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>auto<sp/>reduce_msg<sp/>=<sp/>vt::makeMessage&lt;ReduceDataMsg&gt;(50);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>NodeType<sp/>const<sp/>root_reduce_node<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::theCollective()-&gt;global()-&gt;reduce&lt;vt::collective::PlusOp&lt;int&gt;,ReduceResult&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>root_reduce_node,<sp/>reduce_msg.get()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::finalize();<sp/>//<sp/>spins<sp/>in<sp/>scheduler<sp/>until<sp/>termination</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/collective.md"/>
+  </compounddef>
+</doxygen>

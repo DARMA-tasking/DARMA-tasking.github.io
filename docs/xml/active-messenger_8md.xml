@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="active-messenger_8md" kind="file" language="Markdown">
+    <compoundname>active-messenger.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline></codeline>
+<codeline><highlight class="normal">\page<sp/>active-messenger<sp/>Active<sp/>Messenger</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Asynchronous<sp/>send/receive<sp/>of<sp/>messages</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>active<sp/>messenger<sp/>`vt::messaging::ActiveMessenger`,<sp/>accessed<sp/>via</highlight></codeline>
+<codeline><highlight class="normal">`vt::theMsg()`,<sp/>asynchronously<sp/>sends<sp/>and<sp/>receives<sp/>messages<sp/>across<sp/>nodes<sp/>using</highlight></codeline>
+<codeline><highlight class="normal">MPI<sp/>internally.<sp/>When<sp/>sending<sp/>a<sp/>message,<sp/>it<sp/>uses<sp/>the<sp/>\vt<sp/>registry<sp/>to<sp/>consistently</highlight></codeline>
+<codeline><highlight class="normal">dispatch<sp/>messages<sp/>and<sp/>data<sp/>to<sp/>handlers<sp/>(function<sp/>pointers,<sp/>functors,<sp/>or<sp/>methods)</highlight></codeline>
+<codeline><highlight class="normal">across<sp/>nodes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>message<sp/>contains<sp/>an<sp/>envelope<sp/>`vt::Envelope`<sp/>to<sp/>store<sp/>meta-data<sp/>associated</highlight></codeline>
+<codeline><highlight class="normal">with<sp/>the<sp/>message,<sp/>such<sp/>as<sp/>the<sp/>destination<sp/>and<sp/>handler<sp/>to<sp/>trigger<sp/>when<sp/>it</highlight></codeline>
+<codeline><highlight class="normal">arrives.<sp/>Sending<sp/>a<sp/>message<sp/>entails<sp/>setting<sp/>up<sp/>the<sp/>envelope,<sp/>optionally</highlight></codeline>
+<codeline><highlight class="normal">serializing<sp/>the<sp/>message<sp/>(depending<sp/>on<sp/>whether<sp/>the<sp/>serialize<sp/>overload<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">present),<sp/>and<sp/>then<sp/>using<sp/>`MPI_Isend`<sp/>to<sp/>asynchronously<sp/>transfer<sp/>the<sp/>bytes<sp/>to<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">destination<sp/>node.<sp/>On<sp/>the<sp/>receive<sp/>side,<sp/>the<sp/>active<sp/>messenger<sp/>is<sp/>always<sp/>probing</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>an<sp/>incoming<sp/>message<sp/>and<sp/>begins<sp/>a<sp/>transfer<sp/>when<sp/>it<sp/>discovers<sp/>one.<sp/>The<sp/>\vt</highlight></codeline>
+<codeline><highlight class="normal">\subpage<sp/>scheduler<sp/>polls<sp/>the<sp/>active<sp/>messenger<sp/>to<sp/>make<sp/>progress<sp/>on<sp/>any<sp/>incoming</highlight></codeline>
+<codeline><highlight class="normal">messages.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>am-simple-example<sp/>Sending<sp/>a<sp/>message</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;vt/transport.h&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;vector&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Declare<sp/>a<sp/>serializable<sp/>message</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>MyMsg<sp/>:<sp/>vt::Message<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>using<sp/>MessageParentType<sp/>=<sp/>vt::Message;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt_msg_serialize_required();<sp/>//<sp/>for<sp/>vector</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg()<sp/>=<sp/>default;<sp/>//<sp/>default<sp/>constructor<sp/>for<sp/>de-serialize</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyMsg(int<sp/>in_val,<sp/>std::vector&lt;double&gt;<sp/>const&amp;<sp/>in_vec)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>val(in_val),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>my_vec(in_vec)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>template<sp/>&lt;typename<sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>void<sp/>serialize(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>MessageParentType::serialize(s);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>my_vec;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>int<sp/>val<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>my_vec;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Active<sp/>function<sp/>pointer</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>myHandler(MyMsg*<sp/>m)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::NodeType<sp/>this_node<sp/>=<sp/>vt::theContext()-&gt;getNode();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>fmt::print(&quot;{}:<sp/>val={},<sp/>vec<sp/>size={}\n&quot;,<sp/>this_node,<sp/>m-&gt;val,<sp/>m-&gt;my_vec.size());</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Active<sp/>functor</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>MyFunctor<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>void<sp/>operator()(MyMsg*<sp/>m)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>vt::NodeType<sp/>this_node<sp/>=<sp/>vt::theContext()-&gt;getNode();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(&quot;{}:<sp/>val={},<sp/>vec<sp/>size={}\n&quot;,<sp/>this_node,<sp/>m-&gt;val,<sp/>m-&gt;my_vec.size());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main(int<sp/>argc,<sp/>char**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::initialize(argc,<sp/>argv);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::NodeType<sp/>this_node<sp/>=<sp/>vt::theContext()-&gt;getNode();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>if<sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>spins<sp/>in<sp/>scheduler<sp/>until<sp/>termination<sp/>of<sp/>the<sp/>enclosed<sp/>work</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>vt::runInEpochRooted([=]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>vec_to_send;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec_to_send.push_back(29.);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec_to_send.push_back(54.);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>msg<sp/>=<sp/>vt::makeMessage&lt;MyMsg&gt;(10,<sp/>vec_to_send);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vt::theMsg()-&gt;sendMsg&lt;MyMsg,<sp/>myHandler&gt;(1,<sp/>msg.get());<sp/>//<sp/>send<sp/>to<sp/>node<sp/>1</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>msg2<sp/>=<sp/>vt::makeMessage&lt;MyMsg&gt;(11,<sp/>vec_to_send);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vt::theMsg()-&gt;sendMsg&lt;MyFunctor&gt;(1,<sp/>msg2.get());<sp/><sp/>//<sp/>send<sp/>to<sp/>node<sp/>1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::finalize();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Program<sp/>output:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.shell-session}</highlight></codeline>
+<codeline><highlight class="normal">1:<sp/>val=10,<sp/>vec<sp/>size=2</highlight></codeline>
+<codeline><highlight class="normal">1:<sp/>val=11,<sp/>vec<sp/>size=2</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/active-messenger.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,88 @@
+The full code for this example can be found here\+: {\ttfamily examples/collection/migrate\+\_\+collection.\+cc}.
+
+
+\begin{DoxyCodeInclude}
+\textcolor{keyword}{static} constexpr int32\_t \textcolor{keyword}{const} default\_num\_elms = 16;
+
+\textcolor{keyword}{struct }Hello : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<Hello, vt::Index1D> \{
+  Hello() = \textcolor{keywordflow}{default};
+
+  \textcolor{keyword}{explicit} Hello(\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} create) \{
+    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+    fmt::print(\textcolor{stringliteral}{"\{\}: Hello: create=\{\}, index=\{\}\(\backslash\)n"}, this\_node, create, \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}());
+    test\_val = \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}().x() * 29.3;
+  \}
+
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
+  \textcolor{keywordtype}{void} \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_a8f5dc077e523958ea8b7290b8a10846f}{serialize}(Serializer& s) \{
+    \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_a8f5dc077e523958ea8b7290b8a10846f}{vt::Collection<Hello, vt::Index1D>::serialize}(s);
+    s | test\_val;
+  \}
+
+  \textcolor{keywordtype}{double} test\_val = 0.0;
+\};
+
+\textcolor{keyword}{struct }ColMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<Hello> \{
+  \textcolor{keyword}{explicit} ColMsg(\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} \textcolor{keyword}{const}& in\_from\_node)
+    : from\_node(in\_from\_node)
+  \{ \}
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} from\_node = vt::uninitialized\_destination;
+\};
+
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} doWork(ColMsg* msg, Hello* col) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  fmt::print(\textcolor{stringliteral}{"\{\}: idx=\{\}: val=\{\}\(\backslash\)n"}, this\_node, col->getIndex(), col->test\_val);
+\}
+
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} migrateToNext(ColMsg* msg, Hello* col) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} next\_node = (this\_node + 1) % num\_nodes;
+
+  fmt::print(\textcolor{stringliteral}{"\{\}: migrateToNext: idx=\{\}\(\backslash\)n"}, this\_node, col->getIndex());
+  col->migrate(next\_node);
+\}
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
+      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+
+  \textcolor{keywordflow}{if} (num\_nodes == 1) \{
+    \textcolor{keywordflow}{return} \hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}(\textcolor{stringliteral}{"requires at least 2 nodes"});
+  \}
+
+  int32\_t num\_elms = default\_num\_elms;
+  \textcolor{keywordflow}{if} (argc > 1) \{
+    num\_elms = atoi(argv[1]);
+  \}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(num\_elms);
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<Hello>(range, this\_node);
+
+    \hyperlink{namespacevt_ad419c00d2e4ac8601ea3b1dec633f3f7}{vt::runInEpochRooted}([=]\{
+      \textcolor{keyword}{auto} msg = vt::makeMessage<ColMsg>(this\_node);
+      proxy.broadcast<ColMsg, doWork>(msg.get());
+    \});
+
+    \hyperlink{namespacevt_ad419c00d2e4ac8601ea3b1dec633f3f7}{vt::runInEpochRooted}([=]\{
+      \textcolor{keyword}{auto} msg = vt::makeMessage<ColMsg>(this\_node);
+      proxy.broadcast<ColMsg, migrateToNext>(msg.get());
+    \});
+
+    \hyperlink{namespacevt_ad419c00d2e4ac8601ea3b1dec633f3f7}{vt::runInEpochRooted}([=]\{
+      \textcolor{keyword}{auto} msg = vt::makeMessage<ColMsg>(this\_node);
+      proxy.broadcast<ColMsg, doWork>(msg.get());
+    \});
+  \}
+
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+
+  \textcolor{keywordflow}{return} 0;
+\}
+\end{DoxyCodeInclude}
