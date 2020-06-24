@@ -55,7 +55,6 @@ var searchData=
   ['finishedwork',['FinishedWork',['../structvt_1_1group_1_1_group_manager.html#ae1817e369e2c7539a02b4eeb0e5cdb83',1,'vt::group::GroupManager']]],
   ['finishinserting',['finishInserting',['../structvt_1_1vrt_1_1collection_1_1_insertable.html#af4d5f1e9bc119de61354ab7936b445d1',1,'vt::vrt::collection::Insertable']]],
   ['finishmake',['finishMake',['../structvt_1_1rdma_1_1_manager.html#a462f2059efb91643275a921c84f72f67',1,'vt::rdma::Manager']]],
-  ['finishmigrationcollective',['finishMigrationCollective',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a682072cad79474ddf1faa5ee98a85a5a',1,'vt::vrt::collection::lb::BaseLB']]],
   ['finishnoactivateepoch',['finishNoActivateEpoch',['../structvt_1_1term_1_1_termination_detector.html#a349739e9ee6dea98a863b4afb1e49c10',1,'vt::term::TerminationDetector']]],
   ['finishpendingactivemsgasyncrecv',['finishPendingActiveMsgAsyncRecv',['../structvt_1_1messaging_1_1_active_messenger.html#a162667e5566546402f12baf8cf60d4da',1,'vt::messaging::ActiveMessenger']]],
   ['finishpendingdatamsgasyncrecv',['finishPendingDataMsgAsyncRecv',['../structvt_1_1messaging_1_1_active_messenger.html#a80a13017308870133ff8538741bee394',1,'vt::messaging::ActiveMessenger']]],

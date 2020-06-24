@@ -28,6 +28,8 @@ var searchData=
   ['lb_5fheaders_2eh',['lb_headers.h',['../lb__headers_8h.html',1,'']]],
   ['lb_5finterface_2eh',['lb_interface.h',['../lb__interface_8h.html',1,'']]],
   ['lb_5flistener_2eh',['lb_listener.h',['../lb__listener_8h.html',1,'']]],
+  ['lb_5fmanager_2ecc',['lb_manager.cc',['../lb__manager_8cc.html',1,'']]],
+  ['lb_5fmanager_2eh',['lb_manager.h',['../lb__manager_8h.html',1,'']]],
   ['lb_5fmigratable_2eh',['lb_migratable.h',['../lb__migratable_8h.html',1,'']]],
   ['lb_5fname_5f',['lb_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#ad163d019f9d92288f78026d95a55e175',1,'vt::vrt::collection::balance::SpecEntry']]],
   ['lb_5fnames_5f',['lb_names_',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a25f2d26f8832c24be922ebbb2cd7c119',1,'vt::vrt::collection::balance']]],

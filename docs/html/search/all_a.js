@@ -170,8 +170,6 @@ var searchData=
   ['invalidtracetype',['InvalidTraceType',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da319f6b5fbfb85275879d449149167c7e',1,'vt::trace']]],
   ['invert_5fcond',['INVERT_COND',['../configs_2error_2common_8h.html#a250bba5e03a1774678374a7fe3e03c30',1,'common.h']]],
   ['invoke',['invoke',['../structvt_1_1term_1_1_callable_base.html#a534f470aaf4dd168faa9adf3c91e6ca2',1,'vt::term::CallableBase::invoke()'],['../structvt_1_1term_1_1_callable_holder.html#a33bc8b5d543eb4338c257522cc0084f1',1,'vt::term::CallableHolder::invoke()']]],
-  ['invoke_2ecc',['invoke.cc',['../invoke_8cc.html',1,'']]],
-  ['invoke_2eh',['invoke.h',['../invoke_8h.html',1,'']]],
   ['invoke_5fmsg_2eh',['invoke_msg.h',['../invoke__msg_8h.html',1,'']]],
   ['invokebasemsg',['InvokeBaseMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_base_msg.html',1,'vt::vrt::collection::balance::InvokeBaseMsg&lt; MsgT &gt;'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_base_msg.html#acfc1f9a1ca07cce5d838a8847c3a9709',1,'vt::vrt::collection::balance::InvokeBaseMsg::InvokeBaseMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_base_msg.html#a5519d39a1c2ea8c15dc9d03e30687c35',1,'vt::vrt::collection::balance::InvokeBaseMsg::InvokeBaseMsg(PhaseType in_phase, LBType in_lb, bool manual, std::size_t in_num_colls=1)']]],
   ['invokecallabletuple',['invokeCallableTuple',['../namespacevt_1_1param.html#a3aec8e4301c9035e3333fe9d186171fe',1,'vt::param']]],

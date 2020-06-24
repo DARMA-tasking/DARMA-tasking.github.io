@@ -204,6 +204,7 @@ var searchData=
   ['applyfntype',['ApplyFnType',['../structvt_1_1group_1_1region_1_1_region.html#a7c9e99b1157d2fe2f3e6fc36a1463a96',1,'vt::group::region::Region']]],
   ['applyinstance',['applyInstance',['../structvt_1_1location_1_1_location_manager.html#ae87fb969a0c0e2a45ca3ff15a0f01c00',1,'vt::location::LocationManager']]],
   ['applylisteners',['applyListeners',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a3859f44089ed23d724782d5687343061',1,'vt::vrt::collection::Holder']]],
+  ['applymigrations',['applyMigrations',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a7330de226a184378fc6230a56f525ef6',1,'vt::vrt::collection::lb::BaseLB']]],
   ['applynodeaction',['applyNodeAction',['../structvt_1_1location_1_1_pending_location_lookup.html#a8e23682547f207d5403a0ee6a2224f37',1,'vt::location::PendingLocationLookup']]],
   ['applyop',['ApplyOp',['../structvt_1_1config_1_1_apply_op.html',1,'vt::config']]],
   ['applyregisteredactionmsg',['applyRegisteredActionMsg',['../structvt_1_1location_1_1_loc_entity.html#a7675dd0ee13bc5b759b6a4313d521e04',1,'vt::location::LocEntity']]],

@@ -8,6 +8,8 @@ var searchData=
   ['lb_5fheaders_2eh',['lb_headers.h',['../lb__headers_8h.html',1,'']]],
   ['lb_5finterface_2eh',['lb_interface.h',['../lb__interface_8h.html',1,'']]],
   ['lb_5flistener_2eh',['lb_listener.h',['../lb__listener_8h.html',1,'']]],
+  ['lb_5fmanager_2ecc',['lb_manager.cc',['../lb__manager_8cc.html',1,'']]],
+  ['lb_5fmanager_2eh',['lb_manager.h',['../lb__manager_8h.html',1,'']]],
   ['lb_5fmigratable_2eh',['lb_migratable.h',['../lb__migratable_8h.html',1,'']]],
   ['lb_5ftype_2ecc',['lb_type.cc',['../lb__type_8cc.html',1,'']]],
   ['lb_5ftype_2eh',['lb_type.h',['../lb__type_8h.html',1,'']]],

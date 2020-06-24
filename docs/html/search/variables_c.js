@@ -28,7 +28,6 @@ var searchData=
   ['migrate_5fin_5f',['migrate_in_',['../structvt_1_1rdma_1_1_sub_handle.html#a2832d6a83d0ecc36d342d33fcf5ce6dd',1,'vt::rdma::SubHandle']]],
   ['migrate_5fout_5f',['migrate_out_',['../structvt_1_1rdma_1_1_sub_handle.html#a13c434425c8ab69abfd202acf8979119',1,'vt::rdma::SubHandle']]],
   ['migrates_5fexpected',['migrates_expected',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a79229451e82b523ca25e81c8249cc048',1,'vt::vrt::collection::lb::HierarchicalLB']]],
-  ['migration_5fepoch_5f',['migration_epoch_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a542fc9b588392bd5bc30554b2b53c96c',1,'vt::vrt::collection::lb::BaseLB']]],
   ['migrations_5f',['migrations_',['../structvt_1_1lb_1_1_migrate_info.html#a2ae34d58ae8b7e0d353c790fceed7395',1,'vt::lb::MigrateInfo']]],
   ['min_5f',['min_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a2ce7f969bd102daebb5071f5a3da8396',1,'vt::vrt::collection::balance::LoadData']]],
   ['min_5fthreshold',['min_threshold',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#ae3d436ffc085fb846a1970018c593985',1,'vt::vrt::collection::lb::GreedyLB::min_threshold()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#ab7ef9cc6d966759b3634d04427cab1b5',1,'vt::vrt::collection::lb::HierarchicalLB::min_threshold()']]],

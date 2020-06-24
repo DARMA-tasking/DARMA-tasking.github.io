@@ -13,8 +13,6 @@ var searchData=
   ['insertable_5fepoch_2eh',['insertable_epoch.h',['../insertable__epoch_8h.html',1,'']]],
   ['integral_5fset_2eh',['integral_set.h',['../integral__set_8h.html',1,'']]],
   ['interval_2eh',['interval.h',['../interval_8h.html',1,'']]],
-  ['invoke_2ecc',['invoke.cc',['../invoke_8cc.html',1,'']]],
-  ['invoke_2eh',['invoke.h',['../invoke_8h.html',1,'']]],
   ['invoke_5fmsg_2eh',['invoke_msg.h',['../invoke__msg_8h.html',1,'']]],
   ['irecv_5fholder_2eh',['irecv_holder.h',['../irecv__holder_8h.html',1,'']]]
 ];

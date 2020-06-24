@@ -138,7 +138,6 @@ var searchData=
   ['num_5flocal_5fcontrib_5f',['num_local_contrib_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#a9aa48263112ed8e0b5033c002dc28ef2',1,'vt::collective::reduce::ReduceState']]],
   ['num_5fnodes_5f',['num_nodes_',['../structvt_1_1group_1_1_group_info_msg.html#a85b2c79bd1f446a956265df16e8d9a83',1,'vt::group::GroupInfoMsg']]],
   ['num_5fprint_5fconstant',['num_print_constant',['../structvt_1_1term_1_1_term_state.html#ac3289ddbfa5c385c4d91d240bc17d67f',1,'vt::term::TermState']]],
-  ['num_5freduce_5fstats_5f',['num_reduce_stats_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a15441a3f924a5dd38fb315d84aa6a7c8',1,'vt::vrt::collection::lb::BaseLB']]],
   ['num_5frelease_5f',['num_release_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a93855ddcd9842e951987256e81aa8802',1,'vt::vrt::collection::balance::LBManager']]],
   ['num_5fsignals_5fexpected_5f',['num_signals_expected_',['../structvt_1_1pipe_1_1_pipe_state.html#a6e646d7d9caad625d42c54dd0260f925',1,'vt::pipe::PipeState']]],
   ['num_5fsignals_5freceived_5f',['num_signals_received_',['../structvt_1_1pipe_1_1_pipe_state.html#aa5d938c0edcb612328a083878924e593',1,'vt::pipe::PipeState']]],

@@ -69,6 +69,7 @@ var searchData=
   ['transfer_5f',['transfer_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_transfer_msg.html#ab8a2aefc116dd5d0fc06e6aa722ce0ef',1,'vt::vrt::collection::lb::TransferMsg']]],
   ['transfer_5fcount',['transfer_count',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a858f07d19923904e7a8bb4a93c96041c',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['transfers',['transfers',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#ab9aad1307a83953ea436e1e3d865bbd0',1,'vt::vrt::collection::lb::HierarchicalLB']]],
+  ['transfers_5f',['transfers_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a815315640fe4e41e39d1872e115b8574',1,'vt::vrt::collection::lb::BaseLB']]],
   ['tree_5fsetup',['tree_setup',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#abd4e7b54c632de1dc2f2751676328f3d',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['trigger_5flist_5f',['trigger_list_',['../structvt_1_1pipe_1_1interface_1_1_remote_container.html#a37a4c4a4fcd3a7daa27f697f01f3ac81',1,'vt::pipe::interface::RemoteContainer::trigger_list_()'],['../structvt_1_1pipe_1_1interface_1_1_send_container.html#ae4531eb2c073b81891360f98a7dc72c6',1,'vt::pipe::interface::SendContainer::trigger_list_()']]],
   ['triggered_5f',['triggered_',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#af5a2e880ab1ebf223e6f1372835a71a3',1,'vt::pipe::callback::CallbackBase']]],

@@ -269,7 +269,6 @@ var searchData=
   ['migratestatus',['MigrateStatus',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804',1,'vt::vrt::collection']]],
   ['migratetolisttype',['MigrateToListType',['../structvt_1_1lb_1_1_migrate_info.html#a849f608488ac05ab0942c1543933fa4d',1,'vt::lb::MigrateInfo']]],
   ['migratetotype',['MigrateToType',['../structvt_1_1lb_1_1_migrate_info.html#a69403740694a22895d616924d243e32b',1,'vt::lb::MigrateInfo']]],
-  ['migration_5fepoch_5f',['migration_epoch_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a542fc9b588392bd5bc30554b2b53c96c',1,'vt::vrt::collection::lb::BaseLB']]],
   ['migrationdone',['migrationDone',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ac8ed2cc09aec1f84e179ba734da71960',1,'vt::vrt::collection::lb::BaseLB']]],
   ['migrations_5f',['migrations_',['../structvt_1_1lb_1_1_migrate_info.html#a2ae34d58ae8b7e0d353c790fceed7395',1,'vt::lb::MigrateInfo']]],
   ['mimalloc',['Mimalloc',['../structvt_1_1util_1_1memory_1_1_mimalloc.html',1,'vt::util::memory']]],
