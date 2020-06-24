@@ -22,6 +22,51 @@
 <codeline><highlight class="normal">can<sp/>be<sp/>read<sp/>externally.<sp/>The<sp/>LBAF<sp/>(Load<sp/>Balancing<sp/>Analysis<sp/>Framework)<sp/>can<sp/>also</highlight></codeline>
 <codeline><highlight class="normal">then<sp/>read<sp/>this<sp/>data<sp/>to<sp/>analyze<sp/>the<sp/>quality<sp/>of<sp/>the<sp/>load<sp/>distribution<sp/>at<sp/>any<sp/>phase</highlight></codeline>
 <codeline><highlight class="normal">in<sp/>the<sp/>file.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>export-lb-stats-file<sp/>Exporting<sp/>LB<sp/>Statistic<sp/>Files<sp/>(VOM)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>`ProcStats`<sp/>component,<sp/>after<sp/>collecting<sp/>statistics<sp/>from<sp/>the<sp/>running<sp/>program,</highlight></codeline>
+<codeline><highlight class="normal">can<sp/>dump<sp/>these<sp/>to<sp/>files<sp/>in<sp/>a<sp/>VOM<sp/>file<sp/>(Virtual<sp/>Object<sp/>Map).<sp/>As<sp/>indicated<sp/>by<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">name,<sp/>the<sp/>VOM<sp/>file<sp/>specifies<sp/>the<sp/>mapping<sp/>of<sp/>object<sp/>to<sp/>node<sp/>for<sp/>each<sp/>phase<sp/>along</highlight></codeline>
+<codeline><highlight class="normal">with<sp/>statistics<sp/>for<sp/>each<sp/>object<sp/>(computation<sp/>time<sp/>and<sp/>communication<sp/>load).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>output<sp/>VOM<sp/>files,<sp/>pass<sp/>`--vt_lb_stats`<sp/>to<sp/>enable<sp/>output<sp/>along<sp/>with</highlight></codeline>
+<codeline><highlight class="normal">`--vt_lb_stats_dir=&lt;my-directory&gt;`<sp/>and<sp/>`--vt_lb_stats_file=&lt;my-base-name&gt;`<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">control<sp/>the<sp/>directory<sp/>the<sp/>files<sp/>are<sp/>generated<sp/>along<sp/>with<sp/>the<sp/>base<sp/>file</highlight></codeline>
+<codeline><highlight class="normal">name.<sp/>With<sp/>this<sp/>enabled,<sp/>\vt<sp/>will<sp/>generate<sp/>a<sp/>file<sp/>for<sp/>each<sp/>node<sp/>that<sp/>contains</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>statistics<sp/>and<sp/>mapping.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>stats-file-format<sp/>File<sp/>Format</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>line<sp/>in<sp/>the<sp/>file<sp/>will<sp/>one<sp/>of<sp/>two<sp/>formats.<sp/>The<sp/>first<sp/>line<sp/>is<sp/>a<sp/>computation</highlight></codeline>
+<codeline><highlight class="normal">time<sp/>line<sp/>for<sp/>each<sp/>phase,<sp/>that<sp/>breaks<sp/>time<sp/>down<sp/>into<sp/>subphases:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">&lt;phase&gt;,<sp/>&lt;object-id&gt;,<sp/>&lt;time-in-seconds&gt;<sp/>&lt;#-of-subphases&gt;<sp/>&apos;[&apos;<sp/>[&lt;subphase-time-1&gt;]<sp/>...<sp/>[&lt;subphase-time-N&gt;]<sp/>&apos;]&apos;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>second<sp/>line<sp/>format<sp/>is<sp/>a<sp/>communication<sp/>line:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">&lt;phase&gt;,<sp/>&lt;object-id1-to/recv&gt;,<sp/>&lt;object-id2-from/send&gt;,<sp/>&lt;num-bytes&gt;,<sp/>&lt;comm-type={1..6}&gt;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Where<sp/>`&lt;comm-type&gt;`<sp/>is<sp/>the<sp/>type<sp/>of<sp/>communication<sp/>occurred.<sp/>The<sp/>type<sp/>of</highlight></codeline>
+<codeline><highlight class="normal">communication<sp/>lines<sp/>up<sp/>the<sp/>enum<sp/>`vt::vrt::collection::balance::CommCategory`<sp/>in</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>code.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Value<sp/>|<sp/>Enum<sp/>entry<sp/>|<sp/>Description<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-----<sp/>|<sp/>----------<sp/>|<sp/>-----------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>1<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::SendRecv`<sp/>|<sp/>A<sp/>send-receive<sp/>edge<sp/>between<sp/>two<sp/>collection<sp/>elements<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>2<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::CollectionToNode`<sp/>|<sp/>A<sp/>send<sp/>from<sp/>a<sp/>collection<sp/>element<sp/>to<sp/>a<sp/>node<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>3<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::NodeToCollection`<sp/>|<sp/>A<sp/>send<sp/>from<sp/>a<sp/>node<sp/>to<sp/>a<sp/>collection<sp/>element<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>4<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::Broadcast`<sp/>|<sp/>A<sp/>broadcast<sp/>from<sp/>a<sp/>collection<sp/>element<sp/>to<sp/>a<sp/>whole<sp/>collection<sp/>(receive-side)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>5<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::CollectionToNodeBcast`<sp/>|<sp/>A<sp/>broadcast<sp/>from<sp/>a<sp/>collection<sp/>element<sp/>to<sp/>all<sp/>nodes<sp/>(receive-side)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>6<sp/><sp/><sp/><sp/><sp/>|<sp/>`CommCategory::NodeToCollectionBcast`<sp/>|<sp/>A<sp/>broadcast<sp/>from<sp/>a<sp/>node<sp/>to<sp/>a<sp/>whole<sp/>collection<sp/>(receive-side)<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>all<sp/>the<sp/>broadcast-like<sp/>edges,<sp/>the<sp/>communication<sp/>logging<sp/>will<sp/>occur<sp/>on<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">receive<sp/>of<sp/>the<sp/>broadcast<sp/>side<sp/>(one<sp/>entry<sp/>per<sp/>broadcast<sp/>recipient).</highlight></codeline>
     </programlisting>
     <location file="docs/md/proc-stats.md"/>
   </compounddef>

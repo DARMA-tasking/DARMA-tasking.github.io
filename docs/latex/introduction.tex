@@ -829,7 +829,47 @@ Manager object profiling data
 
 The processor statistics manager component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats}{vt\+::vrt\+::collection\+::balance\+::\+Proc\+Stats}}, accessed via {\ttfamily \hyperlink{namespacevt_ab4d442af76f551aa2259cc1bb7d54271}{vt\+::the\+Proc\+Stats()}} manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.
 
-When LB is invoked in {\bfseries {\itshape vt}}, the \hyperlink{lb-manager}{LB Manager} passes the processor statistics to the various LB strategies to run the load balancer. The processor statistics component can also dump the statistic data it holds to files, which can be read externally. The L\+B\+AF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file. \hypertarget{pool}{}\section{Memory Pool}\label{pool}
+When LB is invoked in {\bfseries {\itshape vt}}, the \hyperlink{lb-manager}{LB Manager} passes the processor statistics to the various LB strategies to run the load balancer. The processor statistics component can also dump the statistic data it holds to files, which can be read externally. The L\+B\+AF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.\hypertarget{proc-stats_export-lb-stats-file}{}\subsection{Exporting L\+B Statistic Files (\+V\+O\+M)}\label{proc-stats_export-lb-stats-file}
+The {\ttfamily Proc\+Stats} component, after collecting statistics from the running program, can dump these to files in a V\+OM file (Virtual Object Map). As indicated by the name, the V\+OM file specifies the mapping of object to node for each phase along with statistics for each object (computation time and communication load).
+
+To output V\+OM files, pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats} to enable output along with {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+dir=$<$my-\/directory$>$} and {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+file=$<$my-\/base-\/name$>$} to control the directory the files are generated along with the base file name. With this enabled, {\bfseries {\itshape vt}} will generate a file for each node that contains the statistics and mapping.\hypertarget{proc-stats_stats-file-format}{}\subsubsection{File Format}\label{proc-stats_stats-file-format}
+Each line in the file will one of two formats. The first line is a computation time line for each phase, that breaks time down into subphases\+:
+
+
+\begin{DoxyCode}
+<phase>, <object-id>, <time-in-seconds> <#-of-subphases> '[' [<subphase-time-1>] ... [<subphase-time-N>]
+       ']'
+\end{DoxyCode}
+
+
+The second line format is a communication line\+:
+
+
+\begin{DoxyCode}
+<phase>, <object-id1-to/recv>, <object-id2-from/send>, <num-bytes>, <comm-type=\{1..6\}>
+\end{DoxyCode}
+
+
+Where {\ttfamily $<$comm-\/type$>$} is the type of communication occurred. The type of communication lines up the enum {\ttfamily \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a9cc6c6884ca0416dae824e9204093c57}{vt\+::vrt\+::collection\+::balance\+::\+Comm\+Category}} in the code.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Value }&\textbf{ Enum entry }&\textbf{ Description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Value }&\textbf{ Enum entry }&\textbf{ Description  }\\\cline{1-3}
+\endhead
+1 &{\ttfamily Comm\+Category\+::\+Send\+Recv} &A send-\/receive edge between two collection elements \\\cline{1-3}
+2 &{\ttfamily Comm\+Category\+::\+Collection\+To\+Node} &A send from a collection element to a node \\\cline{1-3}
+3 &{\ttfamily Comm\+Category\+::\+Node\+To\+Collection} &A send from a node to a collection element \\\cline{1-3}
+4 &{\ttfamily Comm\+Category\+::\+Broadcast} &A broadcast from a collection element to a whole collection (receive-\/side) \\\cline{1-3}
+5 &{\ttfamily Comm\+Category\+::\+Collection\+To\+Node\+Bcast} &A broadcast from a collection element to all nodes (receive-\/side) \\\cline{1-3}
+6 &{\ttfamily Comm\+Category\+::\+Node\+To\+Collection\+Bcast} &A broadcast from a node to a whole collection (receive-\/side) \\\cline{1-3}
+\end{longtabu}
+For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient). \hypertarget{pool}{}\section{Memory Pool}\label{pool}
 Memory pool for efficient allocation
 
 The memory pool component {\ttfamily \hyperlink{structvt_1_1pool_1_1_pool}{vt\+::pool\+::\+Pool}}, accessed via {\ttfamily \hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{vt\+::the\+Pool()}} provides a highly efficient memory pool for fixed sized allocations in three sizes\+: small ({\ttfamily vt\+::pool\+::memory\+\_\+size\+\_\+small}), medium ({\ttfamily vt\+::pool\+::memory\+\_\+size\+\_\+medium}), and large (currently unimplemented).
