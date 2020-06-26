@@ -365,6 +365,7 @@ var searchData=
   ['component_5fpack_2eimpl_2eh',['component_pack.impl.h',['../component__pack_8impl_8h.html',1,'']]],
   ['component_5fregistry_2eh',['component_registry.h',['../component__registry_8h.html',1,'']]],
   ['component_5ftraits_2eh',['component_traits.h',['../component__traits_8h.html',1,'']]],
+  ['componentconstructor',['ComponentConstructor',['../structvt_1_1runtime_1_1component_1_1_component_constructor.html',1,'vt::runtime::component']]],
   ['componentidtype',['ComponentIDType',['../namespacevt.html#ab6ac935c168b809c422d5121da4f2700',1,'vt']]],
   ['componentpack',['ComponentPack',['../structvt_1_1runtime_1_1component_1_1_component_pack.html',1,'vt::runtime::component::ComponentPack'],['../structvt_1_1runtime_1_1component_1_1_base_component.html#a82123f8d3dae68c38bd13d269d00b4c5',1,'vt::runtime::component::BaseComponent::ComponentPack()'],['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a113f2da49d2033f09831b6807c92d330',1,'vt::runtime::component::ComponentPack::ComponentPack()']]],
   ['componentptrtype',['ComponentPtrType',['../structvt_1_1runtime_1_1_runtime.html#a0893bf0a8c03b898e8ab66b52cec80ad',1,'vt::runtime::Runtime']]],

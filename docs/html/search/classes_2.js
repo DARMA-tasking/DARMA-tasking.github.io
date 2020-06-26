@@ -104,6 +104,7 @@ var searchData=
   ['component_3c_20trace_20_3e',['Component&lt; Trace &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20virtualcontextmanager_20_3e',['Component&lt; VirtualContextManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20workergroupany_3c_20workert_20_3e_20_3e',['Component&lt; WorkerGroupAny&lt; WorkerT &gt; &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
+  ['componentconstructor',['ComponentConstructor',['../structvt_1_1runtime_1_1component_1_1_component_constructor.html',1,'vt::runtime::component']]],
   ['componentpack',['ComponentPack',['../structvt_1_1runtime_1_1component_1_1_component_pack.html',1,'vt::runtime::component']]],
   ['componentregistry',['ComponentRegistry',['../structvt_1_1runtime_1_1component_1_1_component_registry.html',1,'vt::runtime::component']]],
   ['componenttag',['ComponentTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ComponentTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_component_tag.html',1,'vt::collective::reduce::detail::tags::ComponentTag']]],
