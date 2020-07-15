@@ -24,6 +24,7 @@ var searchData=
   ['hierlb_5fmsgs_2eh',['hierlb_msgs.h',['../hierlb__msgs_8h.html',1,'']]],
   ['hierlb_5fstrat_2eh',['hierlb_strat.h',['../hierlb__strat_8h.html',1,'']]],
   ['hierlb_5ftypes_2eh',['hierlb_types.h',['../hierlb__types_8h.html',1,'']]],
+  ['histogram_5fapprox_2eh',['histogram_approx.h',['../histogram__approx_8h.html',1,'']]],
   ['holder_2eh',['holder.h',['../objgroup_2holder_2holder_8h.html',1,'(Global Namespace)'],['../rdmahandle_2holder_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2holders_2holder_8h.html',1,'(Global Namespace)']]],
   ['holder_2eimpl_2eh',['holder.impl.h',['../rdmahandle_2holder_8impl_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2holders_2holder_8impl_8h.html',1,'(Global Namespace)']]],
   ['holder_5fbase_2eh',['holder_base.h',['../holder__base_8h.html',1,'']]],

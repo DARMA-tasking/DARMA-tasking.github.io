@@ -42,6 +42,7 @@ var searchData=
   ['centralcollect',['CentralCollect',['../structvt_1_1lb_1_1instrumentation_1_1_central_collect.html',1,'vt::lb::instrumentation']]],
   ['centrallb',['CentralLB',['../structvt_1_1lb_1_1centralized_1_1_central_l_b.html',1,'vt::lb::centralized']]],
   ['centralmigrate',['CentralMigrate',['../structvt_1_1lb_1_1centralized_1_1_central_migrate.html',1,'vt::lb::centralized']]],
+  ['centroid',['Centroid',['../structvt_1_1util_1_1adt_1_1detail_1_1_centroid.html',1,'vt::util::adt::detail']]],
   ['channel',['Channel',['../structvt_1_1rdma_1_1_channel.html',1,'vt::rdma']]],
   ['channellookup',['ChannelLookup',['../structvt_1_1rdma_1_1_channel_lookup.html',1,'vt::rdma']]],
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html',1,'vt::rdma']]],

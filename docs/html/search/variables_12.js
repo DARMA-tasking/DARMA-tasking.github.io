@@ -59,6 +59,7 @@ var searchData=
   ['to_5fproxy_5f',['to_proxy_',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#ad2fbe6becd494f4983479600010ec39b',1,'vt::vrt::collection::CollectionMessage::to_proxy_()'],['../structvt_1_1vrt_1_1_virtual_message.html#a4a5e7604c7191fc8d94dac4a973aad8c',1,'vt::vrt::VirtualMessage::to_proxy_()']]],
   ['to_5ftemp_5f',['to_temp_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a0bf597575c3107ee826fce4a631c5d06',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['total_5fbytes_5f',['total_bytes_',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#abe4355e04677b1e6bcb1dcccf3beac75',1,'vt::collective::scatter::ScatterMsg']]],
+  ['total_5fcount_5f',['total_count_',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#aad876385bbf54051a56e736ef403f7a9',1,'vt::util::adt::HistogramApprox']]],
   ['total_5fnum_5fnodes_5f',['total_num_nodes_',['../structvt_1_1group_1_1_group_info_msg.html#a1486c52bc955ec3a91fff0628a8212a9',1,'vt::group::GroupInfoMsg']]],
   ['total_5fsize_5f',['total_size_',['../structvt_1_1group_1_1_info_rooted.html#aa11ba8b4e8174e4a232e3375c4873b29',1,'vt::group::InfoRooted']]],
   ['totalmove',['totalMove',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#aabfc46df6681168e7f982c8b7ea5c778',1,'vt::vrt::collection::balance::StatsRestartReader']]],

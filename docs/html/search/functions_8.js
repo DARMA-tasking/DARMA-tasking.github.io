@@ -96,6 +96,7 @@ var searchData=
   ['isds',['isDS',['../structvt_1_1term_1_1_termination_detector.html#a3ab6ba4618093384b6ddd6c0607df543',1,'vt::term::TerminationDetector']]],
   ['isengaged',['isEngaged',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5587da947484c81472ff0a4563a2efb4',1,'vt::term::ds::TermDS']]],
   ['isepochterminated',['isEpochTerminated',['../structvt_1_1term_1_1_termination_detector.html#a2c85d1d5316235e068433f4a3984a67e',1,'vt::term::TerminationDetector']]],
+  ['isexact',['isExact',['../structvt_1_1util_1_1adt_1_1detail_1_1_centroid.html#a07ab1f2d6f0497b8b98ce27672d9f0b2',1,'vt::util::adt::detail::Centroid']]],
   ['isfinalizable',['isFinalizable',['../structvt_1_1runtime_1_1_runtime.html#ab18731a9ecde8e326c0e4aa798ee10c7',1,'vt::runtime::Runtime']]],
   ['isfinalized',['isFinalized',['../structvt_1_1runtime_1_1_runtime.html#af8e30c5de7fabc90fb32ce83018e91c8',1,'vt::runtime::Runtime']]],
   ['isgroupdefault',['isGroupDefault',['../structvt_1_1group_1_1_info_coll.html#a6adf605b8d46a4174a8fd1321fd8fd3f',1,'vt::group::InfoColl']]],

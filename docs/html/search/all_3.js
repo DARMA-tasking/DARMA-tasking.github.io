@@ -157,6 +157,7 @@ var searchData=
   ['buffertypeenum',['BufferTypeEnum',['../namespacevt_1_1vrt_1_1collection.html#a1b1b082e2ff4e9e5d1b7227acd78db3f',1,'vt::vrt::collection::BufferTypeEnum()'],['../namespacestd.html#ab5492c80007bc5a00cc49a954c809d6f',1,'std::BufferTypeEnum()']]],
   ['bufferunmatchedaction',['bufferUnmatchedAction',['../structvt_1_1seq_1_1_seq_matcher.html#aca3ab24ab457f57cd341c21aff0c0951',1,'vt::seq::SeqMatcher::bufferUnmatchedAction()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a1679c1eba073362e70808fb89a174c6c',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedAction()']]],
   ['bufferunmatchedmessage',['bufferUnmatchedMessage',['../structvt_1_1seq_1_1_seq_matcher.html#a1dc8c34d3611f4eac7e21089e1484e52',1,'vt::seq::SeqMatcher::bufferUnmatchedMessage()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a60dd673159850b4dea0b0d5e69f2ddef',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedMessage()']]],
+  ['buildcontainerstring',['buildContainerString',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#ada0f64fb2e7d5f1e7827bec2762a1291',1,'vt::util::adt::HistogramApprox']]],
   ['builddata',['buildData',['../namespacevt.html#a59494f92a4811ae4f2b5264a50aa78dd',1,'vt']]],
   ['builddefaulttree',['buildDefaultTree',['../structvt_1_1group_1_1global_1_1_default_group.html#a2f503c7d6615e558ce08b0de7a1e8bfa',1,'vt::group::global::DefaultGroup']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],

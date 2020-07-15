@@ -85,6 +85,7 @@ var searchData=
   ['downtreefinished',['downTreeFinished',['../structvt_1_1group_1_1_info_coll.html#a0111e7d7705e380ed37ccd15d5fb434d',1,'vt::group::InfoColl']]],
   ['downtreehandler',['downTreeHandler',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#aa5e027cba0dfc9a1c7bc710e9932647a',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['downtreesend',['downTreeSend',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#aff832357cbb81dc17578c9f8876b7ecf',1,'vt::vrt::collection::lb::HierarchicalLB']]],
+  ['dump',['dump',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#a26c7f2922772baf00c50dcf5e88ad023',1,'vt::util::adt::HistogramApprox']]],
   ['dumpstack',['dumpStack',['../namespacevt_1_1debug_1_1stack.html#a89827f4a5411b18eb8fd0ea41d7b869d',1,'vt::debug::stack']]],
   ['dumpstate',['dumpState',['../structvt_1_1runtime_1_1component_1_1_component.html#adaf8bd995d4c91702e2ff7806ad9e695',1,'vt::runtime::component::Component::dumpState()'],['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a1b6da987a14917c7ee8a4d00138e62e6',1,'vt::runtime::component::Diagnostic::dumpState()'],['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1af9b94870159b8796053112c31f9570',1,'vt::term::interval::IntegralSetBase::dumpState()']]],
   ['dynamiccollectionbase',['DynamicCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dynamic_collection_base.html#ac1b627912d81ccdd26e5a927615d871a',1,'vt::vrt::collection::DynamicCollectionBase']]]

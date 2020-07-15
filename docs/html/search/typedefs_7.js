@@ -12,6 +12,7 @@ var searchData=
   ['hascollectionmsgtype',['hasCollectionMsgType',['../structvt_1_1vrt_1_1collection_1_1_col_msg_traits.html#aa181d98e798e8846ceb8f1c8b8204a7e',1,'vt::vrt::collection::ColMsgTraits']]],
   ['headermanagertype',['HeaderManagerType',['../structvt_1_1pool_1_1_pool.html#acc5ad2d64bf6ff58fead958a69c12d74',1,'vt::pool::Pool::HeaderManagerType()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a43bf2b08808f0f90aa1fc1588c7ffd08',1,'vt::pool::MemoryPoolEqual::HeaderManagerType()']]],
   ['headertype',['HeaderType',['../structvt_1_1pool_1_1_pool.html#a887de970f8d8fbec63df120348c31404',1,'vt::pool::Pool::HeaderType()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a6b3a6a56431496ae69e1799c3d9856dc',1,'vt::pool::MemoryPoolEqual::HeaderType()']]],
+  ['histogramapprox',['HistogramApprox',['../namespacevt_1_1adt.html#a486971e142bc22434d6afe695c43b599',1,'vt::adt']]],
   ['holderbaseptrtype',['HolderBasePtrType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ac1e9bb19d4a5923dd6d595bad28f04c9',1,'vt::objgroup::ObjGroupManager']]],
   ['holderbasetype',['HolderBaseType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a4898fc9cabf44890e5593f8c4ab86230',1,'vt::objgroup::ObjGroupManager']]]
 ];
