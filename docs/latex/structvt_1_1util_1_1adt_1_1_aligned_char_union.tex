@@ -36,6 +36,8 @@ bool \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a30e1323df5870ce0
 \begin{DoxyCompactList}\small\item\em View as a certain type, unsafe unless union is used across basic types. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename SerializerT $>$ }\\void \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a3b7862db1eb10fc16c66aa09a4e3fec6}{serialize} (SerializerT \&s)
 \begin{DoxyCompactList}\small\item\em Serialize as the right underlying type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Functor $>$ }\\auto \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a27ee4ceddaa0fda39ef9be9164959f11}{switch\+On} (\hyperlink{namespacevt_af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14}{Functor} \&fn)
+\begin{DoxyCompactList}\small\item\em Apply a static template switch over the types in the union dynamically dispatched based on the current active type. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename U , typename SerializerT $>$ }\\void \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a1278b482c837c11fd2f6f41b7f8b0f33}{serialize\+As} (SerializerT \&s)
 \item 
 {\footnotesize template$<$typename U $>$ }\\bool \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_ac2ba0a705e45724c9882b904b5c1231b}{compare\+As} (\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{Aligned\+Char\+Union} const $\ast$other) const
@@ -243,6 +245,57 @@ void \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt\+::util\+::ad
 template$<$typename U $>$ \\
 void \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}$<$ T, Ts $>$\+::static\+Assert\+Correctness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
 
+\mbox{\Hypertarget{structvt_1_1util_1_1adt_1_1_aligned_char_union_a27ee4ceddaa0fda39ef9be9164959f11}\label{structvt_1_1util_1_1adt_1_1_aligned_char_union_a27ee4ceddaa0fda39ef9be9164959f11}} 
+\index{vt\+::util\+::adt\+::\+Aligned\+Char\+Union@{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}!switch\+On@{switch\+On}}
+\index{switch\+On@{switch\+On}!vt\+::util\+::adt\+::\+Aligned\+Char\+Union@{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}}
+\subsubsection{\texorpdfstring{switch\+On()}{switchOn()}}
+{\footnotesize\ttfamily template$<$typename T, typename... Ts$>$ \\
+template$<$typename Functor $>$ \\
+auto \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}$<$ T, Ts $>$\+::switch\+On (\begin{DoxyParamCaption}\item[{\hyperlink{namespacevt_af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14}{Functor} \&}]{fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Apply a static template switch over the types in the union dynamically dispatched based on the current active type. 
+
+The {\ttfamily Functor} passed to the function will be invoked with the {\ttfamily apply} method templated on the {\ttfamily T} that is currently selected in the union. If no type is currently selected, the {\ttfamily apply} method will be applied with {\ttfamily void} 
+
+Example\+: 
+\begin{DoxyCode}
+\textcolor{keyword}{struct }MyFunctor \{
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>
+  \textcolor{keywordtype}{void} apply(\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt::adt::SafeUnion<int, float>}& in);
+\};
+
+\textcolor{keyword}{template} <>
+\textcolor{keywordtype}{void} MyFunctor::apply<int>(\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt::adt::SafeUnion<int, float>}& in) \{
+  \textcolor{comment}{// triggered when `in` is storing an int}
+\}
+
+\textcolor{keyword}{template} <>
+\textcolor{keywordtype}{void} MyFunctor::apply<float>(\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt::adt::SafeUnion<int, float>}& in) \{
+  \textcolor{comment}{// triggered when `in` is storing an float}
+\}
+
+\textcolor{keyword}{template} <>
+\textcolor{keywordtype}{void} MyFunctor::apply<void>(\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt::adt::SafeUnion<int, float>}& in) \{
+  \textcolor{comment}{// triggered when `in` does not have a type selected}
+\}
+
+\textcolor{keywordtype}{void} func() \{
+  \hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union}{vt::adt::SafeUnion<int, float>} x;
+  x.\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a50f97a051cd59537528d6b5879f88a53}{init}<\textcolor{keywordtype}{int}>();
+
+  MyFunctor my\_functor;
+  x.\hyperlink{structvt_1_1util_1_1adt_1_1_aligned_char_union_a27ee4ceddaa0fda39ef9be9164959f11}{switchOn}(my\_functor); \textcolor{comment}{// dispatches to `int` overload}
+\}
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em args} & args to forward to functor \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1util_1_1adt_1_1_aligned_char_union_af9bd3e00a355dca08d88103852f716ce}\label{structvt_1_1util_1_1adt_1_1_aligned_char_union_af9bd3e00a355dca08d88103852f716ce}} 
 \index{vt\+::util\+::adt\+::\+Aligned\+Char\+Union@{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}!view\+As@{view\+As}}
 \index{view\+As@{view\+As}!vt\+::util\+::adt\+::\+Aligned\+Char\+Union@{vt\+::util\+::adt\+::\+Aligned\+Char\+Union}}

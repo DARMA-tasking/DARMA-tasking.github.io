@@ -186,6 +186,11 @@
               <span class="m-doc-wrap-bumper">void <a href="#a3b7862db1eb10fc16c66aa09a4e3fec6" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s)</span>
             </dt>
             <dd>Serialize as the right underlying type.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename <a href="namespacevt.html#af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14" class="m-doc">Functor</a>&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a27ee4ceddaa0fda39ef9be9164959f11" class="m-doc">switchOn</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14" class="m-doc">Functor</a>&amp; fn) -&gt; auto</span>
+            </dt>
+            <dd>Apply a static template switch over the types in the union dynamically dispatched based on the current active type.</dd>
             <dt id="a1278b482c837c11fd2f6f41b7f8b0f33">
               <div class="m-doc-template">template&lt;typename U, typename SerializerT&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#a1278b482c837c11fd2f6f41b7f8b0f33" class="m-doc-self">serializeAs</a>(</span><span class="m-doc-wrap">SerializerT&amp; s)</span>
@@ -264,6 +269,43 @@
                 </tr>
               </tbody>
             </table>
+          </div></section>
+          <section class="m-doc-details" id="a27ee4ceddaa0fda39ef9be9164959f11"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename T, typename... Ts&gt;
+                template&lt;typename <a href="namespacevt.html#af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14" class="m-doc">Functor</a>&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">auto vt::<wbr />util::<wbr />adt::<wbr />AlignedCharUnion&lt;T, Ts&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a27ee4ceddaa0fda39ef9be9164959f11" class="m-doc-self">switchOn</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#af182285b57b225b163d5d8aff03cb8c2ac61e9f48e514369f0eb8ac5cebf9fb14" class="m-doc">Functor</a>&amp; fn)</span></span>
+            </h3>
+            <p>Apply a static template switch over the types in the union dynamically dispatched based on the current active type.</p>
+<p>The <code>Functor</code> passed to the function will be invoked with the <code>apply</code> method templated on the <code>T</code> that is currently selected in the union. If no type is currently selected, the <code>apply</code> method will be applied with <code>void</code></p><p>Example:</p><pre class="m-code"><span class="k">struct</span> <span class="n">MyFunctor</span> <span class="p">{</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">apply</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">adt</span><span class="o">::</span><span class="n">SafeUnion</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">in</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;&gt;</span>
+<span class="kt">void</span> <span class="n">MyFunctor</span><span class="o">::</span><span class="n">apply</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">adt</span><span class="o">::</span><span class="n">SafeUnion</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">in</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// triggered when `in` is storing an int</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;&gt;</span>
+<span class="kt">void</span> <span class="n">MyFunctor</span><span class="o">::</span><span class="n">apply</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">adt</span><span class="o">::</span><span class="n">SafeUnion</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">in</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// triggered when `in` is storing an float</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;&gt;</span>
+<span class="kt">void</span> <span class="n">MyFunctor</span><span class="o">::</span><span class="n">apply</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">adt</span><span class="o">::</span><span class="n">SafeUnion</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;&amp;</span> <span class="n">in</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// triggered when `in` does not have a type selected</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">adt</span><span class="o">::</span><span class="n">SafeUnion</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">init</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
+
+  <span class="n">MyFunctor</span> <span class="n">my_functor</span><span class="p">;</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">switchOn</span><span class="p">(</span><span class="n">my_functor</span><span class="p">);</span> <span class="c1">// dispatches to `int` overload</span>
+<span class="p">}</span></pre>
           </div></section>
         </section>
       </div>
