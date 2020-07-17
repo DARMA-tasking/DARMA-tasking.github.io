@@ -1,14 +1,9 @@
 var searchData=
 [
   ['back',['back',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a1722e76798cd9b6629f111814035e29a',1,'vt::util::container::ConcurrentDequeLocked::back() const'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#ad38ab2b6cb582a65107ef74bcf678f09',1,'vt::util::container::ConcurrentDequeLocked::back()']]],
-  ['backend_5fcheck_5fenabled',['backend_check_enabled',['../features__enableif_8h.html#a6a1bd28ef473409120e902beaa493419',1,'features_enableif.h']]],
   ['backend_5fdebug_5fprint',['backend_debug_print',['../debug__print_8h.html#a3b47f1972c81a27ccb85e7879098db48',1,'debug_print.h']]],
-  ['backend_5fenable_5fif',['backend_enable_if',['../features__enableif_8h.html#a4b9507389a55ea1b2738e389c736ada7',1,'features_enableif.h']]],
-  ['backend_5fenable_5fif_5felse',['backend_enable_if_else',['../features__enableif_8h.html#a9b39aed07015878aaf702b4235dc9e9d',1,'features_enableif.h']]],
-  ['backend_5fenable_5fif_5fimpl',['backend_enable_if_impl',['../features__enableif_8h.html#af28140706e5c0306395c26f003f892a0',1,'features_enableif.h']]],
   ['backend_5fno_5fthreading',['backend_no_threading',['../debug__masterconfig_8h.html#a53b291b562571887e8b4733890583dc1',1,'debug_masterconfig.h']]],
   ['backend_5fnull_5ftls',['backend_null_tls',['../tls_8h.html#a4ca7b201ab1425e2e91976e39a61cd06',1,'tls.h']]],
-  ['backend_5fstatic_5fassert_5funreachable',['backend_static_assert_unreachable',['../features__enableif_8h.html#a4c0347d122dd29cdefd0e9714f4ab437',1,'features_enableif.h']]],
   ['barrier',['Barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier.html',1,'vt::collective::barrier::Barrier'],['../structvt_1_1collective_1_1barrier_1_1_barrier.html#aa69e5135299fa366a2c59ac96a9f318d',1,'vt::collective::barrier::Barrier::Barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier.html#a05124050c7d353a4f3475ee1875dd46a',1,'vt::collective::barrier::Barrier::barrier()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a39d4d58fa73c76f6cb97e6dc20e0d1c0',1,'vt::config::barrier()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a48656da7a6e48c6887d94f4c69c731b6',1,'vt::error::Barrier()']]],
   ['barrier_2ecc',['barrier.cc',['../barrier_8cc.html',1,'']]],
   ['barrier_2eh',['barrier.h',['../barrier_8h.html',1,'']]],
