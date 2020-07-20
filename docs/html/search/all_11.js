@@ -145,7 +145,7 @@ var searchData=
   ['pollablecomponent_3c_20asyncevent_20_3e',['PollableComponent&lt; AsyncEvent &gt;',['../structvt_1_1runtime_1_1component_1_1_pollable_component.html',1,'vt::runtime::component']]],
   ['pollablecomponent_3c_20workergroupany_3c_20workert_20_3e_20_3e',['PollableComponent&lt; WorkerGroupAny&lt; WorkerT &gt; &gt;',['../structvt_1_1runtime_1_1component_1_1_pollable_component.html',1,'vt::runtime::component']]],
   ['polling_5fevent_5fcontainer_5f',['polling_event_container_',['../structvt_1_1event_1_1_async_event.html#aa622d9e34d70a6de6ca74b16e65c1bae',1,'vt::event::AsyncEvent']]],
-  ['pool',['Pool',['../structvt_1_1pool_1_1_pool.html',1,'vt::pool::Pool'],['../structvt_1_1pool_1_1_pool.html#a55a236c42c331940884370c85fb18e36',1,'vt::pool::Pool::Pool()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a50ba0efa092380eb92cee1d921d6e40f',1,'vt::config::pool()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12adef36b726efed529b13ba240dd331a12',1,'vt::error::Pool()']]],
+  ['pool',['Pool',['../structvt_1_1pool_1_1_pool.html',1,'vt::pool::Pool'],['../structvt_1_1pool_1_1_pool.html#a55a236c42c331940884370c85fb18e36',1,'vt::pool::Pool::Pool()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12adef36b726efed529b13ba240dd331a12',1,'vt::error::Pool()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a50ba0efa092380eb92cee1d921d6e40f',1,'vt::config::pool()']]],
   ['pool_2ecc',['pool.cc',['../pool_8cc.html',1,'']]],
   ['pool_2eh',['pool.h',['../pool_8h.html',1,'']]],
   ['pool_2emd',['pool.md',['../pool_8md.html',1,'']]],

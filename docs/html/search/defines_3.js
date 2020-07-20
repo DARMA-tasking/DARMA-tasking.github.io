@@ -1,17 +1,8 @@
 var searchData=
 [
-  ['debug_5fall_5foption',['debug_all_option',['../debug__print_8h.html#a72ac61a94070fd1a6e3637a9eeff8877',1,'debug_print.h']]],
-  ['debug_5fargument_5foption',['debug_argument_option',['../debug__print_8h.html#acdc92275dfa7235d9a159bb1be47c39c',1,'debug_print.h']]],
-  ['debug_5fenabled',['debug_enabled',['../debug__masterconfig_8h.html#a1a2d18e794df419c6247a6642dedd815',1,'debug_masterconfig.h']]],
-  ['debug_5fforce_5fenabled',['debug_force_enabled',['../debug__masterconfig_8h.html#ad3869598bc767b9a253f5b54ead5d1dc',1,'debug_masterconfig.h']]],
   ['debug_5flocation',['DEBUG_LOCATION',['../configs_2error_2common_8h.html#a287b57d7cf8a3a20f97c91893d2ebace',1,'common.h']]],
   ['debug_5fmeta_5fall',['debug_meta_all',['../features__metafeatures_8h.html#a28eb336d58c280d36f2d435c9a9115f3',1,'features_metafeatures.h']]],
   ['debug_5fpp',['debug_pp',['../args_8cc.html#a25c9c758f0b6e282a5677c46f8a843c1',1,'args.cc']]],
-  ['debug_5fprint',['debug_print',['../debug__print_8h.html#ada5663e1a0fb92848dbb93efd30770a4',1,'debug_print.h']]],
-  ['debug_5fprint_5fforce',['debug_print_force',['../debug__print_8h.html#a65b1432b8729f91b7db5c93abdf00aa2',1,'debug_print.h']]],
-  ['debug_5fprint_5fforce_5fimpl',['debug_print_force_impl',['../debug__print_8h.html#a0f3a92c9bafafadc4813d6b0a8a1021f',1,'debug_print.h']]],
-  ['debug_5fprint_5fimpl',['debug_print_impl',['../debug__print_8h.html#a48a17442a888ce32098fda01eb58c91b',1,'debug_print.h']]],
-  ['debug_5fprint_5fverbose',['debug_print_verbose',['../debug__print_8h.html#a862f1d696700fcee68057884cb2b82b6',1,'debug_print.h']]],
   ['debug_5fvt_5fcontext',['DEBUG_VT_CONTEXT',['../context_8cc.html#a94c62418e219becc5e35d49a2708dc69',1,'context.cc']]],
   ['declareclassinsideinittls',['DeclareClassInsideInitTLS',['../tls_8h.html#aa7255c26041f12501bbb01a47d08aeb2',1,'tls.h']]],
   ['declareclassinsidetls',['DeclareClassInsideTLS',['../tls_8h.html#a2c507f8b98c5f50bfd6b7280cbc4605c',1,'tls.h']]],
