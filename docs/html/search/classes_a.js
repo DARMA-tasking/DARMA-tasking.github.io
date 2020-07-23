@@ -50,6 +50,7 @@ var searchData=
   ['msgsharedptr_3c_20vt_3a_3amessaging_3a_3aactivemsg_20_3e',['MsgSharedPtr&lt; vt::messaging::ActiveMsg &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsizer',['MsgSizer',['../structvt_1_1serialization_1_1_msg_sizer.html',1,'vt::serialization']]],
   ['mstats',['Mstats',['../structvt_1_1util_1_1memory_1_1_mstats.html',1,'vt::util::memory']]],
+  ['multiplephases',['MultiplePhases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html',1,'vt::vrt::collection::balance']]],
   ['mustbe',['MustBe',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be.html',1,'vt::util::adt::detail']]],
   ['mustbe_3c_20t_20_3e',['MustBe&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['mustbe_3c_20t_2c_20u_2c_20us_2e_2e_2e_20_3e',['MustBe&lt; T, U, Us... &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_00_01_u_00_01_us_8_8_8_01_4.html',1,'vt::util::adt::detail']]]

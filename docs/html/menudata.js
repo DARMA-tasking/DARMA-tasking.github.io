@@ -186,7 +186,9 @@ var menudata={children:[
 {text:"t",url:"functions_vars_t.html#index_t"},
 {text:"u",url:"functions_vars_u.html#index_u"},
 {text:"v",url:"functions_vars_v.html#index_v"},
-{text:"w",url:"functions_vars_w.html#index_w"}]},
+{text:"w",url:"functions_vars_w.html#index_w"},
+{text:"x",url:"functions_vars_x.html#index_x"},
+{text:"y",url:"functions_vars_y.html#index_y"}]},
 {text:"Typedefs",url:"functions_type.html",children:[
 {text:"a",url:"functions_type.html#index_a"},
 {text:"b",url:"functions_type_b.html#index_b"},

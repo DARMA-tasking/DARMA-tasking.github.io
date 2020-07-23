@@ -65,6 +65,7 @@ var searchData=
   ['stack',['stack',['../namespacevt_1_1debug_1_1stack.html',1,'vt::debug']]],
   ['standalone',['standalone',['../namespacevt_1_1standalone.html',1,'vt']]],
   ['statics',['statics',['../namespacevt_1_1messaging_1_1statics.html',1,'vt::messaging']]],
+  ['stats',['stats',['../namespacevt_1_1util_1_1stats.html',1,'vt::util']]],
   ['tags',['tags',['../namespacevt_1_1collective_1_1reduce_1_1detail_1_1tags.html',1,'vt::collective::reduce::detail']]],
   ['term',['term',['../namespacevt_1_1term.html',1,'vt']]],
   ['termination',['termination',['../namespacevt_1_1termination.html',1,'vt']]],

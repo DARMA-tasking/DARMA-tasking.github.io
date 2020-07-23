@@ -32,5 +32,6 @@ var searchData=
   ['full_5fdir_5fname_5f',['full_dir_name_',['../structvt_1_1trace_1_1_trace.html#a92e71504eb0b39de506ce157c1073443',1,'vt::trace::Trace']]],
   ['full_5fsts_5fname_5f',['full_sts_name_',['../structvt_1_1trace_1_1_trace.html#a5f89444a6ab438319c52d00bb6bce470',1,'vt::trace::Trace']]],
   ['full_5ftrace_5fname_5f',['full_trace_name_',['../structvt_1_1trace_1_1_trace.html#a5304514e96243ad75d8e2d775eaf40c5',1,'vt::trace::Trace']]],
-  ['funcs',['funcs',['../unionvt_1_1seq_1_1u_seq_node_payload.html#ae29c56313f829840c64f9712fd457f5e',1,'vt::seq::uSeqNodePayload']]]
+  ['funcs',['funcs',['../unionvt_1_1seq_1_1u_seq_node_payload.html#ae29c56313f829840c64f9712fd457f5e',1,'vt::seq::uSeqNodePayload']]],
+  ['future_5fphase_5fblock_5fsize_5f',['future_phase_block_size_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a26b2a79fd6145e7e3ab56581a8558584',1,'vt::vrt::collection::balance::MultiplePhases']]]
 ];

@@ -28,13 +28,13 @@
 <codeline></codeline>
 <codeline><highlight class="normal">The<sp/>LB<sp/>specification<sp/>file<sp/>allows<sp/>users<sp/>to<sp/>specify<sp/>which<sp/>load<sp/>balancer<sp/>along<sp/>with</highlight></codeline>
 <codeline><highlight class="normal">which<sp/>LB-specific<sp/>configuration<sp/>parameters<sp/>are<sp/>passed<sp/>to<sp/>the<sp/>load<sp/>balancer</highlight></codeline>
-<codeline><highlight class="normal">instance<sp/>for<sp/>any<sp/>given<sp/>phase.<sp/>The<sp/>order<sp/>of<sp/>the<sp/>LB<sp/>phase<sp/>specficiation<sp/>lines<sp/>in</highlight></codeline>
+<codeline><highlight class="normal">instance<sp/>for<sp/>any<sp/>given<sp/>phase.<sp/>The<sp/>order<sp/>of<sp/>the<sp/>LB<sp/>phase<sp/>specification<sp/>lines<sp/>in</highlight></codeline>
 <codeline><highlight class="normal">the<sp/>file<sp/>disambiguates<sp/>lines---higher<sp/>precedence<sp/>for<sp/>earlier<sp/>lines.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">The<sp/>format<sp/>of<sp/>the<sp/>LB<sp/>specification<sp/>file<sp/>is:</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">\code</highlight></codeline>
-<codeline><highlight class="normal">[%]<sp/>&lt;$phase&gt;<sp/>&lt;$lbname&gt;<sp/>[$LB-specific-arg-1]<sp/>...<sp/>[$LB-specfic-arg-N]</highlight></codeline>
+<codeline><highlight class="normal">[%]<sp/>&lt;$phase&gt;<sp/>&lt;$lbname&gt;<sp/>[$LB-specific-arg-1]<sp/>...<sp/>[$LB-specific-arg-N]</highlight></codeline>
 <codeline><highlight class="normal">\endcode</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">If<sp/>a<sp/>`%`<sp/>is<sp/>present,<sp/>the<sp/>line<sp/>matches<sp/>phases<sp/>where:</highlight></codeline>
@@ -66,6 +66,71 @@
 <codeline><highlight class="normal">|<sp/>HierarchicalLB<sp/>|<sp/>Hierarchical<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Build<sp/>tree<sp/>to<sp/>move<sp/>objects<sp/>nodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::vrt::collection::lb::HierarchicalLB`<sp/>|</highlight></codeline>
 <codeline><highlight class="normal">|<sp/>ZotltanLB<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Hyper-graph<sp/>Partitioner<sp/>|<sp/>Run<sp/>Zoltan<sp/>in<sp/>hyper-graph<sp/>mode<sp/>to<sp/>LB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::vrt::collection::lb::ZoltanLB`<sp/>|</highlight></codeline>
 <codeline><highlight class="normal">|<sp/>StatsMapLB<sp/><sp/><sp/><sp/><sp/>|<sp/>User-specified<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Read<sp/>file<sp/>to<sp/>determine<sp/>mapping<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>`vt::vrt::collection::lb::StatsMapLB`<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>load-models<sp/>Object<sp/>Load<sp/>Models</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>performance-oriented<sp/>load<sp/>balancers<sp/>described<sp/>in<sp/>the<sp/>preceding</highlight></codeline>
+<codeline><highlight class="normal">section<sp/>require<sp/>a<sp/>prediction<sp/>of<sp/>the<sp/>loads<sp/>each<sp/>object<sp/>will<sp/>represent</highlight></codeline>
+<codeline><highlight class="normal">during<sp/>the<sp/>phases<sp/>between<sp/>one<sp/>load<sp/>balancing<sp/>invocation<sp/>and<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">next.<sp/>These<sp/>predictions<sp/>are<sp/>provided<sp/>by<sp/>load<sp/>models,<sp/>which<sp/>are</highlight></codeline>
+<codeline><highlight class="normal">implementations<sp/>of<sp/>the<sp/>`vt::vrt:collection::balance::LoadModel`</highlight></codeline>
+<codeline><highlight class="normal">interface.<sp/>There<sp/>are<sp/>a<sp/>number<sp/>of<sp/>general-purpose<sp/>load<sp/>model</highlight></codeline>
+<codeline><highlight class="normal">implementations<sp/>provided<sp/>by<sp/>\vt.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>default,<sp/>\vt<sp/>uses<sp/>a<sp/>load<sp/>model<sp/>that<sp/>predicts<sp/>each<sp/>object&apos;s<sp/>work</highlight></codeline>
+<codeline><highlight class="normal">load<sp/>for<sp/>all<sp/>future<sp/>phases<sp/>will<sp/>match<sp/>its<sp/>workload<sp/>in<sp/>the<sp/>most<sp/>recent</highlight></codeline>
+<codeline><highlight class="normal">past<sp/>phase.<sp/>The<sp/>system<sp/>also<sp/>provides<sp/>an<sp/>interface<sp/>for<sp/>applications<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">users<sp/>to<sp/>arrange<sp/>use<sp/>of<sp/>a<sp/>non-default<sp/>load<sp/>model<sp/>where<sp/>that<sp/>may<sp/>be</highlight></codeline>
+<codeline><highlight class="normal">desirable<sp/>for<sp/>reasons<sp/>such<sp/>as<sp/>performance<sp/>experimentation,</highlight></codeline>
+<codeline><highlight class="normal">specialization<sp/>to<sp/>application<sp/>details,<sp/>or<sp/>execution<sp/>environment</highlight></codeline>
+<codeline><highlight class="normal">considerations.<sp/>To<sp/>install<sp/>a<sp/>custom<sp/>load<sp/>model,<sp/>application<sp/>code</highlight></codeline>
+<codeline><highlight class="normal">should<sp/>call<sp/>`vt::theLBManager()-&gt;setLoadModel(user_model)`.<sp/>To</highlight></codeline>
+<codeline><highlight class="normal">simplify<sp/>implementation<sp/>of<sp/>custom<sp/>load<sp/>models,<sp/>and<sp/>allow<sp/>them<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">benefit<sp/>from<sp/>future<sp/>system-level<sp/>improvements,<sp/>we<sp/>recommend<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">custom<sp/>load<sp/>models<sp/>be<sp/>composed<sp/>atop<sp/>the<sp/>default<sp/>model,<sp/>which<sp/>can<sp/>be</highlight></codeline>
+<codeline><highlight class="normal">obtained<sp/>by<sp/>calling<sp/>`vt::theLBManager()-&gt;getBaseLoadModel()`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Most<sp/>provided<sp/>load<sp/>models<sp/>are<sp/>designed<sp/>as<sp/>composable<sp/>filters<sp/>inherited</highlight></codeline>
+<codeline><highlight class="normal">from<sp/>the<sp/>`vt::vrt:collection::balance::ComposedModel`<sp/>class.<sp/>This</highlight></codeline>
+<codeline><highlight class="normal">allows<sp/>them<sp/>to<sp/>form<sp/>a<sp/>&apos;model<sp/>stack&apos;<sp/>in<sp/>which<sp/>each<sp/>class<sp/>makes<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">particular<sp/>adjustment<sp/>to<sp/>the<sp/>predictions<sp/>generated,<sp/>and<sp/>relies<sp/>on</highlight></codeline>
+<codeline><highlight class="normal">others<sp/>above<sp/>and<sp/>below<sp/>to<sp/>refine<sp/>them<sp/>further.<sp/>One<sp/>exception<sp/>is<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">`vt::vrt:collection::balance::RawData`<sp/>model,<sp/>which<sp/>directly<sp/>returns</highlight></codeline>
+<codeline><highlight class="normal">past<sp/>values<sp/>recorded<sp/>in<sp/>the<sp/>instrumented<sp/>statistics<sp/>structures<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">`LBManager`<sp/>provides.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>illustrate<sp/>the<sp/>design<sp/>concept,<sp/>the<sp/>default<sp/>model<sp/>is<sp/>implemented<sp/>as</highlight></codeline>
+<codeline><highlight class="normal">a<sp/>stack<sp/>of<sp/>two<sp/>other<sp/>components.<sp/>At<sp/>the<sp/>base<sp/>of<sp/>the<sp/>stack<sp/>is<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">`RawData`<sp/>model<sp/>that<sp/>will<sp/>refer<sp/>to<sp/>the<sp/>instrumented<sp/>object<sp/>load</highlight></codeline>
+<codeline><highlight class="normal">timings<sp/>recorded<sp/>by<sp/>the<sp/>system<sp/>during<sp/>preceding<sp/>execution.<sp/>Layered<sp/>on</highlight></codeline>
+<codeline><highlight class="normal">that<sp/>is<sp/>a<sp/>`vt::vrt:collection::balance::NaivePersistence`<sp/>model<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">queries<sp/>the<sp/>underlying<sp/>`RawData`<sp/>model<sp/>for<sp/>the<sp/>times<sp/>taken<sp/>in<sp/>the<sp/>most</highlight></codeline>
+<codeline><highlight class="normal">recent<sp/>phase,<sp/>and<sp/>returns<sp/>those<sp/>same<sp/>times<sp/>as<sp/>its<sp/>prediction<sp/>of<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">times<sp/>those<sp/>objects<sp/>will<sp/>take<sp/>in<sp/>all<sp/>future<sp/>phases.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>full<sp/>set<sp/>of<sp/>load<sp/>model<sp/>classes<sp/>provided<sp/>with<sp/>\vt<sp/>is<sp/>as<sp/>follows</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Load<sp/>Model<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Description<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Reference<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-------------------|-----------------------------------------------------|----------<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Utilities**<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>LoadModel<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Pure<sp/>virtual<sp/>interface<sp/>class,<sp/>which<sp/>the<sp/>following<sp/>implement<sp/>|<sp/>`vt::vrt:collection::balance::LoadModel`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>ComposedModel<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>A<sp/>convenience<sp/>class<sp/>for<sp/>most<sp/>implementations<sp/>to<sp/>inherit<sp/>from,<sp/>that<sp/>passes<sp/>unmodified<sp/>calls<sp/>through<sp/>to<sp/>an<sp/>underlying<sp/>model<sp/>instance<sp/>|<sp/>`vt::vrt:collection::balance::ComposedModel`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>RawData<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Returns<sp/>historical<sp/>data<sp/>only,<sp/>from<sp/>the<sp/>measured<sp/>times<sp/>|<sp/>`vt::vrt:collection::balance::RawData`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Transformers**<sp/><sp/><sp/>|<sp/>Transforms<sp/>the<sp/>values<sp/>computed<sp/>by<sp/>the<sp/>composed<sp/>model(s),<sp/>agnostic<sp/>to<sp/>whether<sp/>a<sp/>query<sp/>refers<sp/>to<sp/>a<sp/>past<sp/>or<sp/>future<sp/>phase<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>Norm<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>When<sp/>asked<sp/>for<sp/>a<sp/>`WHOLE_PHASE`<sp/>value,<sp/>computes<sp/>a<sp/>specified<sp/>l-norm<sp/>over<sp/>all<sp/>subphases<sp/>|<sp/>`vt::vrt:collection::balance::Norm`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>SelectSubphases<sp/><sp/><sp/><sp/>|<sp/>Filters<sp/>and<sp/>remaps<sp/>the<sp/>subphases<sp/>with<sp/>data<sp/>present<sp/>in<sp/>the<sp/>underlying<sp/>model<sp/>|<sp/>`vt::vrt:collection::balance::SelectSubphases`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>CommOverhead<sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Adds<sp/>a<sp/>specified<sp/>amount<sp/>of<sp/>imputed<sp/>&apos;system<sp/>overhead&apos;<sp/>time<sp/>to<sp/>each<sp/>object&apos;s<sp/>work<sp/>based<sp/>on<sp/>the<sp/>number<sp/>of<sp/>messages<sp/>received<sp/>|<sp/>`vt::vrt:collection::balance::CommOverhead`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>PerCollection<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Maintains<sp/>a<sp/>set<sp/>of<sp/>load<sp/>models<sp/>associated<sp/>with<sp/>different<sp/>collection<sp/>instances,<sp/>and<sp/>passes<sp/>queries<sp/>for<sp/>an<sp/>object<sp/>through<sp/>to<sp/>the<sp/>model<sp/>corresponding<sp/>to<sp/>its<sp/>collection<sp/>|<sp/>`vt::vrt:collection::balance::PerCollection`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**Predictors**<sp/><sp/><sp/><sp/><sp/>|<sp/>Computes<sp/>values<sp/>for<sp/>future<sp/>phase<sp/>queries,<sp/>and<sp/>passes<sp/>through<sp/>past<sp/>phase<sp/>queries<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>NaivePersistence<sp/><sp/><sp/>|<sp/>Passes<sp/>through<sp/>historical<sp/>queries,<sp/>and<sp/>maps<sp/>all<sp/>future<sp/>queries<sp/>to<sp/>the<sp/>most<sp/>recent<sp/>past<sp/>phase<sp/>|<sp/>`vt::vrt:collection::balance::NaivePersistence`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>PersistenceMedianLastN<sp/>|<sp/>Similar<sp/>to<sp/>NaivePersistence,<sp/>except<sp/>that<sp/>it<sp/>predicts<sp/>based<sp/>on<sp/>a<sp/>median<sp/>over<sp/>the<sp/>N<sp/>most<sp/>recent<sp/>phases<sp/>|<sp/>`vt::vrt:collection::balance::PersistenceMedianLastN`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>LinearModel<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Computes<sp/>a<sp/>linear<sp/>regression<sp/>over<sp/>on<sp/>object&apos;s<sp/>loads<sp/>from<sp/>a<sp/>number<sp/>of<sp/>recent<sp/>phases<sp/>|<sp/>`vt::vrt:collection::balance::LinearModel`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>MultiplePhases<sp/><sp/><sp/><sp/><sp/>|<sp/>Computes<sp/>values<sp/>for<sp/>future<sp/>phases<sp/>based<sp/>on<sp/>sums<sp/>of<sp/>the<sp/>underlying<sp/>model&apos;s<sp/>predictions<sp/>for<sp/>N<sp/>corresponding<sp/>future<sp/>phases<sp/>|<sp/><sp/>`vt::vrt:collection::balance::MultiplePhases`<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>of<sp/>the<sp/>provided<sp/>load<sp/>balancers<sp/>described<sp/>in<sp/>the<sp/>previous<sp/>section</highlight></codeline>
+<codeline><highlight class="normal">require<sp/>that<sp/>the<sp/>installed<sp/>load<sp/>model<sp/>provide<sp/>responses<sp/>to<sp/>future</highlight></codeline>
+<codeline><highlight class="normal">phase<sp/>queries<sp/>for<sp/>at<sp/>least<sp/>`PhaseOffset::NEXT_PHASE`<sp/>(i.e.<sp/>`0`),<sp/>as</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>**Predictors**<sp/>described<sp/>above<sp/>do.</highlight></codeline>
     </programlisting>
     <location file="docs/md/lb-manager.md"/>
   </compounddef>

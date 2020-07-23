@@ -1,6 +1,8 @@
 var searchData=
 [
   ['barrier',['barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()']]],
+  ['base_5f',['base_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model.html#a8a2a6b2d5e79a7c02002132913c9ae55',1,'vt::vrt::collection::balance::ComposedModel']]],
+  ['base_5fmodel_5f',['base_model_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#ace781095ef59c156a0b23dea6dea70db',1,'vt::vrt::collection::balance::LBManager']]],
   ['bcast_5fcol_5fdir_5fcb_5f',['bcast_col_dir_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#aa402256d18ac8a5c5d14bc96ef1d332e',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['bcast_5fcol_5fmsg_5fcb_5f',['bcast_col_msg_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a320cc06910f2718b164878e3f3b33394',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['bcast_5fepoch_5f',['bcast_epoch_',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#a60590aa9601e302e944e57a28d6d6600',1,'vt::vrt::collection::CollectionMessage']]],
@@ -23,6 +25,6 @@ var searchData=
   ['buffer_5f',['buffer_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#a860ed8f4073f16af078cca408ec69a66',1,'vt::util::container::ProcessBuffer']]],
   ['buffered_5fmsg',['buffered_msg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a88906175db478caa759a279ba6c43bea',1,'vt::messaging::BufferedActiveMsg']]],
   ['buffers_5f',['buffers_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aca3063c9343d57284746de0d9f1d9613',1,'vt::vrt::collection::CollectionManager']]],
-  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg']]],
+  ['bytes',['bytes',['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg::bytes()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_volume.html#aacaff92555b2903efc06f39223173b89',1,'vt::vrt::collection::balance::CommVolume::bytes()']]],
   ['bytes_5f',['bytes_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab88e568797e11c5ccc8c5313d85df527',1,'vt::vrt::collection::CollectionDirectory::Element']]]
 ];

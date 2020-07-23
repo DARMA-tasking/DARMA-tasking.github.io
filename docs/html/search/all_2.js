@@ -133,6 +133,7 @@ var searchData=
   ['addlocalindex',['addLocalIndex',['../structvt_1_1rdma_1_1_sub_handle.html#a24f366ba0fe9d2228d82a2c766bdbf45',1,'vt::rdma::SubHandle']]],
   ['addmemoryevent',['addMemoryEvent',['../structvt_1_1trace_1_1_trace.html#abc497f6fa641ac1c2c20889815b06dbc',1,'vt::trace::Trace']]],
   ['addmemusageargs',['addMemUsageArgs',['../namespacevt_1_1arguments.html#aaca43f74b5683e17a530a2227702f9e4',1,'vt::arguments']]],
+  ['addmodel',['addModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html#a79ecd769664dcaabe413a5d77033b81b',1,'vt::vrt::collection::balance::PerCollection']]],
   ['addnode',['addNode',['../structvt_1_1seq_1_1_seq_list.html#a3dd63f53576d65c85eb840d1ac4ddb27',1,'vt::seq::SeqList']]],
   ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html#ad71cb026dce420d7c5e48d0fd87c2e61',1,'vt::vrt::collection::balance::GossipMsg']]],
   ['addparallelfunction',['addParallelFunction',['../structvt_1_1seq_1_1_seq_node.html#adfe191e3f7ff499909c222cd4dbc3525',1,'vt::seq::SeqNode']]],

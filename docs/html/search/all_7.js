@@ -131,5 +131,6 @@ var searchData=
   ['functortraits_3c_20returnt_28functort_3a_3a_2a_29_28msgt_20_2a_29_3e',['FunctorTraits&lt; ReturnT(FunctorT::*)(MsgT *)&gt;',['../structvt_1_1util_1_1_functor_traits_3_01_return_t_07_functor_t_1_1_5_08_07_msg_t_01_5_08_4.html',1,'vt::util']]],
   ['functortype',['FunctorType',['../structvt_1_1util_1_1_functor_traits_3_01_return_t_07_functor_t_1_1_5_08_07_msg_t_01_5_08_4.html#a91c1655fe4f3922080f7cff00c4b99cf',1,'vt::util::FunctorTraits&lt; ReturnT(FunctorT::*)(MsgT *)&gt;::FunctorType()'],['../structvt_1_1util_1_1_functor_extractor.html#a9a48c3c982d2582c54a91584d3a02dda',1,'vt::util::FunctorExtractor::FunctorType()']]],
   ['functype',['FuncType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a7ddc75a14fa50cd8521641ef6f9ea78d',1,'vt::pipe::PipeManagerBase::FuncType()'],['../namespacevt_1_1seq.html#a26c632e5cbf02395a8bbd9aa4c761232',1,'vt::seq::FuncType()']]],
-  ['funcvoidtype',['FuncVoidType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#acd6f0c71f38f08d53f85e83b65406d77',1,'vt::pipe::PipeManagerBase']]]
+  ['funcvoidtype',['FuncVoidType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#acd6f0c71f38f08d53f85e83b65406d77',1,'vt::pipe::PipeManagerBase']]],
+  ['future_5fphase_5fblock_5fsize_5f',['future_phase_block_size_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a26b2a79fd6145e7e3ab56581a8558584',1,'vt::vrt::collection::balance::MultiplePhases']]]
 ];
