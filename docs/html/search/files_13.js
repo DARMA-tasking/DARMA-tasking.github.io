@@ -8,8 +8,6 @@ var searchData=
   ['term_5fheaders_2eh',['term_headers.h',['../term__headers_8h.html',1,'']]],
   ['term_5finterface_2eh',['term_interface.h',['../term__interface_8h.html',1,'']]],
   ['term_5fmsgs_2eh',['term_msgs.h',['../term__msgs_8h.html',1,'']]],
-  ['term_5fscope_2ecc',['term_scope.cc',['../term__scope_8cc.html',1,'']]],
-  ['term_5fscope_2eimpl_2eh',['term_scope.impl.h',['../term__scope_8impl_8h.html',1,'']]],
   ['term_5fstate_2ecc',['term_state.cc',['../term__state_8cc.html',1,'']]],
   ['term_5fstate_2eh',['term_state.h',['../term__state_8h.html',1,'']]],
   ['term_5fterminated_2eh',['term_terminated.h',['../term__terminated_8h.html',1,'']]],
