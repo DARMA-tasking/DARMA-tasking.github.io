@@ -56,6 +56,7 @@ var searchData=
   ['serializedmessenger',['SerializedMessenger',['../namespacevt.html#a490b7af99bdeb06e988d94a7ab389b43',1,'vt']]],
   ['serializeifneeded',['SerializeIfNeeded',['../namespacevt.html#a0a4ad8c256fcffa564e9fa7800e4b495',1,'vt']]],
   ['serializerequired',['SerializeRequired',['../namespacevt.html#a9e60e2e8929828639383ac1d6643384d',1,'vt']]],
+  ['serializesizertype',['SerializeSizerType',['../namespacevt_1_1messaging.html#ad46de1ccda6ed95e8bb11e85c28be878',1,'vt::messaging']]],
   ['serializesupported',['SerializeSupported',['../namespacevt.html#a3862b8e3f67ab03f3a4313d828592fa9',1,'vt']]],
   ['serialwrappermsgtype',['SerialWrapperMsgType',['../structvt_1_1serialization_1_1_serialized_messenger.html#a279027d1664b42cf7f288dc3fc9c3014',1,'vt::serialization::SerializedMessenger']]],
   ['shortmessage',['ShortMessage',['../namespacevt.html#a1125ac1da6c0bbf141e0ea0739d7602d',1,'vt']]],
