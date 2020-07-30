@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
+  ['n_5f',['N_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()']]],
   ['naive_5fpersistence_2ecc',['naive_persistence.cc',['../naive__persistence_8cc.html',1,'']]],
   ['naive_5fpersistence_2eh',['naive_persistence.h',['../naive__persistence_8h.html',1,'']]],
   ['naivepersistence',['NaivePersistence',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html',1,'vt::vrt::collection::balance::NaivePersistence'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html#a7eb9921b30fbf64f3c2dbbe5a8cce396',1,'vt::vrt::collection::balance::NaivePersistence::NaivePersistence()']]],
@@ -148,7 +148,6 @@ var searchData=
   ['num_5frelease_5f',['num_release_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a93855ddcd9842e951987256e81aa8802',1,'vt::vrt::collection::balance::LBManager']]],
   ['num_5fsignals_5fexpected_5f',['num_signals_expected_',['../structvt_1_1pipe_1_1_pipe_state.html#a6e646d7d9caad625d42c54dd0260f925',1,'vt::pipe::PipeState']]],
   ['num_5fsignals_5freceived_5f',['num_signals_received_',['../structvt_1_1pipe_1_1_pipe_state.html#aa5d938c0edcb612328a083878924e593',1,'vt::pipe::PipeState']]],
-  ['num_5fsubphases_5f',['num_subphases_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_norm.html#a12fd7aeaa57fbad06243adc6f13e32fc',1,'vt::vrt::collection::balance::Norm']]],
   ['num_5fterm_5fmsgs_5f',['num_term_msgs_',['../structvt_1_1sched_1_1_scheduler.html#a4c70a87a9b15558a6ed628272a1db0fd',1,'vt::sched::Scheduler']]],
   ['num_5ftotal_5felems',['num_total_elems',['../structvt_1_1rdma_1_1_group.html#ad2de94667177ad994c5b5b7b697d09ac',1,'vt::rdma::Group']]],
   ['num_5fwaiting',['num_waiting',['../structvt_1_1rdma_1_1_action.html#a73109ea6c95089a53e639c22c5061d47',1,'vt::rdma::Action']]],
