@@ -38,6 +38,6 @@ var searchData=
   ['outputfooter',['outputFooter',['../structvt_1_1trace_1_1_trace.html#aefd9cc22457e4a086c0705f7a850375c',1,'vt::trace::Trace']]],
   ['outputheader',['outputHeader',['../structvt_1_1trace_1_1_trace.html#a29e34e42f1e80a7a7171397322d3012d',1,'vt::trace::Trace']]],
   ['outputimpl',['outputImpl',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#ab789ab171cd6a89f687642263e2ef7b3',1,'vt::termination::graph::EpochGraph']]],
-  ['outputstatsfile',['outputStatsFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a543211533c1c2c348137069e945432a5',1,'vt::vrt::collection::balance::ProcStats']]],
+  ['outputstatsfile',['outputStatsFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#ad9b5178c0d9570f57a255fdda5ccb0ca',1,'vt::vrt::collection::balance::NodeStats']]],
   ['outputtraces',['outputTraces',['../structvt_1_1trace_1_1_trace.html#a97809e03528a6f31a3d990c41edfef0a',1,'vt::trace::Trace']]]
 ];

@@ -92,7 +92,7 @@ var searchData=
   ['hasmatchingmsg',['hasMatchingMsg',['../structvt_1_1seq_1_1_seq_matcher.html#aab83891cdc9b348a61bebfa481453bde',1,'vt::seq::SeqMatcher::hasMatchingMsg()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#ae96fef9bd738d6f93b9b89163efd1770',1,'vt::seq::SeqMatcherVirtual::hasMatchingMsg()']]],
   ['hasmigrate',['HasMigrate',['../structvt_1_1_has_migrate.html',1,'vt']]],
   ['hasnodemap',['hasNodeMap',['../structvt_1_1vrt_1_1_virtual_info.html#ae5153180aa0fdc89268929e9fa334692',1,'vt::vrt::VirtualInfo']]],
-  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a8ee38def0f38270f9b3dbbae19b027ce',1,'vt::vrt::collection::balance::ProcStats']]],
+  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a06128ad9d9dff72bad160b015054b054',1,'vt::vrt::collection::balance::NodeStats']]],
   ['hasparent',['hasParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5d112306bb319f8d5f542a104ccb87a6',1,'vt::term::ds::TermDS']]],
   ['hasschedrun',['hasSchedRun',['../structvt_1_1runtime_1_1_runtime.html#ae0f66c530a72122874079b52fb259dfb',1,'vt::runtime::Runtime::hasSchedRun()'],['../structvt_1_1sched_1_1_scheduler.html#ac7a9512a4a616d51915d5dfee84ff986',1,'vt::sched::Scheduler::hasSchedRun()']]],
   ['hasspec',['hasSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#ad83e3bc71e3ebcd794fc38e7c2b7a74c',1,'vt::trace::file_spec::TraceSpec::hasSpec()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a38f65064cd81275eb9c9d596d0f0a35f',1,'vt::vrt::collection::balance::ReadLBSpec::hasSpec()']]],

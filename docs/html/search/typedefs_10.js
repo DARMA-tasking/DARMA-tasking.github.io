@@ -77,7 +77,7 @@ var searchData=
   ['stackvectortype',['StackVectorType',['../namespacevt_1_1debug_1_1stack.html#a29a3bbd4c51f20720ef437f124de9b62',1,'vt::debug::stack']]],
   ['statisticmaptype',['StatisticMapType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a6e8dead5546b2054f604ca258e1e815e',1,'vt::vrt::collection::lb::BaseLB']]],
   ['statistictype',['StatisticType',['../namespacestd.html#a77b0310083adc8639f9659f5c8b3cf0d',1,'std']]],
-  ['statsmsgtype',['StatsMsgType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#acebfe78fa7dbafe6e9e5e5e514cda278',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['statsmsgtype',['StatsMsgType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a0cddaecd9e8450190585d0607a3439f1',1,'vt::vrt::collection::lb::BaseLB']]],
   ['strongcom',['StrongCom',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a6ea2d8e8f8ba226a6e704a9041aebaec',1,'vt::collective::reduce::detail']]],
   ['strongepoch',['StrongEpoch',['../namespacevt_1_1collective_1_1reduce.html#a0b5fbe1e89aea537d76fda4c57f2099e',1,'vt::collective::reduce::StrongEpoch()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a9e57fa5e7a2557a92ce0739edae200fe',1,'vt::collective::reduce::detail::StrongEpoch()']]],
   ['stronggroup',['StrongGroup',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#adcad97800459415ff6ea4b5feb90e0f2',1,'vt::collective::reduce::detail']]],

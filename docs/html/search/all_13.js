@@ -308,7 +308,7 @@ var searchData=
   ['release_5flb_5f',['release_lb_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a42ea6d7733a75f09738a877e90db9aa1',1,'vt::vrt::collection::CollectionManager']]],
   ['released',['released',['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a930afd77ab1b22519988dc108487a6e3',1,'vt::collective::barrier::BarrierState']]],
   ['releaseimpl',['releaseImpl',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a7e05ed9957f272ac5cc8b999f66fa403',1,'vt::vrt::collection::balance::LBManager']]],
-  ['releaselb',['releaseLB',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proc_stats.html#a7865efba4c984b1b77a93b5cd04dc861',1,'vt::vrt::collection::balance::ProcStats']]],
+  ['releaselb',['releaseLB',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a517e67b5ada69873ab40d5f6e007a818',1,'vt::vrt::collection::balance::NodeStats']]],
   ['releaselbcontinuation',['releaseLBContinuation',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a98b0c3c96cea99ac8d4310c1140f8880',1,'vt::vrt::collection::CollectionManager']]],
   ['releaselbphase',['releaseLBPhase',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a3d09a3058dd6984aeff47c89b6d571b3',1,'vt::vrt::collection::CollectionManager::releaseLBPhase()'],['../namespacevt_1_1vrt_1_1collection.html#a2c79a9043914424ca6d19bdbdc496bbf',1,'vt::vrt::collection::releaseLBPhase()']]],
   ['releasenow',['releaseNow',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a6ed483eb58a583c48f430276c2f25c14',1,'vt::vrt::collection::balance::LBManager']]],

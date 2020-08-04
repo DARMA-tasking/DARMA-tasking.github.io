@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['rdma_20manager',['RDMA Manager',['../rdma.html',1,'introduction']]],
-  ['rdma_20handle_20manager',['RDMA Handle Manager',['../rdmahandle.html',1,'introduction']]],
-  ['registry',['Registry',['../registry.html',1,'introduction']]]
+  ['parameterization',['Parameterization',['../param.html',1,'introduction']]],
+  ['pipe_20manager',['Pipe Manager',['../pipe.html',1,'introduction']]]
 ];

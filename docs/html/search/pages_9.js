@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['object_20group_20manager',['Object Group Manager',['../objgroup.html',1,'introduction']]]
+  ['node_20statistics',['Node Statistics',['../node-stats.html',1,'introduction']]]
 ];

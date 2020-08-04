@@ -169,6 +169,6 @@ var searchData=
   ['bytes_5f',['bytes_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab88e568797e11c5ccc8c5313d85df527',1,'vt::vrt::collection::CollectionDirectory::Element']]],
   ['bytetype',['ByteType',['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt']]],
   ['elementstats',['ElementStats',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#abdce9596911e092af07635bdcc13acd1',1,'vt::vrt::collection::CollectionManager::ElementStats()'],['../structvt_1_1vrt_1_1collection_1_1_migratable.html#abdce9596911e092af07635bdcc13acd1',1,'vt::vrt::collection::Migratable::ElementStats()']]],
-  ['basic_20active_20message_20send_20with_20pre_2dregistered_20handler',['Basic Active Message Send with Pre-Registered Handler',['../group__preregister.html',1,'']]],
-  ['procstats',['ProcStats',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a351f42ef1db264cf1401656f47df21c5',1,'vt::vrt::collection::Migratable']]]
+  ['nodestats',['NodeStats',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#aeb7bfed9b6cf9f03ff3a2d6798de8dd0',1,'vt::vrt::collection::Migratable']]],
+  ['basic_20active_20message_20send_20with_20pre_2dregistered_20handler',['Basic Active Message Send with Pre-Registered Handler',['../group__preregister.html',1,'']]]
 ];
