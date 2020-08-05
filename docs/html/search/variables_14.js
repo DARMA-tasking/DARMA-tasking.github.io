@@ -112,6 +112,7 @@ var searchData=
   ['vt_5ftrace_5fmemory_5fusage',['vt_trace_memory_usage',['../structvt_1_1arguments_1_1_arg_config.html#aa4ca0b4d3eedbe726b0c50d178dfb3bf',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fmod',['vt_trace_mod',['../structvt_1_1arguments_1_1_arg_config.html#acb14bb6b6f58db2a35bc71a4c6c06799',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fmpi',['vt_trace_mpi',['../structvt_1_1arguments_1_1_arg_config.html#a50f49d87bb92a729b22102b4da66030a',1,'vt::arguments::ArgConfig']]],
+  ['vt_5ftrace_5fpmpi',['vt_trace_pmpi',['../structvt_1_1arguments_1_1_arg_config.html#a1d571ab4a4c130617b7fe0b6827c7196',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fspec',['vt_trace_spec',['../structvt_1_1arguments_1_1_arg_config.html#a5985e792d6c3810293b54dda059460bd',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fspec_5ffile',['vt_trace_spec_file',['../structvt_1_1arguments_1_1_arg_config.html#a0369ed37706b8e7d563cd8f25763a56c',1,'vt::arguments::ArgConfig']]],
   ['vt_5ftrace_5fsys_5fall',['vt_trace_sys_all',['../structvt_1_1arguments_1_1_arg_config.html#a0f29a730468e776a3281e5cb2694395c',1,'vt::arguments::ArgConfig']]],
