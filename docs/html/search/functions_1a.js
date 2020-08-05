@@ -40,6 +40,7 @@ var searchData=
   ['_7elockmpi',['~LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html#aa504ea8f843941e7d409fa7979afd50d',1,'vt::rdma::LockMPI']]],
   ['_7ememorypoolequal',['~MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html#a3639b62858bef876bf6f8a51cfdb7212',1,'vt::pool::MemoryPoolEqual']]],
   ['_7emigratemsg',['~MigrateMsg',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a67874e771516da55d7509353dfa3a249',1,'vt::vrt::collection::MigrateMsg']]],
+  ['_7emovablefn',['~MovableFn',['../structvt_1_1runtime_1_1component_1_1_movable_fn.html#a5a3a716c661129132695fa31af2878c5',1,'vt::runtime::component::MovableFn']]],
   ['_7emsgptrimplbase',['~MsgPtrImplBase',['../structvt_1_1messaging_1_1_msg_ptr_impl_base.html#afcf8208d8636a3793ccdf4bc7d4ee12a',1,'vt::messaging::MsgPtrImplBase']]],
   ['_7emsgsharedptr',['~MsgSharedPtr',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a41b62019acea0627ce3297d31257524c',1,'vt::messaging::MsgSharedPtr']]],
   ['_7enullmutex',['~NullMutex',['../structvt_1_1util_1_1mutex_1_1_null_mutex.html#a09433197f2e0967c72fc9e77e514fcfb',1,'vt::util::mutex::NullMutex']]],
