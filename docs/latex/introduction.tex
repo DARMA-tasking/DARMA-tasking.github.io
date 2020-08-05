@@ -51,6 +51,7 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{seq}{Sequencer} &{\ttfamily \hyperlink{namespacevt_a4a7d07c845b311da59286de486d623c7}{vt\+::the\+Seq()}} &Sequence node actions. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{vrtseq}{Virtual Sequencer} &{\ttfamily \hyperlink{namespacevt_abdbb9ddb0d79b35c89e9d742d3fc9d42}{vt\+::the\+Virtual\+Seq()}} &Sequence task actions. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{term}{Termination Detector} &{\ttfamily \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt\+::the\+Term()}} &Detect termination of work. & {\bfseries Core} \\\cline{1-4}
+\hyperlink{time-trigger}{Time Triggers} &{\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}} &Time-\/based progress actions. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{trace}{Tracing} &{\ttfamily vt\+::the\+Trace()} &Trace distributed events. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{stats-reader}{LB Restart Reader} &{\ttfamily \hyperlink{namespacevt_ad73860100c7d2ca1d833eab74942ee73}{vt\+::the\+Stats\+Reader()}} &Follow input LB distribution. & {\bfseries Optional} \\\cline{1-4}
 \end{longtabu}
@@ -1125,7 +1126,14 @@ The termination detector also comes with hang detection to detect causes where n
   \textcolor{keywordflow}{return} 0;
 \}
 \end{DoxyCodeInclude}
-\hypertarget{trace}{}\section{Tracing}\label{trace}
+\hypertarget{time-trigger}{}\section{Time Triggers}\label{time-trigger}
+Time-\/based progress actions
+
+The timed trigger component {\ttfamily \hyperlink{structvt_1_1timetrigger_1_1_time_trigger_manager}{vt\+::timetrigger\+::\+Time\+Trigger\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}} manages and coordinates time-\/based actions that can be registered by the system and users.
+
+A timed trigger, when registered using the manager, will fire approximately along that period. For instance, if a trigger is registered with a 100ms period, it will be called approximately every 100ms while the {\bfseries {\itshape vt}} progress function is being invoked. If the progress function (or {\bfseries {\itshape vt}} scheduler) is called infrequently, the triggers may be delayed depending on the period. Also, if large work units are enqueued in the {\bfseries {\itshape vt}} scheduler that take longer than the time period, the trigger will fire as often as it can in between these pieces of work (the component does not use interrupts to trigger actions).
+
+To register a trigger, call {\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}-\/$>$add\+Trigger(100ms, \mbox{[}\mbox{]}\{ /$\ast$ my action $\ast$/\});}. The {\ttfamily add\+Trigger} method returns a handle to the registered trigger that can be passed to {\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}-\/$>$remove\+Trigger(id);} to stop it from firing at a certain point. \hypertarget{trace}{}\section{Tracing}\label{trace}
 Trace distributed events
 
 The optional trace component {\ttfamily \hyperlink{structvt_1_1trace_1_1_trace}{vt\+::trace\+::\+Trace}}, accessed via {\ttfamily vt\+::the\+Trace()} builds a distributed trace of events, including VT handlers, user events, and M\+PI invocations via the P\+M\+PI interface. It outputs \href{http://charm.cs.uiuc.edu/software}{\tt Projections} log and sts files to enable performance analysis after execution.

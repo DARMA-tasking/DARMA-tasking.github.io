@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5f',['N_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()']]],
+  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
   ['name_5f',['name_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6189fab0f945cd51f56aed0ebcd14ed6',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['named_5fbarrier_5fstate_5f',['named_barrier_state_',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#ae5a50600bf815ba049915d93bc48b727',1,'vt::collective::barrier::Barrier']]],
   ['needs_5flock_5f',['needs_lock_',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#af681c689f7800fca7e35364aeffd9964',1,'vt::util::container::ConcurrentDequeLocked::needs_lock_()'],['../structvt_1_1util_1_1container_1_1_process_buffer.html#af4c963364ec90b9384aaf850a95b9531',1,'vt::util::container::ProcessBuffer::needs_lock_()'],['../structvt_1_1vrt_1_1_virtual_info.html#a809cb8200de743c2ff7970baa50f99ee',1,'vt::vrt::VirtualInfo::needs_lock_()']]],
@@ -19,6 +19,7 @@ var searchData=
   ['next_5fphase',['NEXT_PHASE',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#aa8a8c4379ab878392c4f65212e92f581',1,'vt::vrt::collection::balance::PhaseOffset']]],
   ['next_5fseq_5f',['next_seq_',['../structvt_1_1collective_1_1detail_1_1_scope_impl.html#a66d11b610384061b202fff45d2f18bbf',1,'vt::collective::detail::ScopeImpl::next_seq_()'],['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a368873db0ddebf8365fdd3021927a691',1,'vt::collective::reduce::Reduce::next_seq_()']]],
   ['next_5fsystem_5fscope_5f',['next_system_scope_',['../structvt_1_1collective_1_1_collective_alg.html#ad830a204e2989b28cc90d54e83f518b5',1,'vt::collective::CollectiveAlg']]],
+  ['next_5ftrigger_5fid_5f',['next_trigger_id_',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#a97d23d2d8ae1bafe79456c68db0d5b26',1,'vt::timetrigger::TimeTriggerManager']]],
   ['next_5fvrt_5fid',['next_vrt_id',['../structvt_1_1seq_1_1_seq_manager.html#aa76d48546de0c1eba39bd44212f554b4',1,'vt::seq::SeqManager']]],
   ['nfrom_5f',['nfrom_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#abc9aa99cd2f176756be39d326e808cbf',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['no_5fgroup_5fpos',['no_group_pos',['../structvt_1_1rdma_1_1_channel.html#a5b8e4d79d272951f51a9856705110d24',1,'vt::rdma::Channel']]],

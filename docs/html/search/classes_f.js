@@ -51,7 +51,7 @@ var searchData=
   ['requestdatamessage',['RequestDataMessage',['../structvt_1_1rdma_1_1_request_data_message.html',1,'vt::rdma']]],
   ['requestholder',['RequestHolder',['../structvt_1_1rdma_1_1_request_holder.html',1,'vt::rdma']]],
   ['required_29_20_3e_3e',['required) &gt;&gt;',['../structvt_1_1serialization_1_1_msg_sizer_3_01_msg_t_00_01typename_01std_1_1enable__if__t_3_01true765b7ed5f37ccd7e70aee4400f6390bc.html',1,'vt::serialization']]],
-  ['rotatelb',['RotateLB',['../structvt_1_1lb_1_1centralized_1_1_rotate_l_b.html',1,'vt::lb::centralized::RotateLB'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_l_b.html',1,'vt::vrt::collection::lb::RotateLB']]],
+  ['rotatelb',['RotateLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_l_b.html',1,'vt::vrt::collection::lb::RotateLB'],['../structvt_1_1lb_1_1centralized_1_1_rotate_l_b.html',1,'vt::lb::centralized::RotateLB']]],
   ['rotateobjmsg',['RotateObjMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_obj_msg.html',1,'vt::vrt::collection::lb']]],
   ['runnable',['Runnable',['../structvt_1_1runnable_1_1_runnable.html',1,'vt::runnable']]],
   ['runnablecollection',['RunnableCollection',['../structvt_1_1runnable_1_1_runnable_collection.html',1,'vt::runnable']]],

@@ -21,5 +21,5 @@ var searchData=
   ['useqnodepayload',['uSeqNodePayload',['../unionvt_1_1seq_1_1u_seq_node_payload.html',1,'vt::seq']]],
   ['userdata',['UserData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html',1,'vt::trace::Log::Data']]],
   ['usereventregistry',['UserEventRegistry',['../structvt_1_1trace_1_1_user_event_registry.html',1,'vt::trace']]],
-  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag']]]
+  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag']]]
 ];
