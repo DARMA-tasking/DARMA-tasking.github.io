@@ -38,7 +38,7 @@ var searchData=
   ['models_5f',['models_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html#aec76660b4a44fe451a9546b4f4c50d3d',1,'vt::vrt::collection::balance::PerCollection']]],
   ['mpi2_5f',['mpi2_',['../structvt_1_1rdma_1_1_holder.html#aecfc6828df1f361fa24e2780b07b6d56',1,'vt::rdma::Holder::mpi2_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a780ccbe4a6a728cba4a45d0d7cabe02b',1,'vt::rdma::SubHandle::mpi2_()']]],
   ['mpi_5fgroup_5fcomm',['mpi_group_comm',['../structvt_1_1group_1_1_info_coll.html#a937b6f4d007f4d583b8b8999936221d2',1,'vt::group::InfoColl']]],
-  ['mpi_5finit_5fargs',['mpi_init_args',['../structvt_1_1arguments_1_1_arg_config.html#a742020618b402b1eeafb9898d34978d7',1,'vt::arguments::ArgConfig']]],
+  ['mpi_5finit_5fargs',['mpi_init_args',['../structvt_1_1arguments_1_1_app_config.html#a617dc1d4e37dfd2490f97011051c1c77',1,'vt::arguments::AppConfig']]],
   ['mpi_5freq',['mpi_req',['../unionvt_1_1event_1_1u_event_payload.html#a36fd9f8a09add70a3379f3e646cc5b27',1,'vt::event::uEventPayload']]],
   ['mpi_5ftag_5fto_5frecv',['mpi_tag_to_recv',['../structvt_1_1rdma_1_1_send_data_message.html#a012836b7e2327b722e73bb52f416fe25',1,'vt::rdma::SendDataMessage']]],
   ['msg_5f',['msg_',['../structvt_1_1event_1_1_event_record.html#a5cffc5288d077e2e68c316134e486d32',1,'vt::event::EventRecord::msg_()'],['../structvt_1_1messaging_1_1_pending_send.html#a6202f4243176b9189d9aef17aa108a36',1,'vt::messaging::PendingSend::msg_()'],['../structvt_1_1vrt_1_1collection_1_1_col_msg_wrap.html#a781048274a322da08bc83a90adc8d37e',1,'vt::vrt::collection::ColMsgWrap::msg_()']]],

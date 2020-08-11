@@ -127,10 +127,6 @@
               using <a href="#a0893bf0a8c03b898e8ab66b52cec80ad" class="m-doc-self">ComponentPtrType</a> = ComponentT*
             </dt>
             <dd><span></span></dd>
-            <dt id="a289aaa9914658a02cf7c2bbfa97e6640">
-              using <a href="#a289aaa9914658a02cf7c2bbfa97e6640" class="m-doc-self">ArgType</a> = <a href="structvt_1_1arguments_1_1_arg_config.html" class="m-doc">vt::<wbr />arguments::<wbr />ArgConfig</a>
-            </dt>
-            <dd><span></span></dd>
           </dl>
         </section>
         <section id="pub-static-attribs">
@@ -244,11 +240,19 @@
               <span class="m-doc-wrap-bumper">void <a href="#af8fa48f3990ff2640f99f7cd1944f73f" class="m-doc-self">checkForArgumentErrors</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd>Check for input argument errors.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aebf06f17830f0d7f1377c14ce5c38845" class="m-doc">getAppConfig</a>(</span><span class="m-doc-wrap">) const -&gt; <a href="structvt_1_1arguments_1_1_app_config.html" class="m-doc">arguments::<wbr />AppConfig</a> const *</span>
+            </dt>
+            <dd>Get the app config before the runtime has setup all the components and VT is fully initialized.</dd>
           </dl>
         </section>
         <section id="pub-attribs">
           <h2><a href="#pub-attribs">Public variables</a></h2>
           <dl class="m-doc">
+            <dt id="a30b262f43f826ffee213e10c71893323">
+              <a href="structvt_1_1runtime_1_1_runtime.html#a0893bf0a8c03b898e8ab66b52cec80ad" class="m-doc">ComponentPtrType</a>&lt;<a href="structvt_1_1arguments_1_1_arg_config.html" class="m-doc">arguments::<wbr />ArgConfig</a>&gt; <a href="#a30b262f43f826ffee213e10c71893323" class="m-doc-self">theArgConfig</a>
+            </dt>
+            <dd><span></span></dd>
             <dt id="ae68159c1077f342a4a311627fe3be19a">
               <a href="structvt_1_1runtime_1_1_runtime.html#a0893bf0a8c03b898e8ab66b52cec80ad" class="m-doc">ComponentPtrType</a>&lt;<a href="structvt_1_1registry_1_1_registry.html" class="m-doc">registry::<wbr />Registry</a>&gt; <a href="#ae68159c1077f342a4a311627fe3be19a" class="m-doc-self">theRegistry</a>
             </dt>
@@ -497,6 +501,14 @@
               std::unique_ptr&lt;<a href="structvt_1_1runtime_1_1component_1_1_component_pack.html" class="m-doc">component::<wbr />ComponentPack</a>&gt; <a href="#a9f7ea8f6852d934e9c0122e074df0886" class="m-doc-self">p_</a>
             </dt>
             <dd><span></span></dd>
+            <dt id="a585321b816d6984bf7a9489d00bd3670">
+              std::unique_ptr&lt;<a href="structvt_1_1arguments_1_1_arg_config.html" class="m-doc">arguments::<wbr />ArgConfig</a>&gt; <a href="#a585321b816d6984bf7a9489d00bd3670" class="m-doc-self">arg_config_</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <a href="structvt_1_1arguments_1_1_app_config.html" class="m-doc">arguments::<wbr />AppConfig</a> const * <a href="#a5fa2ceccc0e96fe0a97e0454e3a0a1ee" class="m-doc">app_config_</a>
+            </dt>
+            <dd></dd>
           </dl>
         </section>
         <section>
@@ -542,6 +554,7 @@
                 </tr>
               </tbody>
             </table>
+<p>=========================================================================</p><h4>Notes on lifecycle for the ArgConfig/AppConfig </h4><ul><li>After <code>vt::Runtime</code> is constructed, the ArgConfig lives in <code>arg_config_</code> and <code>app_config_</code> contains a pointer to the internals.</li><li>After the pack registers the ArgConfig component, <code>arg_config_</code> is no longer valid. The config is in a tuple awaiting construction&mdash;thus, we can&#x27;t easily access it. app_config_ remains valid during this time</li><li>After construction, the <code>arg_config_</code> is in the component <code><a href="namespacevt.html#aa17c6eae35e7e41a8b11d4047b7c0839" class="m-doc">theConfig()</a></code> and can be accessed normally</li><li>After <code><a href="structvt_1_1runtime_1_1_runtime.html#a3408b946864c17bd6d3cb7beb030a380" class="m-doc">Runtime::<wbr />finalize()</a></code> is called but before the pack is destroyed, we extract the <code>ArgConfig</code> from the component and put it back in <code>arg_config_</code> for use after.</li><li><p>From then on, until the <code>vt::Runtime</code> is destroyed or VT is re-initialized <code>arg_config_</code> will contain the configuration.</p><p>For this to all work correctly, the <code>vt_debug_print</code> infrastructure calls <code><a href="namespacevt_1_1config.html#a1074763aad1aa8a8e788a79e014fd82b" class="m-doc">vt::<wbr />config::<wbr />getConfig()</a></code> which always grabs the correct app config, either from the component singleton or the <code>vt::Runtime</code></p><hr/></li></ul>
           </div></section>
           <section class="m-doc-details" id="a811947d9ba7322d0cb10c246200037c8"><div>
             <h3>
@@ -767,6 +780,21 @@
             <p>Do a sync.</p>
 <aside class="m-note m-danger"><h4>Warning</h4><p>Do not call this. It does an unsafe <code>MPI_Barrier</code></p></aside><aside class="m-note m-dim"><h4><a href="todo.html#_todo000001" class="m-doc">Todo</a></h4><p>Remove this and fix the single one callsite in <code>NodeStats</code></p></aside>
           </div></section>
+          <section class="m-doc-details" id="aebf06f17830f0d7f1377c14ce5c38845"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="structvt_1_1arguments_1_1_app_config.html" class="m-doc">arguments::<wbr />AppConfig</a> const * vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aebf06f17830f0d7f1377c14ce5c38845" class="m-doc-self">getAppConfig</a>(</span><span class="m-doc-wrap">) const</span></span>
+            </h3>
+            <p>Get the app config before the runtime has setup all the components and VT is fully initialized.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the app config</td>
+                </tr>
+              </tfoot>
+            </table>
+<aside class="m-note m-info"><h4>Note</h4><p>This should always return a valid pointer if the runtime is constructed.</p></aside>
+          </div></section>
           <section class="m-doc-details" id="a651174e20fa3db2493bd4c0cf2e8be3c"><div>
             <h3>
               <span class="m-doc-wrap-bumper">bool vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a651174e20fa3db2493bd4c0cf2e8be3c" class="m-doc-self">tryInitialize</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">protected</span></span></span>
@@ -847,6 +875,15 @@
                 </tr>
               </tbody>
             </table>
+          </div></section>
+        </section>
+        <section>
+          <h2>Variable documentation</h2>
+          <section class="m-doc-details" id="a5fa2ceccc0e96fe0a97e0454e3a0a1ee"><div>
+            <h3>
+              <a href="structvt_1_1arguments_1_1_app_config.html" class="m-doc">arguments::<wbr />AppConfig</a> const * vt::<wbr />runtime::<wbr />Runtime::<wbr /><a href="#a5fa2ceccc0e96fe0a97e0454e3a0a1ee" class="m-doc-self">app_config_</a> <span class="m-label m-warning">protected</span>
+            </h3>
+<p>App config during startup</p>
           </div></section>
         </section>
       </div>

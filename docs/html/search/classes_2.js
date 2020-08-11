@@ -83,6 +83,7 @@ var searchData=
   ['compare_3c_20t_20_3e',['Compare&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_compare_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['component',['Component',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20activemessenger_20_3e',['Component&lt; ActiveMessenger &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
+  ['component_3c_20argconfig_20_3e',['Component&lt; ArgConfig &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20asyncevent_20_3e',['Component&lt; AsyncEvent &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20collectionmanager_20_3e',['Component&lt; CollectionManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20collectivealg_20_3e',['Component&lt; CollectiveAlg &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],

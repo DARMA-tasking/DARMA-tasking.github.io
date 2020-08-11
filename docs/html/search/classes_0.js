@@ -28,9 +28,9 @@ var searchData=
   ['andop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['AndOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_and_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['anoncb',['AnonCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_anon_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['anonlistener',['AnonListener',['../structvt_1_1pipe_1_1callback_1_1_anon_listener.html',1,'vt::pipe::callback']]],
+  ['appconfig',['AppConfig',['../structvt_1_1arguments_1_1_app_config.html',1,'vt::arguments']]],
   ['applyop',['ApplyOp',['../structvt_1_1config_1_1_apply_op.html',1,'vt::config']]],
   ['argconfig',['ArgConfig',['../structvt_1_1arguments_1_1_arg_config.html',1,'vt::arguments']]],
-  ['argparse',['ArgParse',['../structvt_1_1arguments_1_1_arg_parse.html',1,'vt::arguments']]],
   ['asyncevent',['AsyncEvent',['../structvt_1_1event_1_1_async_event.html',1,'vt::event']]],
   ['autoreginfo',['AutoRegInfo',['../structvt_1_1auto__registry_1_1_auto_reg_info.html',1,'vt::auto_registry']]]
 ];

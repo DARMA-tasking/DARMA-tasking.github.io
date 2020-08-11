@@ -306,7 +306,7 @@ var searchData=
   ['mpi_5fattr',['MPI_Attr',['../structvt_1_1util_1_1mpi__limits_1_1_m_p_i___attr.html',1,'vt::util::mpi_limits::MPI_Attr'],['../namespacevt_1_1util.html#acdef825f3bbbffb020925d3ba6151df9',1,'vt::util::MPI_Attr()']]],
   ['mpi_5feventrecord',['MPI_EventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9a4d5894349a7d2598349be83e506c5450',1,'vt::event']]],
   ['mpi_5fgroup_5fcomm',['mpi_group_comm',['../structvt_1_1group_1_1_info_coll.html#a937b6f4d007f4d583b8b8999936221d2',1,'vt::group::InfoColl']]],
-  ['mpi_5finit_5fargs',['mpi_init_args',['../structvt_1_1arguments_1_1_arg_config.html#a742020618b402b1eeafb9898d34978d7',1,'vt::arguments::ArgConfig']]],
+  ['mpi_5finit_5fargs',['mpi_init_args',['../structvt_1_1arguments_1_1_app_config.html#a617dc1d4e37dfd2490f97011051c1c77',1,'vt::arguments::AppConfig']]],
   ['mpi_5fmax_5ftag_2ecc',['mpi_max_tag.cc',['../mpi__max__tag_8cc.html',1,'']]],
   ['mpi_5fmax_5ftag_2eh',['mpi_max_tag.h',['../mpi__max__tag_8h.html',1,'']]],
   ['mpi_5freq',['mpi_req',['../unionvt_1_1event_1_1u_event_payload.html#a36fd9f8a09add70a3379f3e646cc5b27',1,'vt::event::uEventPayload']]],
