@@ -936,7 +936,7 @@ The registry component {\ttfamily \hyperlink{structvt_1_1registry_1_1_registry}{
 \end{DoxyItemize}\hypertarget{scheduler}{}\section{Scheduler}\label{scheduler}
 General scheduling of work
 
-The scheduler component {\ttfamily \hyperlink{structvt_1_1sched_1_1_scheduler}{vt\+::sched\+::\+Scheduler}}, accessed via {\ttfamily \hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{vt\+::the\+Sched()}} holds pieces of work to execute later that may be prioritized. The scheduler polls the {\bfseries {\itshape vt}} components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.\hypertarget{scheduler_calls-to-the-scheduler}{}\subsection{Calls to the scheduler}\label{scheduler_calls-to-the-scheduler}
+The scheduler component {\ttfamily \hyperlink{structvt_1_1sched_1_1_scheduler}{vt\+::sched\+::\+Scheduler}}, accessed via {\ttfamily \hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{vt\+::the\+Sched()}}, holds pieces of work to execute later that may be prioritized. The scheduler polls the {\bfseries {\itshape vt}} components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.\hypertarget{scheduler_calls-to-the-scheduler}{}\subsection{Calls to the scheduler}\label{scheduler_calls-to-the-scheduler}
 To advance the scheduler, one can call it as follows\+:
 
 
@@ -947,14 +947,15 @@ To advance the scheduler, one can call it as follows\+:
 
 This polls every component that might generate or complete work, and potentially runs one piece of available work.
 
-Turn the scheduler. 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em msg\+\_\+only} & whether to only make progress on the core active messenger\\
-\hline
-\end{DoxyParams}
 However, if the scheduler needs to be run until a condition (or set of conditions) is met, it is recommended that {\ttfamily run\+Scheduler\+While} be invoked\+:
 
-Runs the scheduler until a condition is met. Runs the scheduler until a condition is met. This form S\+H\+O\+U\+LD be used instead of \char`\"{}while (..) \{ run\+Scheduler(..) \}\char`\"{} in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.
+
+\begin{DoxyCode}
+\hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{vt::theSched}()->\hyperlink{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}{runSchedulerWhile}(\textcolor{comment}{/*std::function<bool()> cond*/});
+\end{DoxyCode}
+
+
+Runs the scheduler until a condition is met. This form S\+H\+O\+U\+LD be used instead of \char`\"{}while (..) \{ run\+Scheduler(..) \}\char`\"{} in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.
 
 
 \begin{DoxyParams}[1]{Parameters}

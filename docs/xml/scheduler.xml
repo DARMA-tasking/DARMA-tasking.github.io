@@ -4,18 +4,11 @@
     <compoundname>scheduler</compoundname>
     <title>Scheduler</title>
     <detaileddescription>
-<para>General scheduling of work</para><para>The scheduler component <computeroutput><ref refid="structvt_1_1sched_1_1_scheduler" kindref="compound">vt::sched::Scheduler</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched()</ref></computeroutput> holds pieces of work to execute later that may be prioritized. The scheduler polls the <bold><emphasis>vt</emphasis></bold> components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.</para><sect1 id="scheduler_1calls-to-the-scheduler">
+<para>General scheduling of work</para><para>The scheduler component <computeroutput><ref refid="structvt_1_1sched_1_1_scheduler" kindref="compound">vt::sched::Scheduler</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched()</ref></computeroutput>, holds pieces of work to execute later that may be prioritized. The scheduler polls the <bold><emphasis>vt</emphasis></bold> components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.</para><sect1 id="scheduler_1calls-to-the-scheduler">
 <title>Calls to the scheduler</title>
 <para>To advance the scheduler, one can call it as follows:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1ad2653b260780c89a20e9253608ef1282" kindref="member">scheduler</ref>();</highlight></codeline>
-</programlisting></para><para>This polls every component that might generate or complete work, and potentially runs one piece of available work.</para><para>Turn the scheduler. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="in">msg_only</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>whether to only make progress on the core active messenger</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-However, if the scheduler needs to be run until a condition (or set of conditions) is met, it is recommended that <computeroutput>runSchedulerWhile</computeroutput> be invoked:</para><para>Runs the scheduler until a condition is met. Runs the scheduler until a condition is met. This form SHOULD be used instead of &quot;while (..) { runScheduler(..) }&quot; in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.</para><para><parameterlist kind="param"><parameteritem>
+</programlisting></para><para>This polls every component that might generate or complete work, and potentially runs one piece of available work.</para><para>However, if the scheduler needs to be run until a condition (or set of conditions) is met, it is recommended that <computeroutput>runSchedulerWhile</computeroutput> be invoked:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>(</highlight><highlight class="comment">/*std::function&lt;bool()&gt;<sp/>cond*/</highlight><highlight class="normal">);</highlight></codeline>
+</programlisting></para><para>Runs the scheduler until a condition is met. This form SHOULD be used instead of &quot;while (..) { runScheduler(..) }&quot; in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername direction="in">cond</parametername>
 </parameternamelist>
