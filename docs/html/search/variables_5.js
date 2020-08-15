@@ -53,6 +53,7 @@ var searchData=
   ['events_5f',['events_',['../structvt_1_1lb_1_1instrumentation_1_1_entity.html#a081fe87532fd7b2a50e90024b11c3fa4',1,'vt::lb::instrumentation::Entity']]],
   ['exact_5f',['exact_',['../structvt_1_1util_1_1adt_1_1detail_1_1_centroid.html#a8564071b97ee50cf6ee90510d9f90aac',1,'vt::util::adt::detail::Centroid']]],
   ['excess_5f',['excess_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_down_msg.html#a9e31b51089a40dc10dde88967a91af09',1,'vt::vrt::collection::lb::LBTreeDownMsg']]],
+  ['excluded_5fstr',['excluded_str',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#af2f6674ecc7191ddbfe31e87569fe334',1,'vt::vrt::collection::balance']]],
   ['execute_5fcomm_5fthd_5f',['execute_comm_thd_',['../structvt_1_1vrt_1_1_virtual_message.html#aed6af00314e6e8e26f6e5ae4d8498f57',1,'vt::vrt::VirtualMessage']]],
   ['extra_5farrived_5fcount_5f',['extra_arrived_count_',['../structvt_1_1group_1_1_info_coll.html#ae15aee7207e11a978f327afa1024f7c8',1,'vt::group::InfoColl']]],
   ['extra_5fcount_5f',['extra_count_',['../structvt_1_1group_1_1_info_coll.html#a5996d9af993d2ef3a75d08adf6afa43c',1,'vt::group::InfoColl']]],

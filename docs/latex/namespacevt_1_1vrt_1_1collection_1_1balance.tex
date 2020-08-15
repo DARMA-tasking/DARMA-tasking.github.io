@@ -133,6 +133,10 @@ int \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a605ea184edf7f99b0022
 \begin{DoxyCompactItemize}
 \item 
 std\+::unordered\+\_\+map$<$ \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_ac4f99693509affcc67db182d4aad9b5c}{L\+B\+Type}, std\+::string $>$ \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a25f2d26f8832c24be922ebbb2cd7c119}{lb\+\_\+names\+\_\+}
+\item 
+auto \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_aaed7e09146a45c2932ca185a55161723}{param\+\_\+str}
+\item 
+auto \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_af2f6674ecc7191ddbfe31e87569fe334}{excluded\+\_\+str}
 \end{DoxyCompactItemize}
 
 
@@ -301,6 +305,29 @@ void vt\+::vrt\+::collection\+::balance\+::serialize (\begin{DoxyParamCaption}\i
 
 
 \subsection{Variable Documentation}
+\mbox{\Hypertarget{namespacevt_1_1vrt_1_1collection_1_1balance_af2f6674ecc7191ddbfe31e87569fe334}\label{namespacevt_1_1vrt_1_1collection_1_1balance_af2f6674ecc7191ddbfe31e87569fe334}} 
+\index{vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}!excluded\+\_\+str@{excluded\+\_\+str}}
+\index{excluded\+\_\+str@{excluded\+\_\+str}!vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}}
+\subsubsection{\texorpdfstring{excluded\+\_\+str}{excluded\_str}}
+{\footnotesize\ttfamily auto vt\+::vrt\+::collection\+::balance\+::excluded\+\_\+str}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= [](\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a72a5e0d9936ddf57f8e6c64e0e9fd123}{SpecIndex} idx) -> std::string \{
+  std::stringstream ss;
+  \textcolor{keyword}{auto} exact\_entries = ReadLBSpec::getExactEntries();
+  \textcolor{keyword}{auto} max\_idx = exact\_entries.empty() ? 0 : exact\_entries.rbegin()->first;
+
+  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} k = 1; k*idx <= max\_idx; k++) \{
+    \textcolor{keyword}{auto} next\_entry = ReadLBSpec::entry(k*idx);
+    \textcolor{keywordflow}{if} (next\_entry != \textcolor{keyword}{nullptr} and next\_entry->getIdx() != idx) \{
+      ss << fmt::format(\textcolor{stringliteral}{"\{\}, "}, \hyperlink{namespacevt_1_1debug_add365336d7aa2053b5b7588ccad48ac7}{debug::emph}(std::to\_string(k*idx)));
+    \}
+  \}
+  std::string s = ss.str();
+  \textcolor{keywordflow}{return} s.empty() ? s : s.substr(0, s.size() - 2);
+\}
+\end{DoxyCode}
 \mbox{\Hypertarget{namespacevt_1_1vrt_1_1collection_1_1balance_a25f2d26f8832c24be922ebbb2cd7c119}\label{namespacevt_1_1vrt_1_1collection_1_1balance_a25f2d26f8832c24be922ebbb2cd7c119}} 
 \index{vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}!lb\+\_\+names\+\_\+@{lb\+\_\+names\+\_\+}}
 \index{lb\+\_\+names\+\_\+@{lb\+\_\+names\+\_\+}!vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}}
@@ -320,5 +347,32 @@ void vt\+::vrt\+::collection\+::balance\+::serialize (\begin{DoxyParamCaption}\i
   \{LBType::GossipLB,       std::string\{\textcolor{stringliteral}{"GossipLB"}      \}\},
   \{LBType::StatsMapLB,     std::string\{\textcolor{stringliteral}{"StatsMapLB"}    \}\},
   \{LBType::RandomLB,       std::string\{\textcolor{stringliteral}{"RandomLB"}      \}\},
+\}
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacevt_1_1vrt_1_1collection_1_1balance_aaed7e09146a45c2932ca185a55161723}\label{namespacevt_1_1vrt_1_1collection_1_1balance_aaed7e09146a45c2932ca185a55161723}} 
+\index{vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}!param\+\_\+str@{param\+\_\+str}}
+\index{param\+\_\+str@{param\+\_\+str}!vt\+::vrt\+::collection\+::balance@{vt\+::vrt\+::collection\+::balance}}
+\subsubsection{\texorpdfstring{param\+\_\+str}{param\_str}}
+{\footnotesize\ttfamily auto vt\+::vrt\+::collection\+::balance\+::param\+\_\+str}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= [](
+  std::map<std::string,std::string> \textcolor{keyword}{const}& params
+) -> std::string \{
+  \textcolor{keywordflow}{if} (params.empty()) \{
+    \textcolor{keywordflow}{return} \textcolor{stringliteral}{""};
+  \}
+
+  std::stringstream ss;
+  ss << \textcolor{stringliteral}{" with arguments `"};
+  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \textcolor{keyword}{const}& \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689ab9f079503fc8bbc11679d6dd6d2a2d16}{param} : params) \{
+    ss << fmt::format(\textcolor{stringliteral}{"\{\}=\{\} "},
+      \hyperlink{namespacevt_1_1debug_add365336d7aa2053b5b7588ccad48ac7}{vt::debug::emph}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689ab9f079503fc8bbc11679d6dd6d2a2d16}{param}.first),
+      \hyperlink{namespacevt_1_1debug_add365336d7aa2053b5b7588ccad48ac7}{vt::debug::emph}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689ab9f079503fc8bbc11679d6dd6d2a2d16}{param}.second));
+  \}
+  ss.seekp(-1, ss.cur);
+  ss << \textcolor{charliteral}{'`'};
+  \textcolor{keywordflow}{return} ss.str();
 \}
 \end{DoxyCode}

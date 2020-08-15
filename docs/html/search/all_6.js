@@ -324,6 +324,7 @@ var searchData=
   ['examples',['Examples',['../examples.html',1,'learn']]],
   ['examples_2emd',['examples.md',['../examples_8md.html',1,'']]],
   ['excess_5f',['excess_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_down_msg.html#a9e31b51089a40dc10dde88967a91af09',1,'vt::vrt::collection::lb::LBTreeDownMsg']]],
+  ['excluded_5fstr',['excluded_str',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#af2f6674ecc7191ddbfe31e87569fe334',1,'vt::vrt::collection::balance']]],
   ['exclusive',['Exclusive',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70a2ef50b4c466304dc6ac77bac8a779971',1,'vt::rdma']]],
   ['execute',['execute',['../structvt_1_1sched_1_1_priority_unit.html#a0304a73083bac18a1a4fed9aa29a9efa',1,'vt::sched::PriorityUnit::execute()'],['../structvt_1_1sched_1_1_unit.html#abb9552d5ca05e00ea19b8d3097ad01d9',1,'vt::sched::Unit::execute()'],['../structvt_1_1seq_1_1_seq_closure.html#a50a3833f66d0527231bf50ba3ea4d149',1,'vt::seq::SeqClosure::execute()']]],
   ['execute_5fcomm_5fthd_5f',['execute_comm_thd_',['../structvt_1_1vrt_1_1_virtual_message.html#aed6af00314e6e8e26f6e5ae4d8498f57',1,'vt::vrt::VirtualMessage']]],

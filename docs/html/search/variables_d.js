@@ -50,7 +50,6 @@ var searchData=
   ['num_5fconsumed_5f',['num_consumed_',['../structvt_1_1worker_1_1_worker_group_counter.html#ae8c275b953a8e67c039cdb518fc8a705',1,'vt::worker::WorkerGroupCounter']]],
   ['num_5fcontrib_5f',['num_contrib_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#ad35cc97dda033eb3e933241e5436f224',1,'vt::collective::reduce::ReduceState']]],
   ['num_5fenqueued_5f',['num_enqueued_',['../structvt_1_1worker_1_1_worker_group_counter.html#a9637b5ea108554b2243ad0de5f211940',1,'vt::worker::WorkerGroupCounter']]],
-  ['num_5fentries_5f',['num_entries_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#ae97cd7f00965a8360c64342c4b3ac941',1,'vt::vrt::collection::balance::ReadLBSpec']]],
   ['num_5ferased_5fnot_5fremoved_5f',['num_erased_not_removed_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ac6e747cb66d6f44f78c28448a59d8a0a',1,'vt::vrt::collection::Holder']]],
   ['num_5ffinished_5f',['num_finished_',['../structvt_1_1worker_1_1_worker_group_counter.html#a725b7c60813d11208d5a1277bc0e7834',1,'vt::worker::WorkerGroupCounter']]],
   ['num_5ffull_5fbytes_5f',['num_full_bytes_',['../structvt_1_1pool_1_1_memory_pool_equal.html#a3ae57a1929e619eb6d346f196e0b1d2d',1,'vt::pool::MemoryPoolEqual']]],
