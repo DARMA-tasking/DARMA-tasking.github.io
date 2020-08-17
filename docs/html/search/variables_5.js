@@ -6,7 +6,7 @@ var searchData=
   ['elm_5f',['elm_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#aa074fd362c469f1a0aae30d1cf9888bf',1,'vt::vrt::collection::MigrateMsg']]],
   ['elm_5fbytes_5f',['elm_bytes_',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#a14af4f6a3037beeb5048797c7cf15fdb',1,'vt::collective::scatter::ScatterMsg']]],
   ['elm_5fmap',['elm_map',['../structvt_1_1rdma_1_1_map.html#ab333842b2ae2f3efe15f1190bac32df2',1,'vt::rdma::Map']]],
-  ['elm_5fproxy_5f',['elm_proxy_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a1c6c855daa4709e8eecda251704e9f6e',1,'vt::vrt::collection::MigrateMsg::elm_proxy_()'],['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#a2209d932a492ec78d0d086a51ab9460e',1,'vt::vrt::collection::BaseCollectionElmProxy::elm_proxy_()']]],
+  ['elm_5fproxy_5f',['elm_proxy_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a1c6c855daa4709e8eecda251704e9f6e',1,'vt::vrt::collection::MigrateMsg::elm_proxy_()'],['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#ae171e496a7240dd9c30bbd5d7fc890f0',1,'vt::vrt::collection::BaseCollectionElmProxy::elm_proxy_()']]],
   ['elm_5fsize',['elm_size',['../structvt_1_1rdma_1_1_group.html#a99d69c11abeba7369b05fd97fe339551',1,'vt::rdma::Group::elm_size()'],['../structvt_1_1rdma_1_1_region.html#aec2a61388d8aadf79dbf3087a3e0af10',1,'vt::rdma::Region::elm_size()']]],
   ['elms_5f',['elms_',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a6b6c9d51286b662d28eb1dfac3047af0',1,'vt::term::interval::IntegralSetBase']]],
   ['elmsfixedatcreation_5f',['elmsFixedAtCreation_',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#a190e044fe11ef42d34d0af49c78e49ca',1,'vt::vrt::collection::CollectionBase']]],
