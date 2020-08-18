@@ -3556,35 +3556,39 @@
 <codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Planned<sp/>collective<sp/>does<sp/>not<sp/>exist<sp/>within<sp/>scope&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="196"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>action<sp/>=<sp/>iter_seq-&gt;second.action_;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"></highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Run<sp/>the<sp/>collective<sp/>safely.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>action<sp/>is<sp/>expected<sp/>to<sp/>use<sp/>MPI<sp/>calls;<sp/>not<sp/>VT<sp/>calls.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>action();</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Erase<sp/>the<sp/>tag<sp/>that<sp/>was<sp/>actually<sp/>executed</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/>impl-&gt;planned_collective_.erase(iter_seq);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/>iter_seq-&gt;second.epoch_;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Run<sp/>the<sp/>collective<sp/>safely.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>action<sp/>is<sp/>expected<sp/>to<sp/>use<sp/>MPI<sp/>calls;<sp/>not<sp/>VT<sp/>calls.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1ac60a61b85392a5c40d2334919981963a" kindref="member">pushEpoch</ref>(epoch);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>action();</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1a0ff3c2d9bf6ccd66002679b93821229c" kindref="member">popEpoch</ref>(epoch);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cleanup<sp/>if<sp/>the<sp/>CollectiveScope<sp/>is<sp/>destroyed<sp/>and<sp/>no<sp/>other<sp/>planned</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>collectives<sp/>exists---nothing<sp/>more<sp/>can<sp/>be<sp/>created</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>impl-&gt;live_<sp/>and<sp/>impl-&gt;planned_collective_.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>scopes.erase(iter);</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/>reenter_counter_--;</highlight></codeline>
-<codeline lineno="216"><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Recurse,<sp/>running<sp/>a<sp/>postponed<sp/>collective</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>postponed<sp/>=<sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>;</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(postponed.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>next_msg<sp/>=<sp/>postponed.back();</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>postponed.pop_back();</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>runCollective(next_msg.get());</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="224"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"></highlight></codeline>
-<codeline lineno="226"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::collective</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>(epoch);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Erase<sp/>the<sp/>tag<sp/>that<sp/>was<sp/>actually<sp/>executed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>impl-&gt;planned_collective_.erase(iter_seq);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cleanup<sp/>if<sp/>the<sp/>CollectiveScope<sp/>is<sp/>destroyed<sp/>and<sp/>no<sp/>other<sp/>planned</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>collectives<sp/>exists---nothing<sp/>more<sp/>can<sp/>be<sp/>created</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>impl-&gt;live_<sp/>and<sp/>impl-&gt;planned_collective_.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>scopes.erase(iter);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/>reenter_counter_--;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Recurse,<sp/>running<sp/>a<sp/>postponed<sp/>collective</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>postponed<sp/>=<sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(postponed.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>next_msg<sp/>=<sp/>postponed.back();</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>postponed.pop_back();</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>runCollective(next_msg.get());</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::collective</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/collective/collective_alg.cc"/>
   </compounddef>
