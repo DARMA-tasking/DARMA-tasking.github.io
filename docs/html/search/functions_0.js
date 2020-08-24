@@ -71,7 +71,7 @@ var searchData=
   ['addtime',['addTime',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#aadebe326db328893e6a38413d647c9a1',1,'vt::vrt::collection::balance::ElementStats']]],
   ['addtostate',['addToState',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ae3dd7660105118c1ee14a125104313c6',1,'vt::vrt::collection::CollectionManager']]],
   ['addtraceargs',['addTraceArgs',['../structvt_1_1arguments_1_1_arg_config.html#ab3de7d531bd7f09c7ea1b37c9e57a02f',1,'vt::arguments::ArgConfig']]],
-  ['addtrigger',['addTrigger',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#ac45c3677529eb6311e1823ac92829a7c',1,'vt::timetrigger::TimeTriggerManager']]],
+  ['addtrigger',['addTrigger',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#a42729a0a83f734dad3ef6d95b5afb3d9',1,'vt::timetrigger::TimeTriggerManager']]],
   ['adduserargs',['addUserArgs',['../structvt_1_1arguments_1_1_arg_config.html#aa578460e6783d03ce25e349f8affea99',1,'vt::arguments::ArgConfig']]],
   ['adduserbracketednote',['addUserBracketedNote',['../structvt_1_1trace_1_1_trace.html#acb4416918d08379892bcf9ec85621309',1,'vt::trace::Trace::addUserBracketedNote()'],['../namespacevt_1_1trace.html#a4617340b633aaa7261727dab91532a2a',1,'vt::trace::addUserBracketedNote()']]],
   ['adduserdata',['addUserData',['../structvt_1_1trace_1_1_trace.html#a7f5ede52aa552c2eac88b894853a2efe',1,'vt::trace::Trace::addUserData()'],['../namespacevt_1_1trace.html#a0ec1ac44fb179f29245a36b887f588f1',1,'vt::trace::addUserData()']]],
