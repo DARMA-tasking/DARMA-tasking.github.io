@@ -407,7 +407,6 @@ var searchData=
   ['config_2eh',['config.h',['../config_8h.html',1,'']]],
   ['config_5f',['config_',['../structvt_1_1arguments_1_1_arg_config.html#af30e0eae1ac1b29f7c85c25636109a9e',1,'vt::arguments::ArgConfig']]],
   ['config_5fassert_2eh',['config_assert.h',['../config__assert_8h.html',1,'']]],
-  ['configlive',['configLive',['../namespacevt_1_1runtime.html#a1b0a3ff1332edc6e0fccbbbc803ac895',1,'vt::runtime']]],
   ['configuration',['Configuration',['../structvt_1_1config_1_1_configuration.html',1,'vt::config']]],
   ['cons',['cons',['../structvt_1_1term_1_1_term_counter_msg.html#a212c8487c01cd837aae027823fa32208',1,'vt::term::TermCounterMsg']]],
   ['cons_5fdetect_2eh',['cons_detect.h',['../cons__detect_8h.html',1,'']]],

@@ -186,7 +186,6 @@ var searchData=
   ['vt_5fconfig_5fprint_5fforce_5fimpl',['vt_config_print_force_impl',['../debug__print_8h.html#a09737c8f93c886bc5262eb9022f97633',1,'debug_print.h']]],
   ['vt_5fdebug_5factive',['vt_debug_active',['../structvt_1_1arguments_1_1_app_config.html#a506408dd0aad49b55666edfc525f8a29',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fall',['vt_debug_all',['../structvt_1_1arguments_1_1_app_config.html#aac0dc7123449a6f4f3be90b4ef288ab9',1,'vt::arguments::AppConfig']]],
-  ['vt_5fdebug_5fall_5foption',['vt_debug_all_option',['../debug__print_8h.html#a2c1e4c2503600f9c8c77ed347e90e123',1,'debug_print.h']]],
   ['vt_5fdebug_5fargument_5foption',['vt_debug_argument_option',['../debug__print_8h.html#a6fbe25816e97dc821cf56de661e2e2e1',1,'debug_print.h']]],
   ['vt_5fdebug_5fbarrier',['vt_debug_barrier',['../structvt_1_1arguments_1_1_app_config.html#a4621fa98bd8bf1e553696895d179fb6e',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fbroadcast',['vt_debug_broadcast',['../structvt_1_1arguments_1_1_app_config.html#a645d1d8715b23cf25e10fdfac2b1f742',1,'vt::arguments::AppConfig']]],

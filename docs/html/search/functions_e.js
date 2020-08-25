@@ -7,7 +7,7 @@ var searchData=
   ['objsetnode',['objSetNode',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a38efce04a8fabdc16d89331b639f534f',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['offnode',['offNode',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a77c270338ac89fa8f31457f0b22f1230',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['onnode',['onNode',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a6936fbd32052c703881774a5bdc4eec0',1,'vt::vrt::collection::balance::LBCommKey']]],
-  ['openfile',['openFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a17dc2fc7785cd6519440c080a472af05',1,'vt::vrt::collection::balance::ReadLBSpec']]],
+  ['openspec',['openSpec',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a7da8702619a292b50188ff15c6e88c71',1,'vt::vrt::collection::balance::ReadLBSpec']]],
   ['operator_20bool',['operator bool',['../structvt_1_1runtime_1_1_runtime_holder.html#a93f32ba2688662a743a914241d44a5fc',1,'vt::runtime::RuntimeHolder::operator bool()'],['../structvt_1_1term_1_1_use_d_s.html#a054eedc5eedc9ea9c900bd9080ba8de2',1,'vt::term::UseDS::operator bool()']]],
   ['operator_20delete',['operator delete',['../structvt_1_1messaging_1_1_active_msg.html#a37cd0731f99157266333772f501d390d',1,'vt::messaging::ActiveMsg']]],
   ['operator_20epochtype',['operator EpochType',['../structvt_1_1term_1_1_successor_epoch_capture.html#a1e3fa8a36e11d5c11194ecc779c4d8a6',1,'vt::term::SuccessorEpochCapture']]],

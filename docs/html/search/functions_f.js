@@ -36,6 +36,7 @@ var searchData=
   ['popgetback',['popGetBack',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#ad1905f8a1dc68a73ecda8bd2c332440e',1,'vt::util::container::ConcurrentDequeLocked']]],
   ['popgetfront',['popGetFront',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#aab7ffe336cd7392506121f8e3a86c1b2',1,'vt::util::container::ConcurrentDequeLocked']]],
   ['postparsetransform',['postParseTransform',['../structvt_1_1arguments_1_1_arg_config.html#a688dc6a1e88d8544e2ab41b4db15d8cd',1,'vt::arguments::ArgConfig']]],
+  ['preconfig',['preConfig',['../namespacevt_1_1debug.html#a852027d87cfb65bb21dd8ce1e8c23c61',1,'vt::debug']]],
   ['predict',['predict',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a102993019adc0717da79336f8b631170',1,'vt::util::stats::LinearRegression']]],
   ['premigratein',['preMigrateIn',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html#a7bd07b1d69bc1cce87da2ce06231f382',1,'vt::vrt::collection::MigrateHookInterface::preMigrateIn()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html#aca3947e263443c0460cea7d75fbae2bf',1,'vt::vrt::collection::MigrateHookBase::preMigrateIn()']]],
   ['premigrateout',['preMigrateOut',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html#a62bb547d9fb604428bc48bf324e3bc14',1,'vt::vrt::collection::MigrateHookInterface::preMigrateOut()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html#aefb49af057c90295e89ae029fd7ba8bb',1,'vt::vrt::collection::MigrateHookBase::preMigrateOut()']]],
