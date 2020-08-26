@@ -18,6 +18,7 @@ var searchData=
   ['maxop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['MaxOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['memorypoolequal',['MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html',1,'vt::pool']]],
   ['memoryusage',['MemoryUsage',['../structvt_1_1util_1_1memory_1_1_memory_usage.html',1,'vt::util::memory']]],
+  ['mergedclosure',['MergedClosure',['../structvt_1_1messaging_1_1_merged_closure.html',1,'vt::messaging']]],
   ['meta_5fand',['meta_and',['../structvt_1_1util_1_1meta__and.html',1,'vt::util']]],
   ['meta_5fand_3c_20t_2c_20ts_2e_2e_2e_20_3e',['meta_and&lt; T, Ts... &gt;',['../structvt_1_1util_1_1meta__and_3_01_t_00_01_ts_8_8_8_01_4.html',1,'vt::util']]],
   ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1_migratable.html',1,'vt::vrt::collection']]],

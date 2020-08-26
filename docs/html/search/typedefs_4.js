@@ -20,6 +20,7 @@ var searchData=
   ['envsizetype',['EnvSizeType',['../structvt_1_1_put_envelope.html#ad086e484eb23ab04b0a055aff2cb7b19',1,'vt::PutEnvelope']]],
   ['epformat',['EpFormat',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a127b9f54d98b9645451c2d9a2821d10e',1,'vt::termination::graph::EpochGraph']]],
   ['epochactionconttype',['EpochActionContType',['../structvt_1_1term_1_1_term_action.html#acefe3cb1e2a2bcf0d530082f53a2bada',1,'vt::term::TermAction']]],
+  ['epochactiontype',['EpochActionType',['../structvt_1_1messaging_1_1_pending_send.html#a25131dc5a5e003dc65187edc97c23d1c',1,'vt::messaging::PendingSend']]],
   ['epochbcasttype',['EpochBcastType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ade4647c26f1f20016fa0520bea640f59',1,'vt::vrt::collection::CollectionManager']]],
   ['epochcontainertype',['EpochContainerType',['../structvt_1_1term_1_1_termination_detector.html#a69e2615b61e072977463eea5b20b7933',1,'vt::term::TerminationDetector']]],
   ['epochenvelope',['EpochEnvelope',['../namespacevt.html#af71a025689a3da5037785b53a7a8e78c',1,'vt']]],

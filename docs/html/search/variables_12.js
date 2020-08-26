@@ -39,6 +39,7 @@ var searchData=
   ['set_5findex_5f',['set_index_',['../structvt_1_1vrt_1_1collection_1_1_indexable.html#a946600975ab9eb4d1b122b6267bea35e',1,'vt::vrt::collection::Indexable']]],
   ['set_5fup_5ftree_5f',['set_up_tree_',['../structvt_1_1collective_1_1tree_1_1_tree.html#af240b20228198eae21c33e1b6a042fe2',1,'vt::collective::tree::Tree']]],
   ['setup_5fdone_5f',['setup_done_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a6ef78f0645125746c90fb74cb1afde19',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['shared_5fstate_5f',['shared_state_',['../structvt_1_1messaging_1_1_merged_closure.html#a5e595776f26d0b403464bbe3b94b3329',1,'vt::messaging::MergedClosure']]],
   ['sig_5fuser_5f1_5f',['sig_user_1_',['../structvt_1_1runtime_1_1_runtime.html#ac0373f2326b45f348e2db166d328e2d6',1,'vt::runtime::Runtime']]],
   ['signal_5fcleanup_5ffns_5f',['signal_cleanup_fns_',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a911580408d9a2425c5c8cef0b5002612',1,'vt::pipe::PipeManagerBase']]],
   ['signal_5fholder_5f',['signal_holder_',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a0c85d01e4f6a9bd90056a8745b255c6d',1,'vt::pipe::PipeManagerBase']]],
