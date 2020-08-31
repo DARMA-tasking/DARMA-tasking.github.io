@@ -61,6 +61,7 @@ var searchData=
   ['insertmsg',['InsertMsg',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a44aed2e193e9972e28eb9c757cfe4e0b',1,'vt::vrt::collection::InsertMsg::InsertMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a56b81ce822e935c00a7419734844d288',1,'vt::vrt::collection::InsertMsg::InsertMsg(CollectionProxy&lt; ColT, IndexT &gt; in_proxy, IndexT in_max, IndexT in_idx, NodeType in_construct_node, NodeType in_home_node, EpochType in_epoch, EpochType in_g_epoch)']]],
   ['insertnewuserevent',['insertNewUserEvent',['../namespacevt_1_1trace.html#acbaabde4144cf5291fcc65983e7dc7a0',1,'vt::trace']]],
   ['insertpendingentityaction',['insertPendingEntityAction',['../structvt_1_1location_1_1_entity_location_coord.html#a2b2c69634e3ef42e2625541cd234b350',1,'vt::location::EntityLocationCoord']]],
+  ['insertptr',['insertPtr',['../structvt_1_1vrt_1_1collection_1_1_insert_token_rval.html#ad6201b0fcbd9b6647fb28c683f10571e',1,'vt::vrt::collection::InsertTokenRval']]],
   ['insertset',['insertSet',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a87c94a2beab19ba74470b18a1de9aedf',1,'vt::term::interval::IntegralSetBase']]],
   ['insertsetepoch',['insertSetEpoch',['../structvt_1_1vrt_1_1collection_1_1_universal_index_holder.html#a8193db85d822ff2783925ef2a5ac3b17',1,'vt::vrt::collection::UniversalIndexHolder']]],
   ['insertspec',['insertSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#af9bbdd67b14a25bee5ffa43024c9768c',1,'vt::trace::file_spec::TraceSpec']]],
