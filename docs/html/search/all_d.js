@@ -6,6 +6,7 @@ var searchData=
   ['l_5fprod',['l_prod',['../structvt_1_1term_1_1_term_state.html#afec657b7e75164bdc75f464dd4dbe13b',1,'vt::term::TermState']]],
   ['label_5f',['label_',['../structvt_1_1term_1_1_epoch_label.html#a382a1d7b4748e26ba2bc0200636379e6',1,'vt::term::EpochLabel']]],
   ['large',['Large',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a3a69b34ce86dacb205936a8094f6c743',1,'vt::pool::Pool']]],
+  ['last_5fcompleted_5fphase_5f',['last_completed_phase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_raw_data.html#a9ceb9cf1dd88772821658e506d015397',1,'vt::vrt::collection::balance::RawData']]],
   ['last_5fepoch_5f',['last_epoch_',['../classvt_1_1messaging_1_1_dependent_send_chain.html#acbba3599015aff00654f3cb8efaba623',1,'vt::messaging::DependentSendChain']]],
   ['last_5fevent_5f',['last_event_',['../structvt_1_1worker_1_1_worker_group_counter.html#a0d841e228f4643df513490e67febffbc',1,'vt::worker::WorkerGroupCounter']]],
   ['last_5fmemory_5fusage_5fpoll_5f',['last_memory_usage_poll_',['../structvt_1_1sched_1_1_scheduler.html#a54f31a009c8abdf8b9f220832b25f668',1,'vt::sched::Scheduler']]],
