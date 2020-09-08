@@ -337,7 +337,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 1;
     \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyMsg>(29,32);
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MyMsg,msgHandlerA>(to\_node, msg.get());
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MyMsg,msgHandlerA>(to\_node, msg);
   \}
 \}
 
@@ -360,10 +360,27 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{comment}{/*}
 \textcolor{comment}{   * In response to this message, node 1 sends a message back to node 0. This}
 \textcolor{comment}{   * invocation uses the functor style send.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * -- Message Ownsership --}
+\textcolor{comment}{   * When an API that 'sends a message' is called, ownership is relinquished.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * The loss of ownership is the same as using std::move and the MsgPtr object}
+\textcolor{comment}{   * supplied becomes invalid for later use. This use includes attempting}
+\textcolor{comment}{   * to send the same message twice. std::move can be used explicit if desired.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * A vtAssert will be raised if such an invalid use is detected.}
 \textcolor{comment}{   */}
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} to\_node = 0;
   \textcolor{keyword}{auto} msg2 = ::vt::makeMessage<MyMsg>(10,20);
-  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgHandlerB>(to\_node, msg2.get());
+
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MsgHandlerB, MyMsg>(to\_node, msg2);
+
+  \textcolor{comment}{// Alternate/equivalent form with explicit (and optional) std::move:}
+  \textcolor{comment}{//}
+  \textcolor{comment}{//   ::vt::theMsg()->sendMsg<MsgHandlerB, MyMsg>(to\_node, std::move(msg2));}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// In both cases it is invalid to attempt to use msg2 here as the ownership}
+  \textcolor{comment}{// of the message has been relinquished/lost when making the call.}
 \}
 
 \textcolor{keywordtype}{void} MsgHandlerB::operator()(MyMsg* msg) \{
@@ -468,7 +485,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
     \textcolor{keyword}{auto} msg = ::vt::makeMessage<ParticleMsg>(1,2,3);
     msg->particles.push\_back(Particle\{10,11,12\});
     msg->particles.push\_back(Particle\{13,14,15\});
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ParticleMsg,msgSerialA>(to\_node, msg.get());
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<ParticleMsg,msgSerialA>(to\_node, msg);
   \}
 \}
 
@@ -521,11 +538,16 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{   * system. Every node will include all the nodes that VT has depending on the}
 \textcolor{comment}{   * MPI communicator passed in or the size attained (number of ranks) when}
 \textcolor{comment}{   * executing MPI init directly in non-interoperability mode.}
+\textcolor{comment}{   *}
+\textcolor{comment}{   * -- Message Ownership --}
+\textcolor{comment}{   * As with sendMsg, sending with broadcastMsg relinquishes ownership of}
+\textcolor{comment}{   * the message. Most calls to VT that supply a message are expected}
+\textcolor{comment}{   * to relinquish ownership.}
 \textcolor{comment}{   */}
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyDataMsg>(1.0,2.0,3.0);
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MyDataMsg,msgHandlerX>(msg.get());
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga344802a09eb0e88006900976d1dfa204}{broadcastMsg}<MyDataMsg,msgHandlerX>(msg);
   \}
 \}
 
@@ -577,7 +599,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
       fmt::print(\textcolor{stringliteral}{"Group is created: id=\{:x\}\(\backslash\)n"}, group\_id);
       \textcolor{keyword}{auto} msg = makeMessage<MySimpleMsg>();
       \hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}(msg->env, group\_id);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MySimpleMsg,msgHandlerGroupA>(msg.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga344802a09eb0e88006900976d1dfa204}{broadcastMsg}<MySimpleMsg,msgHandlerGroupA>(msg);
     \});
     \textcolor{comment}{// The `id' that is returned from the newGroup invocation, can be used}
     \textcolor{comment}{// anywhere in the system to broadcast (multicast) to this group.}
@@ -635,7 +657,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
       \textcolor{keywordflow}{if} (my\_node == 1) \{
         \textcolor{keyword}{auto} msg = makeMessage<MySimpleMsg2>();
         \hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}(msg->env, group\_id);
-        \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga4a7106231ba8a26a1214a6f133e381eb}{broadcastMsg}<MySimpleMsg2,msgHandlerGroupB>(msg.get());
+        \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__typesafehan_ga344802a09eb0e88006900976d1dfa204}{broadcastMsg}<MySimpleMsg2,msgHandlerGroupB>(msg);
       \}
     \}
   );
@@ -721,21 +743,21 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
     \{
       \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adb73a299b634a180ae3814b41b9ce255}{makeFunc}(void\_fn);
       \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node, msg);
     \}
 
     \textcolor{comment}{// Example of active message handler callback with send node}
     \{
       \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<DataMsg,callbackHandler>(cb\_node);
       \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node, msg);
     \}
 
     \textcolor{comment}{// Example of active message handler callback with broadcast}
     \{
       \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<DataMsg,callbackBcastHandler>();
       \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node, msg);
     \}
 
     \textcolor{comment}{// Example of context callback}
@@ -743,7 +765,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
       \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adb73a299b634a180ae3814b41b9ce255}{makeFunc}<DataMsg,MyContext>(&
       \hyperlink{namespacevt_1_1config_a0551245b6b893932b95aaf8eac94eed1}{ctx}, callbackCtx);
       \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node,msg.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<MsgWithCallback,getCallbackHandler>(to\_node, msg);
     \}
   \}
 \}
@@ -992,7 +1014,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \textcolor{keyword}{auto} msg = vt::makeMessage<ExampleMsg>(8);
     \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{envelopeSetEpoch}(msg->env, new\_epoch);
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ExampleMsg,recurHandler>(this\_node+1,msg.get());
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<ExampleMsg,recurHandler>(this\_node+1, msg);
   \}
 
   \textcolor{comment}{// Any node that wishes to have a notification on termination for a given}
@@ -1031,7 +1053,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
       );
 
       \textcolor{keyword}{auto} msg\_send = vt::makeMessage<ExampleMsg>(msg->ttl);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_gaebfcd932babb3be0ea8d481f655a2835}{sendMsg}<ExampleMsg,recurHandler>(next\_node,msg\_send.get());
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<ExampleMsg,recurHandler>(next\_node, msg\_send);
     \}
   \}
 \}

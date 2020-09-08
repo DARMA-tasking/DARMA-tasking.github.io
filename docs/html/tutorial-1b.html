@@ -172,7 +172,7 @@
   <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NodeType</span> <span class="k">const</span> <span class="n">to_node</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MyMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">29</span><span class="p">,</span><span class="mi">32</span><span class="p">);</span>
-    <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">MyMsg</span><span class="p">,</span><span class="n">msgHandlerA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">MyMsg</span><span class="p">,</span><span class="n">msgHandlerA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -195,10 +195,27 @@
   <span class="cm">/*</span>
 <span class="cm">   * In response to this message, node 1 sends a message back to node 0. This</span>
 <span class="cm">   * invocation uses the functor style send.</span>
+<span class="cm">   *</span>
+<span class="cm">   * -- Message Ownsership --</span>
+<span class="cm">   * When an API that &#39;sends a message&#39; is called, ownership is relinquished.</span>
+<span class="cm">   *</span>
+<span class="cm">   * The loss of ownership is the same as using std::move and the MsgPtr object</span>
+<span class="cm">   * supplied becomes invalid for later use. This use includes attempting</span>
+<span class="cm">   * to send the same message twice. std::move can be used explicit if desired.</span>
+<span class="cm">   *</span>
+<span class="cm">   * A vtAssert will be raised if such an invalid use is detected.</span>
 <span class="cm">   */</span>
   <span class="n">NodeType</span> <span class="k">const</span> <span class="n">to_node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">auto</span> <span class="n">msg2</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MyMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
-  <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">MsgHandlerB</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg2</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+
+  <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">MsgHandlerB</span><span class="p">,</span> <span class="n">MyMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg2</span><span class="p">);</span>
+
+  <span class="c1">// Alternate/equivalent form with explicit (and optional) std::move:</span>
+  <span class="c1">//</span>
+  <span class="c1">//   ::vt::theMsg()-&gt;sendMsg&lt;MsgHandlerB, MyMsg&gt;(to_node, std::move(msg2));</span>
+  <span class="c1">//</span>
+  <span class="c1">// In both cases it is invalid to attempt to use msg2 here as the ownership</span>
+  <span class="c1">// of the message has been relinquished/lost when making the call.</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">MsgHandlerB</span><span class="o">::</span><span class="k">operator</span><span class="p">()(</span><span class="n">MyMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>

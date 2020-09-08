@@ -132,11 +132,16 @@
 <span class="cm">   * system. Every node will include all the nodes that VT has depending on the</span>
 <span class="cm">   * MPI communicator passed in or the size attained (number of ranks) when</span>
 <span class="cm">   * executing MPI init directly in non-interoperability mode.</span>
+<span class="cm">   *</span>
+<span class="cm">   * -- Message Ownership --</span>
+<span class="cm">   * As with sendMsg, sending with broadcastMsg relinquishes ownership of</span>
+<span class="cm">   * the message. Most calls to VT that supply a message are expected</span>
+<span class="cm">   * to relinquish ownership.</span>
 <span class="cm">   */</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MyDataMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">3.0</span><span class="p">);</span>
-    <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">broadcastMsg</span><span class="o">&lt;</span><span class="n">MyDataMsg</span><span class="p">,</span><span class="n">msgHandlerX</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">broadcastMsg</span><span class="o">&lt;</span><span class="n">MyDataMsg</span><span class="p">,</span><span class="n">msgHandlerX</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 

@@ -75,7 +75,7 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>::vt::makeMessage&lt;MyMsg&gt;(29,32);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MyMsg,msgHandlerA&gt;(to_node,<sp/>msg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1ga0162a39473e7f9b490a79a7983d949ac" kindref="member">sendMsg</ref>&lt;MyMsg,msgHandlerA&gt;(to_node,<sp/>msg);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -98,10 +98,27 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>In<sp/>response<sp/>to<sp/>this<sp/>message,<sp/>node<sp/>1<sp/>sends<sp/>a<sp/>message<sp/>back<sp/>to<sp/>node<sp/>0.<sp/>This</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>invocation<sp/>uses<sp/>the<sp/>functor<sp/>style<sp/>send.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>--<sp/>Message<sp/>Ownsership<sp/>--</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>When<sp/>an<sp/>API<sp/>that<sp/>&apos;sends<sp/>a<sp/>message&apos;<sp/>is<sp/>called,<sp/>ownership<sp/>is<sp/>relinquished.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>The<sp/>loss<sp/>of<sp/>ownership<sp/>is<sp/>the<sp/>same<sp/>as<sp/>using<sp/>std::move<sp/>and<sp/>the<sp/>MsgPtr<sp/>object</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>supplied<sp/>becomes<sp/>invalid<sp/>for<sp/>later<sp/>use.<sp/>This<sp/>use<sp/>includes<sp/>attempting</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>to<sp/>send<sp/>the<sp/>same<sp/>message<sp/>twice.<sp/>std::move<sp/>can<sp/>be<sp/>used<sp/>explicit<sp/>if<sp/>desired.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>A<sp/>vtAssert<sp/>will<sp/>be<sp/>raised<sp/>if<sp/>such<sp/>an<sp/>invalid<sp/>use<sp/>is<sp/>detected.</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg2<sp/>=<sp/>::vt::makeMessage&lt;MyMsg&gt;(10,20);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1gaebfcd932babb3be0ea8d481f655a2835" kindref="member">sendMsg</ref>&lt;MsgHandlerB&gt;(to_node,<sp/>msg2.get());</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__preregister_1ga0162a39473e7f9b490a79a7983d949ac" kindref="member">sendMsg</ref>&lt;MsgHandlerB,<sp/>MyMsg&gt;(to_node,<sp/>msg2);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Alternate/equivalent<sp/>form<sp/>with<sp/>explicit<sp/>(and<sp/>optional)<sp/>std::move:</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/>::vt::theMsg()-&gt;sendMsg&lt;MsgHandlerB,<sp/>MyMsg&gt;(to_node,<sp/>std::move(msg2));</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>In<sp/>both<sp/>cases<sp/>it<sp/>is<sp/>invalid<sp/>to<sp/>attempt<sp/>to<sp/>use<sp/>msg2<sp/>here<sp/>as<sp/>the<sp/>ownership</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>of<sp/>the<sp/>message<sp/>has<sp/>been<sp/>relinquished/lost<sp/>when<sp/>making<sp/>the<sp/>call.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MsgHandlerB::operator()(MyMsg*<sp/>msg)<sp/>{</highlight></codeline>
