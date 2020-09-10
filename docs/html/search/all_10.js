@@ -38,6 +38,7 @@ var searchData=
   ['omp_5fmutex_2eh',['omp_mutex.h',['../omp__mutex_8h.html',1,'']]],
   ['omp_5ftls_2eh',['omp_tls.h',['../omp__tls_8h.html',1,'']]],
   ['on_5fdone_5f',['on_done_',['../structvt_1_1rdma_1_1_request_holder.html#ac10cdebd8a619357fe95b1abaea3bc6d',1,'vt::rdma::RequestHolder']]],
+  ['once',['Once',['../namespacevt_1_1pipe.html#acb42b284378c0fdac1d7c6335dc26f58ae1a9dc9f23534e63de9df0d540ac1611',1,'vt::pipe']]],
   ['onnode',['onNode',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a6936fbd32052c703881774a5bdc4eec0',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['op_5fbuffer_2eh',['op_buffer.h',['../op__buffer_8h.html',1,'']]],
   ['op_5fid',['op_id',['../structvt_1_1rdma_1_1_request_data_message.html#a622409576bf44670a1203992929c9869',1,'vt::rdma::RequestDataMessage::op_id()'],['../structvt_1_1rdma_1_1_send_data_message.html#a202afd4750d22c74325b5709db5e025a',1,'vt::rdma::SendDataMessage::op_id()'],['../structvt_1_1rdma_1_1_r_d_m_a_op_finished_message.html#a548dcc848fb181b4afb9c48156a0d1b0',1,'vt::rdma::RDMAOpFinishedMessage::op_id()']]],

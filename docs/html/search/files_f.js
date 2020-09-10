@@ -20,6 +20,7 @@ var searchData=
   ['pipe_5fheaders_2eh',['pipe_headers.h',['../pipe__headers_8h.html',1,'']]],
   ['pipe_5fid_2ecc',['pipe_id.cc',['../pipe__id_8cc.html',1,'']]],
   ['pipe_5fid_2eh',['pipe_id.h',['../pipe__id_8h.html',1,'']]],
+  ['pipe_5flifetime_2eh',['pipe_lifetime.h',['../pipe__lifetime_8h.html',1,'']]],
   ['pipe_5fmanager_2ecc',['pipe_manager.cc',['../pipe__manager_8cc.html',1,'']]],
   ['pipe_5fmanager_2efwd_2eh',['pipe_manager.fwd.h',['../pipe__manager_8fwd_8h.html',1,'']]],
   ['pipe_5fmanager_2eh',['pipe_manager.h',['../pipe__manager_8h.html',1,'']]],
