@@ -69,7 +69,19 @@ using \hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_a0474b491f3c93014d9
 \subsection{Detailed Description}
 A specific, isolated reducer instance for a given scope that sequences reduce operations via the reduction stamp within that scope. 
 
-Holds the state as a reduction makes it up the spanning tree until it reaches the root. Combines messages with the user-\/specified reduction operator as they move up the spanning tree. 
+Holds the state as a reduction makes it up the spanning tree until it reaches the root. Combines messages with the user-\/specified reduction operator as they move up the spanning tree.
+
+The interaction between the reduction implementation\textquotesingle{}s message buffering and termination detection may be unintuitive. It is believed and demonstrated to operate as intended, based on the following reasoning.
+\begin{DoxyItemize}
+\item There is some epoch {\ttfamily reduce\+\_\+epoch}
+\item We assume all contributions to a given reduction (via {\ttfamily \hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce()}} calls) occur in {\ttfamily reduce\+\_\+epoch}
+\item Proposition\+: The result of the reduction will be delivered in {\ttfamily reduce\+\_\+epoch}, and {\ttfamily reduce\+\_\+epoch} will not terminate before that result is delivered.
+\item On any given node, some local contribution to the reduction will be the last. That last contribution runs in {\ttfamily reduce\+\_\+epoch}, which cannot have terminated before it runs.
+\item On a leaf node, the reduction message up the spanning tree will be produced and sent in {\ttfamily reduce\+\_\+epoch}.
+\item At every interior node in the spanning tree, all reduction messages will be received and processed in {\ttfamily reduce\+\_\+epoch}.
+\item The reduction message passed up the spanning tree from every node will thus be produced and sent in {\ttfamily reduce\+\_\+epoch}.
+\item The root of the spanning tree will receive and process the last reduction message in {\ttfamily reduce\+\_\+epoch}, passing it to the callback. 
+\end{DoxyItemize}
 
 \subsection{Member Typedef Documentation}
 \mbox{\Hypertarget{structvt_1_1collective_1_1reduce_1_1_reduce_a0474b491f3c93014d9a0ce0356c6bfd5}\label{structvt_1_1collective_1_1reduce_1_1_reduce_a0474b491f3c93014d9a0ce0356c6bfd5}} 
