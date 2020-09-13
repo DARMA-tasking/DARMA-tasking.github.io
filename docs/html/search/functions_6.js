@@ -280,6 +280,7 @@ var searchData=
   ['getstate',['getState',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9ee1d50fcf5ad149307c467bdd49de0a',1,'vt::vrt::collection::CollectionManager']]],
   ['getstats',['getStats',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a1e4863b384ac80b0b7c0b147c68256df',1,'vt::vrt::collection::Migratable']]],
   ['getstsname',['getSTSName',['../structvt_1_1trace_1_1_trace.html#af92da7879adc530c72945530b0bfa11d',1,'vt::trace::Trace']]],
+  ['getsubphase',['getSubPhase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a50190169d968c25ddee8824709576522',1,'vt::vrt::collection::balance::ElementStats']]],
   ['getsubtreesize',['getSubtreeSize',['../structvt_1_1group_1_1_group_collective_info_msg.html#a84b8680a55f3eb8db6f775d2facb2814',1,'vt::group::GroupCollectiveInfoMsg']]],
   ['getsuccessors',['getSuccessors',['../structvt_1_1term_1_1_epoch_dependency.html#ac2081e46d7cf75e0838b54af57ab70b8',1,'vt::term::EpochDependency']]],
   ['getsumload',['getSumLoad',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a2e9f213874f7eecc81a09f2b1ceb5291',1,'vt::vrt::collection::lb::GreedyLB::getSumLoad()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a4cdebd4215afd2cac890525c7901f4ad',1,'vt::vrt::collection::lb::HierarchicalLB::getSumLoad()']]],
