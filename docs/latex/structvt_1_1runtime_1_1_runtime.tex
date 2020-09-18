@@ -45,7 +45,7 @@ void \hyperlink{structvt_1_1runtime_1_1_runtime_ad7afc3a8dbe8887c914ba24418455d6
 \begin{DoxyCompactList}\small\item\em Reset the runtime after termination is reached to use it again. \end{DoxyCompactList}\item 
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a7590edf43fad3a219ef9335a97f4aebb}{initialize} (bool const force\+\_\+now=false)
 \begin{DoxyCompactList}\small\item\em Initialize the runtime. \end{DoxyCompactList}\item 
-bool \hyperlink{structvt_1_1runtime_1_1_runtime_a3408b946864c17bd6d3cb7beb030a380}{finalize} (bool const force\+\_\+now=false)
+bool \hyperlink{structvt_1_1runtime_1_1_runtime_ae4e8d5395c4144c3322fc689b3fb07ab}{finalize} (bool const force\+\_\+now=false, bool const disable\+\_\+sig=true)
 \begin{DoxyCompactList}\small\item\em Finalize the runtime. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_ab9cfe09835261971b73435e0572fee00}{run\+Scheduler} ()
 \begin{DoxyCompactList}\small\item\em Run the scheduler once. \end{DoxyCompactList}\item 
@@ -126,7 +126,7 @@ static bool volatile \hyperlink{structvt_1_1runtime_1_1_runtime_ac0373f2326b45f3
 \item 
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a651174e20fa3db2493bd4c0cf2e8be3c}{try\+Initialize} ()
 \begin{DoxyCompactList}\small\item\em Try to initialize. \end{DoxyCompactList}\item 
-bool \hyperlink{structvt_1_1runtime_1_1_runtime_a6d4863db7bf256c2c654fab6466df2a4}{try\+Finalize} ()
+bool \hyperlink{structvt_1_1runtime_1_1_runtime_a10f74f2fa128ce1f7aa3d69395c64f8c}{try\+Finalize} (bool const disable\+\_\+sig=true)
 \begin{DoxyCompactList}\small\item\em Try to finalize. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_ab1dc72260d0003004cce1418a8880aa7}{setup\+Args} ()
 \begin{DoxyCompactList}\small\item\em Setup argument input. \end{DoxyCompactList}\item 
@@ -185,6 +185,8 @@ bool \hyperlink{structvt_1_1runtime_1_1_runtime_a19b9ad0859c6fb417b734ac1cc8be1a
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a0ab12b00f03032638dbc467d165bed30}{runtime\+\_\+active\+\_\+} = false
 \item 
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a1169e49a960d59b2e1c7d9f5f9ef838d}{is\+\_\+interop\+\_\+} = false
+\item 
+bool \hyperlink{structvt_1_1runtime_1_1_runtime_a09b053def0beaff3de9995e83b66170b}{sig\+\_\+handlers\+\_\+disabled\+\_\+} = false
 \item 
 \hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type} \hyperlink{structvt_1_1runtime_1_1_runtime_ae0fc29c09650df6280cabeea1cb9e222}{num\+\_\+workers\+\_\+} = no\+\_\+workers
 \item 
@@ -264,7 +266,7 @@ Initialize a VT runtime.
 \item After {\ttfamily vt\+::\+Runtime} is constructed, the Arg\+Config lives in {\ttfamily arg\+\_\+config\+\_\+} and {\ttfamily app\+\_\+config\+\_\+} contains a pointer to the internals.
 \item After the pack registers the Arg\+Config component, {\ttfamily arg\+\_\+config\+\_\+} is no longer valid. The config is in a tuple awaiting construction---thus, we can\textquotesingle{}t easily access it. app\+\_\+config\+\_\+ remains valid during this time
 \item After construction, the {\ttfamily arg\+\_\+config\+\_\+} is in the component {\ttfamily \hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{the\+Config()}} and can be accessed normally
-\item After {\ttfamily \hyperlink{structvt_1_1runtime_1_1_runtime_a3408b946864c17bd6d3cb7beb030a380}{Runtime\+::finalize()}} is called but before the pack is destroyed, we extract the {\ttfamily Arg\+Config} from the component and put it back in {\ttfamily arg\+\_\+config\+\_\+} for use after.
+\item After {\ttfamily \hyperlink{structvt_1_1runtime_1_1_runtime_ae4e8d5395c4144c3322fc689b3fb07ab}{Runtime\+::finalize()}} is called but before the pack is destroyed, we extract the {\ttfamily Arg\+Config} from the component and put it back in {\ttfamily arg\+\_\+config\+\_\+} for use after.
 \item From then on, until the {\ttfamily vt\+::\+Runtime} is destroyed or VT is re-\/initialized {\ttfamily arg\+\_\+config\+\_\+} will contain the configuration.
 
 For this to all work correctly, the {\ttfamily vt\+\_\+debug\+\_\+print} infrastructure calls {\ttfamily vt\+::config\+::get\+Config()} which always grabs the correct app config, either from the component singleton or the {\ttfamily vt\+::\+Runtime} 
@@ -318,11 +320,11 @@ Abort--die immediately after spitting out error message.
 
 Check for input argument errors. 
 
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a3408b946864c17bd6d3cb7beb030a380}\label{structvt_1_1runtime_1_1_runtime_a3408b946864c17bd6d3cb7beb030a380}} 
+\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_ae4e8d5395c4144c3322fc689b3fb07ab}\label{structvt_1_1runtime_1_1_runtime_ae4e8d5395c4144c3322fc689b3fb07ab}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!finalize@{finalize}}
 \index{finalize@{finalize}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
 \subsubsection{\texorpdfstring{finalize()}{finalize()}}
-{\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::finalize (\begin{DoxyParamCaption}\item[{bool const}]{force\+\_\+now = {\ttfamily false} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::finalize (\begin{DoxyParamCaption}\item[{bool const}]{force\+\_\+now = {\ttfamily false},  }\item[{bool const}]{disable\+\_\+sig = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
@@ -330,7 +332,9 @@ Finalize the runtime.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em force\+\_\+now} & whether to force finalization regardless of state\\
+\mbox{\tt in}  & {\em force\+\_\+now} & whether to force finalization regardless of state \\
+\hline
+\mbox{\tt in}  & {\em disable\+\_\+sig} & whether to disable signal handlers\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -766,16 +770,21 @@ std\+::terminate handler
 
 Handler when global termination is reached. 
 
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a6d4863db7bf256c2c654fab6466df2a4}\label{structvt_1_1runtime_1_1_runtime_a6d4863db7bf256c2c654fab6466df2a4}} 
+\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a10f74f2fa128ce1f7aa3d69395c64f8c}\label{structvt_1_1runtime_1_1_runtime_a10f74f2fa128ce1f7aa3d69395c64f8c}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!try\+Finalize@{try\+Finalize}}
 \index{try\+Finalize@{try\+Finalize}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
 \subsubsection{\texorpdfstring{try\+Finalize()}{tryFinalize()}}
-{\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::try\+Finalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::try\+Finalize (\begin{DoxyParamCaption}\item[{bool const}]{disable\+\_\+sig = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
 Try to finalize. 
 
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em disable\+\_\+sig} & whether to disable signal handlers\\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 whether it succeeded 
 \end{DoxyReturn}
@@ -881,6 +890,12 @@ App config during startup \mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a58
 \index{runtime\+\_\+active\+\_\+@{runtime\+\_\+active\+\_\+}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
 \subsubsection{\texorpdfstring{runtime\+\_\+active\+\_\+}{runtime\_active\_}}
 {\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::runtime\+\_\+active\+\_\+ = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a09b053def0beaff3de9995e83b66170b}\label{structvt_1_1runtime_1_1_runtime_a09b053def0beaff3de9995e83b66170b}} 
+\index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!sig\+\_\+handlers\+\_\+disabled\+\_\+@{sig\+\_\+handlers\+\_\+disabled\+\_\+}}
+\index{sig\+\_\+handlers\+\_\+disabled\+\_\+@{sig\+\_\+handlers\+\_\+disabled\+\_\+}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
+\subsubsection{\texorpdfstring{sig\+\_\+handlers\+\_\+disabled\+\_\+}{sig\_handlers\_disabled\_}}
+{\footnotesize\ttfamily bool vt\+::runtime\+::\+Runtime\+::sig\+\_\+handlers\+\_\+disabled\+\_\+ = false\hspace{0.3cm}{\ttfamily [protected]}}
 
 \mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_ac0373f2326b45f348e2db166d328e2d6}\label{structvt_1_1runtime_1_1_runtime_ac0373f2326b45f348e2db166d328e2d6}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!sig\+\_\+user\+\_\+1\+\_\+@{sig\+\_\+user\+\_\+1\+\_\+}}

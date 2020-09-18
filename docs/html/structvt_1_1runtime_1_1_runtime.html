@@ -208,7 +208,8 @@
             </dt>
             <dd>Initialize the runtime.</dd>
             <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#a3408b946864c17bd6d3cb7beb030a380" class="m-doc">finalize</a>(</span><span class="m-doc-wrap">bool const force_now = false) -&gt; bool</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae4e8d5395c4144c3322fc689b3fb07ab" class="m-doc">finalize</a>(</span><span class="m-doc-wrap">bool const force_now = false,
+              bool const disable_sig = true) -&gt; bool</span>
             </dt>
             <dd>Finalize the runtime.</dd>
             <dt id="ab9cfe09835261971b73435e0572fee00">
@@ -384,7 +385,7 @@
             </dt>
             <dd>Try to initialize.</dd>
             <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#a6d4863db7bf256c2c654fab6466df2a4" class="m-doc">tryFinalize</a>(</span><span class="m-doc-wrap">) -&gt; bool</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a10f74f2fa128ce1f7aa3d69395c64f8c" class="m-doc">tryFinalize</a>(</span><span class="m-doc-wrap">bool const disable_sig = true) -&gt; bool</span>
             </dt>
             <dd>Try to finalize.</dd>
             <dt id="ab1dc72260d0003004cce1418a8880aa7">
@@ -481,6 +482,10 @@
               bool <a href="#a1169e49a960d59b2e1c7d9f5f9ef838d" class="m-doc-self">is_interop_</a>
             </dt>
             <dd><span></span></dd>
+            <dt id="a09b053def0beaff3de9995e83b66170b">
+              bool <a href="#a09b053def0beaff3de9995e83b66170b" class="m-doc-self">sig_handlers_disabled_</a>
+            </dt>
+            <dd><span></span></dd>
             <dt id="ae0fc29c09650df6280cabeea1cb9e222">
               <a href="namespacevt.html#aa93398ea48f2cb6c188512250f7cc248" class="m-doc">WorkerCountType</a> <a href="#ae0fc29c09650df6280cabeea1cb9e222" class="m-doc-self">num_workers_</a>
             </dt>
@@ -554,7 +559,7 @@
                 </tr>
               </tbody>
             </table>
-<p>=========================================================================</p><h4>Notes on lifecycle for the ArgConfig/AppConfig </h4><ul><li>After <code>vt::Runtime</code> is constructed, the ArgConfig lives in <code>arg_config_</code> and <code>app_config_</code> contains a pointer to the internals.</li><li>After the pack registers the ArgConfig component, <code>arg_config_</code> is no longer valid. The config is in a tuple awaiting construction&mdash;thus, we can&#x27;t easily access it. app_config_ remains valid during this time</li><li>After construction, the <code>arg_config_</code> is in the component <code><a href="namespacevt.html#aa17c6eae35e7e41a8b11d4047b7c0839" class="m-doc">theConfig()</a></code> and can be accessed normally</li><li>After <code><a href="structvt_1_1runtime_1_1_runtime.html#a3408b946864c17bd6d3cb7beb030a380" class="m-doc">Runtime::<wbr />finalize()</a></code> is called but before the pack is destroyed, we extract the <code>ArgConfig</code> from the component and put it back in <code>arg_config_</code> for use after.</li><li><p>From then on, until the <code>vt::Runtime</code> is destroyed or VT is re-initialized <code>arg_config_</code> will contain the configuration.</p><p>For this to all work correctly, the <code>vt_debug_print</code> infrastructure calls <code>vt::config::getConfig()</code> which always grabs the correct app config, either from the component singleton or the <code>vt::Runtime</code></p><hr/></li></ul>
+<p>=========================================================================</p><h4>Notes on lifecycle for the ArgConfig/AppConfig </h4><ul><li>After <code>vt::Runtime</code> is constructed, the ArgConfig lives in <code>arg_config_</code> and <code>app_config_</code> contains a pointer to the internals.</li><li>After the pack registers the ArgConfig component, <code>arg_config_</code> is no longer valid. The config is in a tuple awaiting construction&mdash;thus, we can&#x27;t easily access it. app_config_ remains valid during this time</li><li>After construction, the <code>arg_config_</code> is in the component <code><a href="namespacevt.html#aa17c6eae35e7e41a8b11d4047b7c0839" class="m-doc">theConfig()</a></code> and can be accessed normally</li><li>After <code><a href="structvt_1_1runtime_1_1_runtime.html#ae4e8d5395c4144c3322fc689b3fb07ab" class="m-doc">Runtime::<wbr />finalize()</a></code> is called but before the pack is destroyed, we extract the <code>ArgConfig</code> from the component and put it back in <code>arg_config_</code> for use after.</li><li><p>From then on, until the <code>vt::Runtime</code> is destroyed or VT is re-initialized <code>arg_config_</code> will contain the configuration.</p><p>For this to all work correctly, the <code>vt_debug_print</code> infrastructure calls <code>vt::config::getConfig()</code> which always grabs the correct app config, either from the component singleton or the <code>vt::Runtime</code></p><hr/></li></ul>
           </div></section>
           <section class="m-doc-details" id="a811947d9ba7322d0cb10c246200037c8"><div>
             <h3>
@@ -677,9 +682,10 @@
               </tfoot>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a3408b946864c17bd6d3cb7beb030a380"><div>
+          <section class="m-doc-details" id="ae4e8d5395c4144c3322fc689b3fb07ab"><div>
             <h3>
-              <span class="m-doc-wrap-bumper">bool vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3408b946864c17bd6d3cb7beb030a380" class="m-doc-self">finalize</a>(</span><span class="m-doc-wrap">bool const force_now = false)</span></span>
+              <span class="m-doc-wrap-bumper">bool vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae4e8d5395c4144c3322fc689b3fb07ab" class="m-doc-self">finalize</a>(</span><span class="m-doc-wrap">bool const force_now = false,
+              bool const disable_sig = true)</span></span>
             </h3>
             <p>Finalize the runtime.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -690,6 +696,10 @@
                 <tr>
                   <td style="width: 1%">force_now&nbsp;<span class="m-label m-flat m-info">in</span></td>
                   <td>whether to force finalization regardless of state</td>
+                </tr>
+                <tr>
+                  <td>disable_sig&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>whether to disable signal handlers</td>
                 </tr>
               </tbody>
               <tfoot>
@@ -809,15 +819,24 @@
               </tfoot>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a6d4863db7bf256c2c654fab6466df2a4"><div>
+          <section class="m-doc-details" id="a10f74f2fa128ce1f7aa3d69395c64f8c"><div>
             <h3>
-              <span class="m-doc-wrap-bumper">bool vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6d4863db7bf256c2c654fab6466df2a4" class="m-doc-self">tryFinalize</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">protected</span></span></span>
+              <span class="m-doc-wrap-bumper">bool vt::<wbr />runtime::<wbr />Runtime::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a10f74f2fa128ce1f7aa3d69395c64f8c" class="m-doc-self">tryFinalize</a>(</span><span class="m-doc-wrap">bool const disable_sig = true) <span class="m-label m-warning">protected</span></span></span>
             </h3>
             <p>Try to finalize.</p>
             <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">disable_sig&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>whether to disable signal handlers</td>
+                </tr>
+              </tbody>
               <tfoot>
                 <tr>
-                  <th style="width: 1%">Returns</th>
+                  <th>Returns</th>
                   <td>whether it succeeded</td>
                 </tr>
               </tfoot>
