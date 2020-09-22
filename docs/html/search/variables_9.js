@@ -43,6 +43,7 @@ var searchData=
   ['is_5fleaf',['is_leaf',['../structvt_1_1seq_1_1_seq_closure.html#aa2ac69110e7697d2250b218b227ce60a',1,'vt::seq::SeqClosure']]],
   ['is_5flive',['is_live',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#a5f8a11f6cda4bfd18f869eb2f711f329',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['is_5flocal',['is_local',['../structvt_1_1rdma_1_1_info.html#aca2fbe3e10b689bba2ace9bed33bd5cb',1,'vt::rdma::Info']]],
+  ['is_5flocked',['is_locked',['../structvt_1_1messaging_1_1_active_envelope.html#a17ded970dbc5c61160848d5ecf5c57ab',1,'vt::messaging::ActiveEnvelope']]],
   ['is_5fmigratable_5f',['is_migratable_',['../structvt_1_1rdma_1_1_sub_handle.html#a2e2fe2ff0da95f9b228d4f0d3cf5b3ce',1,'vt::rdma::SubHandle']]],
   ['is_5fmod_5f',['is_mod_',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_entry.html#a7194a8db86b82c3a98b3e5f39d9cd479',1,'vt::trace::file_spec::TraceSpec::SpecEntry']]],
   ['is_5fnamed',['is_named',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ac5fc85cc8e5a7d8ad5a41139100971e1',1,'vt::collective::barrier::BarrierMsg::is_named()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a1e4523043d5da4e59983ae70c2f98165',1,'vt::collective::barrier::BarrierState::is_named()']]],

@@ -994,6 +994,12 @@
             <dd>Set whether this message&#x27;s base serializer has been called.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Env&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#aeda768e2b7668340d73e5254a6b2923f" class="m-doc">envelopeSetIsLocked</a>(</span><span class="m-doc-wrap">Env&amp; env,
+              bool is_locked)</span>
+            </dt>
+            <dd>Set whether this message&#x27;s envelope is locked.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Env&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#a342e0012cb5a73a61a2e1619451c5898" class="m-doc">envelopeSetup</a>(</span><span class="m-doc-wrap">Env&amp; env,
               <a href="namespacevt.html#a866da9d0efc19c0a1ce79e9e492f47e2" class="m-doc">NodeType</a> const&amp; dest,
               <a href="namespacevt.html#af64846b57dfcaf104da3ef6967917573" class="m-doc">HandlerType</a> const&amp; handler)</span>
@@ -1008,6 +1014,17 @@
               <span class="m-doc-wrap-bumper">void <a href="#a2594d3d4a1f40c4db73713a8b62b24df" class="m-doc">envelopeInitEmpty</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#aa9c8cc094b5361482021d63012987814" class="m-doc">Envelope</a>&amp; env)</span>
             </dt>
             <dd>Initialize an envelope without defaults.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Env&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a931b61a10a85d44d2355e984e40177ff" class="m-doc">envelopeInitCopy</a>(</span><span class="m-doc-wrap">Env&amp; env,
+              Env const&amp; src_env)</span>
+            </dt>
+            <dd>Initialize an envelope via a copy.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Env&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#ace3e4542ae09ecd9728bea6548d71d5a" class="m-doc">envelopeInitRecv</a>(</span><span class="m-doc-wrap">Env&amp; env)</span>
+            </dt>
+            <dd>Initialize/validate an envelope that has been received.</dd>
             <dt>
               <span class="m-doc-wrap-bumper">void <a href="#ab507eac4b5cf7e2712f2c626b379498e" class="m-doc">envelopeInitEmpty</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#a8d7a7de9e76bfea1600009a775b7298c" class="m-doc">PutShortEnvelope</a>&amp; env)</span>
             </dt>
@@ -3143,6 +3160,33 @@
               </tbody>
             </table>
           </div></section>
+          <section class="m-doc-details" id="aeda768e2b7668340d73e5254a6b2923f"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="envelope__set_8h.html">&lt;src/vt/messaging/envelope/envelope_set.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Env&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void vt::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aeda768e2b7668340d73e5254a6b2923f" class="m-doc-self">envelopeSetIsLocked</a>(</span><span class="m-doc-wrap">Env&amp; env,
+              bool is_locked)</span></span>
+            </h3>
+            <p>Set whether this message&#x27;s envelope is locked.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">env&nbsp;<span class="m-label m-flat m-danger">in/out</span></td>
+                  <td>the envelope</td>
+                </tr>
+                <tr>
+                  <td>is_locked&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>value indicating if message is locked</td>
+                </tr>
+              </tbody>
+            </table>
+<p>A locked message will prevent key parts of the envelope from being updated with a guard assert. This is to prevent accidental edge-cases such as sending a message twice.</p><p>A message is locked when it is sent and recieved. Unlocking messages should be reserved for special cases as done in some core code.</p>
+          </div></section>
           <section class="m-doc-details" id="a342e0012cb5a73a61a2e1619451c5898"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="envelope__setup_8h.html">&lt;src/vt/messaging/envelope/envelope_setup.h&gt;</a></div>
@@ -3212,6 +3256,55 @@
                 </tr>
               </tbody>
             </table>
+          </div></section>
+          <section class="m-doc-details" id="a931b61a10a85d44d2355e984e40177ff"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="envelope__setup_8h.html">&lt;src/vt/messaging/envelope/envelope_setup.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Env&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void vt::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a931b61a10a85d44d2355e984e40177ff" class="m-doc-self">envelopeInitCopy</a>(</span><span class="m-doc-wrap">Env&amp; env,
+              Env const&amp; src_env)</span></span>
+            </h3>
+            <p>Initialize an envelope via a copy.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">env&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the original envelope to use as a copy</td>
+                </tr>
+                <tr>
+                  <td>src_env</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+<p>Some properties of the target envelope are preserved. The target envelope is left unlocked.</p>
+          </div></section>
+          <section class="m-doc-details" id="ace3e4542ae09ecd9728bea6548d71d5a"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="envelope__setup_8h.html">&lt;src/vt/messaging/envelope/envelope_setup.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Env&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void vt::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ace3e4542ae09ecd9728bea6548d71d5a" class="m-doc-self">envelopeInitRecv</a>(</span><span class="m-doc-wrap">Env&amp; env)</span></span>
+            </h3>
+            <p>Initialize/validate an envelope that has been received.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">env&nbsp;<span class="m-label m-flat m-danger">in/out</span></td>
+                  <td>the envelope</td>
+                </tr>
+              </tbody>
+            </table>
+<p>The ref-count is set to zero.</p>
           </div></section>
           <section class="m-doc-details" id="ab507eac4b5cf7e2712f2c626b379498e"><div>
             <h3>
