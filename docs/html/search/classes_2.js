@@ -47,6 +47,7 @@ var searchData=
   ['channellookup',['ChannelLookup',['../structvt_1_1rdma_1_1_channel_lookup.html',1,'vt::rdma']]],
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html',1,'vt::rdma']]],
   ['checkenabled',['CheckEnabled',['../structvt_1_1config_1_1_check_enabled.html',1,'vt::config']]],
+  ['cleantype',['CleanType',['../structcheckpoint_1_1dispatch_1_1_clean_type.html',1,'checkpoint::dispatch']]],
   ['collection',['Collection',['../structvt_1_1vrt_1_1collection_1_1_collection.html',1,'vt::vrt::collection']]],
   ['collection_5flm_5ftag_5ft',['collection_lm_tag_t',['../structvt_1_1location_1_1collection__lm__tag__t.html',1,'vt::location']]],
   ['collectionbase',['CollectionBase',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html',1,'vt::vrt::collection']]],

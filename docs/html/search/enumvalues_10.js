@@ -15,6 +15,7 @@ var searchData=
   ['serialization',['Serialization',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a1adb0c1dbe31b0bf5fa0665a823707a0',1,'vt::error']]],
   ['shared',['Shared',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70aa6156ea9d66fef24e87e841fbabf7cca',1,'vt::rdma']]],
   ['sized',['Sized',['../namespacevt_1_1rdma.html#a91e7211515508952960ca446ea609f65a019f37aff813cc26a5405852479c4492',1,'vt::rdma']]],
+  ['sizing',['Sizing',['../namespacecheckpoint.html#ae2509499ccd8b1dc48fb535bf8aa3059a92672a7a2b909945fbfa9f44f057c7a1',1,'checkpoint']]],
   ['skw',['skw',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead3700a0f6623feb3ef40d6786640ab23',1,'vt::vrt::collection::lb']]],
   ['small',['Small',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a2660064e68655415da2628c2ae2f7592',1,'vt::pool::Pool']]],
   ['startexitmsg',['StartExitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaf238a00c29282b3dfa0e07371168fc93',1,'vt::trace']]],

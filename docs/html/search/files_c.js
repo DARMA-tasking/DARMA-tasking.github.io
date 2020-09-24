@@ -1,6 +1,7 @@
 var searchData=
 [
   ['mainpage_2emd',['mainpage.md',['../mainpage_8md.html',1,'']]],
+  ['managed_5fbuffer_2eh',['managed_buffer.h',['../managed__buffer_8h.html',1,'']]],
   ['manager_2ecc',['manager.cc',['../objgroup_2manager_8cc.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8cc.html',1,'(Global Namespace)'],['../topos_2location_2manager_8cc.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8cc.html',1,'(Global Namespace)']]],
   ['manager_2ecollection_2eimpl_2eh',['manager.collection.impl.h',['../manager_8collection_8impl_8h.html',1,'']]],
   ['manager_2efwd_2eh',['manager.fwd.h',['../objgroup_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../topos_2location_2manager_8fwd_8h.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8fwd_8h.html',1,'(Global Namespace)']]],
@@ -13,6 +14,7 @@ var searchData=
   ['manager_5fmigrate_5fattorney_2efwd_2eh',['manager_migrate_attorney.fwd.h',['../manager__migrate__attorney_8fwd_8h.html',1,'']]],
   ['manager_5fmigrate_5fattorney_2eh',['manager_migrate_attorney.h',['../manager__migrate__attorney_8h.html',1,'']]],
   ['manager_5fmigrate_5fattorney_2eimpl_2eh',['manager_migrate_attorney.impl.h',['../manager__migrate__attorney_8impl_8h.html',1,'']]],
+  ['map_5fserialize_2eh',['map_serialize.h',['../map__serialize_8h.html',1,'']]],
   ['mapped_5fnode_2eh',['mapped_node.h',['../mapped__node_8h.html',1,'']]],
   ['mapped_5fnode_2eimpl_2eh',['mapped_node.impl.h',['../mapped__node_8impl_8h.html',1,'']]],
   ['mapping_2eh',['mapping.h',['../mapping_8h.html',1,'']]],
@@ -23,6 +25,7 @@ var searchData=
   ['memory_5fpool_5fequal_2ecc',['memory_pool_equal.cc',['../memory__pool__equal_8cc.html',1,'']]],
   ['memory_5fpool_5fequal_2eh',['memory_pool_equal.h',['../memory__pool__equal_8h.html',1,'']]],
   ['memory_5freporter_2eh',['memory_reporter.h',['../memory__reporter_8h.html',1,'']]],
+  ['memory_5fserializer_2eh',['memory_serializer.h',['../memory__serializer_8h.html',1,'']]],
   ['memory_5funits_2ecc',['memory_units.cc',['../memory__units_8cc.html',1,'']]],
   ['memory_5funits_2eh',['memory_units.h',['../memory__units_8h.html',1,'']]],
   ['memory_5fusage_2ecc',['memory_usage.cc',['../memory__usage_8cc.html',1,'']]],

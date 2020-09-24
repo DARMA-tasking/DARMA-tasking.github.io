@@ -16,11 +16,15 @@ var searchData=
   ['bitxorop',['BitXorOp',['../namespacevt_1_1collective.html#a834c8e21559219187ec9ef79f72cf474',1,'vt::collective']]],
   ['blockmaptype',['BlockMapType',['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804.html#a279e6bcca5709c1376785e6b36b5bce3',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()'],['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371.html#a25cf02d8b5c04bf66ef67778fe5df36a',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()'],['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4.html#ab057a004cf95904add5dfbcc354a177b',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()']]],
   ['boundtype',['BoundType',['../structvt_1_1group_1_1region_1_1_range_data.html#a12ca75365c79bece7d169149b354011d',1,'vt::group::region::RangeData::BoundType()'],['../structvt_1_1group_1_1region_1_1_region.html#abf426ff85bed72c1c6524fad6a9f1751',1,'vt::group::region::Region::BoundType()']]],
+  ['buffercallbacktype',['BufferCallbackType',['../namespacecheckpoint.html#a70bc1b37eae8e32129df38d981ef90f6',1,'checkpoint']]],
   ['bufferedactiontype',['BufferedActionType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a7b32db0e6ccafa771ddd72f534a1cf8c',1,'vt::vrt::collection::CollectionManager']]],
   ['bufferedmsgtype',['BufferedMsgType',['../structvt_1_1messaging_1_1_active_messenger.html#a80a9cbda399d7bf035bfcecc761f4b02',1,'vt::messaging::ActiveMessenger']]],
+  ['bufferobtainfntype',['BufferObtainFnType',['../namespacecheckpoint.html#a8a2558a1dd0db386339dd81c193b7f10',1,'checkpoint']]],
+  ['bufferptrtype',['BufferPtrType',['../structcheckpoint_1_1_unpacker_buffer.html#acdd2460fdb60fc584e04cb4069060613',1,'checkpoint::UnpackerBuffer::BufferPtrType()'],['../namespacecheckpoint_1_1buffer.html#ac52efd71a39aafa616d8214a7ff96ace',1,'checkpoint::buffer::BufferPtrType()']]],
   ['bufferreleaseenum',['BufferReleaseEnum',['../namespacestd.html#a881b600944be212a7a1b9ac199fb2f88',1,'std']]],
   ['buffertorelease',['BufferToRelease',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a47d2def9bdf4fb84026c615602779053',1,'vt::vrt::collection::CollectionManager']]],
+  ['buffertptrtype',['BufferTPtrType',['../structcheckpoint_1_1_packer_buffer.html#a081ec628050e8b173e413271fa070c26',1,'checkpoint::PackerBuffer']]],
   ['buffertypeenum',['BufferTypeEnum',['../namespacestd.html#ab5492c80007bc5a00cc49a954c809d6f',1,'std']]],
   ['buildindextype',['BuildIndexType',['../structvt_1_1index_1_1_dense_index_array.html#a84d2aa360d257c9b1d7e324088c7763b',1,'vt::index::DenseIndexArray::BuildIndexType()'],['../structvt_1_1index_1_1_example_index.html#ad5d24fa38ed7adc651d0b1178b53e421',1,'vt::index::ExampleIndex::BuildIndexType()']]],
-  ['bytetype',['ByteType',['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt']]]
+  ['bytetype',['ByteType',['../structcheckpoint_1_1buffer_1_1_managed_buffer.html#a89ff3aa4c92cd2c65973751ff4328dd5',1,'checkpoint::buffer::ManagedBuffer::ByteType()'],['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt::ByteType()']]]
 ];

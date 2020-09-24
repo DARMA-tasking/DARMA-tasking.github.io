@@ -10,6 +10,8 @@ var searchData=
   ['handletype',['HandleType',['../structvt_1_1rdma_1_1_handle_set.html#ab3a698ee86bae503dfa84617205b2dd9',1,'vt::rdma::HandleSet::HandleType()'],['../structvt_1_1rdma_1_1_sub_handle.html#a782bd6ddc85c6a81d7f55d207fad71cd',1,'vt::rdma::SubHandle::HandleType()']]],
   ['hantagcontainertype',['HanTagContainerType',['../structvt_1_1registry_1_1_registry.html#ab5d336044aee749d39c8feabe4fa6983',1,'vt::registry::Registry']]],
   ['hascollectionmsgtype',['hasCollectionMsgType',['../structvt_1_1vrt_1_1collection_1_1_col_msg_traits.html#aa181d98e798e8846ceb8f1c8b8204a7e',1,'vt::vrt::collection::ColMsgTraits']]],
+  ['hasinserialize',['hasInSerialize',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#a7f2203710503e6ea7a5c4a565795a1d0',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
+  ['hasnoninserialize',['hasNoninSerialize',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#ad59e5c933a762ce90d1ab5f7ca04ca9f',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
   ['headermanagertype',['HeaderManagerType',['../structvt_1_1pool_1_1_pool.html#acc5ad2d64bf6ff58fead958a69c12d74',1,'vt::pool::Pool::HeaderManagerType()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a43bf2b08808f0f90aa1fc1588c7ffd08',1,'vt::pool::MemoryPoolEqual::HeaderManagerType()']]],
   ['headertype',['HeaderType',['../structvt_1_1pool_1_1_pool.html#a887de970f8d8fbec63df120348c31404',1,'vt::pool::Pool::HeaderType()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a6b3a6a56431496ae69e1799c3d9856dc',1,'vt::pool::MemoryPoolEqual::HeaderType()']]],
   ['histogramapprox',['HistogramApprox',['../namespacevt_1_1adt.html#a486971e142bc22434d6afe695c43b599',1,'vt::adt']]],

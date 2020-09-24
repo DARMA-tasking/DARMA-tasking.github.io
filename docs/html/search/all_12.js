@@ -8,5 +8,6 @@ var searchData=
   ['queue_2eh',['queue.h',['../queue_8h.html',1,'']]],
   ['queue_3c_20vt_3a_3asched_3a_3aunit_20_3e',['Queue&lt; vt::sched::Unit &gt;',['../structvt_1_1sched_1_1_queue.html',1,'vt::sched']]],
   ['queue_5f',['queue_',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#aa7a4a5f115644540035596b1057e2ac2',1,'vt::timetrigger::TimeTriggerManager']]],
+  ['queue_5fserialize_2eh',['queue_serialize.h',['../queue__serialize_8h.html',1,'']]],
   ['queuetype',['QueueType',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#ad5dc7eeeb4b0d12a5582544d8f0a08c8',1,'vt::timetrigger::TimeTriggerManager']]]
 ];

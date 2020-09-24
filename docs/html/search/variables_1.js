@@ -15,6 +15,7 @@ var searchData=
   ['agg_5fnode_5fsize',['agg_node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#aa2ef8e33aaed4f1ae6405a3652de21bc',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['alloc_5fsize',['alloc_size',['../structvt_1_1pool_1_1_header.html#ad1f8e915eee733cd6b4d8efbfe51d551',1,'vt::pool::Header']]],
   ['alloc_5fworker',['alloc_worker',['../structvt_1_1pool_1_1_header.html#a054f2ad817d27c9725677c10ee487875',1,'vt::pool::Header']]],
+  ['allocator_5f',['allocator_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a90e91c26c97dc9ea779e42e6c634d456',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
   ['anon_5fcb_5f',['anon_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a6aa8eaee0ef4ebdc6e4a420f8e0780d4',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['any_5fepoch_5fstate_5f',['any_epoch_state_',['../structvt_1_1term_1_1_termination_detector.html#a49337963d174e5be73fcf467304428a6',1,'vt::term::TerminationDetector']]],
   ['app_5fconfig_5f',['app_config_',['../structvt_1_1runtime_1_1_runtime.html#a5fa2ceccc0e96fe0a97e0454e3a0a1ee',1,'vt::runtime::Runtime']]],

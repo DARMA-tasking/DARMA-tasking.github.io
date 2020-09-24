@@ -2,6 +2,8 @@ var searchData=
 [
   ['f_5f',['f_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a8e583b068a5241bf1960866c731e40d8',1,'vt::vrt::collection::lb::GossipLB']]],
   ['failed_5f',['failed_',['../structvt_1_1util_1_1memory_1_1_stat.html#af94103c0d6758baa6386de53c30f6246',1,'vt::util::memory::Stat::failed_()'],['../structvt_1_1util_1_1memory_1_1_stat_m.html#a9c268c769506493be2a98ea4e6e553ff',1,'vt::util::memory::StatM::failed_()']]],
+  ['fd_5f',['fd_',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#aaae9d622f010fb34e3644ae7ffc355d7',1,'checkpoint::buffer::IOBuffer']]],
+  ['file_5f',['file_',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a3032074c49298bf2d87aeb5f7aa5f37d',1,'checkpoint::buffer::IOBuffer']]],
   ['file_5fname_5f',['file_name_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#a831648ee90fa0d8dbda3d987ce2a441c',1,'vt::vrt::collection::CollectionDirectory::Element']]],
   ['file_5ftype',['file_type',['../structvt_1_1trace_1_1vt__gz_file.html#ad76fc8569dffe67628ad492daee76dbf',1,'vt::trace::vt_gzFile']]],
   ['final_5fchild',['final_child',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#adc83bddfb1fc46d47c4b3b2c0d75038a',1,'vt::vrt::collection::lb::HierLBChild']]],

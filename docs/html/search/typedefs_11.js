@@ -42,5 +42,6 @@ var searchData=
   ['typedeventcontainertype',['TypedEventContainerType',['../structvt_1_1event_1_1_async_event.html#af0397f32fb9d7dd136c544737eeb7796',1,'vt::event::AsyncEvent']]],
   ['typedindexcontainer',['TypedIndexContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ae8d4ff940c971d52b237cf4d6049380a',1,'vt::vrt::collection::Holder']]],
   ['typedlbcontainer',['TypedLBContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a9738cadcf89ace9c3d0c23990e4f919e',1,'vt::vrt::collection::Holder']]],
-  ['typeenum',['TypeEnum',['../structvt_1_1seq_1_1_seq_node.html#ac24353353c002acd8c5d6aa533533216',1,'vt::seq::SeqNode']]]
+  ['typeenum',['TypeEnum',['../structvt_1_1seq_1_1_seq_node.html#ac24353353c002acd8c5d6aa533533216',1,'vt::seq::SeqNode']]],
+  ['typeidx',['TypeIdx',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#acd3f9e6b091bcfbc23dc35ea8ef45d3b',1,'checkpoint::dispatch::vrt']]]
 ];

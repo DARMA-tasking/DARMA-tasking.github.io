@@ -37,6 +37,7 @@ var searchData=
   ['chain5',['Chain5',['../namespacevt_1_1vrt_1_1collection_1_1col__proxy.html#a96685f5884d57269c5c7dfe14dcc361b',1,'vt::vrt::collection::col_proxy']]],
   ['childmaptype',['ChildMapType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a95e5a93033703216cad8ec7a3da7a2ef',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['childptrtype',['ChildPtrType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a4dd8525145427a29350a287a777655de',1,'vt::vrt::collection::lb::HierarchicalLB']]],
+  ['cleant',['CleanT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a5ca6cd4c73773e29c340901d3e6864d2',1,'checkpoint::dispatch::CleanType']]],
   ['cleanupfntype',['CleanupFnType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a95c122e5b83bc51c306c9367b8e62c07',1,'vt::vrt::collection::CollectionManager']]],
   ['cleanuplistfntype',['CleanupListFnType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a735e54bc5a8646536d07750e2549a156',1,'vt::vrt::collection::CollectionManager']]],
   ['colhantype',['ColHanType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a0bf4e2e805b3ce2be9f499e0e39aadfa',1,'vt::pipe::PipeManagerTL']]],

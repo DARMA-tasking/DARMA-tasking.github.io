@@ -3,6 +3,7 @@ var searchData=
   ['p_5fc',['P_c',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1ac81086e94cc11392bc08344156ee454b',1,'vt::vrt::collection::lb']]],
   ['p_5fl',['P_l',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1af76181d80de89c5736a21709e19caa61',1,'vt::vrt::collection::lb']]],
   ['p_5ft',['P_t',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aa71b9ae19e509388f5ab7bc3559a9109',1,'vt::vrt::collection::lb']]],
+  ['packing',['Packing',['../namespacecheckpoint.html#ae2509499ccd8b1dc48fb535bf8aa3059ac46192253e8458f209a350a132cfc876',1,'checkpoint']]],
   ['parallelconstruct',['ParallelConstruct',['../namespacevt_1_1seq.html#a3041a01a5db2bccb3183e73b49e78252ac5d7fb4472e67ad94349a2bfd6b14dfe',1,'vt::seq']]],
   ['parallelnode',['ParallelNode',['../namespacevt_1_1seq.html#ae721d4e8b95cf57a7e4169db1929e0f1ab93ad8a05dfc00c50baa291e7a808ba6',1,'vt::seq']]],
   ['parallelorder',['ParallelOrder',['../namespacevt_1_1seq.html#a313357c71bba2bea5c57f50d69f1edf7a6eacb85aebc054ba02a4742b0eac1736',1,'vt::seq']]],
@@ -14,8 +15,8 @@ var searchData=
   ['pendinglocalaction',['PendingLocalAction',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804a5470923d68625570211944d98a6a0562',1,'vt::vrt::collection']]],
   ['pendingschedulerloop',['PendingSchedulerLoop',['../namespacevt_1_1sched.html#a54756ec39b60951d6765fcfa692d1616aa75e330bc5c4f9fd26dad998d5b20df4',1,'vt::sched']]],
   ['persist',['Persist',['../namespacevt_1_1pipe.html#a21eef17afd7b326e3b65894dffa25901ac18837aff5b91489fb6ecd1d654c9fe6',1,'vt::pipe']]],
-  ['pipe',['pipe',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()']]],
-  ['pool',['Pool',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12adef36b726efed529b13ba240dd331a12',1,'vt::error::Pool()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a50ba0efa092380eb92cee1d921d6e40f',1,'vt::config::pool()']]],
+  ['pipe',['Pipe',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()']]],
+  ['pool',['pool',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a50ba0efa092380eb92cee1d921d6e40f',1,'vt::config::pool()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12adef36b726efed529b13ba240dd331a12',1,'vt::error::Pool()']]],
   ['prohibit',['prohibit',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f',1,'vt::messaging']]],
   ['put',['Put',['../namespacevt_1_1rdma.html#ac848e1d9da43db6294bd06f83e5d3946a6cc12e3b6374ba01b98266a39056f047',1,'vt::rdma']]]
 ];

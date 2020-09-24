@@ -43,6 +43,7 @@ var searchData=
   ['this_5fevent_5ftype_5f',['this_event_type_',['../structvt_1_1trace_1_1_event.html#a51ce0a1bf8edd079479273d794a9820b',1,'vt::trace::Event']]],
   ['this_5fevent_5ftype_5fseq_5f',['this_event_type_seq_',['../structvt_1_1trace_1_1_event.html#a915f6b615f2c1ff3dc1e673603a5e0a0',1,'vt::trace::Event']]],
   ['this_5fget_5fhandler',['this_get_handler',['../structvt_1_1rdma_1_1_state.html#aaf5cfa0e6200282d9d3c6e29a0a40849',1,'vt::rdma::State']]],
+  ['this_5fidx_5f',['this_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a0fc5b0685579bc7a19343c03c4062e77',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
   ['this_5finst',['this_inst',['../structvt_1_1location_1_1_entity_location_coord.html#ade191f7cf6aba682f960abef1ddab9fc',1,'vt::location::EntityLocationCoord']]],
   ['this_5fload',['this_load',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ab7df874591552c346fc77858983fbbec',1,'vt::vrt::collection::lb::BaseLB']]],
   ['this_5fload_5fbegin',['this_load_begin',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a95beecba794f8ac758242f1507a6d0ab',1,'vt::vrt::collection::lb::GreedyLB::this_load_begin()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a2d4333062fc0c28e7774b23300893889',1,'vt::vrt::collection::lb::HierarchicalLB::this_load_begin()']]],

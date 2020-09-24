@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['object_5fregistry_2eh',['object_registry.h',['../object__registry_8h.html',1,'']]],
   ['objgroup_2emd',['objgroup.md',['../objgroup_8md.html',1,'']]],
   ['omp_5fatomic_2eh',['omp_atomic.h',['../omp__atomic_8h.html',1,'']]],
   ['omp_5fmutex_2ecc',['omp_mutex.cc',['../omp__mutex_8cc.html',1,'']]],

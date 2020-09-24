@@ -27,6 +27,7 @@ var searchData=
   ['width',['width',['../structvt_1_1term_1_1interval_1_1_interval.html#af3222f61f45e1e5a7fdd5a127e300289',1,'vt::term::interval::Interval']]],
   ['window_5f',['window_',['../structvt_1_1rdma_1_1_channel.html#aaecfddf4b74d52f4924d228ec46bcf59',1,'vt::rdma::Channel::window_()'],['../structvt_1_1rdma_1_1_lock_m_p_i.html#a641c0b10028472abe859317c94a1c511',1,'vt::rdma::LockMPI::window_()']]],
   ['windowtype',['WindowType',['../structvt_1_1term_1_1_termination_detector.html#a2c002273d9304c3cf72be85dd7d3ce52',1,'vt::term::TerminationDetector']]],
+  ['with',['with',['../structcheckpoint_1_1dispatch_1_1_traverse.html#a179ea8a80a3cf9a50091b70da785eb83',1,'checkpoint::dispatch::Traverse::with(T &amp;target, TraverserT &amp;t, SerialSizeType len=1)'],['../structcheckpoint_1_1dispatch_1_1_traverse.html#a52e345aa5da6b8d7866a15993356788c',1,'checkpoint::dispatch::Traverse::with(T &amp;target, Args &amp;&amp;... args)']]],
   ['work_5f',['work_',['../structvt_1_1sched_1_1_priority_unit.html#ab8b3a78c58c74378e0d03de0e10af30d',1,'vt::sched::PriorityUnit::work_()'],['../structvt_1_1sched_1_1_unit.html#ad1c63e6b9e5f734c1d3a63ca121c4c43',1,'vt::sched::Unit::work_()']]],
   ['work_5fqueue_5f',['work_queue_',['../structvt_1_1sched_1_1_scheduler.html#a8176bae441897c36b86e3fb917496a7a',1,'vt::sched::Scheduler']]],
   ['work_5funit_2eh',['work_unit.h',['../work__unit_8h.html',1,'']]],
@@ -73,7 +74,8 @@ var searchData=
   ['workunitcounttype',['WorkUnitCountType',['../namespacevt_1_1worker.html#a8080c49350b0520151601a8b24d6c6cf',1,'vt::worker']]],
   ['workunittype',['WorkUnitType',['../namespacevt_1_1worker.html#a59d2fcdafa81fc0af7f921a258e42202',1,'vt::worker']]],
   ['writedatatochannel',['writeDataToChannel',['../structvt_1_1rdma_1_1_channel.html#af7d6fb54933f6ad3d12cb600ababfa18',1,'vt::rdma::Channel']]],
-  ['writetofile',['writeToFile',['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()']]],
+  ['writetofile',['writeToFile',['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()'],['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer::WriteToFile()']]],
+  ['writetofiletag',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
   ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace.html#a7d0fc2fd82be06ecd24bf4e2b33ac52b',1,'vt::trace::Trace']]],
   ['wrote_5fsts_5ffile_5f',['wrote_sts_file_',['../structvt_1_1trace_1_1_trace.html#a1ee7ce001d317ebb4b30dc04e5902ca4',1,'vt::trace::Trace']]]
 ];

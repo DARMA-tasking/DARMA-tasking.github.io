@@ -8,6 +8,8 @@ var searchData=
   ['nodesettype',['NodeSetType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#abb53f1d4bd3c37f3e68c3b5b0e1f1c86',1,'vt::vrt::collection::lb::GossipLB']]],
   ['nodetype',['NodeType',['../namespacevt.html#a866da9d0efc19c0a1ce79e9e492f47e2',1,'vt']]],
   ['noelementactiontype',['NoElementActionType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a6b9b76aadc721cec45d3e0e02d849ff1',1,'vt::vrt::collection::CollectionManager']]],
+  ['nonconstreft',['NonConstRefT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a22ac8ae19000187cd7d3d218f3efa46e',1,'checkpoint::dispatch::CleanType']]],
+  ['nonconstt',['NonConstT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#af8cc50327016b4a8410504e245edeb6f',1,'checkpoint::dispatch::CleanType']]],
   ['none',['None',['../namespacevt_1_1collective.html#ab9abd77f58f0ede6d24462b95d0a1989',1,'vt::collective']]],
   ['noneop',['NoneOp',['../namespacevt_1_1collective.html#a812e9225d75c8888457b29f971c33f75',1,'vt::collective']]],
   ['nonetype',['NoneType',['../namespacevt_1_1collective_1_1reduce_1_1operators.html#a1e8a587884de5e874a701ee300ca247c',1,'vt::collective::reduce::operators::NoneType()'],['../namespacevt_1_1collective.html#af988b64711231f96d33ebfaf891e52a4',1,'vt::collective::NoneType()']]],
