@@ -54,7 +54,6 @@ var searchData=
   ['specentry',['SpecEntry',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_entry.html',1,'vt::trace::file_spec::TraceSpec::SpecEntry'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html',1,'vt::vrt::collection::balance::SpecEntry']]],
   ['specmsg',['SpecMsg',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_msg.html',1,'vt::trace::file_spec::TraceSpec']]],
   ['standard',['Standard',['../structcheckpoint_1_1dispatch_1_1_standard.html',1,'checkpoint::dispatch']]],
-  ['startlbmsg',['StartLBMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_start_l_b_msg.html',1,'vt::vrt::collection::balance']]],
   ['stat',['Stat',['../structvt_1_1util_1_1memory_1_1_stat.html',1,'vt::util::memory']]],
   ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma']]],
   ['stateds',['StateDS',['../structvt_1_1term_1_1ds_1_1_state_d_s.html',1,'vt::term::ds']]],

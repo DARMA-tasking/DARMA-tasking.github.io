@@ -5,6 +5,7 @@ var searchData=
   ['lbcontlisttype',['LBContListType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#af26a59243dd4e1a86d8fcf320a8dc463',1,'vt::vrt::collection::Holder']]],
   ['lbentitytype',['LBEntityType',['../namespacevt.html#a92ec26fb6644cd0ba7eb0ee70c96bee5',1,'vt']]],
   ['lbphasetype',['LBPhaseType',['../namespacevt.html#a5505d0bab25ce2ff566a8e015871b379',1,'vt']]],
+  ['lbproxytype',['LBProxyType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a8b1a7735366beb85c2c2ccc3912cdd80',1,'vt::vrt::collection::balance::LBManager']]],
   ['lbtypetype',['LBTypeType',['../namespacestd.html#ae3c14c256fabd8bbed83c439b367c3d8',1,'std']]],
   ['listenerbasetype',['ListenerBaseType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a84b564235f6d400782769c94a75d6622',1,'vt::pipe::signal::SignalHolder']]],
   ['listenerfntype',['ListenerFnType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a1bb65b50c7cefb8c139a9f40a83ca18b',1,'vt::vrt::collection::balance::LBManager']]],
