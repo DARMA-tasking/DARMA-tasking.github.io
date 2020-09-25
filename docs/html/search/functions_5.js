@@ -75,6 +75,7 @@ var searchData=
   ['envelopesetref',['envelopeSetRef',['../namespacevt.html#a43dd08b8f10d3a1c79872a759aa11662',1,'vt']]],
   ['envelopesettag',['envelopeSetTag',['../namespacevt.html#a0eb7eef640bbf48bff94e6683be7a3dd',1,'vt']]],
   ['envelopesetup',['envelopeSetup',['../namespacevt.html#a342e0012cb5a73a61a2e1619451c5898',1,'vt']]],
+  ['envelopeunlockforforwarding',['envelopeUnlockForForwarding',['../namespacevt.html#af3b1b3751353bac014e08070383062e9',1,'vt']]],
   ['epimigratein',['epiMigrateIn',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html#ab62eb6ac33ae44f73d6b6e5977d0f81e',1,'vt::vrt::collection::MigrateHookInterface::epiMigrateIn()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html#a9b687a96cbba5d12d1c87aee0e985997',1,'vt::vrt::collection::MigrateHookBase::epiMigrateIn()']]],
   ['epimigrateout',['epiMigrateOut',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html#ac1f0d90fec0c3b0f9df2f5379b53e15f',1,'vt::vrt::collection::MigrateHookInterface::epiMigrateOut()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html#aa5bdff485cc373da8828e845a45bccb6',1,'vt::vrt::collection::MigrateHookBase::epiMigrateOut()']]],
   ['epochcontinue',['epochContinue',['../structvt_1_1term_1_1_termination_detector.html#aa26ade7d870d21b3ec9f5e97154bb847',1,'vt::term::TerminationDetector']]],

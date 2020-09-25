@@ -340,7 +340,7 @@ var searchData=
   ['msgcontainertype',['MsgContainerType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ab89e17bd301b2aa684fce22f0b4af30a',1,'vt::objgroup::ObjGroupManager::MsgContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state.html#a6821f61ac6a41b210001f49224ed4c9e',1,'vt::seq::SeqMsgState::MsgContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a04ba59629edd91369fb4dcb17784c370',1,'vt::seq::SeqMsgStateVirtual::MsgContainerType()']]],
   ['msgconttype',['MsgContType',['../structvt_1_1messaging_1_1_active_messenger.html#a18bbfbf9ecd82b33f6fc475b2e5290a5',1,'vt::messaging::ActiveMessenger']]],
   ['msgcounttype',['MsgCountType',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a041d928748b444f18ea3ddb72fdbe08a',1,'vt::collective::reduce::ReduceLink']]],
-  ['msghandler',['msgHandler',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_combine.html#aa1657dc492475bc1d82d1dc282ee37ce',1,'vt::collective::reduce::operators::ReduceCombine::msgHandler()'],['../structvt_1_1location_1_1_entity_location_coord.html#aebbe92ccf15f7a0295a3d1ecb3b1d5d8',1,'vt::location::EntityLocationCoord::msgHandler()']]],
+  ['msghandler',['msgHandler',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_combine.html#aa1657dc492475bc1d82d1dc282ee37ce',1,'vt::collective::reduce::operators::ReduceCombine']]],
   ['msgincprioritylevel',['msgIncPriorityLevel',['../namespacevt_1_1messaging.html#a6ee5ed1aac4e553185dc3fe80544ac2a',1,'vt::messaging']]],
   ['msgprocessed',['msgProcessed',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a16ad493d9d01db734c20ea9a55b0ffc5',1,'vt::term::ds::TermDS']]],
   ['msgptr',['MsgPtr',['../namespacevt.html#a9f5ebd62ee9d6dd8829e3e1cc4f858e9',1,'vt']]],

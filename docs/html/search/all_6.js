@@ -171,6 +171,7 @@ var searchData=
   ['envelopesettag',['envelopeSetTag',['../namespacevt.html#a0eb7eef640bbf48bff94e6683be7a3dd',1,'vt']]],
   ['envelopesetup',['envelopeSetup',['../namespacevt.html#a342e0012cb5a73a61a2e1619451c5898',1,'vt']]],
   ['envelopetype',['EnvelopeType',['../structvt_1_1messaging_1_1_active_msg.html#a6e2b0541c25f7290555bf50d7cc05874',1,'vt::messaging::ActiveMsg']]],
+  ['envelopeunlockforforwarding',['envelopeUnlockForForwarding',['../namespacevt.html#af3b1b3751353bac014e08070383062e9',1,'vt']]],
   ['envepochtype',['EnvEpochType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6caf3d587b9226f61f46fb0916af17120b7',1,'vt::messaging']]],
   ['envpackedput',['EnvPackedPut',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6ca2b7cfe3194094b03d3b7bccb05241824',1,'vt::messaging']]],
   ['envpipe',['EnvPipe',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6ca3f3cc808029e09ae1e1727fcc0185853',1,'vt::messaging']]],
