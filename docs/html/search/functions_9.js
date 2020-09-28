@@ -95,6 +95,7 @@ var searchData=
   ['iscommworld',['isCommWorld',['../structvt_1_1ctx_1_1_context.html#a78d9926c3f75b1296e81607fd303f8f1',1,'vt::ctx::Context']]],
   ['isconstructed',['isConstructed',['../structvt_1_1vrt_1_1_virtual_info.html#a138ef8d178b91215ef63627b73df5ad4',1,'vt::vrt::VirtualInfo']]],
   ['iscontrol',['isControl',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html#a165dce2ea9c2f711132ed70e38c7835d',1,'vt::objgroup::proxy::ObjGroupProxy']]],
+  ['isdeallocated',['isDeallocated',['../structvt_1_1collective_1_1_collective_alg.html#ae57f4f34b34540d652c15f5dffeae54c',1,'vt::collective::CollectiveAlg']]],
   ['isdefault',['isDefault',['../structvt_1_1group_1_1_group_msg.html#aedab140ac671d3a1830bafd787d8f780',1,'vt::group::GroupMsg']]],
   ['isdestroyed',['isDestroyed',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a974126763d197024453d3ed2dcc9d215',1,'vt::vrt::collection::Holder']]],
   ['isds',['isDS',['../structvt_1_1term_1_1_termination_detector.html#a3ab6ba4618093384b6ddd6c0607df543',1,'vt::term::TerminationDetector']]],
@@ -145,6 +146,7 @@ var searchData=
   ['isuniform',['isUniform',['../structvt_1_1rdma_1_1_holder.html#af5a5f41fb16fbf8ee0f7f1b51120cb65',1,'vt::rdma::Holder::isUniform()'],['../structvt_1_1rdma_1_1_sub_handle.html#a8c6c6c237a31ecd12ec9fa5e875b20a7',1,'vt::rdma::SubHandle::isUniform()']]],
   ['isunpacking',['isUnpacking',['../structcheckpoint_1_1_serializer.html#a3a09ea026ff2c6ddf863f9c1a6463466',1,'checkpoint::Serializer']]],
   ['isuser',['isUser',['../structvt_1_1epoch_1_1_epoch_manip.html#afb2b55c1d422512bc266f04e1aff7904',1,'vt::epoch::EpochManip']]],
+  ['isusertag',['isUserTag',['../structvt_1_1collective_1_1_collective_scope.html#a8f8aa109ef27449f8fcb5eb378587196',1,'vt::collective::CollectiveScope']]],
   ['isvirtual',['isVirtual',['../structvt_1_1seq_1_1_seq_manager.html#a9a5b739e65924f54a962b75435e53dd3',1,'vt::seq::SeqManager']]],
   ['isvirtualdisabled',['isVirtualDisabled',['../structcheckpoint_1_1_serializer.html#af45e225cdb3a750a06de80a8cd5c6c37',1,'checkpoint::Serializer']]],
   ['it_5fgreen',['it_green',['../namespacevt_1_1debug.html#a749c31dee324cac600ec442f9f39eb7c',1,'vt::debug']]]

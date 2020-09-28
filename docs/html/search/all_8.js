@@ -291,6 +291,7 @@ var searchData=
   ['getsample',['getSample',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#aeb49fabc4eb3b15bf698309c651abafe',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['getsamplemove',['getSampleMove',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#a294dcb18ec60ae644f5a5112bbd2987a',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['getscope',['getScope',['../structvt_1_1collective_1_1_collective_scope.html#a71b296b1ab86bf0814a4863327165f1c',1,'vt::collective::CollectiveScope']]],
+  ['getscopebits',['getScopeBits',['../structvt_1_1collective_1_1_collective_scope.html#abed60df0901f32a362a908dccdcbe0fb',1,'vt::collective::CollectiveScope']]],
   ['getsendnode',['getSendNode',['../structvt_1_1pipe_1_1callback_1_1_callback_send_typeless.html#a73489917b0876b98d0a8e2568148c9a8',1,'vt::pipe::callback::CallbackSendTypeless']]],
   ['getseq',['getSeq',['../structvt_1_1seq_1_1_seq_context.html#a24fb30ec00c71ae6ae51ba6931957f2a',1,'vt::seq::SeqContext::getSeq()'],['../structvt_1_1seq_1_1_seq_list.html#ab1ddc27b4429eb899519bb75335d0882',1,'vt::seq::SeqList::getSeq()']]],
   ['getseqid',['getSeqID',['../structvt_1_1seq_1_1_seq_node.html#a1bd6d41892c8291b6222465c72c33eba',1,'vt::seq::SeqNode::getSeqID()'],['../structvt_1_1seq_1_1_tagged_sequencer.html#a47eb9c68e4f21a4eb53dce74ca2f9d49',1,'vt::seq::TaggedSequencer::getSeqID()']]],

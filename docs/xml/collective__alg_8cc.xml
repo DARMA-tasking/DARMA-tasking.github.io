@@ -4083,159 +4083,165 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CollectiveScope(is_user_tag,<sp/>scope_tag);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We<sp/>can<sp/>not<sp/>use<sp/>a<sp/>VT<sp/>broadcast<sp/>here<sp/>because<sp/>it<sp/>involves<sp/>the<sp/>scheduler<sp/>and</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MPI<sp/>progress<sp/>and<sp/>there&apos;s<sp/>no<sp/>safe<sp/>way<sp/>to<sp/>guarantee<sp/>that<sp/>the<sp/>message<sp/>has<sp/>been</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/>received<sp/>and<sp/>processed<sp/>and<sp/>doesn&apos;t<sp/>require<sp/>progress<sp/>from<sp/>another<sp/>node</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>broadcastConsensus(</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>root,<sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref>&amp;<sp/>consensus_tag,<sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref>&amp;<sp/>consensus_scope,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>consensus_is_user_tag</highlight></codeline>
-<codeline lineno="83"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>comm<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a2d4378c97824792991a3410449cf19db" kindref="member">getComm</ref>();</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/>MPI_Request<sp/>req;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>MPI_INT32_T<sp/>x<sp/>3</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/>int32_t<sp/>req_buffer[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_tag},</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_scope},</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_is_user_tag}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Do<sp/>a<sp/>async<sp/>broadcast<sp/>of<sp/>the<sp/>scope/seq<sp/>we<sp/>intend<sp/>to<sp/>execute<sp/>collectively</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Ibcast(req_buffer,<sp/>3,<sp/>MPI_INT32_T,<sp/>root,<sp/>comm,<sp/>&amp;req);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1collective_1_1_collective_alg_1ae57f4f34b34540d652c15f5dffeae54c" kindref="member">CollectiveAlg::isDeallocated</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_user_tag,<sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref><sp/>scope_bits)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>scopes<sp/>=<sp/>is_user_tag<sp/>?<sp/>user_scope_<sp/>:<sp/>system_scope_<sp/>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>scopes.find(scope_bits);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>iter<sp/>==<sp/>scopes.end();</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We<sp/>can<sp/>not<sp/>use<sp/>a<sp/>VT<sp/>broadcast<sp/>here<sp/>because<sp/>it<sp/>involves<sp/>the<sp/>scheduler<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MPI<sp/>progress<sp/>and<sp/>there&apos;s<sp/>no<sp/>safe<sp/>way<sp/>to<sp/>guarantee<sp/>that<sp/>the<sp/>message<sp/>has<sp/>been</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>received<sp/>and<sp/>processed<sp/>and<sp/>doesn&apos;t<sp/>require<sp/>progress<sp/>from<sp/>another<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>broadcastConsensus(</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>root,<sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref>&amp;<sp/>consensus_tag,<sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref>&amp;<sp/>consensus_scope,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&amp;<sp/>consensus_is_user_tag</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>comm<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a2d4378c97824792991a3410449cf19db" kindref="member">getComm</ref>();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>MPI_Request<sp/>req;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>MPI_INT32_T<sp/>x<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>int32_t<sp/>req_buffer[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_tag},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_scope},</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t{consensus_is_user_tag}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([&amp;req]{</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flag<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Test(&amp;req,<sp/>&amp;flag,<sp/>MPI_STATUS_IGNORE);</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>flag;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/>consensus_tag<sp/>=<sp/>req_buffer[0];</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/>consensus_scope<sp/>=<sp/>req_buffer[1];</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/>consensus_is_user_tag<sp/>=<sp/>req_buffer[2]<sp/>not_eq<sp/>0;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(consensus_tag<sp/><sp/><sp/>!=<sp/>no_tag,<sp/></highlight><highlight class="stringliteral">&quot;Selected<sp/>tag<sp/>must<sp/>be<sp/>valid&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(consensus_scope<sp/>!=<sp/>no_tag,<sp/></highlight><highlight class="stringliteral">&quot;Selected<sp/>scope<sp/>must<sp/>be<sp/>valid&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>a<sp/>barrier<sp/>here<sp/>so<sp/>the<sp/>root<sp/>doesn&apos;t<sp/>finish<sp/>the<sp/>broadcast<sp/>first<sp/>and</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>then<sp/>enter<sp/>the<sp/>collective.<sp/>We<sp/>could<sp/>replace<sp/>the<sp/>Ibcast/Ibarrier<sp/>with<sp/>a</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Iallreduce,<sp/>but<sp/>I<sp/>think<sp/>this<sp/>is<sp/>cheaper</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Ibarrier(comm,<sp/>&amp;req);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([&amp;req]{</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flag<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Test(&amp;req,<sp/>&amp;flag,<sp/>MPI_STATUS_IGNORE);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>flag;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*static*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1collective_1_1_collective_alg_1a9ed7397e91a18458c3a578be3605baa9" kindref="member">CollectiveAlg::runCollective</ref>(CollectiveMsg*<sp/>msg)<sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>a<sp/>reentrancy<sp/>counter<sp/>to<sp/>ensure<sp/>that<sp/>this<sp/>is<sp/>only<sp/>on<sp/>the<sp/>scheduler</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>stack<sp/>once!</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reenter_counter_<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(reenter_counter_<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Postpone<sp/>any<sp/>collective<sp/>while<sp/>the<sp/>current<sp/>one<sp/>resolves</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>.emplace_back(<ref refid="namespacevt_1af00ebdeb74801e5658cf5726193d5753" kindref="member">promoteMsg</ref>(msg));</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Do<sp/>a<sp/>async<sp/>broadcast<sp/>of<sp/>the<sp/>scope/seq<sp/>we<sp/>intend<sp/>to<sp/>execute<sp/>collectively</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Ibcast(req_buffer,<sp/>3,<sp/>MPI_INT32_T,<sp/>root,<sp/>comm,<sp/>&amp;req);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([&amp;req]{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Test(&amp;req,<sp/>&amp;flag,<sp/>MPI_STATUS_IGNORE);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>flag;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>consensus_tag<sp/>=<sp/>req_buffer[0];</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>consensus_scope<sp/>=<sp/>req_buffer[1];</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>consensus_is_user_tag<sp/>=<sp/>req_buffer[2]<sp/>not_eq<sp/>0;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(consensus_tag<sp/><sp/><sp/>!=<sp/>no_tag,<sp/></highlight><highlight class="stringliteral">&quot;Selected<sp/>tag<sp/>must<sp/>be<sp/>valid&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(consensus_scope<sp/>!=<sp/>no_tag,<sp/></highlight><highlight class="stringliteral">&quot;Selected<sp/>scope<sp/>must<sp/>be<sp/>valid&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>a<sp/>barrier<sp/>here<sp/>so<sp/>the<sp/>root<sp/>doesn&apos;t<sp/>finish<sp/>the<sp/>broadcast<sp/>first<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>then<sp/>enter<sp/>the<sp/>collective.<sp/>We<sp/>could<sp/>replace<sp/>the<sp/>Ibcast/Ibarrier<sp/>with<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Iallreduce,<sp/>but<sp/>I<sp/>think<sp/>this<sp/>is<sp/>cheaper</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Ibarrier(comm,<sp/>&amp;req);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([&amp;req]{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Test(&amp;req,<sp/>&amp;flag,<sp/>MPI_STATUS_IGNORE);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>flag;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*static*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1collective_1_1_collective_alg_1a9ed7397e91a18458c3a578be3605baa9" kindref="member">CollectiveAlg::runCollective</ref>(CollectiveMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>a<sp/>reentrancy<sp/>counter<sp/>to<sp/>ensure<sp/>that<sp/>this<sp/>is<sp/>only<sp/>on<sp/>the<sp/>scheduler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>stack<sp/>once!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reenter_counter_<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/>reenter_counter_++;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref><sp/>consensus_scope<sp/>=<sp/>no_tag;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref><sp/>consensus_tag<sp/>=<sp/>no_tag;</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>consensus_is_user_tag<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>root<sp/>decides<sp/>the<sp/>next<sp/>tag<sp/>and<sp/>tells<sp/>the<sp/>remaining<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(msg-&gt;root_<sp/>==<sp/>this_node)<sp/>{</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>scopes<sp/>=<sp/>msg-&gt;is_user_tag_<sp/>?</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a72bb12e5bbe0c52e867c81e76db318d9" kindref="member">user_scope_</ref><sp/>:</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a947ce4f129e1cf626da031595fe5df5c" kindref="member">system_scope_</ref><sp/>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(reenter_counter_<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Postpone<sp/>any<sp/>collective<sp/>while<sp/>the<sp/>current<sp/>one<sp/>resolves</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>.emplace_back(<ref refid="namespacevt_1af00ebdeb74801e5658cf5726193d5753" kindref="member">promoteMsg</ref>(msg));</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>reenter_counter_++;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref><sp/>consensus_scope<sp/>=<sp/>no_tag;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a84ab281dae04a52a4b243d6bf62d0e52" kindref="member">TagType</ref><sp/>consensus_tag<sp/>=<sp/>no_tag;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>consensus_is_user_tag<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="debug__print_8h_1ad7b20c67ccffd7217fda0227eeaf4650" kindref="member">vt_debug_print</ref>(</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5b2fa777115f03c6d550ec721c0a93a5" kindref="member">gen</ref>,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>,</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;runCollective:<sp/>is_user_tag={},<sp/>scope={},<sp/>seq={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>msg-&gt;is_user_tag_,<sp/>msg-&gt;scope_,<sp/>msg-&gt;seq_</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>root<sp/>decides<sp/>the<sp/>next<sp/>tag<sp/>and<sp/>tells<sp/>the<sp/>remaining<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(msg-&gt;root_<sp/>==<sp/>this_node)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>scopes<sp/>=<sp/>msg-&gt;is_user_tag_<sp/>?</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a72bb12e5bbe0c52e867c81e76db318d9" kindref="member">user_scope_</ref><sp/>:</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a947ce4f129e1cf626da031595fe5df5c" kindref="member">system_scope_</ref><sp/>;</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Make<sp/>sure<sp/>that<sp/>is<sp/>exists<sp/>as<sp/>it<sp/>should</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>scopes.find(msg-&gt;scope_);</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(iter<sp/>!=<sp/>scopes.end(),<sp/></highlight><highlight class="stringliteral">&quot;Collective<sp/>scope<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope<sp/>=<sp/>msg-&gt;scope_;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_tag<sp/>=<sp/>msg-&gt;seq_;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_is_user_tag<sp/>=<sp/>msg-&gt;is_user_tag_;</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/>broadcastConsensus(</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>msg-&gt;root_,</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope,<sp/>consensus_tag,<sp/>consensus_is_user_tag<sp/></highlight><highlight class="comment">//<sp/>in-out<sp/>refs</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="debug__print_8h_1ad7b20c67ccffd7217fda0227eeaf4650" kindref="member">vt_debug_print</ref>(</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5b2fa777115f03c6d550ec721c0a93a5" kindref="member">gen</ref>,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>,</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;mpiCollective:<sp/>consensus_tag={},<sp/>msg-&gt;tag_={},<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;consensus_scope={},<sp/>msg-&gt;scope_={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_tag,<sp/>msg-&gt;seq_,</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope,<sp/>msg-&gt;scope_</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>scopes<sp/>=<sp/>consensus_is_user_tag<sp/>?</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a72bb12e5bbe0c52e867c81e76db318d9" kindref="member">user_scope_</ref><sp/>:</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a947ce4f129e1cf626da031595fe5df5c" kindref="member">system_scope_</ref><sp/>;</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Execute<sp/>the<sp/>action<sp/>that<sp/>the<sp/>root<sp/>selected</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>scopes.find(consensus_scope);</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(iter<sp/>!=<sp/>scopes.end(),<sp/></highlight><highlight class="stringliteral">&quot;Collective<sp/>scope<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>impl<sp/>=<sp/>iter-&gt;second.get();</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter_seq<sp/>=<sp/>impl-&gt;planned_collective_.find(consensus_tag);</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>iter_seq<sp/>!=<sp/>impl-&gt;planned_collective_.end(),</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Planned<sp/>collective<sp/>does<sp/>not<sp/>exist<sp/>within<sp/>scope&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>action<sp/>=<sp/>iter_seq-&gt;second.action_;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/>iter_seq-&gt;second.epoch_;</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Run<sp/>the<sp/>collective<sp/>safely.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>action<sp/>is<sp/>expected<sp/>to<sp/>use<sp/>MPI<sp/>calls;<sp/>not<sp/>VT<sp/>calls.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1ac60a61b85392a5c40d2334919981963a" kindref="member">pushEpoch</ref>(epoch);</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>action();</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1a0ff3c2d9bf6ccd66002679b93821229c" kindref="member">popEpoch</ref>(epoch);</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>(epoch);</highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Erase<sp/>the<sp/>tag<sp/>that<sp/>was<sp/>actually<sp/>executed</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/>impl-&gt;planned_collective_.erase(iter_seq);</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cleanup<sp/>if<sp/>the<sp/>CollectiveScope<sp/>is<sp/>destroyed<sp/>and<sp/>no<sp/>other<sp/>planned</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>collectives<sp/>exists---nothing<sp/>more<sp/>can<sp/>be<sp/>created</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>impl-&gt;live_<sp/>and<sp/>impl-&gt;planned_collective_.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>scopes.erase(iter);</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="debug__print_8h_1ad7b20c67ccffd7217fda0227eeaf4650" kindref="member">vt_debug_print</ref>(</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5b2fa777115f03c6d550ec721c0a93a5" kindref="member">gen</ref>,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;runCollective:<sp/>is_user_tag={},<sp/>scope={},<sp/>seq={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>msg-&gt;is_user_tag_,<sp/>msg-&gt;scope_,<sp/>msg-&gt;seq_</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Make<sp/>sure<sp/>that<sp/>is<sp/>exists<sp/>as<sp/>it<sp/>should</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>scopes.find(msg-&gt;scope_);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(iter<sp/>!=<sp/>scopes.end(),<sp/></highlight><highlight class="stringliteral">&quot;Collective<sp/>scope<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope<sp/>=<sp/>msg-&gt;scope_;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_tag<sp/>=<sp/>msg-&gt;seq_;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_is_user_tag<sp/>=<sp/>msg-&gt;is_user_tag_;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>broadcastConsensus(</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>msg-&gt;root_,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope,<sp/>consensus_tag,<sp/>consensus_is_user_tag<sp/></highlight><highlight class="comment">//<sp/>in-out<sp/>refs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><ref refid="debug__print_8h_1ad7b20c67ccffd7217fda0227eeaf4650" kindref="member">vt_debug_print</ref>(</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5b2fa777115f03c6d550ec721c0a93a5" kindref="member">gen</ref>,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;mpiCollective:<sp/>consensus_tag={},<sp/>msg-&gt;tag_={},<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;consensus_scope={},<sp/>msg-&gt;scope_={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_tag,<sp/>msg-&gt;seq_,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>consensus_scope,<sp/>msg-&gt;scope_</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>scopes<sp/>=<sp/>consensus_is_user_tag<sp/>?</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a72bb12e5bbe0c52e867c81e76db318d9" kindref="member">user_scope_</ref><sp/>:</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1a947ce4f129e1cf626da031595fe5df5c" kindref="member">system_scope_</ref><sp/>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Execute<sp/>the<sp/>action<sp/>that<sp/>the<sp/>root<sp/>selected</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>scopes.find(consensus_scope);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(iter<sp/>!=<sp/>scopes.end(),<sp/></highlight><highlight class="stringliteral">&quot;Collective<sp/>scope<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>impl<sp/>=<sp/>iter-&gt;second.get();</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter_seq<sp/>=<sp/>impl-&gt;planned_collective_.find(consensus_tag);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>iter_seq<sp/>!=<sp/>impl-&gt;planned_collective_.end(),</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Planned<sp/>collective<sp/>does<sp/>not<sp/>exist<sp/>within<sp/>scope&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>action<sp/>=<sp/>iter_seq-&gt;second.action_;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>epoch<sp/>=<sp/>iter_seq-&gt;second.epoch_;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Run<sp/>the<sp/>collective<sp/>safely.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>action<sp/>is<sp/>expected<sp/>to<sp/>use<sp/>MPI<sp/>calls;<sp/>not<sp/>VT<sp/>calls.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mpi__access_8h_1a99651284f3c25773012920c19cf5c723" kindref="member">VT_ALLOW_MPI_CALLS</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1ac60a61b85392a5c40d2334919981963a" kindref="member">pushEpoch</ref>(epoch);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>action();</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1a0ff3c2d9bf6ccd66002679b93821229c" kindref="member">popEpoch</ref>(epoch);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>(epoch);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Erase<sp/>the<sp/>tag<sp/>that<sp/>was<sp/>actually<sp/>executed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>impl-&gt;planned_collective_.erase(iter_seq);</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"></highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/>reenter_counter_--;</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Recurse,<sp/>running<sp/>a<sp/>postponed<sp/>collective</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>postponed<sp/>=<sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>;</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(postponed.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>next_msg<sp/>=<sp/>postponed.back();</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>postponed.pop_back();</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>runCollective(next_msg.get());</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::collective</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cleanup<sp/>if<sp/>the<sp/>CollectiveScope<sp/>is<sp/>destroyed<sp/>and<sp/>no<sp/>other<sp/>planned</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>collectives<sp/>exists---nothing<sp/>more<sp/>can<sp/>be<sp/>created</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>impl-&gt;live_<sp/>and<sp/>impl-&gt;planned_collective_.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>scopes.erase(iter);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/>reenter_counter_--;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Recurse,<sp/>running<sp/>a<sp/>postponed<sp/>collective</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>postponed<sp/>=<sp/><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">theCollective</ref>()-&gt;<ref refid="structvt_1_1collective_1_1_collective_alg_1ac6db64bfd14e19d0a31f69a349a452c5" kindref="member">postponed_collectives_</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(postponed.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>next_msg<sp/>=<sp/>postponed.back();</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>postponed.pop_back();</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>runCollective(next_msg.get());</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::collective</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/collective/collective_alg.cc"/>
   </compounddef>
