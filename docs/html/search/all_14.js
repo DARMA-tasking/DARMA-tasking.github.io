@@ -530,7 +530,7 @@ var searchData=
   ['start_5fvrt_5fseq',['start_vrt_seq',['../structvt_1_1seq_1_1_seq_manager.html#aae6446338964093292b8dcaa79d77f96',1,'vt::seq::SeqManager']]],
   ['startepochgraphbuild',['startEpochGraphBuild',['../structvt_1_1term_1_1_termination_detector.html#a782a54afd99943982ce455416828ea66',1,'vt::term::TerminationDetector']]],
   ['startexitmsg',['StartExitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaf238a00c29282b3dfa0e07371168fc93',1,'vt::trace']]],
-  ['startitercleanup',['startIterCleanup',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a733842a0c3cfcf96ba801fdd24866433',1,'vt::vrt::collection::balance::NodeStats']]],
+  ['startitercleanup',['startIterCleanup',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#ae76790d41701769b86ef15e4924d661d',1,'vt::vrt::collection::balance::NodeStats']]],
   ['startlb',['startLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a47fca52d6d490f8ab83aaea5058abf92',1,'vt::vrt::collection::lb::BaseLB']]],
   ['startmigrations',['startMigrations',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a0fa467216218289dba2de1c4f88b655e',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['startphasecollective',['startPhaseCollective',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#af7522c6048b723201d966094adfefa94',1,'vt::vrt::collection::CollectionManager']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
+  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#aa800c86e610ba7b4ff0ddf0c91210136',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
   ['name_5f',['name_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6189fab0f945cd51f56aed0ebcd14ed6',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['named_5fbarrier_5fstate_5f',['named_barrier_state_',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#ae5a50600bf815ba049915d93bc48b727',1,'vt::collective::barrier::Barrier']]],
   ['needs_5flock_5f',['needs_lock_',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#af681c689f7800fca7e35364aeffd9964',1,'vt::util::container::ConcurrentDequeLocked::needs_lock_()'],['../structvt_1_1util_1_1container_1_1_process_buffer.html#af4c963364ec90b9384aaf850a95b9531',1,'vt::util::container::ProcessBuffer::needs_lock_()'],['../structvt_1_1vrt_1_1_virtual_info.html#a809cb8200de743c2ff7970baa50f99ee',1,'vt::vrt::VirtualInfo::needs_lock_()']]],

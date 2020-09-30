@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#acbc7348e1494f9db0a49321fe48b32d4',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
+  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#aa800c86e610ba7b4ff0ddf0c91210136',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
   ['naive_5fpersistence_2ecc',['naive_persistence.cc',['../naive__persistence_8cc.html',1,'']]],
   ['naive_5fpersistence_2eh',['naive_persistence.h',['../naive__persistence_8h.html',1,'']]],
   ['naivepersistence',['NaivePersistence',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html',1,'vt::vrt::collection::balance::NaivePersistence'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html#a7eb9921b30fbf64f3c2dbbe5a8cce396',1,'vt::vrt::collection::balance::NaivePersistence::NaivePersistence()']]],

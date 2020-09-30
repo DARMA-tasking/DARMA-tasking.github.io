@@ -80,7 +80,7 @@ var searchData=
   ['linearize',['linearize',['../structvt_1_1rdma_1_1_sub_handle.html#a35569a5d08c05d25f56136f5924e4315',1,'vt::rdma::SubHandle']]],
   ['linearizedenseindexcolmajor',['linearizeDenseIndexColMajor',['../namespacevt_1_1mapping.html#a4dd58859e65edd3145fc52392161c90a',1,'vt::mapping']]],
   ['linearizedenseindexrowmajor',['linearizeDenseIndexRowMajor',['../namespacevt_1_1mapping.html#abcd5f8f5e5c974ef83eaa87eeeb416a6',1,'vt::mapping']]],
-  ['linearmodel',['LinearModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model.html',1,'vt::vrt::collection::balance::LinearModel'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model.html#a5635a178ad9efde93b96d5f44e849175',1,'vt::vrt::collection::balance::LinearModel::LinearModel()']]],
+  ['linearmodel',['LinearModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model.html',1,'vt::vrt::collection::balance::LinearModel'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model.html#a90fff488014731417431b35295a263d7',1,'vt::vrt::collection::balance::LinearModel::LinearModel()']]],
   ['linearregression',['LinearRegression',['../structvt_1_1util_1_1stats_1_1_linear_regression.html',1,'vt::util::stats::LinearRegression'],['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a5ee7e2cca72dbd2d06acbd86529e40b4',1,'vt::util::stats::LinearRegression::LinearRegression()']]],
   ['link_5fderived_5fto_5fbase_5fidx_2eh',['link_derived_to_base_idx.h',['../link__derived__to__base__idx_8h.html',1,'']]],
   ['linkderivedtobase',['linkDerivedToBase',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#a386bc0347756889ae1d3849cf351110e',1,'checkpoint::dispatch::vrt']]],
