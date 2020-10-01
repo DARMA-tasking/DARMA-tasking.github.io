@@ -255,6 +255,7 @@ var searchData=
   ['getreadybits',['getReadyBits',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aa6872852acd04a94e2bff5addad2ad06',1,'vt::vrt::collection::CollectionManager']]],
   ['getrecvchildcount',['getRecvChildCount',['../structvt_1_1term_1_1_term_state.html#a9d9eb29f1af45d4287b9535f33f14363',1,'vt::term::TermState']]],
   ['getrecvmsg',['getRecvMsg',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a1c11e7b5616c22d03fd3884f99d3e7ff',1,'vt::rdma::RDMAManager']]],
+  ['getrecvsenddirection',['getRecvSendDirection',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a2d79bdb3acf651303e8a8a0b42d75d78',1,'vt::vrt::collection::balance']]],
   ['getreduce',['getReduce',['../structvt_1_1group_1_1_info_coll.html#a297cafe0cae350b83a677db585865e62',1,'vt::group::InfoColl']]],
   ['getreducer',['getReducer',['../structvt_1_1collective_1_1reduce_1_1_reduce_manager.html#ad502c08497db1a1d811e1cad034f4891',1,'vt::collective::reduce::ReduceManager']]],
   ['getreducercomponent',['getReducerComponent',['../structvt_1_1collective_1_1reduce_1_1_reduce_manager.html#ae154a987a32dfa8c86e0391a2915579d',1,'vt::collective::reduce::ReduceManager']]],
