@@ -17,7 +17,7 @@ The VT runtime that manages startup/shutdown and pointers to all the live compon
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{structvt_1_1runtime_1_1_runtime_a887f6037ec367f708ee84b4dcc1397b4}{Runtime} (int \&argc, char $\ast$$\ast$\&argv, \hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type} in\+\_\+num\+\_\+workers=no\+\_\+workers, bool const interop\+\_\+mode=false, M\+P\+I\+\_\+\+Comm $\ast$in\+\_\+comm=nullptr, \hyperlink{namespacevt_1_1runtime_afca910c1b38b3975f7c1da8001a77d58}{Runtime\+Inst\+Type} const in\+\_\+instance=Runtime\+Inst\+Type\+::\+Default\+Instance)
+\hyperlink{structvt_1_1runtime_1_1_runtime_abc553df92056d67d5e500047a460f8a0}{Runtime} (int \&argc, char $\ast$$\ast$\&argv, \hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type} in\+\_\+num\+\_\+workers=no\+\_\+workers, bool const interop\+\_\+mode=false, M\+P\+I\+\_\+\+Comm in\+\_\+comm=M\+P\+I\+\_\+\+C\+O\+M\+M\+\_\+\+W\+O\+R\+LD, \hyperlink{namespacevt_1_1runtime_afca910c1b38b3975f7c1da8001a77d58}{Runtime\+Inst\+Type} const in\+\_\+instance=Runtime\+Inst\+Type\+::\+Default\+Instance)
 \begin{DoxyCompactList}\small\item\em Initialize a VT runtime. \end{DoxyCompactList}\item 
 \hyperlink{structvt_1_1runtime_1_1_runtime_a42d87d965f2a283dbaf484b36b6a0c39}{Runtime} (\hyperlink{structvt_1_1runtime_1_1_runtime}{Runtime} const \&)=delete
 \item 
@@ -128,8 +128,6 @@ bool \hyperlink{structvt_1_1runtime_1_1_runtime_a651174e20fa3db2493bd4c0cf2e8be3
 \begin{DoxyCompactList}\small\item\em Try to initialize. \end{DoxyCompactList}\item 
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a10f74f2fa128ce1f7aa3d69395c64f8c}{try\+Finalize} (bool const disable\+\_\+sig=true)
 \begin{DoxyCompactList}\small\item\em Try to finalize. \end{DoxyCompactList}\item 
-void \hyperlink{structvt_1_1runtime_1_1_runtime_ab1dc72260d0003004cce1418a8880aa7}{setup\+Args} ()
-\begin{DoxyCompactList}\small\item\em Setup argument input. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_adf6407cff70ac8c332d75911a81b508d}{initialize\+Error\+Handlers} ()
 \begin{DoxyCompactList}\small\item\em Initialize error handlers. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_a798be8c8813889ef0aacdbc8668d8a41}{initialize\+Components} ()
@@ -140,8 +138,6 @@ void \hyperlink{structvt_1_1runtime_1_1_runtime_a264ccc1306fc3b5dfc20830fa313cba
 \begin{DoxyCompactList}\small\item\em Initialize workers. \end{DoxyCompactList}\item 
 bool \hyperlink{structvt_1_1runtime_1_1_runtime_a2c4ba18d500526776e4e0d1fcde215eb}{need\+Stats\+Restart\+Reader} ()
 \begin{DoxyCompactList}\small\item\em Check if we should create a stats restart reader component. \end{DoxyCompactList}\item 
-void \hyperlink{structvt_1_1runtime_1_1_runtime_a59253ce5795516e46ee6549ca165f5ca}{finalize\+M\+PI} ()
-\begin{DoxyCompactList}\small\item\em Finalize M\+PI. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_a92fe07cb78904559dfc21de68018fb53}{sync} ()
 \begin{DoxyCompactList}\small\item\em Perform a synchronization during startup/shutdown using an {\ttfamily M\+P\+I\+\_\+\+Barrier}. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1runtime_1_1_runtime_a1c4fda11afb43bb2607cd1f00686550c}{setup} ()
@@ -192,10 +188,6 @@ bool \hyperlink{structvt_1_1runtime_1_1_runtime_a09b053def0beaff3de9995e83b66170
 \item 
 M\+P\+I\+\_\+\+Comm \hyperlink{structvt_1_1runtime_1_1_runtime_a91471f214fb5ce904fb2e0bf95b445e2}{communicator\+\_\+} = M\+P\+I\+\_\+\+C\+O\+M\+M\+\_\+\+N\+U\+LL
 \item 
-int \hyperlink{structvt_1_1runtime_1_1_runtime_ae5c7bb8fdec028e2d505bf29906d5da5}{user\+\_\+argc\+\_\+} = 0
-\item 
-std\+::unique\+\_\+ptr$<$ char $\ast$\mbox{[}$\,$\mbox{]}$>$ \hyperlink{structvt_1_1runtime_1_1_runtime_a1afbdc2b13376b31c404cdbc091d9162}{user\+\_\+argv\+\_\+} = nullptr
-\item 
 std\+::unique\+\_\+ptr$<$ \hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack}{component\+::\+Component\+Pack} $>$ \hyperlink{structvt_1_1runtime_1_1_runtime_a9f7ea8f6852d934e9c0122e074df0886}{p\+\_\+}
 \item 
 std\+::unique\+\_\+ptr$<$ \hyperlink{structvt_1_1arguments_1_1_arg_config}{arguments\+::\+Arg\+Config} $>$ \hyperlink{structvt_1_1runtime_1_1_runtime_a585321b816d6984bf7a9489d00bd3670}{arg\+\_\+config\+\_\+}
@@ -234,15 +226,19 @@ using \hyperlink{structvt_1_1runtime_1_1_runtime_a0893bf0a8c03b898e8ab66b52cec80
 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a887f6037ec367f708ee84b4dcc1397b4}\label{structvt_1_1runtime_1_1_runtime_a887f6037ec367f708ee84b4dcc1397b4}} 
+\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_abc553df92056d67d5e500047a460f8a0}\label{structvt_1_1runtime_1_1_runtime_abc553df92056d67d5e500047a460f8a0}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!Runtime@{Runtime}}
 \index{Runtime@{Runtime}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
 \subsubsection{\texorpdfstring{Runtime()}{Runtime()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily vt\+::runtime\+::\+Runtime\+::\+Runtime (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv,  }\item[{\hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type}}]{in\+\_\+num\+\_\+workers = {\ttfamily no\+\_\+workers},  }\item[{bool const}]{interop\+\_\+mode = {\ttfamily false},  }\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{in\+\_\+comm = {\ttfamily nullptr},  }\item[{\hyperlink{namespacevt_1_1runtime_afca910c1b38b3975f7c1da8001a77d58}{Runtime\+Inst\+Type} const}]{in\+\_\+instance = {\ttfamily RuntimeInstType\+:\+:DefaultInstance} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily vt\+::runtime\+::\+Runtime\+::\+Runtime (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv,  }\item[{\hyperlink{namespacevt_aa93398ea48f2cb6c188512250f7cc248}{Worker\+Count\+Type}}]{in\+\_\+num\+\_\+workers = {\ttfamily no\+\_\+workers},  }\item[{bool const}]{interop\+\_\+mode = {\ttfamily false},  }\item[{M\+P\+I\+\_\+\+Comm}]{in\+\_\+comm = {\ttfamily MPI\+\_\+COMM\+\_\+WORLD},  }\item[{\hyperlink{namespacevt_1_1runtime_afca910c1b38b3975f7c1da8001a77d58}{Runtime\+Inst\+Type} const}]{in\+\_\+instance = {\ttfamily RuntimeInstType\+:\+:DefaultInstance} }\end{DoxyParamCaption})}
 
 
 
 Initialize a VT runtime. 
+
+interop mode, M\+PI is not initialized or finalized by the runtime. This can be used to embed VT into a larger context.
+
+When not running in interop mode, M\+PI is initialized in the constructor and finalized in the destructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -269,7 +265,7 @@ Initialize a VT runtime.
 \item After {\ttfamily \hyperlink{structvt_1_1runtime_1_1_runtime_ae4e8d5395c4144c3322fc689b3fb07ab}{Runtime\+::finalize()}} is called but before the pack is destroyed, we extract the {\ttfamily Arg\+Config} from the component and put it back in {\ttfamily arg\+\_\+config\+\_\+} for use after.
 \item From then on, until the {\ttfamily vt\+::\+Runtime} is destroyed or VT is re-\/initialized {\ttfamily arg\+\_\+config\+\_\+} will contain the configuration.
 
-For this to all work correctly, the {\ttfamily vt\+\_\+debug\+\_\+print} infrastructure calls {\ttfamily vt\+::config\+::get\+Config()} which always grabs the correct app config, either from the component singleton or the {\ttfamily vt\+::\+Runtime} 
+For this to all work correctly, the {\ttfamily vt\+\_\+debug\+\_\+print} infrastructure calls {\ttfamily \hyperlink{namespacevt_1_1debug_a852027d87cfb65bb21dd8ce1e8c23c61}{vt\+::config\+::pre\+Config()}} which always grabs the correct app config, from the component singleton or the {\ttfamily vt\+::\+Runtime}, or provides stubbed arguments as a fallback. 
 
 
 \end{DoxyItemize}\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a42d87d965f2a283dbaf484b36b6a0c39}\label{structvt_1_1runtime_1_1_runtime_a42d87d965f2a283dbaf484b36b6a0c39}} 
@@ -340,16 +336,6 @@ Finalize the runtime.
 \begin{DoxyReturn}{Returns}
 whether it finalized or not 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a59253ce5795516e46ee6549ca165f5ca}\label{structvt_1_1runtime_1_1_runtime_a59253ce5795516e46ee6549ca165f5ca}} 
-\index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!finalize\+M\+PI@{finalize\+M\+PI}}
-\index{finalize\+M\+PI@{finalize\+M\+PI}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
-\subsubsection{\texorpdfstring{finalize\+M\+P\+I()}{finalizeMPI()}}
-{\footnotesize\ttfamily void vt\+::runtime\+::\+Runtime\+::finalize\+M\+PI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-Finalize M\+PI. 
-
 \mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_aebf06f17830f0d7f1377c14ce5c38845}\label{structvt_1_1runtime_1_1_runtime_aebf06f17830f0d7f1377c14ce5c38845}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!get\+App\+Config@{get\+App\+Config}}
 \index{get\+App\+Config@{get\+App\+Config}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
@@ -654,16 +640,6 @@ Run the scheduler once.
 
 
 Perform setup actions, such as registering a termination detector action for detecting global termination. 
-
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_ab1dc72260d0003004cce1418a8880aa7}\label{structvt_1_1runtime_1_1_runtime_ab1dc72260d0003004cce1418a8880aa7}} 
-\index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!setup\+Args@{setup\+Args}}
-\index{setup\+Args@{setup\+Args}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
-\subsubsection{\texorpdfstring{setup\+Args()}{setupArgs()}}
-{\footnotesize\ttfamily void vt\+::runtime\+::\+Runtime\+::setup\+Args (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-Setup argument input. 
 
 \mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_af87ef11218f0c1d095dcdcd4cfe4521e}\label{structvt_1_1runtime_1_1_runtime_af87ef11218f0c1d095dcdcd4cfe4521e}} 
 \index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!setup\+Signal\+Handler@{setup\+Signal\+Handler}}
@@ -1058,18 +1034,6 @@ App config during startup \mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a58
 \index{the\+Worker\+Grp@{the\+Worker\+Grp}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
 \subsubsection{\texorpdfstring{the\+Worker\+Grp}{theWorkerGrp}}
 {\footnotesize\ttfamily \hyperlink{structvt_1_1runtime_1_1_runtime_a0893bf0a8c03b898e8ab66b52cec80ad}{Component\+Ptr\+Type}$<$worker\+::\+Worker\+Group\+Type$>$ vt\+::runtime\+::\+Runtime\+::the\+Worker\+Grp = nullptr}
-
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_ae5c7bb8fdec028e2d505bf29906d5da5}\label{structvt_1_1runtime_1_1_runtime_ae5c7bb8fdec028e2d505bf29906d5da5}} 
-\index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!user\+\_\+argc\+\_\+@{user\+\_\+argc\+\_\+}}
-\index{user\+\_\+argc\+\_\+@{user\+\_\+argc\+\_\+}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
-\subsubsection{\texorpdfstring{user\+\_\+argc\+\_\+}{user\_argc\_}}
-{\footnotesize\ttfamily int vt\+::runtime\+::\+Runtime\+::user\+\_\+argc\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{structvt_1_1runtime_1_1_runtime_a1afbdc2b13376b31c404cdbc091d9162}\label{structvt_1_1runtime_1_1_runtime_a1afbdc2b13376b31c404cdbc091d9162}} 
-\index{vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}!user\+\_\+argv\+\_\+@{user\+\_\+argv\+\_\+}}
-\index{user\+\_\+argv\+\_\+@{user\+\_\+argv\+\_\+}!vt\+::runtime\+::\+Runtime@{vt\+::runtime\+::\+Runtime}}
-\subsubsection{\texorpdfstring{user\+\_\+argv\+\_\+}{user\_argv\_}}
-{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$char$\ast$\mbox{[}$\,$\mbox{]}$>$ vt\+::runtime\+::\+Runtime\+::user\+\_\+argv\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

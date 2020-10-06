@@ -2111,72 +2111,57 @@
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
 <codeline lineno="57" refid="namespacevt_1_1ctx" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt_1_1config_1a0551245b6b893932b95aaf8eac94eed1" kindref="member">ctx</ref><sp/>{</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><ref refid="structvt_1_1ctx_1_1_context_1a860016b34ca68006a733314f970216b8" kindref="member">Context::Context</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>is_interop,<sp/>MPI_Comm*<sp/>comm)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><ref refid="structvt_1_1ctx_1_1_context_1aa00297fe6a9bde8202b4099ede6069fc" kindref="member">Context::Context</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>is_interop,<sp/>MPI_Comm<sp/>comm)<sp/>{</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#if<sp/>DEBUG_VT_CONTEXT</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Context::Context<sp/>is_interop={},<sp/>comm={}\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="debug__printconst_8h_1aac76e066ee747d3089751f067090346b" kindref="member">print_bool</ref>(is_interop),<sp/>comm</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>is_interop)<sp/>{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Init(&amp;argc,<sp/>&amp;argv);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(comm<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>and<sp/>*comm<sp/>!=<sp/>MPI_COMM_NULL)<sp/>{</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref><sp/>=<sp/>*comm;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref><sp/>=<sp/>MPI_COMM_WORLD;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_interop)<sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Comm<sp/>vt_comm;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Comm_dup(<ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref>,<sp/>&amp;vt_comm);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref><sp/>=<sp/>vt_comm;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1afe6c05b957670f03ef2a278da031a5c4" kindref="member">is_comm_world_</ref><sp/>=<sp/>comm<sp/>==<sp/>MPI_COMM_WORLD;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_interop)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>MPI_Comm_dup(comm,<sp/>&amp;comm);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numNodesLocal<sp/>=<sp/>uninitialized_destination;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>thisNodeLocal<sp/>=<sp/>uninitialized_destination;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>MPI_Comm_size(comm,<sp/>&amp;numNodesLocal);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>MPI_Comm_rank(comm,<sp/>&amp;thisNodeLocal);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref><sp/>=<sp/>comm;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a58cc20215314e915f43b829ad0470299" kindref="member">numNodes_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(numNodesLocal);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a5fcea79d2fede6e9945433621894624c" kindref="member">thisNode_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(thisNodeLocal);</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1afe6c05b957670f03ef2a278da031a5c4" kindref="member">is_comm_world_</ref><sp/>=<sp/><ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref><sp/>==<sp/>MPI_COMM_WORLD;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numNodesLocal<sp/>=<sp/>uninitialized_destination;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>thisNodeLocal<sp/>=<sp/>uninitialized_destination;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/>MPI_Comm_size(<ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref>,<sp/>&amp;numNodesLocal);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/>MPI_Comm_rank(<ref refid="structvt_1_1ctx_1_1_context_1ac9f5afa2cb9a6c06c8570bbf25cde926" kindref="member">communicator_</ref>,<sp/>&amp;thisNodeLocal);</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a58cc20215314e915f43b829ad0470299" kindref="member">numNodes_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(numNodesLocal);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a5fcea79d2fede6e9945433621894624c" kindref="member">thisNode_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(thisNodeLocal);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ab61a961c47c8fc6393df8c121ade3aa2" kindref="member">setDefaultWorker</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1ctx_1_1_context_1ab61a961c47c8fc6393df8c121ade3aa2" kindref="member">Context::setDefaultWorker</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a32f62f26b7a6977c91186f8c2aa2b16a" kindref="member">setWorker</ref>(worker_id_comm_thread);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><ref refid="tls_8h_1a892411f63bcc6ede4e5d469ccd89c3c2" kindref="member">DeclareClassOutsideInitTLS</ref>(<ref refid="structvt_1_1ctx_1_1_context" kindref="compound">Context</ref>,<sp/><ref refid="namespacevt_1a656e362091da17b9b93d0655b36e3392" kindref="member">WorkerIDType</ref>,<sp/>thisWorker_,<sp/>no_worker_id)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::ctx</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1ab61a961c47c8fc6393df8c121ade3aa2" kindref="member">setDefaultWorker</ref>();</highlight></codeline>
-<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><ref refid="structvt_1_1ctx_1_1_context_1a860016b34ca68006a733314f970216b8" kindref="member">Context::Context</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>interop,<sp/>MPI_Comm*<sp/>comm)</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>:<sp/><ref refid="structvt_1_1ctx_1_1_context_1a860016b34ca68006a733314f970216b8" kindref="member">Context</ref>(0,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>interop,<sp/>comm)</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">{<sp/>}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1ctx_1_1_context_1ab61a961c47c8fc6393df8c121ade3aa2" kindref="member">Context::setDefaultWorker</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1ctx_1_1_context_1a32f62f26b7a6977c91186f8c2aa2b16a" kindref="member">setWorker</ref>(worker_id_comm_thread);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><ref refid="tls_8h_1a892411f63bcc6ede4e5d469ccd89c3c2" kindref="member">DeclareClassOutsideInitTLS</ref>(<ref refid="structvt_1_1ctx_1_1_context" kindref="compound">Context</ref>,<sp/><ref refid="namespacevt_1a656e362091da17b9b93d0655b36e3392" kindref="member">WorkerIDType</ref>,<sp/>thisWorker_,<sp/>no_worker_id)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">debug<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/><ref refid="namespacevt_1_1debug_1a0f9acc324c2b3308760aa13b29dd9736" kindref="member">preNode</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">return ::vt::curRT</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">and ::vt::curRT</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a811947d9ba7322d0cb10c246200037c8" kindref="member">isLive</ref>()<sp/>?</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>()<sp/>:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>-1;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/><ref refid="namespacevt_1_1debug_1ab9a204b679ea705a255d3cb4dcce02f3" kindref="member">preNodes</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">return ::vt::curRT</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">and ::vt::curRT</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a811947d9ba7322d0cb10c246200037c8" kindref="member">isLive</ref>()<sp/>?</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>()<sp/>:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>-1;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal">}}<sp/><sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::ctx</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::debug<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">debug<sp/>{</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/><ref refid="namespacevt_1_1debug_1a0f9acc324c2b3308760aa13b29dd9736" kindref="member">preNode</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">return ::vt::curRT</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">and ::vt::curRT</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a811947d9ba7322d0cb10c246200037c8" kindref="member">isLive</ref>()<sp/>?</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>()<sp/>:</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>-1;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref><sp/><ref refid="namespacevt_1_1debug_1ab9a204b679ea705a255d3cb4dcce02f3" kindref="member">preNodes</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">return ::vt::curRT</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">and ::vt::curRT</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a811947d9ba7322d0cb10c246200037c8" kindref="member">isLive</ref>()<sp/>?</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>()<sp/>:</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>-1;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::debug<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>DEBUG_VT_CONTEXT</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>DEBUG_VT_CONTEXT</highlight></codeline>
     </programlisting>
     <location file="src/vt/context/context.cc"/>
   </compounddef>

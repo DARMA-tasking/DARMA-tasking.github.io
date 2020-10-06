@@ -23,7 +23,6 @@ var searchData=
   ['finalize_5fon_5fterm_5f',['finalize_on_term_',['../structvt_1_1runtime_1_1_runtime.html#a1a7a0e6783b3326a4ded84f829a1d0b3',1,'vt::runtime::Runtime']]],
   ['finalized_5f',['finalized_',['../structvt_1_1runtime_1_1_runtime.html#a2a798a2bf9b8c0a70785cde3cc8119c4',1,'vt::runtime::Runtime']]],
   ['finalizehan',['finalizeHan',['../structvt_1_1group_1_1_info_coll.html#a6988596b1faad0eb1ba49a2bd54e52e8',1,'vt::group::InfoColl']]],
-  ['finalizempi',['finalizeMPI',['../structvt_1_1runtime_1_1_runtime.html#a59253ce5795516e46ee6549ca165f5ca',1,'vt::runtime::Runtime']]],
   ['finalizetree',['finalizeTree',['../structvt_1_1group_1_1_info_coll.html#a14d7b768d923e1f23e8c5771422ddc2c',1,'vt::group::InfoColl']]],
   ['find',['find',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#a4a8378262c16b9247f36fea8b6baf60c',1,'vt::collective::reduce::ReduceStateHolder']]],
   ['findchannel',['findChannel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a51f828fcbb55e1b4c883746c490b77f0',1,'vt::rdma::RDMAManager']]],
