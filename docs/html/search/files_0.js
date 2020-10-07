@@ -22,6 +22,7 @@ var searchData=
   ['assert_5fout_5finfo_2eh',['assert_out_info.h',['../assert__out__info_8h.html',1,'']]],
   ['assert_5fout_5finfo_2eimpl_2eh',['assert_out_info.impl.h',['../assert__out__info_8impl_8h.html',1,'']]],
   ['atomic_2eh',['atomic.h',['../atomic_8h.html',1,'']]],
+  ['atomic_5fserialize_2eh',['atomic_serialize.h',['../atomic__serialize_8h.html',1,'']]],
   ['auto_5fregistry_2ecc',['auto_registry.cc',['../auto__registry_8cc.html',1,'']]],
   ['auto_5fregistry_2eh',['auto_registry.h',['../auto__registry_8h.html',1,'']]],
   ['auto_5fregistry_5fcollection_2eh',['auto_registry_collection.h',['../auto__registry__collection_8h.html',1,'']]],

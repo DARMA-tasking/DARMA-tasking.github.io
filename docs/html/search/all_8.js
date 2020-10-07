@@ -195,7 +195,7 @@ var searchData=
   ['getmaxload',['getMaxLoad',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a42b333d301096e303095736507c88b37',1,'vt::vrt::collection::lb::GreedyLB::getMaxLoad()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a32428a4c65c820d846e398270578d986',1,'vt::vrt::collection::lb::HierarchicalLB::getMaxLoad()']]],
   ['getmaxtag',['getMaxTag',['../structvt_1_1util_1_1mpi__limits_1_1_m_p_i___attr.html#a3150f6a09a10554293f176074072ac2d',1,'vt::util::mpi_limits::MPI_Attr']]],
   ['getmember',['getMember',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#a6e3627adc70baecfd59a095e70729fee',1,'vt::vrt::collection::CollectionMessage']]],
-  ['getmemoryfootprint',['getMemoryFootprint',['../structcheckpoint_1_1_footprinter.html#ad3131f63bf74b018c66e9fe3f0f31fca',1,'checkpoint::Footprinter::getMemoryFootprint()'],['../namespacecheckpoint.html#a1cad6374d2a7202cc8f3e905d279c2da',1,'checkpoint::getMemoryFootprint()']]],
+  ['getmemoryfootprint',['getMemoryFootprint',['../structcheckpoint_1_1_footprinter.html#ad3131f63bf74b018c66e9fe3f0f31fca',1,'checkpoint::Footprinter::getMemoryFootprint()'],['../namespacecheckpoint.html#a3c06c0dd0b9bccfd2aa6b79570b9cda1',1,'checkpoint::getMemoryFootprint()']]],
   ['getmemoryunitname',['getMemoryUnitName',['../namespacevt_1_1util_1_1memory.html#a6a1de4e8806e74e6e0ef92e4262b654b',1,'vt::util::memory']]],
   ['getmessage',['GetMessage',['../namespacevt_1_1rdma.html#acce0da4c9ea1233c3f132c1971943653',1,'vt::rdma']]],
   ['getmigrationlist',['getMigrationList',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#a87fa9ef4ba869acb1af6bf5066027029',1,'vt::vrt::collection::balance::StatsRestartReader']]],

@@ -43,7 +43,7 @@ var searchData=
   ['comm_5fcollectives_5f',['comm_collectives_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a1db6d0f8b8f62be357c7913930556d44',1,'vt::vrt::collection::lb::BaseLB']]],
   ['comm_5fdata',['comm_data',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a8d519b94ce4741da7049cb2b7b513963',1,'vt::vrt::collection::lb::BaseLB']]],
   ['comm_5fwork_5fdeque_5f',['comm_work_deque_',['../structvt_1_1worker_1_1_worker_group_comm.html#af021d6e25f970f702c87cd374040a3cc',1,'vt::worker::WorkerGroupComm']]],
-  ['communicator_5f',['communicator_',['../structvt_1_1ctx_1_1_context.html#ac9f5afa2cb9a6c06c8570bbf25cde926',1,'vt::ctx::Context::communicator_()'],['../structvt_1_1runtime_1_1_runtime.html#a91471f214fb5ce904fb2e0bf95b445e2',1,'vt::runtime::Runtime::communicator_()']]],
+  ['communicator_5f',['communicator_',['../structvt_1_1ctx_1_1_context.html#ac9f5afa2cb9a6c06c8570bbf25cde926',1,'vt::ctx::Context']]],
   ['component_5fid_5f',['component_id_',['../structvt_1_1runtime_1_1component_1_1_base_component.html#a7b791c5956fad1774db36bd457d6158a',1,'vt::runtime::component::BaseComponent']]],
   ['computed_5f',['computed_',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a4c87edbed1fca305b729e037c3c760f3',1,'vt::util::stats::LinearRegression']]],
   ['config_5f',['config_',['../structvt_1_1arguments_1_1_arg_config.html#af30e0eae1ac1b29f7c85c25636109a9e',1,'vt::arguments::ArgConfig']]],

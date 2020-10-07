@@ -135,11 +135,6 @@
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename T, typename SerializerT&gt;</div>
-              struct <a href="structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01ste0ab63605b3e36d6a7ee0eb174e8062f.html" class="m-doc">SerializeAsVirtualIfNeeded&lt;T, SerializerT, typename std::enable_if_t&lt;dispatch::vrt::VirtualSerializeTraits&lt;T&gt;::has_not_virtual_serialize&gt;&gt;</a>
-            </dt>
-            <dd><span></span></dd>
-            <dt>
-              <div class="m-doc-template">template&lt;typename T, typename SerializerT&gt;</div>
               struct <a href="structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01std432a7e382b83cd966ec84657915841f.html" class="m-doc">SerializeAsVirtualIfNeeded&lt;T, SerializerT, typename std::enable_if_t&lt;dispatch::vrt::VirtualSerializeTraits&lt;T&gt;::has_virtual_serialize&gt;&gt;</a>
             </dt>
             <dd><span></span></dd>
@@ -172,6 +167,16 @@
             <dt>
               <div class="m-doc-template">template&lt;typename BufferT&gt;</div>
               struct <a href="structcheckpoint_1_1_unpacker_buffer.html" class="m-doc">UnpackerBuffer</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename SerializerT&gt;</div>
+              struct <a href="structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01stb5683a1db1f95d710800e7db0029b9d3.html" class="m-doc">SerializeAsVirtualIfNeeded&lt;T, SerializerT, typename std::enable_if_t&lt;dispatch::vrt::VirtualSerializeTraits&lt;T&gt;::has_not_virtual_serialize and not std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value&gt;&gt;</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename SerializerT&gt;</div>
+              struct <a href="structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01st7535fd9671f69a00dc505955ba5cc55f.html" class="m-doc">SerializeAsVirtualIfNeeded&lt;T, SerializerT, typename std::enable_if_t&lt;dispatch::vrt::VirtualSerializeTraits&lt;T&gt;::has_not_virtual_serialize and std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value&gt;&gt;</a>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -285,7 +290,8 @@
             <dd>Get the number of bytes that <code>target</code> requires for serialization.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a1cad6374d2a7202cc8f3e905d279c2da" class="m-doc">getMemoryFootprint</a>(</span><span class="m-doc-wrap">T&amp; target) -&gt; std::size_t</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a3c06c0dd0b9bccfd2aa6b79570b9cda1" class="m-doc">getMemoryFootprint</a>(</span><span class="m-doc-wrap">T&amp; target,
+              std::size_t size_offset = 0) -&gt; std::size_t</span>
             </dt>
             <dd>Get memory footprint of <code>target</code>.</dd>
             <dt>
@@ -309,6 +315,12 @@
               <div class="m-doc-template">template&lt;typename Serializer, typename T, size_t N&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#a976e83bf5f22b7bfc5036fd829be039e" class="m-doc">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               std::array&lt;T, N&gt;&amp; array)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value &gt;&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a40ca9a5c99807bd8a0610098d94b5125" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              const std::atomic&lt;T&gt;&amp; atomic)</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -349,9 +361,16 @@
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a005f82d0e883e9568658492f18788fd0" class="m-doc">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              <span class="m-doc-wrap-bumper">auto <a href="#affdb2f2117fc38cb03d94aa59e1bdf48" class="m-doc">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               ContainerT&amp; cont,
-              typename ContainerT::size_type size)</span>
+              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;not std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a9976fffc8f39073e5b40ec61d93a5482" class="m-doc">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              ContainerT&amp; cont,
+              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -374,9 +393,16 @@
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a917aafbf9658a63360e4d5997a3e09ea" class="m-doc">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              <span class="m-doc-wrap-bumper">auto <a href="#a9016e0756f91e6e982b3c824c007c251" class="m-doc">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               ContainerT&amp; cont,
-              typename ContainerT::size_type size)</span>
+              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;not std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a811956d461a3ebc7329272fd33e1084f" class="m-doc">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              ContainerT&amp; cont,
+              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -446,44 +472,44 @@
             </dt>
             <dd><span></span></dd>
             <dt>
+              <div class="m-doc-template">template&lt;typename Serializer, typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a1d399ef63dc7723f1b4387e4605b3259" class="m-doc">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              const std::stack&lt;T&gt;&amp; stack)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
               <div class="m-doc-template">template&lt;typename SerializerT, typename Q, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a2d9ca0472b4055b11e967503e9b37394" class="m-doc">serializeQueue</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void <a href="#a33956387419a85cfe810fbce88f5bdf9" class="m-doc">serializeQueueLikeContainer</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               const Q&amp; q)</span>
             </dt>
             <dd><span></span></dd>
             <dt>
-              <div class="m-doc-template">template&lt;typename SerializerT, typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a40ba90ab8e9263d8d98ad67a322c6f1a" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a5242b8701b19ff5eeb7587fb4a07bfe9" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               T* ptr)</span>
             </dt>
             <dd>Serialize raw pointer <code>ptr</code>.</dd>
             <dt>
-              <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a07f6216d4cee88085750f5a34ecb85df" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <div class="m-doc-template">template&lt;typename SerializerT, typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a6113644a35f5023a57e2ed3ca4814490" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               T* ptr)</span>
             </dt>
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename SerializerT&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a975c4d49f9a5a744623fe3df9d7f8655" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void <a href="#aaadeb0ab61d069afc8a97ec6b6dc630c" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              void* ptr)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename SerializerT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#ae2581f30d683e58b2058a697ceb0385f" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               FILE* ptr)</span>
             </dt>
-            <dd>Serialize FILE pointer <code>ptr</code>.</dd>
-            <dt>
-              <div class="m-doc-template">template&lt;typename SerializerT, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#ad037fd5d89690d3232ec92d54da9f887" class="m-doc">serializeFilePtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              FILE* ptr)</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt>
-              <div class="m-doc-template">template&lt;typename SerializerT, typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a200b46814a9fcae10246577315cc1fa7" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              std::shared_ptr&lt;T&gt;&amp; ptr)</span>
-            </dt>
-            <dd><span></span></dd>
+            <dd></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a523f35e77c4dbca4a7653184d2b94a6f" class="m-doc">serializeSharedPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void <a href="#aff1bebba5ce7fda79f83d2af8c859254" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               std::shared_ptr&lt;T&gt;&amp; ptr)</span>
             </dt>
             <dd><span></span></dd>
@@ -499,6 +525,12 @@
               std::string&amp; str)</span>
             </dt>
             <dd>Serialize string <code>str</code>.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename SerializerT, typename = std::enable_if_t&lt;   std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value &gt;&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#ab9c05efe18a47d990fb20e84f73e9943" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              const std::thread&amp; t)</span>
+            </dt>
+            <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename... T, size_t... Idxs&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#ab763d3ca9396ff9a1896f5da6c2b3c54" class="m-doc">tuple_helper</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
@@ -519,15 +551,21 @@
             </dt>
             <dd><span></span></dd>
             <dt>
-              <div class="m-doc-template">template&lt;typename Serializer, typename T&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a3af28ec72bdc4efb0185562379ea3f8d" class="m-doc">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
-              std::unique_ptr&lt;T&gt;&amp; ptr)</span>
+              <div class="m-doc-template">template&lt;typename Serializer, typename T, typename Deleter&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a617341cb0473cbdce921a3a4d049f4fc" class="m-doc">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              std::unique_ptr&lt;T, Deleter&gt;&amp; ptr)</span>
             </dt>
             <dd><span></span></dd>
             <dt>
-              <div class="m-doc-template">template&lt;typename Serializer, typename T, typename VectorAllocator&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a644e370a54b16c7d7a68ad1a5e24824a" class="m-doc">serializeVectorMeta</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
-              std::vector&lt;T, VectorAllocator&gt;&amp; vec)</span>
+              <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename VectorAllocator&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae257a02737b213492283962cc645c6a5" class="m-doc">serializeVectorMeta</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              std::vector&lt;T, VectorAllocator&gt;&amp; vec) -&gt; std::enable_if_t&lt;not std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename SerializerT, typename T, typename VectorAllocator&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a0133c00735e3d54bb46ffa9e24d59d7b" class="m-doc">serializeVectorMeta</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              std::vector&lt;T, VectorAllocator&gt;&amp; vec) -&gt; std::enable_if_t&lt;std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -842,13 +880,14 @@
               </tfoot>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a1cad6374d2a7202cc8f3e905d279c2da"><div>
+          <section class="m-doc-details" id="a3c06c0dd0b9bccfd2aa6b79570b9cda1"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="checkpoint__api_8h.html">&lt;lib/checkpoint/src/checkpoint/checkpoint_api.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename T&gt;
               </div>
-              <span class="m-doc-wrap-bumper">std::size_t checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1cad6374d2a7202cc8f3e905d279c2da" class="m-doc-self">getMemoryFootprint</a>(</span><span class="m-doc-wrap">T&amp; target)</span></span>
+              <span class="m-doc-wrap-bumper">std::size_t checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3c06c0dd0b9bccfd2aa6b79570b9cda1" class="m-doc-self">getMemoryFootprint</a>(</span><span class="m-doc-wrap">T&amp; target,
+              std::size_t size_offset = 0)</span></span>
             </h3>
             <p>Get memory footprint of <code>target</code>.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -859,6 +898,10 @@
                 <tr>
                   <td style="width: 1%">target&nbsp;<span class="m-label m-flat m-info">in</span></td>
                   <td>reference to <code>T</code> to measure footprint</td>
+                </tr>
+                <tr>
+                  <td>size_offset&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>add an arbitrary <code>size_offset</code> to the footprint</td>
                 </tr>
               </tbody>
               <tfoot>
@@ -962,6 +1005,17 @@
             </h3>
             <p><span></span></p>
           </div></section>
+          <section class="m-doc-details" id="a40ca9a5c99807bd8a0610098d94b5125"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="atomic__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/atomic_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value &gt;&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a40ca9a5c99807bd8a0610098d94b5125" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              const std::atomic&lt;T&gt;&amp; atomic)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
           <section class="m-doc-details" id="aec244476371c452d9d9318b9d5b24401"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="chrono__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/chrono_serialize.h&gt;</a></div>
@@ -1029,13 +1083,25 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a005f82d0e883e9568658492f18788fd0"><div>
+          <section class="m-doc-details" id="affdb2f2117fc38cb03d94aa59e1bdf48"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="list__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/list_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a005f82d0e883e9568658492f18788fd0" class="m-doc-self">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;not std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#affdb2f2117fc38cb03d94aa59e1bdf48" class="m-doc-self">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              ContainerT&amp; cont,
+              typename ContainerT::size_type size)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
+          <section class="m-doc-details" id="a9976fffc8f39073e5b40ec61d93a5482"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="list__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/list_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9976fffc8f39073e5b40ec61d93a5482" class="m-doc-self">deserializeOrderedElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               ContainerT&amp; cont,
               typename ContainerT::size_type size)</span></span>
             </h3>
@@ -1074,13 +1140,25 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a917aafbf9658a63360e4d5997a3e09ea"><div>
+          <section class="m-doc-details" id="a9016e0756f91e6e982b3c824c007c251"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="map__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/map_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a917aafbf9658a63360e4d5997a3e09ea" class="m-doc-self">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;not std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9016e0756f91e6e982b3c824c007c251" class="m-doc-self">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              ContainerT&amp; cont,
+              typename ContainerT::size_type size)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
+          <section class="m-doc-details" id="a811956d461a3ebc7329272fd33e1084f"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="map__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/map_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;<a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a811956d461a3ebc7329272fd33e1084f" class="m-doc-self">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               ContainerT&amp; cont,
               typename ContainerT::size_type size)</span></span>
             </h3>
@@ -1207,24 +1285,35 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a2d9ca0472b4055b11e967503e9b37394"><div>
+          <section class="m-doc-details" id="a1d399ef63dc7723f1b4387e4605b3259"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="queue__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/queue_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename Serializer, typename T&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1d399ef63dc7723f1b4387e4605b3259" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              const std::stack&lt;T&gt;&amp; stack)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
+          <section class="m-doc-details" id="a33956387419a85cfe810fbce88f5bdf9"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="queue__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/queue_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename SerializerT, typename Q, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2d9ca0472b4055b11e967503e9b37394" class="m-doc-self">serializeQueue</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a33956387419a85cfe810fbce88f5bdf9" class="m-doc-self">serializeQueueLikeContainer</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               const Q&amp; q)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a40ba90ab8e9263d8d98ad67a322c6f1a"><div>
+          <section class="m-doc-details" id="a5242b8701b19ff5eeb7587fb4a07bfe9"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="raw__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/raw_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
-                template&lt;typename SerializerT, typename T&gt;
+                template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a40ba90ab8e9263d8d98ad67a322c6f1a" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5242b8701b19ff5eeb7587fb4a07bfe9" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               T* ptr)</span></span>
             </h3>
             <p>Serialize raw pointer <code>ptr</code>.</p>
@@ -1245,73 +1334,46 @@
             </table>
 <p>Only footprinting mode is supported at the moment. Counts the pointer size and follows it (note that it doesn&#x27;t work correctly for C-style arrays!).</p>
           </div></section>
-          <section class="m-doc-details" id="a07f6216d4cee88085750f5a34ecb85df"><div>
+          <section class="m-doc-details" id="a6113644a35f5023a57e2ed3ca4814490"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="raw__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/raw_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
-                template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;
+                template&lt;typename SerializerT, typename T&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a07f6216d4cee88085750f5a34ecb85df" class="m-doc-self">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6113644a35f5023a57e2ed3ca4814490" class="m-doc-self">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               T* ptr)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a975c4d49f9a5a744623fe3df9d7f8655"><div>
+          <section class="m-doc-details" id="aaadeb0ab61d069afc8a97ec6b6dc630c"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="raw__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/raw_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename SerializerT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a975c4d49f9a5a744623fe3df9d7f8655" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              FILE* ptr)</span></span>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aaadeb0ab61d069afc8a97ec6b6dc630c" class="m-doc-self">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              void* ptr)</span></span>
             </h3>
-            <p>Serialize FILE pointer <code>ptr</code>.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <thead>
-                <tr><th colspan="2">Parameters</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="width: 1%">s</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>ptr&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>pointer to serialize</td>
-                </tr>
-              </tbody>
-            </table>
-<p>Only footprinting mode is supported at the moment. Counts the pointer size without following it.</p>
+<p>Note: do not follow void pointer.</p>
           </div></section>
-          <section class="m-doc-details" id="ad037fd5d89690d3232ec92d54da9f887"><div>
+          <section class="m-doc-details" id="ae2581f30d683e58b2058a697ceb0385f"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="raw__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/raw_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
-                template&lt;typename SerializerT, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;
+                template&lt;typename SerializerT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad037fd5d89690d3232ec92d54da9f887" class="m-doc-self">serializeFilePtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae2581f30d683e58b2058a697ceb0385f" class="m-doc-self">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               FILE* ptr)</span></span>
             </h3>
-            <p><span></span></p>
+<p>Note: do not follow FILE pointer as it might be an incomplete type on some platforms.</p>
           </div></section>
-          <section class="m-doc-details" id="a200b46814a9fcae10246577315cc1fa7"><div>
-            <h3>
-              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="shared__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/shared_ptr_serialize.h&gt;</a></div>
-              <div class="m-doc-template">
-                template&lt;typename SerializerT, typename T&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a200b46814a9fcae10246577315cc1fa7" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              std::shared_ptr&lt;T&gt;&amp; ptr)</span></span>
-            </h3>
-            <p><span></span></p>
-          </div></section>
-          <section class="m-doc-details" id="a523f35e77c4dbca4a7653184d2b94a6f"><div>
+          <section class="m-doc-details" id="aff1bebba5ce7fda79f83d2af8c859254"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="shared__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/shared_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename SerializerT, typename T, typename = std::enable_if_t&lt;   std::is_same&lt;     SerializerT,      <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>   &gt;::value &gt;&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a523f35e77c4dbca4a7653184d2b94a6f" class="m-doc-self">serializeSharedPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aff1bebba5ce7fda79f83d2af8c859254" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               std::shared_ptr&lt;T&gt;&amp; ptr)</span></span>
             </h3>
             <p><span></span></p>
@@ -1354,6 +1416,17 @@
             </table>
 <p>Resizes a string to its actual size and serializes it. Note: footprinting mode does not detect small string optimization, so a limited overcount is possible.</p>
           </div></section>
+          <section class="m-doc-details" id="ab9c05efe18a47d990fb20e84f73e9943"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="thread__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/thread_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename SerializerT, typename = std::enable_if_t&lt;   std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value &gt;&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab9c05efe18a47d990fb20e84f73e9943" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              const std::thread&amp; t)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
           <section class="m-doc-details" id="ab763d3ca9396ff9a1896f5da6c2b3c54"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="tuple__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/tuple_serialize.h&gt;</a></div>
@@ -1388,24 +1461,35 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a3af28ec72bdc4efb0185562379ea3f8d"><div>
+          <section class="m-doc-details" id="a617341cb0473cbdce921a3a4d049f4fc"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="unique__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/unique_ptr_serialize.h&gt;</a></div>
               <div class="m-doc-template">
-                template&lt;typename Serializer, typename T&gt;
+                template&lt;typename Serializer, typename T, typename Deleter&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3af28ec72bdc4efb0185562379ea3f8d" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
-              std::unique_ptr&lt;T&gt;&amp; ptr)</span></span>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a617341cb0473cbdce921a3a4d049f4fc" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              std::unique_ptr&lt;T, Deleter&gt;&amp; ptr)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a644e370a54b16c7d7a68ad1a5e24824a"><div>
+          <section class="m-doc-details" id="ae257a02737b213492283962cc645c6a5"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="vector__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/vector_serialize.h&gt;</a></div>
               <div class="m-doc-template">
-                template&lt;typename Serializer, typename T, typename VectorAllocator&gt;
+                template&lt;typename SerializerT, typename T, typename VectorAllocator&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a644e370a54b16c7d7a68ad1a5e24824a" class="m-doc-self">serializeVectorMeta</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;not std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae257a02737b213492283962cc645c6a5" class="m-doc-self">serializeVectorMeta</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              std::vector&lt;T, VectorAllocator&gt;&amp; vec)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
+          <section class="m-doc-details" id="a0133c00735e3d54bb46ffa9e24d59d7b"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="vector__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/vector_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename SerializerT, typename T, typename VectorAllocator&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;SerializerT, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0133c00735e3d54bb46ffa9e24d59d7b" class="m-doc-self">serializeVectorMeta</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               std::vector&lt;T, VectorAllocator&gt;&amp; vec)</span></span>
             </h3>
             <p><span></span></p>

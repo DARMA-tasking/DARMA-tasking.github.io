@@ -353,7 +353,7 @@ var searchData=
   ['common_2eh',['common.h',['../src_2vt_2configs_2error_2common_8h.html',1,'(Global Namespace)'],['../src_2vt_2objgroup_2common_8h.html',1,'(Global Namespace)'],['../src_2vt_2rdmahandle_2common_8h.html',1,'(Global Namespace)'],['../lib_2checkpoint_2src_2checkpoint_2common_8h.html',1,'(Global Namespace)']]],
   ['commoverhead',['CommOverhead',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead.html',1,'vt::vrt::collection::balance::CommOverhead'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead.html#af918fee4ae0360d93c19442945e9c3d4',1,'vt::vrt::collection::balance::CommOverhead::CommOverhead()']]],
   ['commscheduler',['commScheduler',['../structvt_1_1worker_1_1_worker_group_any.html#ad935117e72318af02e1554be480d3db6',1,'vt::worker::WorkerGroupAny']]],
-  ['communicator_5f',['communicator_',['../structvt_1_1ctx_1_1_context.html#ac9f5afa2cb9a6c06c8570bbf25cde926',1,'vt::ctx::Context::communicator_()'],['../structvt_1_1runtime_1_1_runtime.html#a91471f214fb5ce904fb2e0bf95b445e2',1,'vt::runtime::Runtime::communicator_()']]],
+  ['communicator_5f',['communicator_',['../structvt_1_1ctx_1_1_context.html#ac9f5afa2cb9a6c06c8570bbf25cde926',1,'vt::ctx::Context']]],
   ['commvolume',['CommVolume',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_volume.html',1,'vt::vrt::collection::balance']]],
   ['compare',['Compare',['../structvt_1_1util_1_1adt_1_1detail_1_1_compare.html',1,'vt::util::adt::detail']]],
   ['compare_3c_20t_20_3e',['Compare&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_compare_3_01_t_01_4.html',1,'vt::util::adt::detail']]],

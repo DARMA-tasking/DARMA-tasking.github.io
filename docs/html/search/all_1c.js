@@ -14,6 +14,7 @@ var searchData=
   ['_7ecollectivescope',['~CollectiveScope',['../structvt_1_1collective_1_1_collective_scope.html#a0b8d9664cdc7f94bed4b17e0eb5c2b77',1,'vt::collective::CollectiveScope']]],
   ['_7ecomponentpack',['~ComponentPack',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#ad850ada38f5f4397fa414885a545fdaf',1,'vt::runtime::component::ComponentPack']]],
   ['_7econcurrentdequelocked',['~ConcurrentDequeLocked',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a03ce93cd5ef587d5fa6dfd494ece5e73',1,'vt::util::container::ConcurrentDequeLocked']]],
+  ['_7econtext',['~Context',['../structvt_1_1ctx_1_1_context.html#aa916f841807f2a1b913df33f782715af',1,'vt::ctx::Context']]],
   ['_7edata',['~Data',['../unionvt_1_1trace_1_1_log_1_1_data.html#a756ed898d9a1df126b2e214050f158e1',1,'vt::trace::Log::Data']]],
   ['_7edependentsendchain',['~DependentSendChain',['../classvt_1_1messaging_1_1_dependent_send_chain.html#ab83d35f473326151fe0ab2fe82b6de6e',1,'vt::messaging::DependentSendChain']]],
   ['_7edispatch',['~Dispatch',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch.html#af0c5622152b327cd5a5fb781b6062e42',1,'vt::objgroup::dispatch::Dispatch']]],
