@@ -92,8 +92,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Start<sp/>a<sp/>new<sp/>iteration</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>getCollectionProxy();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>loopMsg<sp/>=<sp/>vt::makeMessage&lt;BlankMsg&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy.broadcast&lt;BlankMsg,<sp/>&amp;LinearPb1DJacobi::sendInfo&gt;(loopMsg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy.broadcast&lt;BlankMsg,<sp/>&amp;LinearPb1DJacobi::sendInfo&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter<sp/>&gt;<sp/>maxIter)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;\n<sp/>Maximum<sp/>Number<sp/>of<sp/>Iterations<sp/>Reached.<sp/>\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -220,14 +219,16 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//---<sp/>Send<sp/>the<sp/>values<sp/>to<sp/>the<sp/>left</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>this-&gt;getCollectionProxy();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myIdx<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>leftMsg<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(myIdx,<sp/>told_[1]);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy[myIdx-1].send&lt;VecMsg,<sp/>&amp;LinearPb1DJacobi::exchange&gt;(leftMsg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy[myIdx<sp/>-<sp/>1].send&lt;VecMsg,<sp/>&amp;LinearPb1DJacobi::exchange&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>myIdx,<sp/>told_[1]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//---<sp/>Send<sp/>values<sp/>to<sp/>the<sp/>right</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">(myIdx)<sp/>&lt;<sp/>numObjs_<sp/>-<sp/>1)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rightMsg<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(myIdx,<sp/>told_[numRowsPerObject_]);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy[myIdx+1].send&lt;VecMsg,<sp/>&amp;LinearPb1DJacobi::exchange&gt;(rightMsg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy[myIdx<sp/>+<sp/>1].send&lt;VecMsg,<sp/>&amp;LinearPb1DJacobi::exchange&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>myIdx,<sp/>told_[numRowsPerObject_]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -333,11 +334,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(static_cast&lt;BaseIndexType&gt;(num_objs));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;LinearPb1DJacobi&gt;(range);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rootMsg<sp/>=<sp/>vt::makeMessage&lt;LinearPb1DJacobi::LPMsg&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;LinearPb1DJacobi::LPMsg,<sp/>&amp;LinearPb1DJacobi::solve&gt;(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>num_objs,<sp/>numRowsPerObject,<sp/>maxIter</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;LinearPb1DJacobi::LPMsg,&amp;LinearPb1DJacobi::solve&gt;(rootMsg.get());</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>

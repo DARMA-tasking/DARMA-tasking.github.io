@@ -188,8 +188,7 @@
       <span class="c1">// Start a new iteration</span>
       <span class="c1">//</span>
       <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">getCollectionProxy</span><span class="p">();</span>
-      <span class="k">auto</span> <span class="n">loopMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">BlankMsg</span><span class="o">&gt;</span><span class="p">();</span>
-      <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">BlankMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">sendInfo</span><span class="o">&gt;</span><span class="p">(</span><span class="n">loopMsg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">BlankMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">sendInfo</span><span class="o">&gt;</span><span class="p">();</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">iter</span> <span class="o">&gt;</span> <span class="n">maxIter</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Maximum Number of Iterations Reached. </span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -316,14 +315,16 @@
     <span class="c1">//--- Send the values to the left</span>
     <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">leftMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span><span class="n">leftMsg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="p">);</span>
     <span class="p">}</span>
 
     <span class="c1">//--- Send values to the right</span>
     <span class="k">if</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">(</span><span class="n">myIdx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">numObjs_</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">rightMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="p">]);</span>
-      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rightMsg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="p">]</span>
+      <span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
@@ -429,11 +430,9 @@
     <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">BaseIndexType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_objs</span><span class="p">));</span>
 
     <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">construct</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
-    <span class="k">auto</span> <span class="n">rootMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">LPMsg</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">LPMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">solve</span><span class="o">&gt;</span><span class="p">(</span>
       <span class="n">num_objs</span><span class="p">,</span> <span class="n">numRowsPerObject</span><span class="p">,</span> <span class="n">maxIter</span>
     <span class="p">);</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">LPMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">solve</span><span class="o">&gt;</span><span class="p">(</span><span class="n">rootMsg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
-
   <span class="p">}</span>
 
   <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>

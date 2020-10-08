@@ -99,8 +99,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Start<sp/>a<sp/>new<sp/>iteration</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>getCollectionProxy();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>loopMsg<sp/>=<sp/>vt::makeMessage&lt;BlankMsg&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy.broadcast&lt;BlankMsg,<sp/>&amp;LinearPb2DJacobi::sendInfo&gt;(loopMsg.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy.broadcast&lt;BlankMsg,<sp/>&amp;LinearPb2DJacobi::sendInfo&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter<sp/>&gt;<sp/>maxIter)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;\n<sp/>Maximum<sp/>Number<sp/>of<sp/>Iterations<sp/>Reached.<sp/>\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -267,16 +266,14 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>tcopy(numRowsPerObject_<sp/>+<sp/>2,<sp/>0.0);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>jy<sp/>=<sp/>1;<sp/>jy<sp/>&lt;=<sp/>numRowsPerObject_;<sp/>++jy)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tcopy[jy]<sp/>=<sp/>told_[1<sp/>+<sp/>jy<sp/>*<sp/>(numRowsPerObject_<sp/>+<sp/>2)];</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>leftX<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(idx,<sp/>tcopy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x-1,<sp/>y).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(leftX.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x-1,<sp/>y).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(idx,<sp/>tcopy);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(y<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>tcopy(numRowsPerObject_<sp/>+<sp/>2,<sp/>0.0);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>jx<sp/>=<sp/>1;<sp/>jx<sp/>&lt;=<sp/>numRowsPerObject_;<sp/>++jx)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tcopy[jx]<sp/>=<sp/>told_[jx<sp/>+<sp/>(numRowsPerObject_<sp/>+<sp/>2)];</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>bottomY<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(idx,<sp/>tcopy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x,<sp/>y-1).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(bottomY.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x,<sp/>y-1).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(idx,<sp/>tcopy);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">(x)<sp/>&lt;<sp/>numObjsX_<sp/>-<sp/>1)<sp/>{</highlight></codeline>
@@ -285,16 +282,14 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tcopy[jy]<sp/>=<sp/>told_[numRowsPerObject_<sp/>+</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>jy<sp/>*<sp/>(numRowsPerObject_<sp/>+<sp/>2)];</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rightX<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(idx,<sp/>tcopy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x+1,<sp/>y).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(rightX.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x+1,<sp/>y).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(idx,<sp/>tcopy);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">(y)<sp/>&lt;<sp/>numObjsY_<sp/>-<sp/>1)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;double&gt;<sp/>tcopy(numRowsPerObject_<sp/>+<sp/>2,<sp/>0.0);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>jx<sp/>=<sp/>1;<sp/>jx<sp/>&lt;=<sp/>numRowsPerObject_;<sp/>++jx)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tcopy[jx]<sp/>=<sp/>told_[jx<sp/>+<sp/>numRowsPerObject_<sp/>*<sp/>(numRowsPerObject_<sp/>+<sp/>2)];</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>topY<sp/>=<sp/>vt::makeMessage&lt;VecMsg&gt;(idx,<sp/>tcopy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x,<sp/>y+1).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(topY.get());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(x,<sp/>y+1).send&lt;VecMsg,<sp/>&amp;LinearPb2DJacobi::exchange&gt;(idx,<sp/>tcopy);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
@@ -458,13 +453,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;BaseIndexType&gt;(numY_objs)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;LinearPb2DJacobi&gt;(range);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rootMsg<sp/>=<sp/>vt::makeMessage&lt;LinearPb2DJacobi::LPMsg&gt;(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>numX_objs,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>numY_objs,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>maxIter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;LinearPb2DJacobi::LPMsg,<sp/>&amp;LinearPb2DJacobi::solve&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>numX_objs,<sp/>numY_objs,<sp/>maxIter</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;LinearPb2DJacobi::LPMsg,&amp;LinearPb2DJacobi::solve&gt;(rootMsg.get());</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>

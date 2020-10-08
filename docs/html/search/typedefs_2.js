@@ -35,6 +35,8 @@ var searchData=
   ['chain3',['Chain3',['../namespacevt_1_1vrt_1_1collection_1_1col__proxy.html#aa83ea97afbf21f975d02b933af0ee42c',1,'vt::vrt::collection::col_proxy::Chain3()'],['../namespacevt_1_1vrt_1_1collection_1_1elm__proxy.html#a8db2caa0e0d4bb8dafc382c8953b2574',1,'vt::vrt::collection::elm_proxy::Chain3()']]],
   ['chain4',['Chain4',['../namespacevt_1_1vrt_1_1collection_1_1col__proxy.html#a6fce621c93c2418be67c83af0d94d68f',1,'vt::vrt::collection::col_proxy::Chain4()'],['../namespacevt_1_1vrt_1_1collection_1_1elm__proxy.html#af0c90ff3494dd7649dfce8048ab2240f',1,'vt::vrt::collection::elm_proxy::Chain4()']]],
   ['chain5',['Chain5',['../namespacevt_1_1vrt_1_1collection_1_1col__proxy.html#a96685f5884d57269c5c7dfe14dcc361b',1,'vt::vrt::collection::col_proxy']]],
+  ['checkpoint_5fbase_5ftype_5ft',['checkpoint_base_type_t',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#a41abdf16741a7c58e926d9813985bd2f',1,'checkpoint::dispatch::vrt']]],
+  ['checkpoint_5fderived_5ftype_5ft',['checkpoint_derived_type_t',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#a60969947b48a5cdd307a0986ae7e6a45',1,'checkpoint::dispatch::vrt']]],
   ['childmaptype',['ChildMapType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a95e5a93033703216cad8ec7a3da7a2ef',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['childptrtype',['ChildPtrType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a4dd8525145427a29350a287a777655de',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['cleant',['CleanT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a5ca6cd4c73773e29c340901d3e6864d2',1,'checkpoint::dispatch::CleanType']]],

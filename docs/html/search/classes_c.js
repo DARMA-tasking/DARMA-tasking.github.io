@@ -1,10 +1,17 @@
 var searchData=
 [
-  ['objectentry',['ObjectEntry',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html',1,'checkpoint::dispatch::vrt::objregistry']]],
-  ['objectiterator',['ObjectIterator',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_object_iterator.html',1,'vt::vrt::collection::balance']]],
-  ['objgroupmanager',['ObjGroupManager',['../structvt_1_1objgroup_1_1_obj_group_manager.html',1,'vt::objgroup']]],
-  ['objgroupproxy',['ObjGroupProxy',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html',1,'vt::objgroup::proxy']]],
-  ['objgrouptag',['ObjGroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ObjGroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::tags::ObjGroupTag'],['../structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag.html',1,'vt::rdma::HandleKey::ObjGroupTag']]],
-  ['orop',['OrOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_or_op.html',1,'vt::collective::reduce::operators']]],
-  ['orop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['OrOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_or_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]]
+  ['naivepersistence',['NaivePersistence',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html',1,'vt::vrt::collection::balance']]],
+  ['newusereventmsg',['NewUserEventMsg',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html',1,'vt::trace::UserEventRegistry']]],
+  ['nodestats',['NodeStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html',1,'vt::vrt::collection::balance']]],
+  ['nodestatsmsg',['NodeStatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats_msg.html',1,'vt::vrt::collection::balance']]],
+  ['nodetagtype',['NodeTagType',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_bffc9b31b7d701a9d14f97993404e892.html',1,'vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;']]],
+  ['nodetocollectiontag',['NodeToCollectionTag',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key_1_1_node_to_collection_tag.html',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['none',['None',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_none.html',1,'vt::collective::reduce::operators']]],
+  ['nonevrt',['NoneVrt',['../structvt_1_1serialization_1_1_none_vrt.html',1,'vt::serialization']]],
+  ['nonserializedmsg',['NonSerializedMsg',['../structvt_1_1messaging_1_1_non_serialized_msg.html',1,'vt::messaging']]],
+  ['nontarget',['NonTarget',['../structvt_1_1rdma_1_1_non_target.html',1,'vt::rdma']]],
+  ['nontype',['NonType',['../structvt_1_1param_1_1_non_type.html',1,'vt::param']]],
+  ['norm',['Norm',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_norm.html',1,'vt::vrt::collection::balance']]],
+  ['notbytecopytrait',['NotByteCopyTrait',['../structvt_1_1serialization_1_1_not_byte_copy_trait.html',1,'vt::serialization']]],
+  ['nullmutex',['NullMutex',['../structvt_1_1util_1_1mutex_1_1_null_mutex.html',1,'vt::util::mutex']]]
 ];

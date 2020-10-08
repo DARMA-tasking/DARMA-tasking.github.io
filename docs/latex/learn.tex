@@ -886,12 +886,10 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The msgHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
-    \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyCollMsg>();
-    proxy.broadcast<MyCollMsg,&MyCol::msgHandler>(msg.get());
+    proxy.broadcast<MyCollMsg,&MyCol::msgHandler>();
 
     \textcolor{comment}{// Send a message to the 5th element of the collection}
-    \textcolor{keyword}{auto} msg2 = ::vt::makeMessage<MyCollMsg>();
-    proxy[5].send<MyCollMsg,&MyCol::msgHandler>(msg2.get());
+    proxy[5].send<MyCollMsg,&MyCol::msgHandler>();
   \}
 \}
 \end{DoxyCodeInclude}
@@ -975,8 +973,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
-    \textcolor{keyword}{auto} msg = ::vt::makeMessage<ColRedMsg>();
-    proxy.broadcast<ColRedMsg,&ReduceCol::reduceHandler>(msg.get());
+    proxy.broadcast<ColRedMsg,&ReduceCol::reduceHandler>();
   \}
 \}
 \end{DoxyCodeInclude}
@@ -1170,8 +1167,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       \textcolor{comment}{// Start a new iteration}
       \textcolor{comment}{//}
       \textcolor{keyword}{auto} proxy = getCollectionProxy();
-      \textcolor{keyword}{auto} loopMsg = vt::makeMessage<BlankMsg>();
-      proxy.broadcast<BlankMsg, &LinearPb1DJacobi::sendInfo>(loopMsg.get());
+      proxy.broadcast<BlankMsg, &LinearPb1DJacobi::sendInfo>();
     \}
     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
       fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
@@ -1300,14 +1296,16 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{//--- Send the values to the left}
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
     \textcolor{keywordflow}{if} (myIdx > 0) \{
-      \textcolor{keyword}{auto} leftMsg = vt::makeMessage<VecMsg>(myIdx, told\_[1]);
-      proxy[myIdx-1].send<VecMsg, &LinearPb1DJacobi::exchange>(leftMsg.get());
+      proxy[myIdx - 1].send<VecMsg, &LinearPb1DJacobi::exchange>(
+        myIdx, told\_[1]
+      );
     \}
 
     \textcolor{comment}{//--- Send values to the right}
     \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(myIdx) < numObjs\_ - 1) \{
-      \textcolor{keyword}{auto} rightMsg = vt::makeMessage<VecMsg>(myIdx, told\_[numRowsPerObject\_]);
-      proxy[myIdx+1].send<VecMsg, &LinearPb1DJacobi::exchange>(rightMsg.get());
+      proxy[myIdx + 1].send<VecMsg, &LinearPb1DJacobi::exchange>(
+        myIdx, told\_[numRowsPerObject\_]
+      );
     \}
   \}
 
@@ -1414,11 +1412,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
 
     \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb1DJacobi>(range);
-    \textcolor{keyword}{auto} rootMsg = vt::makeMessage<LinearPb1DJacobi::LPMsg>(
+    proxy.broadcast<LinearPb1DJacobi::LPMsg, &LinearPb1DJacobi::solve>(
       num\_objs, numRowsPerObject, maxIter
     );
-    proxy.broadcast<LinearPb1DJacobi::LPMsg,&LinearPb1DJacobi::solve>(rootMsg.get());
-
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -1527,8 +1523,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       \textcolor{comment}{// Start a new iteration}
       \textcolor{comment}{//}
       \textcolor{keyword}{auto} proxy = getCollectionProxy();
-      \textcolor{keyword}{auto} loopMsg = vt::makeMessage<BlankMsg>();
-      proxy.broadcast<BlankMsg, &LinearPb2DJacobi::sendInfo>(loopMsg.get());
+      proxy.broadcast<BlankMsg, &LinearPb2DJacobi::sendInfo>();
     \}
     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
       fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
@@ -1696,16 +1691,14 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 1; jy <= numRowsPerObject\_; ++jy)
         tcopy[jy] = told\_[1 + jy * (numRowsPerObject\_ + 2)];
-      \textcolor{keyword}{auto} leftX = vt::makeMessage<VecMsg>(idx, tcopy);
-      proxy(x-1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(leftX.get());
+      proxy(x-1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(idx, tcopy);
     \}
 
     \textcolor{keywordflow}{if} (y > 0) \{
       std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 1; jx <= numRowsPerObject\_; ++jx)
         tcopy[jx] = told\_[jx + (numRowsPerObject\_ + 2)];
-      \textcolor{keyword}{auto} bottomY = vt::makeMessage<VecMsg>(idx, tcopy);
-      proxy(x, y-1).send<VecMsg, &LinearPb2DJacobi::exchange>(bottomY.get());
+      proxy(x, y-1).send<VecMsg, &LinearPb2DJacobi::exchange>(idx, tcopy);
     \}
 
     \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(x) < numObjsX\_ - 1) \{
@@ -1714,16 +1707,14 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
         tcopy[jy] = told\_[numRowsPerObject\_ +
                           jy * (numRowsPerObject\_ + 2)];
       \}
-      \textcolor{keyword}{auto} rightX = vt::makeMessage<VecMsg>(idx, tcopy);
-      proxy(x+1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(rightX.get());
+      proxy(x+1, y).send<VecMsg, &LinearPb2DJacobi::exchange>(idx, tcopy);
     \}
 
     \textcolor{keywordflow}{if} (\textcolor{keywordtype}{size\_t}(y) < numObjsY\_ - 1) \{
       std::vector<double> tcopy(numRowsPerObject\_ + 2, 0.0);
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jx = 1; jx <= numRowsPerObject\_; ++jx)
         tcopy[jx] = told\_[jx + numRowsPerObject\_ * (numRowsPerObject\_ + 2)];
-      \textcolor{keyword}{auto} topY = vt::makeMessage<VecMsg>(idx, tcopy);
-      proxy(x, y+1).send<VecMsg, &LinearPb2DJacobi::exchange>(topY.get());
+      proxy(x, y+1).send<VecMsg, &LinearPb2DJacobi::exchange>(idx, tcopy);
     \}
 
   \}
@@ -1887,13 +1878,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       static\_cast<BaseIndexType>(numY\_objs)
     );
     \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb2DJacobi>(range);
-    \textcolor{keyword}{auto} rootMsg = vt::makeMessage<LinearPb2DJacobi::LPMsg>(
-      numX\_objs,
-      numY\_objs,
-      maxIter
+    proxy.broadcast<LinearPb2DJacobi::LPMsg, &LinearPb2DJacobi::solve>(
+      numX\_objs, numY\_objs, maxIter
     );
-    proxy.broadcast<LinearPb2DJacobi::LPMsg,&LinearPb2DJacobi::solve>(rootMsg.get());
-
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
