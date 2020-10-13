@@ -33,6 +33,7 @@ var searchData=
   ['vt_5fdebug_5fprint_5fverbose',['vt_debug_print_verbose',['../debug__print_8h.html#aa1cd5569b79fa93ed173e778ad5ddc33',1,'debug_print.h']]],
   ['vt_5fdefault_5fthreading',['vt_default_threading',['../debug__masterconfig_8h.html#a7f17677aa9f9ad55902cb164a124801e',1,'debug_masterconfig.h']]],
   ['vt_5ffeature_5fbit_5fcheck_5foverflow',['vt_feature_bit_check_overflow',['../features__defines_8h.html#ac50d686a063d8e741fb52c74de502e52',1,'features_defines.h']]],
+  ['vt_5ffeature_5fci_5fbuild',['vt_feature_ci_build',['../features__defines_8h.html#aadc802110b1aa41ff37ca89d9bb6c148',1,'features_defines.h']]],
   ['vt_5ffeature_5fcons_5fmulti_5fidx',['vt_feature_cons_multi_idx',['../features__defines_8h.html#af817e629bc1fbbee64fd013db27edd55',1,'features_defines.h']]],
   ['vt_5ffeature_5fdefault_5fthreading',['vt_feature_default_threading',['../features__defines_8h.html#a1a64cb4e68e847e8ed5ae5bfede76b47',1,'features_defines.h']]],
   ['vt_5ffeature_5fdetector',['vt_feature_detector',['../features__defines_8h.html#a7df89a7cef097abba02997ec6c5eac6a',1,'features_defines.h']]],
