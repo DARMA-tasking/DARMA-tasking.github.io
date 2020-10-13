@@ -23,5 +23,6 @@ var searchData=
   ['declarestatictls',['DeclareStaticTLS',['../tls_8h.html#a03443779932d843463b28f4533585502',1,'tls.h']]],
   ['declarestimpltls',['DeclareStImplTLS',['../tls_8impl_8h.html#a2c7ca64274057e963e54cc7b5b322df3',1,'tls.impl.h']]],
   ['declarestinitimpltls',['DeclareStInitImplTLS',['../tls_8impl_8h.html#ac841c50923eabe55ae99c393ad6ba98a',1,'tls.impl.h']]],
-  ['declaretls',['DeclareTLS',['../tls_8h.html#a0abdef742729bca5521cb838efbffc9e',1,'tls.h']]]
+  ['declaretls',['DeclareTLS',['../tls_8h.html#a0abdef742729bca5521cb838efbffc9e',1,'tls.h']]],
+  ['diagnosic_5fvalue_5finstance',['DIAGNOSIC_VALUE_INSTANCE',['../diagnostic__value_8cc.html#a81513065df72cc221320e1181eb4b827',1,'diagnostic_value.cc']]]
 ];

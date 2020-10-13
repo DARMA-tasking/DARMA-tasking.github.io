@@ -15,7 +15,7 @@ var searchData=
   ['pendingtype',['PendingType',['../structvt_1_1location_1_1_entity_location_coord.html#a41b5c3792967e089c7e592b705c266c3',1,'vt::location::EntityLocationCoord']]],
   ['phasemsg',['PhaseMsg',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a7120dc064f6e8c4157a5f4c81b825393',1,'vt::vrt::collection::balance']]],
   ['phasereducemsg',['PhaseReduceMsg',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a04cf83e524629461fafc8d349af8ac8a',1,'vt::vrt::collection::balance']]],
-  ['phasetype',['PhaseType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a6edee983bb2ae96a341763520af33c66',1,'vt::vrt::collection::balance::ElementStats::PhaseType()'],['../namespacevt.html#a46ce6733d5cdbd735d561b7b4029f6d7',1,'vt::PhaseType()'],['../namespacevt_1_1group_1_1global.html#a1ad2576a1029e469969bdcd577122ee3',1,'vt::group::global::PhaseType()']]],
+  ['phasetype',['PhaseType',['../namespacevt.html#a46ce6733d5cdbd735d561b7b4029f6d7',1,'vt::PhaseType()'],['../namespacevt_1_1group_1_1global.html#a1ad2576a1029e469969bdcd577122ee3',1,'vt::group::global::PhaseType()']]],
   ['physicalresourcetype',['PhysicalResourceType',['../namespacevt.html#a2dc36fcada816dc6d11774d650328ee9',1,'vt']]],
   ['pipeidtype',['PipeIDType',['../namespacevt_1_1pipe.html#a8aa7908de242917ac0922b9e9c85fea4',1,'vt::pipe']]],
   ['piperemoteoptype',['PipeRemoteOpType',['../namespacevt_1_1pipe.html#a9f156f00d06693969d89a230a38eab52',1,'vt::pipe']]],

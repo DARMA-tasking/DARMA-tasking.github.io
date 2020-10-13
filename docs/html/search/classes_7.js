@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['gauge',['Gauge',['../structvt_1_1runtime_1_1component_1_1meter_1_1_gauge.html',1,'vt::runtime::component::meter']]],
+  ['gauge_3c_20gaugedefaulttype_20_3e',['Gauge&lt; GaugeDefaultType &gt;',['../structvt_1_1runtime_1_1component_1_1meter_1_1_gauge.html',1,'vt::runtime::component::meter']]],
+  ['gauge_3c_20u_20_3e',['Gauge&lt; U &gt;',['../structvt_1_1runtime_1_1component_1_1meter_1_1_gauge.html',1,'vt::runtime::component::meter']]],
   ['generalcallback',['GeneralCallback',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html',1,'vt::pipe::callback::cbunion']]],
   ['getinfochannel',['GetInfoChannel',['../structvt_1_1rdma_1_1_get_info_channel.html',1,'vt::rdma']]],
   ['getplace',['GetPlace',['../structvt_1_1util_1_1adt_1_1detail_1_1_get_place.html',1,'vt::util::adt::detail']]],

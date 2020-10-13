@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['gauge',['Gauge',['../namespacevt_1_1diagnostic.html#ad68069af499e2047c28d1852d77680ee',1,'vt::diagnostic']]],
+  ['gaugedefaulttype',['GaugeDefaultType',['../namespacevt_1_1diagnostic.html#a32500a7e9e4ef4618d0084987ea40a8c',1,'vt::diagnostic']]],
+  ['gauget',['GaugeT',['../namespacevt_1_1diagnostic.html#ae6ef3ff71955fc319093c29ddf2700d1',1,'vt::diagnostic']]],
   ['getbackmessage',['GetBackMessage',['../namespacevt_1_1rdma.html#a72a94b92eba75ec9fec43b2a9a4ad878',1,'vt::rdma']]],
   ['getmessage',['GetMessage',['../namespacevt_1_1rdma.html#acce0da4c9ea1233c3f132c1971943653',1,'vt::rdma']]],
   ['getmsgtype',['GetMsgType',['../structvt_1_1pipe_1_1_pipe_manager.html#a221ce8bc0fc6639f43dad1e53a08c0d2',1,'vt::pipe::PipeManager']]],

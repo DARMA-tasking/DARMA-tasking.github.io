@@ -16,6 +16,12 @@ var searchData=
   ['alloc_5fsize',['alloc_size',['../structvt_1_1pool_1_1_header.html#ad1f8e915eee733cd6b4d8efbfe51d551',1,'vt::pool::Header']]],
   ['alloc_5fworker',['alloc_worker',['../structvt_1_1pool_1_1_header.html#a054f2ad817d27c9725677c10ee487875',1,'vt::pool::Header']]],
   ['allocator_5f',['allocator_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a90e91c26c97dc9ea779e42e6c634d456',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
+  ['amforwardcountergauge',['amForwardCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a3f7864f87ef5d5aa841fa04bb4ab3fb8',1,'vt::messaging::ActiveMessenger']]],
+  ['amhandlercount',['amHandlerCount',['../structvt_1_1messaging_1_1_active_messenger.html#a6f7a203c3fc2cabd2f6900ecfcd72f89',1,'vt::messaging::ActiveMessenger']]],
+  ['ampollcount',['amPollCount',['../structvt_1_1messaging_1_1_active_messenger.html#a0bc9c9fa378e092e29a246e644529a12',1,'vt::messaging::ActiveMessenger']]],
+  ['ampostedcountergauge',['amPostedCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#aec484a9a792d9833d00621cadf3cace8',1,'vt::messaging::ActiveMessenger']]],
+  ['amrecvcountergauge',['amRecvCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#aee8bc2dca92bc3be57472aca90e45759',1,'vt::messaging::ActiveMessenger']]],
+  ['amsentcountergauge',['amSentCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a8756789430c46b3829714999926a50ae',1,'vt::messaging::ActiveMessenger']]],
   ['anon_5fcb_5f',['anon_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a6aa8eaee0ef4ebdc6e4a420f8e0780d4',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['any_5fepoch_5fstate_5f',['any_epoch_state_',['../structvt_1_1term_1_1_termination_detector.html#a49337963d174e5be73fcf467304428a6',1,'vt::term::TerminationDetector']]],
   ['app_5fconfig_5f',['app_config_',['../structvt_1_1runtime_1_1_runtime.html#a5fa2ceccc0e96fe0a97e0454e3a0a1ee',1,'vt::runtime::Runtime']]],
@@ -28,5 +34,5 @@ var searchData=
   ['ask_5fnode_5f',['ask_node_',['../structvt_1_1location_1_1_entity_msg.html#ae1cae8c818d70070238c0f5b975e2a80',1,'vt::location::EntityMsg']]],
   ['auto_5fthreshold',['auto_threshold',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a480ec7c5fa24215d70d34901f0549ff0',1,'vt::vrt::collection::lb::GreedyLB::auto_threshold()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a4f1e749384f8ae015ed1aabaa1b9a732',1,'vt::vrt::collection::lb::HierarchicalLB::auto_threshold()']]],
   ['automatic_5f',['automatic_',['../structvt_1_1pipe_1_1_pipe_state.html#afc74c762209659919822abb37dda8b89',1,'vt::pipe::PipeState']]],
-  ['avg_5f',['avg_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a3e0f760e59dfb3d80cedac64d36d2e4f',1,'vt::vrt::collection::balance::LoadData']]]
+  ['avg_5f',['avg_',['../structvt_1_1runtime_1_1component_1_1_diagnostic_erased_value.html#acd84ffb9c7898cf4d0bfc5606a8b15a9',1,'vt::runtime::component::DiagnosticErasedValue::avg_()'],['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#af43c732f760bdc64bb3d893e3aa900b6',1,'vt::runtime::component::detail::DiagnosticValueWrapper::avg_()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_diagnostic_stats_pack.html#aefd1b0e1f4a44808e16361ab61cbf0b7',1,'vt::runtime::component::meter::DiagnosticStatsPack::avg_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a3e0f760e59dfb3d80cedac64d36d2e4f',1,'vt::vrt::collection::balance::LoadData::avg_()']]]
 ];

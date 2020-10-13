@@ -17,6 +17,7 @@ var searchData=
   ['_7econtext',['~Context',['../structvt_1_1ctx_1_1_context.html#aa916f841807f2a1b913df33f782715af',1,'vt::ctx::Context']]],
   ['_7edata',['~Data',['../unionvt_1_1trace_1_1_log_1_1_data.html#a756ed898d9a1df126b2e214050f158e1',1,'vt::trace::Log::Data']]],
   ['_7edependentsendchain',['~DependentSendChain',['../classvt_1_1messaging_1_1_dependent_send_chain.html#ab83d35f473326151fe0ab2fe82b6de6e',1,'vt::messaging::DependentSendChain']]],
+  ['_7ediagnosticbase',['~DiagnosticBase',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#adc580177d32483d2166bdcdb9adfd832',1,'vt::runtime::component::detail::DiagnosticBase']]],
   ['_7edispatch',['~Dispatch',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch.html#af0c5622152b327cd5a5fb781b6062e42',1,'vt::objgroup::dispatch::Dispatch']]],
   ['_7edispatchbase',['~DispatchBase',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch_base.html#ad3a30bcc1ed4d045c208818d10b6cf96',1,'vt::objgroup::dispatch::DispatchBase']]],
   ['_7edispatchcollectionbase',['~DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html#a8c27f42a9b91fd31b0aa7b30da4d614c',1,'vt::vrt::collection::DispatchCollectionBase']]],

@@ -39,6 +39,7 @@ var searchData=
   ['eventready',['EventReady',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429cac39388d25cc07031a0e9939837999e92',1,'vt::event']]],
   ['eventremote',['EventRemote',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429ca6c1cd1c5d55dc05e2b16a4f5f2d2dadd',1,'vt::event']]],
   ['eventwaiting',['EventWaiting',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429ca9fa9370ca123bee33d77fccd7ee8c459',1,'vt::event']]],
+  ['exabytes',['Exabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a1e7535056f489fc82f76fae19149b2ef',1,'vt::util::memory']]],
   ['exclusive',['Exclusive',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70a2ef50b4c466304dc6ac77bac8a779971',1,'vt::rdma']]],
   ['exitmsg',['ExitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea586d1c3fef924d2b2f0c0a8580436086',1,'vt::trace']]]
 ];

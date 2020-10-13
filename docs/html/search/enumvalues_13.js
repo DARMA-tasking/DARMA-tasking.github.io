@@ -1,14 +1,20 @@
 var searchData=
 [
-  ['var',['var',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeab2145aac704ce76dbe1ac7adac535b23',1,'vt::vrt::collection::lb']]],
-  ['verbose',['verbose',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27',1,'vt::config']]],
-  ['verbose_5f2',['verbose_2',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a01e37c0a9cbc45367fe4a8452e1c29a2',1,'vt::config']]],
-  ['vrt',['vrt',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a012d139c89a14e56a85f32fd82e7c7d3',1,'vt::config']]],
-  ['vrt_5fcoll',['vrt_coll',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af18e81338b06e3d1a52b8c095b87c325',1,'vt::config']]],
-  ['vrtcolelmbufferbcast',['VrtColElmBufferBcast',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829aecb7e4027cb1633a43fee5d34d9389b9',1,'vt::error']]],
-  ['vrtcolelmbuffersend',['VrtColElmBufferSend',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a543e09f1c5a5278ef1975e2fab2e7769',1,'vt::error']]],
-  ['vrtcolelmlocalexist',['VrtColElmLocalExist',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a1181813393d5f24c2bd6ee3d2ce27d2d',1,'vt::error']]],
-  ['vrtcolelmproxyexist',['VrtColElmProxyExist',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a7c14bd41570a1ad6c27fb7db1917fdec',1,'vt::error']]],
-  ['vrtcollection',['VrtCollection',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a134728f5bfe80998733baf8fd76bf965',1,'vt::error']]],
-  ['vrtcontext',['VrtContext',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a269c80ce55d8f8c51a5c3e617a7d8f78',1,'vt::error']]]
+  ['uninitialized',['Uninitialized',['../namespacevt_1_1rdma.html#ac848e1d9da43db6294bd06f83e5d3946ad38b2f4330d80d2bef85002c63ad3f10',1,'vt::rdma']]],
+  ['units',['Units',['../namespacevt_1_1runtime_1_1component.html#a99ec18b08862c712176126bb7d0e307aae5771a362d88a71a657bfcd21ca54b3f',1,'vt::runtime::component']]],
+  ['unitspersecond',['UnitsPerSecond',['../namespacevt_1_1runtime_1_1component.html#a99ec18b08862c712176126bb7d0e307aa5e8baedb490ce30a7296558f8091eaa3',1,'vt::runtime::component']]],
+  ['unknown',['unknown',['../namespacevt_1_1config.html#a46e57c33bee1b9f1fa95455af86d80e0a5cf76001b3a600198f00d5971a0eeb55',1,'vt::config']]],
+  ['unpacking',['Unpacking',['../namespacecheckpoint.html#ae2509499ccd8b1dc48fb535bf8aa3059a9b87ab5a4e2e99d758991f06cad9c3bf',1,'checkpoint']]],
+  ['unreleased',['Unreleased',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa049d696d24fded6f07730c9b85bbf25f',1,'vt::vrt::collection']]],
+  ['user',['user',['../structvt_1_1trace_1_1_log.html#ae1c08093fd18967b7d4912d04d6acc3da14b709efcf6184d83649a7b3ce6cf8ca',1,'vt::trace::Log']]],
+  ['userepoch',['UserEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada1a31742d5ce22b2a4450ba9687b7e7ce',1,'vt::epoch']]],
+  ['userevent',['UserEvent',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dab84a8f283221ed88a8bec0fdaf2d13b4',1,'vt::trace']]],
+  ['usereventpair',['UserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da93e1a6af5dc75034578e8140d1c4dc1a',1,'vt::trace']]],
+  ['userlevelmax',['UserLevelMax',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498bada7b4271cb9b277f573951caa83f8128',1,'vt::sched']]],
+  ['userlevelmin',['UserLevelMin',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498baee78e11eb2efcad3e8f54d60271ef6b6',1,'vt::sched']]],
+  ['userstat',['UserStat',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da0576dfaf01928a8726c8586a4f5dcc62',1,'vt::trace']]],
+  ['usersupplied',['UserSupplied',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da8b3d24f749b695a052af82e2d1e6097e',1,'vt::trace']]],
+  ['usersuppliedbracketednote',['UserSuppliedBracketedNote',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da7f1f128014669206fd5dd2da69c9e705',1,'vt::trace']]],
+  ['usersuppliednote',['UserSuppliedNote',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da509a8f8444372bac7c6cfc7c481f1957',1,'vt::trace']]],
+  ['util',['Util',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a23e8a4b4f7cc1898ef12b4e6e48852bb',1,'vt::error']]]
 ];

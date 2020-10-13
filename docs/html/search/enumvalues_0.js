@@ -8,5 +8,5 @@ var searchData=
   ['anoncb',['AnonCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a4e3f23f80d17e652ec7089a6b84e5051',1,'vt::pipe::callback::cbunion']]],
   ['arrayeltinitmsg',['ArrayEltInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ead00a54412c9e53aae62181a452a7d3ff',1,'vt::trace']]],
   ['auto',['Auto',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2abfa992da505171200949c7e580e84ea2',1,'vt']]],
-  ['avg',['avg',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeae322d423f075b0ab2daad27011d24909',1,'vt::vrt::collection::lb']]]
+  ['avg',['Avg',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a5c0c148daa2c67922abe6018b87a759f',1,'vt::runtime::component::Avg()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeae322d423f075b0ab2daad27011d24909',1,'vt::vrt::collection::lb::avg()']]]
 ];

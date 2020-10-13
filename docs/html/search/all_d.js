@@ -148,7 +148,7 @@ var searchData=
   ['localregisteredmsgconttype',['LocalRegisteredMsgContType',['../structvt_1_1location_1_1_entity_location_coord.html#a0c6d24fed6c690ac6d044b11d884df65',1,'vt::location::EntityLocationCoord']]],
   ['localsync',['localSync',['../structvt_1_1group_1_1global_1_1_default_group.html#a4f79d96f09b2f8a2ed4c1139319aa5de',1,'vt::group::global::DefaultGroup']]],
   ['locaskstype',['LocAsksType',['../structvt_1_1location_1_1_entity_location_coord.html#a492ca5404229c05923f69bae396f2ac4',1,'vt::location::EntityLocationCoord']]],
-  ['location',['Location',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ace5bf551379459c1c61d2a204061c455',1,'vt::error::Location()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d8501591ca3859c828489054b17640',1,'vt::config::location()'],['../location.html',1,'introduction']]],
+  ['location',['location',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d8501591ca3859c828489054b17640',1,'vt::config::location()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ace5bf551379459c1c61d2a204061c455',1,'vt::error::Location()'],['../location.html',1,'introduction']]],
   ['location_2efwd_2eh',['location.fwd.h',['../location_8fwd_8h.html',1,'']]],
   ['location_2eh',['location.h',['../location_8h.html',1,'']]],
   ['location_2eimpl_2eh',['location.impl.h',['../location_8impl_8h.html',1,'']]],

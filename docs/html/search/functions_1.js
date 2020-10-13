@@ -33,6 +33,7 @@ var searchData=
   ['adddefaultaction',['addDefaultAction',['../structvt_1_1term_1_1_term_action.html#a9e9e174482720b4886ea4e8c38ead0d7',1,'vt::term::TermAction']]],
   ['adddep',['addDep',['../structvt_1_1rdma_1_1_action.html#ab4b3a15189ddb23b25b664ffafd7b2dd',1,'vt::rdma::Action::addDep()'],['../structvt_1_1runtime_1_1component_1_1_component_registry.html#a8a291ffadf2f95a7e3e91427eac29a65',1,'vt::runtime::component::ComponentRegistry::addDep()']]],
   ['adddependency',['addDependency',['../structvt_1_1term_1_1_termination_detector.html#a18685d6c5c81e5f1c73d92891cef601b',1,'vt::term::TerminationDetector']]],
+  ['adddiagnosticargs',['addDiagnosticArgs',['../structvt_1_1arguments_1_1_arg_config.html#a8783b70093b5fb9cae74e97b2c428c44',1,'vt::arguments::ArgConfig']]],
   ['addentry',['addEntry',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#ab9bf31b95d1c80bbe02268cd9689d453',1,'vt::lb::instrumentation::Database']]],
   ['addepoch',['addEpoch',['../structvt_1_1term_1_1_epoch_window.html#a38502baeeae067a563d611e0e31e5e44',1,'vt::term::EpochWindow']]],
   ['addepochstatedependency',['addEpochStateDependency',['../structvt_1_1term_1_1_termination_detector.html#ac0c59133b2db32f599aa4b5f8f451fe0',1,'vt::term::TerminationDetector']]],
@@ -129,5 +130,5 @@ var searchData=
   ['attachaction',['attachAction',['../structvt_1_1event_1_1_async_event.html#aa6432e2fff56eb073f9489bfc37e89bc',1,'vt::event::AsyncEvent::attachAction()'],['../structvt_1_1event_1_1_event_holder.html#aa5563adb9da7193d0a8260424d756c51',1,'vt::event::EventHolder::attachAction()']]],
   ['attachenqueueprogressfn',['attachEnqueueProgressFn',['../structvt_1_1worker_1_1_worker_group_counter.html#a20ddb42ebdebae2134ecb33feef95d19',1,'vt::worker::WorkerGroupCounter']]],
   ['autoreginfo',['AutoRegInfo',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a57928f8fb49b3a015d27840b4328be44',1,'vt::auto_registry::AutoRegInfo::AutoRegInfo(FnT const &amp;in_active_fun_t, RegistrarGenInfo in_gen)'],['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a30060ab05ce35a6b8c3bd2d5d23e995f',1,'vt::auto_registry::AutoRegInfo::AutoRegInfo(NumArgsTagType, FnT const &amp;in_active_fun_t, NumArgsType const &amp;in_args)']]],
-  ['avg',['avg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ac486f8036d3af52bc5879170ff221046',1,'vt::vrt::collection::balance::LoadData']]]
+  ['avg',['avg',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a8812305ab91c130f4a59c59fc3a3052a',1,'vt::runtime::component::detail::DiagnosticValueWrapper::avg()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#ac486f8036d3af52bc5879170ff221046',1,'vt::vrt::collection::balance::LoadData::avg()']]]
 ];

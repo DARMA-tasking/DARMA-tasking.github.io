@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['positionenum',['PositionEnum',['../structvt_1_1term_1_1interval_1_1_interval.html#adfdde0c1b12f536189432b168f6df6b3',1,'vt::term::interval::Interval']]],
-  ['prioritylevel',['PriorityLevel',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498b',1,'vt::sched']]]
+  ['memoryunitenum',['MemoryUnitEnum',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6',1,'vt::util::memory']]],
+  ['migratestatus',['MigrateStatus',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804',1,'vt::vrt::collection']]],
+  ['modeenum',['ModeEnum',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2',1,'checkpoint::buffer::IOBuffer::ModeEnum()'],['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0',1,'vt::config::ModeEnum()']]],
+  ['moduleerrorcode',['ModuleErrorCode',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12',1,'vt::error']]],
+  ['mpitag',['MPITag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55',1,'vt::messaging']]]
 ];

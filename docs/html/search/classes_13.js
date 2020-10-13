@@ -4,6 +4,7 @@ var searchData=
   ['unionbase',['UnionBase',['../structvt_1_1util_1_1adt_1_1_union_base.html',1,'vt::util::adt']]],
   ['unionbase_3c_20t_2c_20ts_2e_2e_2e_20_3e',['UnionBase&lt; T, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1_union_base.html',1,'vt::util::adt']]],
   ['unioncopy',['UnionCopy',['../structvt_1_1util_1_1adt_1_1_union_copy.html',1,'vt::util::adt']]],
+  ['unioncopy_3c_20double_2c_20void_2c_20ts_2e_2e_2e_20_3e',['UnionCopy&lt; double, void, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1_union_copy.html',1,'vt::util::adt']]],
   ['unioncopy_3c_20strongobjgroup_2c_20void_2c_20ts_2e_2e_2e_20_3e',['UnionCopy&lt; StrongObjGroup, void, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1_union_copy.html',1,'vt::util::adt']]],
   ['unioncopy_3c_20strongtag_2c_20void_2c_20ts_2e_2e_2e_20_3e',['UnionCopy&lt; StrongTag, void, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1_union_copy.html',1,'vt::util::adt']]],
   ['unioncopy_3c_20t_2c_20typename_20std_3a_3aenable_5fif_5ft_3c_20detail_3a_3aistriviallycopyable_3c_20t_2c_20ts_2e_2e_2e_20_3e_3a_3avalue_20_3e_2c_20ts_2e_2e_2e_20_3e',['UnionCopy&lt; T, typename std::enable_if_t&lt; detail::IsTriviallyCopyable&lt; T, Ts... &gt;::value &gt;, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1_union_copy_3_01_t_00_01typename_01std_1_1enable__if__t_3_01detail_1_39951ca88dc847bbf698c46d828c8188.html',1,'vt::util::adt']]],
@@ -23,5 +24,5 @@ var searchData=
   ['userbuffer',['UserBuffer',['../structcheckpoint_1_1buffer_1_1_user_buffer.html',1,'checkpoint::buffer']]],
   ['userdata',['UserData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html',1,'vt::trace::Log::Data']]],
   ['usereventregistry',['UserEventRegistry',['../structvt_1_1trace_1_1_user_event_registry.html',1,'vt::trace']]],
-  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag']]]
+  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag']]]
 ];

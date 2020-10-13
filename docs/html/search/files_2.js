@@ -101,9 +101,12 @@ var searchData=
   ['common_2eh',['common.h',['../src_2vt_2configs_2error_2common_8h.html',1,'(Global Namespace)'],['../src_2vt_2objgroup_2common_8h.html',1,'(Global Namespace)'],['../src_2vt_2rdmahandle_2common_8h.html',1,'(Global Namespace)'],['../lib_2checkpoint_2src_2checkpoint_2common_8h.html',1,'(Global Namespace)']]],
   ['component_2eh',['component.h',['../component_8h.html',1,'']]],
   ['component_5fdep_2eh',['component_dep.h',['../component__dep_8h.html',1,'']]],
+  ['component_5fname_2eh',['component_name.h',['../component__name_8h.html',1,'']]],
   ['component_5fpack_2ecc',['component_pack.cc',['../component__pack_8cc.html',1,'']]],
   ['component_5fpack_2eh',['component_pack.h',['../component__pack_8h.html',1,'']]],
   ['component_5fpack_2eimpl_2eh',['component_pack.impl.h',['../component__pack_8impl_8h.html',1,'']]],
+  ['component_5freduce_2ecc',['component_reduce.cc',['../component__reduce_8cc.html',1,'']]],
+  ['component_5freduce_2eh',['component_reduce.h',['../component__reduce_8h.html',1,'']]],
   ['component_5fregistry_2eh',['component_registry.h',['../component__registry_8h.html',1,'']]],
   ['component_5ftraits_2eh',['component_traits.h',['../component__traits_8h.html',1,'']]],
   ['composed_5fmodel_2ecc',['composed_model.cc',['../composed__model_8cc.html',1,'']]],
@@ -142,5 +145,7 @@ var searchData=
   ['context_5fvrtmessage_2ecc',['context_vrtmessage.cc',['../context__vrtmessage_8cc.html',1,'']]],
   ['context_5fvrtmessage_2eh',['context_vrtmessage.h',['../context__vrtmessage_8h.html',1,'']]],
   ['coord_2eh',['coord.h',['../coord_8h.html',1,'']]],
+  ['counter_2eh',['counter.h',['../counter_8h.html',1,'']]],
+  ['counter_5fgauge_2eh',['counter_gauge.h',['../counter__gauge_8h.html',1,'']]],
   ['criterion_2eh',['criterion.h',['../criterion_8h.html',1,'']]]
 ];

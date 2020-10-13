@@ -80,6 +80,7 @@ var searchData=
   ['runtime_5fbanner_2ecc',['runtime_banner.cc',['../runtime__banner_8cc.html',1,'']]],
   ['runtime_5fcommon_2eh',['runtime_common.h',['../runtime__common_8h.html',1,'']]],
   ['runtime_5fcomponent_5ffwd_2eh',['runtime_component_fwd.h',['../runtime__component__fwd_8h.html',1,'']]],
+  ['runtime_5fdiagnostics_2ecc',['runtime_diagnostics.cc',['../runtime__diagnostics_8cc.html',1,'']]],
   ['runtime_5fget_2ecc',['runtime_get.cc',['../runtime__get_8cc.html',1,'']]],
   ['runtime_5fheaders_2eh',['runtime_headers.h',['../runtime__headers_8h.html',1,'']]],
   ['runtime_5fholder_2eh',['runtime_holder.h',['../runtime__holder_8h.html',1,'']]],

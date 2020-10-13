@@ -1,31 +1,5 @@
 var searchData=
 [
-  ['randomlb',['RandomLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca6aadc0284cdcb7afaf7043f5d49179b9',1,'vt::vrt::collection::balance']]],
-  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()']]],
-  ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
-  ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
-  ['readfromfile',['ReadFromFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2abe9348ae77ec17acd67aa1ff39a18d83',1,'checkpoint::buffer::IOBuffer']]],
-  ['reduce',['reduce',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af558c370706b5e7bd8ba5224657ca9b4',1,'vt::config::reduce()'],['../namespacevt_1_1vrt_1_1collection.html#a1b1b082e2ff4e9e5d1b7227acd78db3fa6e7d3d4b4a59381f6af07f064bbbd290',1,'vt::vrt::collection::Reduce()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'vt::error::Reduce()']]],
-  ['reggeneral',['RegGeneral',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241aed767d8e868d24805af30efeb716d412',1,'vt::auto_registry']]],
-  ['regindex',['RegIndex',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241afcf88785f449d5ff3251eddef9e0ae8a',1,'vt::auto_registry']]],
-  ['registry',['Registry',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4e1ab36884b253ce24768da1c4080a14',1,'vt::error']]],
-  ['regmap',['RegMap',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a5bea9106f95a8bef8ca7cd40bc47a759',1,'vt::auto_registry']]],
-  ['regobjgroup',['RegObjGroup',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a56bbebfc734558a4a4606cb988692fb9',1,'vt::auto_registry']]],
-  ['regrdmaget',['RegRDMAGet',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a7d04d9f3c814885ce58139f6f4d7a8f3',1,'vt::auto_registry']]],
-  ['regrdmaput',['RegRDMAPut',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241aa7a5911e2f2656b224d1c0a709d4b4af',1,'vt::auto_registry']]],
-  ['regseed',['RegSeed',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241aa1b195fd3c3e81c3577ff2dd6e5b0615',1,'vt::auto_registry']]],
-  ['regvrt',['RegVrt',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241ac7be085300a153f4424a5f71f3d1aacf',1,'vt::auto_registry']]],
-  ['regvrtcollection',['RegVrtCollection',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a326a64dfc90f61612fb2c05d810b0b3a',1,'vt::auto_registry']]],
-  ['regvrtcollectionmember',['RegVrtCollectionMember',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241ac314a4779c309a8472ca4d3d42476fd3',1,'vt::auto_registry']]],
-  ['remote',['Remote',['../namespacevt_1_1vrt.html#a408950d7781cc0422dcc4bdf723fc281ac81bc94ba7d9e2ef6791ddbd24daa667',1,'vt::vrt::Remote()'],['../namespacevt_1_1term.html#ad8ec9b371608fc88e7fdeef219785b27af8508f576cd3f742dfc268258dcdf0dd',1,'vt::term::Remote()'],['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd',1,'vt::location::Remote()']]],
-  ['remoteid',['RemoteID',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7eafa45aa15be6f922c8e1e4c78dbdad535',1,'vt::vrt']]],
-  ['remotenode',['RemoteNode',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7ea8fb0adb36660bd05ba5033e93cc8c3f0',1,'vt::vrt']]],
-  ['reqstatmsg',['ReqStatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eace6c5e6f2ca4c2ec0d3257ec10740684',1,'vt::trace']]],
-  ['require',['require',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850',1,'vt::messaging']]],
-  ['rodatamsg',['RODataMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea8e6cd7fce645bd4666f05491d7ae9a21',1,'vt::trace']]],
-  ['romsgmsg',['ROMsgMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea09bbab67779987ee507b5e261f92d8b9',1,'vt::trace']]],
-  ['root',['Root',['../structvt_1_1term_1_1_termination_detector.html#a4f3ede9a87f39d86e85f92b36a6c6a30a4beac8e3ddc4064785a61aa7949e3bda',1,'vt::term::TerminationDetector::Root()'],['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a8c67b09b2de7f4bd3371d6239b02a045',1,'vt::trace::Root()']]],
-  ['rootedepoch',['RootedEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada4bbf8ef3641b58f81dc5320f32df0178',1,'vt::epoch']]],
-  ['rotatelb',['RotateLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca5b1f9f84eddef3d97637267cbf0f7039',1,'vt::vrt::collection::balance']]],
-  ['runtime',['Runtime',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()']]]
+  ['quadrillions',['Quadrillions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a903b4b27ad12bd1c09261a7eeab2a9b5',1,'vt::runtime::component']]],
+  ['quintillions',['Quintillions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a61e6290e5030cfde1469749bb30b1c5d',1,'vt::runtime::component']]]
 ];

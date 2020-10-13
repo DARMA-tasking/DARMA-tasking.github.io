@@ -26,6 +26,7 @@ var searchData=
   ['densenodemaptype',['DenseNodeMapType',['../namespacevt_1_1mapping.html#a224f382367a2c65c3be2a9f91f89ffd5',1,'vt::mapping']]],
   ['deps',['Deps',['../namespacevt_1_1runtime_1_1component.html#afad3a7a92e35d9ab3d81540d9275213c',1,'vt::runtime::component']]],
   ['destroychannel',['DestroyChannel',['../namespacevt_1_1rdma.html#a1273aeddd73c1ffac0d7383ef7a314d8',1,'vt::rdma']]],
+  ['diagnosticbaseptrtype',['DiagnosticBasePtrType',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#ad95ea698535524d0f82c5da9beaaaf37',1,'vt::runtime::component::Diagnostic']]],
   ['difference_5ftype',['difference_type',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html#aba8b3805fbc28a4fbb78cad61e0f2ed4',1,'vt::term::interval::IntegralSetBase::IntervalSetIter::difference_type()'],['../classvt_1_1vrt_1_1collection_1_1balance_1_1_object_iterator.html#a97e592ab92b9cdf3156c10aacad7723c',1,'vt::vrt::collection::balance::ObjectIterator::difference_type()']]],
   ['dijkstrascholtenterm',['DijkstraScholtenTerm',['../namespacevt_1_1term.html#a886197ad3670cebba77f6b87ca59b4c9',1,'vt::term']]],
   ['directorymaptype',['DirectoryMapType',['../structvt_1_1location_1_1_directory.html#a6a897ff3929eccb2d334eb0b87b53f57',1,'vt::location::Directory']]],

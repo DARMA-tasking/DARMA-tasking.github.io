@@ -21,6 +21,7 @@ var searchData=
   ['time_2dtrigger_2emd',['time-trigger.md',['../time-trigger_8md.html',1,'']]],
   ['time_5ftrigger_5fmanager_2ecc',['time_trigger_manager.cc',['../time__trigger__manager_8cc.html',1,'']]],
   ['time_5ftrigger_5fmanager_2eh',['time_trigger_manager.h',['../time__trigger__manager_8h.html',1,'']]],
+  ['timer_2eh',['timer.h',['../timer_8h.html',1,'']]],
   ['timing_2ecc',['timing.cc',['../timing_8cc.html',1,'']]],
   ['timing_2eh',['timing.h',['../timing_8h.html',1,'']]],
   ['timing_5ftype_2eh',['timing_type.h',['../timing__type_8h.html',1,'']]],

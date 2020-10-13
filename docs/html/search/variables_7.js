@@ -5,6 +5,7 @@ var searchData=
   ['g_5fepoch_5f',['g_epoch_',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a7d080a6dc4e89607097f79e751dbbd70',1,'vt::vrt::collection::InsertMsg']]],
   ['g_5fprod1',['g_prod1',['../structvt_1_1term_1_1_term_state.html#a75ab01f0dcceb86687a3e26edada0620',1,'vt::term::TermState']]],
   ['g_5fprod2',['g_prod2',['../structvt_1_1term_1_1_term_state.html#a5e7029af1dca0645c92f5a00316dc039',1,'vt::term::TermState']]],
+  ['gauge_5f',['gauge_',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html#a76c78392b6cc713038031300eb00e86c',1,'vt::runtime::component::meter::CounterGauge']]],
   ['gen_5fobj_5fidx_5f',['gen_obj_idx_',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a5803e0771ae948d91d73a4721fc01fcb',1,'vt::auto_registry::AutoRegInfo']]],
   ['get_5fany_5ftag',['get_any_tag',['../structvt_1_1rdma_1_1_state.html#a63baf560dc97aa97037e6a3301739d00',1,'vt::rdma::State']]],
   ['get_5ftag_5fholder',['get_tag_holder',['../structvt_1_1rdma_1_1_state.html#a203be63dac93d826d17bcf3264270eb2',1,'vt::rdma::State']]],

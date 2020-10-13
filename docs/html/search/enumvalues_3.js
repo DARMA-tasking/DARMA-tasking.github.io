@@ -1,6 +1,7 @@
 var searchData=
 [
   ['datamsgtag',['DataMsgTag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55a9bee0499791527abc5fcf1099c3cc188',1,'vt::messaging']]],
+  ['debugdiagnostic',['DebugDiagnostic',['../namespacevt_1_1runtime_1_1component.html#af0bb99d9a054682217874bdc735ecac0a6f2a28752e3919bfba519660555f2c61',1,'vt::runtime::component']]],
   ['defaultinstance',['DefaultInstance',['../namespacevt_1_1runtime.html#afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101',1,'vt::runtime']]],
   ['deletevidmsg',['DeleteVidMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea7a9e606332d10af6e8e9c8d75d7efddb',1,'vt::trace']]],
   ['dequeue',['Dequeue',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da39b05f67b082f7a27d7616d09f98954a',1,'vt::trace']]],

@@ -11,6 +11,7 @@ var searchData=
   ['bcast_5fobj_5fcb_5f',['bcast_obj_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a2d7f76899263faa2fad8933a6371a162',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['bcast_5fproxy_5f',['bcast_proxy_',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#a7b1563ec7a2d15faba3b252304beefb6',1,'vt::vrt::collection::CollectionMessage']]],
   ['bcasts_5f',['bcasts_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a012801ec34d0ed70bba0260e4383b07e',1,'vt::vrt::collection::Holder']]],
+  ['bcastssentcount',['bcastsSentCount',['../structvt_1_1messaging_1_1_active_messenger.html#ae7063289867d66c16627d2a5e1d01cd7',1,'vt::messaging::ActiveMessenger']]],
   ['begin_5f',['begin_',['../structvt_1_1lb_1_1instrumentation_1_1_entry.html#a8e74c3f09fa8b430a2880e9f844dd47a',1,'vt::lb::instrumentation::Entry']]],
   ['between_5fsched_5fevent_5f',['between_sched_event_',['../structvt_1_1trace_1_1_trace.html#a3fdadda342771b037bb85aa77e0fc9cb',1,'vt::trace::Trace']]],
   ['between_5fsched_5fevent_5ftype_5f',['between_sched_event_type_',['../structvt_1_1trace_1_1_trace.html#a3be76c8f807837a4b242a5a28c005599',1,'vt::trace::Trace']]],

@@ -12,6 +12,7 @@ var searchData=
   ['adddep_3c_20u_2c_20args_2e_2e_2e_20_3e',['AddDep&lt; U, Args... &gt;',['../structvt_1_1runtime_1_1component_1_1_add_dep_3_01_u_00_01_args_8_8_8_01_4.html',1,'vt::runtime::component']]],
   ['adddep_3c_3e',['AddDep&lt;&gt;',['../structvt_1_1runtime_1_1component_1_1_add_dep_3_4.html',1,'vt::runtime::component']]],
   ['alignedcharunion',['AlignedCharUnion',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html',1,'vt::util::adt']]],
+  ['alignedcharunion_3c_20double_2c_20float_2c_20int8_5ft_2c_20int16_5ft_2c_20int32_5ft_2c_20int64_5ft_2c_20uint8_5ft_2c_20uint16_5ft_2c_20uint32_5ft_2c_20uint64_5ft_20_3e',['AlignedCharUnion&lt; double, float, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t, uint32_t, uint64_t &gt;',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html',1,'vt::util::adt']]],
   ['alignedcharunion_3c_20strongobjgroup_2c_20strongvrtproxy_2c_20stronggroup_2c_20strongcom_2c_20stronguserid_20_3e',['AlignedCharUnion&lt; StrongObjGroup, StrongVrtProxy, StrongGroup, StrongCom, StrongUserID &gt;',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html',1,'vt::util::adt']]],
   ['alignedcharunion_3c_20strongtag_2c_20tagpair_2c_20strongseq_2c_20stronguserid_2c_20strongepoch_20_3e',['AlignedCharUnion&lt; StrongTag, TagPair, StrongSeq, StrongUserID, StrongEpoch &gt;',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html',1,'vt::util::adt']]],
   ['aligner',['Aligner',['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner.html',1,'vt::util::adt::detail']]],

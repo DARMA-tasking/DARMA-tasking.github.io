@@ -1,9 +1,14 @@
 var searchData=
 [
-  ['waitconstruct',['WaitConstruct',['../namespacevt_1_1seq.html#a3041a01a5db2bccb3183e73b49e78252ac34b27320b44a81234983aa881c3d60e',1,'vt::seq']]],
-  ['waitingnextstate',['WaitingNextState',['../namespacevt_1_1seq.html#ad7b0496818667d816e00f717491d3b92a2d046e85576168cdf824c517ac142206',1,'vt::seq']]],
-  ['worker',['Worker',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()']]],
-  ['workersbusy',['WorkersBusy',['../namespacevt_1_1worker.html#abcb798436f1cdc4fab035def5b912d1fa8fc7a20c67c347c2e4febd57b5200a35',1,'vt::worker']]],
-  ['workersidle',['WorkersIdle',['../namespacevt_1_1worker.html#abcb798436f1cdc4fab035def5b912d1fa68281452752219b980c9dd7ef992c5bb',1,'vt::worker']]],
-  ['writetofile',['WriteToFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer']]]
+  ['var',['var',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeab2145aac704ce76dbe1ac7adac535b23',1,'vt::vrt::collection::lb']]],
+  ['verbose',['verbose',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27',1,'vt::config']]],
+  ['verbose_5f2',['verbose_2',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a01e37c0a9cbc45367fe4a8452e1c29a2',1,'vt::config']]],
+  ['vrt',['vrt',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a012d139c89a14e56a85f32fd82e7c7d3',1,'vt::config']]],
+  ['vrt_5fcoll',['vrt_coll',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af18e81338b06e3d1a52b8c095b87c325',1,'vt::config']]],
+  ['vrtcolelmbufferbcast',['VrtColElmBufferBcast',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829aecb7e4027cb1633a43fee5d34d9389b9',1,'vt::error']]],
+  ['vrtcolelmbuffersend',['VrtColElmBufferSend',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a543e09f1c5a5278ef1975e2fab2e7769',1,'vt::error']]],
+  ['vrtcolelmlocalexist',['VrtColElmLocalExist',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a1181813393d5f24c2bd6ee3d2ce27d2d',1,'vt::error']]],
+  ['vrtcolelmproxyexist',['VrtColElmProxyExist',['../namespacevt_1_1error.html#a2d36cef4c5ee65ddf503f7f4127e1829a7c14bd41570a1ad6c27fb7db1917fdec',1,'vt::error']]],
+  ['vrtcollection',['VrtCollection',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a134728f5bfe80998733baf8fd76bf965',1,'vt::error']]],
+  ['vrtcontext',['VrtContext',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a269c80ce55d8f8c51a5c3e617a7d8f78',1,'vt::error']]]
 ];
