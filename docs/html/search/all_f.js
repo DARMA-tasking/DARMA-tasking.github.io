@@ -84,6 +84,7 @@ var searchData=
   ['node_5fsize',['node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#ac03c38a79a387b33024a98d788fc5afe',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['node_5fstats_2ecc',['node_stats.cc',['../node__stats_8cc.html',1,'']]],
   ['node_5fstats_2eh',['node_stats.h',['../node__stats_8h.html',1,'']]],
+  ['node_5fsubphase_5fcomm_5f',['node_subphase_comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a70b5f9052ce87030b3476800e428bcb2',1,'vt::vrt::collection::balance::NodeStats']]],
   ['node_5fsubphase_5fdata_5f',['node_subphase_data_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#aa9c06fa76c472858769ebe545f29d7a2',1,'vt::vrt::collection::balance::NodeStats']]],
   ['node_5ftemp_5fto_5fperm_5f',['node_temp_to_perm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a77870b801c582f3f497e8bc3d885902d',1,'vt::vrt::collection::balance::NodeStats']]],
   ['nodeactiontype',['NodeActionType',['../namespacevt_1_1location.html#a3a9235e0ceb341bef225d2cc46606e9e',1,'vt::location']]],
