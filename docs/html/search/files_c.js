@@ -40,7 +40,6 @@ var searchData=
   ['migratable_2eh',['migratable.h',['../migratable_8h.html',1,'']]],
   ['migratable_2eimpl_2eh',['migratable.impl.h',['../migratable_8impl_8h.html',1,'']]],
   ['migrate_2dcollection_2dexample_2emd',['migrate-collection-example.md',['../migrate-collection-example_8md.html',1,'']]],
-  ['migrate_2eh',['migrate.h',['../migrate_8h.html',1,'']]],
   ['migrate_5fhandlers_2efwd_2eh',['migrate_handlers.fwd.h',['../migrate__handlers_8fwd_8h.html',1,'']]],
   ['migrate_5fhandlers_2eh',['migrate_handlers.h',['../migrate__handlers_8h.html',1,'']]],
   ['migrate_5fhandlers_2eimpl_2eh',['migrate_handlers.impl.h',['../migrate__handlers_8impl_8h.html',1,'']]],

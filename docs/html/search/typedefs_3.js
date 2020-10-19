@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['databasetype',['DatabaseType',['../structvt_1_1lb_1_1instrumentation_1_1_entity.html#a2c8b6bfe6f30a4407a996aaae856b052',1,'vt::lb::instrumentation::Entity']]],
   ['dataptrtype',['DataPtrType',['../structvt_1_1pipe_1_1signal_1_1_signal.html#a9c8166338314e5d595575c21eaa42859',1,'vt::pipe::signal::Signal::DataPtrType()'],['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#aad5bfc2b46dfa071ae638385324d7e31',1,'vt::pipe::signal::SignalHolder::DataPtrType()']]],
   ['datat',['DataT',['../structvt_1_1rdma_1_1_base_typed_handle.html#a442fed4e2898c2fc2b7e8686283efdde',1,'vt::rdma::BaseTypedHandle']]],
   ['datatype',['DataType',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_arr_msg.html#a09afd457c37f46ed8ea06f8075195a16',1,'vt::collective::reduce::operators::ReduceArrMsg::DataType()'],['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_vec_msg.html#a556927389ef91ea8f5a7892501724a37',1,'vt::collective::reduce::operators::ReduceVecMsg::DataType()'],['../structvt_1_1pipe_1_1signal_1_1_signal.html#af5f782c77d6c762dc35fc097cce53732',1,'vt::pipe::signal::Signal::DataType()'],['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a4c1ad2d2a961f4d381d9c9455bc0d901',1,'vt::pipe::signal::SignalHolder::DataType()']]],

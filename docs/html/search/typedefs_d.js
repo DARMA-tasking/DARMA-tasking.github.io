@@ -28,7 +28,6 @@ var searchData=
   ['priorityarraytype',['PriorityArrayType',['../namespacevt_1_1sched.html#a2dbd1daff26f79efbff3f418ad9b2a8b',1,'vt::sched']]],
   ['priorityleveltype',['PriorityLevelType',['../namespacevt.html#a53e07fdb3351b0f263e0dfd51b968d5e',1,'vt']]],
   ['prioritytype',['PriorityType',['../namespacevt.html#a86bff9f556eb761b27fc8600d006ac04',1,'vt']]],
-  ['proccontainertype',['ProcContainerType',['../namespacevt_1_1lb.html#af7c6ee21a7b3966b7ab64c5b626d30f8',1,'vt::lb']]],
   ['processfntype',['ProcessFnType',['../structvt_1_1util_1_1container_1_1_process_buffer.html#a20be3480fb453096015a6fe5ca370816',1,'vt::util::container::ProcessBuffer']]],
   ['proxycontainertype',['ProxyContainerType',['../structvt_1_1vrt_1_1collection_1_1_entire_holder.html#a40524236d95912099482d033b337db81',1,'vt::vrt::collection::EntireHolder']]],
   ['proxyelmtype',['ProxyElmType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#adba6c8ecb0f4c30e719f1abb995cfc9b',1,'vt::objgroup::ObjGroupManager']]],

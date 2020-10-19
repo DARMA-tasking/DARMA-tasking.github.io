@@ -27,7 +27,6 @@ var searchData=
   ['migratehandlers',['MigrateHandlers',['../structvt_1_1vrt_1_1collection_1_1_migrate_handlers.html',1,'vt::vrt::collection']]],
   ['migratehookbase',['MigrateHookBase',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html',1,'vt::vrt::collection']]],
   ['migratehookinterface',['MigrateHookInterface',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html',1,'vt::vrt::collection']]],
-  ['migrateinfo',['MigrateInfo',['../structvt_1_1lb_1_1_migrate_info.html',1,'vt::lb']]],
   ['migratemsg',['MigrateMsg',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html',1,'vt::vrt::collection']]],
   ['mimalloc',['Mimalloc',['../structvt_1_1util_1_1memory_1_1_mimalloc.html',1,'vt::util::memory']]],
   ['minop',['MinOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_min_op.html',1,'vt::collective::reduce::operators']]],

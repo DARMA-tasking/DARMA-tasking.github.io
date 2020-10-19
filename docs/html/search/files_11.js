@@ -72,7 +72,6 @@ var searchData=
   ['request_5fholder_2ecc',['request_holder.cc',['../request__holder_8cc.html',1,'']]],
   ['request_5fholder_2eh',['request_holder.h',['../request__holder_8h.html',1,'']]],
   ['request_5fholder_2eimpl_2eh',['request_holder.impl.h',['../request__holder_8impl_8h.html',1,'']]],
-  ['rotate_2eh',['rotate.h',['../rotate_8h.html',1,'']]],
   ['rotatelb_2ecc',['rotatelb.cc',['../rotatelb_8cc.html',1,'']]],
   ['rotatelb_2eh',['rotatelb.h',['../rotatelb_8h.html',1,'']]],
   ['runtime_2ecc',['runtime.cc',['../runtime_8cc.html',1,'']]],

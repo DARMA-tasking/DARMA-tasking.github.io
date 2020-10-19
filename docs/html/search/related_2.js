@@ -1,7 +1,6 @@
 var searchData=
 [
   ['callbacktyped',['CallbackTyped',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a983194428523f2cd409417e221cc51c3',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle']]],
-  ['centralcollect',['CentralCollect',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#aeab4bdfa8ef385d221a4bb517e4d01fc',1,'vt::lb::instrumentation::Database']]],
   ['channel',['Channel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a5786d652b263a505c6c74f25e7c0994a',1,'vt::rdma::RDMAManager']]],
   ['collectionbase_3c_20colt_2c_20indext_20_3e',['CollectionBase&lt; ColT, IndexT &gt;',['../structvt_1_1vrt_1_1collection_1_1_collection_elm_attorney.html#a4fb39ed9be2f0de84b237088ececde3f',1,'vt::vrt::collection::CollectionElmAttorney']]],
   ['collectionelmattorney',['CollectionElmAttorney',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aafd1972e5767dec26c8872f4aafa6864',1,'vt::vrt::collection::CollectionManager']]],
@@ -10,7 +9,6 @@ var searchData=
   ['collectiontypeattorney',['CollectionTypeAttorney',['../structvt_1_1vrt_1_1collection_1_1_indexable.html#abb4eb03ec2c75b459ceec69021d22a2b',1,'vt::vrt::collection::Indexable::CollectionTypeAttorney()'],['../structvt_1_1vrt_1_1collection_1_1_static_collection_base.html#abb4eb03ec2c75b459ceec69021d22a2b',1,'vt::vrt::collection::StaticCollectionBase::CollectionTypeAttorney()']]],
   ['collectivealg',['CollectiveAlg',['../structvt_1_1collective_1_1_collective_scope.html#aa2494f91f09e2ba6a5baae9ee9de430e',1,'vt::collective::CollectiveScope']]],
   ['collectivescope',['CollectiveScope',['../structvt_1_1collective_1_1_collective_alg.html#a915db0886f5b77be011e5a55413319f5',1,'vt::collective::CollectiveAlg']]],
-  ['collectmsg',['CollectMsg',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#a3775df26b6b7ed805def8013957fd548',1,'vt::lb::instrumentation::Database']]],
   ['componentpack',['ComponentPack',['../structvt_1_1runtime_1_1component_1_1_base_component.html#a82123f8d3dae68c38bd13d269d00b4c5',1,'vt::runtime::component::BaseComponent']]],
   ['contextattorney',['ContextAttorney',['../structvt_1_1ctx_1_1_context.html#a75c33a90ea59b21ab5375343af0f8e26',1,'vt::ctx::Context']]],
   ['diagnostic',['Diagnostic',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Counter::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::CounterGauge::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_gauge.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Gauge::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_timer.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Timer::Diagnostic()']]],

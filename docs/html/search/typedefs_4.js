@@ -12,8 +12,6 @@ var searchData=
   ['endpoint',['Endpoint',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#aba302de614dd639f5d93f4f5b6dd6108',1,'vt::term::ds::StateDS']]],
   ['enqueuecountcontainertype',['EnqueueCountContainerType',['../structvt_1_1worker_1_1_worker_group_counter.html#ab0ceac7975b91fa9c08f8c416a4ea1cc',1,'vt::worker::WorkerGroupCounter']]],
   ['entitymsgtype',['EntityMsgType',['../structvt_1_1location_1_1_entity_location_coord.html#a69e037fef241a04659b4068c8ae1513f',1,'vt::location::EntityLocationCoord']]],
-  ['entrylisttype',['EntryListType',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#af27c1e929c54fd378f84978cbe9360a7',1,'vt::lb::instrumentation::Database::EntryListType()'],['../namespacevt_1_1lb.html#a3abc8cab13c374a70c47f262182d6ce2',1,'vt::lb::EntryListType()']]],
-  ['entrytype',['EntryType',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#ab04e7d7099af7dd33f4ac1594f8cde32',1,'vt::lb::instrumentation::Database::EntryType()'],['../namespacevt_1_1lb.html#ab762a8296702082683628826ae4055cf',1,'vt::lb::EntryType()']]],
   ['envelope',['Envelope',['../namespacevt.html#aa9c8cc094b5361482021d63012987814',1,'vt']]],
   ['envelopedatatype',['EnvelopeDataType',['../namespacevt.html#a2740126d59f361d9ba46f66b3b4b0d3d',1,'vt']]],
   ['envelopetype',['EnvelopeType',['../structvt_1_1messaging_1_1_active_msg.html#a6e2b0541c25f7290555bf50d7cc05874',1,'vt::messaging::ActiveMsg']]],

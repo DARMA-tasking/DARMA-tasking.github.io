@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['database_2ecc',['database.cc',['../database_8cc.html',1,'']]],
-  ['database_2eh',['database.h',['../database_8h.html',1,'']]],
   ['debug_5fcolorize_2eh',['debug_colorize.h',['../debug__colorize_8h.html',1,'']]],
   ['debug_5fconfig_2eh',['debug_config.h',['../debug__config_8h.html',1,'']]],
   ['debug_5ffmt_2eh',['debug_fmt.h',['../debug__fmt_8h.html',1,'']]],

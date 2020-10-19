@@ -1,7 +1,6 @@
 var searchData=
 [
   ['data',['Data',['../unionvt_1_1trace_1_1_log_1_1_data.html',1,'vt::trace::Log']]],
-  ['database',['Database',['../structvt_1_1lb_1_1instrumentation_1_1_database.html',1,'vt::lb::instrumentation']]],
   ['datamsg',['DataMsg',['../structvt_1_1param_1_1_data_msg.html',1,'vt::param']]],
   ['deallocate',['Deallocate',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate.html',1,'vt::util::adt::detail']]],
   ['deallocate_3c_20t_20_3e',['Deallocate&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate_3_01_t_01_4.html',1,'vt::util::adt::detail']]],

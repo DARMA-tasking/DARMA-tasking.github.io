@@ -65,7 +65,6 @@ var searchData=
   ['getcachedhostname',['getCachedHostname',['../namespacevt_1_1debug.html#a24ece85f97b2cbc60968d3cf21b36be6',1,'vt::debug']]],
   ['getcachesize',['getCacheSize',['../structvt_1_1location_1_1_loc_lookup.html#a95081b04f2cd212457ec56c579ba988b',1,'vt::location::LocLookup']]],
   ['getcallback',['getCallback',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html#a108582ea1b61db277a5dae6ac08cc708',1,'vt::collective::reduce::operators::ReduceDataMsg']]],
-  ['getcentralnode',['getCentralNode',['../structvt_1_1lb_1_1centralized_1_1_central_l_b.html#a5eea478088d9a7983df9d3acd02b3291',1,'vt::lb::centralized::CentralLB']]],
   ['getcentroids',['getCentroids',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#ac23b01ef594bcdd86859becf7d81c3b2',1,'vt::util::adt::HistogramApprox']]],
   ['getchild',['getChild',['../structvt_1_1group_1_1_group_collective_info_msg.html#a5e4adf90fa896fbb82b80b72edefc7d4',1,'vt::group::GroupCollectiveInfoMsg::getChild()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html#a430d99ecbeb875f33ecd1b4c33c6ea5f',1,'vt::vrt::collection::lb::LBTreeUpMsg::getChild()']]],
   ['getchildload',['getChildLoad',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html#a24c0c47c9e76945c75b7827ccdb8b446',1,'vt::vrt::collection::lb::LBTreeUpMsg']]],
@@ -333,7 +332,6 @@ var searchData=
   ['gettarget',['getTarget',['../structvt_1_1rdma_1_1_channel.html#a2185f0c194fd626b0e617c8e706bf297',1,'vt::rdma::Channel::getTarget()'],['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#abde2782a98e21ad696be5aa621461814',1,'vt::rdma::RDMAManager::getTarget()']]],
   ['gettempid',['getTempID',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#aa6310afe23ea27f231dd486acedfdaec',1,'vt::vrt::collection::Migratable']]],
   ['getterminator',['getTerminator',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#a291452cba8050d7a5e377b1e86c3f42a',1,'vt::term::ds::StateDS']]],
-  ['getthisnode',['getThisNode',['../structvt_1_1lb_1_1centralized_1_1_central_l_b.html#aaa17c1f34752528891b287df90809a72',1,'vt::lb::centralized::CentralLB']]],
   ['gettlregistry',['getTLRegistry',['../namespacevt_1_1vrt_1_1collection.html#a37734c53d0e2984a2f914b4d0561ea30',1,'vt::vrt::collection']]],
   ['gettonode',['getToNode',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html#a94b5564dd7432421519a7e07bfa535c5',1,'vt::vrt::collection::balance::LazyMigrationMsg::getToNode()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a24d93f9c73876f57d51a83f53a6e6796',1,'vt::vrt::collection::MigrateMsg::getToNode()']]],
   ['gettotalcount',['getTotalCount',['../structvt_1_1group_1_1_group_info_msg.html#ae344bd8126dfc617429cb4f887be7d34',1,'vt::group::GroupInfoMsg']]],
@@ -480,7 +478,7 @@ var searchData=
   ['grouproot',['groupRoot',['../structvt_1_1group_1_1_group_manager.html#ab5b8178a37165903c73f9159c9259cf5',1,'vt::group::GroupManager::groupRoot()'],['../structvt_1_1vrt_1_1collection_1_1_holder.html#a4712da9a79782e5c33de2773d66cc587',1,'vt::vrt::collection::Holder::groupRoot()']]],
   ['groupsetuphandler',['groupSetupHandler',['../structvt_1_1group_1_1_info.html#a8479ae53fed60033acca267e0918aa6f',1,'vt::group::Info']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global::GroupSyncMsg'],['../structvt_1_1group_1_1global_1_1_group_sync_msg.html#a2ec5190af929cf9e0f8bc5f0564c28a0',1,'vt::group::global::GroupSyncMsg::GroupSyncMsg()']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]],
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]],
   ['grouptriggerhandler',['groupTriggerHandler',['../structvt_1_1group_1_1_info.html#a4b457782f9b23a2ad6df129d6c4b1502',1,'vt::group::Info']]],
   ['grouptype',['GroupType',['../namespacevt.html#a27b5e4411c9b6140c49100e050e2f743',1,'vt']]]
 ];

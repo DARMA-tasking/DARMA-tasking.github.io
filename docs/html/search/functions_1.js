@@ -34,7 +34,6 @@ var searchData=
   ['adddep',['addDep',['../structvt_1_1rdma_1_1_action.html#ab4b3a15189ddb23b25b664ffafd7b2dd',1,'vt::rdma::Action::addDep()'],['../structvt_1_1runtime_1_1component_1_1_component_registry.html#a8a291ffadf2f95a7e3e91427eac29a65',1,'vt::runtime::component::ComponentRegistry::addDep()']]],
   ['adddependency',['addDependency',['../structvt_1_1term_1_1_termination_detector.html#a18685d6c5c81e5f1c73d92891cef601b',1,'vt::term::TerminationDetector']]],
   ['adddiagnosticargs',['addDiagnosticArgs',['../structvt_1_1arguments_1_1_arg_config.html#a8783b70093b5fb9cae74e97b2c428c44',1,'vt::arguments::ArgConfig']]],
-  ['addentry',['addEntry',['../structvt_1_1lb_1_1instrumentation_1_1_database.html#ab9bf31b95d1c80bbe02268cd9689d453',1,'vt::lb::instrumentation::Database']]],
   ['addepoch',['addEpoch',['../structvt_1_1term_1_1_epoch_window.html#a38502baeeae067a563d611e0e31e5e44',1,'vt::term::EpochWindow']]],
   ['addepochstatedependency',['addEpochStateDependency',['../structvt_1_1term_1_1_termination_detector.html#ac0c59133b2db32f599aa4b5f8f451fe0',1,'vt::term::TerminationDetector']]],
   ['addeventtolist',['addEventToList',['../structvt_1_1event_1_1_event_record.html#aaeb3fbdfa74efbb88570ed88295af3ee',1,'vt::event::EventRecord']]],
