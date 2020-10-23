@@ -38,7 +38,6 @@ var searchData=
   ['dmpostedcountergauge',['dmPostedCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a5fcc4dc86c3b084e781bdb656230c90f',1,'vt::messaging::ActiveMessenger']]],
   ['dmrecvcountergauge',['dmRecvCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a910d9d24eea2daf233a063fd1348ec31',1,'vt::messaging::ActiveMessenger']]],
   ['dmsentcountergauge',['dmSentCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a96a3d12f2dcad41e66f7ee766d1e8d5f',1,'vt::messaging::ActiveMessenger']]],
-  ['do_5fsync_5f',['do_sync_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_msg_base.html#aff1f6203ab4ed470d01395fa3e81387d',1,'vt::vrt::collection::balance::PhaseMsgBase']]],
   ['doneinserting',['doneInserting',['../structvt_1_1vrt_1_1collection_1_1_insertable.html#a265055b249a884d0108e2a6ec3b4dacb',1,'vt::vrt::collection::Insertable']]],
   ['down_5ftree_5fcont_5f',['down_tree_cont_',['../structvt_1_1group_1_1_info_coll.html#aa6f3626398eb4473b21bfb2a43ba3c96',1,'vt::group::InfoColl']]],
   ['down_5ftree_5ffin_5fcont_5f',['down_tree_fin_cont_',['../structvt_1_1group_1_1_info_coll.html#a05eef11154e3dc70bb84c6e3b4c3be6c',1,'vt::group::InfoColl']]]

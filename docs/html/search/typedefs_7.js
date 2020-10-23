@@ -16,5 +16,8 @@ var searchData=
   ['headertype',['HeaderType',['../structvt_1_1pool_1_1_pool.html#a887de970f8d8fbec63df120348c31404',1,'vt::pool::Pool::HeaderType()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a6b3a6a56431496ae69e1799c3d9856dc',1,'vt::pool::MemoryPoolEqual::HeaderType()']]],
   ['histogramapprox',['HistogramApprox',['../namespacevt_1_1adt.html#a486971e142bc22434d6afe695c43b599',1,'vt::adt']]],
   ['holderbaseptrtype',['HolderBasePtrType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ac1e9bb19d4a5923dd6d595bad28f04c9',1,'vt::objgroup::ObjGroupManager']]],
-  ['holderbasetype',['HolderBaseType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a4898fc9cabf44890e5593f8c4ab86230',1,'vt::objgroup::ObjGroupManager']]]
+  ['holderbasetype',['HolderBaseType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a4898fc9cabf44890e5593f8c4ab86230',1,'vt::objgroup::ObjGroupManager']]],
+  ['hookidmaptype',['HookIDMapType',['../structvt_1_1phase_1_1_phase_manager.html#a7f9784fa7550beaa1e7d59e639169a8b',1,'vt::phase::PhaseManager']]],
+  ['hookidtype',['HookIDType',['../structvt_1_1phase_1_1_phase_manager.html#a552ed398953e67cd97c440a7f39a8a6c',1,'vt::phase::PhaseManager']]],
+  ['hookmaptype',['HookMapType',['../structvt_1_1phase_1_1_phase_manager.html#aa8583887716955f4bd4f438bc26141e9',1,'vt::phase::PhaseManager']]]
 ];

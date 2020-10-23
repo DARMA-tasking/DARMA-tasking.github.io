@@ -1,7 +1,6 @@
 var searchData=
 [
   ['lazymigrationmsg',['LazyMigrationMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html',1,'vt::vrt::collection::balance']]],
-  ['lbable',['LBable',['../structvt_1_1vrt_1_1collection_1_1_l_bable.html',1,'vt::vrt::collection']]],
   ['lbcommkey',['LBCommKey',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html',1,'vt::vrt::collection::balance']]],
   ['lblistener',['LBListener',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_listener.html',1,'vt::vrt::collection::balance']]],
   ['lbmanager',['LBManager',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html',1,'vt::vrt::collection::balance']]],

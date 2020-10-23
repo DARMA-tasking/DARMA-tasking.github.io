@@ -8,8 +8,6 @@ var searchData=
   ['lb_5fmanager_2eh',['lb_manager.h',['../lb__manager_8h.html',1,'']]],
   ['lb_5ftype_2ecc',['lb_type.cc',['../lb__type_8cc.html',1,'']]],
   ['lb_5ftype_2eh',['lb_type.h',['../lb__type_8h.html',1,'']]],
-  ['lbable_2eh',['lbable.h',['../lbable_8h.html',1,'']]],
-  ['lbable_2eimpl_2eh',['lbable.impl.h',['../lbable_8impl_8h.html',1,'']]],
   ['learn_2emd',['learn.md',['../learn_8md.html',1,'']]],
   ['linear_5fmodel_2ecc',['linear_model.cc',['../linear__model_8cc.html',1,'']]],
   ['linear_5fmodel_2eh',['linear_model.h',['../linear__model_8h.html',1,'']]],

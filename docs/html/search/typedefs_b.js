@@ -7,7 +7,6 @@ var searchData=
   ['nodeseedmaptype',['NodeSeedMapType',['../namespacevt_1_1mapping.html#a84d654b657f2dbe639ada06ae688e4c7',1,'vt::mapping']]],
   ['nodesettype',['NodeSetType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#abb53f1d4bd3c37f3e68c3b5b0e1f1c86',1,'vt::vrt::collection::lb::GossipLB']]],
   ['nodetype',['NodeType',['../namespacevt.html#a866da9d0efc19c0a1ce79e9e492f47e2',1,'vt']]],
-  ['noelementactiontype',['NoElementActionType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a6b9b76aadc721cec45d3e0e02d849ff1',1,'vt::vrt::collection::CollectionManager']]],
   ['nonconstreft',['NonConstRefT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a22ac8ae19000187cd7d3d218f3efa46e',1,'checkpoint::dispatch::CleanType']]],
   ['nonconstt',['NonConstT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#af8cc50327016b4a8410504e245edeb6f',1,'checkpoint::dispatch::CleanType']]],
   ['none',['None',['../namespacevt_1_1collective.html#ab9abd77f58f0ede6d24462b95d0a1989',1,'vt::collective']]],

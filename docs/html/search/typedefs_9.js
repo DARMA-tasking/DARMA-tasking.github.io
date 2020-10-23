@@ -6,7 +6,6 @@ var searchData=
   ['lbproxytype',['LBProxyType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a8b1a7735366beb85c2c2ccc3912cdd80',1,'vt::vrt::collection::balance::LBManager']]],
   ['lbtypetype',['LBTypeType',['../namespacestd.html#ae3c14c256fabd8bbed83c439b367c3d8',1,'std']]],
   ['listenerbasetype',['ListenerBaseType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a84b564235f6d400782769c94a75d6622',1,'vt::pipe::signal::SignalHolder']]],
-  ['listenerfntype',['ListenerFnType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a1bb65b50c7cefb8c139a9f40a83ca18b',1,'vt::vrt::collection::balance::LBManager']]],
   ['listenerlistitertype',['ListenerListIterType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#af0d3ccf4a8700979f414a0485cf41df5',1,'vt::pipe::signal::SignalHolder']]],
   ['listenerlisttype',['ListenerListType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#ae37fd15e6a901de2f90620780e936f6e',1,'vt::pipe::signal::SignalHolder']]],
   ['listenermapitertype',['ListenerMapIterType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a7f6eed09a10f9b4f679c99ae85983879',1,'vt::pipe::signal::SignalHolder']]],

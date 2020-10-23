@@ -9,5 +9,6 @@ var searchData=
   ['callbackproxybcasttypeless',['CallbackProxyBcastTypeless',['../structvt_1_1pipe_1_1_pipe_manager_base.html#ad1f9ea1acee2fd15aa12a680a62637c9',1,'vt::pipe::PipeManagerBase']]],
   ['callbackproxysenddirect',['CallbackProxySendDirect',['../structvt_1_1pipe_1_1_pipe_manager_base.html#acdd1b50009e7155f2bdc2c0d8d7478f8',1,'vt::pipe::PipeManagerBase']]],
   ['callbackproxysendtypeless',['CallbackProxySendTypeless',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a94d1bab8c5864e9c5f95bcc7e27b64de',1,'vt::pipe::PipeManagerBase']]],
-  ['callbacksend',['CallbackSend',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a2b276fd292a6811275e653a7428a694e',1,'vt::pipe::PipeManagerBase']]]
+  ['callbacksend',['CallbackSend',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a2b276fd292a6811275e653a7428a694e',1,'vt::pipe::PipeManagerBase']]],
+  ['phasemanager',['PhaseManager',['../structvt_1_1phase_1_1_phase_hook_i_d.html#a346e5d84677fffb1e9f1f393b7d13779',1,'vt::phase::PhaseHookID']]]
 ];

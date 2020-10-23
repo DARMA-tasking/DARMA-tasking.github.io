@@ -94,7 +94,6 @@ var searchData=
   ['doneinserthandler',['doneInsertHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ad0d2174c1605c18dfdc028679f1505ae',1,'vt::vrt::collection::CollectionManager']]],
   ['doneinsertmsg',['DoneInsertMsg',['../structvt_1_1vrt_1_1collection_1_1_done_insert_msg.html#a74e87cb9d8c83b77960b544e61cee9ef',1,'vt::vrt::collection::DoneInsertMsg::DoneInsertMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1_done_insert_msg.html#add6d51da4d2b2e79624fb8f153d1cea4',1,'vt::vrt::collection::DoneInsertMsg::DoneInsertMsg(CollectionProxy&lt; ColT, IndexT &gt; in_proxy, NodeType const &amp;in_action_node=uninitialized_destination)']]],
   ['donesending',['doneSending',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a9723c6b5db4318277329570e0974e1c7',1,'vt::term::ds::TermDS']]],
-  ['dosync',['doSync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_msg_base.html#aaf899d4257e3333b7080b3ddc5f77847',1,'vt::vrt::collection::balance::PhaseMsgBase']]],
   ['downcast',['downcast',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ab7ea99ad2668a99debd687a20bb9e3dd',1,'vt::objgroup::ObjGroupManager::downcast()'],['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html#ae672794dc83491200d7f6e794865a6bc',1,'vt::objgroup::proxy::Proxy::downcast()']]],
   ['downfinishedhan',['downFinishedHan',['../structvt_1_1group_1_1_info_coll.html#ac932b886b6e0beac88966f0f0edae68a',1,'vt::group::InfoColl']]],
   ['downhan',['downHan',['../structvt_1_1group_1_1_info_coll.html#a39c744a7ce406b9e14173aef499c6458',1,'vt::group::InfoColl']]],

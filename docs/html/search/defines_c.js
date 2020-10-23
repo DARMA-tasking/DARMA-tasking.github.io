@@ -90,6 +90,7 @@ var searchData=
   ['vt_5foption_5fcontext_5fpretty_5fprint',['vt_option_context_pretty_print',['../debug__config_8h.html#a639a3813871c364905f4b84f4e3576ae',1,'debug_config.h']]],
   ['vt_5foption_5fmode_5fpretty_5fprint',['vt_option_mode_pretty_print',['../debug__config_8h.html#a20c2cf8568bf5c890879244650ebab0d',1,'debug_config.h']]],
   ['vt_5fpaste_5fmacro',['vt_paste_macro',['../config__assert_8h.html#a0404510c57fdbc8bfb21ecd3e85a5cd0',1,'config_assert.h']]],
+  ['vt_5fphase_5fmanager',['VT_PHASE_MANAGER',['../phase__manager_8h.html#a732122180cb311df57c9ad22a79571b4',1,'phase_manager.h']]],
   ['vt_5fprint',['vt_print',['../debug__print_8h.html#ad4964b98cfd2a0b5665f3a481a1a61fe',1,'debug_print.h']]],
   ['vt_5fprint_5fcolorize',['vt_print_colorize',['../debug__print_8h.html#ae747d3638d21228a1d7e5c46f43a0266',1,'debug_print.h']]],
   ['vt_5fprint_5fcolorize_5fimpl',['vt_print_colorize_impl',['../debug__print_8h.html#add5960d3ff767b37afbe5f93a250d6cb',1,'debug_print.h']]],

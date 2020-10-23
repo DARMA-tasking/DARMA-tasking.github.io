@@ -48,6 +48,7 @@ var searchData=
   ['objgroup',['objgroup',['../namespacevt_1_1objgroup.html',1,'vt']]],
   ['operators',['operators',['../namespacevt_1_1collective_1_1reduce_1_1operators.html',1,'vt::collective::reduce']]],
   ['param',['param',['../namespacevt_1_1param.html',1,'vt']]],
+  ['phase',['phase',['../namespacevt_1_1phase.html',1,'vt']]],
   ['pipe',['pipe',['../namespacevt_1_1pipe.html',1,'vt']]],
   ['pool',['pool',['../namespacevt_1_1pool.html',1,'vt']]],
   ['proxy',['proxy',['../namespacevt_1_1objgroup_1_1proxy.html',1,'vt::objgroup']]],

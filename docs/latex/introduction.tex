@@ -43,6 +43,7 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{param}{Parameterization} &{\ttfamily \hyperlink{namespacevt_a268431014c9031c0f7c33d32c1b8645c}{vt\+::the\+Param()}} &Handler parameterization. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{pipe}{Pipe Manager} &{\ttfamily \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt\+::the\+C\+B()}} &Create opaque callback endpoints. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{node-stats}{Node Statistics} &{\ttfamily \hyperlink{namespacevt_ae1526efa346612ad330d9a628e596c54}{vt\+::the\+Node\+Stats()}} &Manager object profiling data. & {\bfseries Optional} \\\cline{1-4}
+\hyperlink{phase}{Phase Manager} &{\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt\+::the\+Phase()}} &Manage phases of time. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{pool}{Memory Pool} &{\ttfamily \hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{vt\+::the\+Pool()}} &Memory pool for efficient allocation. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{rdma}{R\+D\+MA Manager} &{\ttfamily \hyperlink{namespacevt_a68b8410bc2b86d3b5228d7dbb6b40bac}{vt\+::the\+R\+D\+M\+A()}} &Node-\/level R\+D\+MA. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{rdmahandle}{R\+D\+MA Handle Manager} &{\ttfamily \hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt\+::the\+Handle\+R\+D\+M\+A()}} &R\+D\+MA handles backed by M\+PI. & {\bfseries Optional} \\\cline{1-4}
@@ -582,7 +583,7 @@ When creating a group, one may ask {\bfseries {\itshape vt}} to create a underly
 \hypertarget{lb-manager}{}\section{LB Manager}\label{lb-manager}
 Manage load balancers
 
-The LB manager component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager}{vt\+::vrt\+::collection\+::balance\+::\+L\+B\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a05187076eac8c66c9951b062b0955520}{vt\+::the\+L\+B\+Manager()}} manages and coordinates instances of load balancers. It counts collections as they call {\ttfamily next\+Phase} to ensure they are all ready before load balancing begins. It reads the command-\/line arguments or LB specification file to determine which load balancer to run.
+The LB manager component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager}{vt\+::vrt\+::collection\+::balance\+::\+L\+B\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a05187076eac8c66c9951b062b0955520}{vt\+::the\+L\+B\+Manager()}} manages and coordinates instances of load balancers. It will potentially start load balancing after a \char`\"{}phase\char`\"{} is completed; refer to \hyperlink{phase}{Phase Manager} for details about how to delineate phases in an application. The LB manager reads command-\/line arguments or an LB specification file to determine which load balancer to run at a given phase.
 
 To enable load balancing, the cmake flag
 \begin{DoxyCode}
@@ -906,7 +907,14 @@ Where {\ttfamily $<$comm-\/type$>$} is the type of communication occurred. The t
 6 &{\ttfamily Comm\+Category\+::\+Node\+To\+Collection\+Bcast} &A broadcast from a node to a whole collection (receive-\/side) \\\cline{1-3}
 7 &{\ttfamily Comm\+Category\+::\+Collective\+To\+Collection\+Bcast} &Collective \textquotesingle{}broadcast\textquotesingle{} from every node to the local collection elements (receive-\/side) \\\cline{1-3}
 \end{longtabu}
-For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient). \hypertarget{pool}{}\section{Memory Pool}\label{pool}
+For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient). \hypertarget{phase}{}\section{Phase Manager}\label{phase}
+Manage phases of time
+
+The phase manager component {\ttfamily \hyperlink{structvt_1_1phase_1_1_phase_manager}{vt\+::phase\+::\+Phase\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt\+::the\+Phase()}} allows the delineation of collective intervals of time across all nodes. Load balancing, as well as other components, use phases as a boundary to perform many operations over an application\textquotesingle{}s execution such as work redistribution, outputting of statistical data, or flushing trace data.
+
+The main user interface is a call to {\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{the\+Phase()}-\/$>$next\+Phase\+Collective()} which starts the next phase after performing a reduction. Thus, any work that belongs in the preceding phase should be synchronized by the user before this is called (e.\+g., by calling {\ttfamily \hyperlink{namespacevt_a291cca514e6f66292df339cd92a54502}{vt\+::run\+In\+Epoch\+Collective}}).
+
+System components along with applications can register hooks with the phase manager to determine when a new phase is starting, ending, and after migrations have occurred. \hypertarget{pool}{}\section{Memory Pool}\label{pool}
 Memory pool for efficient allocation
 
 The memory pool component {\ttfamily \hyperlink{structvt_1_1pool_1_1_pool}{vt\+::pool\+::\+Pool}}, accessed via {\ttfamily \hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{vt\+::the\+Pool()}} provides a highly efficient memory pool for fixed sized allocations in three sizes\+: small ({\ttfamily vt\+::pool\+::memory\+\_\+size\+\_\+small}), medium ({\ttfamily vt\+::pool\+::memory\+\_\+size\+\_\+medium}), and large (currently unimplemented).

@@ -6,7 +6,6 @@ var searchData=
   ['waitbarrier',['waitBarrier',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#a014858c233344d9fd7e1ffc4050a1d8c',1,'vt::collective::barrier::Barrier']]],
   ['waitcollective',['waitCollective',['../structvt_1_1collective_1_1_collective_scope.html#afae2807ff3adc0f1d6772411168064f9',1,'vt::collective::CollectiveScope']]],
   ['waitforhandleready',['waitForHandleReady',['../structvt_1_1rdma_1_1_sub_handle.html#a57898faf652b288e75811c7c38e94dc2',1,'vt::rdma::SubHandle']]],
-  ['waitlbcollective',['waitLBCollective',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a2923d77f512a955194589450cbb85b80',1,'vt::vrt::collection::balance::LBManager']]],
   ['walk_5fregion',['walk_region',['../structvt_1_1rdma_1_1_group.html#a53c1941f50d8c724ea56c824cd514eee',1,'vt::rdma::Group']]],
   ['warning',['warning',['../namespacevt.html#af11de63df5da8fa58bd668f4e5026a72',1,'vt']]],
   ['warningimpl',['warningImpl',['../namespacevt.html#aa6fe252e38e90473ff359bfa7586bc8b',1,'vt::warningImpl(std::string const &amp;str, ErrorCodeType error, bool quit, std::string const &amp;file, int const line, std::string const &amp;func, Args &amp;&amp;... args)'],['../namespacevt.html#a118ef4729cf1e1516a3efef8da49efbf',1,'vt::warningImpl(std::string const &amp;str, ErrorCodeType error, bool quit, std::string const &amp;file, int const line, std::string const &amp;func, Args &amp;&amp;... args)']]],

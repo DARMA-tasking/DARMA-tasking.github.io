@@ -8,7 +8,6 @@ var searchData=
   ['actiondatasend',['ActionDataSend',['../namespacevt_1_1serialization.html#afffcac0da80b78e77ef8043dba4e814f',1,'vt::serialization']]],
   ['actiondatatype',['ActionDataType',['../structvt_1_1rdma_1_1_base_typed_handle.html#a20c231fb671a38c3bb761d613dd42b3c',1,'vt::rdma::BaseTypedHandle']]],
   ['actioneagersend',['ActionEagerSend',['../namespacevt_1_1serialization.html#a009aa1de8d42a3c97643b947fcc6f0b6',1,'vt::serialization']]],
-  ['actionfinishedlbtype',['ActionFinishedLBType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a2649daab7b437e1e2bdb5f2eefff29b6',1,'vt::vrt::collection::CollectionManager']]],
   ['actiongrouptype',['ActionGroupType',['../structvt_1_1group_1_1_group_manager.html#ae871c5871ad62b530220009c1ee4d4b9',1,'vt::group::GroupManager']]],
   ['actionlistttype',['ActionListTType',['../structvt_1_1group_1_1_group_manager_t.html#a653158254f8de50d4070f0621644a48a',1,'vt::group::GroupManagerT']]],
   ['actionlisttype',['ActionListType',['../structvt_1_1group_1_1_group_manager.html#a48b2dd05bbdda19c5d6195b8932a2716',1,'vt::group::GroupManager::ActionListType()'],['../structvt_1_1location_1_1_entity_location_coord.html#a093712fbaa7584cb35db2b33514a719a',1,'vt::location::EntityLocationCoord::ActionListType()']]],
