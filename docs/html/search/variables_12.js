@@ -94,7 +94,6 @@ var searchData=
   ['supported',['supported',['../structvt_1_1messaging_1_1msg__serialization__mode.html#ab0dc8ca8b40b6e796c4d6b3ee63a69e1',1,'vt::messaging::msg_serialization_mode::supported()'],['../structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp859af933e7cec0c00885df897a55208a.html#a98da648b67d20fb70bc0fa10c605f3ce',1,'vt::messaging::vt_serialize_mode)&gt;&gt;::supported()']]],
   ['suspendable_5f',['suspendable_',['../structvt_1_1seq_1_1_seq_context.html#ab540af3ff9d1a7fa6545f7bbaa5c498f',1,'vt::seq::SeqContext']]],
   ['sync_5fcount_5f',['sync_count_',['../structvt_1_1group_1_1global_1_1_default_group.html#a51f66e9ed5df681da2c0896930adfa77',1,'vt::group::global::DefaultGroup']]],
-  ['synced_5fin_5flb_5f',['synced_in_lb_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#aa47677efcfd106dbd8ab387b1a8e0c21',1,'vt::vrt::collection::balance::LBManager']]],
   ['sys',['sys',['../unionvt_1_1trace_1_1_log_1_1_data.html#a71322b10139cee6014cd6be83c99b3d9',1,'vt::trace::Log::Data']]],
   ['system_5fscope_5f',['system_scope_',['../structvt_1_1collective_1_1_collective_alg.html#a947ce4f129e1cf626da031595fe5df5c',1,'vt::collective::CollectiveAlg']]]
 ];
