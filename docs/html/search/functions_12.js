@@ -24,6 +24,7 @@ var searchData=
   ['receivecontinuesignal',['receiveContinueSignal',['../structvt_1_1term_1_1_term_state.html#a9bf44783fc04e0e27056dfdc5eb0bc5a',1,'vt::term::TermState']]],
   ['receivemsg',['receiveMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_volume.html#ad372591c42c9f37958cf7102f6716c9a',1,'vt::vrt::collection::balance::CommVolume']]],
   ['reconstruct',['reconstruct',['../structcheckpoint_1_1dispatch_1_1_traverse.html#ad043c9e132aeb99049d0d3ff8df6b876',1,'checkpoint::dispatch::Traverse']]],
+  ['reconstructpointedtoobjectifneeded',['reconstructPointedToObjectIfNeeded',['../namespacecheckpoint.html#a9ffb72abb4d8c3fe031626dbf526d70c',1,'checkpoint']]],
   ['recordstats',['recordStats',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a3d49cc2ae24c50443e890e9447d408a9',1,'vt::vrt::collection::CollectionManager']]],
   ['recv',['recv',['../structvt_1_1term_1_1_term_interface.html#afffcd1367305830597216a7b48886cb1',1,'vt::term::TermInterface']]],
   ['recvcomm',['recvComm',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#af7d768dd4d2f62d09ab704262b292f91',1,'vt::vrt::collection::balance::ElementStats']]],

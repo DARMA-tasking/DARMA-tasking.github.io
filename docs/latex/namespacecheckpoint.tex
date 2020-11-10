@@ -14,25 +14,31 @@
 \item 
 struct \hyperlink{structcheckpoint_1_1_footprinter}{Footprinter}
 \item 
-struct \hyperlink{structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01std432a7e382b83cd966ec84657915841f}{has\+\_\+virtual\+\_\+serialize $>$$>$}
+struct \hyperlink{structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_01169395079d468e6ff618832a51e34843}{has\+\_\+not\+\_\+virtual\+\_\+serialize $>$$>$}
+\item 
+struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01ab92c606a95e76aaa723ec61628f6529}{has\+\_\+virtual\+\_\+serialize $>$$>$}
+\item 
+struct \hyperlink{structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_019c8f7fc8348eb3352805b18f8a3adb0b}{has\+\_\+virtual\+\_\+serialize $>$$>$}
 \item 
 struct \hyperlink{structcheckpoint_1_1_memory_serializer}{Memory\+Serializer}
 \item 
 struct \hyperlink{structcheckpoint_1_1_packer_buffer}{Packer\+Buffer}
 \item 
-struct \hyperlink{structcheckpoint_1_1_serialize_as_virtual_if_needed}{Serialize\+As\+Virtual\+If\+Needed}
+struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed}{Reconstruct\+As\+Virtual\+If\+Needed}
 \begin{DoxyCompactList}\small\item\em Do a static trait test on type to check for virtual serializability. If virtually serializable, we need to perform some extra work to register the type, allocate, and construct the proper type. Otherwise, we go through the normal path for allocating memory for T and serializing what the pointer points to. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_serialized_info}{Serialized\+Info}
 \begin{DoxyCompactList}\small\item\em Return of serialize that contains the buffer and size serialized. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_serializer}{Serializer}
 \item 
+struct \hyperlink{structcheckpoint_1_1_serialize_virtual_type_if_needed}{Serialize\+Virtual\+Type\+If\+Needed}
+\begin{DoxyCompactList}\small\item\em Do a static trait test on type to check for virtual serializability. If virtually serializable, we need to perform some extra work to register the type, and serialize its index. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_sizer}{Sizer}
 \item 
 struct \hyperlink{structcheckpoint_1_1_unpacker_buffer}{Unpacker\+Buffer}
 \item 
-struct \hyperlink{structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01stb5683a1db1f95d710800e7db0029b9d3}{value $>$$>$}
+struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016}{value $>$$>$}
 \item 
-struct \hyperlink{structcheckpoint_1_1_serialize_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01st7535fd9671f69a00dc505955ba5cc55f}{value $>$$>$}
+struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732}{value $>$$>$}
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -191,7 +197,7 @@ enum \hyperlink{namespacecheckpoint_ae2509499ccd8b1dc48fb535bf8aa3059}{e\+Serial
 \item 
 {\footnotesize template$<$typename ObjT , typename... Serializer\+Ts$>$ }\\void \hyperlink{namespacecheckpoint_a09875c2d3c012be868f3fd88b3ed55be}{instantiate\+Obj\+Serializer} ()
 \item 
-{\footnotesize template$<$typename SerializerT , typename T $>$ }\\void \hyperlink{namespacecheckpoint_a2bcd2958a1f59fa059218ddd96946ff5}{allocate\+Construct\+For\+Pointer} (SerializerT \&s, T $\ast$\&target)
+{\footnotesize template$<$typename SerializerT , typename T $>$ }\\void \hyperlink{namespacecheckpoint_a9ffb72abb4d8c3fe031626dbf526d70c}{reconstruct\+Pointed\+To\+Object\+If\+Needed} (SerializerT \&s, T $\ast$\&target)
 \begin{DoxyCompactList}\small\item\em Allocate and construct memory for a pointer with type {\ttfamily T}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -322,32 +328,6 @@ Invalid&\\
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{namespacecheckpoint_a2bcd2958a1f59fa059218ddd96946ff5}\label{namespacecheckpoint_a2bcd2958a1f59fa059218ddd96946ff5}} 
-\index{checkpoint@{checkpoint}!allocate\+Construct\+For\+Pointer@{allocate\+Construct\+For\+Pointer}}
-\index{allocate\+Construct\+For\+Pointer@{allocate\+Construct\+For\+Pointer}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{allocate\+Construct\+For\+Pointer()}{allocateConstructForPointer()}}
-{\footnotesize\ttfamily template$<$typename SerializerT , typename T $>$ \\
-void checkpoint\+::allocate\+Construct\+For\+Pointer (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{T $\ast$\&}]{target }\end{DoxyParamCaption})}
-
-
-
-Allocate and construct memory for a pointer with type {\ttfamily T}. 
-
-This function automatically handles allocating and constructing the right type for virtually serialized pointers or non-\/virtual static allocation and construction.
-
-An example of how to use this to properly serialize a std\+::shared\+\_\+ptr$<$\+T$>$\+:
-
-template $<$typename t$>$=\char`\"{}\char`\"{}$>$ struct X \{ std\+::shared\+\_\+ptr$<$\+T$>$ a;
-
-template $<$typename serializert$>$=\char`\"{}\char`\"{}$>$ void serialize(\+Serializer\+T\& s) \{ T$\ast$ raw = elm.\+get(); checkpoint\+::allocate\+Construct\+For\+Pointer(s, raw); if (s.\+is\+Unpacking()) \{ a = std\+::shared\+\_\+ptr$<$\+T$>$(raw); \} s $\vert$ $\ast$a; \} \};
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em s} & the serializer \\
-\hline
-\mbox{\tt in}  & {\em target} & a reference to a pointer to the target object \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{namespacecheckpoint_aee0d7387d339b0275e9b95634748d63b}\label{namespacecheckpoint_aee0d7387d339b0275e9b95634748d63b}} 
 \index{checkpoint@{checkpoint}!deserialize@{deserialize}}
 \index{deserialize@{deserialize}!checkpoint@{checkpoint}}
@@ -554,6 +534,32 @@ void checkpoint\+::instantiate\+Obj\+Serializer (\begin{DoxyParamCaption}{ }\end
 {\footnotesize\ttfamily template$<$typename Serializer , typename T $>$ \\
 \hyperlink{structcheckpoint_1_1_serializer}{Serializer} \& checkpoint\+::operator$\vert$ (\begin{DoxyParamCaption}\item[{\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&}]{s,  }\item[{T \&}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+\mbox{\Hypertarget{namespacecheckpoint_a9ffb72abb4d8c3fe031626dbf526d70c}\label{namespacecheckpoint_a9ffb72abb4d8c3fe031626dbf526d70c}} 
+\index{checkpoint@{checkpoint}!reconstruct\+Pointed\+To\+Object\+If\+Needed@{reconstruct\+Pointed\+To\+Object\+If\+Needed}}
+\index{reconstruct\+Pointed\+To\+Object\+If\+Needed@{reconstruct\+Pointed\+To\+Object\+If\+Needed}!checkpoint@{checkpoint}}
+\subsubsection{\texorpdfstring{reconstruct\+Pointed\+To\+Object\+If\+Needed()}{reconstructPointedToObjectIfNeeded()}}
+{\footnotesize\ttfamily template$<$typename SerializerT , typename T $>$ \\
+void checkpoint\+::reconstruct\+Pointed\+To\+Object\+If\+Needed (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{T $\ast$\&}]{target }\end{DoxyParamCaption})}
+
+
+
+Allocate and construct memory for a pointer with type {\ttfamily T}. 
+
+This function automatically handles allocating and constructing the right type for virtually serialized pointers or non-\/virtual static allocation and construction.
+
+An example of how to use this to properly serialize a std\+::shared\+\_\+ptr$<$\+T$>$\+:
+
+template $<$typename t$>$=\char`\"{}\char`\"{}$>$ struct X \{ std\+::shared\+\_\+ptr$<$\+T$>$ a;
+
+template $<$typename serializert$>$=\char`\"{}\char`\"{}$>$ void serialize(\+Serializer\+T\& s) \{ T$\ast$ raw = elm.\+get(); checkpoint\+::reconstruct\+Pointed\+To\+Object\+If\+Needed(s, raw); if (s.\+is\+Unpacking()) \{ a = std\+::shared\+\_\+ptr$<$\+T$>$(raw); \} s $\vert$ $\ast$a; \} \};
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s} & the serializer \\
+\hline
+\mbox{\tt in}  & {\em target} & a reference to a pointer to the target object \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{namespacecheckpoint_a617341cb0473cbdce921a3a4d049f4fc}\label{namespacecheckpoint_a617341cb0473cbdce921a3a4d049f4fc}} 
 \index{checkpoint@{checkpoint}!serialize@{serialize}}
 \index{serialize@{serialize}!checkpoint@{checkpoint}}

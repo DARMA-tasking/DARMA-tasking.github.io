@@ -478,7 +478,7 @@ var searchData=
   ['grouproot',['groupRoot',['../structvt_1_1group_1_1_group_manager.html#ab5b8178a37165903c73f9159c9259cf5',1,'vt::group::GroupManager::groupRoot()'],['../structvt_1_1vrt_1_1collection_1_1_holder.html#a4712da9a79782e5c33de2773d66cc587',1,'vt::vrt::collection::Holder::groupRoot()']]],
   ['groupsetuphandler',['groupSetupHandler',['../structvt_1_1group_1_1_info.html#a8479ae53fed60033acca267e0918aa6f',1,'vt::group::Info']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global::GroupSyncMsg'],['../structvt_1_1group_1_1global_1_1_group_sync_msg.html#a2ec5190af929cf9e0f8bc5f0564c28a0',1,'vt::group::global::GroupSyncMsg::GroupSyncMsg()']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]],
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]],
   ['grouptriggerhandler',['groupTriggerHandler',['../structvt_1_1group_1_1_info.html#a4b457782f9b23a2ad6df129d6c4b1502',1,'vt::group::Info']]],
   ['grouptype',['GroupType',['../namespacevt.html#a27b5e4411c9b6140c49100e050e2f743',1,'vt']]]
 ];
