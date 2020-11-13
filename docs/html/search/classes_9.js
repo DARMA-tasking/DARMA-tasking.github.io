@@ -10,6 +10,7 @@ var searchData=
   ['informrdmamsg',['InformRDMAMsg',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html',1,'vt::rdma::impl']]],
   ['inforooted',['InfoRooted',['../structvt_1_1group_1_1_info_rooted.html',1,'vt::group']]],
   ['inplacetag',['InPlaceTag',['../structcheckpoint_1_1dispatch_1_1_in_place_tag.html',1,'checkpoint::dispatch']]],
+  ['inprogressbase',['InProgressBase',['../structvt_1_1messaging_1_1_in_progress_base.html',1,'vt::messaging']]],
   ['inprogressdatairecv',['InProgressDataIRecv',['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html',1,'vt::messaging']]],
   ['inprogressirecv',['InProgressIRecv',['../structvt_1_1messaging_1_1_in_progress_i_recv.html',1,'vt::messaging']]],
   ['insertable',['Insertable',['../structvt_1_1vrt_1_1collection_1_1_insertable.html',1,'vt::vrt::collection']]],

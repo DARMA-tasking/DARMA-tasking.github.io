@@ -32,9 +32,9 @@ Send message that includes a payload that can be arbitrary data that is coordina
 
 \textcolor{keywordtype}{void} myHandler(\hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage}* msg) \{
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} send\_node = 0;
-  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{structvt_1_1messaging_1_1_active_messenger_a33b2e3e047d0b1f6eb1398691f075b31}{recvDataMsg}(
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9dc244ad2e4fbb24a7bb0b0cd2ef0b61}{recvDataMsg}(
     msg->mpi\_tag\_to\_recv, send\_node,
-    [=](\hyperlink{namespacevt_a1cab7f4860f65a49ad2c042d6240f288}{RDMA\_GetType} ptr, \hyperlink{namespacevt_ae0a5a7b18cc99d7b732cb4d44f46b0f3}{ActionType} deleter)\{
+    [=](\hyperlink{namespacevt_a97f320a1d3b9b4035e591671cd7d10f0}{PtrLenPairType} ptr, \hyperlink{namespacevt_ae0a5a7b18cc99d7b732cb4d44f46b0f3}{ActionType} deleter)\{
        \textcolor{comment}{// do something with ptr}
        deleter();
     \}
@@ -45,8 +45,8 @@ Send message that includes a payload that can be arbitrary data that is coordina
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} put\_node = 1;
   \textcolor{comment}{// The user's payload function that invokes the system send function}
   \textcolor{comment}{// passed to the lambda}
-  \textcolor{keyword}{auto} send\_payload = [&](\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9821bc2d924729107f08fadf5a217537}{Active::SendFnType} \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send})\{
-    \textcolor{keyword}{auto} ret = \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send}(\hyperlink{namespacevt_a1cab7f4860f65a49ad2c042d6240f288}{vt::RDMA\_GetType}\{ptr, num\_bytes\}, put\_node, vt::no\_tag);
+  \textcolor{keyword}{auto} send\_payload = [&](\hyperlink{structvt_1_1messaging_1_1_active_messenger_a09efd64a8c1bc26a7333c70b76ca01bd}{Active::SendFnType} \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send})\{
+    \textcolor{keyword}{auto} ret = \hyperlink{namespacevt_1_1objgroup_aa2e134493c6b8a23d7d5e86bd9df1a70}{send}(\hyperlink{namespacevt_a97f320a1d3b9b4035e591671cd7d10f0}{vt::PtrLenPairType}\{ptr, num\_bytes\}, put\_node, vt::no\_tag);
     msg->mpi\_tag\_to\_recv = std::get<1>(ret);
   \};
   \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<\hyperlink{namespacevt_1_1rdma_ae0a0330c647ec5ac5d508750f4cd4a06}{PutMessage}, myHandler>(1, msg);

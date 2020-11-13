@@ -14,6 +14,7 @@ var searchData=
   ['select_5fsubphases_2eh',['select_subphases.h',['../select__subphases_8h.html',1,'']]],
   ['send_5fcontainer_2eh',['send_container.h',['../send__container_8h.html',1,'']]],
   ['send_5fcontainer_2eimpl_2eh',['send_container.impl.h',['../send__container_8impl_8h.html',1,'']]],
+  ['send_5finfo_2eh',['send_info.h',['../send__info_8h.html',1,'']]],
   ['sendable_2eh',['sendable.h',['../sendable_8h.html',1,'']]],
   ['sendable_2eimpl_2eh',['sendable.impl.h',['../sendable_8impl_8h.html',1,'']]],
   ['seq_2emd',['seq.md',['../seq_8md.html',1,'']]],

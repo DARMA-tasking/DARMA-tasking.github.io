@@ -11,6 +11,7 @@ var searchData=
   ['sendcolmsgcb',['SendColMsgCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_col_msg_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['sendcontainer',['SendContainer',['../structvt_1_1pipe_1_1interface_1_1_send_container.html',1,'vt::pipe::interface']]],
   ['senddatamessage',['SendDataMessage',['../structvt_1_1rdma_1_1_send_data_message.html',1,'vt::rdma']]],
+  ['sendinfo',['SendInfo',['../structvt_1_1messaging_1_1_send_info.html',1,'vt::messaging']]],
   ['sendmsgcb',['SendMsgCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_msg_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['sendobjgrpcb',['SendObjGrpCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_obj_grp_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['seqclosure',['SeqClosure',['../structvt_1_1seq_1_1_seq_closure.html',1,'vt::seq']]],
