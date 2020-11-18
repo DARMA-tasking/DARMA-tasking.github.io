@@ -329,7 +329,6 @@ var searchData=
   ['comm_2ecc',['comm.cc',['../comm_8cc.html',1,'']]],
   ['comm_2efwd_2eh',['comm.fwd.h',['../comm_8fwd_8h.html',1,'']]],
   ['comm_2eh',['comm.h',['../comm_8h.html',1,'']]],
-  ['comm_5f',['comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a1673ce54a075060ea7e04c6e300b9682',1,'vt::vrt::collection::balance::ElementStats']]],
   ['comm_5faware_5f',['comm_aware_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a0b7eb81cc499a7cd7c1a6fd1f6a3c8fe',1,'vt::vrt::collection::lb::BaseLB']]],
   ['comm_5fcollectives_5f',['comm_collectives_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a1db6d0f8b8f62be357c7913930556d44',1,'vt::vrt::collection::lb::BaseLB']]],
   ['comm_5fdata',['comm_data',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a8d519b94ce4741da7049cb2b7b513963',1,'vt::vrt::collection::lb::BaseLB']]],

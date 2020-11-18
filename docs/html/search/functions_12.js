@@ -119,6 +119,7 @@ var searchData=
   ['registry',['Registry',['../structvt_1_1registry_1_1_registry.html#a319ac9c59641bee88d48e825a4840aa2',1,'vt::registry::Registry']]],
   ['regobjproxy',['regObjProxy',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a73d5d6f3f63c1243d7f0ea11f33a4661',1,'vt::objgroup::ObjGroupManager']]],
   ['release',['release',['../structvt_1_1messaging_1_1_pending_send.html#ad4b41412f953dcd22b3e3020a812f757',1,'vt::messaging::PendingSend::release()'],['../structvt_1_1rdma_1_1_action.html#a8806d1adee33037e5d24d5dd109a21d3',1,'vt::rdma::Action::release()'],['../structvt_1_1runtime_1_1_runtime_holder.html#a6a56c670252718c1533acafe6aa6a2c5',1,'vt::runtime::RuntimeHolder::release()']]],
+  ['releasestatsfromunneededphases',['releaseStatsFromUnneededPhases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ad4b2837712ee0eb53fe5839a0b71e4bc',1,'vt::vrt::collection::balance::ElementStats']]],
   ['remainingsize',['remainingSize',['../structvt_1_1pool_1_1_pool.html#a7d6742d6abc615255e25363a1be067be',1,'vt::pool::Pool']]],
   ['remotechannel',['remoteChannel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a8c2cb5f8770dfe6265065c6040314399',1,'vt::rdma::RDMAManager']]],
   ['remoteconstructvrt',['remoteConstructVrt',['../structvt_1_1vrt_1_1_virtual_context_manager.html#af0aa4bd21034e4ab55875760600829a5',1,'vt::vrt::VirtualContextManager']]],
