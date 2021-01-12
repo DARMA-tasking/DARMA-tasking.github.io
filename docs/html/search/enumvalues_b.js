@@ -3,7 +3,7 @@ var searchData=
   ['malloc',['Malloc',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a1131a914388fac73e5f07b0ba0aad523',1,'vt::pool::Pool']]],
   ['manu',['Manu',['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6ac56923da578010b0d0f49c47cc6ed18a',1,'vt::trace']]],
   ['mapping',['Mapping',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a0014f8b96d996135614c21355a053994',1,'vt::error']]],
-  ['max',['max',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea2ffe4e77325d9a7152f7086ea7aa5114',1,'vt::vrt::collection::lb::max()'],['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233',1,'vt::runtime::component::Max()']]],
+  ['max',['Max',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233',1,'vt::runtime::component::Max()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea2ffe4e77325d9a7152f7086ea7aa5114',1,'vt::vrt::collection::lb::max()']]],
   ['medium',['Medium',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5',1,'vt::pool::Pool']]],
   ['megabytes',['Megabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a2276a1b157f2813f3b65d04c0b1c56f6',1,'vt::util::memory']]],
   ['member',['Member',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2a4e2cf24ac4752089ddca27fb7e8a43f8',1,'vt']]],

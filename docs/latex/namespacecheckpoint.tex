@@ -29,11 +29,11 @@ struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed}{Reconst
 struct \hyperlink{structcheckpoint_1_1_serialized_info}{Serialized\+Info}
 \begin{DoxyCompactList}\small\item\em Return of serialize that contains the buffer and size serialized. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_serializer}{Serializer}
-\item 
+\begin{DoxyCompactList}\small\item\em General base class for serialiers. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_serialize_virtual_type_if_needed}{Serialize\+Virtual\+Type\+If\+Needed}
-\begin{DoxyCompactList}\small\item\em Do a static trait test on type to check for virtual serializability. If virtually serializable, we need to perform some extra work to register the type, and serialize its index. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Do a static trait test on type to check for virtual serializability. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_sizer}{Sizer}
-\item 
+\begin{DoxyCompactList}\small\item\em \hyperlink{structcheckpoint_1_1_sizer}{Sizer} serializers for sizing the contents of classes as a preprocessing pass before packing content so a properly sized buffer can be allocated. \end{DoxyCompactList}\item 
 struct \hyperlink{structcheckpoint_1_1_unpacker_buffer}{Unpacker\+Buffer}
 \item 
 struct \hyperlink{structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016}{value $>$$>$}
@@ -135,6 +135,8 @@ enum \hyperlink{namespacecheckpoint_ae2509499ccd8b1dc48fb535bf8aa3059}{e\+Serial
 \item 
 {\footnotesize template$<$typename Serializer , typename ContainerT , typename ElmT $>$ }\\std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+same$<$ \hyperlink{structcheckpoint_1_1_serializer}{Serializer}, \hyperlink{structcheckpoint_1_1_footprinter}{checkpoint\+::\+Footprinter} $>$\+::value, void $>$ \hyperlink{namespacecheckpoint_a811956d461a3ebc7329272fd33e1084f}{deserialize\+Emplace\+Elems} (\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&s, ContainerT \&cont, typename Container\+T\+::size\+\_\+type size)
 \item 
+{\footnotesize template$<$typename SerializerT , typename ContainerT $>$ }\\void \hyperlink{namespacecheckpoint_a931b7b8eca4d877c8b7a653936c8e092}{serialize\+Unordered\+Associative\+Container} (SerializerT \&s, ContainerT \&cont)
+\item 
 {\footnotesize template$<$typename Serializer , typename ContainerT $>$ }\\void \hyperlink{namespacecheckpoint_a99092baac18b33d03b1bb47ed1f2d7fa}{serialize\+Map\+Like\+Container} (\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&s, ContainerT \&cont)
 \item 
 {\footnotesize template$<$typename Serializer , typename T , typename U , typename Comp $>$ }\\void \hyperlink{namespacecheckpoint_a39ee0888319dc204dff7af20dd1e8238}{serialize} (\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&s, std\+::map$<$ T, U, Comp $>$ \&map)
@@ -166,8 +168,6 @@ enum \hyperlink{namespacecheckpoint_ae2509499ccd8b1dc48fb535bf8aa3059}{e\+Serial
 {\footnotesize template$<$typename SerializerT , typename T $>$ }\\void \hyperlink{namespacecheckpoint_a6113644a35f5023a57e2ed3ca4814490}{serialize\+Raw\+Ptr} (SerializerT \&s, T $\ast$ptr)
 \item 
 {\footnotesize template$<$typename SerializerT $>$ }\\void \hyperlink{namespacecheckpoint_aaadeb0ab61d069afc8a97ec6b6dc630c}{serialize\+Raw\+Ptr} (SerializerT \&s, void $\ast$ptr)
-\item 
-{\footnotesize template$<$typename SerializerT $>$ }\\void \hyperlink{namespacecheckpoint_ae2581f30d683e58b2058a697ceb0385f}{serialize\+Raw\+Ptr} (SerializerT \&s, F\+I\+LE $\ast$ptr)
 \item 
 {\footnotesize template$<$typename SerializerT , typename T , typename  = std\+::enable\+\_\+if\+\_\+t$<$    std\+::is\+\_\+same$<$      Serializer\+T,      checkpoint\+::\+Footprinter    $>$\+::value  $>$$>$ }\\void \hyperlink{namespacecheckpoint_aff1bebba5ce7fda79f83d2af8c859254}{serialize} (SerializerT \&s, std\+::shared\+\_\+ptr$<$ T $>$ \&ptr)
 \item 
@@ -491,6 +491,8 @@ std\+::size\+\_\+t checkpoint\+::get\+Memory\+Footprint (\begin{DoxyParamCaption
 
 Get memory footprint of {\ttfamily target}. 
 
+Calculates memory footprint for both serializable and non-\/serializable objects. Uses serialize functions/methods recursively when they are available. For non-\/serializable objects, simplified footprinting is performed by just applying \textquotesingle{}sizeof\textquotesingle{} operator (note\+: this means that complex objects will not be traversed).
+
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em target} & reference to {\ttfamily T} to measure footprint \\
@@ -741,19 +743,19 @@ void checkpoint\+::serialize (\begin{DoxyParamCaption}\item[{\hyperlink{structch
 {\footnotesize\ttfamily template$<$typename Serializer , typename T $>$ \\
 void checkpoint\+::serialize (\begin{DoxyParamCaption}\item[{\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&}]{s,  }\item[{std\+::list$<$ T $>$ \&}]{lst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{namespacecheckpoint_a39ee0888319dc204dff7af20dd1e8238}\label{namespacecheckpoint_a39ee0888319dc204dff7af20dd1e8238}} 
-\index{checkpoint@{checkpoint}!serialize@{serialize}}
-\index{serialize@{serialize}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [19/27]}}
-{\footnotesize\ttfamily template$<$typename Serializer , typename T , typename U , typename Comp $>$ \\
-void checkpoint\+::serialize (\begin{DoxyParamCaption}\item[{\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&}]{s,  }\item[{std\+::map$<$ T, U, Comp $>$ \&}]{map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
 \mbox{\Hypertarget{namespacecheckpoint_a179b767294c9b23617f30fc4566d0be7}\label{namespacecheckpoint_a179b767294c9b23617f30fc4566d0be7}} 
 \index{checkpoint@{checkpoint}!serialize@{serialize}}
 \index{serialize@{serialize}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [20/27]}}
+\subsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [19/27]}}
 {\footnotesize\ttfamily template$<$typename Serializer , typename T $>$ \\
 void checkpoint\+::serialize (\begin{DoxyParamCaption}\item[{\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&}]{s,  }\item[{std\+::deque$<$ T $>$ \&}]{lst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacecheckpoint_a39ee0888319dc204dff7af20dd1e8238}\label{namespacecheckpoint_a39ee0888319dc204dff7af20dd1e8238}} 
+\index{checkpoint@{checkpoint}!serialize@{serialize}}
+\index{serialize@{serialize}!checkpoint@{checkpoint}}
+\subsubsection{\texorpdfstring{serialize()}{serialize()}\hspace{0.1cm}{\footnotesize\ttfamily [20/27]}}
+{\footnotesize\ttfamily template$<$typename Serializer , typename T , typename U , typename Comp $>$ \\
+void checkpoint\+::serialize (\begin{DoxyParamCaption}\item[{\hyperlink{structcheckpoint_1_1_serializer}{Serializer} \&}]{s,  }\item[{std\+::map$<$ T, U, Comp $>$ \&}]{map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \mbox{\Hypertarget{namespacecheckpoint_a44434f578fc304afa3a62a9305be2a65}\label{namespacecheckpoint_a44434f578fc304afa3a62a9305be2a65}} 
 \index{checkpoint@{checkpoint}!serialize@{serialize}}
@@ -856,25 +858,18 @@ void checkpoint\+::serialize\+Queue\+Like\+Container (\begin{DoxyParamCaption}\i
 \mbox{\Hypertarget{namespacecheckpoint_a6113644a35f5023a57e2ed3ca4814490}\label{namespacecheckpoint_a6113644a35f5023a57e2ed3ca4814490}} 
 \index{checkpoint@{checkpoint}!serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}}
 \index{serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{serialize\+Raw\+Ptr()}{serializeRawPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+\subsubsection{\texorpdfstring{serialize\+Raw\+Ptr()}{serializeRawPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename SerializerT , typename T $>$ \\
 void checkpoint\+::serialize\+Raw\+Ptr (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{T $\ast$}]{ptr }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespacecheckpoint_aaadeb0ab61d069afc8a97ec6b6dc630c}\label{namespacecheckpoint_aaadeb0ab61d069afc8a97ec6b6dc630c}} 
 \index{checkpoint@{checkpoint}!serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}}
 \index{serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{serialize\+Raw\+Ptr()}{serializeRawPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+\subsubsection{\texorpdfstring{serialize\+Raw\+Ptr()}{serializeRawPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename SerializerT $>$ \\
 void checkpoint\+::serialize\+Raw\+Ptr (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
 
-Note\+: do not follow void pointer. \mbox{\Hypertarget{namespacecheckpoint_ae2581f30d683e58b2058a697ceb0385f}\label{namespacecheckpoint_ae2581f30d683e58b2058a697ceb0385f}} 
-\index{checkpoint@{checkpoint}!serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}}
-\index{serialize\+Raw\+Ptr@{serialize\+Raw\+Ptr}!checkpoint@{checkpoint}}
-\subsubsection{\texorpdfstring{serialize\+Raw\+Ptr()}{serializeRawPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$typename SerializerT $>$ \\
-void checkpoint\+::serialize\+Raw\+Ptr (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{F\+I\+LE $\ast$}]{ptr }\end{DoxyParamCaption})}
-
-Note\+: do not follow F\+I\+LE pointer as it might be an incomplete type on some platforms. \mbox{\Hypertarget{namespacecheckpoint_a1ea8e1ef9d0a10d26df77cb5309435aa}\label{namespacecheckpoint_a1ea8e1ef9d0a10d26df77cb5309435aa}} 
+Note\+: do not follow void pointer. \mbox{\Hypertarget{namespacecheckpoint_a1ea8e1ef9d0a10d26df77cb5309435aa}\label{namespacecheckpoint_a1ea8e1ef9d0a10d26df77cb5309435aa}} 
 \index{checkpoint@{checkpoint}!serialize\+String\+Meta@{serialize\+String\+Meta}}
 \index{serialize\+String\+Meta@{serialize\+String\+Meta}!checkpoint@{checkpoint}}
 \subsubsection{\texorpdfstring{serialize\+String\+Meta()}{serializeStringMeta()}}
@@ -901,6 +896,13 @@ Byte-\/serializes {\ttfamily T} to file, truncating {\ttfamily file} if it alrea
 \mbox{\tt in}  & {\em file} & name of the file to create \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{namespacecheckpoint_a931b7b8eca4d877c8b7a653936c8e092}\label{namespacecheckpoint_a931b7b8eca4d877c8b7a653936c8e092}} 
+\index{checkpoint@{checkpoint}!serialize\+Unordered\+Associative\+Container@{serialize\+Unordered\+Associative\+Container}}
+\index{serialize\+Unordered\+Associative\+Container@{serialize\+Unordered\+Associative\+Container}!checkpoint@{checkpoint}}
+\subsubsection{\texorpdfstring{serialize\+Unordered\+Associative\+Container()}{serializeUnorderedAssociativeContainer()}}
+{\footnotesize\ttfamily template$<$typename SerializerT , typename ContainerT $>$ \\
+void checkpoint\+::serialize\+Unordered\+Associative\+Container (\begin{DoxyParamCaption}\item[{SerializerT \&}]{s,  }\item[{ContainerT \&}]{cont }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 \mbox{\Hypertarget{namespacecheckpoint_ae257a02737b213492283962cc645c6a5}\label{namespacecheckpoint_ae257a02737b213492283962cc645c6a5}} 
 \index{checkpoint@{checkpoint}!serialize\+Vector\+Meta@{serialize\+Vector\+Meta}}
 \index{serialize\+Vector\+Meta@{serialize\+Vector\+Meta}!checkpoint@{checkpoint}}

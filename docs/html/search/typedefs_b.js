@@ -13,6 +13,7 @@ var searchData=
   ['noneop',['NoneOp',['../namespacevt_1_1collective.html#a812e9225d75c8888457b29f971c33f75',1,'vt::collective']]],
   ['nonetype',['NoneType',['../namespacevt_1_1collective_1_1reduce_1_1operators.html#a1e8a587884de5e874a701ee300ca247c',1,'vt::collective::reduce::operators::NoneType()'],['../namespacevt_1_1collective.html#af988b64711231f96d33ebfaf891e52a4',1,'vt::collective::NoneType()']]],
   ['nonserialized',['NonSerialized',['../namespacevt.html#a378e4a02213923b4ba1c3f9d2a1424c7',1,'vt']]],
+  ['notcopyable',['NotCopyable',['../namespacevt_1_1util.html#a0760a3963341a602dfe2dfc42d78c867',1,'vt::util']]],
   ['nullmutextype',['NullMutexType',['../namespacevt_1_1util_1_1mutex.html#a92b4648d6c680ec378e4f36ac5af414a',1,'vt::util::mutex']]],
   ['numargstype',['NumArgsType',['../namespacevt_1_1auto__registry.html#aebda1d9d765bc9147dc654ad0712c936',1,'vt::auto_registry']]],
   ['numbytestype',['NumBytesType',['../namespacevt_1_1serialization.html#aaa03b9b407ed5776043c163629312e40',1,'vt::serialization']]],

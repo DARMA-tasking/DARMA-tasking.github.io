@@ -31,20 +31,26 @@
 <codeline><highlight class="normal"><sp/><sp/>(void)num_nodes;<sp/><sp/></highlight><highlight class="comment">//<sp/>don&apos;t<sp/>warn<sp/>about<sp/>unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>The<sp/>theMsg()-&gt;broadcastMsg(..)<sp/>will<sp/>send<sp/>the<sp/>message<sp/>to<sp/>every<sp/>node<sp/>in<sp/>the</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>default_proxy.broadcast(..)<sp/>will<sp/>send<sp/>the<sp/>message<sp/>to<sp/>every<sp/>node<sp/>in<sp/>the</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>system.<sp/>Every<sp/>node<sp/>will<sp/>include<sp/>all<sp/>the<sp/>nodes<sp/>that<sp/>VT<sp/>has<sp/>depending<sp/>on<sp/>the</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>MPI<sp/>communicator<sp/>passed<sp/>in<sp/>or<sp/>the<sp/>size<sp/>attained<sp/>(number<sp/>of<sp/>ranks)<sp/>when</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>executing<sp/>MPI<sp/>init<sp/>directly<sp/>in<sp/>non-interoperability<sp/>mode.</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>--<sp/>Message<sp/>Ownership<sp/>--</highlight></codeline>
-<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>As<sp/>with<sp/>sendMsg,<sp/>sending<sp/>with<sp/>broadcastMsg<sp/>relinquishes<sp/>ownership<sp/>of</highlight></codeline>
-<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>the<sp/>message.<sp/>Most<sp/>calls<sp/>to<sp/>VT<sp/>that<sp/>supply<sp/>a<sp/>message<sp/>are<sp/>expected</highlight></codeline>
-<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>to<sp/>relinquish<sp/>ownership.</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>default_proxy.broadcast(..)<sp/>will<sp/>create<sp/>message<sp/>out<sp/>of<sp/>args<sp/>passed</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>into<sp/>it.<sp/>There&apos;s<sp/>an<sp/>alternative<sp/>-<sp/>default_proxy.broadcastMsg(..)<sp/>-<sp/>which</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>relinquishes<sp/>ownership<sp/>of<sp/>the<sp/>message<sp/>passed<sp/>to:</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/><sp/><sp/>auto<sp/>msg<sp/>=<sp/>::vt::makeMessage&lt;MyDataMsg&gt;(1.0,<sp/>2.0,<sp/>3.0);</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/><sp/><sp/>auto<sp/>const<sp/>default_proxy<sp/>=<sp/>theObjGroup()-&gt;getDefault();</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/><sp/><sp/>default_proxy.broadcastMsg&lt;MyDataMsg,<sp/>msgHandlerX&gt;(msg);</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/><sp/>Most<sp/>calls<sp/>to<sp/>VT<sp/>that<sp/>supply<sp/>a<sp/>message<sp/>are<sp/>expected<sp/>to<sp/>relinquish<sp/>ownership.</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg<sp/>=<sp/>::vt::makeMessage&lt;MyDataMsg&gt;(1.0,2.0,3.0);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">::vt::theMsg</ref>()-&gt;<ref refid="group__typesafehan_1ga344802a09eb0e88006900976d1dfa204" kindref="member">broadcastMsg</ref>&lt;MyDataMsg,msgHandlerX&gt;(msg);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>default_proxy<sp/>=<sp/><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">theObjGroup</ref>()-&gt;<ref refid="structvt_1_1objgroup_1_1_obj_group_manager_1a4447b8f4881710bc7b0b7a37de9d10b9" kindref="member">getDefault</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>default_proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_3_01void_01_4_1a13f8d6751a246a449e7d13ae7eed3541" kindref="member">broadcast</ref>&lt;MyDataMsg,<sp/>msgHandlerX&gt;(1.0,<sp/>2.0,<sp/>3.0);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>

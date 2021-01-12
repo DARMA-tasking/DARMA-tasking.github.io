@@ -30,6 +30,7 @@ var searchData=
   ['interval',['Interval',['../structvt_1_1term_1_1interval_1_1_interval.html',1,'vt::term::interval']]],
   ['intervalcompare',['IntervalCompare',['../structvt_1_1term_1_1interval_1_1_interval_compare.html',1,'vt::term::interval']]],
   ['intervalsetiter',['IntervalSetIter',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html',1,'vt::term::interval::IntegralSetBase']]],
+  ['invokable',['Invokable',['../structvt_1_1vrt_1_1collection_1_1_invokable.html',1,'vt::vrt::collection']]],
   ['invokemsg',['InvokeMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_msg.html',1,'vt::vrt::collection::balance']]],
   ['iobuffer',['IOBuffer',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html',1,'checkpoint::buffer']]],
   ['irecvholder',['IRecvHolder',['../structvt_1_1messaging_1_1_i_recv_holder.html',1,'vt::messaging']]],

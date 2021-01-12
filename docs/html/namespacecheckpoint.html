@@ -169,16 +169,16 @@
             <dt>
               struct <a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>
             </dt>
-            <dd><span></span></dd>
+            <dd>General base class for serialiers.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename T, typename SerializerT, typename _enabled = void&gt;</div>
               struct <a href="structcheckpoint_1_1_serialize_virtual_type_if_needed.html" class="m-doc">SerializeVirtualTypeIfNeeded</a>
             </dt>
-            <dd>Do a static trait test on type to check for virtual serializability. If virtually serializable, we need to perform some extra work to register the type, and serialize its index.</dd>
+            <dd>Do a static trait test on type to check for virtual serializability.</dd>
             <dt>
               struct <a href="structcheckpoint_1_1_sizer.html" class="m-doc">Sizer</a>
             </dt>
-            <dd><span></span></dd>
+            <dd><a href="structcheckpoint_1_1_sizer.html" class="m-doc">Sizer</a> serializers for sizing the contents of classes as a preprocessing pass before packing content so a properly sized buffer can be allocated.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename BufferT&gt;</div>
               struct <a href="structcheckpoint_1_1_unpacker_buffer.html" class="m-doc">UnpackerBuffer</a>
@@ -421,6 +421,12 @@
             </dt>
             <dd><span></span></dd>
             <dt>
+              <div class="m-doc-template">template&lt;typename SerializerT, typename ContainerT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a931b7b8eca4d877c8b7a653936c8e092" class="m-doc">serializeUnorderedAssociativeContainer</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              ContainerT&amp; cont)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#a99092baac18b33d03b1bb47ed1f2d7fa" class="m-doc">serializeMapLikeContainer</a>(</span><span class="m-doc-wrap"><a href="structcheckpoint_1_1_serializer.html" class="m-doc">Serializer</a>&amp; s,
               ContainerT&amp; cont)</span>
@@ -514,12 +520,6 @@
               <div class="m-doc-template">template&lt;typename SerializerT&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#aaadeb0ab61d069afc8a97ec6b6dc630c" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
               void* ptr)</span>
-            </dt>
-            <dd></dd>
-            <dt>
-              <div class="m-doc-template">template&lt;typename SerializerT&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#ae2581f30d683e58b2058a697ceb0385f" class="m-doc">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              FILE* ptr)</span>
             </dt>
             <dd></dd>
             <dt>
@@ -926,6 +926,7 @@
                 </tr>
               </tfoot>
             </table>
+<p>Calculates memory footprint for both serializable and non-serializable objects. Uses serialize functions/methods recursively when they are available. For non-serializable objects, simplified footprinting is performed by just applying &#x27;sizeof&#x27; operator (note: this means that complex objects will not be traversed).</p>
           </div></section>
           <section class="m-doc-details" id="a3d4326982e3c3feeb933e985758eea82"><div>
             <h3>
@@ -1179,6 +1180,17 @@
             </h3>
             <p><span></span></p>
           </div></section>
+          <section class="m-doc-details" id="a931b7b8eca4d877c8b7a653936c8e092"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="map__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/map_serialize.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename SerializerT, typename ContainerT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a931b7b8eca4d877c8b7a653936c8e092" class="m-doc-self">serializeUnorderedAssociativeContainer</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
+              ContainerT&amp; cont)</span></span>
+            </h3>
+            <p><span></span></p>
+          </div></section>
           <section class="m-doc-details" id="a99092baac18b33d03b1bb47ed1f2d7fa"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="map__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/map_serialize.h&gt;</a></div>
@@ -1370,17 +1382,6 @@
               void* ptr)</span></span>
             </h3>
 <p>Note: do not follow void pointer.</p>
-          </div></section>
-          <section class="m-doc-details" id="ae2581f30d683e58b2058a697ceb0385f"><div>
-            <h3>
-              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="raw__ptr__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/raw_ptr_serialize.h&gt;</a></div>
-              <div class="m-doc-template">
-                template&lt;typename SerializerT&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae2581f30d683e58b2058a697ceb0385f" class="m-doc-self">serializeRawPtr</a>(</span><span class="m-doc-wrap">SerializerT&amp; s,
-              FILE* ptr)</span></span>
-            </h3>
-<p>Note: do not follow FILE pointer as it might be an incomplete type on some platforms.</p>
           </div></section>
           <section class="m-doc-details" id="aff1bebba5ce7fda79f83d2af8c859254"><div>
             <h3>

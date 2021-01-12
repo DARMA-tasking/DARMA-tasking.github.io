@@ -96,6 +96,7 @@ var searchData=
   ['vt_5fpause',['vt_pause',['../structvt_1_1arguments_1_1_app_config.html#a2064c7bded4e44c59316091cd193afc4',1,'vt::arguments::AppConfig']]],
   ['vt_5fprint_5fmemory_5fat_5fthreshold',['vt_print_memory_at_threshold',['../structvt_1_1arguments_1_1_app_config.html#a7f53d72ccd7261b0e959fdc8d86df3a3',1,'vt::arguments::AppConfig']]],
   ['vt_5fprint_5fmemory_5feach_5fphase',['vt_print_memory_each_phase',['../structvt_1_1arguments_1_1_app_config.html#ab7fd4a5032ddaca35301d27eb63d9d02',1,'vt::arguments::AppConfig']]],
+  ['vt_5fprint_5fmemory_5ffootprint',['vt_print_memory_footprint',['../structvt_1_1arguments_1_1_app_config.html#a02c45d00245e26942512287e048489a0',1,'vt::arguments::AppConfig']]],
   ['vt_5fprint_5fmemory_5fnode',['vt_print_memory_node',['../structvt_1_1arguments_1_1_app_config.html#a4273792bc9a8537b18549d54d58417dd',1,'vt::arguments::AppConfig']]],
   ['vt_5fprint_5fmemory_5fsched_5fpoll',['vt_print_memory_sched_poll',['../structvt_1_1arguments_1_1_app_config.html#af139aee07bf04d392501a4ee19478e31',1,'vt::arguments::AppConfig']]],
   ['vt_5fprint_5fmemory_5fthreshold',['vt_print_memory_threshold',['../structvt_1_1arguments_1_1_app_config.html#a3f564c6296069d6cf478a3f43ba9e8a4',1,'vt::arguments::AppConfig']]],

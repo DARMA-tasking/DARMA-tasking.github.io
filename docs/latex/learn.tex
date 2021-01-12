@@ -50,7 +50,7 @@ One may use {\ttfamily cmake} as normal on {\itshape vt}, with checkpoint and de
 \hline
 \rowcolor{\tableheadbgcolor}\textbf{ C\+Make Variable }&\textbf{ Default Value }&\textbf{ Description  }\\\cline{1-3}
 \endhead
-{\ttfamily vt\+\_\+lb\+\_\+enabled} &0 &Compile with support for runtime load balancing \\\cline{1-3}
+{\ttfamily vt\+\_\+lb\+\_\+enabled} &1 &Compile with support for runtime load balancing \\\cline{1-3}
 {\ttfamily vt\+\_\+trace\+\_\+enabled} &0 &Compile with support for runtime tracing (Projections-\/format) \\\cline{1-3}
 {\ttfamily vt\+\_\+test\+\_\+trace\+\_\+runtime\+\_\+enabled} &0 &Force tracing on at runtime for VT tests \\\cline{1-3}
 {\ttfamily vt\+\_\+doxygen\+\_\+enabled} &0 &Enable doxygen generation \\\cline{1-3}
@@ -414,7 +414,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
   \textcolor{comment}{// Non-message types can use serializers like this.}
   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
+  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT& s) \{
     s | x | y | z;
   \}
 
@@ -425,7 +425,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{keywordtype}{int} a;
 
   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
+  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT& s) \{
     s | a;
   \}
 \};
@@ -451,8 +451,8 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{   * serialization on the send.}
 \textcolor{comment}{   */}
   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(SerializerT& s) \{
-    \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);    \textcolor{comment}{// ensure parent is serialized
+  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT& s) \{
+    \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{MessageParentType::serialize}(s);    \textcolor{comment}{// ensure parent is serialized
        consistently}
 
     s | particles;
@@ -543,20 +543,26 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   (void)num\_nodes;  \textcolor{comment}{// don't warn about unused variable}
 
   \textcolor{comment}{/*}
-\textcolor{comment}{   * The theMsg()->broadcastMsg(..) will send the message to every node in the}
+\textcolor{comment}{   * default\_proxy.broadcast(..) will send the message to every node in the}
 \textcolor{comment}{   * system. Every node will include all the nodes that VT has depending on the}
 \textcolor{comment}{   * MPI communicator passed in or the size attained (number of ranks) when}
 \textcolor{comment}{   * executing MPI init directly in non-interoperability mode.}
 \textcolor{comment}{   *}
 \textcolor{comment}{   * -- Message Ownership --}
-\textcolor{comment}{   * As with sendMsg, sending with broadcastMsg relinquishes ownership of}
-\textcolor{comment}{   * the message. Most calls to VT that supply a message are expected}
-\textcolor{comment}{   * to relinquish ownership.}
+\textcolor{comment}{   * default\_proxy.broadcast(..) will create message out of args passed}
+\textcolor{comment}{   * into it. There's an alternative - default\_proxy.broadcastMsg(..) - which}
+\textcolor{comment}{   * relinquishes ownership of the message passed to:}
+\textcolor{comment}{   *}
+\textcolor{comment}{   *   auto msg = ::vt::makeMessage<MyDataMsg>(1.0, 2.0, 3.0);}
+\textcolor{comment}{   *   auto const default\_proxy = theObjGroup()->getDefault();}
+\textcolor{comment}{   *   default\_proxy.broadcastMsg<MyDataMsg, msgHandlerX>(msg);}
+\textcolor{comment}{   *}
+\textcolor{comment}{   *  Most calls to VT that supply a message are expected to relinquish ownership.}
 \textcolor{comment}{   */}
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    \textcolor{keyword}{auto} msg = ::vt::makeMessage<MyDataMsg>(1.0,2.0,3.0);
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga344802a09eb0e88006900976d1dfa204}{broadcastMsg}<MyDataMsg,msgHandlerX>(msg);
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} default\_proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4447b8f4881710bc7b0b7a37de9d10b9}{getDefault}();
+    default\_proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_3_01void_01_4_a13f8d6751a246a449e7d13ae7eed3541}{broadcast}<MyDataMsg, msgHandlerX>(1.0, 2.0, 3.0);
   \}
 \}
 
@@ -838,7 +844,8 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{comment}{// Get a reference to the value to set it in this reduce msg}
   reduce\_msg->getVal() = 50;
 
-  \hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{::vt::theCollective}()->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afa3c814ff0e1c7ef1a9f76ed4036512b}{global}()->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce}<ReduceOp,ReduceResult>(
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} default\_proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4447b8f4881710bc7b0b7a37de9d10b9}{getDefault}();
+  default\_proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_3_01void_01_4_a545aeca8f6c0250221796b2138a4583d}{reduceMsg}<ReduceOp, ReduceResult>(
     root\_reduce\_node, reduce\_msg.get()
   );
 \}
@@ -1242,8 +1249,8 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \{ \}
 
     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
-    \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(Serializer& s) \{
-      \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);
+    \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(Serializer& s) \{
+      \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{MessageParentType::serialize}(s);
       s | from\_index;
       s | val;
     \}
@@ -1623,8 +1630,8 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \{ \}
 
     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
-    \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{serialize}(Serializer& s) \{
-      \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a783d95de203cabd0f599440e9869c313}{MessageParentType::serialize}(s);
+    \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(Serializer& s) \{
+      \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{MessageParentType::serialize}(s);
       s | from\_index;
       s | val;
     \}
