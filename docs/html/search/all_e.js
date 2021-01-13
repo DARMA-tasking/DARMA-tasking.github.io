@@ -364,7 +364,7 @@ var searchData=
   ['msgvirtualptr',['MsgVirtualPtr',['../namespacevt.html#a82b5c92ea7ca3ddd2e8a2e27df87fa1a',1,'vt']]],
   ['msgvirtualptrany',['MsgVirtualPtrAny',['../namespacevt.html#a54674b9f819f4f3a652c6f78d9b62aaf',1,'vt']]],
   ['mstats',['Mstats',['../structvt_1_1util_1_1memory_1_1_mstats.html',1,'vt::util::memory']]],
-  ['multimsg',['MultiMsg',['../structvt_1_1messaging_1_1_multi_msg.html',1,'vt::messaging::MultiMsg'],['../structvt_1_1messaging_1_1_multi_msg.html#a1f4aa450c0ff93dd39b6d92ebf608ada',1,'vt::messaging::MultiMsg::MultiMsg()=default'],['../structvt_1_1messaging_1_1_multi_msg.html#acd927cddf86133a0cf418ac8e44ccea0',1,'vt::messaging::MultiMsg::MultiMsg(SendInfo in_info, NodeType in_from, MsgSizeType in_size)']]],
+  ['multimsg',['MultiMsg',['../structvt_1_1messaging_1_1_multi_msg.html',1,'vt::messaging::MultiMsg'],['../structvt_1_1messaging_1_1_multi_msg.html#acd927cddf86133a0cf418ac8e44ccea0',1,'vt::messaging::MultiMsg::MultiMsg()']]],
   ['multiparamtype',['MultiParamType',['../namespacevt_1_1param.html#ada9e92f75ab7e859947a8ffe5bae6c5b',1,'vt::param']]],
   ['multiple_5fphases_2ecc',['multiple_phases.cc',['../multiple__phases_8cc.html',1,'']]],
   ['multiple_5fphases_2eh',['multiple_phases.h',['../multiple__phases_8h.html',1,'']]],
