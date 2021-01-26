@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="ckpt_learn_example_polymorphic_macro" kind="page">
+    <compoundname>ckpt_learn_example_polymorphic_macro</compoundname>
+    <title>Polymorphic Serialization Example w/Macros</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The full code for this <emphasis>checkpoint</emphasis> example can be found here: <computeroutput>examples/checkpoint_example_polymorphic_macro.cc</computeroutput></para>
+<para><programlisting filename="examples/checkpoint_example_polymorphic_macro.cc"><codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;checkpoint/checkpoint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;checkpoint/dispatch/dispatch_virtual.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">checkpoint<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">examples<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\struct<sp/>Abstract<sp/>base<sp/>class</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyBase<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MyBase()<sp/>{<sp/>printf(</highlight><highlight class="stringliteral">&quot;MyBase<sp/>cons\n&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyBase(SERIALIZE_CONSTRUCT_TAG)<sp/>{<sp/>printf(</highlight><highlight class="stringliteral">&quot;MyBase<sp/>recons\n&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~MyBase()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>serializing<sp/>macro</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>checkpoint_virtual_serialize_root()</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>int<sp/>val_<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>template<sp/>&lt;typename<sp/>S&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(S&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val_;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;MyBase:<sp/>serialize<sp/>val<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>val_);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test()<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyObj<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>MyBase<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val)<sp/>:<sp/>MyBase()<sp/>{<sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj<sp/>cons\n&quot;</highlight><highlight class="normal">);<sp/>val_<sp/>=<sp/>val;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj(SERIALIZE_CONSTRUCT_TAG)<sp/>{}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>macro<sp/>for<sp/>serialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>checkpoint_virtual_serialize_derived_from(MyBase)</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj:<sp/>serialize\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test()</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;test<sp/>MyObj<sp/>10<sp/>==<sp/>%d<sp/>?\n&quot;</highlight><highlight class="normal">,<sp/>val_);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(val_<sp/>==<sp/>10);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyObj2<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>MyBase<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj2(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj2<sp/>cons\n&quot;</highlight><highlight class="normal">);<sp/>val_=val;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj2(SERIALIZE_CONSTRUCT_TAG)<sp/>{}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>macro<sp/>for<sp/>serialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>checkpoint_virtual_serialize_derived_from(MyBase)</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj2:<sp/>serialize\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test()</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;test<sp/>MyObj2<sp/>20<sp/>==<sp/>%d<sp/>?\n&quot;</highlight><highlight class="normal">,<sp/>val_);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(val_<sp/>==<sp/>20);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MyObj3<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>MyBase<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a=0,<sp/>b=0,<sp/>c=0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj3(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val)<sp/>{<sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj3<sp/>cons\n&quot;</highlight><highlight class="normal">);<sp/>a=<sp/>10;<sp/>b=20;<sp/>c=100;<sp/>val_=val;}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>MyObj3(SERIALIZE_CONSTRUCT_TAG)<sp/>{}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>macro<sp/>for<sp/>serialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>checkpoint_virtual_serialize_derived_from(MyBase)</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s|a|b|c;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;MyObj3:<sp/>serialize<sp/>a<sp/>b<sp/>c<sp/>%d<sp/>%d<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>a,<sp/>b,<sp/>c);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test()</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;val_<sp/>30<sp/><sp/>a<sp/>10<sp/>b<sp/>20<sp/>c<sp/>100<sp/>=<sp/>%d<sp/>%d<sp/>%d<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>val_,<sp/>a,<sp/>b,<sp/>c);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(val_<sp/>==<sp/>30);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(a==10);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(b==20);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(c==100);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*<sp/>Example<sp/>vector<sp/>that<sp/>holds<sp/>a<sp/>vector<sp/>of<sp/>unique_ptr<sp/>to<sp/>MyBase</highlight></codeline>
+<codeline><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ExampleVector<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(SerializerT&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>vec;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;std::unique_ptr&lt;MyBase&gt;&gt;<sp/>vec;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>test()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>ExampleVector<sp/>v;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>v.vec.push_back(std::make_unique&lt;MyObj3&gt;(30));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>v.vec.push_back(std::make_unique&lt;MyObj2&gt;(20));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>v.vec.push_back(std::make_unique&lt;MyObj&gt;(10));</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/>checkpoint::serialize(v);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Display<sp/>information<sp/>about<sp/>serialization<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>buf<sp/>=<sp/>ret-&gt;getBuffer();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>buf_size<sp/>=<sp/>ret-&gt;getSize();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;ptr=%p,<sp/>size=%ld\n*****\n\n&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(buf),<sp/>buf_size);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>checkpoint::deserialize&lt;ExampleVector&gt;(ret-&gt;getBuffer());</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>elm<sp/>:<sp/>t-&gt;vec)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>elm-&gt;test();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>checkpoint::examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">checkpoint::examples;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>test();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+</programlisting></para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

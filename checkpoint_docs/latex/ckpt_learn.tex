@@ -1,0 +1,954 @@
+To learn how to use {\itshape checkpoint}, several resources are available.
+
+
+\begin{DoxyItemize}
+\item Learn \mbox{\hyperlink{ckpt_learn_build}{How to Build}}
+\item Read the small example programs
+\begin{DoxyItemize}
+\item Read the \mbox{\hyperlink{ckpt_learn_examples}{Examples}} walk-\/through
+\item Examine {\ttfamily checkpoint/examples/$\ast$}
+\end{DoxyItemize}
+\item Learn \mbox{\hyperlink{ckpt_learn_serialize}{How to Serialize Data}} 
+\end{DoxyItemize}\hypertarget{ckpt_learn_build}{}\doxysection{How to Build}\label{ckpt_learn_build}
+checkpoint can be built with {\ttfamily cmake}.\hypertarget{ckpt_learn_build_ckpt_how-to-build}{}\doxysubsection{Building}\label{ckpt_learn_build_ckpt_how-to-build}
+To build {\itshape checkpoint}, one must obtain the following dependencies\+:\hypertarget{ckpt_learn_build_ckpt_optional-deps}{}\doxysubsubsection{Optional}\label{ckpt_learn_build_ckpt_optional-deps}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/DARMA-tasking/detector}{\texttt{ detector}}
+\item gtest, (if testing {\itshape checkpoint} is enabled)
+\item M\+PI, (if M\+PI tests are enabled)
+\item \href{https://github.com/kokkos/kokkos}{\texttt{ Kokkos}}, (if Kokkos views need to be serialized)
+\item \href{https://github.com/kokkos/kokkos-kernels}{\texttt{ Kokkos\+Kernels}}, (if Kokkos kernel data structures need to be serialized)
+\end{DoxyItemize}\hypertarget{ckpt_learn_build_ckpt_use-cmake-directly-vars}{}\doxysubsubsection{Using cmake directly}\label{ckpt_learn_build_ckpt_use-cmake-directly-vars}
+One may use {\ttfamily cmake} as normal on {\itshape checkpoint} once the dependencies are installed. The following are some configuration build options that can be provided to {\ttfamily cmake} to change the build configuration\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C\+Make Variable }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C\+Make Variable }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-3}
+\endhead
+{\ttfamily detector\+\_\+\+D\+IR} &&Install directory for detector  \\\cline{1-3}
+{\ttfamily gtest\+\_\+\+D\+IR} &&Install directory for googletest  \\\cline{1-3}
+{\ttfamily kokkos\+\_\+\+D\+IR} &&Install directory for kokkos  \\\cline{1-3}
+{\ttfamily Kokkos\+Kernels\+\_\+\+D\+IR} &&Install directory for kokkoskernels  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+tests\+\_\+enabled} &0 &Build {\itshape checkpoint} tests  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+mpi\+\_\+enabled} &0 &Build {\itshape checkpoint} with M\+PI for tests  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+examples\+\_\+enabled} &0 &Build {\itshape checkpoint} examples  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+warnings\+\_\+as\+\_\+errors} &0 &Make all warnings errors during build  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+doxygen\+\_\+enabled} &0 &Enable doxygen generation  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+asan\+\_\+enabled} &0 &Enable address sanitizer  \\\cline{1-3}
+{\ttfamily C\+O\+D\+E\+\_\+\+C\+O\+V\+E\+R\+A\+GE} &0 &Generate code coverage report  \\\cline{1-3}
+\end{longtabu}
+\hypertarget{ckpt_learn_build_using-the-build-script}{}\doxysubsubsection{Using the Build Script}\label{ckpt_learn_build_using-the-build-script}
+Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily checkpoint/ci/build\+\_\+cpp.\+sh} script which will run {\ttfamily cmake} for {\itshape checkpoint} with environment variables for most configuration parameters.\hypertarget{ckpt_learn_build_building-environment-variables}{}\doxyparagraph{Build Script Environment Variables}\label{ckpt_learn_build_building-environment-variables}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }\\\cline{1-3}
+\endhead
+{\ttfamily C\+M\+A\+K\+E\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+Y\+PE} &Release &The {\ttfamily cmake} build type  \\\cline{1-3}
+{\ttfamily C\+O\+D\+E\+\_\+\+C\+O\+V\+E\+R\+A\+GE} &0 &Enable code coverage reporting  \\\cline{1-3}
+{\ttfamily G\+T\+E\+S\+T\+\_\+\+R\+O\+OT} &$<$empty$>$ &Install directory for googletest  \\\cline{1-3}
+{\ttfamily K\+O\+K\+K\+O\+S\+\_\+\+R\+O\+OT} &$<$empty$>$ &Install directory for kokkos  \\\cline{1-3}
+{\ttfamily K\+O\+K\+K\+O\+S\+\_\+\+K\+E\+R\+N\+E\+L\+S\+\_\+\+R\+O\+OT} &$<$empty$>$ &Install directory for kokkos-\/kernels  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+D\+O\+X\+Y\+G\+E\+N\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable doxygen generation  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+A\+S\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable building with address sanitizer  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+T\+E\+S\+T\+S\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint tests  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+E\+X\+A\+M\+P\+L\+E\+S\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint examples  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+W\+A\+R\+N\+I\+N\+G\+S\+\_\+\+A\+S\+\_\+\+E\+R\+R\+O\+RS} &0 &Make all warnings errors during build  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+M\+P\+I\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint M\+PI for testing  \\\cline{1-3}
+\end{longtabu}
+
+
+With these set, invoke the script with two arguments\+: the path to the {\itshape checkpoint} root directory and the build path. Here\textquotesingle{}s an example assuming that {\itshape checkpoint} is cloned into {\ttfamily /usr/src/checkpoint} with trace enabled in debug mode.
+
+{\bfseries{Usage for building\+:}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ checkpoint/ci/build\_cpp.sh <full-\/path-\/to-\/checkpoint-\/source> <full-\/path-\/to-\/build-\/dir>}
+\end{DoxyCode}
+\hypertarget{ckpt_learn_build_docker-build}{}\doxysubsubsection{Building with $<$tt$>$docker$<$/tt$>$ containerization}\label{ckpt_learn_build_docker-build}
+The easiest way to build {\itshape checkpoint} is by using {\ttfamily docker} with the available containers that contain the proper compilers, M\+PI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker-\/compose} might also need to be installed.
+
+The {\ttfamily docker} builds are configured through {\ttfamily docker-\/compose} to use a shared, cached filesystem mount with the host for {\ttfamily ccache} to enable fast re-\/builds.
+
+For {\ttfamily docker-\/compose}, the following variables can be set to configure the build. One may configure the architecture, compiler type (G\+NU, Clang, Intel, Nvidia) and compiler version, Linux distro (ubuntu or alpine), and distro version.
+
+The default set of the docker configuration options is located in {\ttfamily checkpoint/.env}, which {\ttfamily docker-\/compose} will read.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Variables:}
+\DoxyCodeLine{\#   ARCH=\{amd64, arm64v8, ...\}}
+\DoxyCodeLine{\#   COMPILER\_TYPE=\{gnu, clang, intel, nvidia\}}
+\DoxyCodeLine{\#   COMPILER=\{gcc-\/5, gcc-\/6, gcc-\/7, gcc-\/8, gcc-\/9, gcc-\/10,}
+\DoxyCodeLine{\#             clang-\/3.9, clang-\/4.0, clang-\/5.0, clang-\/6.0, clang-\/7, clang-\/8,}
+\DoxyCodeLine{\#             clang-\/9, clang-\/10,}
+\DoxyCodeLine{\#             icc-\/18, icc-\/19,}
+\DoxyCodeLine{\#             nvcc-\/10, nvcc-\/11\}}
+\DoxyCodeLine{\#   REPO=lifflander1/checkpoint}
+\DoxyCodeLine{\#   UBUNTU=\{18.04, 20.04\}}
+\DoxyCodeLine{\#   ULIMIT\_CORE=0}
+\DoxyCodeLine{\#}
+\DoxyCodeLine{\# DARMA/checkpoint Configuration Variables:}
+\DoxyCodeLine{\#   CHECKPOINT\_TESTS=1               \# Enable checkpoint tests}
+\DoxyCodeLine{\#   CHECKPOINT\_EXAMPLES=1            \# Enable checkpoint examples}
+\DoxyCodeLine{\#   CHECKPOINT\_MPI=1                 \# Enable checkpoint MPI tests}
+\DoxyCodeLine{\#   CHECKPOINT\_WARNINGS\_AS\_ERRORS=0  \# Treat warnings as errors in compilation}
+\DoxyCodeLine{\#   CHECKPOINT\_ASAN=0                \# Enable address sanitizer in build}
+\DoxyCodeLine{\#   CHECKPOINT\_DOCS=0                \# Enable doxygen build}
+\DoxyCodeLine{\#   BUILD\_TYPE=release               \# CMake build type}
+\DoxyCodeLine{\#   CODE\_COVERAGE=0                  \# Enable generation of code coverage reports}
+\end{DoxyCode}
+
+
+With these set, one may run the following for a non-\/interactive build with ubuntu. Or, to speed up the build process, the base container can be pulled for many of the common configurations\+: {\ttfamily docker-\/compose pull ubuntu-\/cpp}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ cd checkpoint}
+\DoxyCodeLine{\$ docker-\/compose run -\/e BUILD\_TYPE=debug ubuntu-\/cpp}
+\end{DoxyCode}
+
+
+For an interactive build with ubuntu, where one can build, debug, and run {\ttfamily valgrind}, etc\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ cd checkpoint}
+\DoxyCodeLine{\$ docker-\/compose run -\/e BUILD\_TYPE=debug ubuntu-\/cpp-\/interactive}
+\DoxyCodeLine{\# /checkpoint/ci/build\_cpp.sh /checkpoint /build}
+\DoxyCodeLine{\# /checkpoint/ci/test\_cpp.sh /checkpoint /build}
+\end{DoxyCode}
+ \hypertarget{ckpt_learn_examples}{}\doxysection{Examples}\label{ckpt_learn_examples}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Examples }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Examples }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link  }\\\cline{1-3}
+\endhead
+checkpoint\+\_\+example\+\_\+1 &Serialization of a structure &\mbox{\hyperlink{ckpt_learn_ex1}{Program Example 1}}  \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+2 &Serialization of a custom structure &\mbox{\hyperlink{ckpt_learn_ex2}{Program Example 2}}  \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+3 &Illustrate needs for constructor/destructor &\mbox{\hyperlink{ckpt_learn_ex3}{Program Example 3}}  \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+to\+\_\+file &Serialize / deserialize structure to file &\mbox{\hyperlink{ckpt_learn_ex_tofile}{Program Example Serialize To File}}  \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+polymorphic &Serialization of polymorphic class hierarchy &\mbox{\hyperlink{ckpt_learn_example_polymorphic}{Polymorphic Serialization Example}}  \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+polymorphic\+\_\+macro &Serialization of polymorphic class hierarchy with macros &\mbox{\hyperlink{ckpt_learn_example_polymorphic_macro}{Polymorphic Serialization Example w/\+Macros}}  \\\cline{1-3}
+\end{longtabu}
+\hypertarget{ckpt_learn_ex1}{}\doxysubsection{Program Example 1}\label{ckpt_learn_ex1}
+The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+1.\+cc}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct MyTest}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Simple structure with two variables of built-\/in types}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyTest \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29, b = 31;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Default constructor}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// The reconstruction strategy is required for deserialization. A default}}
+\DoxyCodeLine{  \textcolor{comment}{// constructor is one of the reconstruction strategies that checkpoint will}}
+\DoxyCodeLine{  \textcolor{comment}{// look for.}}
+\DoxyCodeLine{  MyTest() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Constructor with two parameters}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `a`}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `b`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  MyTest(\textcolor{keywordtype}{int} ai, \textcolor{keywordtype}{int} bi) : a(ai), b(bi) \{ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} print() \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyTest: a=\%d, b=\%d\(\backslash\)n"}, a, b);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}}
+\DoxyCodeLine{  \textcolor{comment}{// a variable of type `MyTest`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)tparam <Serializer> The type of serializer depending on the pass}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in,out] s the serializer for traversing this class}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)note The serialize method is typically called three times when}}
+\DoxyCodeLine{  \textcolor{comment}{// (de-\/)serializing to a byte buffer:}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 1) Sizing: The first time its called, it sizes all the data it recursively}}
+\DoxyCodeLine{  \textcolor{comment}{// traverses to generate a final size for the buffer.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 2) Packing: As the traversal occurs, it copies the data traversed to the}}
+\DoxyCodeLine{  \textcolor{comment}{// byte buffer in the appropriate location.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 3) Unpacking: As the byte buffer is traversed, it extracts the bytes from}}
+\DoxyCodeLine{  \textcolor{comment}{// the buffer to recursively reconstruct the types and setup the class members.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyTest serialize\(\backslash\)n"});}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    \textcolor{comment}{// a = variable of type `int` (built-\/in type)}}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    \textcolor{comment}{// b = variable of type `int` (built-\/in type)}}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    s | b;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\} \textcolor{comment}{// end namespace checkpoint::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }checkpoint::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Define a variable of custom type `MyTest`}}
+\DoxyCodeLine{  MyTest my\_test\_inst(11, 12);}
+\DoxyCodeLine{  my\_test\_inst.print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}}
+\DoxyCodeLine{  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}}
+\DoxyCodeLine{  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = checkpoint::serialize(my\_test\_inst);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    \textcolor{comment}{// Display information about the serialization "message"}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"ptr=\%p, size=\%ld\(\backslash\)n"}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// De-\/serialization call to create a new unique pointer to `MyTest`}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = checkpoint::deserialize<MyTest>(ret-\/>getBuffer());}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Display the result}}
+\DoxyCodeLine{  t-\/>print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_ex2}{}\doxysubsection{Program Example 2}\label{ckpt_learn_ex2}
+The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+2.\+cc}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct MyTest2}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Simple structure with one variable of built-\/in type}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyTest2 \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} c = 41;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Default constructor}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// The reconstruction strategy is required for deserialization. A default}}
+\DoxyCodeLine{  \textcolor{comment}{// constructor is one of the reconstruction strategies that checkpoint will}}
+\DoxyCodeLine{  \textcolor{comment}{// look for.}}
+\DoxyCodeLine{  MyTest2() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}}
+\DoxyCodeLine{  \textcolor{comment}{// a variable of type `MyTest2`}}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyTest2 serialize\(\backslash\)n"});}
+\DoxyCodeLine{    s | c;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Printing function unto the standard display}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} print() \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"\(\backslash\)t MyTest2: c=\%d\(\backslash\)n"}, c);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct MyTest}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Structure with two variables of built-\/in types and one variable of}}
+\DoxyCodeLine{\textcolor{comment}{// custom type (`MyTest2`)}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyTest \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29, b = 31;}
+\DoxyCodeLine{  MyTest2 my\_test\_2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Default constructor}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// The reconstruction strategy is required for deserialization. A default}}
+\DoxyCodeLine{  \textcolor{comment}{// constructor is one of the reconstruction strategies that checkpoint will}}
+\DoxyCodeLine{  \textcolor{comment}{// look for.}}
+\DoxyCodeLine{  MyTest() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Printing function unto the standard display}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} print() \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyTest: a=\%d, b=\%d\(\backslash\)n"}, a, b);}
+\DoxyCodeLine{    my\_test\_2.print();}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}}
+\DoxyCodeLine{  \textcolor{comment}{// a variable of type `MyTest`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)tparam <Serializer> The type of serializer depending on the pass}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in,out] s the serializer for traversing this class}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)note The serialize method is typically called three times when}}
+\DoxyCodeLine{  \textcolor{comment}{// (de-\/)serializing to a byte buffer:}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 1) Sizing: The first time its called, it sizes all the data it recursively}}
+\DoxyCodeLine{  \textcolor{comment}{// traverses to generate a final size for the buffer.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 2) Packing: As the traversal occurs, it copies the data traversed to the}}
+\DoxyCodeLine{  \textcolor{comment}{// byte buffer in the appropriate location.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 3) Unpacking: As the byte buffer is traversed, it extracts the bytes from}}
+\DoxyCodeLine{  \textcolor{comment}{// the buffer to recursively reconstruct the types and setup the class members.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyTest serialize\(\backslash\)n"});}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{    s | b;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{comment}{// Recursive dispatch to the `MyTest2` object}}
+\DoxyCodeLine{    s | my\_test\_2;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\} \textcolor{comment}{// end namespace checkpoint::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }checkpoint::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Define a variable of custom type `MyTest`}}
+\DoxyCodeLine{  MyTest my\_test\_inst;}
+\DoxyCodeLine{  my\_test\_inst.a = 10;}
+\DoxyCodeLine{  my\_test\_inst.print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}}
+\DoxyCodeLine{  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}}
+\DoxyCodeLine{  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = checkpoint::serialize(my\_test\_inst);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    \textcolor{comment}{// Display information about the serialization "message"}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"ptr=\%p, size=\%ld\(\backslash\)n"}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// De-\/serialization call to create a new unique pointer to `MyTest`}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = checkpoint::deserialize<MyTest>(ret-\/>getBuffer());}
+\DoxyCodeLine{  t-\/>print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_ex3}{}\doxysubsection{Program Example 3}\label{ckpt_learn_ex3}
+The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+3.\+cc}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// This example illustrates how checkpoint uses traits to determine a}}
+\DoxyCodeLine{\textcolor{comment}{// reconstruction strategy and shows several mechanisms for reconstructing a}}
+\DoxyCodeLine{\textcolor{comment}{// class of a serializable/deserializable type.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Structure with a variable of built-\/in type.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)note This structure is a serializable / deserializable type. It has a}}
+\DoxyCodeLine{\textcolor{comment}{// default constructor and a `serialize` function.}}
+\DoxyCodeLine{\textcolor{keyword}{struct }TestDefaultCons \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  TestDefaultCons() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Structure with a variable of built-\/in type.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)note This structure is a byte-\/serializable/deserializable type but doesn't}}
+\DoxyCodeLine{\textcolor{comment}{// contain any traits to indicate that making it not serializable.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{keyword}{struct }TestNoSerialize \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Structure with a variable of built-\/in type.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)note This structure is not a serializable / deserializable type. The}}
+\DoxyCodeLine{\textcolor{comment}{// structure has an explicitly deleted default constructor and a constructor}}
+\DoxyCodeLine{\textcolor{comment}{// that takes an `int` parameter.  Serialization has no way to construct the}}
+\DoxyCodeLine{\textcolor{comment}{// structure.}}
+\DoxyCodeLine{\textcolor{keyword}{struct }TestShouldFailReconstruct \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  TestShouldFailReconstruct(\textcolor{keywordtype}{int} \textcolor{keyword}{const}) \{ \}}
+\DoxyCodeLine{  TestShouldFailReconstruct() = \textcolor{keyword}{delete};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Structure with a variable of built-\/in type.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)note This structure is a serializable / deserializable type. The structure}}
+\DoxyCodeLine{\textcolor{comment}{// has an explicitly deleted default constructor and a constructor that takes an}}
+\DoxyCodeLine{\textcolor{comment}{// `int` parameter. However, the structure provides a static reconstruct}}
+\DoxyCodeLine{\textcolor{comment}{// method that serialization can use to construct the structure.}}
+\DoxyCodeLine{\textcolor{keyword}{struct }TestReconstruct \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  TestReconstruct(\textcolor{keywordtype}{int} \textcolor{keyword}{const}) \{ \}}
+\DoxyCodeLine{  TestReconstruct() = \textcolor{keyword}{delete};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{static} TestReconstruct\& reconstruct(\textcolor{keywordtype}{void}* buf) \{}
+\DoxyCodeLine{    \textcolor{keyword}{auto} a = \textcolor{keyword}{new} (buf) TestReconstruct(100);}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} *a;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\} \textcolor{comment}{// end namespace checkpoint::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if HAS\_DETECTION\_COMPONENT}}
+\DoxyCodeLine{\textcolor{preprocessor}{  \#include "checkpoint/traits/serializable\_traits.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{namespace }checkpoint \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  static\_assert(}
+\DoxyCodeLine{    SerializableTraits<TestDefaultCons>::is\_serializable,}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Should be serializable"}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{  static\_assert(}
+\DoxyCodeLine{    ! SerializableTraits<TestNoSerialize>::is\_serializable,}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Should not be serializable"}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{}
+\DoxyCodeLine{  static\_assert(}
+\DoxyCodeLine{    ! SerializableTraits<TestShouldFailReconstruct>::is\_serializable,}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Should not be serializable"}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{}
+\DoxyCodeLine{  static\_assert(}
+\DoxyCodeLine{    SerializableTraits<TestReconstruct>::is\_serializable,}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Should be serializable"}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{  \} \textcolor{comment}{// end namespace checkpoint}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{comment}{// Example is a compile-\/time test of serializability traits}}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_ex_tofile}{}\doxysubsection{Program Example Serialize To File}\label{ckpt_learn_ex_tofile}
+The full code for this example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+to\+\_\+file.\+cc} One potential application for this approach is to generate a restart file for a simulation.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static} constexpr \textcolor{keywordtype}{int} \textcolor{keyword}{const} u\_val = 934;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct MyTestType}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Simple structure with two variables of built-\/in types}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyTestType \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Default constructor}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// The default constructor is needed for the (de)serialization.}}
+\DoxyCodeLine{  \textcolor{comment}{// (required for serialization)}}
+\DoxyCodeLine{  MyTestType() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Constructor with two parameters}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `a`}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `b`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyTestType(\textcolor{keywordtype}{int} len) : u\_(), len\_(len)}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    u\_.resize(len\_);}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < len\_; ++i)}
+\DoxyCodeLine{      u\_[i] = u\_val + i;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}}
+\DoxyCodeLine{  \textcolor{comment}{// a variable of type `MyTestType`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)tparam <Serializer> \{ Type for storing the serialized result \}}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in,out] Variable for storing the serialized result}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)note The routine `serialize` is actually a two-\/way routine:}}
+\DoxyCodeLine{  \textcolor{comment}{// -\/ it creates the serialized result `s` by combining}}
+\DoxyCodeLine{  \textcolor{comment}{//   the variables `u\_` and `len\_`; this creation phase is run}}
+\DoxyCodeLine{  \textcolor{comment}{//   when the status of the serializer `s` is `Packing`.}}
+\DoxyCodeLine{  \textcolor{comment}{// -\/ it can extract from a serialized result `s` the values}}
+\DoxyCodeLine{  \textcolor{comment}{//   to place in the variables `u\_` and `len\_`; this extraction phase is run}}
+\DoxyCodeLine{  \textcolor{comment}{//   when the status of the serializer `s` is `Unpacking`.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(Serializer\& s) \{}
+\DoxyCodeLine{    s | u\_;}
+\DoxyCodeLine{    s | len\_;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// Friend functions}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{friend} \textcolor{keywordtype}{bool} operator== (\textcolor{keyword}{const} MyTestType \&c1, \textcolor{keyword}{const} MyTestType \&c2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// Variables}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  std::vector<double> u\_;}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} len\_ = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} checkpoint::examples::MyTestType \&c1,}
+\DoxyCodeLine{                \textcolor{keyword}{const} checkpoint::examples::MyTestType \&c2)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (c1.len\_ != c2.len\_)}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{  \textcolor{keywordtype}{bool} isEqual = \textcolor{keyword}{true};}
+\DoxyCodeLine{  \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < c1.len\_; ++i) \{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} (c1.u\_[i] != c2.u\_[i]) \{}
+\DoxyCodeLine{      isEqual = \textcolor{keyword}{false};}
+\DoxyCodeLine{      \textcolor{keywordflow}{break};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} isEqual;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\} \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }checkpoint::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Define a variable of custom type `MyTestType`}}
+\DoxyCodeLine{  MyTestType my\_test\_inst(11);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}}
+\DoxyCodeLine{  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}}
+\DoxyCodeLine{  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}}
+\DoxyCodeLine{  checkpoint::serializeToFile(my\_test\_inst, \textcolor{stringliteral}{"hello.txt"});}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// De-\/serializes from the file an object of type 'MyTestType'}}
+\DoxyCodeLine{  \textcolor{comment}{// out will be an object of type 'std::unique\_ptr<MyTestType>'}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} out = checkpoint::deserializeFromFile<MyTestType>(\textcolor{stringliteral}{"hello.txt"});}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (my\_test\_inst == *out)}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Serialization / Deserialization from file worked. \(\backslash\)n"};}
+\DoxyCodeLine{  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Serialization / Deserialization from file failed. \(\backslash\)n"};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// Another option is to de-\/serialize into an existing object of type 'MyTestType'}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  MyTestType out\_2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// Here 'out\_2' will contain an empty vector and an integer 'len\_' set to 0.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  checkpoint::deserializeInPlaceFromFile<MyTestType>(\textcolor{stringliteral}{"hello.txt"}, \&out\_2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// Now 'out\_2' will contain:}}
+\DoxyCodeLine{  \textcolor{comment}{// -\/ a resized vector filled with the values stored in the file;}}
+\DoxyCodeLine{  \textcolor{comment}{// -\/ an integer 'len\_' equal to the length of the vector stored in the file.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (my\_test\_inst == out\_2)}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Deserialization in-\/place from file worked. \(\backslash\)n"};}
+\DoxyCodeLine{  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Deserialization in-\/place from file failed. \(\backslash\)n"};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_example_polymorphic}{}\doxysubsection{Polymorphic Serialization Example}\label{ckpt_learn_example_polymorphic}
+The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+polymorphic.\+cc}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "checkpoint/dispatch/dispatch\_virtual.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyBase : \mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_base}{checkpoint::SerializableBase}}<MyBase> \{}
+\DoxyCodeLine{  MyBase() \{ printf(\textcolor{stringliteral}{"MyBase cons\(\backslash\)n"}); \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyBase(SERIALIZE\_CONSTRUCT\_TAG) \{ printf(\textcolor{stringliteral}{"MyBase recons\(\backslash\)n"}); \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \string~MyBase() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} val\_ = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} S>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(S\& s) \{}
+\DoxyCodeLine{    s | val\_;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyBase: serialize val \%d\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} test() = 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj : \mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived}{checkpoint::SerializableDerived}}<MyObj, MyBase> \{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj cons\(\backslash\)n"}); val\_ = val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(SERIALIZE\_CONSTRUCT\_TAG)\{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj: serialize\(\backslash\)n"});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"test MyObj 10 == \%d ?\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 10);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj2 : \mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived}{checkpoint::SerializableDerived}}<MyObj2, MyBase> \{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj2 cons\(\backslash\)n"}); val\_=val; \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(SERIALIZE\_CONSTRUCT\_TAG) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj2: serialize\(\backslash\)n"});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"test MyObj2 20 == \%d ?\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 20);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj3 : \mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived}{checkpoint::SerializableDerived}}<MyObj3, MyBase> \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a=0, b=0, c=0;}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj3 cons\(\backslash\)n"}); a= 10; b=20; c=100; val\_=val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(SERIALIZE\_CONSTRUCT\_TAG) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    s|a|b|c;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj3: serialize a b c \%d \%d \%d\(\backslash\)n"}, a, b, c);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"val\_ 30  a 10 b 20 c 100 = \%d \%d \%d \%d\(\backslash\)n"}, val\_, a, b, c);}
+\DoxyCodeLine{    assert(val\_ == 30);}
+\DoxyCodeLine{    assert(a==10);}
+\DoxyCodeLine{    assert(b==20);}
+\DoxyCodeLine{    assert(c==100);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{ * Example vector that holds a vector of unique\_ptr to MyBase}}
+\DoxyCodeLine{\textcolor{comment}{ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }ExampleVector \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    s | vec;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  std::vector<std::unique\_ptr<MyBase>> vec;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void} test() \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  ExampleVector v;}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj3>(30));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj2>(20));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj>(10));}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = checkpoint::serialize(v);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  printf(\textcolor{stringliteral}{"ptr=\%p, size=\%ld\(\backslash\)n*****\(\backslash\)n\(\backslash\)n"}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = checkpoint::deserialize<ExampleVector>(buf);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\&\& elm : t-\/>vec) \{}
+\DoxyCodeLine{    elm-\/>test();}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\} \textcolor{comment}{// end namespace checkpoint::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }checkpoint::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  test();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_example_polymorphic_macro}{}\doxysubsection{Polymorphic Serialization Example w/\+Macros}\label{ckpt_learn_example_polymorphic_macro}
+The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+polymorphic\+\_\+macro.\+cc}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "checkpoint/dispatch/dispatch\_virtual.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }checkpoint \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct Abstract base class}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  MyBase() \{ printf(\textcolor{stringliteral}{"MyBase cons\(\backslash\)n"}); \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyBase(SERIALIZE\_CONSTRUCT\_TAG) \{ printf(\textcolor{stringliteral}{"MyBase recons\(\backslash\)n"}); \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \string~MyBase() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add serializing macro}}
+\DoxyCodeLine{  checkpoint\_virtual\_serialize\_root()}
+\DoxyCodeLine{}
+\DoxyCodeLine{  int val\_ = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  template <typename S>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(S\& s) \{}
+\DoxyCodeLine{    s | val\_;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyBase: serialize val \%d\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} test() = 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(\textcolor{keywordtype}{int} val) : MyBase() \{ printf(\textcolor{stringliteral}{"MyObj cons\(\backslash\)n"}); val\_ = val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(SERIALIZE\_CONSTRUCT\_TAG) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  checkpoint\_virtual\_serialize\_derived\_from(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj: serialize\(\backslash\)n"});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"test MyObj 10 == \%d ?\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 10);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj2 : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj2 cons\(\backslash\)n"}); val\_=val; \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(SERIALIZE\_CONSTRUCT\_TAG) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  checkpoint\_virtual\_serialize\_derived\_from(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj2: serialize\(\backslash\)n"});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"test MyObj2 20 == \%d ?\(\backslash\)n"}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 20);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj3 : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a=0, b=0, c=0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj3 cons\(\backslash\)n"}); a= 10; b=20; c=100; val\_=val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(SERIALIZE\_CONSTRUCT\_TAG) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  checkpoint\_virtual\_serialize\_derived\_from(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    s|a|b|c;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"MyObj3: serialize a b c \%d \%d \%d\(\backslash\)n"}, a, b, c);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"val\_ 30  a 10 b 20 c 100 = \%d \%d \%d \%d\(\backslash\)n"}, val\_, a, b, c);}
+\DoxyCodeLine{    assert(val\_ == 30);}
+\DoxyCodeLine{    assert(a==10);}
+\DoxyCodeLine{    assert(b==20);}
+\DoxyCodeLine{    assert(c==100);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{ * Example vector that holds a vector of unique\_ptr to MyBase}}
+\DoxyCodeLine{\textcolor{comment}{ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }ExampleVector \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerializerT\& s) \{}
+\DoxyCodeLine{    s | vec;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  std::vector<std::unique\_ptr<MyBase>> vec;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void} test() \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  ExampleVector v;}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj3>(30));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj2>(20));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj>(10));}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = checkpoint::serialize(v);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    \textcolor{comment}{// Display information about serialization result}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"ptr=\%p, size=\%ld\(\backslash\)n*****\(\backslash\)n\(\backslash\)n"}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = checkpoint::deserialize<ExampleVector>(ret-\/>getBuffer());}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\&\& elm : t-\/>vec) \{}
+\DoxyCodeLine{    elm-\/>test();}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\} \textcolor{comment}{// end namespace checkpoint::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }checkpoint::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  test();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\end{DoxyCodeInclude}
+\hypertarget{ckpt_learn_serialize}{}\doxysection{How to Serialize Data}\label{ckpt_learn_serialize}
+{\itshape Serialization} is the process of recursively traversing C++ objects into a simple format that can be stored or transmitted and reconstructed later. {\itshape checkpoint} translates the object into a set of contiguous bits and provides the steps to reverse the process, i.\+e. to reconstitute the object from the set of bits.
+
+The extraction of the data from a set of bytes is called {\itshape deserialization}.\hypertarget{ckpt_learn_serialize_serialize_builtin}{}\doxysubsection{Serialization of built-\/in types}\label{ckpt_learn_serialize_serialize_builtin}
+This action is straightforward with the {\ttfamily $\vert$} operator.
+
+When the variable {\ttfamily a} has a built-\/in type and it needs to be serialized into the serializer object {\ttfamily s}, we simply write
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{s | a;}
+\end{DoxyCode}
+\hypertarget{ckpt_learn_serialize_serialize_stl}{}\doxysubsection{Serialization of C++ standard library}\label{ckpt_learn_serialize_serialize_stl}
+The {\ttfamily $\vert$} operator has been overloaded for many of the C++ S\+TL data structures\+:
+\begin{DoxyItemize}
+\item {\ttfamily std\+::array}
+\item {\ttfamily std\+::deque}
+\item {\ttfamily std\+::list}
+\item {\ttfamily std\+::map}
+\item {\ttfamily std\+::multimap}
+\item {\ttfamily std\+::multiset}
+\item {\ttfamily std\+::queue}
+\item {\ttfamily std\+::set}
+\item {\ttfamily std\+::string}
+\item {\ttfamily std\+::unordered\+\_\+map}
+\item {\ttfamily std\+::unordered\+\_\+multimap}
+\item {\ttfamily std\+::unordered\+\_\+multiset}
+\item {\ttfamily std\+::unordered\+\_\+set}
+\item {\ttfamily std\+::vector}
+\item {\ttfamily std\+::tuple}
+\item {\ttfamily std\+::pair}
+\item {\ttfamily std\+::unique\+\_\+ptr}
+\end{DoxyItemize}
+
+When the variable {\ttfamily c} is such an S\+TL object, whose template parameter(s) can be directly serialized into a serializer object {\ttfamily s}, we write
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{s | c;}
+\end{DoxyCode}
+\hypertarget{ckpt_learn_serialize_serialize_class}{}\doxysubsection{Serialization of classes}\label{ckpt_learn_serialize_serialize_class}
+When a class (or structure) has to be serialized, the user must provide a reconstruction method for the class and a serialization method or free function to actually perform the serialization.\hypertarget{ckpt_learn_serialize_reconstruct_class}{}\doxysubsubsection{Class reconstruction}\label{ckpt_learn_serialize_reconstruct_class}
+There are several ways to allow {\itshape checkpoint} to reconstruct a class. {\itshape checkpoint} will try to detect a reconstruction strategy in the following resolution order\+:
+\begin{DoxyEnumerate}
+\item Tagged constructor\+: {\ttfamily My\+Class(checkpoint\+::\+S\+E\+R\+I\+A\+L\+I\+Z\+E\+\_\+\+C\+O\+N\+S\+T\+R\+U\+C\+T\+\_\+\+T\+A\+G) \{\}}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Reconstruction {\ttfamily My\+Class\+::reconstruct(buf)} or {\ttfamily reconstruct(\+My\+Class, buf)}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Default constructor\+: {\ttfamily My\+Class()}
+\end{DoxyEnumerate}
+
+If no reconstruct strategy is detected with type traits, {\itshape checkpoint} will fail at compile-\/time with a static assertion indicating that {\itshape checkpoint} can\textquotesingle{}t reconstruct the class.
+
+The example in \mbox{\hyperlink{ckpt_learn_ex1}{Program Example 1}} illustrates the reconstruct method.\hypertarget{ckpt_learn_serialize_serialize_class}{}\doxysubsubsection{Serialization of classes}\label{ckpt_learn_serialize_serialize_class}
+Users may provide a serializer for a class in one of two forms\+: a {\ttfamily serialize} method on the class (intrusive) or a free function {\ttfamily serialize} that takes a reference to the class as an argument (non-\/intrusive). Note that if a free-\/function serialization strategy is employed, one may be required to friend the serialize function so it can access private/protected data inside the class, depending on what data members the function needs to access for correct serialization of the class state.\hypertarget{ckpt_learn_serialize_serialize_polymorphic}{}\doxysubsection{Serialization of polymorphic classes}\label{ckpt_learn_serialize_serialize_polymorphic}
+To serialize polymorphic class hierarchies, one must write serializers for each class in the hierarchy. Then, the user should either insert macros {\ttfamily checkpoint\+\_\+virtual\+\_\+serialize\+\_\+root()} and {\ttfamily checkpoint\+\_\+virtual\+\_\+serialize\+\_\+derived\+\_\+from(\+T)} to inform {\itshape checkpoint} of the hierarchy so it can automatically traverse the hierarchy. Alternatively, the user may use the inheritance wrappers {\ttfamily checkpoint\+::\+Serializable\+Base$<$T$>$} and {\ttfamily checkpoint\+::\+Serializable\+Derived$<$T, U$>$} to achieve the same effect.
+
+The example in \mbox{\hyperlink{ckpt_learn_example_polymorphic_macro}{Polymorphic Serialization Example w/\+Macros}} illustrates the approach uses the macros. The example in \mbox{\hyperlink{ckpt_learn_example_polymorphic}{Polymorphic Serialization Example}} illustrates this approach.\hypertarget{ckpt_learn_serialize_serialize_polymorphic_step}{}\doxysubsubsection{Allocation and reconstruction}\label{ckpt_learn_serialize_serialize_polymorphic_step}
+
+\begin{DoxyItemize}
+\item If one has a {\ttfamily std\+::unique\+\_\+ptr$<$T$>$ x}, where {\ttfamily T} is polymorphic serializable {\ttfamily s $\vert$ x} will correctly serialize and reconstruct {\ttfamily x} based on the concrete type.
+\item If one has a raw pointer, {\ttfamily Teuchos\+::\+R\+CP$<$T$>$}, or {\ttfamily std\+::shared\+\_\+ptr$<$T$>$}, {\ttfamily checkpoint\+::allocate\+Construct\+For\+Pointer$<$SerializerT,T$>$(s, ptr)} can be invoked to properly allocate and construct the concrete class depending on runtime type. 
+\end{DoxyItemize}

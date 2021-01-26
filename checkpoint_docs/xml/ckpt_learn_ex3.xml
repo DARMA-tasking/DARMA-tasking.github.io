@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="ckpt_learn_ex3" kind="page">
+    <compoundname>ckpt_learn_ex3</compoundname>
+    <title>Program Example 3</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The full code for this <emphasis>checkpoint</emphasis> example can be found here: <computeroutput>examples/checkpoint_example_3.cc</computeroutput></para>
+<para><programlisting filename="examples/checkpoint_example_3.cc"><codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;checkpoint/checkpoint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdio&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>This<sp/>example<sp/>illustrates<sp/>how<sp/>checkpoint<sp/>uses<sp/>traits<sp/>to<sp/>determine<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>reconstruction<sp/>strategy<sp/>and<sp/>shows<sp/>several<sp/>mechanisms<sp/>for<sp/>reconstructing<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>class<sp/>of<sp/>a<sp/>serializable/deserializable<sp/>type.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">checkpoint<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">examples<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>Structure<sp/>with<sp/>a<sp/>variable<sp/>of<sp/>built-in<sp/>type.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\note<sp/>This<sp/>structure<sp/>is<sp/>a<sp/>serializable<sp/>/<sp/>deserializable<sp/>type.<sp/>It<sp/>has<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>default<sp/>constructor<sp/>and<sp/>a<sp/>`serialize`<sp/>function.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestDefaultCons<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>29;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestDefaultCons()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Serializer&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>Structure<sp/>with<sp/>a<sp/>variable<sp/>of<sp/>built-in<sp/>type.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\note<sp/>This<sp/>structure<sp/>is<sp/>a<sp/>byte-serializable/deserializable<sp/>type<sp/>but<sp/>doesn&apos;t</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>contain<sp/>any<sp/>traits<sp/>to<sp/>indicate<sp/>that<sp/>making<sp/>it<sp/>not<sp/>serializable.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestNoSerialize<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>29;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>Structure<sp/>with<sp/>a<sp/>variable<sp/>of<sp/>built-in<sp/>type.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\note<sp/>This<sp/>structure<sp/>is<sp/>not<sp/>a<sp/>serializable<sp/>/<sp/>deserializable<sp/>type.<sp/>The</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>structure<sp/>has<sp/>an<sp/>explicitly<sp/>deleted<sp/>default<sp/>constructor<sp/>and<sp/>a<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>that<sp/>takes<sp/>an<sp/>`int`<sp/>parameter.<sp/><sp/>Serialization<sp/>has<sp/>no<sp/>way<sp/>to<sp/>construct<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>structure.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestShouldFailReconstruct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>29;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestShouldFailReconstruct(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestShouldFailReconstruct()<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Serializer&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>Structure<sp/>with<sp/>a<sp/>variable<sp/>of<sp/>built-in<sp/>type.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\note<sp/>This<sp/>structure<sp/>is<sp/>a<sp/>serializable<sp/>/<sp/>deserializable<sp/>type.<sp/>The<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>has<sp/>an<sp/>explicitly<sp/>deleted<sp/>default<sp/>constructor<sp/>and<sp/>a<sp/>constructor<sp/>that<sp/>takes<sp/>an</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>`int`<sp/>parameter.<sp/>However,<sp/>the<sp/>structure<sp/>provides<sp/>a<sp/>static<sp/>reconstruct</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>method<sp/>that<sp/>serialization<sp/>can<sp/>use<sp/>to<sp/>construct<sp/>the<sp/>structure.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestReconstruct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>29;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestReconstruct(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestReconstruct()<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>TestReconstruct&amp;<sp/>reconstruct(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buf)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>a<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(buf)<sp/>TestReconstruct(100);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Serializer&amp;<sp/>s)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>checkpoint::examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>HAS_DETECTION_COMPONENT</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#include<sp/>&quot;checkpoint/traits/serializable_traits.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">checkpoint<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">examples;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>static_assert(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SerializableTraits&lt;TestDefaultCons&gt;::is_serializable,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Should<sp/>be<sp/>serializable&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>static_assert(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>!<sp/>SerializableTraits&lt;TestNoSerialize&gt;::is_serializable,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Should<sp/>not<sp/>be<sp/>serializable&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>static_assert(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>!<sp/>SerializableTraits&lt;TestShouldFailReconstruct&gt;::is_serializable,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Should<sp/>not<sp/>be<sp/>serializable&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>static_assert(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>SerializableTraits&lt;TestReconstruct&gt;::is_serializable,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Should<sp/>be<sp/>serializable&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>checkpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Example<sp/>is<sp/>a<sp/>compile-time<sp/>test<sp/>of<sp/>serializability<sp/>traits</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+</programlisting></para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

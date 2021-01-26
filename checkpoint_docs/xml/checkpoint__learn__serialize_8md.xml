@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="checkpoint__learn__serialize_8md" kind="file" language="Markdown">
+    <compoundname>checkpoint_learn_serialize.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>ckpt_learn_serialize<sp/>How<sp/>to<sp/>Serialize<sp/>Data</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Serialization*<sp/>is<sp/>the<sp/>process<sp/>of<sp/>recursively<sp/>traversing<sp/>C++<sp/>objects<sp/>into<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">simple<sp/>format<sp/>that<sp/>can<sp/>be<sp/>stored<sp/>or<sp/>transmitted<sp/>and<sp/>reconstructed<sp/>later.</highlight></codeline>
+<codeline><highlight class="normal">*checkpoint*<sp/>translates<sp/>the<sp/>object<sp/>into<sp/>a<sp/>set<sp/>of<sp/>contiguous<sp/>bits<sp/>and<sp/>provides</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>steps<sp/>to<sp/>reverse<sp/>the<sp/>process,<sp/>i.e.<sp/>to<sp/>reconstitute<sp/>the<sp/>object<sp/>from<sp/>the<sp/>set</highlight></codeline>
+<codeline><highlight class="normal">of<sp/>bits.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>extraction<sp/>of<sp/>the<sp/>data<sp/>from<sp/>a<sp/>set<sp/>of<sp/>bytes<sp/>is<sp/>called<sp/>*deserialization*.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>serialize_builtin<sp/>Serialization<sp/>of<sp/>built-in<sp/>types</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>action<sp/>is<sp/>straightforward<sp/>with<sp/>the<sp/>```|```<sp/>operator.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>the<sp/>variable<sp/>`a`<sp/>has<sp/>a<sp/>built-in<sp/>type<sp/>and<sp/>it<sp/>needs<sp/>to<sp/>be<sp/>serialized</highlight></codeline>
+<codeline><highlight class="normal">into<sp/>the<sp/>serializer<sp/>object<sp/>`s`,<sp/>we<sp/>simply<sp/>write</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">s<sp/>|<sp/>a;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>serialize_stl<sp/>Serialization<sp/>of<sp/>C++<sp/>standard<sp/>library</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>`|`<sp/>operator<sp/>has<sp/>been<sp/>overloaded<sp/>for<sp/>many<sp/>of<sp/>the<sp/>C++<sp/>STL<sp/>data<sp/>structures:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::array`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::deque`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::list`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::map`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::multimap`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::multiset`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::queue`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::set`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::string`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::unordered_map`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::unordered_multimap`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::unordered_multiset`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::unordered_set`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::vector`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::tuple`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::pair`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>`std::unique_ptr`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>the<sp/>variable<sp/>`c`<sp/>is<sp/>such<sp/>an<sp/>STL<sp/>object,<sp/>whose<sp/>template<sp/>parameter(s)<sp/>can</highlight></codeline>
+<codeline><highlight class="normal">be<sp/>directly<sp/>serialized<sp/>into<sp/>a<sp/>serializer<sp/>object<sp/>`s`,<sp/>we<sp/>write</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">s<sp/>|<sp/>c;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>serialize_class<sp/>Serialization<sp/>of<sp/>classes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>a<sp/>class<sp/>(or<sp/>structure)<sp/>has<sp/>to<sp/>be<sp/>serialized,<sp/>the<sp/>user<sp/>must<sp/>provide<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">reconstruction<sp/>method<sp/>for<sp/>the<sp/>class<sp/>and<sp/>a<sp/>serialization<sp/>method<sp/>or<sp/>free<sp/>function</highlight></codeline>
+<codeline><highlight class="normal">to<sp/>actually<sp/>perform<sp/>the<sp/>serialization.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>reconstruct_class<sp/>Class<sp/>reconstruction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">There<sp/>are<sp/>several<sp/>ways<sp/>to<sp/>allow<sp/>*checkpoint*<sp/>to<sp/>reconstruct<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">class.<sp/>*checkpoint*<sp/>will<sp/>try<sp/>to<sp/>detect<sp/>a<sp/>reconstruction<sp/>strategy<sp/>in<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">following<sp/>resolution<sp/>order:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>1.<sp/>Tagged<sp/>constructor:<sp/>`MyClass(checkpoint::SERIALIZE_CONSTRUCT_TAG)<sp/>{}`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>1.<sp/>Reconstruction<sp/>`MyClass::reconstruct(buf)`<sp/>or<sp/>`reconstruct(MyClass,<sp/>buf)`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>1.<sp/>Default<sp/>constructor:<sp/>`MyClass()`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>no<sp/>reconstruct<sp/>strategy<sp/>is<sp/>detected<sp/>with<sp/>type<sp/>traits,<sp/>*checkpoint*<sp/>will<sp/>fail</highlight></codeline>
+<codeline><highlight class="normal">at<sp/>compile-time<sp/>with<sp/>a<sp/>static<sp/>assertion<sp/>indicating<sp/>that<sp/>*checkpoint*<sp/>can&apos;t</highlight></codeline>
+<codeline><highlight class="normal">reconstruct<sp/>the<sp/>class.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>example<sp/>in<sp/>\ref<sp/>ckpt_learn_ex1<sp/>illustrates<sp/>the<sp/>reconstruct<sp/>method.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>serialize_class<sp/>Class<sp/>serializers</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Users<sp/>may<sp/>provide<sp/>a<sp/>serializer<sp/>for<sp/>a<sp/>class<sp/>in<sp/>one<sp/>of<sp/>two<sp/>forms:<sp/>a<sp/>`serialize`</highlight></codeline>
+<codeline><highlight class="normal">method<sp/>on<sp/>the<sp/>class<sp/>(intrusive)<sp/>or<sp/>a<sp/>free<sp/>function<sp/>`serialize`<sp/>that<sp/>takes<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">reference<sp/>to<sp/>the<sp/>class<sp/>as<sp/>an<sp/>argument<sp/>(non-intrusive).<sp/>Note<sp/>that<sp/>if<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">free-function<sp/>serialization<sp/>strategy<sp/>is<sp/>employed,<sp/>one<sp/>may<sp/>be<sp/>required<sp/>to<sp/>friend</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>serialize<sp/>function<sp/>so<sp/>it<sp/>can<sp/>access<sp/>private/protected<sp/>data<sp/>inside<sp/>the<sp/>class,</highlight></codeline>
+<codeline><highlight class="normal">depending<sp/>on<sp/>what<sp/>data<sp/>members<sp/>the<sp/>function<sp/>needs<sp/>to<sp/>access<sp/>for<sp/>correct</highlight></codeline>
+<codeline><highlight class="normal">serialization<sp/>of<sp/>the<sp/>class<sp/>state.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\section<sp/>serialize_polymorphic<sp/>Serialization<sp/>of<sp/>polymorphic<sp/>classes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">To<sp/>serialize<sp/>polymorphic<sp/>class<sp/>hierarchies,<sp/>one<sp/>must<sp/>write<sp/>serializers<sp/>for<sp/>each</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>in<sp/>the<sp/>hierarchy.<sp/>Then,<sp/>the<sp/>user<sp/>should<sp/>either<sp/>insert<sp/>macros</highlight></codeline>
+<codeline><highlight class="normal">`checkpoint_virtual_serialize_root()`<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">`checkpoint_virtual_serialize_derived_from(T)`<sp/>to<sp/>inform<sp/>*checkpoint*<sp/>of<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">hierarchy<sp/>so<sp/>it<sp/>can<sp/>automatically<sp/>traverse<sp/>the<sp/>hierarchy.<sp/>Alternatively,<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">user<sp/>may<sp/>use<sp/>the<sp/>inheritance<sp/>wrappers<sp/>`checkpoint::SerializableBase&lt;T&gt;`<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">`checkpoint::SerializableDerived&lt;T,<sp/>U&gt;`<sp/>to<sp/>achieve<sp/>the<sp/>same<sp/>effect.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>example<sp/>in<sp/>\ref<sp/>ckpt_learn_example_polymorphic_macro<sp/>illustrates<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">approach<sp/>uses<sp/>the<sp/>macros.<sp/>The<sp/>example<sp/>in<sp/>\ref<sp/>ckpt_learn_example_polymorphic</highlight></codeline>
+<codeline><highlight class="normal">illustrates<sp/>this<sp/>approach.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>serialize_polymorphic_step<sp/>Allocation<sp/>and<sp/>reconstruction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>If<sp/>one<sp/>has<sp/>a<sp/>`std::unique_ptr&lt;T&gt;<sp/>x`,<sp/>where<sp/>`T`<sp/>is<sp/>polymorphic<sp/>serializable</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>`s<sp/>|<sp/>x`<sp/>will<sp/>correctly<sp/>serialize<sp/>and<sp/>reconstruct<sp/>`x`<sp/>based<sp/>on<sp/>the<sp/>concrete</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>type.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>If<sp/>one<sp/>has<sp/>a<sp/>raw<sp/>pointer,<sp/>`Teuchos::RCP&lt;T&gt;`,<sp/>or<sp/>`std::shared_ptr&lt;T&gt;`,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>`checkpoint::allocateConstructForPointer&lt;SerializerT,T&gt;(s,<sp/>ptr)`<sp/>can<sp/>be</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>invoked<sp/>to<sp/>properly<sp/>allocate<sp/>and<sp/>construct<sp/>the<sp/>concrete<sp/>class<sp/>depending<sp/>on</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>runtime<sp/>type.</highlight></codeline>
+    </programlisting>
+    <location file="docs/shared/checkpoint_learn_serialize.md"/>
+  </compounddef>
+</doxygen>
