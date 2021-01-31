@@ -73,6 +73,7 @@ var searchData=
   ['workunitcount',['workUnitCount',['../structvt_1_1sched_1_1_scheduler.html#a1b22d8a8efd0cb27fdba01ae616e060b',1,'vt::sched::Scheduler']]],
   ['workunitcounttype',['WorkUnitCountType',['../namespacevt_1_1worker.html#a8080c49350b0520151601a8b24d6c6cf',1,'vt::worker']]],
   ['workunittype',['WorkUnitType',['../namespacevt_1_1worker.html#a59d2fcdafa81fc0af7f921a258e42202',1,'vt::worker']]],
+  ['wrapper_5f',['wrapper_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html#ae24b9eb3e2adc8ea0aef2f6946aa0311',1,'vt::vrt::collection::storage::StoreElm&lt; T, typename std::enable_if_t&lt; not ::checkpoint::SerializableTraits&lt; T &gt;::is_serializable &gt;&gt;']]],
   ['writedatatochannel',['writeDataToChannel',['../structvt_1_1rdma_1_1_channel.html#af7d6fb54933f6ad3d12cb600ababfa18',1,'vt::rdma::Channel']]],
   ['writetofile',['WriteToFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer::WriteToFile()'],['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()']]],
   ['writetofiletag',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],

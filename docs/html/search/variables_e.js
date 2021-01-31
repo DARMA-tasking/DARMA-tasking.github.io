@@ -22,6 +22,5 @@ var searchData=
   ['outstanding',['outstanding',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a345a64aa827f72e541f9725f7ea2cbf8',1,'vt::term::ds::TermDS']]],
   ['override_5ftarget',['override_target',['../structvt_1_1rdma_1_1_channel_message.html#a6becb5011a81e9e52210f075406f848c',1,'vt::rdma::ChannelMessage']]],
   ['oversize',['oversize',['../structvt_1_1pool_1_1_header.html#ac3271e96a2c67c907795aa172b3f70cb',1,'vt::pool::Header']]],
-  ['owner_5f',['owner_',['../structvt_1_1runtime_1_1_runtime_holder.html#ae6ae8cff59755abf98bcbd6709e9652f',1,'vt::runtime::RuntimeHolder']]],
-  ['owns_5felm_5f',['owns_elm_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a76a122fa23bee165dea3d16ddae0ff48',1,'vt::vrt::collection::MigrateMsg']]]
+  ['owner_5f',['owner_',['../structvt_1_1runtime_1_1_runtime_holder.html#ae6ae8cff59755abf98bcbd6709e9652f',1,'vt::runtime::RuntimeHolder']]]
 ];

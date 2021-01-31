@@ -11,5 +11,6 @@ var searchData=
   ['worker_5f',['worker_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#aff23f09609cea327a6c6550d51d6b155',1,'vt::util::container::ProcessBuffer']]],
   ['workers_5f',['workers_',['../structvt_1_1worker_1_1_worker_group_any.html#a370802bca31db13895b73f19d699ea3b',1,'vt::worker::WorkerGroupAny']]],
   ['workunitcount',['workUnitCount',['../structvt_1_1sched_1_1_scheduler.html#a1b22d8a8efd0cb27fdba01ae616e060b',1,'vt::sched::Scheduler']]],
+  ['wrapper_5f',['wrapper_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html#ae24b9eb3e2adc8ea0aef2f6946aa0311',1,'vt::vrt::collection::storage::StoreElm&lt; T, typename std::enable_if_t&lt; not ::checkpoint::SerializableTraits&lt; T &gt;::is_serializable &gt;&gt;']]],
   ['wrote_5fsts_5ffile_5f',['wrote_sts_file_',['../structvt_1_1trace_1_1_trace.html#a1ee7ce001d317ebb4b30dc04e5902ca4',1,'vt::trace::Trace']]]
 ];

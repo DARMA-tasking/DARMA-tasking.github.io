@@ -21,7 +21,7 @@ var searchData=
   ['objgroupmanager',['ObjGroupManager',['../structvt_1_1objgroup_1_1_obj_group_manager.html',1,'vt::objgroup::ObjGroupManager'],['../structvt_1_1objgroup_1_1_obj_group_manager.html#a2de45aef25bff09a2fafabe227aa0ee7',1,'vt::objgroup::ObjGroupManager::ObjGroupManager()']]],
   ['objgroupproxy',['ObjGroupProxy',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html',1,'vt::objgroup::proxy']]],
   ['objgroupproxytype',['ObjGroupProxyType',['../namespacevt.html#ad7cae989df485fccca57f0792a880a8e',1,'vt']]],
-  ['objgrouptag',['ObjGroupTag',['../structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag.html',1,'vt::rdma::HandleKey::ObjGroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ObjGroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::tags::ObjGroupTag']]],
+  ['objgrouptag',['ObjGroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::tags::ObjGroupTag'],['../structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag.html',1,'vt::rdma::HandleKey::ObjGroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ObjGroupTag']]],
   ['objidtype',['ObjIDType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a15a2f756b59c8c2437985206b32aa403',1,'vt::vrt::collection::lb::BaseLB::ObjIDType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b_types.html#a201f3d97240fe881e1ed6c0d2cfde262',1,'vt::vrt::collection::lb::GreedyLBTypes::ObjIDType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_types.html#a52254678ca07c280dba927d688a0202f',1,'vt::vrt::collection::lb::HierLBTypes::ObjIDType()']]],
   ['objmemtype',['ObjMemType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a1a8a2e05fd84f8ac7b7dda4b64e5abe5',1,'vt::pipe::PipeManagerTL']]],
   ['objptr',['objPtr',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch.html#aea2f9957c5f4b07413a205d34bcfbd5c',1,'vt::objgroup::dispatch::Dispatch::objPtr()'],['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch_base.html#ad0ba1baf3de179f6d6b749aedcd76490',1,'vt::objgroup::dispatch::DispatchBase::objPtr()']]],
@@ -99,7 +99,6 @@ var searchData=
   ['override_5ftarget',['override_target',['../structvt_1_1rdma_1_1_channel_message.html#a6becb5011a81e9e52210f075406f848c',1,'vt::rdma::ChannelMessage']]],
   ['oversize',['oversize',['../structvt_1_1pool_1_1_header.html#ac3271e96a2c67c907795aa172b3f70cb',1,'vt::pool::Header']]],
   ['owner_5f',['owner_',['../structvt_1_1runtime_1_1_runtime_holder.html#ae6ae8cff59755abf98bcbd6709e9652f',1,'vt::runtime::RuntimeHolder']]],
-  ['owns_5felm_5f',['owns_elm_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a76a122fa23bee165dea3d16ddae0ff48',1,'vt::vrt::collection::MigrateMsg']]],
   ['ownsmessage',['ownsMessage',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#aea0124e8c6c53e91f3239a8ecf3cdca8',1,'vt::messaging::MsgSharedPtr']]],
   ['schedulemsg',['scheduleMsg',['../structvt_1_1runnable_1_1_runnable.html#abbe5d6061278e82454f36a2c0535d066',1,'vt::runnable::Runnable']]]
 ];

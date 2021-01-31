@@ -11,6 +11,7 @@ var searchData=
   ['makempigroup',['MakeMpiGroup',['../namespacevt_1_1group.html#afe5d421743ecbbd8ed3566641c06c288',1,'vt::group']]],
   ['manual_5f',['manual_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_msg.html#a6461ced3c059040dbbaed0f809318af6',1,'vt::vrt::collection::balance::InvokeMsg']]],
   ['map',['map',['../structvt_1_1rdma_1_1_group.html#ab2d2df3f8a32c3230210ab7ce74c0e4e',1,'vt::rdma::Group::map()'],['../structvt_1_1vrt_1_1collection_1_1_collection_create_msg.html#a72c6c45b7caee61689cd45873d7ef876',1,'vt::vrt::collection::CollectionCreateMsg::map()']]],
+  ['map_5f',['map_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html#ade35c0e0ef45b53ffad56cbc349cfb82',1,'vt::vrt::collection::storage::Storable']]],
   ['map_5ffn',['map_fn',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#a1bacbcdc0af1d6a69abf890304c78233',1,'vt::vrt::collection::CollectionHolder::map_fn()'],['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#a53cb80f6a99dfbc30f7c2b6cb4c37490',1,'vt::vrt::collection::ElementHolder::map_fn()']]],
   ['map_5ffn_5f',['map_fn_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a9ceb1e051ce61da4c6ad5689ec88935e',1,'vt::vrt::collection::MigrateMsg']]],
   ['map_5fhan_5f',['map_han_',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#aba52b95e5d133121d335c90b0b6101e1',1,'vt::rdma::impl::InformRDMAMsg::map_han_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a5ecf30f3c569bbfe574df42843cf0059',1,'vt::rdma::SubHandle::map_han_()']]],

@@ -59,5 +59,6 @@ var searchData=
   ['builddefaulttree',['buildDefaultTree',['../structvt_1_1group_1_1global_1_1_default_group.html#a2f503c7d6615e558ce08b0de7a1e8bfa',1,'vt::group::global::DefaultGroup']]],
   ['buildlocalgraphhandler',['buildLocalGraphHandler',['../structvt_1_1term_1_1_termination_detector.html#adb3b87cb03a5991e059bb7930ec5d682',1,'vt::term::TerminationDetector']]],
   ['buildmulticb',['buildMultiCB',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#aace7b9169efa610aa1d006eef4e68510',1,'vt::pipe::PipeManagerTyped']]],
-  ['byellow',['byellow',['../namespacevt_1_1debug.html#afb3aac4faf63d7f2aac0d6d142d0b599',1,'vt::debug']]]
+  ['byellow',['byellow',['../namespacevt_1_1debug.html#afb3aac4faf63d7f2aac0d6d142d0b599',1,'vt::debug']]],
+  ['bytewrapper',['ByteWrapper',['../structvt_1_1vrt_1_1collection_1_1storage_1_1detail_1_1_byte_wrapper.html#a17ff386194c6e36d2abaf1b9f39aa77f',1,'vt::vrt::collection::storage::detail::ByteWrapper::ByteWrapper()=default'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1detail_1_1_byte_wrapper.html#a7a0530cbe40fae3f09fb15b55249fce4',1,'vt::vrt::collection::storage::detail::ByteWrapper::ByteWrapper(U &amp;&amp;u)']]]
 ];

@@ -35,5 +35,6 @@ var searchData=
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html',1,'vt::messaging']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],
   ['buildsettagtype',['BuildSetTagType',['../structvt_1_1rdma_1_1_handle_set_1_1_build_set_tag_type.html',1,'vt::rdma::HandleSet']]],
-  ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]]
+  ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]],
+  ['bytewrapper',['ByteWrapper',['../structvt_1_1vrt_1_1collection_1_1storage_1_1detail_1_1_byte_wrapper.html',1,'vt::vrt::collection::storage::detail']]]
 ];
