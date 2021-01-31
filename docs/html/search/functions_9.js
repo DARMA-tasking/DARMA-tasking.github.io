@@ -88,7 +88,6 @@ var searchData=
   ['invokemsgimpl',['invokeMsgImpl',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a16cd0a5f4671abde65d3e34e24708aec',1,'vt::vrt::collection::CollectionManager']]],
   ['iobuffer',['IOBuffer',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a56ee2b1bd3bdf4ba8ecbe35bf51a49f4',1,'checkpoint::buffer::IOBuffer::IOBuffer(WriteToFileTag, SerialSizeType const &amp;in_size, std::string const &amp;in_file)'],['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a6f626a1311cea9ce4240708c59be5bff',1,'checkpoint::buffer::IOBuffer::IOBuffer(ReadFromFileTag, std::string const &amp;in_file)']]],
   ['irbegin',['irbegin',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a07c43cee06c7e1f943f4acfd1274e8c1',1,'vt::term::interval::IntegralSetBase']]],
-  ['irecvholder',['IRecvHolder',['../structvt_1_1messaging_1_1_i_recv_holder.html#a709a349d723247b10bf57ca2831bfe19',1,'vt::messaging::IRecvHolder']]],
   ['irend',['irend',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a2656b9c3920215f4cbc3a8bad3f3b9fd',1,'vt::term::interval::IntegralSetBase']]],
   ['is',['is',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html#af78cf3c2f5b904d1f49ee19f0ac7871f',1,'vt::util::adt::AlignedCharUnion']]],
   ['isarchetypal',['isArchetypal',['../structvt_1_1term_1_1_epoch_window.html#a82bb8b7ccf39f823d54990c04a5c24ae',1,'vt::term::EpochWindow']]],

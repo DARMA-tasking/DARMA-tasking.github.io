@@ -122,6 +122,8 @@ var searchData=
   ['associaterdmagetfunction',['associateRdmaGetFunction',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#ab5737cb6eab4f266c495db156907b24c',1,'vt::rdma::RDMAManager']]],
   ['associaterdmaputfunction',['associateRdmaPutFunction',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a08df53322f7811c8a80911506d3db362',1,'vt::rdma::RDMAManager']]],
   ['asyncevent',['AsyncEvent',['../structvt_1_1event_1_1_async_event.html#ad9837496e616789010bdbeefa968639d',1,'vt::event::AsyncEvent']]],
+  ['asyncop',['AsyncOp',['../structvt_1_1messaging_1_1_async_op.html#a4d2f22c0789b0fecbaced56c3129d1d4',1,'vt::messaging::AsyncOp::AsyncOp()'],['../structvt_1_1messaging_1_1_async_op.html#ad00e71b03c2ed178f06630c9443f7a22',1,'vt::messaging::AsyncOp::AsyncOp(AsyncOp &amp;&amp;)'],['../structvt_1_1messaging_1_1_async_op.html#a9c3101ff1458c4c1aa5ab64fbcbbaa1e',1,'vt::messaging::AsyncOp::AsyncOp(AsyncOp const &amp;)=delete']]],
+  ['asyncopwrapper',['AsyncOpWrapper',['../structvt_1_1messaging_1_1_async_op_wrapper.html#a06c7dd199e7b2c252e23c8d81950feed',1,'vt::messaging::AsyncOpWrapper']]],
   ['at',['at',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a0999ea4ff06ed38095d31ed9710e7525',1,'vt::util::container::ConcurrentDequeLocked::at(SizeType const &amp;pos)'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a5c5a48c3f01f61faa7329c2cbfd92103',1,'vt::util::container::ConcurrentDequeLocked::at(SizeType const &amp;pos) const']]],
   ['atroot',['atRoot',['../structvt_1_1group_1_1_info_coll.html#a04b8c9b9339fb348bf869dab130280eb',1,'vt::group::InfoColl']]],
   ['attach',['attach',['../structvt_1_1util_1_1container_1_1_process_buffer.html#ab8b25ce1820da72a1770778252dabfea',1,'vt::util::container::ProcessBuffer']]],

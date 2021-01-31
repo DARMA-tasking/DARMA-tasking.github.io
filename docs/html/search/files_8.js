@@ -19,6 +19,5 @@ var searchData=
   ['invoke_2eh',['invoke.h',['../invoke_8h.html',1,'']]],
   ['invoke_5fmsg_2eh',['invoke_msg.h',['../invoke__msg_8h.html',1,'']]],
   ['io_5fbuffer_2ecc',['io_buffer.cc',['../io__buffer_8cc.html',1,'']]],
-  ['io_5fbuffer_2eh',['io_buffer.h',['../io__buffer_8h.html',1,'']]],
-  ['irecv_5fholder_2eh',['irecv_holder.h',['../irecv__holder_8h.html',1,'']]]
+  ['io_5fbuffer_2eh',['io_buffer.h',['../io__buffer_8h.html',1,'']]]
 ];
