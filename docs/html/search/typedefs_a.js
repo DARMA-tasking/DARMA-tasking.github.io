@@ -33,5 +33,6 @@ var searchData=
   ['msgtype',['MsgType',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a714463f633ada883b4fbdfd3541d30a7',1,'vt::messaging::MsgSharedPtr::MsgType()'],['../structvt_1_1util_1_1_msg_ptr_type_3_01_msg_shared_ptr_3_01_msg_t_01_4_01_4.html#a5bf797cea95b53d1c48dbfe168593970',1,'vt::util::MsgPtrType&lt; MsgSharedPtr&lt; MsgT &gt; &gt;::MsgType()'],['../structvt_1_1util_1_1_msg_ptr_type_3_01_msg_t_01_5_01_4.html#a2ce38649dec10ad50b94963563fac9de',1,'vt::util::MsgPtrType&lt; MsgT * &gt;::MsgType()']]],
   ['msgvirtualptr',['MsgVirtualPtr',['../namespacevt.html#a82b5c92ea7ca3ddd2e8a2e27df87fa1a',1,'vt']]],
   ['msgvirtualptrany',['MsgVirtualPtrAny',['../namespacevt.html#a54674b9f819f4f3a652c6f78d9b62aaf',1,'vt']]],
-  ['multiparamtype',['MultiParamType',['../namespacevt_1_1param.html#ada9e92f75ab7e859947a8ffe5bae6c5b',1,'vt::param']]]
+  ['multiparamtype',['MultiParamType',['../namespacevt_1_1param.html#ada9e92f75ab7e859947a8ffe5bae6c5b',1,'vt::param']]],
+  ['mutextype',['MutexType',['../namespacevt_1_1util_1_1mutex.html#a891571f52e1bcf9eca62d0c2d0862a17',1,'vt::util::mutex']]]
 ];

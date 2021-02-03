@@ -40,7 +40,6 @@ var searchData=
   ['thetimetrigger',['theTimeTrigger',['../structvt_1_1runtime_1_1_runtime.html#a3d72d73ecd4ba3f0104dca596eae3862',1,'vt::runtime::Runtime']]],
   ['thevirtualmanager',['theVirtualManager',['../structvt_1_1runtime_1_1_runtime.html#a85a0606ac06cd173561952676f09c077',1,'vt::runtime::Runtime']]],
   ['thevirtualseq',['theVirtualSeq',['../structvt_1_1runtime_1_1_runtime.html#a74ae1d2bf02482293923592df10585c0',1,'vt::runtime::Runtime']]],
-  ['theworkergrp',['theWorkerGrp',['../structvt_1_1runtime_1_1_runtime.html#a80634e73cafbe273448123746789fccb',1,'vt::runtime::Runtime']]],
   ['this_5fevent_5f',['this_event_',['../structvt_1_1trace_1_1_event_class.html#a250c7586347cbe0afcf918bc35460975',1,'vt::trace::EventClass']]],
   ['this_5fevent_5fseq_5f',['this_event_seq_',['../structvt_1_1trace_1_1_event_class.html#af2fc4301096c5d6573dc0651787f490b',1,'vt::trace::EventClass']]],
   ['this_5fevent_5ftype_5f',['this_event_type_',['../structvt_1_1trace_1_1_event.html#a51ce0a1bf8edd079479273d794a9820b',1,'vt::trace::Event']]],

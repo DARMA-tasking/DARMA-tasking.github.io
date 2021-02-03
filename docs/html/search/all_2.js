@@ -270,6 +270,7 @@ var searchData=
   ['at',['at',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a0999ea4ff06ed38095d31ed9710e7525',1,'vt::util::container::ConcurrentDequeLocked::at(SizeType const &amp;pos)'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a5c5a48c3f01f61faa7329c2cbfd92103',1,'vt::util::container::ConcurrentDequeLocked::at(SizeType const &amp;pos) const']]],
   ['atomic_2eh',['atomic.h',['../atomic_8h.html',1,'']]],
   ['atomic_5fserialize_2eh',['atomic_serialize.h',['../atomic__serialize_8h.html',1,'']]],
+  ['atomictype',['AtomicType',['../namespacevt_1_1util_1_1atomic.html#a38dc3fa22349b32b4dd7171795815f77',1,'vt::util::atomic']]],
   ['atroot',['atRoot',['../structvt_1_1group_1_1_info_coll.html#a04b8c9b9339fb348bf869dab130280eb',1,'vt::group::InfoColl']]],
   ['attach',['attach',['../structvt_1_1util_1_1container_1_1_process_buffer.html#ab8b25ce1820da72a1770778252dabfea',1,'vt::util::container::ProcessBuffer']]],
   ['attachaction',['attachAction',['../structvt_1_1event_1_1_async_event.html#aa6432e2fff56eb073f9489bfc37e89bc',1,'vt::event::AsyncEvent::attachAction()'],['../structvt_1_1event_1_1_event_holder.html#aa5563adb9da7193d0a8260424d756c51',1,'vt::event::EventHolder::attachAction()']]],
