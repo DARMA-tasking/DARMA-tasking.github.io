@@ -40,7 +40,7 @@ var searchData=
   ['locmsgtype',['LocMsgType',['../structvt_1_1location_1_1_entity_location_coord.html#a8799cbd5fb0fb04cfdd1012fe1d5908f',1,'vt::location::EntityLocationCoord']]],
   ['locrectype',['LocRecType',['../structvt_1_1rdma_1_1_collection_info.html#ad1cd4adc9c3afc0f9fb472033423ee4b',1,'vt::rdma::CollectionInfo::LocRecType()'],['../structvt_1_1location_1_1_entity_location_coord.html#a685f9eee868b7b9e01072a5b303548bc',1,'vt::location::EntityLocationCoord::LocRecType()']]],
   ['locstatetype',['LocStateType',['../structvt_1_1location_1_1_loc_record.html#a292a4bfaf13edb8d1c2e7a4fdd5421fb',1,'vt::location::LocRecord']]],
-  ['logtype',['LogType',['../structvt_1_1trace_1_1_trace.html#a43306d96a91e49db081eaea016f1dd0a',1,'vt::trace::Trace::LogType()'],['../namespacevt_1_1trace.html#abf816ddd3c20f0f8d974662f373b088d',1,'vt::trace::LogType()']]],
+  ['logtype',['LogType',['../structvt_1_1trace_1_1_trace_lite.html#aeb73e523d31829d3163c877b145afa2a',1,'vt::trace::TraceLite::LogType()'],['../namespacevt_1_1trace.html#a6e7b7f2c6cb0a14d5b01dde877174a71',1,'vt::trace::LogType()']]],
   ['lookupcontainertype',['LookupContainerType',['../structvt_1_1location_1_1_location_cache.html#af56948d938dcc38705b777a96b3100be',1,'vt::location::LocationCache']]],
   ['lookupelementtype',['LookupElementType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a3206c3e5eb5d6deb4667409222163b77',1,'vt::vrt::collection::Holder']]],
   ['lookuptype',['LookupType',['../structvt_1_1rdma_1_1_handle_set.html#a81d333ec397f0becb9fe692e53145441',1,'vt::rdma::HandleSet::LookupType()'],['../structvt_1_1location_1_1_location_cache.html#a8a5ea74b02aaaa77820bf2504bda1175',1,'vt::location::LocationCache::LookupType()']]]

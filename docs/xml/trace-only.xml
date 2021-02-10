@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="trace-only" kind="page">
+    <compoundname>trace-only</compoundname>
+    <title>Trace-only</title>
+    <detaileddescription>
+<para>Using vt in trace-only mode</para><sect1 id="trace-only_1introduction">
+<title>What is trace-only mode</title>
+<para>Trace-only mode is lightweight library which includes the subset of VT-runtime that allows to generate trace files for an application that uses MPI calls. The following examples will show how to generate vt-trace target and then how to use it.</para></sect1>
+<sect1 id="trace-only_1build">
+<title>Build vt with trace-only target:</title>
+<para>Depending on how you build VT, you can either set environment variable <computeroutput>VT_BUILD_TRACE_ONLY</computeroutput>: <programlisting><codeline><highlight class="normal">export<sp/>VT_BUILD_TRACE_ONLY=1</highlight></codeline>
+<codeline><highlight class="normal">/vt/ci/build_cpp.sh<sp/>/vt<sp/>/build</highlight></codeline>
+</programlisting></para><para>or add CMake flag <computeroutput>vt_trace_only</computeroutput>:</para><para><programlisting><codeline><highlight class="normal">cmake<sp/>-Dvt_trace_only=1</highlight></codeline>
+</programlisting></para><para>This will generate tv-trace target alongside the regular vt-runtime CMake tagret.</para><para><hruler/>
+</para></sect1>
+<sect1 id="trace-only_1usage">
+<title>Example usage:</title>
+<para><heading level="2">CMake</heading>
+</para><para>Next step is to setup CMake. Find the <computeroutput>vt</computeroutput> project and load its settings:</para><para><programlisting><codeline><highlight class="normal">find_package(vt<sp/>REQUIRED)</highlight></codeline>
+</programlisting></para><para>Then link <computeroutput>vt-trace</computeroutput> library with your target:</para><para><programlisting><codeline><highlight class="normal">target_link_libraries(${target_name}<sp/>PUBLIC<sp/>vt::vt-trace)</highlight></codeline>
+</programlisting></para><para>Example CMake: <programlisting><codeline><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.10<sp/>FATAL_ERROR)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">project(my_target)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">find_package(vt<sp/>REQUIRED)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">add_executable(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>my_target</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/src/sample.h</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/src/sample.cc</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">target_link_libraries(my_target<sp/>PUBLIC<sp/>vt::vt-trace)</highlight></codeline>
+</programlisting></para><para><heading level="2">Source code</heading>
+</para><para>The following code snippet shows the example use of vt-trace library (See <computeroutput><ref refid="structvt_1_1trace_1_1_trace_lite" kindref="compound">vt::trace::TraceLite</ref></computeroutput> for more information):</para><para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;mpi.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="trace__lite_8h" kindref="compound">vt/trace/trace_lite.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MPI_Init(&amp;argc,<sp/>&amp;argv);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>vt::trace::TraceLite<sp/>object<sp/>after<sp/>MPI<sp/>has<sp/>been<sp/>initialized</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>constructor<sp/>takes<sp/>one<sp/>argument<sp/>-<sp/>your<sp/>application&apos;s<sp/>name</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1trace_1_1_trace_lite" kindref="compound">::vt::trace::TraceLite</ref><sp/>myTrace(</highlight><highlight class="stringliteral">&quot;MyApp&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Call<sp/>initializeStandalone<sp/>once<sp/>to<sp/>initialize<sp/>all<sp/>internal<sp/>data<sp/>needed<sp/>for<sp/>tracing</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>function<sp/>takes<sp/>single<sp/>argument<sp/>-<sp/>MPI<sp/>communicator</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>myTrace.initializeStandalone(MPI_COMM_WORLD);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>DO<sp/>MPI<sp/>RELATED<sp/>WORK<sp/>HERE</highlight></codeline>
+<codeline><highlight class="comment"><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Use<sp/>this<sp/>function<sp/>to<sp/>flush<sp/>traces<sp/>to<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>myTrace.flushTracesFile();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>After<sp/>all<sp/>work<sp/>is<sp/>done,<sp/>call<sp/>this<sp/>function<sp/>to<sp/>cleanup<sp/>all<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>should<sp/>be<sp/>called<sp/>before<sp/>calling<sp/>&apos;MPI_Finalize&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>myTrace.finalizeStandalone();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MPI_Finalize();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

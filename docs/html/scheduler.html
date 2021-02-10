@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DARMA &raquo; Introduction &raquo; Scheduler | vt (Virtual Transport)</title>
+  <title>DARMA &raquo; What is trace-only mode &raquo; Scheduler | vt (Virtual Transport)</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -25,7 +25,7 @@
         <div class="m-row">
           <ol class="m-col-t-6 m-col-m-none">
             <li>
-              <a href="introduction.html">Introduction</a>
+              <a href="introduction.html">What is trace-only mode</a>
               <ol>
                 <li><a href="context.html">Context</a></li>
                 <li><a href="active-messenger.html">Active Messenger</a></li>
@@ -41,6 +41,7 @@
                 <li><a href="scheduler.html" id="m-navbar-current">Scheduler</a></li>
                 <li><a href="term.html">Termination Detector</a></li>
                 <li><a href="trace.html">Tracing</a></li>
+                <li><a href="trace-only.html">Trace-only</a></li>
               </ol>
             </li>
             <li>
@@ -98,7 +99,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <span class="m-breadcrumb"><a href="index.html">DARMA</a> &raquo;</span>
-          <span class="m-breadcrumb"><a href="introduction.html">Introduction</a> &raquo;</span>
+          <span class="m-breadcrumb"><a href="introduction.html">What is trace-only mode</a> &raquo;</span>
           Scheduler
         </h1>
 <p>General scheduling of work</p><p>The scheduler component <code><a href="structvt_1_1sched_1_1_scheduler.html" class="m-doc">vt::<wbr />sched::<wbr />Scheduler</a></code>, accessed via <code><a href="namespacevt.html#a4508b38e6ab664b64f1415aecbb83571" class="m-doc">vt::<wbr />theSched()</a></code>, holds pieces of work to execute later that may be prioritized. The scheduler polls the <strong><em>vt</em></strong> components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.</p><section id="calls-to-the-scheduler"><h2><a href="#calls-to-the-scheduler">Calls to the scheduler</a></h2><p>To advance the scheduler, one can call it as follows:</p><pre class="m-code"><span class="n">vt</span><span class="o">::</span><span class="n">theSched</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">scheduler</span><span class="p">();</span></pre><p>This polls every component that might generate or complete work, and potentially runs one piece of available work.</p><p>However, if the scheduler needs to be run until a condition (or set of conditions) is met, it is recommended that <code>runSchedulerWhile</code> be invoked:</p><pre class="m-code"><span class="n">vt</span><span class="o">::</span><span class="n">theSched</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">runSchedulerWhile</span><span class="p">(</span><span class="cm">/*std::function&lt;bool()&gt; cond*/</span><span class="p">);</span></pre><p>Runs the scheduler until a condition is met. This form SHOULD be used instead of &quot;while (..) { runScheduler(..) }&quot; in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.</p></section><section id="higher-level-calls"><h2><a href="#higher-level-calls">Higher-level Calls to Wait for Completion</a></h2><p>If work is enclosed in an &quot;epoch&quot;, the <a href="term.html" class="m-doc">Termination Detector</a> can be used to track its distributed completion. In this case, instead of calling the scheduler directly, built-in higher-level functions can be used to advance the scheduler until this work is complete/terminated.</p><p>To run the scheduler until an epoch terminates, call the following function:</p><pre class="m-code"><span class="n">vt</span><span class="o">::</span><span class="n">runSchedulerThrough</span><span class="p">(</span><span class="n">my_epoch</span><span class="p">);</span></pre><p>Or, to combine the actual enclosed work with the call to wait for its termination, use the following function:</p><pre class="m-code"><span class="n">vt</span><span class="o">::</span><span class="n">runInEpochRooted</span><span class="p">([]{</span>

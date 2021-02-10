@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DARMA &raquo; Introduction &raquo; LB Manager | vt (Virtual Transport)</title>
+  <title>DARMA &raquo; What is trace-only mode &raquo; LB Manager | vt (Virtual Transport)</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -25,7 +25,7 @@
         <div class="m-row">
           <ol class="m-col-t-6 m-col-m-none">
             <li>
-              <a href="introduction.html">Introduction</a>
+              <a href="introduction.html">What is trace-only mode</a>
               <ol>
                 <li><a href="context.html">Context</a></li>
                 <li><a href="active-messenger.html">Active Messenger</a></li>
@@ -41,6 +41,7 @@
                 <li><a href="scheduler.html">Scheduler</a></li>
                 <li><a href="term.html">Termination Detector</a></li>
                 <li><a href="trace.html">Tracing</a></li>
+                <li><a href="trace-only.html">Trace-only</a></li>
               </ol>
             </li>
             <li>
@@ -98,7 +99,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <span class="m-breadcrumb"><a href="index.html">DARMA</a> &raquo;</span>
-          <span class="m-breadcrumb"><a href="introduction.html">Introduction</a> &raquo;</span>
+          <span class="m-breadcrumb"><a href="introduction.html">What is trace-only mode</a> &raquo;</span>
           LB Manager
         </h1>
 <p>Manage load balancers</p><p>The LB manager component <code><a href="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html" class="m-doc">vt::<wbr />vrt::<wbr />collection::<wbr />balance::<wbr />LBManager</a></code>, accessed via <code><a href="namespacevt.html#a05187076eac8c66c9951b062b0955520" class="m-doc">vt::<wbr />theLBManager()</a></code> manages and coordinates instances of load balancers. It will potentially start load balancing after a &quot;phase&quot; is completed; refer to <a href="phase.html" class="m-doc">Phase Manager</a> for details about how to delineate phases in an application. The LB manager reads command-line arguments or an LB specification file to determine which load balancer to run at a given phase.</p><p>To enable load balancing, the cmake flag <code class="m-code"><span class="o">-</span><span class="n">Dvt_lb_enabled</span><span class="o">=</span><span class="mi">1</span></code> should be passed during building. This also enables automatic instrumentation of work and communication performed by collection elements.</p><p>To run a load balancer at runtime:</p><ul><li>Pass <code>--vt_lb --vt_lb_name=&lt;LB&gt;</code> as a command line argument</li><li>Write a LB specification file <code>--vt_lb --vt_lb_file_name=&lt;FILE&gt;</code></li></ul><section id="lb-specification-file"><h2><a href="#lb-specification-file">LB Specification File</a></h2><p>The LB specification file allows users to specify which load balancer along with which LB-specific configuration parameters are passed to the load balancer instance for any given phase. The order of the LB phase specification lines in the file disambiguates lines&mdash;higher precedence for earlier lines.</p><p>The format of the LB specification file is:</p><pre class="m-code"><span class="p">[</span><span class="o">%</span><span class="p">]</span> <span class="o">&lt;</span><span class="err">$</span><span class="n">phase</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="err">$</span><span class="n">lbname</span><span class="o">&gt;</span> <span class="p">[</span><span class="err">$</span><span class="n">LB</span><span class="o">-</span><span class="n">specific</span><span class="o">-</span><span class="n">arg</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">...</span> <span class="p">[</span><span class="err">$</span><span class="n">LB</span><span class="o">-</span><span class="n">specific</span><span class="o">-</span><span class="n">arg</span><span class="o">-</span><span class="n">N</span><span class="p">]</span></pre><p>If a <code>%</code> is present, the line matches phases where: <code>current phase % $phase == 0</code>. Phase-specific lines (ones that specify a load balancer without a <code>%</code>) always always have precedence over <code>%</code> lines. The next token after the optional <code>%</code> and <code>$phase</code> is the name of the load balancer to invoke on that phase. After the load balancer name, <code>N</code> arguments to the load balancer are allowed to customize how the load balancer is run with the format of <code>key=value</code>. These arguments are the equivalent of passing <code>--vt_lb_args=&quot;A=test B=test2&quot;</code> on the command line.</p><p>The following is an example LB specification:</p><pre class="m-code"><span class="o">%</span><span class="mi">10</span> <span class="n">GossipLB</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span> <span class="n">f</span><span class="o">=</span><span class="mi">2</span> <span class="n">i</span><span class="o">=</span><span class="mi">10</span>

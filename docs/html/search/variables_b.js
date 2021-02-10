@@ -51,7 +51,7 @@ var searchData=
   ['local_5fterminated_5f',['local_terminated_',['../structvt_1_1term_1_1_term_state.html#a1c54c862157f705ad899011ce7603b07',1,'vt::term::TermState']]],
   ['lock_5f',['lock_',['../structvt_1_1rdma_1_1_base_typed_handle.html#accff417789be0a3556fdc4695aba5a85',1,'vt::rdma::BaseTypedHandle']]],
   ['locked_5f',['locked_',['../structvt_1_1rdma_1_1_channel.html#a788909186ab3c715dd5b44fa8314c5c6',1,'vt::rdma::Channel']]],
-  ['log_5ffile_5f',['log_file_',['../structvt_1_1trace_1_1_trace.html#a8bb3cd03753fc88c9c1b20990e254b4e',1,'vt::trace::Trace']]],
+  ['log_5ffile_5f',['log_file_',['../structvt_1_1trace_1_1_trace_lite.html#ab074b4892ac4fd0508c03150710eb46d',1,'vt::trace::TraceLite']]],
   ['lookup_5f',['lookup_',['../structvt_1_1location_1_1_location_cache.html#a66ca0e925c2fe39cbe1f309159094c96',1,'vt::location::LocationCache']]],
   ['lookup_5fcontainer_5f',['lookup_container_',['../structvt_1_1event_1_1_async_event.html#a8810ca30cca503944aed2741a6d28430',1,'vt::event::AsyncEvent']]]
 ];

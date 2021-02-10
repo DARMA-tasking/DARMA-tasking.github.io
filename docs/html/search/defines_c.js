@@ -70,6 +70,7 @@ var searchData=
   ['vt_5ffeature_5fstr_5ftrace_5fenabled',['vt_feature_str_trace_enabled',['../features__featureswitch_8h.html#a45754db0a57b44725c909ebc597864a6',1,'features_featureswitch.h']]],
   ['vt_5ffeature_5fstr_5fzoltan',['vt_feature_str_zoltan',['../features__featureswitch_8h.html#a05a62cb7219056fd22d414145d4ef5bf',1,'features_featureswitch.h']]],
   ['vt_5ffeature_5ftrace_5fenabled',['vt_feature_trace_enabled',['../features__defines_8h.html#abc15b98badb3b025e9bda06f3b42e97c',1,'features_defines.h']]],
+  ['vt_5ffeature_5ftrace_5fonly',['vt_feature_trace_only',['../features__defines_8h.html#a7b2d60e2eaaac3129758b717916a227d',1,'features_defines.h']]],
   ['vt_5ffeature_5fzoltan',['vt_feature_zoltan',['../features__defines_8h.html#aed0c265cde30f7653c2c75523b0e72ab',1,'features_defines.h']]],
   ['vt_5fforce_5fuse',['vt_force_use',['../debug__var__unused_8h.html#a9e125d88c6dbc75f2106955ba07a2138',1,'debug_var_unused.h']]],
   ['vt_5fforce_5fuse_5fstrip1',['vt_force_use_strip1',['../debug__var__unused_8h.html#a496a9d47d59fe2f2e14bf9cb751c80e3',1,'debug_var_unused.h']]],

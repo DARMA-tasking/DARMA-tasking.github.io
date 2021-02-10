@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['p_5f',['p_',['../structvt_1_1runtime_1_1_runtime.html#a9f7ea8f6852d934e9c0122e074df0886',1,'vt::runtime::Runtime::p_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a6f221924e77d7c24d97cd41da5ff274c',1,'vt::vrt::collection::balance::LoadData::P_()']]],
+  ['p_5f',['P_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a6f221924e77d7c24d97cd41da5ff274c',1,'vt::vrt::collection::balance::LoadData::P_()'],['../structvt_1_1runtime_1_1_runtime.html#a9f7ea8f6852d934e9c0122e074df0886',1,'vt::runtime::Runtime::p_()']]],
   ['packed_5fdirect',['packed_direct',['../structvt_1_1rdma_1_1_send_data_message.html#a8d6ac5c7d5ea89478b7309dd26f04f76',1,'vt::rdma::SendDataMessage']]],
   ['par_5ffuncs_5f',['par_funcs_',['../structvt_1_1seq_1_1_seq_parallel.html#ad4e7afa9903b89d95345c5660638253d',1,'vt::seq::SeqParallel']]],
   ['parallel',['parallel',['../unionvt_1_1seq_1_1u_seq_node_payload.html#a82cfe4fb82709cc917dc36a41446d491',1,'vt::seq::uSeqNodePayload']]],
@@ -58,7 +58,7 @@ var searchData=
   ['processedsum',['processedSum',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#ad82335b84b7ac759e94fa524c59b03d9',1,'vt::term::ds::TermDS']]],
   ['prod',['prod',['../structvt_1_1term_1_1_term_counter_msg.html#a4fd3f09a9e5a54865abbd76a95ea7067',1,'vt::term::TermCounterMsg']]],
   ['prog_5fname',['prog_name',['../structvt_1_1arguments_1_1_app_config.html#ae1c980e81613c029444acf8e5433befd',1,'vt::arguments::AppConfig']]],
-  ['prog_5fname_5f',['prog_name_',['../structvt_1_1trace_1_1_trace.html#a23105afa15b4dc435aa047f76305ece7',1,'vt::trace::Trace']]],
+  ['prog_5fname_5f',['prog_name_',['../structvt_1_1trace_1_1_trace_lite.html#a8bd3836d6fad28bb428ce3b824a00595',1,'vt::trace::TraceLite']]],
   ['progress_5ftime_5fenabled_5f',['progress_time_enabled_',['../structvt_1_1sched_1_1_scheduler.html#a0eba67280dfcfb4d1e612e4cf15b8c4b',1,'vt::sched::Scheduler']]],
   ['progresscount',['progressCount',['../structvt_1_1sched_1_1_scheduler.html#acb82ca3c712cf5c36bce05c2ef8b53ad',1,'vt::sched::Scheduler']]],
   ['prohibited',['prohibited',['../structvt_1_1messaging_1_1msg__serialization__mode.html#acbb32d6af6d5ba4be9ca43a202778b7a',1,'vt::messaging::msg_serialization_mode::prohibited()'],['../structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp859af933e7cec0c00885df897a55208a.html#ae4c9b887be9f1bad94845328444a89eb',1,'vt::messaging::vt_serialize_mode)&gt;&gt;::prohibited()']]],

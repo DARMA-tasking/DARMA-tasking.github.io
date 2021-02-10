@@ -19,5 +19,5 @@ var searchData=
   ['workqueuesize',['workQueueSize',['../structvt_1_1sched_1_1_scheduler.html#a6ee315ffd90f37a277bb2b5622af1f4f',1,'vt::sched::Scheduler']]],
   ['writedatatochannel',['writeDataToChannel',['../structvt_1_1rdma_1_1_channel.html#af7d6fb54933f6ad3d12cb600ababfa18',1,'vt::rdma::Channel']]],
   ['writetofile',['writeToFile',['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()']]],
-  ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace.html#a7d0fc2fd82be06ecd24bf4e2b33ac52b',1,'vt::trace::Trace']]]
+  ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace_lite.html#aa385172051bc8f3fc58a345fec10eae2',1,'vt::trace::TraceLite']]]
 ];

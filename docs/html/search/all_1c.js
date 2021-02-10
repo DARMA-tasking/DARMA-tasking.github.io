@@ -65,6 +65,7 @@ var searchData=
   ['_7etermds',['~TermDS',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#ab7990eff9ce88551b3e2133f1664593a',1,'vt::term::ds::TermDS']]],
   ['_7eterminationdetector',['~TerminationDetector',['../structvt_1_1term_1_1_termination_detector.html#a1a1a29c2374a70427d8173ec31d55421',1,'vt::term::TerminationDetector']]],
   ['_7etrace',['~Trace',['../structvt_1_1trace_1_1_trace.html#a80b3426aed07572525ef4834b0c4dedd',1,'vt::trace::Trace']]],
+  ['_7etracelite',['~TraceLite',['../structvt_1_1trace_1_1_trace_lite.html#a08eca22659dc1f361d534c2b9c03b90b',1,'vt::trace::TraceLite']]],
   ['_7euniondestroy',['~UnionDestroy',['../structvt_1_1util_1_1adt_1_1_union_destroy_3_01_t_00_01typename_01std_1_1enable__if__t_3_01not_0117947c5b8b44b7d9f4a4df27d8795277.html#a63ff918204bcd7a80361d617ead98c24',1,'vt::util::adt::UnionDestroy&lt; T, typename std::enable_if_t&lt; not detail::IsTriviallyDestructible&lt; T, Ts... &gt;::value &gt;, Ts... &gt;']]],
   ['_7evrtbase',['~VrtBase',['../structvt_1_1vrt_1_1_vrt_base.html#a16d15fcaabbf2e477315466dcaaa6f84',1,'vt::vrt::VrtBase']]],
   ['_7eworkergroupany',['~WorkerGroupAny',['../structvt_1_1worker_1_1_worker_group_any.html#a2427146b080679942534b8723475ade3',1,'vt::worker::WorkerGroupAny']]]

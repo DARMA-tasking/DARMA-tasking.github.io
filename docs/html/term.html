@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DARMA &raquo; Introduction &raquo; Termination Detector | vt (Virtual Transport)</title>
+  <title>DARMA &raquo; What is trace-only mode &raquo; Termination Detector | vt (Virtual Transport)</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -25,7 +25,7 @@
         <div class="m-row">
           <ol class="m-col-t-6 m-col-m-none">
             <li>
-              <a href="introduction.html">Introduction</a>
+              <a href="introduction.html">What is trace-only mode</a>
               <ol>
                 <li><a href="context.html">Context</a></li>
                 <li><a href="active-messenger.html">Active Messenger</a></li>
@@ -41,6 +41,7 @@
                 <li><a href="scheduler.html">Scheduler</a></li>
                 <li><a href="term.html" id="m-navbar-current">Termination Detector</a></li>
                 <li><a href="trace.html">Tracing</a></li>
+                <li><a href="trace-only.html">Trace-only</a></li>
               </ol>
             </li>
             <li>
@@ -98,7 +99,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <span class="m-breadcrumb"><a href="index.html">DARMA</a> &raquo;</span>
-          <span class="m-breadcrumb"><a href="introduction.html">Introduction</a> &raquo;</span>
+          <span class="m-breadcrumb"><a href="introduction.html">What is trace-only mode</a> &raquo;</span>
           Termination Detector
         </h1>
 <p>Detect termination of work</p><p>The termination component <code><a href="structvt_1_1term_1_1_termination_detector.html" class="m-doc">vt::<wbr />term::<wbr />TerminationDetector</a></code>, accessed via <code><a href="namespacevt.html#a127580fdfcaba0b4171e5c48c5676733" class="m-doc">vt::<wbr />theTerm()</a></code> detects the completion of the transitive closure of work by following the causal chain of messages/events across multiple nodes. It provides global termination to determine when all work is complete and the schedulers can stop running. Additionally, it enables the creation of epochs (which stamp message envelopes) to mark messages as part of a work grouping to detect termination of all events causally related to a subset of messages in the system.</p><p>The termination detector comes with two different detection algorithms: (1) 4-counter wave-based termination for large collective or large rooted epochs across the whole system; and, (2) Dijkstra-Scholten parental responsibility termination for rooted epochs. Epochs are allowed to have other epochs nested within them, thus forming a graph. The detector tracks the relation between epochs, only making progress on epochs that do not have a dependency on another epoch terminating first.</p><p>The termination detector also comes with hang detection to detect causes where no progress can be made due to bugs in an application&#x27;s code or the runtime implementation. When a hang is detected, if configured as such by the user, the detector will dump a DOT graph of the live epochs and their dependencies.</p><section id="term-collective-example"><h2><a href="#term-collective-example">Example of creating a collective epoch</a></h2><pre class="m-code"><span class="k">using</span> <span class="n">TestMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Message</span><span class="p">;</span>

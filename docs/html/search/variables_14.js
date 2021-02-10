@@ -18,7 +18,7 @@ var searchData=
   ['user_5fbuffer_5f',['user_buffer_',['../structvt_1_1rdma_1_1_base_typed_handle.html#af48b31b6d8f1319ee58c5544ad251bf9',1,'vt::rdma::BaseTypedHandle']]],
   ['user_5fdata',['user_data',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#ade431a285a79e18cfe816f03d1ae7285',1,'vt::trace::Log::Data::UserData']]],
   ['user_5fevent',['user_event',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a00002c986ccb5d7e267eecfad00941fc',1,'vt::trace::Log::Data::UserData']]],
-  ['user_5fevent_5f',['user_event_',['../structvt_1_1trace_1_1_trace.html#a5850927ef50c2074b82dd5a18852850e',1,'vt::trace::Trace::user_event_()'],['../structvt_1_1trace_1_1_user_event_registry.html#a5756ec4a07f4624f2da1538afe1e553d',1,'vt::trace::UserEventRegistry::user_event_()']]],
+  ['user_5fevent_5f',['user_event_',['../structvt_1_1trace_1_1_trace_lite.html#a7dcadada68a0b250898d7838de01458b',1,'vt::trace::TraceLite::user_event_()'],['../structvt_1_1trace_1_1_user_event_registry.html#a5756ec4a07f4624f2da1538afe1e553d',1,'vt::trace::UserEventRegistry::user_event_()']]],
   ['user_5fhan',['user_han',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#ab99b929e800794c73fe3b845c8d9f794',1,'vt::collective::scatter::ScatterMsg']]],
   ['user_5finsert_5faction_5f',['user_insert_action_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a8d436079bfbadeacdf0584b01c150c29',1,'vt::vrt::collection::CollectionManager']]],
   ['user_5flabel_5f',['user_label_',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#ab999242f776318d97475ccbe6a362c71',1,'vt::termination::graph::EpochGraph']]],

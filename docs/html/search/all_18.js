@@ -30,7 +30,7 @@ var searchData=
   ['work_5f',['work_',['../structvt_1_1sched_1_1_priority_unit.html#ab8b3a78c58c74378e0d03de0e10af30d',1,'vt::sched::PriorityUnit::work_()'],['../structvt_1_1sched_1_1_unit.html#ad1c63e6b9e5f734c1d3a63ca121c4c43',1,'vt::sched::Unit::work_()']]],
   ['work_5fqueue_5f',['work_queue_',['../structvt_1_1sched_1_1_scheduler.html#a8176bae441897c36b86e3fb917496a7a',1,'vt::sched::Scheduler']]],
   ['work_5funit_2eh',['work_unit.h',['../work__unit_8h.html',1,'']]],
-  ['worker',['Worker',['../structvt_1_1worker_1_1_worker.html',1,'vt::worker::Worker'],['../structvt_1_1worker_1_1_worker.html#abcf7d80b7c04de054f178a48b9e8f290',1,'vt::worker::Worker::Worker(WorkerIDType const &amp;in_worker_id_, WorkerCountType const &amp;in_num_thds, WorkerFinishedFnType finished_fn)'],['../structvt_1_1worker_1_1_worker.html#a3c1945e6d1776c6ba065a4dc466904f7',1,'vt::worker::Worker::Worker(Worker const &amp;)=delete'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()']]],
+  ['worker',['Worker',['../structvt_1_1worker_1_1_worker.html',1,'vt::worker::Worker'],['../structvt_1_1worker_1_1_worker.html#abcf7d80b7c04de054f178a48b9e8f290',1,'vt::worker::Worker::Worker(WorkerIDType const &amp;in_worker_id_, WorkerCountType const &amp;in_num_thds, WorkerFinishedFnType finished_fn)'],['../structvt_1_1worker_1_1_worker.html#a3c1945e6d1776c6ba065a4dc466904f7',1,'vt::worker::Worker::Worker(Worker const &amp;)=delete'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()']]],
   ['worker_2eh',['worker.h',['../worker_8h.html',1,'']]],
   ['worker_5f',['worker_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#aff23f09609cea327a6c6550d51d6b155',1,'vt::util::container::ProcessBuffer']]],
   ['worker_5fcommon_2eh',['worker_common.h',['../worker__common_8h.html',1,'']]],
@@ -77,6 +77,6 @@ var searchData=
   ['writedatatochannel',['writeDataToChannel',['../structvt_1_1rdma_1_1_channel.html#af7d6fb54933f6ad3d12cb600ababfa18',1,'vt::rdma::Channel']]],
   ['writetofile',['WriteToFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer::WriteToFile()'],['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()']]],
   ['writetofiletag',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
-  ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace.html#a7d0fc2fd82be06ecd24bf4e2b33ac52b',1,'vt::trace::Trace']]],
-  ['wrote_5fsts_5ffile_5f',['wrote_sts_file_',['../structvt_1_1trace_1_1_trace.html#a1ee7ce001d317ebb4b30dc04e5902ca4',1,'vt::trace::Trace']]]
+  ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace_lite.html#aa385172051bc8f3fc58a345fec10eae2',1,'vt::trace::TraceLite']]],
+  ['wrote_5fsts_5ffile_5f',['wrote_sts_file_',['../structvt_1_1trace_1_1_trace_lite.html#a3af89ea00d5dfcf4341aabf9c2b33aef',1,'vt::trace::TraceLite']]]
 ];

@@ -17,7 +17,7 @@ var searchData=
   ['finished_5fsetup_5faction_5f',['finished_setup_action_',['../structvt_1_1group_1_1_info.html#a40d013d297772502f189d08c7d474a6f',1,'vt::group::Info']]],
   ['finished_5fstartup_5f',['finished_startup_',['../structvt_1_1group_1_1global_1_1_default_group.html#a206241b82e6234ce815e9dde56a5838b',1,'vt::group::global::DefaultGroup']]],
   ['first_5fvalid_5freporter_5f',['first_valid_reporter_',['../structvt_1_1util_1_1memory_1_1_memory_usage.html#a714d3de79740091fce1761c7c0a858bd',1,'vt::util::memory::MemoryUsage']]],
-  ['flush_5fevent_5f',['flush_event_',['../structvt_1_1trace_1_1_trace.html#a20ab4375701a67ac8b2d01f95b64c395',1,'vt::trace::Trace']]],
+  ['flush_5fevent_5f',['flush_event_',['../structvt_1_1trace_1_1_trace_lite.html#acba836a9cc25aee679f7738c8f2721eb',1,'vt::trace::TraceLite']]],
   ['fn_5f',['fn_',['../structvt_1_1pipe_1_1callback_1_1_anon_listener.html#a6f708087804e0304e627db3f446bb449',1,'vt::pipe::callback::AnonListener::fn_()'],['../structvt_1_1runtime_1_1component_1_1_movable_fn_typed.html#ab50b89fe32be55d56b2375e4e9b14df5',1,'vt::runtime::component::MovableFnTyped::fn_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_listener.html#a71e01f997215a3b8c5eb659a1921b6f7',1,'vt::vrt::collection::balance::LBListener::fn_()']]],
   ['focused_5fsubphase_5f',['focused_subphase_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#aed2a4fb4fbcf36bf6a392907fcfb1791',1,'vt::vrt::collection::balance::ElementStats']]],
   ['foreach_5fiter',['foreach_iter',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a1b21c6d5b8b0bce316afe9b60e80d621',1,'vt::vrt::collection::Holder']]],
@@ -32,9 +32,9 @@ var searchData=
   ['fst_5fcoll_5fbarrier',['fst_coll_barrier',['../namespacevt_1_1collective_1_1barrier.html#a02bc7e6a890bd33f1e0b1b264326099c',1,'vt::collective::barrier']]],
   ['fst_5fcollective_5falg',['fst_collective_alg',['../namespacevt_1_1collective.html#a162001be7dbe7f94163297a57f6b53e8',1,'vt::collective']]],
   ['fst_5fpool_5fslot',['fst_pool_slot',['../structvt_1_1pool_1_1_memory_pool_equal.html#ae0435baf515fefccc015b600357bc6bb',1,'vt::pool::MemoryPoolEqual']]],
-  ['full_5fdir_5fname_5f',['full_dir_name_',['../structvt_1_1trace_1_1_trace.html#a92e71504eb0b39de506ce157c1073443',1,'vt::trace::Trace']]],
-  ['full_5fsts_5fname_5f',['full_sts_name_',['../structvt_1_1trace_1_1_trace.html#a5f89444a6ab438319c52d00bb6bce470',1,'vt::trace::Trace']]],
-  ['full_5ftrace_5fname_5f',['full_trace_name_',['../structvt_1_1trace_1_1_trace.html#a5304514e96243ad75d8e2d775eaf40c5',1,'vt::trace::Trace']]],
+  ['full_5fdir_5fname_5f',['full_dir_name_',['../structvt_1_1trace_1_1_trace_lite.html#a3871cf535ca6f31bfb499a46cde4c80c',1,'vt::trace::TraceLite']]],
+  ['full_5fsts_5fname_5f',['full_sts_name_',['../structvt_1_1trace_1_1_trace_lite.html#aa7236609212e978252ddefd9c0131537',1,'vt::trace::TraceLite']]],
+  ['full_5ftrace_5fname_5f',['full_trace_name_',['../structvt_1_1trace_1_1_trace_lite.html#a0381e516d389555b3b40b954d276eff9',1,'vt::trace::TraceLite']]],
   ['funcs',['funcs',['../unionvt_1_1seq_1_1u_seq_node_payload.html#ae29c56313f829840c64f9712fd457f5e',1,'vt::seq::uSeqNodePayload']]],
   ['future_5fphase_5fblock_5fsize_5f',['future_phase_block_size_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a26b2a79fd6145e7e3ab56581a8558584',1,'vt::vrt::collection::balance::MultiplePhases']]]
 ];

@@ -1,0 +1,94 @@
+Using vt in trace-\/only mode\hypertarget{trace-only_introduction}{}\section{What is trace-\/only mode}\label{trace-only_introduction}
+Trace-\/only mode is lightweight library which includes the subset of V\+T-\/runtime that allows to generate trace files for an application that uses M\+PI calls. The following examples will show how to generate vt-\/trace target and then how to use it.\hypertarget{trace-only_build}{}\section{Build vt with trace-\/only target\+:}\label{trace-only_build}
+Depending on how you build VT, you can either set environment variable {\ttfamily V\+T\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+O\+N\+LY}\+: 
+\begin{DoxyCode}
+export VT\_BUILD\_TRACE\_ONLY=1
+/vt/ci/build\_cpp.sh /vt /build
+\end{DoxyCode}
+
+
+or add C\+Make flag {\ttfamily vt\+\_\+trace\+\_\+only}\+:
+
+
+\begin{DoxyCode}
+cmake -Dvt\_trace\_only=1
+\end{DoxyCode}
+
+
+This will generate tv-\/trace target alongside the regular vt-\/runtime C\+Make tagret.
+
+
+
+\hypertarget{trace-only_usage}{}\section{Example usage\+:}\label{trace-only_usage}
+\subsection*{C\+Make}
+
+Next step is to setup C\+Make. Find the {\ttfamily vt} project and load its settings\+:
+
+
+\begin{DoxyCode}
+find\_package(vt REQUIRED)
+\end{DoxyCode}
+
+
+Then link {\ttfamily vt-\/trace} library with your target\+:
+
+
+\begin{DoxyCode}
+target\_link\_libraries($\{target\_name\} PUBLIC vt::vt-trace)
+\end{DoxyCode}
+
+
+Example C\+Make\+: 
+\begin{DoxyCode}
+cmake\_minimum\_required(VERSION 3.10 FATAL\_ERROR)
+
+project(my\_target)
+
+find\_package(vt REQUIRED)
+
+add\_executable(
+  my\_target
+  $\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.h
+  $\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.cc
+)
+
+target\_link\_libraries(my\_target PUBLIC vt::vt-trace)
+\end{DoxyCode}
+
+
+\subsection*{Source code}
+
+The following code snippet shows the example use of vt-\/trace library (See {\ttfamily \hyperlink{structvt_1_1trace_1_1_trace_lite}{vt\+::trace\+::\+Trace\+Lite}} for more information)\+:
+
+
+\begin{DoxyCode}
+\textcolor{preprocessor}{#include <mpi.h>}
+\textcolor{preprocessor}{#include "\hyperlink{trace__lite_8h}{vt/trace/trace\_lite.h}"}
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  MPI\_Init(&argc, &argv);
+
+  \textcolor{comment}{// Create vt::trace::TraceLite object after MPI has been initialized}
+  \textcolor{comment}{// The constructor takes one argument - your application's name}
+  \hyperlink{structvt_1_1trace_1_1_trace_lite}{::vt::trace::TraceLite} myTrace(\textcolor{stringliteral}{"MyApp"});
+
+
+  \textcolor{comment}{// Call initializeStandalone once to initialize all internal data needed for tracing}
+  \textcolor{comment}{// This function takes single argument - MPI communicator}
+  myTrace.initializeStandalone(MPI\_COMM\_WORLD);
+
+  \textcolor{comment}{/*}
+\textcolor{comment}{     DO MPI RELATED WORK HERE}
+\textcolor{comment}{  */}
+
+  \textcolor{comment}{// Use this function to flush traces to file}
+  myTrace.flushTracesFile();
+
+  \textcolor{comment}{// After all work is done, call this function to cleanup all data}
+  \textcolor{comment}{// This should be called before calling 'MPI\_Finalize'}
+  myTrace.finalizeStandalone();
+
+  MPI\_Finalize();
+\}
+\end{DoxyCode}
+ 
