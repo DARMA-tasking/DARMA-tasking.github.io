@@ -381,6 +381,7 @@ var searchData=
   ['vt_5ftrace_5fevent_5fpolling',['vt_trace_event_polling',['../structvt_1_1arguments_1_1_app_config.html#a43da3e179ed4ad72411a41b46fae97e0',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5ffile',['vt_trace_file',['../structvt_1_1arguments_1_1_app_config.html#ad445cf8321e97a3e5da0fa7923690fa8',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fflush_5fsize',['vt_trace_flush_size',['../structvt_1_1arguments_1_1_app_config.html#a537883e43e43508431626e90886edd92',1,'vt::arguments::AppConfig']]],
+  ['vt_5ftrace_5fgzip_5ffinish_5fflush',['vt_trace_gzip_finish_flush',['../structvt_1_1arguments_1_1_app_config.html#acbb68fc6506646d49bb061156e9df0ff',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5firecv_5fpolling',['vt_trace_irecv_polling',['../structvt_1_1arguments_1_1_app_config.html#a7753691852b0b5475c953789173cf555',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fmemory_5fusage',['vt_trace_memory_usage',['../structvt_1_1arguments_1_1_app_config.html#a39c140474cc43ea0d8bca36359ffd86a',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fmod',['vt_trace_mod',['../structvt_1_1arguments_1_1_app_config.html#afa2e36bf17ed46ca812263f523533353',1,'vt::arguments::AppConfig']]],

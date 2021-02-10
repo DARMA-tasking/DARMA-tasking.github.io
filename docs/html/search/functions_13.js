@@ -127,6 +127,7 @@ var searchData=
   ['setexecutecommthread',['setExecuteCommThread',['../structvt_1_1vrt_1_1_virtual_message.html#a8149137c049179f315d295b5127b61ad',1,'vt::vrt::VirtualMessage']]],
   ['setfield',['setField',['../structvt_1_1utils_1_1_bit_packer.html#a4bffe5bd05d11955016e5f8f9161893b',1,'vt::utils::BitPacker']]],
   ['setfielddynamic',['setFieldDynamic',['../structvt_1_1utils_1_1_bit_packer.html#a9d000b5dcc34456e43cbff50fafa3fb9',1,'vt::utils::BitPacker']]],
+  ['setflushtype',['setFlushType',['../structvt_1_1trace_1_1_trace_lite.html#a8f9ba027397787cf6b580e397d8da484',1,'vt::trace::TraceLite']]],
   ['setfocusedsubphase',['setFocusedSubPhase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a783aba29f79b50652c78ca148b766578',1,'vt::vrt::collection::balance::ElementStats::setFocusedSubPhase()'],['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html#a3b39db2b0516118989cd6647f61bc9fd',1,'vt::vrt::collection::CollectionProxy::setFocusedSubPhase()']]],
   ['setfromnode',['setFromNode',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#a5bd7fd9ea84e15d528e1546a98f4bd5e',1,'vt::vrt::collection::CollectionMessage']]],
   ['setglobalepoch',['setGlobalEpoch',['../structvt_1_1messaging_1_1_active_messenger.html#aa17a3e718783d3aa08cd61d81abeb6a5',1,'vt::messaging::ActiveMessenger']]],
