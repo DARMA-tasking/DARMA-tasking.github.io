@@ -914,7 +914,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The msgHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
-    proxy.broadcast<MyCollMsg,&MyCol::msgHandler>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<MyCollMsg,&MyCol::msgHandler>();
 
     \textcolor{comment}{// Send a message to the 5th element of the collection}
     proxy[5].send<MyCollMsg,&MyCol::msgHandler>();
@@ -978,7 +978,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   reduce\_msg->getVal() = 100;
 
   \textcolor{comment}{// Invoke the reduce!}
-  proxy.reduce<ReduceOp,PrintReduceResult>(reduce\_msg.get());
+  proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<ReduceOp,PrintReduceResult>(reduce\_msg.get());
 \}
 
 \textcolor{comment}{// Tutorial code to demonstrate reducing a collection}
@@ -1001,7 +1001,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
-    proxy.broadcast<ColRedMsg,&ReduceCol::reduceHandler>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<ColRedMsg,&ReduceCol::reduceHandler>();
   \}
 \}
 \end{DoxyCodeInclude}
@@ -1126,6 +1126,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
 
 \textcolor{preprocessor}{#include <\hyperlink{transport_8h}{vt/transport.h}>}
+\textcolor{preprocessor}{#include <\hyperlink{invoke_8h}{vt/runnable/invoke.h}>}
 
 \textcolor{preprocessor}{#include <cstdlib>}
 \textcolor{preprocessor}{#include <cassert>}
@@ -1134,6 +1135,15 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_nrow\_object = 8;
 \textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_num\_objs = 4;
 \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{double} \textcolor{keyword}{const} default\_tol = 1.0e-02;
+
+\textcolor{keyword}{struct }NodeObj \{
+  \textcolor{keywordtype}{bool} is\_finished\_ = \textcolor{keyword}{false};
+  \textcolor{keyword}{struct }WorkFinishedMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{\};
+
+  \textcolor{keywordtype}{void} workFinishedHandler(WorkFinishedMsg*) \{ is\_finished\_ = \textcolor{keyword}{true}; \}
+  \textcolor{keywordtype}{bool} isWorkFinished() \{ \textcolor{keywordflow}{return} is\_finished\_; \}
+\};
+\textcolor{keyword}{using} NodeObjProxy = \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>};
 
 \textcolor{keyword}{struct }LinearPb1DJacobi : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<LinearPb1DJacobi,vt::Index1D> \{
 
@@ -1146,6 +1156,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keywordtype}{size\_t} numObjs\_ = 1;
   \textcolor{keywordtype}{size\_t} numRowsPerObject\_ = 1;
   \textcolor{keywordtype}{size\_t} maxIter\_ = 8;
+  NodeObjProxy objProxy\_;
 
 \textcolor{keyword}{public}:
 
@@ -1158,18 +1169,17 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   \textcolor{keyword}{using} BlankMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<LinearPb1DJacobi>};
 
-  \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceNoneMsg} \{ \};
-
   \textcolor{keyword}{struct }LPMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb1DJacobi> \{
 
     \textcolor{keywordtype}{size\_t} numObjects = 0;
     \textcolor{keywordtype}{size\_t} nRowPerObject = 0;
     \textcolor{keywordtype}{size\_t} iterMax = 0;
+    NodeObjProxy objProxy;
 
     LPMsg() = \textcolor{keywordflow}{default};
 
-    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nobjs, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nrow, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} itMax) :
-      numObjects(nobjs), nRowPerObject(nrow), iterMax(itMax)
+    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nobjs, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nrow, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} itMax, NodeObjProxy proxy) :
+      numObjects(nobjs), nRowPerObject(nrow), iterMax(itMax), objProxy(proxy)
     \{ \}
 
   \};
@@ -1186,22 +1196,21 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{//}
 
     \textcolor{keywordtype}{double} normRes = msg->getConstVal();
-    \textcolor{keyword}{auto} \textcolor{keyword}{const} iter = iter\_;
-    \textcolor{keyword}{auto} \textcolor{keyword}{const} maxIter = maxIter\_;
 
-    \textcolor{keywordflow}{if} ((iter <= maxIter) and (normRes >= default\_tol)) \{
-      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter, normRes);
-      \textcolor{comment}{//}
-      \textcolor{comment}{// Start a new iteration}
-      \textcolor{comment}{//}
-      \textcolor{keyword}{auto} proxy = getCollectionProxy();
-      proxy.broadcast<BlankMsg, &LinearPb1DJacobi::sendInfo>();
-    \}
-    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
-      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
-    \}
-    \textcolor{keywordflow}{else}\{
-      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} iter\_max\_reached = iter\_ > maxIter\_;
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} norm\_res\_done = normRes < default\_tol;
+
+    \textcolor{keywordflow}{if} (iter\_max\_reached or norm\_res\_done) \{
+      \textcolor{keyword}{auto} \textcolor{keyword}{const} to\_print = iter\_max\_reached ?
+        \textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"} :
+        fmt::format(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+
+      fmt::print(to\_print);
+
+      \textcolor{comment}{// Notify all nodes that computation is finished}
+      objProxy\_.broadcast<NodeObj::WorkFinishedMsg, &NodeObj::workFinishedHandler>();
+    \} \textcolor{keywordflow}{else} \{
+      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);
     \}
   \}
 
@@ -1244,7 +1253,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       LinearPb1DJacobi,ReduxMsg,&LinearPb1DJacobi::checkCompleteCB
     >(proxy[0]);
     \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
-    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
 
   \}
 
@@ -1274,7 +1283,6 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \};
 
   \textcolor{keywordtype}{void} exchange(VecMsg *msg) \{
-
     \textcolor{comment}{// Receive and treat the message from a neighboring object.}
 
     \textcolor{keyword}{const} \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} myIdx = getIndex().x();
@@ -1297,11 +1305,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   \}
 
-  \textcolor{keywordtype}{void} doneInit(InitMsg *msg) \{
-    sendInfo(\textcolor{keyword}{nullptr});
-  \}
-
-  \textcolor{keywordtype}{void} sendInfo(BlankMsg *msg) \{
+  \textcolor{keywordtype}{void} doIter(BlankMsg *msg) \{
 
     \textcolor{comment}{//}
     \textcolor{comment}{// Treat the particular case of 1 object}
@@ -1371,26 +1375,22 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \}
 
 
-  \textcolor{keywordtype}{void} solve(LPMsg* msg) \{
-
+  \textcolor{keywordtype}{void} init(LPMsg* msg) \{
     numObjs\_ = msg->numObjects;
     numRowsPerObject\_ = msg->nRowPerObject;
     maxIter\_ = msg->iterMax;
+    objProxy\_ = msg->objProxy;
 
     \textcolor{comment}{// Initialize the starting vector}
     init();
-
-    \textcolor{comment}{// Wait for all initializations to complete, reduce, and then:}
-    \textcolor{comment}{// Start the algorithm with a neighbor-to-neighbor communication}
-    \textcolor{keyword}{using} CollType = LinearPb1DJacobi;
-    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<CollType, InitMsg, &CollType::doneInit>(proxy);
-    \textcolor{keyword}{auto} empty = vt::makeMessage<InitMsg>();
-    proxy.reduce(empty.get(),cb);
   \}
 
 \};
 
+\textcolor{keywordtype}{bool} isWorkDone( \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>} \textcolor{keyword}{const}& proxy)\{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \textcolor{keywordflow}{return} proxy[this\_node].invoke<decltype(&NodeObj::isWorkFinished), &NodeObj::isWorkFinished>();
+\}
 
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
 
@@ -1433,23 +1433,39 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keywordflow}{return} 1;
   \}
 
-  \textcolor{keywordflow}{if} (this\_node == 0) \{
+  \textcolor{comment}{// Object group of all nodes that take part in computation}
+  \textcolor{comment}{// Used to determine whether the computation is finished}
+  \textcolor{keyword}{auto} grp\_proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a651c44a47c6bcdc9f1b6c9e857fa03f2}{makeCollective}<NodeObj>();
 
-    \textcolor{comment}{// Create the decomposition into objects}
-    \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
-    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
+  \textcolor{comment}{// Create the decomposition into objects}
+  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
+  \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
 
-    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb1DJacobi>(range);
-    proxy.broadcast<LinearPb1DJacobi::LPMsg, &LinearPb1DJacobi::solve>(
-      num\_objs, numRowsPerObject, maxIter
+  \textcolor{keyword}{auto} col\_proxy =
+    \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<LinearPb1DJacobi>(range);
+
+  \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy, grp\_proxy, num\_objs, numRowsPerObject, 
+      maxIter]\{
+    col\_proxy.broadcastCollective<LinearPb1DJacobi::LPMsg, &LinearPb1DJacobi::init>(
+      num\_objs, numRowsPerObject, maxIter, grp\_proxy
     );
+  \});
+
+  \textcolor{keywordflow}{while}(!isWorkDone(grp\_proxy))\{
+    \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy]\{
+      col\_proxy.broadcastCollective<
+        LinearPb1DJacobi::BlankMsg, &LinearPb1DJacobi::doIter
+      >();
+    \});
+
+    \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt::thePhase}()->\hyperlink{structvt_1_1phase_1_1_phase_manager_ac94bfde4a103cbdec426542191c41092}{nextPhaseCollective}();
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
 
   \textcolor{keywordflow}{return} 0;
-
 \}
+
 \end{DoxyCodeInclude}
 \hypertarget{jacobi2d-example}{}\subsection{Example Jacobi 2D Program}\label{jacobi2d-example}
 The full code for this example can be found here\+: {\ttfamily examples/collection/jacobi2d\+\_\+vt.\+cc}.
@@ -1486,6 +1502,14 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \textcolor{keyword}{static} constexpr std::size\_t \textcolor{keyword}{const} default\_num\_objs = 4;
 \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{double} \textcolor{keyword}{const} default\_tol = 1.0e-02;
 
+\textcolor{keyword}{struct }NodeObj \{
+  \textcolor{keywordtype}{bool} is\_finished\_ = \textcolor{keyword}{false};
+  \textcolor{keyword}{struct }WorkFinishedMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{\};
+
+  \textcolor{keywordtype}{void} workFinishedHandler(WorkFinishedMsg*) \{ is\_finished\_ = \textcolor{keyword}{true}; \}
+  \textcolor{keywordtype}{bool} isWorkFinished() \{ \textcolor{keywordflow}{return} is\_finished\_; \}
+\};
+\textcolor{keyword}{using} NodeObjProxy = \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>};
 
 \textcolor{keyword}{struct }LinearPb2DJacobi : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<LinearPb2DJacobi,vt::Index2D> \{
 
@@ -1498,6 +1522,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keywordtype}{size\_t} numObjsX\_ = 1, numObjsY\_ = 1;
   \textcolor{keywordtype}{size\_t} numRowsPerObject\_ = default\_nrow\_object;
   \textcolor{keywordtype}{size\_t} maxIter\_ = 5;
+  NodeObjProxy objProxy\_;
 
 \textcolor{keyword}{public}:
 
@@ -1512,18 +1537,17 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   \textcolor{keyword}{struct }BlankMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{ \};
 
-  \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceNoneMsg} \{ \};
-
   \textcolor{keyword}{struct }LPMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{
 
     \textcolor{keywordtype}{size\_t} numXObjs = 0;
     \textcolor{keywordtype}{size\_t} numYObjs = 0;
     \textcolor{keywordtype}{size\_t} numIter = 0;
+    NodeObjProxy objProxy;
 
     LPMsg() = \textcolor{keywordflow}{default};
 
-    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nx, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ny, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nref)
-      : numXObjs(nx), numYObjs(ny), numIter(nref)
+    LPMsg(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nx, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ny, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nref, NodeObjProxy proxy)
+      : numXObjs(nx), numYObjs(ny), numIter(nref), objProxy(proxy)
     \{ \}
 
   \};
@@ -1542,25 +1566,22 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{//}
 
     \textcolor{keyword}{const} \textcolor{keywordtype}{double} normRes = msg->getConstVal();
-    \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} iter = iter\_;
-    \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} maxIter = maxIter\_;
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} iter\_max\_reached = iter\_ > maxIter\_;
+    \textcolor{keyword}{auto} \textcolor{keyword}{const} norm\_res\_done = normRes < default\_tol;
 
-    \textcolor{keywordflow}{if} ((iter <= maxIter) and (normRes >= default\_tol)) \{
-      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter, normRes);
-      \textcolor{comment}{//}
-      \textcolor{comment}{// Start a new iteration}
-      \textcolor{comment}{//}
-      \textcolor{keyword}{auto} proxy = getCollectionProxy();
-      proxy.broadcast<BlankMsg, &LinearPb2DJacobi::sendInfo>();
-    \}
-    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iter > maxIter) \{
-      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"});
-    \}
-    \textcolor{keywordflow}{else}\{
-      fmt::print(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+    \textcolor{keywordflow}{if} (iter\_max\_reached or norm\_res\_done) \{
+      \textcolor{keyword}{auto} \textcolor{keyword}{const} to\_print = iter\_max\_reached ?
+        \textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"} :
+        fmt::format(\textcolor{stringliteral}{"\(\backslash\)n Max-Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);
+
+      fmt::print(to\_print);
+
+      \textcolor{comment}{// Notify all nodes that computation is finished}
+      objProxy\_.broadcast<NodeObj::WorkFinishedMsg, &NodeObj::workFinishedHandler>();
+    \} \textcolor{keywordflow}{else} \{
+      fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);
     \}
   \}
-
 
   \textcolor{keywordtype}{void} doIteration() \{
 
@@ -1629,7 +1650,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       LinearPb2DJacobi,ReduxMsg,&LinearPb2DJacobi::checkCompleteCB
     >(proxy(0,0));
     \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
-    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
   \}
 
   \textcolor{keyword}{struct }VecMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{
@@ -1689,11 +1710,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   \}
 
-  \textcolor{keywordtype}{void} doneInit(InitMsg *msg) \{
-    sendInfo(\textcolor{keyword}{nullptr});
-  \}
-
-  \textcolor{keywordtype}{void} sendInfo(BlankMsg *msg) \{
+  \textcolor{keywordtype}{void} doIter(BlankMsg *msg) \{
 
     \textcolor{comment}{//}
     \textcolor{comment}{// Treat the particular case of 1 object}
@@ -1820,26 +1837,23 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \}
 
 
-  \textcolor{keywordtype}{void} solve(LPMsg* msg) \{
+  \textcolor{keywordtype}{void} init(LPMsg* msg) \{
 
     numObjsX\_ = msg->numXObjs;
     numObjsY\_ = msg->numYObjs;
     maxIter\_ = msg->numIter;
+    objProxy\_ = msg->objProxy;
 
     \textcolor{comment}{// Initialize the starting vector}
     init();
-
-    \textcolor{comment}{// Wait for all initializations to complete, reduce, and then:}
-    \textcolor{comment}{// Start the algorithm with a neighbor-to-neighbor communication}
-    \textcolor{keyword}{using} CollType = LinearPb2DJacobi;
-    \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<CollType, InitMsg, &CollType::doneInit>(proxy);
-    \textcolor{keyword}{auto} empty = vt::makeMessage<InitMsg>();
-    proxy.reduce(empty.get(),cb);
   \}
 
 \};
 
+\textcolor{keywordtype}{bool} isWorkDone( \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>} \textcolor{keyword}{const}& proxy)\{
+  \textcolor{keyword}{auto} \textcolor{keyword}{const} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \textcolor{keywordflow}{return} proxy[this\_node].invoke<decltype(&NodeObj::isWorkFinished), &NodeObj::isWorkFinished>();
+\}
 
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
 
@@ -1897,18 +1911,33 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     fmt::print(stdout, \textcolor{stringliteral}{"\(\backslash\)n"});
   \}
 
-  \textcolor{keywordflow}{if} (this\_node == 0) \{
+  \textcolor{comment}{// Object group of all nodes that take part in computation}
+  \textcolor{comment}{// Used to determine whether the computation is finished}
+  \textcolor{keyword}{auto} grp\_proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a651c44a47c6bcdc9f1b6c9e857fa03f2}{makeCollective}<NodeObj>();
 
-    \textcolor{comment}{// Create the decomposition into objects}
-    \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index2D::DenseIndexType};
-    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a3bab786053b74a3d856fff1412ffa73a}{vt::Index2D}(
-      static\_cast<BaseIndexType>(numX\_objs),
-      static\_cast<BaseIndexType>(numY\_objs)
+  \textcolor{comment}{// Create the decomposition into objects}
+  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index2D::DenseIndexType};
+  \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a3bab786053b74a3d856fff1412ffa73a}{vt::Index2D}(
+    static\_cast<BaseIndexType>(numX\_objs),
+    static\_cast<BaseIndexType>(numY\_objs)
+  );
+
+  \textcolor{keyword}{auto} col\_proxy =
+    \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<LinearPb2DJacobi>(range);
+
+  \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy, grp\_proxy, numX\_objs, numY\_objs, maxIter] \{
+    col\_proxy.broadcastCollective<LinearPb2DJacobi::LPMsg, &LinearPb2DJacobi::init>(
+      numX\_objs, numY\_objs, maxIter, grp\_proxy
     );
-    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<LinearPb2DJacobi>(range);
-    proxy.broadcast<LinearPb2DJacobi::LPMsg, &LinearPb2DJacobi::solve>(
-      numX\_objs, numY\_objs, maxIter
-    );
+  \});
+
+  \textcolor{keywordflow}{while} (!isWorkDone(grp\_proxy)) \{
+    \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy] \{
+      col\_proxy.broadcastCollective<
+        LinearPb2DJacobi::BlankMsg, &LinearPb2DJacobi::doIter>();
+    \});
+
+    \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt::thePhase}()->\hyperlink{structvt_1_1phase_1_1_phase_manager_ac94bfde4a103cbdec426542191c41092}{nextPhaseCollective}();
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -2059,7 +2088,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
     \textcolor{keyword}{auto} msgCB = vt::makeMessage<ReduceMsg>(quadsum);
     \textcolor{keyword}{auto} cback = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<CheckIntegral>(reduce\_root\_node);
-    proxy.reduce<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<double>}>(msgCB.get(),cback);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<double>}>(msgCB.get(),cback);
   \}
 
 \};
@@ -2102,21 +2131,20 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \}
   \}
 
-  \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([=]\{
-      \textcolor{keywordflow}{if} (this\_node == 0) \{
-        \textcolor{comment}{//}
-        \textcolor{comment}{// Create the interval decomposition into objects}
-        \textcolor{comment}{//}
-        \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
-        \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
+  \textcolor{comment}{//}
+  \textcolor{comment}{// Create the interval decomposition into objects}
+  \textcolor{comment}{//}
+  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
+  \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
 
-        \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<Integration1D>(range);
-        proxy.broadcast<Integration1D::InitMsg,&Integration1D::compute>
-          (
-           num\_objs, numIntPerObject
-          );
-      \}
-    \});
+  \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<Integration1D>(
+      range);
+
+  \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([proxy, num\_objs, numIntPerObject]\{
+    proxy.broadcastCollective<Integration1D::InitMsg, &Integration1D::compute>(
+      num\_objs, numIntPerObject
+    );
+  \});
 
   \textcolor{comment}{// Add something like this to validate the reduction.}
   \textcolor{comment}{// Create the variable root\_reduce\_finished as a static variable,}

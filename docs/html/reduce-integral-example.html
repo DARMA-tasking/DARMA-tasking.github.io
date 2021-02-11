@@ -280,21 +280,19 @@
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="o">=</span><span class="p">]{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//</span>
-        <span class="c1">// Create the interval decomposition into objects</span>
-        <span class="c1">//</span>
-        <span class="k">using</span> <span class="n">BaseIndexType</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">::</span><span class="n">DenseIndexType</span><span class="p">;</span>
-        <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">BaseIndexType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_objs</span><span class="p">));</span>
+  <span class="c1">//</span>
+  <span class="c1">// Create the interval decomposition into objects</span>
+  <span class="c1">//</span>
+  <span class="k">using</span> <span class="n">BaseIndexType</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">::</span><span class="n">DenseIndexType</span><span class="p">;</span>
+  <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">BaseIndexType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_objs</span><span class="p">));</span>
 
-        <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">construct</span><span class="o">&lt;</span><span class="n">Integration1D</span><span class="o">&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
-        <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">Integration1D</span><span class="o">::</span><span class="n">InitMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">Integration1D</span><span class="o">::</span><span class="n">compute</span><span class="o">&gt;</span>
-          <span class="p">(</span>
-           <span class="n">num_objs</span><span class="p">,</span> <span class="n">numIntPerObject</span>
-          <span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">});</span>
+  <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">constructCollective</span><span class="o">&lt;</span><span class="n">Integration1D</span><span class="o">&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+
+  <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="n">proxy</span><span class="p">,</span> <span class="n">num_objs</span><span class="p">,</span> <span class="n">numIntPerObject</span><span class="p">]{</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span><span class="n">Integration1D</span><span class="o">::</span><span class="n">InitMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Integration1D</span><span class="o">::</span><span class="n">compute</span><span class="o">&gt;</span><span class="p">(</span>
+      <span class="n">num_objs</span><span class="p">,</span> <span class="n">numIntPerObject</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
 
   <span class="c1">// Add something like this to validate the reduction.</span>
   <span class="c1">// Create the variable root_reduce_finished as a static variable,</span>

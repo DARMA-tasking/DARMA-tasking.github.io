@@ -23,6 +23,7 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="transport_8h" kindref="compound">vt/transport.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="invoke_8h" kindref="compound">vt/runnable/invoke.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cassert&gt;</highlight><highlight class="normal"></highlight></codeline>
@@ -31,6 +32,15 @@
 <codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>default_nrow_object<sp/>=<sp/>8;</highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>default_num_objs<sp/>=<sp/>4;</highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>default_tol<sp/>=<sp/>1.0e-02;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">NodeObj<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_finished_<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">WorkFinishedMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>workFinishedHandler(WorkFinishedMsg*)<sp/>{<sp/>is_finished_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isWorkFinished()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>is_finished_;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>NodeObjProxy<sp/>=<sp/><ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy" kindref="compound">vt::objgroup::proxy::Proxy&lt;NodeObj&gt;</ref>;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">LinearPb1DJacobi<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection" kindref="compound">vt::Collection</ref>&lt;LinearPb1DJacobi,vt::Index1D&gt;<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -43,6 +53,7 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numObjs_<sp/>=<sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numRowsPerObject_<sp/>=<sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>maxIter_<sp/>=<sp/>8;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>NodeObjProxy<sp/>objProxy_;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -55,18 +66,17 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>BlankMsg<sp/>=<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage&lt;LinearPb1DJacobi&gt;</ref>;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">InitMsg<sp/>:<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg" kindref="compound">vt::collective::ReduceNoneMsg</ref><sp/>{<sp/>};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">LPMsg<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage</ref>&lt;LinearPb1DJacobi&gt;<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numObjects<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nRowPerObject<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>iterMax<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>NodeObjProxy<sp/>objProxy;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LPMsg()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LPMsg(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nobjs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nrow,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>itMax)<sp/>:</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>numObjects(nobjs),<sp/>nRowPerObject(nrow),<sp/>iterMax(itMax)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LPMsg(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nobjs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nrow,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>itMax,<sp/>NodeObjProxy<sp/>proxy)<sp/>:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>numObjects(nobjs),<sp/>nRowPerObject(nrow),<sp/>iterMax(itMax),<sp/>objProxy(proxy)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>};</highlight></codeline>
@@ -83,22 +93,21 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>normRes<sp/>=<sp/>msg-&gt;getConstVal();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/>iter_;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>maxIter<sp/>=<sp/>maxIter_;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((iter<sp/>&lt;=<sp/>maxIter)<sp/>and<sp/>(normRes<sp/>&gt;=<sp/>default_tol))<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;<sp/>##<sp/>ITER<sp/>{}<sp/>&gt;&gt;<sp/>Residual<sp/>Norm<sp/>=<sp/>{}<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>iter,<sp/>normRes);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Start<sp/>a<sp/>new<sp/>iteration</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>getCollectionProxy();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy.broadcast&lt;BlankMsg,<sp/>&amp;LinearPb1DJacobi::sendInfo&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter<sp/>&gt;<sp/>maxIter)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;\n<sp/>Maximum<sp/>Number<sp/>of<sp/>Iterations<sp/>Reached.<sp/>\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;\n<sp/>Max-Norm<sp/>Residual<sp/>Reduced<sp/>by<sp/>{}<sp/>\n\n&quot;</highlight><highlight class="normal">,<sp/>default_tol);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>iter_max_reached<sp/>=<sp/>iter_<sp/>&gt;<sp/>maxIter_;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>norm_res_done<sp/>=<sp/>normRes<sp/>&lt;<sp/>default_tol;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter_max_reached<sp/>or<sp/>norm_res_done)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>to_print<sp/>=<sp/>iter_max_reached<sp/>?</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\n<sp/>Maximum<sp/>Number<sp/>of<sp/>Iterations<sp/>Reached.<sp/>\n\n&quot;</highlight><highlight class="normal"><sp/>:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;\n<sp/>Max-Norm<sp/>Residual<sp/>Reduced<sp/>by<sp/>{}<sp/>\n\n&quot;</highlight><highlight class="normal">,<sp/>default_tol);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(to_print);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Notify<sp/>all<sp/>nodes<sp/>that<sp/>computation<sp/>is<sp/>finished</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>objProxy_.broadcast&lt;NodeObj::WorkFinishedMsg,<sp/>&amp;NodeObj::workFinishedHandler&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;<sp/>##<sp/>ITER<sp/>{}<sp/>&gt;&gt;<sp/>Residual<sp/>Norm<sp/>=<sp/>{}<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>iter_,<sp/>normRes);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -169,7 +178,6 @@
 <codeline><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>exchange(VecMsg<sp/>*msg)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Receive<sp/>and<sp/>treat<sp/>the<sp/>message<sp/>from<sp/>a<sp/>neighboring<sp/>object.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1afb96657e28fa98eb685c5e0c6b1b122e" kindref="member">vt::IdxBase</ref><sp/>myIdx<sp/>=<sp/>getIndex().x();</highlight></codeline>
@@ -192,11 +200,7 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doneInit(InitMsg<sp/>*msg)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sendInfo(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sendInfo(BlankMsg<sp/>*msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doIter(BlankMsg<sp/>*msg)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Treat<sp/>the<sp/>particular<sp/>case<sp/>of<sp/>1<sp/>object</highlight><highlight class="normal"></highlight></codeline>
@@ -266,26 +270,22 @@
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>solve(LPMsg*<sp/>msg)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init(LPMsg*<sp/>msg)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>numObjs_<sp/>=<sp/>msg-&gt;numObjects;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>numRowsPerObject_<sp/>=<sp/>msg-&gt;nRowPerObject;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>maxIter_<sp/>=<sp/>msg-&gt;iterMax;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>objProxy_<sp/>=<sp/>msg-&gt;objProxy;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>the<sp/>starting<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>init();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Wait<sp/>for<sp/>all<sp/>initializations<sp/>to<sp/>complete,<sp/>reduce,<sp/>and<sp/>then:</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Start<sp/>the<sp/>algorithm<sp/>with<sp/>a<sp/>neighbor-to-neighbor<sp/>communication</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>CollType<sp/>=<sp/>LinearPb1DJacobi;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>this-&gt;getCollectionProxy();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a2ea6bd5ea3e001662681b1e5a1971e9d" kindref="member">makeBcast</ref>&lt;CollType,<sp/>InitMsg,<sp/>&amp;CollType::doneInit&gt;(proxy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>empty<sp/>=<sp/>vt::makeMessage&lt;InitMsg&gt;();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.reduce(empty.get(),cb);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isWorkDone(<sp/><ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy" kindref="compound">vt::objgroup::proxy::Proxy&lt;NodeObj&gt;</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>proxy){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>proxy[this_node].invoke&lt;decltype(&amp;NodeObj::isWorkFinished),<sp/>&amp;NodeObj::isWorkFinished&gt;();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -327,23 +327,38 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Object<sp/>group<sp/>of<sp/>all<sp/>nodes<sp/>that<sp/>take<sp/>part<sp/>in<sp/>computation</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Used<sp/>to<sp/>determine<sp/>whether<sp/>the<sp/>computation<sp/>is<sp/>finished</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>grp_proxy<sp/>=<sp/><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup</ref>()-&gt;<ref refid="structvt_1_1objgroup_1_1_obj_group_manager_1a651c44a47c6bcdc9f1b6c9e857fa03f2" kindref="member">makeCollective</ref>&lt;NodeObj&gt;();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>the<sp/>decomposition<sp/>into<sp/>objects</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>BaseIndexType<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1index_1_1_dense_index_array_1a36698427e28045290d1fb072573275ec" kindref="member">vt::Index1D::DenseIndexType</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(static_cast&lt;BaseIndexType&gt;(num_objs));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>the<sp/>decomposition<sp/>into<sp/>objects</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>BaseIndexType<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1index_1_1_dense_index_array_1a36698427e28045290d1fb072573275ec" kindref="member">vt::Index1D::DenseIndexType</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(static_cast&lt;BaseIndexType&gt;(num_objs));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;LinearPb1DJacobi&gt;(range);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.broadcast&lt;LinearPb1DJacobi::LPMsg,<sp/>&amp;LinearPb1DJacobi::solve&gt;(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>num_objs,<sp/>numRowsPerObject,<sp/>maxIter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>col_proxy<sp/>=</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1aa2531212565b2c6f85fa3b55d278bbba" kindref="member">constructCollective</ref>&lt;LinearPb1DJacobi&gt;(range);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a2fc4ef34f30b49a1781d765804bfadbb" kindref="member">vt::runInEpochCollective</ref>([col_proxy,<sp/>grp_proxy,<sp/>num_objs,<sp/>numRowsPerObject,<sp/>maxIter]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>col_proxy.broadcastCollective&lt;LinearPb1DJacobi::LPMsg,<sp/>&amp;LinearPb1DJacobi::init&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>num_objs,<sp/>numRowsPerObject,<sp/>maxIter,<sp/>grp_proxy</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!isWorkDone(grp_proxy)){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a2fc4ef34f30b49a1781d765804bfadbb" kindref="member">vt::runInEpochCollective</ref>([col_proxy]{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>col_proxy.broadcastCollective&lt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinearPb1DJacobi::BlankMsg,<sp/>&amp;LinearPb1DJacobi::doIter</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a3799d6b51fb71d7b6505760aad457e61" kindref="member">vt::thePhase</ref>()-&gt;<ref refid="structvt_1_1phase_1_1_phase_manager_1ac94bfde4a103cbdec426542191c41092" kindref="member">nextPhaseCollective</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
 </programlisting></para>    </detaileddescription>
   </compounddef>
 </doxygen>
