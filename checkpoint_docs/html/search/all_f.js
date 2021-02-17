@@ -14,5 +14,6 @@ var searchData=
   ['size_78',['size',['../structcheckpoint_1_1dispatch_1_1_standard.html#a3ab80d79667a790dd38d56c7aa52544c',1,'checkpoint::dispatch::Standard']]],
   ['size_5f_79',['size_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a4395eb53a4569f96fde3dcf4e9b2ad02',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
   ['sizer_80',['Sizer',['../structcheckpoint_1_1_sizer.html',1,'checkpoint::Sizer'],['../structcheckpoint_1_1_sizer.html#a17995329af9eec00859e86c6fabf4890',1,'checkpoint::Sizer::Sizer()']]],
-  ['standard_81',['Standard',['../structcheckpoint_1_1dispatch_1_1_standard.html',1,'checkpoint::dispatch']]]
+  ['skip_81',['skip',['../structcheckpoint_1_1_serializer.html#ae0224c5bad49a1bd2af178987adb84f9',1,'checkpoint::Serializer']]],
+  ['standard_82',['Standard',['../structcheckpoint_1_1dispatch_1_1_standard.html',1,'checkpoint::dispatch']]]
 ];
