@@ -256,6 +256,7 @@ var searchData=
   ['sizer',['Sizer',['../structcheckpoint_1_1_sizer.html#a17995329af9eec00859e86c6fabf4890',1,'checkpoint::Sizer']]],
   ['sizetype',['sizeType',['../namespacecheckpoint_1_1dispatch.html#a803d1b0d7a7611cb5440688dd12a3ccd',1,'checkpoint::dispatch']]],
   ['skew',['skew',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a4b32171c4432454889ad11e611e6e705',1,'vt::vrt::collection::balance::LoadData']]],
+  ['skip',['skip',['../structcheckpoint_1_1_serializer.html#ae0224c5bad49a1bd2af178987adb84f9',1,'checkpoint::Serializer']]],
   ['skiptypeprefix',['skipTypePrefix',['../namespacevt_1_1util_1_1demangle.html#a3340b0b8740ca544dd263ad3cde28e76',1,'vt::util::demangle']]],
   ['sort',['sort',['../structvt_1_1group_1_1region_1_1_list.html#acebca171776662bdf481ed1eb7ee4c09',1,'vt::group::region::List::sort()'],['../structvt_1_1group_1_1region_1_1_range.html#aa24e09be54662ffd11413803689ed7f8',1,'vt::group::region::Range::sort()'],['../structvt_1_1group_1_1region_1_1_region.html#a169304bf82a87ff958333595bed2603d',1,'vt::group::region::Region::sort()'],['../structvt_1_1group_1_1region_1_1_shallow_list.html#a1c2ba4da8b89771a0361ff34763d7f62',1,'vt::group::region::ShallowList::sort()']]],
   ['spawn',['spawn',['../structvt_1_1worker_1_1_worker.html#a2ecfde6febbcc08c1db88bd9936ff422',1,'vt::worker::Worker']]],
