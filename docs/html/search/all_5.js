@@ -107,6 +107,7 @@ var searchData=
   ['deletehandlecollectiveobjgroup',['deleteHandleCollectiveObjGroup',['../structvt_1_1rdma_1_1_manager.html#a4219310feca011fd242e654c9ba51280',1,'vt::rdma::Manager']]],
   ['deletehandlesetcollectiveobjgroup',['deleteHandleSetCollectiveObjGroup',['../structvt_1_1rdma_1_1_manager.html#a9b3b9bf148a8225295879481345e4af3',1,'vt::rdma::Manager']]],
   ['deletevidmsg',['DeleteVidMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea7a9e606332d10af6e8e9c8d75d7efddb',1,'vt::trace']]],
+  ['deliver_5fbcast_5fto_5fsender',['deliver_bcast_to_sender',['../structvt_1_1messaging_1_1_active_envelope.html#aba7a8aaed2a99d0bfd72890e07397c0b',1,'vt::messaging::ActiveEnvelope']]],
   ['deliveractivemsg',['deliverActiveMsg',['../structvt_1_1messaging_1_1_active_messenger.html#ae68f0233a6d4e95d339ba6c31697dfd5',1,'vt::messaging::ActiveMessenger']]],
   ['deliverall',['deliverAll',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a3e04f57a784e41c422357dfda7871304',1,'vt::pipe::signal::SignalHolder']]],
   ['deliverpendingmsgshandler',['deliverPendingMsgsHandler',['../structvt_1_1messaging_1_1_active_messenger.html#a4013c1e40f1d295025fd6e0bad5e6c6d',1,'vt::messaging::ActiveMessenger']]],
