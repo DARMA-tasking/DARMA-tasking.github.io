@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DARMA &raquo; What is trace-only mode &raquo; Location Manager | vt (Virtual Transport)</title>
+  <title>DARMA &raquo; Introduction &raquo; Location Manager | vt (Virtual Transport)</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -25,7 +25,7 @@
         <div class="m-row">
           <ol class="m-col-t-6 m-col-m-none">
             <li>
-              <a href="introduction.html">What is trace-only mode</a>
+              <a href="introduction.html">Introduction</a>
               <ol>
                 <li><a href="context.html">Context</a></li>
                 <li><a href="active-messenger.html">Active Messenger</a></li>
@@ -99,7 +99,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <span class="m-breadcrumb"><a href="index.html">DARMA</a> &raquo;</span>
-          <span class="m-breadcrumb"><a href="introduction.html">What is trace-only mode</a> &raquo;</span>
+          <span class="m-breadcrumb"><a href="introduction.html">Introduction</a> &raquo;</span>
           Location Manager
         </h1>
 <p>Virtual entity location management</p><p>The location manager component <code><a href="structvt_1_1location_1_1_location_manager.html" class="m-doc">vt::<wbr />location::<wbr />LocationManager</a></code>, accessed via <code><a href="namespacevt.html#ace1c9d64e09732e3b7414d02517ecfdb" class="m-doc">vt::<wbr />theLocMan()</a></code> manages the location of arbitrary virtual entities in the system. It holds a set of live <code><a href="structvt_1_1location_1_1_entity_location_coord.html" class="m-doc">vt::<wbr />location::<wbr />EntityLocationCoord</a></code> across the distributed system which allow users to register/unregister entities and inform the system when migrations occur. With the entities registered, the location coordinator can route messages to them even in the presence of migrations that may occur at any time. The location coordinator maintains a cache of locations for entities registered off-node and forwards messages using a communication protocol that depends on the size of the message.</p><p>Every entity in the system has a &quot;home node&quot;, which is the node that is ultimately responsible for knowing the location of the entity. When an entity migrates, it informs the home node of its new location in the system. Nodes that try to route messages to that entity will inquire the home node unless the location is already in cache.</p><section id="comm-protocol"><h2><a href="#comm-protocol">Eager vs. Rendezvous Routing Protocol</a></h2><p>The variable <code>vt::location::small_msg_max_size</code> controls whether a message is routed with an eager or rendezvous protocol. If the message is under that size limit, the message is routed eagerly&mdash;forwarded to the &quot;home node&quot; for resolution if the location is not in the cache.</p><p>If the size of the message is greater than <code>vt::location::small_msg_max_size</code>, the location coordinator will inquire with a control message to resolve the location before the large message is actually sent. This reduces the number of hops required to send large messages.</p></section><section id="location-migrations"><h2><a href="#location-migrations">Entity Migrations</a></h2><p>When migrations occur at any time, it&#x27;s always possible for the message to arrive on a node where the entity <em>used to be</em>. In this case, the location coordinator knows to follow the breadcrumb to get the message delivered properly where the entity exists now. If the entity continues to move, the message will &quot;chase&quot; it until it catches up.</p></section>
