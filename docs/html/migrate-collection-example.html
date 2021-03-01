@@ -103,13 +103,14 @@
 <p>The full code for this example can be found here: <code>examples/collection/migrate_collection.cc</code>.</p><pre class="m-code"><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int32_t</span> <span class="k">const</span> <span class="n">default_num_elms</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nl">Hello</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Hello</span><span class="p">,</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="n">Hello</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-  <span class="k">explicit</span> <span class="nf">Hello</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">create</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">explicit</span> <span class="n">Hello</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">create</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">this_node</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
     <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: Hello: create={}, index={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">this_node</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">getIndex</span><span class="p">());</span>
     <span class="n">test_val</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">()</span> <span class="o">*</span> <span class="mf">29.3</span><span class="p">;</span>
   <span class="p">}</span>
+
+  <span class="k">explicit</span> <span class="n">Hello</span><span class="p">(</span><span class="n">checkpoint</span><span class="o">::</span><span class="n">SERIALIZE_CONSTRUCT_TAG</span><span class="p">)</span> <span class="p">{}</span>
 
   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Serializer</span><span class="o">&gt;</span>
   <span class="kt">void</span> <span class="n">serialize</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
