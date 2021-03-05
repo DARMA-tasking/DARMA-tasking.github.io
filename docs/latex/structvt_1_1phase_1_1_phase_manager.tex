@@ -57,6 +57,8 @@ static std\+::unique\+\_\+ptr$<$ \hyperlink{structvt_1_1phase_1_1_phase_manager}
 \item 
 void \hyperlink{structvt_1_1phase_1_1_phase_manager_a59345a6496fb1413de1a1899fe4532cf}{next\+Phase\+Reduce} (\hyperlink{structvt_1_1phase_1_1_next_msg}{Next\+Msg} $\ast$msg)
 \begin{DoxyCompactList}\small\item\em Reduce handler to kick off the next phase. \end{DoxyCompactList}\item 
+void \hyperlink{structvt_1_1phase_1_1_phase_manager_aa8db0caf0fcef7fe3ead90de2adda963}{next\+Phase\+Done} (\hyperlink{structvt_1_1phase_1_1_next_msg}{Next\+Msg} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Reduce handler to synchronize the end of the phase transition. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1phase_1_1_phase_manager_aeeb5b14ac179b2400a52914208bbd922}{run\+Hooks} (\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{Phase\+Hook} type)
 \begin{DoxyCompactList}\small\item\em Run all the hooks registered here of a certain variety. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
@@ -77,6 +79,8 @@ std\+::size\+\_\+t \hyperlink{structvt_1_1phase_1_1_phase_manager_a22a3945b22c96
 bool \hyperlink{structvt_1_1phase_1_1_phase_manager_ac57c867b3d30923a0241ef462a275f5c}{in\+\_\+next\+\_\+phase\+\_\+collective\+\_\+} = false
 \item 
 bool \hyperlink{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}{reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+} = false
+\item 
+bool \hyperlink{structvt_1_1phase_1_1_phase_manager_a2d4f894445c848ea2ead4a4fe0919eb0}{reduce\+\_\+finished\+\_\+} = false
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
@@ -172,6 +176,21 @@ Start the next phase collectively.
 \begin{DoxyNote}{Note}
 Performs a reduction to coordinate across nodes and then triggers post-\/phase triggerable actions. This function does not return until the any post-\/phase actions, including migrations as a result, are terminated. 
 \end{DoxyNote}
+\mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_aa8db0caf0fcef7fe3ead90de2adda963}\label{structvt_1_1phase_1_1_phase_manager_aa8db0caf0fcef7fe3ead90de2adda963}} 
+\index{vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}!next\+Phase\+Done@{next\+Phase\+Done}}
+\index{next\+Phase\+Done@{next\+Phase\+Done}!vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}}
+\subsubsection{\texorpdfstring{next\+Phase\+Done()}{nextPhaseDone()}}
+{\footnotesize\ttfamily void vt\+::phase\+::\+Phase\+Manager\+::next\+Phase\+Done (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1phase_1_1_next_msg}{Next\+Msg} $\ast$}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reduce handler to synchronize the end of the phase transition. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & the (empty) next phase message \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_a59345a6496fb1413de1a1899fe4532cf}\label{structvt_1_1phase_1_1_phase_manager_a59345a6496fb1413de1a1899fe4532cf}} 
 \index{vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}!next\+Phase\+Reduce@{next\+Phase\+Reduce}}
 \index{next\+Phase\+Reduce@{next\+Phase\+Reduce}!vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}}
@@ -339,7 +358,13 @@ Next ID for rooted hooks \mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_
 \subsubsection{\texorpdfstring{proxy\+\_\+}{proxy\_}}
 {\footnotesize\ttfamily \hyperlink{namespacevt_ad7cae989df485fccca57f0792a880a8e}{Obj\+Group\+Proxy\+Type} vt\+::phase\+::\+Phase\+Manager\+::proxy\+\_\+ = no\+\_\+obj\+\_\+group\hspace{0.3cm}{\ttfamily [private]}}
 
-Objgroup proxy \mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}\label{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}} 
+Objgroup proxy \mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_a2d4f894445c848ea2ead4a4fe0919eb0}\label{structvt_1_1phase_1_1_phase_manager_a2d4f894445c848ea2ead4a4fe0919eb0}} 
+\index{vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}!reduce\+\_\+finished\+\_\+@{reduce\+\_\+finished\+\_\+}}
+\index{reduce\+\_\+finished\+\_\+@{reduce\+\_\+finished\+\_\+}!vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}}
+\subsubsection{\texorpdfstring{reduce\+\_\+finished\+\_\+}{reduce\_finished\_}}
+{\footnotesize\ttfamily bool vt\+::phase\+::\+Phase\+Manager\+::reduce\+\_\+finished\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+Whether next phase is done \mbox{\Hypertarget{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}\label{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}} 
 \index{vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}!reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+@{reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+}}
 \index{reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+@{reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+}!vt\+::phase\+::\+Phase\+Manager@{vt\+::phase\+::\+Phase\+Manager}}
 \subsubsection{\texorpdfstring{reduce\+\_\+next\+\_\+phase\+\_\+done\+\_\+}{reduce\_next\_phase\_done\_}}

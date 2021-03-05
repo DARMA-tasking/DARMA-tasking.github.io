@@ -23,6 +23,7 @@ var searchData=
   ['recv_5fnode',['recv_node',['../structvt_1_1rdma_1_1_send_data_message.html#ad825529ece23e2f7112f825a0e8b24e1',1,'vt::rdma::SendDataMessage']]],
   ['reduce_5f',['reduce_',['../structvt_1_1group_1_1_group_collective.html#a9b3dbe2ce41faca03979a2cff8ee8342',1,'vt::group::GroupCollective']]],
   ['reduce_5fcur_5fstamp_5f',['reduce_cur_stamp_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a5bf3bcab36addad323a03746928dfac8',1,'vt::vrt::collection::CollectionManager']]],
+  ['reduce_5ffinished_5f',['reduce_finished_',['../structvt_1_1phase_1_1_phase_manager.html#a2d4f894445c848ea2ead4a4fe0919eb0',1,'vt::phase::PhaseManager']]],
   ['reduce_5fid_5f',['reduce_id_',['../structvt_1_1collective_1_1reduce_1_1_reduce_msg.html#a257abf9404c2c0cfa00625261b222540',1,'vt::collective::reduce::ReduceMsg']]],
   ['reduce_5fnext_5fphase_5fdone_5f',['reduce_next_phase_done_',['../structvt_1_1phase_1_1_phase_manager.html#a28428326d10fe9485d3da07e8650d352',1,'vt::phase::PhaseManager']]],
   ['reduce_5froot_5f',['reduce_root_',['../structvt_1_1collective_1_1reduce_1_1_reduce_msg.html#a976e38c6642d09d5f171aab8216df6b0',1,'vt::collective::reduce::ReduceMsg::reduce_root_()'],['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#a9cfb8bd6b25ce42e17b30507de8eb6da',1,'vt::collective::reduce::ReduceState::reduce_root_()']]],

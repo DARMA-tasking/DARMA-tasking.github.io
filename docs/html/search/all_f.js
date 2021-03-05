@@ -61,6 +61,7 @@ var searchData=
   ['nextfast',['nextFast',['../structvt_1_1epoch_1_1_epoch_manip.html#a22af1a8f72d23d10d56e1a72bf2f2500',1,'vt::epoch::EpochManip']]],
   ['nextmsg',['NextMsg',['../structvt_1_1phase_1_1_next_msg.html',1,'vt::phase']]],
   ['nextphasecollective',['nextPhaseCollective',['../structvt_1_1phase_1_1_phase_manager.html#ac94bfde4a103cbdec426542191c41092',1,'vt::phase::PhaseManager']]],
+  ['nextphasedone',['nextPhaseDone',['../structvt_1_1phase_1_1_phase_manager.html#aa8db0caf0fcef7fe3ead90de2adda963',1,'vt::phase::PhaseManager']]],
   ['nextphasereduce',['nextPhaseReduce',['../structvt_1_1phase_1_1_phase_manager.html#a59345a6496fb1413de1a1899fe4532cf',1,'vt::phase::PhaseManager']]],
   ['nextrdmachanneltag',['nextRdmaChannelTag',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a0c9f73f027924ee73cb2d9a8af520e1e',1,'vt::rdma::RDMAManager']]],
   ['nextseq',['nextSeq',['../structvt_1_1seq_1_1_tagged_sequencer.html#af7a02a262d3da7958b24b7d7997df9f1',1,'vt::seq::TaggedSequencer']]],
