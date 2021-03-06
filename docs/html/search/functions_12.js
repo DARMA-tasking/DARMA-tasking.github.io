@@ -85,6 +85,7 @@ var searchData=
   ['registerdiagnostic',['registerDiagnostic',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#ab71509224f5716107ef5c781ba5ff487',1,'vt::runtime::component::Diagnostic']]],
   ['registerelementlistener',['registerElementListener',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a790738e12739058e7a09b4a3246169e8',1,'vt::vrt::collection::CollectionManager']]],
   ['registerentity',['registerEntity',['../structvt_1_1location_1_1_entity_location_coord.html#a3d7f6c252ad5cb8d1084620946245970',1,'vt::location::EntityLocationCoord']]],
+  ['registerentityremote',['registerEntityRemote',['../structvt_1_1location_1_1_entity_location_coord.html#a0d3a9a66cddeb6929ed8452a02ba7681',1,'vt::location::EntityLocationCoord']]],
   ['registereventcollective',['registerEventCollective',['../namespacevt_1_1trace.html#ab52bad26cd57cc6e59953c814192b0f1',1,'vt::trace']]],
   ['registereventhashed',['registerEventHashed',['../structvt_1_1trace_1_1_trace_registry.html#a557118b7661378a6c74ed693b87c3d83',1,'vt::trace::TraceRegistry::registerEventHashed()'],['../namespacevt_1_1trace.html#ad1f604656798749839b36d1d29def59e',1,'vt::trace::registerEventHashed()']]],
   ['registereventrooted',['registerEventRooted',['../namespacevt_1_1trace.html#a0cacc6989895f36e577db51e16df1e23',1,'vt::trace']]],

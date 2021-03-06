@@ -27,6 +27,7 @@ var searchData=
   ['phasehookid',['PhaseHookID',['../structvt_1_1phase_1_1_phase_hook_i_d.html#a2e8a595296be3f2a49f59c5f0287d9e5',1,'vt::phase::PhaseHookID']]],
   ['phasemanager',['PhaseManager',['../structvt_1_1phase_1_1_phase_manager.html#af2b50706948fb9c1ad4b561ac9933040',1,'vt::phase::PhaseManager']]],
   ['phaseoffset',['PhaseOffset',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a3a8f4f20292bf178c5d5902f405f88d6',1,'vt::vrt::collection::balance::PhaseOffset']]],
+  ['pinghomehandler',['pingHomeHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a60e9ec2c1f4b9c3f61aff5826dec832c',1,'vt::vrt::collection::CollectionManager']]],
   ['pipemanager',['PipeManager',['../structvt_1_1pipe_1_1_pipe_manager.html#aa2cf0e54dc146056c077aba1aa2ae42b',1,'vt::pipe::PipeManager']]],
   ['pipemanagerbase',['PipeManagerBase',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a6b3b1e6d6bfe21308090d2dc62743961',1,'vt::pipe::PipeManagerBase']]],
   ['pipestate',['PipeState',['../structvt_1_1pipe_1_1_pipe_state.html#abbddca53ca44e4417c347235968c7ad9',1,'vt::pipe::PipeState::PipeState(PipeType const &amp;in_pipe, RefType const &amp;in_signals, RefType const &amp;in_lis, bool const &amp;in_typeless=false)'],['../structvt_1_1pipe_1_1_pipe_state.html#a2f6a2a7f657b0938d0214fc16b65969c',1,'vt::pipe::PipeState::PipeState(PipeType const &amp;in_pipe, bool const &amp;in_typeless=false)']]],
