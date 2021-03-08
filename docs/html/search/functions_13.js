@@ -90,7 +90,6 @@ var searchData=
   ['serializesupportedmsg',['SerializeSupportedMsg',['../structvt_1_1messaging_1_1_serialize_supported_msg.html#a38a364cb0fdfb2822d4b65dcba7d05ef',1,'vt::messaging::SerializeSupportedMsg']]],
   ['serializetofile',['serializeToFile',['../namespacecheckpoint.html#a3d4326982e3c3feeb933e985758eea82',1,'checkpoint']]],
   ['serializetype',['serializeType',['../namespacecheckpoint_1_1dispatch.html#a721d20cfc6479ca5e029671a56915adc',1,'checkpoint::dispatch']]],
-  ['serializeunorderedassociativecontainer',['serializeUnorderedAssociativeContainer',['../namespacecheckpoint.html#a931b7b8eca4d877c8b7a653936c8e092',1,'checkpoint']]],
   ['serializevectormeta',['serializeVectorMeta',['../namespacecheckpoint.html#ae257a02737b213492283962cc645c6a5',1,'checkpoint::serializeVectorMeta(SerializerT &amp;s, std::vector&lt; T, VectorAllocator &gt; &amp;vec)'],['../namespacecheckpoint.html#a0133c00735e3d54bb46ffa9e24d59d7b',1,'checkpoint::serializeVectorMeta(SerializerT &amp;s, std::vector&lt; T, VectorAllocator &gt; &amp;vec)']]],
   ['serialmsghandler',['serialMsgHandler',['../structvt_1_1serialization_1_1_serialized_messenger.html#aad74b93ed6e38beb26ce31d69eb85a71',1,'vt::serialization::SerializedMessenger']]],
   ['serialmsghandlerbcast',['serialMsgHandlerBcast',['../structvt_1_1serialization_1_1_serialized_messenger.html#adc342b3e5a4a536182f6045c5fe485b7',1,'vt::serialization::SerializedMessenger']]],
