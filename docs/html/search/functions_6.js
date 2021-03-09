@@ -48,7 +48,6 @@ var searchData=
   ['freecomm',['freeComm',['../structvt_1_1group_1_1_info_coll.html#a0461bfa4ce243b30df15e82f01195ad7',1,'vt::group::InfoColl']]],
   ['freeepoch',['freeEpoch',['../structvt_1_1term_1_1_termination_detector.html#a3b1e4a0d87c5af08fc36925ec74504fd',1,'vt::term::TerminationDetector']]],
   ['fromnode',['fromNode',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#ae4d718ec81cafb4e830c5c9785baf070',1,'vt::vrt::collection::balance::LBCommKey']]],
-  ['fromobj',['fromObj',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#ae2e02eab3d0ec33e439713e26441cd6b',1,'vt::vrt::collection::balance::LBCommKey']]],
-  ['fromobjtemp',['fromObjTemp',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#ab8f8acdc0ff24784dfe4d6fafcc1205c',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['fromobj',['fromObj',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#ad2bd1bdd8d499617f77c0c1a41d58bbc',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['front',['front',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a57af0c7ac85e7bb3922bb839b666c1e7',1,'vt::util::container::ConcurrentDequeLocked::front() const'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a036bb79b4122e2d79f62c61a7715f374',1,'vt::util::container::ConcurrentDequeLocked::front()']]]
 ];

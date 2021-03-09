@@ -26,7 +26,7 @@ var searchData=
   ['hasmatchinganytagged',['hasMatchingAnyTagged',['../structvt_1_1seq_1_1_seq_matcher.html#a0cf869347d07625d6a5bc77e10b7e6e3',1,'vt::seq::SeqMatcher::hasMatchingAnyTagged()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a7d2af68d054e9fdbc9f8bb4e34992a49',1,'vt::seq::SeqMatcherVirtual::hasMatchingAnyTagged()']]],
   ['hasmatchingmsg',['hasMatchingMsg',['../structvt_1_1seq_1_1_seq_matcher.html#aab83891cdc9b348a61bebfa481453bde',1,'vt::seq::SeqMatcher::hasMatchingMsg()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#ae96fef9bd738d6f93b9b89163efd1770',1,'vt::seq::SeqMatcherVirtual::hasMatchingMsg()']]],
   ['hasnodemap',['hasNodeMap',['../structvt_1_1vrt_1_1_virtual_info.html#ae5153180aa0fdc89268929e9fa334692',1,'vt::vrt::VirtualInfo']]],
-  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a06128ad9d9dff72bad160b015054b054',1,'vt::vrt::collection::balance::NodeStats']]],
+  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a975f917ab141ad5ca7f5905fe281e412',1,'vt::vrt::collection::balance::NodeStats']]],
   ['hasparent',['hasParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5d112306bb319f8d5f542a104ccb87a6',1,'vt::term::ds::TermDS']]],
   ['hasschedrun',['hasSchedRun',['../structvt_1_1runtime_1_1_runtime.html#ae0f66c530a72122874079b52fb259dfb',1,'vt::runtime::Runtime::hasSchedRun()'],['../structvt_1_1sched_1_1_scheduler.html#ac7a9512a4a616d51915d5dfee84ff986',1,'vt::sched::Scheduler::hasSchedRun()']]],
   ['hasspec',['hasSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#ad83e3bc71e3ebcd794fc38e7c2b7a74c',1,'vt::trace::file_spec::TraceSpec']]],

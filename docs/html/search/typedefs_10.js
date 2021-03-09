@@ -94,7 +94,7 @@ var searchData=
   ['strongtag',['StrongTag',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a5e1b708dc12ad0d1209a354ed21ed744',1,'vt::collective::reduce::detail']]],
   ['stronguserid',['StrongUserID',['../namespacevt_1_1collective_1_1reduce.html#a49e47347201b1b0fdb552ed4b7c86331',1,'vt::collective::reduce::StrongUserID()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#af9e42b20d1be7dccc1b5e587f0387e02',1,'vt::collective::reduce::detail::StrongUserID()']]],
   ['strongvrtproxy',['StrongVrtProxy',['../namespacevt_1_1collective_1_1reduce_1_1detail.html#a492943cffff6d1a92386468d46f589df',1,'vt::collective::reduce::detail']]],
-  ['subphaseloadmaptype',['SubphaseLoadMapType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a3d91523158c1025b7b665240072f3b7e',1,'vt::vrt::collection::balance']]],
+  ['subphaseloadmaptype',['SubphaseLoadMapType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a8bdadb2583f128dd256e7d5a10826542',1,'vt::vrt::collection::balance']]],
   ['subphasetype',['SubphaseType',['../namespacevt.html#ae78cbfdf1e57470e33eedb074f2beeba',1,'vt']]],
   ['successorbagtype',['SuccessorBagType',['../structvt_1_1term_1_1_epoch_dependency.html#a3f00b47c33158f3241ebbeb0a0cb7b1d',1,'vt::term::EpochDependency::SuccessorBagType()'],['../structvt_1_1term_1_1_termination_detector.html#ac8df9c8a604ee2073ce195a994aaf252',1,'vt::term::TerminationDetector::SuccessorBagType()']]],
   ['systemseqfuntype',['SystemSeqFunType',['../namespacevt_1_1seq.html#a80eeb50c74a4a3bd46fcf4d5213c5ebe',1,'vt::seq']]]

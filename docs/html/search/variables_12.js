@@ -74,7 +74,6 @@ var searchData=
   ['state_5flookup_5f',['state_lookup_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ab30bde72498ebf851969c1914c3378c6',1,'vt::collective::reduce::ReduceStateHolder']]],
   ['stats',['stats',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a249359351566423733a7391dcdc2e203',1,'vt::vrt::collection::lb::BaseLB']]],
   ['stats_5f',['stats_',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a3572db662dd07c4f00b32e6198ef8da9',1,'vt::vrt::collection::Migratable']]],
-  ['stats_5felm_5fid_5f',['stats_elm_id_',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#a5189d4eff453932c6f30f6e870414c1d',1,'vt::vrt::collection::Migratable']]],
   ['stats_5ffile_5f',['stats_file_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a8f2c59c675643634d8e4d2d5ba89ecbd',1,'vt::vrt::collection::balance::NodeStats']]],
   ['std_5f',['std_',['../structvt_1_1runtime_1_1component_1_1_diagnostic_erased_value.html#a97a5a5c8744f7a1f207b9959fffa49b9',1,'vt::runtime::component::DiagnosticErasedValue']]],
   ['stride_5f',['stride_',['../structvt_1_1group_1_1region_1_1_range.html#ad483fd4ac3bb38c69501fd95cef3890c',1,'vt::group::region::Range::stride_()'],['../structvt_1_1group_1_1region_1_1_range_data.html#a8f40ed5e914ee5f68c7f274df5cba1dd',1,'vt::group::region::RangeData::stride_()']]],

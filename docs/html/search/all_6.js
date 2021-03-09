@@ -1,8 +1,8 @@
 var searchData=
 [
   ['eatwhitespace',['eatWhitespace',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a372568633fa39959d508984e5eb2ff96',1,'vt::trace::file_spec::TraceSpec::eatWhitespace()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a605ea184edf7f99b0022f960f71bf4d4',1,'vt::vrt::collection::balance::eatWhitespace()']]],
-  ['edge_5fid_5f',['edge_id_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#acf007a220cdcb4ca6ebc8a8f781f1e75',1,'vt::vrt::collection::balance::LBCommKey']]],
-  ['edgeid',['edgeID',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a3b7b746ea062d7e71c372e7c4028f71e',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['edge_5fid_5f',['edge_id_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#af22d9e63e39344b9931648736082e16b',1,'vt::vrt::collection::balance::LBCommKey']]],
+  ['edgeid',['edgeID',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_comm_key.html#a7ecfe5b6fddf1556eefcd00772357d84',1,'vt::vrt::collection::balance::LBCommKey']]],
   ['edgeratio',['EdgeRatio',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a4cb758191f8118403f2c08be986a99e1',1,'vt::vrt::collection::lb']]],
   ['eenvelopetype',['eEnvelopeType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6c',1,'vt::messaging']]],
   ['eenvtype',['eEnvType',['../namespacevt.html#abdfe9ac50e3799705ee21853c1509bf6',1,'vt']]],
@@ -19,6 +19,9 @@ var searchData=
   ['elementdestroyed',['ElementDestroyed',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a74a4ebfb91a5d2efd17810fcf21b0d6a',1,'vt::vrt::collection::listener']]],
   ['elementeventenum',['ElementEventEnum',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012',1,'vt::vrt::collection::listener']]],
   ['elementholder',['ElementHolder',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html',1,'vt::vrt::collection::ElementHolder&lt; ColT, IndexT &gt;'],['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#aff59f3b22c3f4c81daa68924bab65817',1,'vt::vrt::collection::ElementHolder::ElementHolder(VirtualPtrType in_vc_ptr_, HandlerType const in_han, IndexT const &amp;idx)'],['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#acc214e54954edc0d8112c59ea7e51c02',1,'vt::vrt::collection::ElementHolder::ElementHolder(ElementHolder &amp;&amp;)=default']]],
+  ['elementidmembertype',['ElementIDMemberType',['../namespacestd.html#a3cd9aec8ec8ce32b482297c691c903e8',1,'std']]],
+  ['elementidstruct',['ElementIDStruct',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_i_d_struct.html',1,'vt::vrt::collection::balance']]],
+  ['elementidstructtype',['ElementIDStructType',['../namespacestd.html#af20b73e88e055920f8203d35581f5a84',1,'std']]],
   ['elementidtype',['ElementIDType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a14c8d2c972f2913aa3f1636e5be0a120',1,'vt::vrt::collection::balance']]],
   ['elementloadtype',['ElementLoadType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#aa286d31a0820a8fc9218ccb858368fca',1,'vt::vrt::collection::lb::BaseLB::ElementLoadType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#af08e010a34268f2a299ce37dc428ea75',1,'vt::vrt::collection::lb::GreedyLB::ElementLoadType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#ae63d1ddb968e51d0c57b546bdc1d08c7',1,'vt::vrt::collection::lb::HierarchicalLB::ElementLoadType()']]],
   ['elementmigratedin',['ElementMigratedIn',['../namespacevt_1_1vrt_1_1collection_1_1listener.html#a96ace4b58b3d91759e7abda5cc33b012a52681015b599c7461eeea5c717df6a25',1,'vt::vrt::collection::listener']]],
@@ -33,6 +36,7 @@ var searchData=
   ['elm_5fbytes_5f',['elm_bytes_',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#a14af4f6a3037beeb5048797c7cf15fdb',1,'vt::collective::scatter::ScatterMsg']]],
   ['elm_5fholder_2eh',['elm_holder.h',['../elm__holder_8h.html',1,'']]],
   ['elm_5fholder_2eimpl_2eh',['elm_holder.impl.h',['../elm__holder_8impl_8h.html',1,'']]],
+  ['elm_5fid_5f',['elm_id_',['../structvt_1_1vrt_1_1collection_1_1_migratable.html#aef4c21c94ff642a460c5686ec4944c51',1,'vt::vrt::collection::Migratable']]],
   ['elm_5fmap',['elm_map',['../structvt_1_1rdma_1_1_map.html#ab333842b2ae2f3efe15f1190bac32df2',1,'vt::rdma::Map']]],
   ['elm_5fproxy_5f',['elm_proxy_',['../structvt_1_1vrt_1_1collection_1_1_migrate_msg.html#a1c6c855daa4709e8eecda251704e9f6e',1,'vt::vrt::collection::MigrateMsg::elm_proxy_()'],['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#ae171e496a7240dd9c30bbd5d7fc890f0',1,'vt::vrt::collection::BaseCollectionElmProxy::elm_proxy_()']]],
   ['elm_5fproxy_5fbuilder_2ecc',['elm_proxy_builder.cc',['../elm__proxy__builder_8cc.html',1,'']]],
