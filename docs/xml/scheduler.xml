@@ -6,24 +6,15 @@
     <detaileddescription>
 <para>General scheduling of work</para><para>The scheduler component <computeroutput><ref refid="structvt_1_1sched_1_1_scheduler" kindref="compound">vt::sched::Scheduler</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched()</ref></computeroutput>, holds pieces of work to execute later that may be prioritized. The scheduler polls the <bold><emphasis>vt</emphasis></bold> components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.</para><sect1 id="scheduler_1calls-to-the-scheduler">
 <title>Calls to the scheduler</title>
-<para>To advance the scheduler, one can call it as follows:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1ad2653b260780c89a20e9253608ef1282" kindref="member">scheduler</ref>();</highlight></codeline>
-</programlisting></para><para>This polls every component that might generate or complete work, and potentially runs one piece of available work.</para><para>However, if the scheduler needs to be run until a condition (or set of conditions) is met, it is recommended that <computeroutput>runSchedulerWhile</computeroutput> be invoked:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>(</highlight><highlight class="comment">/*std::function&lt;bool()&gt;<sp/>cond*/</highlight><highlight class="normal">);</highlight></codeline>
-</programlisting></para><para>Runs the scheduler until a condition is met. This form SHOULD be used instead of &quot;while (..) { runScheduler(..) }&quot; in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="in">cond</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>condition to turn scheduler until met</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para></sect1>
+<para>To advance the scheduler, one should use:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>(</highlight><highlight class="comment">/*std::function&lt;bool()&gt;<sp/>cond*/</highlight><highlight class="normal">);</highlight></codeline>
+</programlisting></para><para>This function polls (while <computeroutput>cond</computeroutput> is true) every component that might generate or complete work, and potentially runs one piece of available work, while also ensuring proper event unwinding and idle time tracking.</para></sect1>
 <sect1 id="scheduler_1higher-level-calls">
 <title>Higher-level Calls to Wait for Completion</title>
 <para>If work is enclosed in an &quot;epoch&quot;, the <ref refid="term" kindref="compound">Termination Detector</ref> can be used to track its distributed completion. In this case, instead of calling the scheduler directly, built-in higher-level functions can be used to advance the scheduler until this work is complete/terminated.</para><para>To run the scheduler until an epoch terminates, call the following function:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1aa550774c1c9c668176ce535fd7d58fb0" kindref="member">vt::runSchedulerThrough</ref>(my_epoch);</highlight></codeline>
 </programlisting></para><para>Or, to combine the actual enclosed work with the call to wait for its termination, use the following function:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([]{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>work<sp/>to<sp/>do<sp/>on<sp/>a<sp/>single<sp/>node</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">});</highlight></codeline>
-</programlisting></para><para>If the work should be executed by all nodes, use a collective epoch::</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a2fc4ef34f30b49a1781d765804bfadbb" kindref="member">vt::runInEpochCollective</ref>([]{</highlight></codeline>
+</programlisting></para><para>If the work should be executed by all nodes, use a collective epoch:</para><para><programlisting><codeline><highlight class="normal"><ref refid="namespacevt_1a2fc4ef34f30b49a1781d765804bfadbb" kindref="member">vt::runInEpochCollective</ref>([]{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>work<sp/>to<sp/>do<sp/>on<sp/>all<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">});</highlight></codeline>
 </programlisting> </para></sect1>

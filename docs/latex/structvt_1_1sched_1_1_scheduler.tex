@@ -39,7 +39,7 @@ void \hyperlink{structvt_1_1sched_1_1_scheduler_a42835a58f541dd65cecd4d393fe78a8
 \begin{DoxyCompactList}\small\item\em Pre-\/diagnostic hook; this fires before finalize but after all work is done and the system is about to shut down. \end{DoxyCompactList}\item 
 bool \hyperlink{structvt_1_1sched_1_1_scheduler_aa1e901f6264aa52d918f4c64802e54b5}{should\+Call\+Progress} (int32\+\_\+t processed\+\_\+since\+\_\+last\+\_\+progress, \hyperlink{namespacevt_a876a9d0cd5a952859c72de8a46881442}{Time\+Type} time\+\_\+since\+\_\+last\+\_\+progress) const
 \begin{DoxyCompactList}\small\item\em Check if progress function needs to be called. \end{DoxyCompactList}\item 
-void \hyperlink{structvt_1_1sched_1_1_scheduler_ad2653b260780c89a20e9253608ef1282}{scheduler} (bool msg\+\_\+only=false)
+void \hyperlink{structvt_1_1sched_1_1_scheduler_a991208100bd8be482164303b7d8135ad}{run\+Scheduler\+Once\+Impl} (bool msg\+\_\+only=false)
 \begin{DoxyCompactList}\small\item\em Turn the scheduler. \end{DoxyCompactList}\item 
 void \hyperlink{structvt_1_1sched_1_1_scheduler_a9c9fc08f6d205761ad162d391aaa7927}{run\+Progress} (bool msg\+\_\+only=false)
 \begin{DoxyCompactList}\small\item\em Run the progress function. \end{DoxyCompactList}\item 
@@ -425,6 +425,26 @@ Run the progress function.
 \mbox{\tt in}  & {\em msg\+\_\+only} & whether to only make progress on the core active messenger \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{structvt_1_1sched_1_1_scheduler_a991208100bd8be482164303b7d8135ad}\label{structvt_1_1sched_1_1_scheduler_a991208100bd8be482164303b7d8135ad}} 
+\index{vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}!run\+Scheduler\+Once\+Impl@{run\+Scheduler\+Once\+Impl}}
+\index{run\+Scheduler\+Once\+Impl@{run\+Scheduler\+Once\+Impl}!vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}}
+\subsubsection{\texorpdfstring{run\+Scheduler\+Once\+Impl()}{runSchedulerOnceImpl()}}
+{\footnotesize\ttfamily void vt\+::sched\+::\+Scheduler\+::run\+Scheduler\+Once\+Impl (\begin{DoxyParamCaption}\item[{bool}]{msg\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Turn the scheduler. 
+
+Polls every component that might generate or complete work, and potentially runs one piece of available work.
+
+\begin{DoxyNote}{Note}
+This function should only be used internally by vt. For running scheduler in user code, one should use {\ttfamily run\+Scheduler\+While} 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg\+\_\+only} & whether to only make progress on the core active messenger \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}\label{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}} 
 \index{vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}!run\+Scheduler\+While@{run\+Scheduler\+While}}
 \index{run\+Scheduler\+While@{run\+Scheduler\+While}!vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}}
@@ -435,7 +455,7 @@ Run the progress function.
 
 Runs the scheduler until a condition is met. 
 
-Runs the scheduler until a condition is met. This form S\+H\+O\+U\+LD be used instead of \char`\"{}while (..) \{ run\+Scheduler(..) \}\char`\"{} in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.
+Runs the scheduler until a condition is met. This form S\+H\+O\+U\+LD be used instead of \char`\"{}while (..) \{ run\+Scheduler\+Once\+Impl(..) \}\char`\"{} in all cases of nested scheduler loops, such as during a barrier, in order to ensure proper event unwinding and idle time tracking.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -455,23 +475,6 @@ Executes a specific work unit.
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em work} & work unit to execute \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{structvt_1_1sched_1_1_scheduler_ad2653b260780c89a20e9253608ef1282}\label{structvt_1_1sched_1_1_scheduler_ad2653b260780c89a20e9253608ef1282}} 
-\index{vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}!scheduler@{scheduler}}
-\index{scheduler@{scheduler}!vt\+::sched\+::\+Scheduler@{vt\+::sched\+::\+Scheduler}}
-\subsubsection{\texorpdfstring{scheduler()}{scheduler()}}
-{\footnotesize\ttfamily void vt\+::sched\+::\+Scheduler\+::scheduler (\begin{DoxyParamCaption}\item[{bool}]{msg\+\_\+only = {\ttfamily false} }\end{DoxyParamCaption})}
-
-
-
-Turn the scheduler. 
-
-Polls every component that might generate or complete work, and potentially runs one piece of available work.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em msg\+\_\+only} & whether to only make progress on the core active messenger \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1sched_1_1_scheduler_ac4221da465bbe5d3acaa56c8c099ef7b}\label{structvt_1_1sched_1_1_scheduler_ac4221da465bbe5d3acaa56c8c099ef7b}} 
