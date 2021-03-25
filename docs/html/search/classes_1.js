@@ -34,6 +34,7 @@ var searchData=
   ['argconfig',['ArgConfig',['../structvt_1_1arguments_1_1_arg_config.html',1,'vt::arguments']]],
   ['asyncevent',['AsyncEvent',['../structvt_1_1event_1_1_async_event.html',1,'vt::event']]],
   ['asyncop',['AsyncOp',['../structvt_1_1messaging_1_1_async_op.html',1,'vt::messaging']]],
+  ['asyncopmpi',['AsyncOpMPI',['../structvt_1_1messaging_1_1_async_op_m_p_i.html',1,'vt::messaging']]],
   ['asyncopwrapper',['AsyncOpWrapper',['../structvt_1_1messaging_1_1_async_op_wrapper.html',1,'vt::messaging']]],
   ['autoreginfo',['AutoRegInfo',['../structvt_1_1auto__registry_1_1_auto_reg_info.html',1,'vt::auto_registry']]]
 ];

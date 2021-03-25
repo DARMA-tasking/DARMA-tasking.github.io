@@ -45,7 +45,7 @@ var searchData=
   ['hierlbtypes',['HierLBTypes',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_types.html',1,'vt::vrt::collection::lb']]],
   ['histogramapprox',['HistogramApprox',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html',1,'vt::util::adt']]],
   ['histogramapprox_3c_20double_2c_20int64_5ft_20_3e',['HistogramApprox&lt; double, int64_t &gt;',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html',1,'vt::util::adt']]],
-  ['holder',['Holder',['../structvt_1_1rdma_1_1_holder.html',1,'vt::rdma::Holder&lt; T, E &gt;'],['../structvt_1_1messaging_1_1statics_1_1_holder.html',1,'vt::messaging::statics::Holder'],['../structvt_1_1objgroup_1_1holder_1_1_holder.html',1,'vt::objgroup::holder::Holder&lt; ObjT &gt;'],['../structvt_1_1vrt_1_1collection_1_1_holder.html',1,'vt::vrt::collection::Holder&lt; ColT, IndexT &gt;']]],
+  ['holder',['Holder',['../structvt_1_1rdma_1_1_holder.html',1,'vt::rdma::Holder&lt; T, E &gt;'],['../structvt_1_1messaging_1_1statics_1_1_holder.html',1,'vt::messaging::statics::Holder'],['../structvt_1_1vrt_1_1collection_1_1_holder.html',1,'vt::vrt::collection::Holder&lt; ColT, IndexT &gt;'],['../structvt_1_1objgroup_1_1holder_1_1_holder.html',1,'vt::objgroup::holder::Holder&lt; ObjT &gt;']]],
   ['holderbase',['HolderBase',['../structvt_1_1objgroup_1_1holder_1_1_holder_base.html',1,'vt::objgroup::holder']]],
   ['holderbasic',['HolderBasic',['../structvt_1_1objgroup_1_1holder_1_1_holder_basic.html',1,'vt::objgroup::holder']]],
   ['holderobjbase',['HolderObjBase',['../structvt_1_1objgroup_1_1holder_1_1_holder_obj_base.html',1,'vt::objgroup::holder']]],

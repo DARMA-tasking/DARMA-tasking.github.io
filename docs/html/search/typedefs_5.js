@@ -2,8 +2,8 @@ var searchData=
 [
   ['fieldtype',['FieldType',['../structvt_1_1utils_1_1_bit_packer.html#a23024285425933c1f10c8fc3942f9beb',1,'vt::utils::BitPacker::FieldType()'],['../namespacevt_1_1utils.html#a83bf4339dd1250f9880b6d4603320d39',1,'vt::utils::FieldType()']]],
   ['fieldunsignedtype',['FieldUnsignedType',['../structvt_1_1utils_1_1_bit_packer.html#a0bbc37c21a19e6c5311c6e9282a1e6f8',1,'vt::utils::BitPacker']]],
-  ['fnparamtype',['FnParamType',['../structvt_1_1runnable_1_1_runnable.html#aaad8725f31ab762ded7babaaf83574a3',1,'vt::runnable::Runnable::FnParamType()'],['../structvt_1_1runnable_1_1_runnable_void.html#a30afc667067328b9bc264b206ac607ba',1,'vt::runnable::RunnableVoid::FnParamType()']]],
-  ['fntype',['FnType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#ac2c474a68a93bbc8e1d86eb99dabf1dc',1,'vt::pipe::PipeManagerTL::FnType()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_listener.html#af3b881f723f2d7850f6941261449e4d9',1,'vt::vrt::collection::balance::LBListener::FnType()']]],
+  ['fnparamtype',['FnParamType',['../structvt_1_1runnable_1_1_runnable_new.html#a591a5eaee30eea99711e14e050633d34',1,'vt::runnable::RunnableNew']]],
+  ['fntype',['FnType',['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#ac2c474a68a93bbc8e1d86eb99dabf1dc',1,'vt::pipe::PipeManagerTL']]],
   ['forindex',['ForIndex',['../namespacevt_1_1seq.html#a6c570c39bac8f93bafe0bf8a0db8c798',1,'vt::seq']]],
   ['forwarditer',['ForwardIter',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#abd0d7f40a96384d2db0a2782a8921a34',1,'vt::term::interval::IntegralSetBase']]],
   ['funcapplytype',['FuncApplyType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a26e20d23447e935e218a07ffd638706d',1,'vt::vrt::collection::Holder']]],

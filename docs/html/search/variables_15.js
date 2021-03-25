@@ -23,6 +23,7 @@ var searchData=
   ['vt_5fdebug_5fall',['vt_debug_all',['../structvt_1_1arguments_1_1_app_config.html#aac0dc7123449a6f4f3be90b4ef288ab9',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fbarrier',['vt_debug_barrier',['../structvt_1_1arguments_1_1_app_config.html#a4621fa98bd8bf1e553696895d179fb6e',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fbroadcast',['vt_debug_broadcast',['../structvt_1_1arguments_1_1_app_config.html#a645d1d8715b23cf25e10fdfac2b1f742',1,'vt::arguments::AppConfig']]],
+  ['vt_5fdebug_5fcontext',['vt_debug_context',['../structvt_1_1arguments_1_1_app_config.html#aeb33227df3e4f68a2e4ea2485ac93f9b',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fevent',['vt_debug_event',['../structvt_1_1arguments_1_1_app_config.html#a542629c47a3b06e6f5de13f10bcd1a9b',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fgen',['vt_debug_gen',['../structvt_1_1arguments_1_1_app_config.html#a48d69aef2e39db18d9737e8888fd41f2',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fgossiplb',['vt_debug_gossiplb',['../structvt_1_1arguments_1_1_app_config.html#a26b21a1b3be5dfbc2bd0d7972a586483',1,'vt::arguments::AppConfig']]],

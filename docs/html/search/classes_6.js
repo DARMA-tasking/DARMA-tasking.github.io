@@ -4,6 +4,7 @@ var searchData=
   ['finishedupdatemsg',['FinishedUpdateMsg',['../structvt_1_1vrt_1_1collection_1_1_finished_update_msg.html',1,'vt::vrt::collection']]],
   ['footprinter',['Footprinter',['../structcheckpoint_1_1_footprinter.html',1,'checkpoint']]],
   ['from_5fs',['from_s',['../structvt_1_1from__s.html',1,'vt']]],
+  ['fromnode',['FromNode',['../structvt_1_1ctx_1_1_from_node.html',1,'vt::ctx']]],
   ['functionwrapper',['FunctionWrapper',['../structvt_1_1util_1_1_function_wrapper.html',1,'vt::util']]],
   ['functionwrapper_3c_20returnt_28_2a_29_28argst_2e_2e_2e_29_3e',['FunctionWrapper&lt; ReturnT(*)(ArgsT...)&gt;',['../structvt_1_1util_1_1_function_wrapper_3_01_return_t_07_5_08_07_args_t_8_8_8_08_4.html',1,'vt::util']]],
   ['functionwrapper_3c_20returnt_28functort_3a_3a_2a_29_28argst_2e_2e_2e_29_3e',['FunctionWrapper&lt; ReturnT(FunctorT::*)(ArgsT...)&gt;',['../structvt_1_1util_1_1_function_wrapper_3_01_return_t_07_functor_t_1_1_5_08_07_args_t_8_8_8_08_4.html',1,'vt::util']]],

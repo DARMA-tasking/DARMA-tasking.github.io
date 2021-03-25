@@ -16,7 +16,6 @@ var searchData=
   ['insertable',['Insertable',['../structvt_1_1vrt_1_1collection_1_1_insertable.html',1,'vt::vrt::collection']]],
   ['insertablecollection',['InsertableCollection',['../structvt_1_1vrt_1_1collection_1_1_insertable_collection.html',1,'vt::vrt::collection']]],
   ['insertableepoch',['InsertableEpoch',['../structvt_1_1vrt_1_1collection_1_1_insertable_epoch.html',1,'vt::vrt::collection']]],
-  ['insertcontextholder',['InsertContextHolder',['../structvt_1_1vrt_1_1collection_1_1_insert_context_holder.html',1,'vt::vrt::collection']]],
   ['insertfinished',['InsertFinished',['../structvt_1_1vrt_1_1collection_1_1_insert_finished.html',1,'vt::vrt::collection']]],
   ['insertmsg',['InsertMsg',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html',1,'vt::vrt::collection']]],
   ['inserttoken',['InsertToken',['../structvt_1_1vrt_1_1collection_1_1_insert_token.html',1,'vt::vrt::collection']]],

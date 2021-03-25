@@ -6,7 +6,6 @@ var searchData=
   ['indexable_2eh',['indexable.h',['../indexable_8h.html',1,'']]],
   ['indexable_2eimpl_2eh',['indexable.impl.h',['../indexable_8impl_8h.html',1,'']]],
   ['inheritance_5fassert_5fhelpers_2eh',['inheritance_assert_helpers.h',['../inheritance__assert__helpers_8h.html',1,'']]],
-  ['insert_5fcontext_5fholder_2eh',['insert_context_holder.h',['../insert__context__holder_8h.html',1,'']]],
   ['insert_5ffinished_2eh',['insert_finished.h',['../insert__finished_8h.html',1,'']]],
   ['insert_5ffinished_2eimpl_2eh',['insert_finished.impl.h',['../insert__finished_8impl_8h.html',1,'']]],
   ['insertable_2eh',['insertable.h',['../insert_2insertable_8h.html',1,'(Global Namespace)'],['../types_2insertable_8h.html',1,'(Global Namespace)']]],

@@ -8,8 +8,6 @@ var searchData=
   ['view_5ftraverse_5fndim_2eh',['view_traverse_ndim.h',['../view__traverse__ndim_8h.html',1,'']]],
   ['virtual_5fserialize_2eh',['virtual_serialize.h',['../virtual__serialize_8h.html',1,'']]],
   ['virtual_5fserialize_5ftraits_2eh',['virtual_serialize_traits.h',['../virtual__serialize__traits_8h.html',1,'']]],
-  ['vrt_2eh',['vrt.h',['../vrt_8h.html',1,'']]],
-  ['vrt_2eimpl_2eh',['vrt.impl.h',['../vrt_8impl_8h.html',1,'']]],
   ['vrt_5fcommon_2eh',['vrt_common.h',['../vrt__common_8h.html',1,'']]],
   ['vrtseq_2emd',['vrtseq.md',['../vrtseq_8md.html',1,'']]],
   ['vt_2eh',['vt.h',['../vt_8h.html',1,'']]],

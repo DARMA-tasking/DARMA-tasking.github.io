@@ -6,7 +6,7 @@ var searchData=
   ['which_5f',['which_',['../structvt_1_1util_1_1adt_1_1_union_base.html#ae46ed3323e83507ef0b47ad82db493d0',1,'vt::util::adt::UnionBase']]],
   ['whole_5fphase',['WHOLE_PHASE',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a0eb2d2db9e2d4329e2f76332c1fb2429',1,'vt::vrt::collection::balance::PhaseOffset']]],
   ['window_5f',['window_',['../structvt_1_1rdma_1_1_channel.html#aaecfddf4b74d52f4924d228ec46bcf59',1,'vt::rdma::Channel::window_()'],['../structvt_1_1rdma_1_1_lock_m_p_i.html#a641c0b10028472abe859317c94a1c511',1,'vt::rdma::LockMPI::window_()']]],
-  ['work_5f',['work_',['../structvt_1_1sched_1_1_priority_unit.html#ab8b3a78c58c74378e0d03de0e10af30d',1,'vt::sched::PriorityUnit::work_()'],['../structvt_1_1sched_1_1_unit.html#ad1c63e6b9e5f734c1d3a63ca121c4c43',1,'vt::sched::Unit::work_()']]],
+  ['work_5f',['work_',['../structvt_1_1sched_1_1_base_unit.html#ab425435c3b6c1cdf2fc208f1e50ea84c',1,'vt::sched::BaseUnit']]],
   ['work_5fqueue_5f',['work_queue_',['../structvt_1_1sched_1_1_scheduler.html#a8176bae441897c36b86e3fb917496a7a',1,'vt::sched::Scheduler']]],
   ['worker_5f',['worker_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#aff23f09609cea327a6c6550d51d6b155',1,'vt::util::container::ProcessBuffer']]],
   ['workers_5f',['workers_',['../structvt_1_1worker_1_1_worker_group_any.html#a370802bca31db13895b73f19d699ea3b',1,'vt::worker::WorkerGroupAny']]],

@@ -5,7 +5,7 @@ var searchData=
   ['underlyingnodetype',['UnderlyingNodeType',['../namespacevt_1_1rdma.html#a20d01bc82b95453c162d4b9857a4a78a',1,'vt::rdma']]],
   ['unionvaluetype',['UnionValueType',['../structvt_1_1runtime_1_1component_1_1_diagnostic_erased_value.html#a78a7d1c1fa99338e954481ca634f5e39',1,'vt::runtime::component::DiagnosticErasedValue']]],
   ['uniqueindexbittype',['UniqueIndexBitType',['../namespacevt.html#a913e1f07b5228dd8bb64040dc6dcea14',1,'vt']]],
-  ['unitactiontype',['UnitActionType',['../structvt_1_1sched_1_1_priority_unit.html#aadc2c7160cb86f45260dbdd2d39b1b68',1,'vt::sched::PriorityUnit::UnitActionType()'],['../structvt_1_1sched_1_1_unit.html#a94de9219796a6b3134e5f6f87cc017d8',1,'vt::sched::Unit::UnitActionType()']]],
+  ['unit',['Unit',['../namespacevt_1_1sched.html#a3f19a4714fc5d9f901b45665a9d794d5',1,'vt::sched']]],
   ['unittype',['UnitType',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a2bcd1016fcdb6395844d4fd15d84a570',1,'vt::runtime::component::Diagnostic::UnitType()'],['../structvt_1_1sched_1_1_scheduler.html#a398229f29b0940cea85aba4bae78b0be',1,'vt::sched::Scheduler::UnitType()']]],
   ['unpacker',['Unpacker',['../namespacecheckpoint.html#af36cfec8b3ef7476bb97b3b12908370d',1,'checkpoint']]],
   ['unpackerio',['UnpackerIO',['../namespacecheckpoint.html#a0efc06d99dce79e452b9d1b503059a74',1,'checkpoint']]],

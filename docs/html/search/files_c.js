@@ -1,6 +1,8 @@
 var searchData=
 [
   ['mainpage_2emd',['mainpage.md',['../mainpage_8md.html',1,'']]],
+  ['make_5frunnable_2eh',['make_runnable.h',['../make__runnable_8h.html',1,'']]],
+  ['make_5frunnable_2eimpl_2eh',['make_runnable.impl.h',['../make__runnable_8impl_8h.html',1,'']]],
   ['managed_5fbuffer_2eh',['managed_buffer.h',['../managed__buffer_8h.html',1,'']]],
   ['manager_2ecc',['manager.cc',['../objgroup_2manager_8cc.html',1,'(Global Namespace)'],['../rdmahandle_2manager_8cc.html',1,'(Global Namespace)'],['../topos_2location_2manager_8cc.html',1,'(Global Namespace)'],['../vrt_2collection_2manager_8cc.html',1,'(Global Namespace)']]],
   ['manager_2ecollection_2eimpl_2eh',['manager.collection.impl.h',['../manager_8collection_8impl_8h.html',1,'']]],
