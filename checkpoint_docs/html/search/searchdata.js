@@ -4,7 +4,8 @@ var indexSectionsWithContent =
   1: "_bcfhimoprstuvw",
   2: "acfgiprsuw",
   3: "abcinstv",
-  4: "ehilp"
+  4: "chs",
+  5: "ehilp"
 };
 
 var indexSectionNames =
@@ -13,7 +14,8 @@ var indexSectionNames =
   1: "classes",
   2: "functions",
   3: "variables",
-  4: "pages"
+  4: "typedefs",
+  5: "pages"
 };
 
 var indexSectionLabels =
@@ -22,6 +24,7 @@ var indexSectionLabels =
   1: "Classes",
   2: "Functions",
   3: "Variables",
-  4: "Pages"
+  4: "Typedefs",
+  5: "Pages"
 };
 
