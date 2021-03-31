@@ -120,6 +120,8 @@ var searchData=
   ['noneop',['NoneOp',['../namespacevt_1_1collective.html#a812e9225d75c8888457b29f971c33f75',1,'vt::collective']]],
   ['nonetype',['NoneType',['../namespacevt_1_1collective_1_1reduce_1_1operators.html#a1e8a587884de5e874a701ee300ca247c',1,'vt::collective::reduce::operators::NoneType()'],['../namespacevt_1_1collective.html#af988b64711231f96d33ebfaf891e52a4',1,'vt::collective::NoneType()']]],
   ['nonevrt',['NoneVrt',['../structvt_1_1serialization_1_1_none_vrt.html',1,'vt::serialization']]],
+  ['nonintrustive_5freconstruct_5ft',['nonintrustive_reconstruct_t',['../structcheckpoint_1_1_serializable_traits.html#abe5231bdf561e55fd9e0673e42a8a96c',1,'checkpoint::SerializableTraits']]],
+  ['nonintrustive_5fserialize_5ft',['nonintrustive_serialize_t',['../structcheckpoint_1_1_serializable_traits.html#a3284d2cfd29cfe429d5cf76186d3fe3c',1,'checkpoint::SerializableTraits']]],
   ['nonroot',['NonRoot',['../structvt_1_1term_1_1_termination_detector.html#a4f3ede9a87f39d86e85f92b36a6c6a30a73c8bf8079c6c90553937f74f98c99fc',1,'vt::term::TerminationDetector']]],
   ['nonserialized',['NonSerialized',['../namespacevt.html#a378e4a02213923b4ba1c3f9d2a1424c7',1,'vt']]],
   ['nonserializedmsg',['NonSerializedMsg',['../structvt_1_1messaging_1_1_non_serialized_msg.html',1,'vt::messaging::NonSerializedMsg&lt; MsgT, SelfT &gt;'],['../structvt_1_1messaging_1_1_non_serialized_msg.html#aaaf8f519b382fdad6f9fab8191a2950f',1,'vt::messaging::NonSerializedMsg::NonSerializedMsg()']]],

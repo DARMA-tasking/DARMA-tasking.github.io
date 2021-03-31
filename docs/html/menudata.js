@@ -203,6 +203,7 @@ var menudata={children:[
 {text:"g",url:"functions_type_g.html#index_g"},
 {text:"h",url:"functions_type_h.html#index_h"},
 {text:"i",url:"functions_type_i.html#index_i"},
+{text:"j",url:"functions_type_j.html#index_j"},
 {text:"l",url:"functions_type_l.html#index_l"},
 {text:"m",url:"functions_type_m.html#index_m"},
 {text:"n",url:"functions_type_n.html#index_n"},
