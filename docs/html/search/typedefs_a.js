@@ -32,6 +32,7 @@ var searchData=
   ['locinstcontainertype',['LocInstContainerType',['../structvt_1_1location_1_1_location_manager.html#adf4df6480ad89271a802d6d59bcf424e',1,'vt::location::LocationManager']]],
   ['locinsttype',['LocInstType',['../namespacevt_1_1location.html#a4db6456e8024af2d23fc5ae560fef866',1,'vt::location']]],
   ['lock',['Lock',['../namespacevt.html#ae3eb725d1ffe20cd7d82a8c42f3e52ef',1,'vt']]],
+  ['lock_5ft',['lock_t',['../structvt_1_1util_1_1mutex_1_1_mutex_traits.html#ab7d7468978f0094f267e7f11665fedeb',1,'vt::util::mutex::MutexTraits']]],
   ['lockguardanyptrtype',['LockGuardAnyPtrType',['../namespacevt_1_1util_1_1mutex.html#ab8d2986992b726eed741bcae3bf9a789',1,'vt::util::mutex']]],
   ['lockguardanytype',['LockGuardAnyType',['../namespacevt_1_1util_1_1mutex.html#ae88ee37c8846b0738a5137f96f912394',1,'vt::util::mutex']]],
   ['lockguardptrtype',['LockGuardPtrType',['../namespacevt_1_1util_1_1mutex.html#aca2c02dfb2d46edf4fc867f9ce64d0e5',1,'vt::util::mutex']]],

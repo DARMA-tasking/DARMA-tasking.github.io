@@ -131,6 +131,7 @@ var searchData=
   ['constructcallbacksimpl_3c_20cur_2c_20t_2c_20const_2c_20u_2c_20n_2c_20fcur_2c_20f_2e_2e_2e_20_3e',['ConstructCallbacksImpl&lt; cur, T, ConsT, U, N, fcur, f... &gt;',['../structvt_1_1pipe_1_1_construct_callbacks_impl_3_01cur_00_01_t_00_01_cons_t_00_01_u_00_01_n_00_01fcur_00_01f_8_8_8_01_4.html',1,'vt::pipe']]],
   ['constructcallbacksimpl_3c_20n_2c_20t_2c_20const_2c_20u_2c_20n_20_3e',['ConstructCallbacksImpl&lt; N, T, ConsT, U, N &gt;',['../structvt_1_1pipe_1_1_construct_callbacks_impl_3_01_n_00_01_t_00_01_cons_t_00_01_u_00_01_n_01_4.html',1,'vt::pipe']]],
   ['constructmsg',['ConstructMsg',['../structvt_1_1rdma_1_1impl_1_1_construct_msg.html',1,'vt::rdma::impl']]],
+  ['constructortype',['ConstructorType',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html',1,'vt::vrt::collection']]],
   ['context',['Context',['../structvt_1_1ctx_1_1_context.html',1,'vt::ctx']]],
   ['contextattorney',['ContextAttorney',['../structvt_1_1ctx_1_1_context_attorney.html',1,'vt::ctx']]],
   ['continuation',['Continuation',['../structvt_1_1ctx_1_1_continuation.html',1,'vt::ctx']]],

@@ -7,6 +7,7 @@ var searchData=
   ['nodeseedmaptype',['NodeSeedMapType',['../namespacevt_1_1mapping.html#a84d654b657f2dbe639ada06ae688e4c7',1,'vt::mapping']]],
   ['nodesettype',['NodeSetType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#abb53f1d4bd3c37f3e68c3b5b0e1f1c86',1,'vt::vrt::collection::lb::GossipLB']]],
   ['nodetype',['NodeType',['../namespacevt.html#a866da9d0efc19c0a1ce79e9e492f47e2',1,'vt']]],
+  ['non_5fidx_5ft',['non_idx_t',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#a25485f9d6d78bd2e7d43f41562411d6a',1,'vt::vrt::collection::ConstructorType']]],
   ['nonconstreft',['NonConstRefT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a22ac8ae19000187cd7d3d218f3efa46e',1,'checkpoint::dispatch::CleanType']]],
   ['nonconstt',['NonConstT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#af8cc50327016b4a8410504e245edeb6f',1,'checkpoint::dispatch::CleanType']]],
   ['none',['None',['../namespacevt_1_1collective.html#ab9abd77f58f0ede6d24462b95d0a1989',1,'vt::collective']]],
@@ -20,5 +21,6 @@ var searchData=
   ['numargstype',['NumArgsType',['../namespacevt_1_1auto__registry.html#aebda1d9d765bc9147dc654ad0712c936',1,'vt::auto_registry']]],
   ['numbytestype',['NumBytesType',['../namespacevt_1_1serialization.html#aaa03b9b407ed5776043c163629312e40',1,'vt::serialization']]],
   ['numdimensionstype',['NumDimensionsType',['../namespacevt_1_1index.html#a97aa9370711425850c86bcb7a20d73e8',1,'vt::index']]],
+  ['numdims_5ft',['numDims_t',['../structvt_1_1index_1_1_index_traits.html#a9c055598424a66789ec9a5986c2ace3a',1,'vt::index::IndexTraits']]],
   ['numlevelstype',['NumLevelsType',['../structvt_1_1collective_1_1tree_1_1_tree.html#af64acc9543dc1bd1b56d6ed17b003425',1,'vt::collective::tree::Tree']]]
 ];

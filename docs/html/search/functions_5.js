@@ -112,6 +112,7 @@ var searchData=
   ['expandnextnode',['expandNextNode',['../structvt_1_1seq_1_1_seq_list.html#a248ddc60ef237ccc041e9fb66881457f',1,'vt::seq::SeqList']]],
   ['expandparallelnode',['expandParallelNode',['../structvt_1_1seq_1_1_seq_parallel.html#a76d99828f1f5ff95f3ab25765a2453c3',1,'vt::seq::SeqParallel']]],
   ['expandparentnode',['expandParentNode',['../structvt_1_1seq_1_1_seq_node.html#ac4cc38f1b735fbb58a0e610391f77c35',1,'vt::seq::SeqNode']]],
+  ['expandseq',['expandSeq',['../structvt_1_1vrt_1_1collection_1_1_deref_cons.html#a557c69641faad74bcf17f5cc737fb816',1,'vt::vrt::collection::DerefCons']]],
   ['expired',['expired',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#a9ef1595197b291a660e6d19aadb0203e',1,'vt::pipe::callback::CallbackBase']]],
   ['extractcomponent',['extractComponent',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a16a4af73385ca87a40805143b70f4d28',1,'vt::runtime::component::ComponentPack']]],
   ['extractpackedbuffer',['extractPackedBuffer',['../structcheckpoint_1_1_packer_buffer.html#abc144f3a5d61a7eb886bd57241e7ed7e',1,'checkpoint::PackerBuffer']]]

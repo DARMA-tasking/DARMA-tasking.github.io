@@ -25,6 +25,7 @@ var searchData=
   ['buffertorelease',['BufferToRelease',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a47d2def9bdf4fb84026c615602779053',1,'vt::vrt::collection::CollectionManager']]],
   ['buffertptrtype',['BufferTPtrType',['../structcheckpoint_1_1_packer_buffer.html#a081ec628050e8b173e413271fa070c26',1,'checkpoint::PackerBuffer']]],
   ['buffertypeenum',['BufferTypeEnum',['../namespacestd.html#ab5492c80007bc5a00cc49a954c809d6f',1,'std']]],
+  ['build_5findex_5ft',['build_index_t',['../structvt_1_1index_1_1_index_traits.html#a8a367bc83d2a3bd52bd5007efd6ff110',1,'vt::index::IndexTraits']]],
   ['buildindextype',['BuildIndexType',['../structvt_1_1index_1_1_dense_index_array.html#a84d2aa360d257c9b1d7e324088c7763b',1,'vt::index::DenseIndexArray::BuildIndexType()'],['../structvt_1_1index_1_1_example_index.html#ad5d24fa38ed7adc651d0b1178b53e421',1,'vt::index::ExampleIndex::BuildIndexType()']]],
   ['bytecopytrait_5ft',['byteCopyTrait_t',['../structcheckpoint_1_1detail_1_1is_byte_copyable_impl.html#a5ac4b9b4645bc6cfb4e68877719de938',1,'checkpoint::detail::isByteCopyableImpl']]],
   ['bytetype',['ByteType',['../structcheckpoint_1_1buffer_1_1_managed_buffer.html#a89ff3aa4c92cd2c65973751ff4328dd5',1,'checkpoint::buffer::ManagedBuffer::ByteType()'],['../namespacevt.html#aab8d55968084610ce3b17057981e9300',1,'vt::ByteType()']]]

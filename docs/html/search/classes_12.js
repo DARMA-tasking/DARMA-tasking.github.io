@@ -25,7 +25,7 @@ var searchData=
   ['timetriggermanager',['TimeTriggerManager',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html',1,'vt::timetrigger']]],
   ['timing',['Timing',['../structvt_1_1timing_1_1_timing.html',1,'vt::timing']]],
   ['to_5fs',['to_s',['../structvt_1_1to__s.html',1,'vt']]],
-  ['trace',['Trace',['../structvt_1_1ctx_1_1_trace.html',1,'vt::ctx::Trace'],['../structvt_1_1trace_1_1_trace.html',1,'vt::trace::Trace']]],
+  ['trace',['Trace',['../structvt_1_1trace_1_1_trace.html',1,'vt::trace::Trace'],['../structvt_1_1ctx_1_1_trace.html',1,'vt::ctx::Trace']]],
   ['tracecontainers',['TraceContainers',['../classvt_1_1trace_1_1_trace_containers.html',1,'vt::trace']]],
   ['traceeventseqcompare',['TraceEventSeqCompare',['../structvt_1_1trace_1_1_trace_event_seq_compare.html',1,'vt::trace']]],
   ['tracelite',['TraceLite',['../structvt_1_1trace_1_1_trace_lite.html',1,'vt::trace']]],
