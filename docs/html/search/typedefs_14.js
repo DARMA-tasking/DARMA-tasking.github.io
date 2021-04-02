@@ -24,5 +24,5 @@ var searchData=
   ['vrtlocproxytype',['VrtLocProxyType',['../structvt_1_1location_1_1_location_manager.html#a3e410c85f5790a526a4eda22a9cc7881',1,'vt::location::LocationManager']]],
   ['vrtloctype',['VrtLocType',['../structvt_1_1location_1_1_location_manager.html#a06ec1698d93780afdf7873eeaa3a77b6',1,'vt::location::LocationManager']]],
   ['vrtptrtype',['VrtPtrType',['../namespacevt_1_1vrt.html#a5567b830b7fd81a29e7d3593511721b9',1,'vt::vrt']]],
-  ['vtprintconfig',['VTPrintConfig',['../namespacevt_1_1config.html#aad3c807107e04de790b95dcac3a1a7d7',1,'vt::config']]]
+  ['vtprintconfig',['VTPrintConfig',['../namespacevt_1_1config.html#a2fcb16923fa0d26d60741f06f2933983',1,'vt::config']]]
 ];
