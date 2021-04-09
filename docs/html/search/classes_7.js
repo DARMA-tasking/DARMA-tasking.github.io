@@ -10,6 +10,8 @@ var searchData=
   ['gettable',['Gettable',['../structvt_1_1vrt_1_1collection_1_1_gettable.html',1,'vt::vrt::collection']]],
   ['gossiplb',['GossipLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html',1,'vt::vrt::collection::lb']]],
   ['gossipmsg',['GossipMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html',1,'vt::vrt::collection::balance']]],
+  ['gossipmsgasync',['GossipMsgAsync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg_async.html',1,'vt::vrt::collection::balance']]],
+  ['gossiprejectionstatsmsg',['GossipRejectionStatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_rejection_stats_msg.html',1,'vt::vrt::collection::balance']]],
   ['grapevinecriterion',['GrapevineCriterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_grapevine_criterion.html',1,'vt::vrt::collection::lb']]],
   ['greedycollectmsg',['GreedyCollectMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_collect_msg.html',1,'vt::vrt::collection::lb']]],
   ['greedycompareloadmax',['GreedyCompareLoadMax',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_compare_load_max.html',1,'vt::vrt::collection::lb']]],

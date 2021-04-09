@@ -26,6 +26,7 @@ var searchData=
   ['children_5f',['children_',['../structvt_1_1collective_1_1tree_1_1_tree.html#ad4485d4ba90addf6bd7e25425d4cf6dd',1,'vt::collective::tree::Tree']]],
   ['cleanup_5factions_5f',['cleanup_actions_',['../structvt_1_1group_1_1_group_manager.html#a0b610e2592c927cbcd932322b4bde808',1,'vt::group::GroupManager']]],
   ['cleanup_5ffns_5f',['cleanup_fns_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a5123370561fb8eb70ef7c4979e051706',1,'vt::vrt::collection::CollectionManager']]],
+  ['cmf_5ftype_5f',['cmf_type_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a6aa1138914f2f997681de2f73ec09e14',1,'vt::vrt::collection::lb::GossipLB']]],
   ['col_5fproxy_5f',['col_proxy_',['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#ac21134fb596c40afa2011b871f0f6795',1,'vt::vrt::collection::BaseCollectionElmProxy']]],
   ['coll_5fwait_5fcount_5f',['coll_wait_count_',['../structvt_1_1group_1_1_info_coll.html#a960af04b6804a2000017f9358b689c02',1,'vt::group::InfoColl']]],
   ['collect_5fstats_5ffor_5flb_5f',['collect_stats_for_lb_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a916d623a447d0029f62549b25ddce64e',1,'vt::vrt::collection::CollectionManager']]],

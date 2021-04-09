@@ -33,6 +33,7 @@ var searchData=
   ['index_5fmax_5fsize',['index_max_size',['../structvt_1_1auto__registry_1_1_max_index_holder.html#a44a1c78f9cd85a6c7f0f68315254c0f9',1,'vt::auto_registry::MaxIndexHolder']]],
   ['index_5fsnd',['index_snd',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#a8dc80a798ad30e23016abddd56077be5',1,'vt::vrt::collection::ConstructorType']]],
   ['info',['info',['../structvt_1_1messaging_1_1_multi_msg.html#ad47d1f9a6bb2661d88e11e80b462aaf0',1,'vt::messaging::MultiMsg::info()'],['../structvt_1_1vrt_1_1collection_1_1_collection_create_msg.html#a7c959b39f6f42a9e174d9658978cf93b',1,'vt::vrt::collection::CollectionCreateMsg::info()'],['../structvt_1_1vrt_1_1_vrt_construct_msg.html#a570a118633d088ea4b0cae7e0edfb716',1,'vt::vrt::VrtConstructMsg::info()'],['../structvt_1_1vrt_1_1_virtual_make_closure.html#ac7c9f7fb914be06a6c97912630d3c97a',1,'vt::vrt::VirtualMakeClosure::info()']]],
+  ['inform_5ftype_5f',['inform_type_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a711d7bc27a464d15044c29dd3ef599fe',1,'vt::vrt::collection::lb::GossipLB']]],
   ['init_5fspan_5f',['init_span_',['../structvt_1_1group_1_1_group_collective.html#abf136fe4354c7e155189c3506f662c22',1,'vt::group::GroupCollective']]],
   ['inited_5f',['inited_',['../structvt_1_1util_1_1memory_1_1_sbrk.html#a094b373315eb32e9d570dbff59d4a0bb',1,'vt::util::memory::Sbrk']]],
   ['initial_5fcommunicator_5f',['initial_communicator_',['../structvt_1_1runtime_1_1_runtime.html#a13acc1db61dca9c5f9b3f389c074e521',1,'vt::runtime::Runtime']]],

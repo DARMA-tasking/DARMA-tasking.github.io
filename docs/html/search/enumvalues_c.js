@@ -16,6 +16,8 @@ var searchData=
   ['nonroot',['NonRoot',['../structvt_1_1term_1_1_termination_detector.html#a4f3ede9a87f39d86e85f92b36a6c6a30a73c8bf8079c6c90553937f74f98c99fc',1,'vt::term::TerminationDetector']]],
   ['normal',['normal',['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0a6865573ccc58716514eb9a164a52c256',1,'vt::config']]],
   ['normaleventrecord',['NormalEventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9abd225f70b1ce49f73ff00c2bdf3392a2',1,'vt::event']]],
+  ['normbymax',['NormByMax',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#ada1e381e6b19ba9f8277d4f698445404a2a17cd13e37fb3cacfea703c5edc3680',1,'vt::vrt::collection::lb']]],
+  ['normbyself',['NormBySelf',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#ada1e381e6b19ba9f8277d4f698445404a538edd88c8c3085ee0ee4337f25bc296',1,'vt::vrt::collection::lb']]],
   ['nottangent',['NotTangent',['../structvt_1_1term_1_1interval_1_1_interval.html#adfdde0c1b12f536189432b168f6df6b3ad2a5d0f2a4b974799f671c29ffc6449c',1,'vt::term::interval::Interval']]],
   ['npr',['npr',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeabeb454c55754e2e94ad97fee19eb2540',1,'vt::vrt::collection::lb']]]
 ];

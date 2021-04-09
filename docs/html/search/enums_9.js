@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['schedulerevent',['SchedulerEvent',['../namespacevt_1_1sched.html#a54756ec39b60951d6765fcfa692d1616',1,'vt::sched']]],
-  ['serializationmode',['SerializationMode',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8',1,'vt::messaging']]],
-  ['statistic',['Statistic',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1',1,'vt::vrt::collection::lb']]],
-  ['statisticquantity',['StatisticQuantity',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febe',1,'vt::vrt::collection::lb']]]
+  ['phasehook',['PhaseHook',['../namespacevt_1_1phase.html#aec9a63fdd99680d7a7fe99d321193811',1,'vt::phase']]],
+  ['positionenum',['PositionEnum',['../structvt_1_1term_1_1interval_1_1_interval.html#adfdde0c1b12f536189432b168f6df6b3',1,'vt::term::interval::Interval']]],
+  ['prioritylevel',['PriorityLevel',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498b',1,'vt::sched']]]
 ];

@@ -6,7 +6,9 @@ var searchData=
   ['aftergroupready',['AfterGroupReady',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa3f87b3703c1c4e5afe8d9e3a891c82d4',1,'vt::vrt::collection']]],
   ['aftermetadataknown',['AfterMetaDataKnown',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faaac942bb8dfdc5b8917b317e697ffc97b',1,'vt::vrt::collection']]],
   ['anoncb',['AnonCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a4e3f23f80d17e652ec7089a6b84e5051',1,'vt::pipe::callback::cbunion']]],
+  ['arbitrary',['Arbitrary',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a3c71e131f84e2ccbb95f43a1058c749ca3c1fc46575f79b15fc8990642387d07f',1,'vt::vrt::collection::lb']]],
   ['arrayeltinitmsg',['ArrayEltInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ead00a54412c9e53aae62181a452a7d3ff',1,'vt::trace']]],
+  ['asyncinform',['AsyncInform',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a38645ae954fc9b85e4c8f020eb0234aaa1997a66729a2620d0bccf74d06bc402a',1,'vt::vrt::collection::lb']]],
   ['auto',['Auto',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2abfa992da505171200949c7e580e84ea2',1,'vt']]],
   ['avg',['Avg',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a5c0c148daa2c67922abe6018b87a759f',1,'vt::runtime::component::Avg()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeae322d423f075b0ab2daad27011d24909',1,'vt::vrt::collection::lb::avg()']]]
 ];
