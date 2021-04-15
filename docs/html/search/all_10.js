@@ -89,7 +89,7 @@ var searchData=
   ['ordered_5fopt_5f',['ordered_opt_',['../structvt_1_1rdma_1_1_sub_handle.html#a3675b46b618cd10df2ba80df3c084717',1,'vt::rdma::SubHandle']]],
   ['orderedsettype',['OrderedSetType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#af29bc3750493c7de4043f43ef7eb2ca2',1,'vt::term::interval::IntegralSetBase']]],
   ['orderenum',['OrderEnum',['../structvt_1_1seq_1_1_seq_node.html#a1a934ba4a7da31ed1fa9c7789b8448ac',1,'vt::seq::SeqNode']]],
-  ['orderobjects',['orderObjects',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a82ff444a270a4b8f0bb9ff72e7244c58',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['orderobjects',['orderObjects',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a2dd165b3c35390345e4a18d34768972e',1,'vt::vrt::collection::lb::GossipLB']]],
   ['original',['Original',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#ada1e381e6b19ba9f8277d4f698445404a0a52da7a03a6de3beefe54f8c03ad80d',1,'vt::vrt::collection::lb']]],
   ['orop',['OrOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_or_op.html',1,'vt::collective::reduce::operators::OrOp&lt; T &gt;'],['../namespacevt_1_1collective.html#a47e3b11aa019f643f23effceb60ee94a',1,'vt::collective::OrOp()']]],
   ['orop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['OrOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_or_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
