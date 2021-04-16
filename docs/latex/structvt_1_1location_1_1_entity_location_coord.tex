@@ -139,7 +139,7 @@ Part of a core VT component that manages the distributed location of virtual ent
 
 Allows general registration of an {\ttfamily Entity\+ID} that is tracked across the system as it migrates. Routes messages to the appropriate node by inheriting from {\ttfamily \hyperlink{structvt_1_1location_1_1_entity_msg}{Entity\+Msg}} and sending it through the routing algorithm. Manages a distributed table of entities and their location allowing an entity to be found anywhere in the system. Caches locations to speed up resolution once a location is known. Allows migration of an entity at any time; forwards messages if they miss in the cache.
 
-The {\ttfamily register\+Entity} method allows an external component to locally register an entity as existing on this node. If the entity is deleted, {\ttfamily unregister\+Entity} should be called; if the entity is migrated, {\ttfamily entity\+Migrated} should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling {\ttfamily route\+Msg} to the associated entity. 
+The {\ttfamily register\+Entity} method allows an external component to locally register an entity as existing on this node. If the entity is deleted, {\ttfamily unregister\+Entity} should be called; if the entity is migrated, {\ttfamily entity\+Emigrated} should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling {\ttfamily route\+Msg} to the associated entity. 
 
 \subsection{Member Typedef Documentation}
 \mbox{\Hypertarget{structvt_1_1location_1_1_entity_location_coord_afeaaebfc1d7cbdd20cccbd348d96748a}\label{structvt_1_1location_1_1_entity_location_coord_afeaaebfc1d7cbdd20cccbd348d96748a}} 
@@ -327,7 +327,7 @@ Register a migrated entity on new node.
 
 This should be called after the entity is migrated when it arrived on the new node\+: order of operations\+:
 
-1) Node 0\+: register\+Entity(my\+\_\+id, ...); 2) Node 0\+: entity\+Migrated(my\+\_\+id, 1); 3) Node 1\+: register\+Entity\+Migrated(my\+\_\+id, $<$home$>$, 0, ...);
+1) Node 0\+: register\+Entity(my\+\_\+id, ...); 2) Node 0\+: entity\+Emigrated(my\+\_\+id, 1); 3) Node 1\+: entity\+Immigrated(my\+\_\+id, $<$home$>$, 0, ...);
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -500,7 +500,7 @@ Register a new entity.
 \hline
 \mbox{\tt in}  & {\em msg\+\_\+action} & function to trigger when message arrives for it \\
 \hline
-\mbox{\tt in}  & {\em migrated} & whether it migrated in\+: {\ttfamily entity\+Migrated} is preferred \\
+\mbox{\tt in}  & {\em migrated} & whether it migrated in\+: {\ttfamily entity\+Emigrated} is preferred \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1location_1_1_entity_location_coord_a0d3a9a66cddeb6929ed8452a02ba7681}\label{structvt_1_1location_1_1_entity_location_coord_a0d3a9a66cddeb6929ed8452a02ba7681}} 

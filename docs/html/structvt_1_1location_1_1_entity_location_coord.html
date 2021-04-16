@@ -117,7 +117,7 @@
             </li>
           </ul>
         </div>
-<p>Allows general registration of an <code>EntityID</code> that is tracked across the system as it migrates. Routes messages to the appropriate node by inheriting from <code><a href="structvt_1_1location_1_1_entity_msg.html" class="m-doc">EntityMsg</a></code> and sending it through the routing algorithm. Manages a distributed table of entities and their location allowing an entity to be found anywhere in the system. Caches locations to speed up resolution once a location is known. Allows migration of an entity at any time; forwards messages if they miss in the cache.</p><p>The <code>registerEntity</code> method allows an external component to locally register an entity as existing on this node. If the entity is deleted, <code>unregisterEntity</code> should be called; if the entity is migrated, <code>entityMigrated</code> should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling <code>routeMsg</code> to the associated entity.</p>
+<p>Allows general registration of an <code>EntityID</code> that is tracked across the system as it migrates. Routes messages to the appropriate node by inheriting from <code><a href="structvt_1_1location_1_1_entity_msg.html" class="m-doc">EntityMsg</a></code> and sending it through the routing algorithm. Manages a distributed table of entities and their location allowing an entity to be found anywhere in the system. Caches locations to speed up resolution once a location is known. Allows migration of an entity at any time; forwards messages if they miss in the cache.</p><p>The <code>registerEntity</code> method allows an external component to locally register an entity as existing on this node. If the entity is deleted, <code>unregisterEntity</code> should be called; if the entity is migrated, <code>entityEmigrated</code> should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling <code>routeMsg</code> to the associated entity.</p>
         <section id="base-classes">
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
@@ -539,7 +539,7 @@
                 </tr>
                 <tr>
                   <td>migrated&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>whether it migrated in: <code>entityMigrated</code> is preferred</td>
+                  <td>whether it migrated in: <code>entityEmigrated</code> is preferred</td>
                 </tr>
               </tbody>
             </table>
@@ -663,7 +663,7 @@
                 </tr>
               </tbody>
             </table>
-<p>This should be called after the entity is migrated when it arrived on the new node: order of operations:</p><p>1) Node 0: registerEntity(my_id, ...); 2) Node 0: entityMigrated(my_id, 1); 3) Node 1: registerEntityMigrated(my_id, &lt;home&gt;, 0, ...);</p>
+<p>This should be called after the entity is migrated when it arrived on the new node: order of operations:</p><p>1) Node 0: registerEntity(my_id, ...); 2) Node 0: entityEmigrated(my_id, 1); 3) Node 1: entityImmigrated(my_id, &lt;home&gt;, 0, ...);</p>
           </div></section>
           <section class="m-doc-details" id="a129f501be83c7fceb47466c34d733248"><div>
             <h3>
