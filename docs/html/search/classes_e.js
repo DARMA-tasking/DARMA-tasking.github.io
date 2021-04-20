@@ -2,6 +2,7 @@ var searchData=
 [
   ['packerbuffer',['PackerBuffer',['../structcheckpoint_1_1_packer_buffer.html',1,'checkpoint']]],
   ['param',['Param',['../structvt_1_1param_1_1_param.html',1,'vt::param']]],
+  ['parentepochcapture',['ParentEpochCapture',['../structvt_1_1term_1_1_parent_epoch_capture.html',1,'vt::term']]],
   ['pending',['Pending',['../structvt_1_1rdma_1_1_pending.html',1,'vt::rdma']]],
   ['pendingclosure',['PendingClosure',['../structvt_1_1messaging_1_1_pending_closure.html',1,'vt::messaging']]],
   ['pendinginst',['PendingInst',['../structvt_1_1location_1_1details_1_1_pending_inst.html',1,'vt::location::details']]],
