@@ -30,7 +30,9 @@ var searchData=
   ['withcollection',['withCollection',['../structvt_1_1runnable_1_1_runnable_maker.html#aed99a9b0607da59ab7ad7ee56255fcc8',1,'vt::runnable::RunnableMaker']]],
   ['withcontinuation',['withContinuation',['../structvt_1_1runnable_1_1_runnable_maker.html#aa547117a9c2e36d77f60712ec78eef58',1,'vt::runnable::RunnableMaker']]],
   ['withelementhandler',['withElementHandler',['../structvt_1_1runnable_1_1_runnable_maker.html#a1b37afe7a5ab185c29e85e0d6ebbbc82',1,'vt::runnable::RunnableMaker']]],
+  ['withexplicittask',['withExplicitTask',['../structvt_1_1runnable_1_1_runnable_maker.html#abe4aca5620c53dc9e035c3a60fe8c76b',1,'vt::runnable::RunnableMaker']]],
   ['withlbstats',['withLBStats',['../structvt_1_1runnable_1_1_runnable_maker.html#a92f6e8577ac1a9828a09bc64fe665b32',1,'vt::runnable::RunnableMaker::withLBStats(ElmT *elm, MsgU *msg)'],['../structvt_1_1runnable_1_1_runnable_maker.html#a2d59781f97ad319ceefcde673339364c',1,'vt::runnable::RunnableMaker::withLBStats(ElmT *elm)']]],
+  ['withlbstatsvoidmsg',['withLBStatsVoidMsg',['../structvt_1_1runnable_1_1_runnable_maker.html#acce9921f014ab7220f9d7b3ca57e75d5',1,'vt::runnable::RunnableMaker']]],
   ['withtag',['withTag',['../structvt_1_1runnable_1_1_runnable_maker.html#a3a22a3b3952eb54f07e610000f833d7e',1,'vt::runnable::RunnableMaker']]],
   ['withtdepoch',['withTDEpoch',['../structvt_1_1runnable_1_1_runnable_maker.html#a60b98132fcf31de89854ca70c087eb0e',1,'vt::runnable::RunnableMaker']]],
   ['withtdepochfrommsg',['withTDEpochFromMsg',['../structvt_1_1runnable_1_1_runnable_maker.html#ab1d3e7c7e5da4cf309a58b0e4a17070e',1,'vt::runnable::RunnableMaker']]],
@@ -93,7 +95,7 @@ var searchData=
   ['workunittype',['WorkUnitType',['../namespacevt_1_1worker.html#a59d2fcdafa81fc0af7f921a258e42202',1,'vt::worker']]],
   ['wrapper_5f',['wrapper_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html#ae24b9eb3e2adc8ea0aef2f6946aa0311',1,'vt::vrt::collection::storage::StoreElm&lt; T, typename std::enable_if_t&lt; not ::checkpoint::SerializableTraits&lt; T &gt;::is_serializable &gt;&gt;']]],
   ['writedatatochannel',['writeDataToChannel',['../structvt_1_1rdma_1_1_channel.html#af7d6fb54933f6ad3d12cb600ababfa18',1,'vt::rdma::Channel']]],
-  ['writetofile',['WriteToFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer::WriteToFile()'],['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()']]],
+  ['writetofile',['writeToFile',['../structvt_1_1runtime_1_1_runtime.html#a2ebba5dbe6d948d441311778b94a9f3d',1,'vt::runtime::Runtime::writeToFile()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#a10aa0f193aeeb2f9389bff1bc6a4e4fc',1,'vt::termination::graph::EpochGraph::writeToFile()'],['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2aa91ea5238090273cea8d2e0b0bed7540',1,'checkpoint::buffer::IOBuffer::WriteToFile()']]],
   ['writetofiletag',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
   ['writetracesfile',['writeTracesFile',['../structvt_1_1trace_1_1_trace_lite.html#aa385172051bc8f3fc58a345fec10eae2',1,'vt::trace::TraceLite']]],
   ['wrote_5fsts_5ffile_5f',['wrote_sts_file_',['../structvt_1_1trace_1_1_trace_lite.html#a3af89ea00d5dfcf4341aabf9c2b33aef',1,'vt::trace::TraceLite']]]
