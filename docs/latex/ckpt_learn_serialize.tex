@@ -1,0 +1,64 @@
+{\itshape Serialization} is the process of recursively traversing C++ objects into a simple format that can be stored or transmitted and reconstructed later. {\itshape checkpoint} translates the object into a set of contiguous bits and provides the steps to reverse the process, i.\+e. to reconstitute the object from the set of bits.
+
+The extraction of the data from a set of bytes is called {\itshape deserialization}.\hypertarget{ckpt_learn_serialize_serialize_builtin}{}\section{Serialization of built-\/in types}\label{ckpt_learn_serialize_serialize_builtin}
+This action is straightforward with the {\ttfamily $\vert$} operator.
+
+When the variable {\ttfamily a} has a built-\/in type and it needs to be serialized into the serializer object {\ttfamily s}, we simply write
+
+
+\begin{DoxyCode}
+s | a;
+\end{DoxyCode}
+\hypertarget{ckpt_learn_serialize_serialize_stl}{}\section{Serialization of C++ standard library}\label{ckpt_learn_serialize_serialize_stl}
+The {\ttfamily $\vert$} operator has been overloaded for many of the C++ S\+TL data structures\+:
+\begin{DoxyItemize}
+\item {\ttfamily std\+::array}
+\item {\ttfamily std\+::deque}
+\item {\ttfamily std\+::list}
+\item {\ttfamily std\+::map}
+\item {\ttfamily std\+::multimap}
+\item {\ttfamily std\+::multiset}
+\item {\ttfamily std\+::queue}
+\item {\ttfamily std\+::set}
+\item {\ttfamily std\+::string}
+\item {\ttfamily std\+::unordered\+\_\+map}
+\item {\ttfamily std\+::unordered\+\_\+multimap}
+\item {\ttfamily std\+::unordered\+\_\+multiset}
+\item {\ttfamily std\+::unordered\+\_\+set}
+\item {\ttfamily std\+::vector}
+\item {\ttfamily std\+::tuple}
+\item {\ttfamily std\+::pair}
+\item {\ttfamily std\+::unique\+\_\+ptr}
+\end{DoxyItemize}
+
+When the variable {\ttfamily c} is such an S\+TL object, whose template parameter(s) can be directly serialized into a serializer object {\ttfamily s}, we write
+
+
+\begin{DoxyCode}
+s | c;
+\end{DoxyCode}
+\hypertarget{ckpt_learn_serialize_serialize_class}{}\section{Serialization of classes}\label{ckpt_learn_serialize_serialize_class}
+When a class (or structure) has to be serialized, the user must provide a reconstruction method for the class and a serialization method or free function to actually perform the serialization.\hypertarget{ckpt_learn_serialize_reconstruct_class}{}\subsection{Class reconstruction}\label{ckpt_learn_serialize_reconstruct_class}
+There are several ways to allow {\itshape checkpoint} to reconstruct a class. {\itshape checkpoint} will try to detect a reconstruction strategy in the following resolution order\+:
+\begin{DoxyEnumerate}
+\item Tagged constructor\+: {\ttfamily My\+Class(checkpoint\+::\+S\+E\+R\+I\+A\+L\+I\+Z\+E\+\_\+\+C\+O\+N\+S\+T\+R\+U\+C\+T\+\_\+\+T\+A\+G) \{\}}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Reconstruction {\ttfamily My\+Class\+::reconstruct(buf)} or {\ttfamily reconstruct(\+My\+Class, buf)}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Default constructor\+: {\ttfamily My\+Class()}
+\end{DoxyEnumerate}
+
+If no reconstruct strategy is detected with type traits, {\itshape checkpoint} will fail at compile-\/time with a static assertion indicating that {\itshape checkpoint} can\textquotesingle{}t reconstruct the class.
+
+The example in \hyperlink{ckpt_learn_ex1}{Program Example 1} illustrates the reconstruct method.\hypertarget{ckpt_learn_serialize_serialize_class}{}\subsection{Serialization of classes}\label{ckpt_learn_serialize_serialize_class}
+Users may provide a serializer for a class in one of two forms\+: a {\ttfamily serialize} method on the class (intrusive) or a free function {\ttfamily serialize} that takes a reference to the class as an argument (non-\/intrusive). Note that if a free-\/function serialization strategy is employed, one may be required to friend the serialize function so it can access private/protected data inside the class, depending on what data members the function needs to access for correct serialization of the class state.\hypertarget{ckpt_learn_serialize_serialize_polymorphic}{}\section{Serialization of polymorphic classes}\label{ckpt_learn_serialize_serialize_polymorphic}
+To serialize polymorphic class hierarchies, one must write serializers for each class in the hierarchy. Then, the user should either insert macros {\ttfamily \hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h_aa6062a11e9781a28fe043f10338238df}{checkpoint\+\_\+virtual\+\_\+serialize\+\_\+root()}} and {\ttfamily \hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\+\_\+virtual\+\_\+serialize\+\_\+derived\+\_\+from(\+T)}} to inform {\itshape checkpoint} of the hierarchy so it can automatically traverse the hierarchy. Alternatively, the user may use the inheritance wrappers {\ttfamily \hyperlink{namespacecheckpoint_ae8adefa66d7575697f8e465bed48e3cc}{checkpoint\+::\+Serializable\+Base}$<$T$>$} and {\ttfamily \hyperlink{namespacecheckpoint_a9c4afb2c8d1bc1f58b9e158d64331d65}{checkpoint\+::\+Serializable\+Derived}$<$T, U$>$} to achieve the same effect.
+
+The example in \hyperlink{ckpt_learn_example_polymorphic_macro}{Polymorphic Serialization Example w/\+Macros} illustrates the approach uses the macros. The example in \hyperlink{ckpt_learn_example_polymorphic}{Polymorphic Serialization Example} illustrates this approach.\hypertarget{ckpt_learn_serialize_serialize_polymorphic_step}{}\subsection{Allocation and reconstruction}\label{ckpt_learn_serialize_serialize_polymorphic_step}
+
+\begin{DoxyItemize}
+\item If one has a {\ttfamily std\+::unique\+\_\+ptr$<$T$>$ x}, where {\ttfamily T} is polymorphic serializable {\ttfamily s $\vert$ x} will correctly serialize and reconstruct {\ttfamily x} based on the concrete type.
+\item If one has a raw pointer, {\ttfamily Teuchos\+::\+R\+CP$<$T$>$}, or {\ttfamily std\+::shared\+\_\+ptr$<$T$>$}, {\ttfamily checkpoint\+::allocate\+Construct\+For\+Pointer$<$SerializerT,T$>$(s, ptr)} can be invoked to properly allocate and construct the concrete class depending on runtime type. 
+\end{DoxyItemize}

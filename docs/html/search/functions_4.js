@@ -29,6 +29,7 @@ var searchData=
   ['deletehandlesetcollectiveobjgroup',['deleteHandleSetCollectiveObjGroup',['../structvt_1_1rdma_1_1_manager.html#a9b3b9bf148a8225295879481345e4af3',1,'vt::rdma::Manager']]],
   ['deliverall',['deliverAll',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a3e04f57a784e41c422357dfda7871304',1,'vt::pipe::signal::SignalHolder']]],
   ['deliverpendingmsgshandler',['deliverPendingMsgsHandler',['../structvt_1_1messaging_1_1_active_messenger.html#a4013c1e40f1d295025fd6e0bad5e6c6d',1,'vt::messaging::ActiveMessenger']]],
+  ['demangle',['demangle',['../namespacecheckpoint_1_1dispatch_1_1typeregistry.html#aa2dadf5c548fb89df1ac165e46e3abb1',1,'checkpoint::dispatch::typeregistry']]],
   ['dense1dblockmap',['dense1DBlockMap',['../namespacevt_1_1mapping.html#a2d49151f03d4ce393b01c620f6b18517',1,'vt::mapping']]],
   ['dense1droundrobinmap',['dense1DRoundRobinMap',['../namespacevt_1_1mapping.html#a2a4e62c5dc17da0032d3953c7e3cde8b',1,'vt::mapping']]],
   ['dense2dblockmap',['dense2DBlockMap',['../namespacevt_1_1mapping.html#aca20bcd20c24f4a43e217ca63bf5812c',1,'vt::mapping']]],

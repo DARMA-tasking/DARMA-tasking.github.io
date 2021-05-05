@@ -83,6 +83,7 @@ var searchData=
   ['type_5fattorney_2eh',['type_attorney.h',['../type__attorney_8h.html',1,'']]],
   ['type_5fattorney_2eimpl_2eh',['type_attorney.impl.h',['../type__attorney_8impl_8h.html',1,'']]],
   ['type_5fmpi_2eh',['type_mpi.h',['../type__mpi_8h.html',1,'']]],
+  ['type_5fregistry_2eh',['type_registry.h',['../type__registry_8h.html',1,'']]],
   ['types_5fheaders_2eh',['types_headers.h',['../types__headers_8h.html',1,'']]],
   ['types_5frdma_2eh',['types_rdma.h',['../types__rdma_8h.html',1,'']]],
   ['types_5fsentinels_2eh',['types_sentinels.h',['../types__sentinels_8h.html',1,'']]],

@@ -26,6 +26,7 @@ var searchData=
   ['deliver_5fbcast_5fto_5fsender',['deliver_bcast_to_sender',['../structvt_1_1messaging_1_1_active_envelope.html#aba7a8aaed2a99d0bfd72890e07397c0b',1,'vt::messaging::ActiveEnvelope']]],
   ['dense_5fstart_5fwith_5fzero_5f',['dense_start_with_zero_',['../structvt_1_1rdma_1_1_sub_handle.html#a21a1dd0a0dda531cb1153d58c5bad18b',1,'vt::rdma::SubHandle']]],
   ['deps_5f',['deps_',['../structvt_1_1term_1_1_term_state.html#a0beb233e97e22d6c303397bca99c5176',1,'vt::term::TermState']]],
+  ['depth_5f',['depth_',['../structcheckpoint_1_1dispatch_1_1serialization__error.html#ada6ac0017a7af74ce56a6bf0f8c78260',1,'checkpoint::dispatch::serialization_error']]],
   ['derived_5fto_5fbases_5f',['derived_to_bases_',['../structvt_1_1objgroup_1_1_obj_group_manager.html#aee25f043f12ed4447af6974acc5aa4cf',1,'vt::objgroup::ObjGroupManager']]],
   ['desc_5f',['desc_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#a1c70c4da286b442bf1dd0285f5c10fb3',1,'vt::runtime::component::detail::DiagnosticBase']]],
   ['dest',['dest',['../structvt_1_1messaging_1_1_active_envelope.html#ad82d63430ef2ae4d03c1a986fa2f9350',1,'vt::messaging::ActiveEnvelope']]],

@@ -173,6 +173,10 @@ var searchData=
   ['checkpoint_5fderived_5ftype_5ft',['checkpoint_derived_type_t',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#a60969947b48a5cdd307a0986ae7e6a45',1,'checkpoint::dispatch::vrt']]],
   ['checkpoint_5ffootprint_5fpimpl_5fwith_5fsizeof_5fptr',['CHECKPOINT_FOOTPRINT_PIMPL_WITH_SIZEOF_PTR',['../raw__ptr__serialize_8h.html#a32da3100f4973163d1758da8d31acebc',1,'raw_ptr_serialize.h']]],
   ['checkpoint_5fforce_5fuse',['checkpoint_force_use',['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#aea222f3c9bc1f611275e04d84b4418e2',1,'common.h']]],
+  ['checkpoint_5flearn_5fexample_5f1_2emd',['checkpoint_learn_example_1.md',['../checkpoint__learn__example__1_8md.html',1,'']]],
+  ['checkpoint_5flearn_5fexample_5fpolymorphic_2emd',['checkpoint_learn_example_polymorphic.md',['../checkpoint__learn__example__polymorphic_8md.html',1,'']]],
+  ['checkpoint_5flearn_5fexample_5fpolymorphic_5fmacro_2emd',['checkpoint_learn_example_polymorphic_macro.md',['../checkpoint__learn__example__polymorphic__macro_8md.html',1,'']]],
+  ['checkpoint_5flearn_5fserialize_2emd',['checkpoint_learn_serialize.md',['../checkpoint__learn__serialize_8md.html',1,'']]],
   ['checkpoint_5fserializer_5fvariadic_5fargs',['checkpoint_serializer_variadic_args',['../serializers__headers_8h.html#a645002b4560a65fa5f68ffc89d1700da',1,'serializers_headers.h']]],
   ['checkpoint_5ftraits_2eh',['checkpoint_traits.h',['../checkpoint__traits_8h.html',1,'']]],
   ['checkpoint_5fvirtual_5fserialize_5fbase',['checkpoint_virtual_serialize_base',['../lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h.html#a5294f7884a39fd06e2ad0c89178277e8',1,'base.h']]],
@@ -407,7 +411,7 @@ var searchData=
   ['componentptrtype',['ComponentPtrType',['../structvt_1_1runtime_1_1_runtime.html#a0893bf0a8c03b898e8ab66b52cec80ad',1,'vt::runtime::Runtime']]],
   ['componentreducer',['ComponentReducer',['../structvt_1_1runtime_1_1component_1_1_component_reducer.html',1,'vt::runtime::component']]],
   ['componentregistry',['ComponentRegistry',['../structvt_1_1runtime_1_1component_1_1_component_registry.html',1,'vt::runtime::component']]],
-  ['componenttag',['ComponentTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_component_tag.html',1,'vt::collective::reduce::detail::tags::ComponentTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ComponentTag']]],
+  ['componenttag',['ComponentTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ComponentTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_component_tag.html',1,'vt::collective::reduce::detail::tags::ComponentTag']]],
   ['componenttraits',['ComponentTraits',['../structvt_1_1runtime_1_1component_1_1_component_traits.html',1,'vt::runtime::component']]],
   ['composed_5fmodel_2ecc',['composed_model.cc',['../composed__model_8cc.html',1,'']]],
   ['composed_5fmodel_2eh',['composed_model.h',['../composed__model_8h.html',1,'']]],
@@ -655,5 +659,6 @@ var searchData=
   ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ad16bcfc5db0df5769bebcb8888c723d0',1,'vt::vrt::collection::balance::ElementStats']]],
   ['objregistry',['objregistry',['../namespacecheckpoint_1_1dispatch_1_1vrt_1_1objregistry.html',1,'checkpoint::dispatch::vrt']]],
   ['serializer_5fregistry',['serializer_registry',['../namespacecheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry.html',1,'checkpoint::dispatch::vrt']]],
+  ['typeregistry',['typeregistry',['../namespacecheckpoint_1_1dispatch_1_1typeregistry.html',1,'checkpoint::dispatch']]],
   ['vrt',['vrt',['../namespacecheckpoint_1_1dispatch_1_1vrt.html',1,'checkpoint::dispatch']]]
 ];

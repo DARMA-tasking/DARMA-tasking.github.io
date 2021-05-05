@@ -119,7 +119,7 @@ var searchData=
   ['componentpack',['ComponentPack',['../structvt_1_1runtime_1_1component_1_1_component_pack.html',1,'vt::runtime::component']]],
   ['componentreducer',['ComponentReducer',['../structvt_1_1runtime_1_1component_1_1_component_reducer.html',1,'vt::runtime::component']]],
   ['componentregistry',['ComponentRegistry',['../structvt_1_1runtime_1_1component_1_1_component_registry.html',1,'vt::runtime::component']]],
-  ['componenttag',['ComponentTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_component_tag.html',1,'vt::collective::reduce::detail::tags::ComponentTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ComponentTag']]],
+  ['componenttag',['ComponentTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::ComponentTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_component_tag.html',1,'vt::collective::reduce::detail::tags::ComponentTag']]],
   ['componenttraits',['ComponentTraits',['../structvt_1_1runtime_1_1component_1_1_component_traits.html',1,'vt::runtime::component']]],
   ['composedmodel',['ComposedModel',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model.html',1,'vt::vrt::collection::balance']]],
   ['concurrentdequelocked',['ConcurrentDequeLocked',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html',1,'vt::util::container']]],

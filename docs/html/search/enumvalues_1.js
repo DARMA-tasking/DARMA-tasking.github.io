@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['barrier',['Barrier',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a48656da7a6e48c6887d94f4c69c731b6',1,'vt::error::Barrier()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a39d4d58fa73c76f6cb97e6dc20e0d1c0',1,'vt::config::barrier()']]],
+  ['barrier',['barrier',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a39d4d58fa73c76f6cb97e6dc20e0d1c0',1,'vt::config::barrier()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a48656da7a6e48c6887d94f4c69c731b6',1,'vt::error::Barrier()']]],
   ['base',['Base',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a095a1b43effec73955e31e790438de49',1,'vt::runtime::component']]],
   ['bcastcoldircb',['BcastColDirCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4aba9116c20cb9e2cba429d49a2b49db28',1,'vt::pipe::callback::cbunion']]],
   ['bcastcolmsgcb',['BcastColMsgCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4adbe902b7853fcba097e950af756a711d',1,'vt::pipe::callback::cbunion']]],

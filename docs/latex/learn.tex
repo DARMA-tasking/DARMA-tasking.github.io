@@ -9,7 +9,8 @@ To learn how to use {\bfseries {\itshape vt}}, there are several resources that 
 \item Read the \hyperlink{examples}{Examples} walk-\/through
 \item Examine {\ttfamily vt/examples/$\ast$}
 \end{DoxyItemize}
-\item Read about the different \hyperlink{introduction_vt-components}{Components in vt} 
+\item Read about the different \hyperlink{introduction_vt-components}{Components in vt}
+\item Messaging relies on serializing data with the {\itshape checkpoint} library. Learn \hyperlink{ckpt_learn_serialize}{How to Serialize Data} 
 \end{DoxyItemize}\hypertarget{vt-build}{}\section{How to Build}\label{vt-build}
 Building D\+A\+R\+M\+A/vt with cmake
 
@@ -895,7 +896,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
 \textcolor{keywordtype}{void} MyCol::msgHandler(MyCollMsg* msg) \{
   \textcolor{keyword}{auto} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-  \textcolor{keyword}{auto} idx = this->getIndex();
+  \textcolor{keyword}{auto} idx = this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}();
   ::fmt::print(\textcolor{stringliteral}{"MyCol::msgHandler index=\{\}, node=\{\}\(\backslash\)n"}, idx.x(), cur\_node);
 \}
 
@@ -970,7 +971,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{keywordtype}{void} ReduceCol::reduceHandler(ColRedMsg* msg) \{
   \textcolor{keyword}{auto} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   (void)cur\_node;  \textcolor{comment}{// don't warn about unused variable}
-  \textcolor{keyword}{auto} idx = this->getIndex();
+  \textcolor{keyword}{auto} idx = this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}();
   (void)idx;  \textcolor{comment}{// don't warn about unused variable}
 
   \textcolor{comment}{//::fmt::print("MyCol::reduceHandler index=\{\}, node=\{\}\(\backslash\)n", idx.x(), cur\_node);}
@@ -1291,7 +1292,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keywordtype}{void} exchange(VecMsg *msg) \{
     \textcolor{comment}{// Receive and treat the message from a neighboring object.}
 
-    \textcolor{keyword}{const} \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} myIdx = getIndex().x();
+    \textcolor{keyword}{const} \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} myIdx = \hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x();
 
     \textcolor{keywordflow}{if} (myIdx > msg->from\_index) \{
       this->told\_[0] = msg->val;
@@ -1329,7 +1330,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{// Routine to send information to a different object}
     \textcolor{comment}{//}
 
-    \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} \textcolor{keyword}{const} myIdx = getIndex().x();
+    \hyperlink{namespacevt_afb96657e28fa98eb685c5e0c6b1b122e}{vt::IdxBase} \textcolor{keyword}{const} myIdx = \hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x();
 
     \textcolor{comment}{//--- Send the values to the left}
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
@@ -1357,7 +1358,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keywordtype}{double} h = 1.0 / (numRowsPerObject\_ * numObjs\_ + 1.0);
     \textcolor{keywordtype}{int} nf = 3 * int(numRowsPerObject\_ * numObjs\_ + 1) / 4;
 
-    \textcolor{keywordtype}{size\_t} \textcolor{keyword}{const} myIdx = getIndex().x();
+    \textcolor{keywordtype}{size\_t} \textcolor{keyword}{const} myIdx = \hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x();
 
     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii < tcur\_.size(); ++ii) \{
       \textcolor{keywordtype}{double} x0 = ( numRowsPerObject\_ * myIdx + ii) * h;
@@ -1685,25 +1686,25 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
     \textcolor{comment}{// Receive and treat the message from a neighboring object.}
 
-    \textcolor{keywordflow}{if} (this->getIndex().x() > msg->from\_index.x()) \{
+    \textcolor{keywordflow}{if} (this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x() > msg->from\_index.x()) \{
       \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2;
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < msg->val.size(); ++jy) \{
         this->told\_[jy*ldx] = msg->val[jy];
       \}
       msgReceived\_ += 1;
     \}
-    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().x() < msg->from\_index.x()) \{
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x() < msg->from\_index.x()) \{
       \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} ldx = numRowsPerObject\_ + 2;
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} jy = 0; jy < msg->val.size(); ++jy) \{
         this->told\_[numRowsPerObject\_ + 1 + jy*ldx] = msg->val[jy];
       \}
       msgReceived\_ += 1;
     \}
-    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().y() > msg->from\_index.y()) \{
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().y() > msg->from\_index.y()) \{
       std::copy(msg->val.begin(), msg->val.end(), this->told\_.begin());
       msgReceived\_ += 1;
     \}
-    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->getIndex().y() < msg->from\_index.y()) \{
+    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().y() < msg->from\_index.y()) \{
       std::copy(msg->val.begin(), msg->val.end(),
                 &this->told\_[(numRowsPerObject\_ + 1)*(numRowsPerObject\_ + 2)]);
       msgReceived\_ += 1;
@@ -1734,7 +1735,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{//}
 
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} idx = this->getIndex();
+    \textcolor{keyword}{auto} idx = this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}();
     \textcolor{keyword}{auto} \textcolor{keyword}{const} x = idx.x();
     \textcolor{keyword}{auto} \textcolor{keyword}{const} y = idx.y();
 
@@ -1793,7 +1794,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keywordtype}{size\_t} maxNObjs = (size\_t) std::max(numObjsX\_, numObjsY\_);
     \textcolor{keywordtype}{int} nf = 3 * int(numRowsPerObject\_ * maxNObjs + 1) / 4;
 
-    \textcolor{keyword}{auto} idx = this->getIndex();
+    \textcolor{keyword}{auto} idx = this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}();
 
     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} iy = 0; iy < ldy; ++iy) \{
       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ix = 0; ix < ldx; ++ix) \{
@@ -2065,7 +2066,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{keywordtype}{double} h = 1.0 / (numPartsPerObject\_ * numObjs\_ );
     \textcolor{keywordtype}{double} quadsum = 0.0;
 
-    \textcolor{keywordtype}{double} a = numPartsPerObject\_ * getIndex().x() * h;
+    \textcolor{keywordtype}{double} a = numPartsPerObject\_ * \hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}().x() * h;
 
     \textcolor{comment}{//}
     \textcolor{comment}{// Apply composite trapezoidal rule over}
@@ -2083,7 +2084,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       fmt::print(
         \textcolor{stringliteral}{" Interval [\{\}, \{\}], on node \{\} & object \{\}, "}
         \textcolor{stringliteral}{"has integral \{\}.\(\backslash\)n"}, a, b, \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->getNode(),
-        getIndex(), quadsum
+        \hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}(), quadsum
       );
     \}
 
