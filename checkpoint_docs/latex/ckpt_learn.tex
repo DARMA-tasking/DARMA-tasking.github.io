@@ -46,9 +46,15 @@ One may use {\ttfamily cmake} to build {\itshape checkpoint} once the dependenci
 {\ttfamily checkpoint\+\_\+doxygen\+\_\+enabled} &0 &Enable doxygen generation  \\\cline{1-3}
 {\ttfamily checkpoint\+\_\+asan\+\_\+enabled} &0 &Enable address sanitizer  \\\cline{1-3}
 {\ttfamily checkpoint\+\_\+ubsan\+\_\+enabled} &0 &Enable undefined behavior sanitizer  \\\cline{1-3}
+{\ttfamily checkpoint\+\_\+serialization\+\_\+error\+\_\+checking\+\_\+enabled($\ast$)} &0 &Enable extensive serialization error checking  \\\cline{1-3}
 {\ttfamily C\+O\+D\+E\+\_\+\+C\+O\+V\+E\+R\+A\+GE} &0 &Generate code coverage report  \\\cline{1-3}
 \end{longtabu}
-\hypertarget{ckpt_learn_build_using-the-build-script}{}\doxysubsubsection{Using the Build Script}\label{ckpt_learn_build_using-the-build-script}
+
+
+
+\begin{DoxyItemize}
+\item note that if {\ttfamily checkpoint\+\_\+serialization\+\_\+error\+\_\+checking\+\_\+enabled} is not explicitly enabled or disabled, it will be {\bfseries{enabled}} for {\ttfamily Debug} and {\ttfamily Rel\+With\+Deb\+Info} builds and disabled for others.
+\end{DoxyItemize}\hypertarget{ckpt_learn_build_using-the-build-script}{}\doxysubsubsection{Using the Build Script}\label{ckpt_learn_build_using-the-build-script}
 Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily checkpoint/ci/build\+\_\+cpp.\+sh} script which will run {\ttfamily cmake} for {\itshape checkpoint} with environment variables for most configuration parameters.\hypertarget{ckpt_learn_build_building-environment-variables}{}\doxyparagraph{Build Script Environment Variables}\label{ckpt_learn_build_building-environment-variables}
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
@@ -71,9 +77,15 @@ Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily checkpoint/c
 {\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+T\+E\+S\+T\+S\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint tests  \\\cline{1-3}
 {\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+E\+X\+A\+M\+P\+L\+E\+S\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint examples  \\\cline{1-3}
 {\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+W\+A\+R\+N\+I\+N\+G\+S\+\_\+\+A\+S\+\_\+\+E\+R\+R\+O\+RS} &0 &Make all warnings errors during build  \\\cline{1-3}
+{\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+H\+E\+C\+K\+I\+N\+G\+\_\+\+E\+N\+A\+B\+L\+ED} &0 &Enable extensive error checking of serialization  \\\cline{1-3}
 {\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+M\+P\+I\+\_\+\+E\+N\+A\+B\+L\+ED} &1 &Enable checkpoint M\+PI for testing  \\\cline{1-3}
 \end{longtabu}
 
+
+
+\begin{DoxyItemize}
+\item note that if {\ttfamily C\+H\+E\+C\+K\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+H\+E\+C\+K\+I\+N\+G\+\_\+\+E\+N\+A\+B\+L\+ED} is not explicitly enabled or disabled, it will be {\bfseries{enabled}} for {\ttfamily Debug} and {\ttfamily Rel\+With\+Deb\+Info} builds and disabled for others.
+\end{DoxyItemize}
 
 With these set, invoke the script with two arguments\+: the path to the {\itshape checkpoint} root directory and the build path. Here\textquotesingle{}s an example assuming that {\itshape checkpoint} is cloned into {\ttfamily /usr/src/checkpoint} with trace enabled in debug mode.
 
@@ -83,7 +95,7 @@ With these set, invoke the script with two arguments\+: the path to the {\itshap
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ checkpoint/ci/build\_cpp.sh <full-\/path-\/to-\/checkpoint-\/source> <full-\/path-\/to-\/build-\/dir>}
 \end{DoxyCode}
-\hypertarget{ckpt_learn_build_docker-build}{}\doxysubsubsection{Building with $<$tt$>$docker$<$/tt$>$ containerization}\label{ckpt_learn_build_docker-build}
+\hypertarget{ckpt_learn_build_docker-build}{}\doxysubsubsection{Building with docker containerization}\label{ckpt_learn_build_docker-build}
 The easiest way to build {\itshape checkpoint} is by using {\ttfamily docker} with the available containers that contain the proper compilers, M\+PI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker-\/compose} might also need to be installed.
 
 The {\ttfamily docker} builds are configured through {\ttfamily docker-\/compose} to use a shared, cached filesystem mount with the host for {\ttfamily ccache} to enable fast re-\/builds.
@@ -107,15 +119,16 @@ The default set of the docker configuration options is located in {\ttfamily che
 \DoxyCodeLine{\#   ULIMIT\_CORE=0}
 \DoxyCodeLine{\#}
 \DoxyCodeLine{\# DARMA/checkpoint Configuration Variables:}
-\DoxyCodeLine{\#   CHECKPOINT\_TESTS=1               \# Enable checkpoint tests}
-\DoxyCodeLine{\#   CHECKPOINT\_EXAMPLES=1            \# Enable checkpoint examples}
-\DoxyCodeLine{\#   CHECKPOINT\_MPI=1                 \# Enable checkpoint MPI tests}
-\DoxyCodeLine{\#   CHECKPOINT\_WARNINGS\_AS\_ERRORS=0  \# Treat warnings as errors in compilation}
-\DoxyCodeLine{\#   CHECKPOINT\_ASAN=0                \# Enable address sanitizer in build}
-\DoxyCodeLine{\#   CHECKPOINT\_UBSAN=0               \# Enable undefined behavior sanitizer in build}
-\DoxyCodeLine{\#   CHECKPOINT\_DOCS=0                \# Enable doxygen build}
-\DoxyCodeLine{\#   BUILD\_TYPE=release               \# CMake build type}
-\DoxyCodeLine{\#   CODE\_COVERAGE=0                  \# Enable generation of code coverage reports}
+\DoxyCodeLine{\#   CHECKPOINT\_TESTS=1                        \# Enable checkpoint tests}
+\DoxyCodeLine{\#   CHECKPOINT\_EXAMPLES=1                     \# Enable checkpoint examples}
+\DoxyCodeLine{\#   CHECKPOINT\_MPI=1                          \# Enable checkpoint MPI tests}
+\DoxyCodeLine{\#   CHECKPOINT\_WARNINGS\_AS\_ERRORS=0           \# Treat warnings as errors in compilation}
+\DoxyCodeLine{\#   CHECKPOINT\_ASAN=0                         \# Enable address sanitizer in build}
+\DoxyCodeLine{\#   CHECKPOINT\_UBSAN=0                        \# Enable undefined behavior sanitizer in build}
+\DoxyCodeLine{\#   CHECKPOINT\_SERIALIZATION\_ERROR\_CHECKING=0 \# Enable extensive serialization error checking}
+\DoxyCodeLine{\#   CHECKPOINT\_DOCS=0                         \# Enable doxygen build}
+\DoxyCodeLine{\#   BUILD\_TYPE=release                        \# CMake build type}
+\DoxyCodeLine{\#   CODE\_COVERAGE=0                           \# Enable generation of code coverage reports}
 \end{DoxyCode}
 
 
