@@ -54,7 +54,7 @@ var searchData=
   ['repeatnimpl_3c_200_2c_20valuet_20_3e',['RepeatNImpl&lt; 0, ValueT &gt;',['../structvt_1_1pipe_1_1_repeat_n_impl_3_010_00_01_value_t_01_4.html',1,'vt::pipe']]],
   ['reporter',['Reporter',['../structvt_1_1util_1_1memory_1_1_reporter.html',1,'vt::util::memory']]],
   ['requestdatamessage',['RequestDataMessage',['../structvt_1_1rdma_1_1_request_data_message.html',1,'vt::rdma']]],
-  ['requestholder',['RequestHolder',['../structvt_1_1messaging_1_1_request_holder.html',1,'vt::messaging::RequestHolder&lt; T &gt;'],['../structvt_1_1rdma_1_1_request_holder.html',1,'vt::rdma::RequestHolder']]],
+  ['requestholder',['RequestHolder',['../structvt_1_1rdma_1_1_request_holder.html',1,'vt::rdma::RequestHolder'],['../structvt_1_1messaging_1_1_request_holder.html',1,'vt::messaging::RequestHolder&lt; T &gt;']]],
   ['requestholder_3c_20vt_3a_3amessaging_3a_3aasyncopwrapper_20_3e',['RequestHolder&lt; vt::messaging::AsyncOpWrapper &gt;',['../structvt_1_1messaging_1_1_request_holder.html',1,'vt::messaging']]],
   ['requestholder_3c_20vt_3a_3amessaging_3a_3ainprogressdatairecv_20_3e',['RequestHolder&lt; vt::messaging::InProgressDataIRecv &gt;',['../structvt_1_1messaging_1_1_request_holder.html',1,'vt::messaging']]],
   ['requestholder_3c_20vt_3a_3amessaging_3a_3ainprogressirecv_20_3e',['RequestHolder&lt; vt::messaging::InProgressIRecv &gt;',['../structvt_1_1messaging_1_1_request_holder.html',1,'vt::messaging']]],
