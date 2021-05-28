@@ -7,6 +7,8 @@ var searchData=
   ['keyval_5fprinter_2eh',['keyval_printer.h',['../keyval__printer_8h.html',1,'']]],
   ['keyval_5fprinter_2eimpl_2eh',['keyval_printer.impl.h',['../keyval__printer_8impl_8h.html',1,'']]],
   ['kilobytes',['Kilobytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6aa3a6c675a174320497f3bed7e8dc3329',1,'vt::util::memory']]],
+  ['knowledge_5f',['knowledge_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#abd46f4bd3efa8c0f9c96ec10b4ccde94',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['knowledgeenum',['KnowledgeEnum',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a72b44c7e6b2052509331d57b9c94c84a',1,'vt::vrt::collection::lb']]],
   ['known_5froot_5fnode_5f',['known_root_node_',['../structvt_1_1group_1_1_info_coll.html#a89e612584c480324a5d11c2c5d672c81',1,'vt::group::InfoColl']]],
   ['krte',['krte',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a01ab8ead157e42fa39ac1ab19ab109c0',1,'vt::vrt::collection::balance::LoadData']]],
   ['kur',['kur',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea7663d8c57a4fe7d83db6bbc1bff52586',1,'vt::vrt::collection::lb']]]

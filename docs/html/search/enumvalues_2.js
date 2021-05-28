@@ -7,6 +7,7 @@ var searchData=
   ['collectiontonodebcast',['CollectionToNodeBcast',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57acf4b5610366267918ea6dc2def3edd13',1,'vt::vrt::collection::balance']]],
   ['collective',['Collective',['../namespacevt_1_1group.html#a5a472f320821bf638e6df82757b71163a2481b27ee837a6fc7709550eef0a5602',1,'vt::group::Collective()'],['../namespacevt_1_1objgroup_1_1proxy.html#a5cfde1a666e49070fcc0312e51d53777ab1d0e2d0ac577126529814c35a32c003',1,'vt::objgroup::proxy::Collective()'],['../namespacevt_1_1rdma.html#a91e7211515508952960ca446ea609f65a0c46028604cc9666bc7b90ebfc93906a',1,'vt::rdma::Collective()']]],
   ['collectivetocollectionbcast',['CollectiveToCollectionBcast',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57a057b8dfc0741801e337e981d77b4abce',1,'vt::vrt::collection::balance']]],
+  ['complete',['Complete',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a72b44c7e6b2052509331d57b9c94c84aaae94f80b3ce82062a5dd7815daa04f9d',1,'vt::vrt::collection::lb']]],
   ['concurrentlist',['ConcurrentList',['../namespacevt_1_1rdma.html#a0234ff19cfb3c04718cfdfd36b2d6d88a4cc2da4f3c575d87acf982da608512d0',1,'vt::rdma']]],
   ['context',['context',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a5dad3be974af03e75e234cb475c2cb20',1,'vt::config']]],
   ['control',['Control',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2a3e3fe7a58187c2288f3c2177be08d4d5',1,'vt']]],
