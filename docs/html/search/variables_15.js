@@ -116,6 +116,7 @@ var searchData=
   ['vt_5fsub_5fhandler_5f',['vt_sub_handler_',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#a6886f8da35617183db4aa87b259ec7df',1,'vt::vrt::collection::CollectionMessage::vt_sub_handler_()'],['../structvt_1_1vrt_1_1_virtual_message.html#a9fe6bc641b3cd85c47faaf2cc6883d2a',1,'vt::vrt::VirtualMessage::vt_sub_handler_()']]],
   ['vt_5fterm_5frooted_5fuse_5fds',['vt_term_rooted_use_ds',['../structvt_1_1arguments_1_1_app_config.html#ae30cd8bb7ca3829fec86f46834a3270c',1,'vt::arguments::AppConfig']]],
   ['vt_5fterm_5frooted_5fuse_5fwave',['vt_term_rooted_use_wave',['../structvt_1_1arguments_1_1_app_config.html#ac850fa3db23b49940d9f710c66639189',1,'vt::arguments::AppConfig']]],
+  ['vt_5fthrow_5fon_5fabort',['vt_throw_on_abort',['../structvt_1_1arguments_1_1_app_config.html#aace8ccaee4d2eef85fcf45f132743b64',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace',['vt_trace',['../structvt_1_1arguments_1_1_app_config.html#a863d6b2a20ba63ac85f4de2bd8cbe75c',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fdir',['vt_trace_dir',['../structvt_1_1arguments_1_1_app_config.html#a05efd2295aa43237c029cc2b24f0e788',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fevent_5fpolling',['vt_trace_event_polling',['../structvt_1_1arguments_1_1_app_config.html#a43da3e179ed4ad72411a41b46fae97e0',1,'vt::arguments::AppConfig']]],

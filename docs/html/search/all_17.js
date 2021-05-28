@@ -373,6 +373,7 @@ var searchData=
   ['vt_5fterm_5frooted_5fuse_5fds',['vt_term_rooted_use_ds',['../structvt_1_1arguments_1_1_app_config.html#ae30cd8bb7ca3829fec86f46834a3270c',1,'vt::arguments::AppConfig']]],
   ['vt_5fterm_5frooted_5fuse_5fwave',['vt_term_rooted_use_wave',['../structvt_1_1arguments_1_1_app_config.html#ac850fa3db23b49940d9f710c66639189',1,'vt::arguments::AppConfig']]],
   ['vt_5fthreading_5fenabled',['vt_threading_enabled',['../debug__masterconfig_8h.html#a41b9f023ad36da9831de149fba3c7605',1,'debug_masterconfig.h']]],
+  ['vt_5fthrow_5fon_5fabort',['vt_throw_on_abort',['../structvt_1_1arguments_1_1_app_config.html#aace8ccaee4d2eef85fcf45f132743b64',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace',['vt_trace',['../structvt_1_1arguments_1_1_app_config.html#a863d6b2a20ba63ac85f4de2bd8cbe75c',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fdir',['vt_trace_dir',['../structvt_1_1arguments_1_1_app_config.html#a05efd2295aa43237c029cc2b24f0e788',1,'vt::arguments::AppConfig']]],
   ['vt_5ftrace_5fevent_5fpolling',['vt_trace_event_polling',['../structvt_1_1arguments_1_1_app_config.html#a43da3e179ed4ad72411a41b46fae97e0',1,'vt::arguments::AppConfig']]],

@@ -44,6 +44,7 @@ var searchData=
   ['popgetfront',['popGetFront',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#aab7ffe336cd7392506121f8e3a86c1b2',1,'vt::util::container::ConcurrentDequeLocked']]],
   ['postparsetransform',['postParseTransform',['../structvt_1_1arguments_1_1_arg_config.html#a688dc6a1e88d8544e2ab41b4db15d8cd',1,'vt::arguments::ArgConfig']]],
   ['preconfig',['preConfig',['../namespacevt_1_1debug.html#a852027d87cfb65bb21dd8ce1e8c23c61',1,'vt::debug']]],
+  ['preconfigref',['preConfigRef',['../namespacevt_1_1debug.html#af579167c636c87a9832bba4e05867031',1,'vt::debug']]],
   ['prediagnostic',['preDiagnostic',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a4e64b5a12ffc1874065aa8b09e6309a9',1,'vt::runtime::component::Diagnostic::preDiagnostic()'],['../structvt_1_1sched_1_1_scheduler.html#a42835a58f541dd65cecd4d393fe78a81',1,'vt::sched::Scheduler::preDiagnostic()']]],
   ['predict',['predict',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a102993019adc0717da79336f8b631170',1,'vt::util::stats::LinearRegression']]],
   ['premigratein',['preMigrateIn',['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_interface.html#a7bd07b1d69bc1cce87da2ce06231f382',1,'vt::vrt::collection::MigrateHookInterface::preMigrateIn()'],['../structvt_1_1vrt_1_1collection_1_1_migrate_hook_base.html#aca3947e263443c0460cea7d75fbae2bf',1,'vt::vrt::collection::MigrateHookBase::preMigrateIn()']]],

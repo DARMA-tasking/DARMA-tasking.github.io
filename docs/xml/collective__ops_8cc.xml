@@ -249,6 +249,8 @@
         <link refid="debug__colorize_8h"/>
         <childnode refid="35842" relation="include">
         </childnode>
+        <childnode refid="35846" relation="include">
+        </childnode>
         <childnode refid="35843" relation="include">
         </childnode>
       </node>
@@ -3961,37 +3963,40 @@
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;theTrace-&gt;cleanupTracesFile();</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a6780309c9de951abbf73780860bff5af" kindref="member">abort</ref>(str,<sp/>code);</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>std::_Exit(code);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a5ae4676659166ab1e1ac7334776d58c3" kindref="member">CollectiveAnyOps&lt;instance&gt;::output</ref>(</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>decorate,</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>formatted,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>abort_out</highlight></codeline>
-<codeline lineno="159"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1af9784d4fc19d1df2b86b2c8e01d15295" kindref="member">output</ref>(str,code,error,decorate,formatted);</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>::fmt::print(str.c_str());</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(error<sp/>and<sp/>abort_out)<sp/>{</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1ad36ca8eb7e5b9cc794a793b290b9c2c7" kindref="member">vt::abort</ref>(</highlight><highlight class="stringliteral">&quot;Assertion<sp/>Failed&quot;</highlight><highlight class="normal">,<sp/>129);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="namespacevt_1_1debug_1a852027d87cfb65bb21dd8ce1e8c23c61" kindref="member">vt::debug::preConfig</ref>()-&gt;vt_throw_on_abort)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Special<sp/>case<sp/>when<sp/>preConfig<sp/>has<sp/>&apos;vt_throw_on_abort&apos;<sp/>option<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>meant<sp/>to<sp/>be<sp/>used<sp/>by<sp/>nompi<sp/>unit<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(str);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>std::_Exit(code);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a5ae4676659166ab1e1ac7334776d58c3" kindref="member">CollectiveAnyOps&lt;instance&gt;::output</ref>(</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>decorate,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>formatted,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>abort_out</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1af9784d4fc19d1df2b86b2c8e01d15295" kindref="member">output</ref>(str,code,error,decorate,formatted);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>::fmt::print(str.c_str());</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><ref refid="namespacevt_1af64846b57dfcaf104da3ef6967917573" kindref="member">HandlerType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1a7e8425c141657c1b8286c5b56c5fd43d" kindref="member">CollectiveAnyOps&lt;instance&gt;::registerHandler</ref>(<ref refid="namespacevt_1a2a06c34cafcd511828f16cbf1476b924" kindref="member">ActiveClosureFnType</ref><sp/>fn)<sp/>{</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a8b5994a5aedabc64006ce820db2e938c" kindref="member">theRegistry</ref>()-&gt;<ref refid="structvt_1_1registry_1_1_registry_1ad4fdbf2cfbe4e852c5556435efe4255f" kindref="member">registerActiveHandler</ref>(fn);</highlight></codeline>
-<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"></highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CollectiveAnyOps&lt;collective_default_inst&gt;;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(error<sp/>and<sp/>abort_out)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1ad36ca8eb7e5b9cc794a793b290b9c2c7" kindref="member">vt::abort</ref>(</highlight><highlight class="stringliteral">&quot;Assertion<sp/>Failed&quot;</highlight><highlight class="normal">,<sp/>129);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><ref refid="namespacevt_1af64846b57dfcaf104da3ef6967917573" kindref="member">HandlerType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1a7e8425c141657c1b8286c5b56c5fd43d" kindref="member">CollectiveAnyOps&lt;instance&gt;::registerHandler</ref>(<ref refid="namespacevt_1a2a06c34cafcd511828f16cbf1476b924" kindref="member">ActiveClosureFnType</ref><sp/>fn)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a8b5994a5aedabc64006ce820db2e938c" kindref="member">theRegistry</ref>()-&gt;<ref refid="structvt_1_1registry_1_1_registry_1ad4fdbf2cfbe4e852c5556435efe4255f" kindref="member">registerActiveHandler</ref>(fn);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CollectiveAnyOps&lt;collective_default_inst&gt;;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/collective/collective_ops.cc"/>
   </compounddef>
