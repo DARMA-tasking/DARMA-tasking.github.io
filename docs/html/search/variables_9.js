@@ -33,7 +33,7 @@ var searchData=
   ['index_5fmax_5fsize',['index_max_size',['../structvt_1_1auto__registry_1_1_max_index_holder.html#a44a1c78f9cd85a6c7f0f68315254c0f9',1,'vt::auto_registry::MaxIndexHolder']]],
   ['index_5fsnd',['index_snd',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#a8dc80a798ad30e23016abddd56077be5',1,'vt::vrt::collection::ConstructorType']]],
   ['info',['info',['../structvt_1_1messaging_1_1_multi_msg.html#ad47d1f9a6bb2661d88e11e80b462aaf0',1,'vt::messaging::MultiMsg::info()'],['../structvt_1_1vrt_1_1collection_1_1_collection_create_msg.html#a7c959b39f6f42a9e174d9658978cf93b',1,'vt::vrt::collection::CollectionCreateMsg::info()'],['../structvt_1_1vrt_1_1_vrt_construct_msg.html#a570a118633d088ea4b0cae7e0edfb716',1,'vt::vrt::VrtConstructMsg::info()'],['../structvt_1_1vrt_1_1_virtual_make_closure.html#ac7c9f7fb914be06a6c97912630d3c97a',1,'vt::vrt::VirtualMakeClosure::info()']]],
-  ['inform_5ftype_5f',['inform_type_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a711d7bc27a464d15044c29dd3ef599fe',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['inform_5ftype_5f',['inform_type_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a2238189fc988694e1702677ebb3de006',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['init_5fspan_5f',['init_span_',['../structvt_1_1group_1_1_group_collective.html#abf136fe4354c7e155189c3506f662c22',1,'vt::group::GroupCollective']]],
   ['inited_5f',['inited_',['../structvt_1_1util_1_1memory_1_1_sbrk.html#a094b373315eb32e9d570dbff59d4a0bb',1,'vt::util::memory::Sbrk']]],
   ['initial_5fcommunicator_5f',['initial_communicator_',['../structvt_1_1runtime_1_1_runtime.html#a13acc1db61dca9c5f9b3f389c074e521',1,'vt::runtime::Runtime']]],
@@ -71,7 +71,7 @@ var searchData=
   ['is_5fnew_5froot_5f',['is_new_root_',['../structvt_1_1group_1_1_info_coll.html#a51b12694202a7bef872694ed9b2f6be3',1,'vt::group::InfoColl']]],
   ['is_5fnonintrusive_5freconstructible',['is_nonintrusive_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a35d5afbe97197885a1513765a210837c',1,'checkpoint::SerializableTraits']]],
   ['is_5fobj_5f',['is_obj_',['../structvt_1_1rdma_1_1_handle_key.html#ab0caa0cf39617bb46a86780d5a27397e',1,'vt::rdma::HandleKey']]],
-  ['is_5foverloaded_5f',['is_overloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a432ef6985a152c97c60184a3ccbda082',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['is_5foverloaded_5f',['is_overloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#af7e60fc255a3ebe6625f48b622d61a84',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['is_5freconstructible',['is_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a6cc78a7cc9b4645727c92437619fce83',1,'checkpoint::SerializableTraits']]],
   ['is_5fremote_5f',['is_remote_',['../structvt_1_1group_1_1_info_rooted.html#ae35381afa327833a2b9f4bb758703a11',1,'vt::group::InfoRooted']]],
   ['is_5froot_5f',['is_root_',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a6580f48704b511253b50f63a8ccf1b68',1,'vt::collective::reduce::ReduceLink::is_root_()'],['../structvt_1_1collective_1_1tree_1_1_tree.html#abe6e5a200fc08f3dc040bd134e97d8f2',1,'vt::collective::tree::Tree::is_root_()']]],
@@ -87,7 +87,7 @@ var searchData=
   ['is_5fterminated',['is_terminated',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#af53bdb81804df4d07dc7fd647329a89a',1,'vt::term::ds::TermDS']]],
   ['is_5fthreaded_5f',['is_threaded_',['../structvt_1_1runnable_1_1_runnable_new.html#aa29430d7529095b33033112ba405ace7',1,'vt::runnable::RunnableNew']]],
   ['is_5ftraversable',['is_traversable',['../structcheckpoint_1_1_serializable_traits.html#a426639501cd0ce23cb14c7b2ff982fc1',1,'checkpoint::SerializableTraits']]],
-  ['is_5funderloaded_5f',['is_underloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a8cbe2b210b71f7261240325ebbf81cd7',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['is_5funderloaded_5f',['is_underloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a53aba7cc0f8809e7c69d660b79b7542c',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['is_5fuser_5fbuf',['is_user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a232d976ea4bb28426530e8c431c52f95',1,'vt::messaging::PendingRecv']]],
   ['is_5fuser_5fmsg',['is_user_msg',['../structvt_1_1rdma_1_1_request_data_message.html#a1f9eeffb6869c9703bb6ad3db5ef6ef1',1,'vt::rdma::RequestDataMessage']]],
   ['is_5fuser_5ftag_5f',['is_user_tag_',['../structvt_1_1collective_1_1_collective_alg_1_1_collective_msg.html#abbea1ecbb8f581de22a00212c54c510b',1,'vt::collective::CollectiveAlg::CollectiveMsg::is_user_tag_()'],['../structvt_1_1collective_1_1_collective_scope.html#a2a291ca3421aab53d63088bd84fd7091',1,'vt::collective::CollectiveScope::is_user_tag_()']]],
@@ -101,5 +101,5 @@ var searchData=
   ['isingroup',['IsInGroup',['../namespacevt_1_1group.html#a7e31bd0e87c50b4d8e016bf720adffb6',1,'vt::group']]],
   ['ismsgtype',['IsMsgType',['../structvt_1_1auto__registry_1_1_runnable_functor.html#a72e7d2e928c18ad46ee64f73c5dae509',1,'vt::auto_registry::RunnableFunctor']]],
   ['isremote',['IsRemote',['../namespacevt_1_1group.html#a1f3a371585b88778a3c36b369335e657',1,'vt::group']]],
-  ['iter_5f',['iter_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#af534fb854364c488b92716c7ff087abf',1,'vt::vrt::collection::lb::GossipLB']]]
+  ['iter_5f',['iter_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a3b77f5409f6075f12cc21e32d3b70cec',1,'vt::vrt::collection::lb::TemperedLB']]]
 ];

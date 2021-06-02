@@ -2,7 +2,7 @@ var searchData=
 [
   ['u_5f',['u_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#aed6003f71632d33c5281872d7841cb4f',1,'vt::pipe::callback::cbunion::GeneralCallback::u_()'],['../structvt_1_1rdma_1_1_handle_key.html#a589ac313252f97d907c2c03a000130f7',1,'vt::rdma::HandleKey::u_()']]],
   ['ub_5f',['ub_',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#ace5d01da6b573a7e13405b362ca57f48',1,'vt::term::interval::IntegralSetBase::ub_()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a74c71b9f525b0f282187490b2cbe3494',1,'vt::term::interval::Interval::ub_()']]],
-  ['underloaded_5f',['underloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#a446275a50d83148d702b293bdae89da4',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['underloaded_5f',['underloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a1fecccd06fbeae5e5632998140a3b3b7',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['uniform_5fsize_5f',['uniform_size_',['../structvt_1_1rdma_1_1_holder.html#a6c137c841a55e053778597860c6761e8',1,'vt::rdma::Holder::uniform_size_()'],['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html#a863c6d2d07d1cd4dc8ff73e4a3f052c2',1,'vt::rdma::impl::InformRDMAMsg::uniform_size_()'],['../structvt_1_1rdma_1_1_sub_handle.html#ab6c87db6739367bdbd95be5a8f673fc8',1,'vt::rdma::SubHandle::uniform_size_()']]],
   ['unit_5f',['unit_',['../structvt_1_1runtime_1_1component_1_1_diagnostic_erased_value.html#aa43354cc162d6edaae48f878a6d874d1',1,'vt::runtime::component::DiagnosticErasedValue::unit_()'],['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#a2e77691cce01c69757483f4cdca65b19',1,'vt::runtime::component::detail::DiagnosticBase::unit_()']]],
   ['units_5f',['units_',['../structvt_1_1sched_1_1_suspended_units.html#a21eb59ab4bd3b27bbb5f2913a15b0d49',1,'vt::sched::SuspendedUnits']]],
@@ -16,6 +16,7 @@ var searchData=
   ['use_5findex_5fsnd',['use_index_snd',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#aa9078dbcceaf5bb8a04966d07b0e2b71',1,'vt::vrt::collection::ConstructorType']]],
   ['use_5fit_5f',['use_it_',['../structvt_1_1term_1_1_use_d_s.html#a90e938697cc42b12536e2b5d1a6c6c2d',1,'vt::term::UseDS']]],
   ['use_5fno_5findex',['use_no_index',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#af87163cdd43c8ef39edcaf894c9d6386',1,'vt::vrt::collection::ConstructorType']]],
+  ['usedsize_5f',['usedSize_',['../structcheckpoint_1_1_packer_buffer.html#ae20a1bc8f41e3af7e5b8ee3951f31353',1,'checkpoint::PackerBuffer::usedSize_()'],['../structcheckpoint_1_1_unpacker_buffer.html#ad8bc7d5cd0a7f6b22169c982abf08965',1,'checkpoint::UnpackerBuffer::usedSize_()']]],
   ['user',['user',['../unionvt_1_1trace_1_1_log_1_1_data.html#a8d893c0de3ee2fca0852607fa908a2e6',1,'vt::trace::Log::Data']]],
   ['user_5f',['user_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6317d5623c1edcce684641fe0115824c',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a18d11f650583c3da5a7362e0c998be5d',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#abe6d7de2eeb0aaa8bd453a7cb24969a8',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],

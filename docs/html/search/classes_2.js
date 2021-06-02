@@ -33,6 +33,7 @@ var searchData=
   ['broadcastable',['Broadcastable',['../structvt_1_1vrt_1_1collection_1_1_broadcastable.html',1,'vt::vrt::collection']]],
   ['broadcasts',['Broadcasts',['../structvt_1_1vrt_1_1collection_1_1details_1_1_broadcasts.html',1,'vt::vrt::collection::details']]],
   ['buffer',['Buffer',['../structcheckpoint_1_1buffer_1_1_buffer.html',1,'checkpoint::buffer']]],
+  ['buffer_5fsize_5ferror',['buffer_size_error',['../structcheckpoint_1_1dispatch_1_1buffer__size__error.html',1,'checkpoint::dispatch']]],
   ['bufferable',['Bufferable',['../structvt_1_1runtime_1_1component_1_1_bufferable.html',1,'vt::runtime::component']]],
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html',1,'vt::messaging']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],

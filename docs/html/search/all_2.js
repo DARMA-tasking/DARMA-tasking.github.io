@@ -135,7 +135,7 @@ var searchData=
   ['addmemusageargs',['addMemUsageArgs',['../structvt_1_1arguments_1_1_arg_config.html#aef7cb73c09dd2f554a550c2ab54b66f0',1,'vt::arguments::ArgConfig']]],
   ['addmodel',['addModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html#a79ecd769664dcaabe413a5d77033b81b',1,'vt::vrt::collection::balance::PerCollection']]],
   ['addnode',['addNode',['../structvt_1_1seq_1_1_seq_list.html#a3dd63f53576d65c85eb840d1ac4ddb27',1,'vt::seq::SeqList']]],
-  ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html#ad71cb026dce420d7c5e48d0fd87c2e61',1,'vt::vrt::collection::balance::GossipMsg']]],
+  ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a59a33d9ef1dfe4616d701036e0c39ab9',1,'vt::vrt::collection::balance::LoadMsg']]],
   ['addnodestats',['addNodeStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a67d0a130aab5bd3764b58d04f6c2d700',1,'vt::vrt::collection::balance::NodeStats']]],
   ['addparallelfunction',['addParallelFunction',['../structvt_1_1seq_1_1_seq_node.html#adfe191e3f7ff499909c222cd4dbc3525',1,'vt::seq::SeqNode']]],
   ['addruntimeargs',['addRuntimeArgs',['../structvt_1_1arguments_1_1_arg_config.html#a7d5026013c8a56d2684270b0bda83c2b',1,'vt::arguments::ArgConfig']]],

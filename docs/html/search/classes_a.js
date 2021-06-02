@@ -14,6 +14,8 @@ var searchData=
   ['list',['List',['../structvt_1_1group_1_1region_1_1_list.html',1,'vt::group::region']]],
   ['loaddata',['LoadData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html',1,'vt::vrt::collection::balance']]],
   ['loadmodel',['LoadModel',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_load_model.html',1,'vt::vrt::collection::balance']]],
+  ['loadmsg',['LoadMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html',1,'vt::vrt::collection::balance']]],
+  ['loadmsgasync',['LoadMsgAsync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg_async.html',1,'vt::vrt::collection::balance']]],
   ['locationcache',['LocationCache',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
   ['locationcache_3c_20elmtype_2c_20locrectype_20_3e',['LocationCache&lt; ElmType, LocRecType &gt;',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
   ['locationcache_3c_20entityid_2c_20locrectype_20_3e',['LocationCache&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],

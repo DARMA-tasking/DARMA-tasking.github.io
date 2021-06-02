@@ -8,10 +8,6 @@ var searchData=
   ['getplace',['GetPlace',['../structvt_1_1util_1_1adt_1_1detail_1_1_get_place.html',1,'vt::util::adt::detail']]],
   ['getrusage',['Getrusage',['../structvt_1_1util_1_1memory_1_1_getrusage.html',1,'vt::util::memory']]],
   ['gettable',['Gettable',['../structvt_1_1vrt_1_1collection_1_1_gettable.html',1,'vt::vrt::collection']]],
-  ['gossiplb',['GossipLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html',1,'vt::vrt::collection::lb']]],
-  ['gossipmsg',['GossipMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg.html',1,'vt::vrt::collection::balance']]],
-  ['gossipmsgasync',['GossipMsgAsync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_msg_async.html',1,'vt::vrt::collection::balance']]],
-  ['gossiprejectionstatsmsg',['GossipRejectionStatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_gossip_rejection_stats_msg.html',1,'vt::vrt::collection::balance']]],
   ['grapevinecriterion',['GrapevineCriterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_grapevine_criterion.html',1,'vt::vrt::collection::lb']]],
   ['greedycollectmsg',['GreedyCollectMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_collect_msg.html',1,'vt::vrt::collection::lb']]],
   ['greedycompareloadmax',['GreedyCompareLoadMax',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_compare_load_max.html',1,'vt::vrt::collection::lb']]],
@@ -38,5 +34,5 @@ var searchData=
   ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
   ['grouprangemsg',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]]
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
 ];

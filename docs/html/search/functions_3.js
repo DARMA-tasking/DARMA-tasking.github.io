@@ -151,7 +151,7 @@ var searchData=
   ['countsconstant',['countsConstant',['../structvt_1_1term_1_1_termination_detector.html#a9460b5236e34a5baa344b0ac814ce3c9',1,'vt::term::TerminationDetector']]],
   ['create',['create',['../structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy.html#a0f29068c61712b0c2f9a78000f63cff9',1,'vt::objgroup::proxy::ObjGroupProxy']]],
   ['createchannel',['CreateChannel',['../structvt_1_1rdma_1_1_create_channel.html#ad3c3265c63c536dfb68e30886438bdf8',1,'vt::rdma::CreateChannel']]],
-  ['createcmf',['createCMF',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_gossip_l_b.html#abde7527c3d55e4b9114ace8df4d7c0b9',1,'vt::vrt::collection::lb::GossipLB']]],
+  ['createcmf',['createCMF',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#add46961d85ddad906cfd66aba09a0bd1',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['createdirectchannel',['createDirectChannel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a0007e2a8fba26477bd9bb52887e855e3',1,'vt::rdma::RDMAManager']]],
   ['createdirectchannelfinish',['createDirectChannelFinish',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a3b0d77f20a7c6395fd239b3579056798',1,'vt::rdma::RDMAManager']]],
   ['createdirectchannelinternal',['createDirectChannelInternal',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#ab512ce0c45479a8544e8a1eb6b2ed88a',1,'vt::rdma::RDMAManager']]],

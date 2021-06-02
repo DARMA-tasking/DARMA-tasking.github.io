@@ -35,6 +35,7 @@ var searchData=
   ['uphan',['upHan',['../structvt_1_1group_1_1_info_coll.html#a18031bc67be6fe75bf4bb04dbf4f5156',1,'vt::group::InfoColl']]],
   ['upper',['upper',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a88ef66995c9fd0c1d8ba031dab28da9b',1,'vt::term::interval::IntegralSetBase::upper()'],['../structvt_1_1term_1_1interval_1_1_interval.html#acbe552f15a1f22a89fa43bcba34fe27f',1,'vt::term::interval::Interval::upper()']]],
   ['uptree',['upTree',['../structvt_1_1group_1_1_info_coll.html#a74f2c524bbd2e2b07207420e70e347d7',1,'vt::group::InfoColl']]],
+  ['usedbuffersize',['usedBufferSize',['../structcheckpoint_1_1_serializer.html#a9193aca9404eadbb6617273d0fb1343b',1,'checkpoint::Serializer::usedBufferSize()'],['../structcheckpoint_1_1_packer_buffer.html#a15b3ac40c21710da2f9813579c9a9c0e',1,'checkpoint::PackerBuffer::usedBufferSize()'],['../structcheckpoint_1_1_unpacker_buffer.html#a2d72e0fc79aaa6e062f17b44b74ed0cc',1,'checkpoint::UnpackerBuffer::usedBufferSize()']]],
   ['useds',['UseDS',['../structvt_1_1term_1_1_use_d_s.html#a29261f18f8f9303bbad2c8ee27f352ad',1,'vt::term::UseDS']]],
   ['useeagerprotocol',['useEagerProtocol',['../structvt_1_1location_1_1_entity_location_coord.html#a5d41b90c998e6de566868868c9cc4ba1',1,'vt::location::EntityLocationCoord']]],
   ['usegroup',['useGroup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#af9a9e5dbf89d84e9fb4d267f720bfa4e',1,'vt::vrt::collection::Holder']]],

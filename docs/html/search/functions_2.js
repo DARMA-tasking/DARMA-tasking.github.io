@@ -50,6 +50,7 @@ var searchData=
   ['broadcastroothandler',['broadcastRootHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9859d8346c9aac1fb0b65e6db82969db',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#aa72a9a7c6b1ea78eeccb928c68a4c505',1,'vt::serialization::SerializedMessenger']]],
   ['broadcastspec',['broadcastSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a3a5ececf49f827a057a7bea8ac7e7584',1,'vt::trace::file_spec::TraceSpec']]],
+  ['buffer_5fsize_5ferror',['buffer_size_error',['../structcheckpoint_1_1dispatch_1_1buffer__size__error.html#ab4fc5f36aa64da80dd40a3e223c90a46',1,'checkpoint::dispatch::buffer_size_error']]],
   ['bufferbroadcastmsg',['bufferBroadcastMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aba07682da41648437cacd485193063ec',1,'vt::vrt::collection::CollectionManager']]],
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a76b964a87805d59f20d0cbf861f546a2',1,'vt::messaging::BufferedActiveMsg']]],
   ['bufferop',['bufferOp',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ac5ba46c0eac77a81aec0c6119de6778c',1,'vt::vrt::collection::CollectionManager']]],
