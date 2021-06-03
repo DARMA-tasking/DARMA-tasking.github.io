@@ -20,6 +20,7 @@ var searchData=
   ['next_5fcollective_5fgroup_5fid_5f',['next_collective_group_id_',['../structvt_1_1group_1_1_group_manager.html#a4e15169e16bc0c8d6fa1dd440c386e1b',1,'vt::group::GroupManager']]],
   ['next_5fcollective_5fhook_5fid_5f',['next_collective_hook_id_',['../structvt_1_1phase_1_1_phase_manager.html#a4270d82b84c02d60c16521d4c5972657',1,'vt::phase::PhaseManager']]],
   ['next_5felm_5f',['next_elm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a7b1b992f34d07739e854c95ef921f0ab',1,'vt::vrt::collection::balance::NodeStats']]],
+  ['next_5fepoch_5f',['next_epoch_',['../structvt_1_1epoch_1_1_epoch_window.html#a946a18f109dcae51f347d02c6a700c4e',1,'vt::epoch::EpochWindow']]],
   ['next_5fgroup_5fid_5f',['next_group_id_',['../structvt_1_1group_1_1_group_manager.html#ad14079e35fc22c1ddc8627f4f8bd2ffe',1,'vt::group::GroupManager']]],
   ['next_5fnode_5f',['next_node_',['../structvt_1_1seq_1_1_seq_node.html#a168421e6d8e2171227445dc5e7740d01',1,'vt::seq::SeqNode']]],
   ['next_5fnrm_5fid',['next_nrm_id',['../structvt_1_1seq_1_1_seq_manager.html#abe1ace08cad5e5554ce2ad0faf9d78ad',1,'vt::seq::SeqManager']]],

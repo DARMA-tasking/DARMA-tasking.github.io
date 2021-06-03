@@ -1,7 +1,9 @@
 var searchData=
 [
   ['car',['car',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febeae6d96502596d7e7887b76646c5f615d9',1,'vt::vrt::collection::lb']]],
-  ['categoryepoch',['CategoryEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada7e4e5d5531b30ec86d6509a25b381acf',1,'vt::epoch']]],
+  ['cepochcategory',['cEpochCategory',['../namespacevt_1_1epoch.html#aff6d7581e1d2888909564a5deaaf11a9ac42416b5e5a9257c76fb7a691c7d79be',1,'vt::epoch']]],
+  ['cepochisrooted',['cEpochIsRooted',['../namespacevt_1_1epoch.html#aff6d7581e1d2888909564a5deaaf11a9a87c678c589ab0fbaf738353c3d9ea9d5',1,'vt::epoch']]],
+  ['cepochsequential',['cEpochSequential',['../namespacevt_1_1epoch.html#aff6d7581e1d2888909564a5deaaf11a9abbdc913c0a12f5a5617e1146a11f5fb5',1,'vt::epoch']]],
   ['collection',['Collection',['../namespacevt_1_1vrt.html#a408950d7781cc0422dcc4bdf723fc281a2f97fc194c438c28df53050b30e4228a',1,'vt::vrt']]],
   ['collectiontonode',['CollectionToNode',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57abae8da2cdb9a00dd6dc7b7e642ff8192',1,'vt::vrt::collection::balance']]],
   ['collectiontonodebcast',['CollectionToNodeBcast',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57acf4b5610366267918ea6dc2def3edd13',1,'vt::vrt::collection::balance']]],

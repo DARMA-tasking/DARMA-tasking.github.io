@@ -1,6 +1,7 @@
 var searchData=
 [
   ['rangedatatype',['RangeDataType',['../structvt_1_1group_1_1_group_range_msg.html#a893386277e3598ae990bea8245aee1f3',1,'vt::group::GroupRangeMsg']]],
+  ['rangedcounter',['RangedCounter',['../namespacevt_1_1adt.html#a075b41b03183cb280d453f44d5397637',1,'vt::adt']]],
   ['rangetype',['RangeType',['../structvt_1_1group_1_1_group_list_msg.html#a4b6524168e2e6f3308b1957083fafb45',1,'vt::group::GroupListMsg::RangeType()'],['../structvt_1_1group_1_1_group_range_msg.html#a49fdcbb2ae53a4c5778e60f306c8f5e6',1,'vt::group::GroupRangeMsg::RangeType()']]],
   ['rdma_5factionptr',['RDMA_ActionPtr',['../structvt_1_1rdma_1_1_r_d_m_a_collection_manager.html#a4618a654161e92d2fcc2ab099eba9b65',1,'vt::rdma::RDMACollectionManager']]],
   ['rdma_5factiontype',['RDMA_ActionType',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a7b857edc3e489efd9e65e160a4e55a68',1,'vt::rdma::RDMAManager']]],

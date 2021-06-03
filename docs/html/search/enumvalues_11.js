@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scatter',['scatter',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ab0821d060501c20d94b8d700df7fdd76',1,'vt::config::scatter()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a09870720ca8134284e4e305ac6ce5f19',1,'vt::error::Scatter()']]],
+  ['scatter',['Scatter',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a09870720ca8134284e4e305ac6ce5f19',1,'vt::error::Scatter()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ab0821d060501c20d94b8d700df7fdd76',1,'vt::config::scatter()']]],
   ['seconds',['Seconds',['../namespacevt_1_1runtime_1_1component.html#a99ec18b08862c712176126bb7d0e307aa8f19a8c7566af54ea8981029730e5465',1,'vt::runtime::component::Seconds()'],['../namespacevt_1_1runtime_1_1component.html#a7c43622f1c2cc49bc223523837649b1aa8f19a8c7566af54ea8981029730e5465',1,'vt::runtime::component::Seconds()']]],
   ['send',['Send',['../namespacevt_1_1vrt_1_1collection.html#a1b1b082e2ff4e9e5d1b7227acd78db3faf175860ad14472de1cac73350e31f001',1,'vt::vrt::collection']]],
   ['sendback',['Sendback',['../namespacevt_1_1pipe.html#a21eef17afd7b326e3b65894dffa25901aaac42b3fdd37e9218dbd0e436d89267d',1,'vt::pipe']]],
@@ -9,7 +9,7 @@ var searchData=
   ['sendmsgcb',['SendMsgCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a2fd34e7b68fef8c346691fbd07d7484e',1,'vt::pipe::callback::cbunion']]],
   ['sendobjgrpcb',['SendObjGrpCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4adfb74177ee87ea06f3e829aa6597b459',1,'vt::pipe::callback::cbunion']]],
   ['sendrecv',['SendRecv',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57a95aeb71ffd419cc14c6929f9dcd6cdff',1,'vt::vrt::collection::balance']]],
-  ['sequence',['sequence',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d88819a9eaa5f03b8432110059234c',1,'vt::config::sequence()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a3ff39d3acb327553070a64ef0cb321d5',1,'vt::error::Sequence()']]],
+  ['sequence',['Sequence',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a3ff39d3acb327553070a64ef0cb321d5',1,'vt::error::Sequence()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d88819a9eaa5f03b8432110059234c',1,'vt::config::sequence()']]],
   ['sequence_5fvrt',['sequence_vrt',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a5c4a4681463b7a071f9a19bac0d3ef56',1,'vt::config']]],
   ['sequencedorder',['SequencedOrder',['../namespacevt_1_1seq.html#a313357c71bba2bea5c57f50d69f1edf7a6d6423d4f7844da48a87a926492256d3',1,'vt::seq']]],
   ['serial_5fmsg',['serial_msg',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a1a6250cbf239ae1424048d1e62f68d50',1,'vt::config']]],
@@ -29,7 +29,7 @@ var searchData=
   ['statmsg',['StatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea6f7b858bb59c79485a8babe54de62e23',1,'vt::trace']]],
   ['statsmaplb',['StatsMapLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5cabe5786565be3f6ef20bb58481695b652',1,'vt::vrt::collection::balance']]],
   ['std',['std',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c',1,'vt::vrt::collection::lb']]],
-  ['sum',['sum',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea1d623b89683f9ce4e074de1676d12416',1,'vt::vrt::collection::lb::sum()'],['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5',1,'vt::runtime::component::Sum()']]],
+  ['sum',['Sum',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5',1,'vt::runtime::component::Sum()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea1d623b89683f9ce4e074de1676d12416',1,'vt::vrt::collection::lb::sum()']]],
   ['support',['support',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682',1,'vt::messaging']]],
   ['surrogateblock',['SurrogateBlock',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da1804069086100b7787935bb9deab7302',1,'vt::trace']]],
   ['syncinform',['SyncInform',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a38645ae954fc9b85e4c8f020eb0234aaa7228d42ce6e32b9d69a58878e39ecfa5',1,'vt::vrt::collection::lb']]],

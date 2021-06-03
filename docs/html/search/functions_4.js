@@ -8,7 +8,7 @@ var searchData=
   ['decide',['decide',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a099523e70a588de77eec53a36aeeecdf',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['decidelbtorun',['decideLBToRun',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a6c610e1c053f986932d8a59bb89eb37d',1,'vt::vrt::collection::balance::LBManager']]],
   ['declareclassoutsideinittls',['DeclareClassOutsideInitTLS',['../namespacevt_1_1ctx.html#a2b0a82bed85b7c9b0e1c72829319118a',1,'vt::ctx']]],
-  ['decrement',['decrement',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a020d52d2540855c661003bb50265e7db',1,'vt::runtime::component::meter::Counter']]],
+  ['decrement',['decrement',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a020d52d2540855c661003bb50265e7db',1,'vt::runtime::component::meter::Counter::decrement()'],['../structvt_1_1util_1_1adt_1_1_ranged_counter.html#ab2ccaa051d8ecbd2e2b0687ee3cb722a',1,'vt::util::adt::RangedCounter::decrement()']]],
   ['decrementdependency',['decrementDependency',['../structvt_1_1term_1_1_term_state.html#addc61edaf5b324db422a7e857890b314',1,'vt::term::TermState']]],
   ['defaultalloc',['defaultAlloc',['../structvt_1_1pool_1_1_pool.html#ad9eb4c0efa76dc46487e23e265554943',1,'vt::pool::Pool']]],
   ['defaultblockmap',['defaultBlockMap',['../structvt_1_1rdma_1_1_map.html#a8a37b9b72187246a37d025be09e7f6c5',1,'vt::rdma::Map']]],

@@ -25,7 +25,7 @@ var searchData=
   ['anon_5fcb_5f',['anon_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#a6aa8eaee0ef4ebdc6e4a420f8e0780d4',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
   ['any_5fepoch_5fstate_5f',['any_epoch_state_',['../structvt_1_1term_1_1_termination_detector.html#a49337963d174e5be73fcf467304428a6',1,'vt::term::TerminationDetector']]],
   ['app_5fconfig_5f',['app_config_',['../structvt_1_1runtime_1_1_runtime.html#a5fa2ceccc0e96fe0a97e0454e3a0a1ee',1,'vt::runtime::Runtime']]],
-  ['archetype_5fepoch_5f',['archetype_epoch_',['../structvt_1_1term_1_1_epoch_window.html#a2ec27163c2e9a925fc97587364965ad3',1,'vt::term::EpochWindow']]],
+  ['archetype_5fepoch_5f',['archetype_epoch_',['../structvt_1_1epoch_1_1_epoch_window.html#a74c5c529d1a7fddf5f2d7a5cb9dbe4af',1,'vt::epoch::EpochWindow']]],
   ['arg_5fconfig_5f',['arg_config_',['../structvt_1_1runtime_1_1_runtime.html#a585321b816d6984bf7a9489d00bd3670',1,'vt::runtime::Runtime']]],
   ['args_5f',['args_',['../structvt_1_1auto__registry_1_1_auto_reg_info.html#a861ecaa80da263959457a5429c3a3716',1,'vt::auto_registry::AutoRegInfo']]],
   ['argv_5fprog_5fname',['argv_prog_name',['../structvt_1_1arguments_1_1_app_config.html#a589ec3aa2327f78117c2a5de6bf91cae',1,'vt::arguments::AppConfig']]],

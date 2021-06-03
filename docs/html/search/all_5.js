@@ -59,7 +59,7 @@ var searchData=
   ['declarestinitimpltls',['DeclareStInitImplTLS',['../tls_8impl_8h.html#ac841c50923eabe55ae99c393ad6ba98a',1,'tls.impl.h']]],
   ['declaretls',['DeclareTLS',['../tls_8h.html#a0abdef742729bca5521cb838efbffc9e',1,'tls.h']]],
   ['decodedindex',['DecodedIndex',['../namespacecheckpoint_1_1dispatch_1_1typeregistry.html#a3d1f57de0a997a245eb9e1db07b94140',1,'checkpoint::dispatch::typeregistry']]],
-  ['decrement',['decrement',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a020d52d2540855c661003bb50265e7db',1,'vt::runtime::component::meter::Counter']]],
+  ['decrement',['decrement',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a020d52d2540855c661003bb50265e7db',1,'vt::runtime::component::meter::Counter::decrement()'],['../structvt_1_1util_1_1adt_1_1_ranged_counter.html#ab2ccaa051d8ecbd2e2b0687ee3cb722a',1,'vt::util::adt::RangedCounter::decrement()']]],
   ['decrementdependency',['decrementDependency',['../structvt_1_1term_1_1_term_state.html#addc61edaf5b324db422a7e857890b314',1,'vt::term::TermState']]],
   ['default_5fcomm_5f',['default_comm_',['../structvt_1_1group_1_1_info_coll.html#a22f10b499eb9a012071bc5c8aeaaec6a',1,'vt::group::InfoColl::default_comm_()'],['../structvt_1_1group_1_1_group_manager.html#a2f40ded22e7e9bde566dffcbdff10ded',1,'vt::group::GroupManager::default_comm_()']]],
   ['default_5fcore_5f',['default_core_',['../structvt_1_1vrt_1_1_virtual_info.html#af708e80cfd5b57bba690af59d0eead21',1,'vt::vrt::VirtualInfo']]],

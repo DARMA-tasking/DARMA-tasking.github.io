@@ -32,6 +32,7 @@ var searchData=
   ['pollablecomponent_3c_20workergroupany_3c_20workert_20_3e_20_3e',['PollableComponent&lt; WorkerGroupAny&lt; WorkerT &gt; &gt;',['../structvt_1_1runtime_1_1component_1_1_pollable_component.html',1,'vt::runtime::component']]],
   ['pool',['Pool',['../structvt_1_1pool_1_1_pool.html',1,'vt::pool']]],
   ['prettyprintcat',['PrettyPrintCat',['../structvt_1_1config_1_1_pretty_print_cat.html',1,'vt::config']]],
+  ['prettyprintctx',['PrettyPrintCtx',['../structvt_1_1config_1_1_pretty_print_ctx.html',1,'vt::config']]],
   ['prettyprintmode',['PrettyPrintMode',['../structvt_1_1config_1_1_pretty_print_mode.html',1,'vt::config']]],
   ['printernamevalue',['PrinterNameValue',['../structvt_1_1util_1_1error_1_1_printer_name_value.html',1,'vt::util::error']]],
   ['printernamevalue_3c_200_2c_20const_2c_20consu_20_3e',['PrinterNameValue&lt; 0, ConsT, ConsU &gt;',['../structvt_1_1util_1_1error_1_1_printer_name_value_3_010_00_01_cons_t_00_01_cons_u_01_4.html',1,'vt::util::error']]],

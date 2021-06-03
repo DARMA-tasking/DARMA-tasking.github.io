@@ -2,6 +2,7 @@ var searchData=
 [
   ['randomlb_2ecc',['randomlb.cc',['../randomlb_8cc.html',1,'']]],
   ['randomlb_2eh',['randomlb.h',['../randomlb_8h.html',1,'']]],
+  ['ranged_5fcounter_2eh',['ranged_counter.h',['../ranged__counter_8h.html',1,'']]],
   ['raw_5fdata_2ecc',['raw_data.cc',['../raw__data_8cc.html',1,'']]],
   ['raw_5fdata_2eh',['raw_data.h',['../raw__data_8h.html',1,'']]],
   ['raw_5fptr_5fserialize_2eh',['raw_ptr_serialize.h',['../raw__ptr__serialize_8h.html',1,'']]],

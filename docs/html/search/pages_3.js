@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['epoch_20manager',['Epoch Manager',['../epoch.html',1,'introduction']]],
   ['event_20manager',['Event Manager',['../event.html',1,'introduction']]],
   ['examples',['Examples',['../examples.html',1,'learn']]],
   ['example_20jacobi_201d_20program',['Example Jacobi 1D Program',['../jacobi1d-example.html',1,'examples']]],

@@ -21,6 +21,10 @@ var searchData=
   ['remoteid',['RemoteID',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7eafa45aa15be6f922c8e1e4c78dbdad535',1,'vt::vrt']]],
   ['remotenode',['RemoteNode',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7ea8fb0adb36660bd05ba5033e93cc8c3f0',1,'vt::vrt']]],
   ['replace',['Replace',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a0ebe6df8a3ac338e0512acc741823fdb',1,'vt::runtime::component']]],
+  ['repochcategory',['rEpochCategory',['../namespacevt_1_1epoch.html#a03454759f2f9572f84e51fdb7d76007da39238912b8dfc520dab52217f960c860',1,'vt::epoch']]],
+  ['repochisrooted',['rEpochIsRooted',['../namespacevt_1_1epoch.html#a03454759f2f9572f84e51fdb7d76007daac0bb1e87c328e3165a0114430693cb8',1,'vt::epoch']]],
+  ['repochnode',['rEpochNode',['../namespacevt_1_1epoch.html#a03454759f2f9572f84e51fdb7d76007da19f3b4d1d3a2178e5e4a66f0a260520b',1,'vt::epoch']]],
+  ['repochsequential',['rEpochSequential',['../namespacevt_1_1epoch.html#a03454759f2f9572f84e51fdb7d76007dabcd342843facde01d354a2456ae5ed1f',1,'vt::epoch']]],
   ['reqstatmsg',['ReqStatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eace6c5e6f2ca4c2ec0d3257ec10740684',1,'vt::trace']]],
   ['require',['require',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850',1,'vt::messaging']]],
   ['rodatamsg',['RODataMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea8e6cd7fce645bd4666f05491d7ae9a21',1,'vt::trace']]],
@@ -28,5 +32,5 @@ var searchData=
   ['root',['Root',['../structvt_1_1term_1_1_termination_detector.html#a4f3ede9a87f39d86e85f92b36a6c6a30a4beac8e3ddc4064785a61aa7949e3bda',1,'vt::term::TerminationDetector::Root()'],['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6a8c67b09b2de7f4bd3371d6239b02a045',1,'vt::trace::Root()']]],
   ['rootedepoch',['RootedEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada4bbf8ef3641b58f81dc5320f32df0178',1,'vt::epoch']]],
   ['rotatelb',['RotateLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca5b1f9f84eddef3d97637267cbf0f7039',1,'vt::vrt::collection::balance']]],
-  ['runtime',['runtime',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()']]]
+  ['runtime',['Runtime',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12abc366f2d0ba3d681e7a3899917c5d3de',1,'vt::error::Runtime()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689afdcadb44dd13617f18aba8d42a257967',1,'vt::config::runtime()']]]
 ];

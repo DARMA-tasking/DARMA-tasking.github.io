@@ -1,7 +1,6 @@
 var searchData=
 [
   ['waitcounttype',['WaitCountType',['../structvt_1_1group_1_1_info_base.html#a0924de8df3a2ec72ebdd499ad8a28abf',1,'vt::group::InfoBase']]],
-  ['windowtype',['WindowType',['../structvt_1_1term_1_1_termination_detector.html#a2c002273d9304c3cf72be85dd7d3ce52',1,'vt::term::TerminationDetector']]],
   ['work_5funit_5fcnt_5ft',['work_unit_cnt_t',['../structvt_1_1worker_1_1_worker_group_traits.html#af8719962bd8fc468206bb7a0de8e29be',1,'vt::worker::WorkerGroupTraits']]],
   ['work_5funit_5ft',['work_unit_t',['../structvt_1_1worker_1_1_worker_group_traits.html#ae7c108d04180f59f3e2cd4fa065be4b0',1,'vt::worker::WorkerGroupTraits']]],
   ['worker_5fcnt_5ft',['worker_cnt_t',['../structvt_1_1worker_1_1_worker_group_traits.html#ab532e883384999599393386ba277a84a',1,'vt::worker::WorkerGroupTraits']]],

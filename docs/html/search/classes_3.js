@@ -90,6 +90,7 @@ var searchData=
   ['component_3c_20collectionmanager_20_3e',['Component&lt; CollectionManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20collectivealg_20_3e',['Component&lt; CollectiveAlg &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20context_20_3e',['Component&lt; Context &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
+  ['component_3c_20epochmanip_20_3e',['Component&lt; EpochManip &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20groupmanager_20_3e',['Component&lt; GroupManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20lbmanager_20_3e',['Component&lt; LBManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20locationmanager_20_3e',['Component&lt; LocationManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],

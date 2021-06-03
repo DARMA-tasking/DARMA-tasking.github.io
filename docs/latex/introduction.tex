@@ -52,6 +52,7 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{seq}{Sequencer} &{\ttfamily \hyperlink{namespacevt_a4a7d07c845b311da59286de486d623c7}{vt\+::the\+Seq()}} &Sequence node actions. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{vrtseq}{Virtual Sequencer} &{\ttfamily \hyperlink{namespacevt_abdbb9ddb0d79b35c89e9d742d3fc9d42}{vt\+::the\+Virtual\+Seq()}} &Sequence task actions. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{term}{Termination Detector} &{\ttfamily \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt\+::the\+Term()}} &Detect termination of work. & {\bfseries Core} \\\cline{1-4}
+\hyperlink{epoch}{Epoch Manager} &{\ttfamily \hyperlink{namespacevt_ad246530e523687095c567ccab203556a}{vt\+::the\+Epoch()}} &Manage TD epochs. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{time-trigger}{Time Triggers} &{\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}} &Time-\/based progress actions. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{trace}{Tracing} &{\ttfamily vt\+::the\+Trace()} &Trace distributed events. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{stats-reader}{LB Restart Reader} &{\ttfamily \hyperlink{namespacevt_ad73860100c7d2ca1d833eab74942ee73}{vt\+::the\+Stats\+Reader()}} &Follow input LB distribution. & {\bfseries Optional} \\\cline{1-4}
@@ -1022,8 +1023,8 @@ The termination detector also comes with hang detection to detect causes where n
 
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
 
-  \textcolor{keyword}{auto} epoch = \hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}(msg->env);
-  fmt::print(\textcolor{stringliteral}{"\{\}: test\_handler: num=\{\}, epoch=\{:x\}\(\backslash\)n"}, this\_node, num, epoch);
+  \textcolor{keyword}{auto} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch} = \hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}(msg->env);
+  fmt::print(\textcolor{stringliteral}{"\{\}: test\_handler: num=\{\}, epoch=\{:x\}\(\backslash\)n"}, this\_node, num, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
 
   num--;
   \textcolor{keywordflow}{if} (num > 0) \{
@@ -1043,22 +1044,22 @@ The termination detector also comes with hang detection to detect causes where n
     \textcolor{keywordflow}{return} \hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}(\textcolor{stringliteral}{"requires at least 2 nodes"});
   \}
 
-  \textcolor{keyword}{auto} epoch = \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ae74260b24c9190ac3cbd4adb2f09a14c}{makeEpochCollective}();
+  \textcolor{keyword}{auto} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch} = \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_aeba62165ec8dfbc445e3631ff295f159}{makeEpochCollective}();
 
   \textcolor{comment}{// This action will not run until all messages originating from the}
   \textcolor{comment}{// sends are completed}
-  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}(epoch, [=]\{
-    fmt::print(\textcolor{stringliteral}{"\{\}: finished epoch=\{:x\}\(\backslash\)n"}, this\_node, epoch);
+  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}, [=]\{
+    fmt::print(\textcolor{stringliteral}{"\{\}: finished epoch=\{:x\}\(\backslash\)n"}, this\_node, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
   \});
 
   \textcolor{comment}{// Message must go out of scope before finalize}
   \{
     \textcolor{keyword}{auto} msg = vt::makeMessage<TestMsg>();
-    \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, epoch);
+    \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
     \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg);
   \}
 
-  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(epoch);
+  \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
 
@@ -1082,8 +1083,8 @@ The termination detector also comes with hang detection to detect causes where n
 
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
 
-  \textcolor{keyword}{auto} epoch = \hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}(msg->env);
-  fmt::print(\textcolor{stringliteral}{"\{\}: test\_handler: num=\{\}, epoch=\{:x\}\(\backslash\)n"}, this\_node, num, epoch);
+  \textcolor{keyword}{auto} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch} = \hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}(msg->env);
+  fmt::print(\textcolor{stringliteral}{"\{\}: test\_handler: num=\{\}, epoch=\{:x\}\(\backslash\)n"}, this\_node, num, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
 
   num--;
   \textcolor{keywordflow}{if} (num > 0) \{
@@ -1104,19 +1105,19 @@ The termination detector also comes with hang detection to detect causes where n
   \}
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    \textcolor{keyword}{auto} epoch = \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_a3ef3e83e7ddb300f0ab7e87cc1c286a7}{makeEpochRooted}(
+    \textcolor{keyword}{auto} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch} = \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ae4df2a2e947665cc89971a61de787a98}{makeEpochRooted}(
       \hyperlink{structvt_1_1term_1_1_use_d_s}{vt::term::UseDS}\{\textcolor{keyword}{true}\});
 
     \textcolor{comment}{// This action will not run until all messages originating from the}
     \textcolor{comment}{// following send are completed}
-    \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}(epoch, [=]\{
-      fmt::print(\textcolor{stringliteral}{"\{\}: finished epoch=\{:x\}\(\backslash\)n"}, this\_node, epoch);
+    \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}, [=]\{
+      fmt::print(\textcolor{stringliteral}{"\{\}: finished epoch=\{:x\}\(\backslash\)n"}, this\_node, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
     \});
 
     \textcolor{keyword}{auto} msg = vt::makeMessage<TestMsg>();
-    \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, epoch);
+    \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
     \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg);
-    \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(epoch);
+    \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -1124,7 +1125,10 @@ The termination detector also comes with hang detection to detect causes where n
   \textcolor{keywordflow}{return} 0;
 \}
 \end{DoxyCodeInclude}
-\hypertarget{time-trigger}{}\section{Time Triggers}\label{time-trigger}
+\hypertarget{epoch}{}\section{Epoch Manager}\label{epoch}
+Manage TD epochs
+
+The epoch manager component {\ttfamily \hyperlink{structvt_1_1epoch_1_1_epoch_manip}{vt\+::epoch\+::\+Epoch\+Manip}}, accessed via {\ttfamily \hyperlink{namespacevt_ad246530e523687095c567ccab203556a}{vt\+::the\+Epoch()}}, manages termination epochs that are allocated and deallocated as a program executes to encapsulate and order distributed work. The epoch manager controls the bits allocated for these along with scopes (distinct, collective strands of epoch bit allocation) for generating the bits. The epoch manager also allows inspection of information embedded in the epoch bit field {\ttfamily \hyperlink{namespacevt_a985a5adf291c34a3ca263b3378388236}{vt\+::\+Epoch\+Type}} that encodes the epoch type, category, scope, rank, etc. \hypertarget{time-trigger}{}\section{Time Triggers}\label{time-trigger}
 Time-\/based progress actions
 
 The timed trigger component {\ttfamily \hyperlink{structvt_1_1timetrigger_1_1_time_trigger_manager}{vt\+::timetrigger\+::\+Time\+Trigger\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}} manages and coordinates time-\/based actions that can be registered by the system and users.

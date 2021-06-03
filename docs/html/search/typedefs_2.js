@@ -27,6 +27,7 @@ var searchData=
   ['callbacksendvoidtype',['CallbackSendVoidType',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#a09eb51f50878116c3b0867fad5f9aab0',1,'vt::pipe::PipeManagerTyped']]],
   ['callbacktype',['CallbackType',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html#a299d0d7f62e0e631ef344e345d89a4f3',1,'vt::collective::reduce::operators::ReduceDataMsg::CallbackType()'],['../structvt_1_1pipe_1_1_pipe_manager_t_l.html#a1cc1d0f1c80a36488f9b5d282e9755d2',1,'vt::pipe::PipeManagerTL::CallbackType()']]],
   ['callbacku',['CallbackU',['../namespacevt.html#af79a43a97bc3593fc349f086c874c48e',1,'vt']]],
+  ['capturedcontexttype',['CapturedContextType',['../structvt_1_1epoch_1_1_epoch_manip.html#ab1fe66501b6b83b07fd4188fc6a8a4fe',1,'vt::epoch::EpochManip']]],
   ['cbtypes',['CBTypes',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#a62dfc4fabe734915f3ec2544e225b6b3',1,'vt::pipe::PipeManagerTyped']]],
   ['cbvrttypes',['CBVrtTypes',['../structvt_1_1pipe_1_1_pipe_manager_typed.html#abb75b2bfdb23ebfa7f4f677a7f4bcb77',1,'vt::pipe::PipeManagerTyped']]],
   ['centroidtype',['CentroidType',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#aabacbad5be3a407cb00938f079177b95',1,'vt::util::adt::HistogramApprox']]],

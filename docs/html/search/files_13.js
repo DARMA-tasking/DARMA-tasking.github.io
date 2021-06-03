@@ -19,8 +19,6 @@ var searchData=
   ['term_5fstate_2ecc',['term_state.cc',['../term__state_8cc.html',1,'']]],
   ['term_5fstate_2eh',['term_state.h',['../term__state_8h.html',1,'']]],
   ['term_5fterminated_2eh',['term_terminated.h',['../term__terminated_8h.html',1,'']]],
-  ['term_5fwindow_2ecc',['term_window.cc',['../term__window_8cc.html',1,'']]],
-  ['term_5fwindow_2eh',['term_window.h',['../term__window_8h.html',1,'']]],
   ['termination_2ecc',['termination.cc',['../termination_8cc.html',1,'']]],
   ['termination_2efwd_2eh',['termination.fwd.h',['../termination_8fwd_8h.html',1,'']]],
   ['termination_2eh',['termination.h',['../termination_8h.html',1,'']]],

@@ -3,28 +3,13 @@
   <compounddef id="namespacevt_1_1epoch" kind="namespace" language="C++">
     <compoundname>vt::epoch</compoundname>
     <innerclass refid="structvt_1_1epoch_1_1_epoch_manip" prot="public">vt::epoch::EpochManip</innerclass>
+    <innerclass refid="structvt_1_1epoch_1_1_epoch_window" prot="public">vt::epoch::EpochWindow</innerclass>
       <sectiondef kind="enum">
       <memberdef kind="enum" id="namespacevt_1_1epoch_1a8cbcd2bf5d3ce987837869c26a1d00ad" prot="public" static="no">
         <name>eEpochHeader</name>
         <enumvalue id="namespacevt_1_1epoch_1a8cbcd2bf5d3ce987837869c26a1d00ada4bbf8ef3641b58f81dc5320f32df0178" prot="public">
           <name>RootedEpoch</name>
           <initializer>= 1</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a8cbcd2bf5d3ce987837869c26a1d00ada7e4e5d5531b30ec86d6509a25b381acf" prot="public">
-          <name>CategoryEpoch</name>
-          <initializer>= 2</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a8cbcd2bf5d3ce987837869c26a1d00ada1a31742d5ce22b2a4450ba9687b7e7ce" prot="public">
-          <name>UserEpoch</name>
-          <initializer>= 3</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -37,24 +22,28 @@
 *
 *   w-1 .............. w-h-1 ...............w-h-c-1 ....................0
 *   | &lt;EpochHeader&gt; ... | &lt;EpochCategory&gt; ... | &lt;Sequential Epoch ID&gt;   |
-*
-*      *where*    h = epoch_header_num_bits,
-*                 c = epoch_category_num_bits,
-*                 w = sizeof(EpochType) * 8
-*                 n = sizeof(NodeType)        ^             ^           ^
-*                                             | .... n .... | ..........|
-*                                               &lt;NodeType&gt;  &lt;SeqEpochID&gt;
+*                                             |                          \
+*      *where*    h = epoch_header_num_bits,  |                           \
+*                 c = epoch_category_num_bits,|                            \
+*                 w = sizeof(EpochType) * 8   |                             \
+*                 n = sizeof(NodeType)        ^  16  ^ 5 ^   [remainder]     ^
+*                                            /                               |
+*                                           /                                |
+*                                   _______                                  |
+*                                  /                                          \
+*                                  | .... n .... | ..........................|
+*                                    &lt;NodeType&gt;          &lt;SeqEpochID&gt;
 *
 *  +++++++++++++++++++++++++++++++++++++++++++  Rooted Extended Layout ++
 *
-*   &lt;EpochHeader&gt;   = &lt;IsRooted&gt; &lt;HasCategory&gt; &lt;IsUser&gt;
-*   ....3 bits...   = ..bit 1..   ...bit 2...  ..bit 3..
+*   &lt;EpochHeader&gt;   = &lt;IsRooted&gt; &lt;HasCategory&gt;
+*   ....3 bits...   = ..bit 1..   ...bit 2...
 *
 * =======================================================================
 * </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="84" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="84" bodyend="88"/>
+        <location file="src/vt/epoch/epoch.h" line="88" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="88" bodyend="90"/>
       </memberdef>
       <memberdef kind="enum" id="namespacevt_1_1epoch_1a956abe0aceef0d10a988de8acb002c7c" prot="public" static="no">
         <name>eEpochCategory</name>
@@ -85,76 +74,86 @@
         <briefdescription>
 <para>These are different categories of epochs that are allowed. </para>        </briefdescription>
         <detaileddescription>
-<para>Important: if you add new types of epoch headers to the preceding enum, you must ensure that the number of epoch header bits is sufficient to hold all the header types. These category bits statically identify an epoch as a certain type which can be used to dispatch control logic. </para>        </detaileddescription>
+<para>These category bits statically identify an epoch as a certain type which can be used to dispatch control logic. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="110" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="110" bodyend="114"/>
+        <location file="src/vt/epoch/epoch.h" line="117" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="117" bodyend="121"/>
       </memberdef>
-      <memberdef kind="enum" id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9d" prot="public" static="no">
-        <name>eEpochLayout</name>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da4856035e8053e98e5720f6d6038a5234" prot="public">
-          <name>EpochSequential</name>
+      <memberdef kind="enum" id="namespacevt_1_1epoch_1aff6d7581e1d2888909564a5deaaf11a9" prot="public" static="no">
+        <name>eEpochColl</name>
+        <enumvalue id="namespacevt_1_1epoch_1aff6d7581e1d2888909564a5deaaf11a9abbdc913c0a12f5a5617e1146a11f5fb5" prot="public">
+          <name>cEpochSequential</name>
           <initializer>= 0</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da4ff7991e6e08fa42f784b482bb1ca010" prot="public">
-          <name>EpochNode</name>
-          <initializer>= eEpochLayout::EpochSequential  + epoch_seq_num_bits</initializer>
+        <enumvalue id="namespacevt_1_1epoch_1aff6d7581e1d2888909564a5deaaf11a9ac42416b5e5a9257c76fb7a691c7d79be" prot="public">
+          <name>cEpochCategory</name>
+          <initializer>= eEpochColl::cEpochSequential + epoch_seq_coll_num_bits</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da9c44720a0232af689549239e6467e63b" prot="public">
-          <name>EpochCategory</name>
-          <initializer>= eEpochLayout::EpochNode        + node_num_bits</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da9319a32437ae6e2b3fbd7d45ad8de721" prot="public">
-          <name>EpochUser</name>
-          <initializer>= eEpochLayout::EpochCategory    + epoch_category_num_bits</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9dabcd935e88fb4e0eb6e87bf1aeefc9391" prot="public">
-          <name>EpochHasCategory</name>
-          <initializer>= eEpochLayout::EpochUser        + epoch_user_num_bits</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da436a46ce6e3fbea5f62e1c6ef4ef6704" prot="public">
-          <name>EpochIsRooted</name>
-          <initializer>= eEpochLayout::EpochHasCategory + epoch_hcat_num_bits</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="namespacevt_1_1epoch_1a327a45834b567f1268737d5e10b05f9da1715fdc206433ce2885bbe12d0dc9628" prot="public">
-          <name>EpochSentinelEnd</name>
-          <initializer>= eEpochLayout::EpochIsRooted</initializer>
+        <enumvalue id="namespacevt_1_1epoch_1aff6d7581e1d2888909564a5deaaf11a9a87c678c589ab0fbaf738353c3d9ea9d5" prot="public">
+          <name>cEpochIsRooted</name>
+          <initializer>= eEpochColl::cEpochCategory   + epoch_category_num_bits</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
-<para>Epoch layout enum to help with manipuating the bits. </para>        </briefdescription>
+<para>Epoch layout enum for collective epochs to help with manipulating the bits. </para>        </briefdescription>
         <detaileddescription>
 <para>This describes the layout of the epoch used by <computeroutput><ref refid="structvt_1_1epoch_1_1_epoch_manip" kindref="compound">EpochManip</ref></computeroutput> to get/set the bits on an <computeroutput>EpochType</computeroutput> field </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="142" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="142" bodyend="150"/>
+        <location file="src/vt/epoch/epoch.h" line="145" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="145" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespacevt_1_1epoch_1a03454759f2f9572f84e51fdb7d76007d" prot="public" static="no">
+        <name>eEpochRoot</name>
+        <enumvalue id="namespacevt_1_1epoch_1a03454759f2f9572f84e51fdb7d76007dabcd342843facde01d354a2456ae5ed1f" prot="public">
+          <name>rEpochSequential</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacevt_1_1epoch_1a03454759f2f9572f84e51fdb7d76007da19f3b4d1d3a2178e5e4a66f0a260520b" prot="public">
+          <name>rEpochNode</name>
+          <initializer>= eEpochRoot::rEpochSequential + epoch_seq_root_num_bits</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacevt_1_1epoch_1a03454759f2f9572f84e51fdb7d76007da39238912b8dfc520dab52217f960c860" prot="public">
+          <name>rEpochCategory</name>
+          <initializer>= eEpochRoot::rEpochNode       + node_num_bits</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacevt_1_1epoch_1a03454759f2f9572f84e51fdb7d76007daac0bb1e87c328e3165a0114430693cb8" prot="public">
+          <name>rEpochIsRooted</name>
+          <initializer>= eEpochRoot::rEpochCategory   + epoch_category_num_bits</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Epoch layout enum for rooted epochs to help with manipulating the bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>This describes the layout of the epoch used by <computeroutput><ref refid="structvt_1_1epoch_1_1_epoch_manip" kindref="compound">EpochManip</ref></computeroutput> to get/set the bits on an <computeroutput>EpochType</computeroutput> field </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/epoch/epoch.h" line="158" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="158" bodyend="163"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -170,35 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="91" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="91" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="namespacevt_1_1epoch_1a7458ddab6bcfa1b862ce67f7c360ccf6" prot="public" static="yes" mutable="no">
-        <type>constexpr <ref refid="namespacevt_1acaf7da00eb37dfb0c3479a6a982c30ef" kindref="member">BitCountType</ref> const</type>
-        <definition>constexpr BitCountType const vt::epoch::epoch_hcat_num_bits</definition>
-        <argsstring></argsstring>
-        <name>epoch_hcat_num_bits</name>
-        <initializer>= 1</initializer>
-        <briefdescription>
-<para>Number of bits for category flag. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
         <location file="src/vt/epoch/epoch.h" line="93" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="93" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="namespacevt_1_1epoch_1a260058a26881e76efe4f73429fbe642d" prot="public" static="yes" mutable="no">
-        <type>constexpr <ref refid="namespacevt_1acaf7da00eb37dfb0c3479a6a982c30ef" kindref="member">BitCountType</ref> const</type>
-        <definition>constexpr BitCountType const vt::epoch::epoch_user_num_bits</definition>
-        <argsstring></argsstring>
-        <name>epoch_user_num_bits</name>
-        <initializer>= 1</initializer>
-        <briefdescription>
-<para>Number of bits for user flag. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="95" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacevt_1_1epoch_1a8f2bc2bbaa699acd6df3481411c62840" prot="public" static="yes" mutable="no">
         <type>constexpr <ref refid="namespacevt_1acaf7da00eb37dfb0c3479a6a982c30ef" kindref="member">BitCountType</ref> const</type>
@@ -209,27 +180,42 @@
         <briefdescription>
 <para>The number of bits for all types of categories. </para>        </briefdescription>
         <detaileddescription>
-<para>Important: if you add categories to the enum of epoch categories, you must ensure the <computeroutput>epoch_category_num_bits</computeroutput> is sufficiently large. </para>        </detaileddescription>
+<para>Important: if you add new types of epoch headers to the preceding enum, you must ensure that the number of epoch header bits is sufficient to hold all the header types. Important: if you add categories to the enum of epoch categories, you must ensure the <computeroutput>epoch_category_num_bits</computeroutput> is sufficiently large. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="128" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="128" bodyend="-1"/>
+        <location file="src/vt/epoch/epoch.h" line="109" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="109" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="namespacevt_1_1epoch_1aeb9fc097a6399505c620df73473e2a3a" prot="public" static="yes" mutable="no">
+      <memberdef kind="variable" id="namespacevt_1_1epoch_1a7b685f82770a3fcc466184367e691096" prot="public" static="yes" mutable="no">
         <type>constexpr <ref refid="namespacevt_1acaf7da00eb37dfb0c3479a6a982c30ef" kindref="member">BitCountType</ref> const</type>
-        <definition>constexpr BitCountType const vt::epoch::epoch_seq_num_bits</definition>
+        <definition>constexpr BitCountType const vt::epoch::epoch_seq_coll_num_bits</definition>
         <argsstring></argsstring>
-        <name>epoch_seq_num_bits</name>
-        <initializer>= sizeof(<ref refid="namespacevt_1a985a5adf291c34a3ca263b3378388236" kindref="member">EpochType</ref>) * 8 -
-  (epoch_root_num_bits     +
-   epoch_hcat_num_bits     + epoch_user_num_bits +
-   epoch_category_num_bits + node_num_bits)</initializer>
+        <name>epoch_seq_coll_num_bits</name>
+        <initializer>=
+  sizeof(<ref refid="namespacevt_1a985a5adf291c34a3ca263b3378388236" kindref="member">EpochType</ref>) * 8 -
+  (epoch_root_num_bits + epoch_category_num_bits)</initializer>
         <briefdescription>
-<para>The total number of bits remaining the sequential part of the <computeroutput>EpochType</computeroutput>. </para>        </briefdescription>
+<para>The number of sequential ID bits remaining for a collective <computeroutput>EpochType</computeroutput>. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="131" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="131" bodyend="-1"/>
+        <location file="src/vt/epoch/epoch.h" line="129" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacevt_1_1epoch_1a5f5d2cfc3813fcc3fb6a12376caad1a8" prot="public" static="yes" mutable="no">
+        <type>constexpr <ref refid="namespacevt_1acaf7da00eb37dfb0c3479a6a982c30ef" kindref="member">BitCountType</ref> const</type>
+        <definition>constexpr BitCountType const vt::epoch::epoch_seq_root_num_bits</definition>
+        <argsstring></argsstring>
+        <name>epoch_seq_root_num_bits</name>
+        <initializer>=
+  sizeof(<ref refid="namespacevt_1a985a5adf291c34a3ca263b3378388236" kindref="member">EpochType</ref>) * 8 -
+  (epoch_root_num_bits + epoch_category_num_bits + node_num_bits)</initializer>
+        <briefdescription>
+<para>The total number of bits remaining for a rooted <computeroutput>EpochType</computeroutput>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/epoch/epoch.h" line="134" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacevt_1_1epoch_1aa4ce334f32c1c41f1bd652549216938e" prot="public" static="yes" mutable="no">
         <type>constexpr <ref refid="namespacevt_1a985a5adf291c34a3ca263b3378388236" kindref="member">EpochType</ref> const</type>
@@ -238,12 +224,12 @@
         <name>first_epoch</name>
         <initializer>= 1</initializer>
         <briefdescription>
-        </briefdescription>
+<para>The first epoch sequence number. </para>        </briefdescription>
         <detaileddescription>
-<para>The first basic epoch: BasicEpoch, NoCategoryEpoch: </para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="156" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="156" bodyend="-1"/>
+        <location file="src/vt/epoch/epoch.h" line="166" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacevt_1_1epoch_1a13e30a87ab5e94c06b7e41bfc866140c" prot="public" static="yes" mutable="no">
         <type>constexpr <ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">NodeType</ref> const</type>
@@ -257,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch_manip.h" line="58" column="1" bodyfile="src/vt/epoch/epoch_manip.h" bodystart="58" bodyend="-1"/>
+        <location file="src/vt/epoch/epoch.h" line="169" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="169" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacevt_1_1epoch_1a3275d160ddb287e39eb133160dbe1340" prot="public" static="yes" mutable="no">
         <type>constexpr <ref refid="namespacevt_1_1epoch_1a956abe0aceef0d10a988de8acb002c7c" kindref="member">eEpochCategory</ref> const</type>
@@ -272,7 +258,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch_manip.h" line="60" column="1" bodyfile="src/vt/epoch/epoch_manip.h" bodystart="60" bodyend="-1"/>
+        <location file="src/vt/epoch/epoch.h" line="172" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacevt_1_1epoch_1a6f29b37c10475f34608d9f9114afb277" prot="public" static="yes" mutable="no">
+        <type><ref refid="namespacevt_1a985a5adf291c34a3ca263b3378388236" kindref="member">EpochType</ref> const</type>
+        <definition>EpochType const vt::epoch::arch_epoch_coll</definition>
+        <argsstring></argsstring>
+        <name>arch_epoch_coll</name>
+        <initializer>= 0ull</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/epoch/epoch_manip.cc" line="57" column="1" bodyfile="src/vt/epoch/epoch_manip.cc" bodystart="57" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -295,7 +295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/epoch/epoch.h" line="117" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="117" bodyend="119"/>
+        <location file="src/vt/epoch/epoch.h" line="124" column="1" bodyfile="src/vt/epoch/epoch.h" bodystart="124" bodyend="126"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

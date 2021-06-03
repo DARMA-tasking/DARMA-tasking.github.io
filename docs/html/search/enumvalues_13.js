@@ -8,7 +8,6 @@ var searchData=
   ['unreleased',['Unreleased',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa049d696d24fded6f07730c9b85bbf25f',1,'vt::vrt::collection']]],
   ['user',['user',['../structvt_1_1trace_1_1_log.html#ae1c08093fd18967b7d4912d04d6acc3da14b709efcf6184d83649a7b3ce6cf8ca',1,'vt::trace::Log']]],
   ['userdefined',['UserDefined',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a72b44c7e6b2052509331d57b9c94c84aac90d702da275c4b81b75a6a0163bc2bf',1,'vt::vrt::collection::lb']]],
-  ['userepoch',['UserEpoch',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ada1a31742d5ce22b2a4450ba9687b7e7ce',1,'vt::epoch']]],
   ['userevent',['UserEvent',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dab84a8f283221ed88a8bec0fdaf2d13b4',1,'vt::trace']]],
   ['usereventpair',['UserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da93e1a6af5dc75034578e8140d1c4dc1a',1,'vt::trace']]],
   ['userlevelmax',['UserLevelMax',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498bada7b4271cb9b277f573951caa83f8128',1,'vt::sched']]],

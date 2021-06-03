@@ -2,8 +2,9 @@ var searchData=
 [
   ['eenvelopetype',['eEnvelopeType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6c',1,'vt::messaging']]],
   ['eepochcategory',['eEpochCategory',['../namespacevt_1_1epoch.html#a956abe0aceef0d10a988de8acb002c7c',1,'vt::epoch']]],
+  ['eepochcoll',['eEpochColl',['../namespacevt_1_1epoch.html#aff6d7581e1d2888909564a5deaaf11a9',1,'vt::epoch']]],
   ['eepochheader',['eEpochHeader',['../namespacevt_1_1epoch.html#a8cbcd2bf5d3ce987837869c26a1d00ad',1,'vt::epoch']]],
-  ['eepochlayout',['eEpochLayout',['../namespacevt_1_1epoch.html#a327a45834b567f1268737d5e10b05f9d',1,'vt::epoch']]],
+  ['eepochroot',['eEpochRoot',['../namespacevt_1_1epoch.html#a03454759f2f9572f84e51fdb7d76007d',1,'vt::epoch']]],
   ['eeventidbits',['eEventIDBits',['../namespacevt_1_1event.html#ad563011dc9e3e01042df27d00092aceb',1,'vt::event']]],
   ['eeventrecord',['eEventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9',1,'vt::event']]],
   ['egroupidbits',['eGroupIDBits',['../namespacevt_1_1group.html#a5a472f320821bf638e6df82757b71163',1,'vt::group']]],

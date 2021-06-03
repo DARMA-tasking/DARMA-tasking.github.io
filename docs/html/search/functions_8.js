@@ -11,7 +11,6 @@ var searchData=
   ['hangdetectrecv',['hangDetectRecv',['../structvt_1_1term_1_1_termination_detector.html#ad9b79c662481216d0bb70f81b12dfbf8',1,'vt::term::TerminationDetector']]],
   ['hangdetectsend',['hangDetectSend',['../structvt_1_1term_1_1_termination_detector.html#ad863add6716d920778eef1298016a0ea',1,'vt::term::TerminationDetector']]],
   ['hasaction',['hasAction',['../structvt_1_1rdma_1_1_base_typed_handle.html#a465a9836d31034a5f96b5826ae3ba064',1,'vt::rdma::BaseTypedHandle']]],
-  ['hascategory',['hasCategory',['../structvt_1_1epoch_1_1_epoch_manip.html#a57a6313d8f4ffc685ee47b2a881079ac',1,'vt::epoch::EpochManip']]],
   ['hascontext',['hasContext',['../structvt_1_1seq_1_1_tagged_sequencer.html#a5b09f5b9a741dc336f7e5b63223d2ef2',1,'vt::seq::TaggedSequencer::hasContext()'],['../structvt_1_1vrt_1_1collection_1_1_collection_context_holder.html#ab6a68b761d25786dd17cca35604efcba',1,'vt::vrt::collection::CollectionContextHolder::hasContext()'],['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ad94808d98e429e50376a9d1b35de57ee',1,'vt::vrt::collection::CollectionManager::hasContext()']]],
   ['hascoremap',['hasCoreMap',['../structvt_1_1vrt_1_1_virtual_info.html#afe2aa8089ee3fde02c189e473e698eb4',1,'vt::vrt::VirtualInfo']]],
   ['hasdispatch',['hasDispatch',['../structvt_1_1pipe_1_1_pipe_state.html#adbd64a53d60cfe18a7c9994cf2af901b',1,'vt::pipe::PipeState']]],
