@@ -332,6 +332,7 @@ var searchData=
   ['vt_5fno_5fassert_5fstack',['vt_no_assert_stack',['../structvt_1_1arguments_1_1_app_config.html#af5a38d00691ff72e08847ab5091f6345',1,'vt::arguments::AppConfig']]],
   ['vt_5fno_5fcolor',['vt_no_color',['../structvt_1_1arguments_1_1_app_config.html#ac3821fd047fac387f9086b165f341bf6',1,'vt::arguments::AppConfig']]],
   ['vt_5fno_5fdetect_5fhang',['vt_no_detect_hang',['../structvt_1_1arguments_1_1_app_config.html#a5cab0e03f494700d6b27aff2c8a1399c',1,'vt::arguments::AppConfig']]],
+  ['vt_5fno_5fsigbus',['vt_no_sigbus',['../structvt_1_1arguments_1_1_app_config.html#a897190a29b558e54026b8a3b471f4f79',1,'vt::arguments::AppConfig']]],
   ['vt_5fno_5fsigint',['vt_no_sigint',['../structvt_1_1arguments_1_1_app_config.html#a1547bc236f0192f89dec89409bdfeabc',1,'vt::arguments::AppConfig']]],
   ['vt_5fno_5fsigsegv',['vt_no_sigsegv',['../structvt_1_1arguments_1_1_app_config.html#a819ba88b195cfd735798fbcb18e36408',1,'vt::arguments::AppConfig']]],
   ['vt_5fno_5fstack',['vt_no_stack',['../structvt_1_1arguments_1_1_app_config.html#a9738d4749047b9a796d7db8a20e29182',1,'vt::arguments::AppConfig']]],
