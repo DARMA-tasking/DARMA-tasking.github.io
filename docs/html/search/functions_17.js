@@ -18,6 +18,7 @@ var searchData=
   ['withexplicittask',['withExplicitTask',['../structvt_1_1runnable_1_1_runnable_maker.html#abe4aca5620c53dc9e035c3a60fe8c76b',1,'vt::runnable::RunnableMaker']]],
   ['withlbstats',['withLBStats',['../structvt_1_1runnable_1_1_runnable_maker.html#a92f6e8577ac1a9828a09bc64fe665b32',1,'vt::runnable::RunnableMaker::withLBStats(ElmT *elm, MsgU *msg)'],['../structvt_1_1runnable_1_1_runnable_maker.html#a2d59781f97ad319ceefcde673339364c',1,'vt::runnable::RunnableMaker::withLBStats(ElmT *elm)']]],
   ['withlbstatsvoidmsg',['withLBStatsVoidMsg',['../structvt_1_1runnable_1_1_runnable_maker.html#acce9921f014ab7220f9d7b3ca57e75d5',1,'vt::runnable::RunnableMaker']]],
+  ['withmemused',['withMemUsed',['../namespacecheckpoint_1_1dispatch.html#a334d786918f1779e827025ad338bbac9',1,'checkpoint::dispatch']]],
   ['withtag',['withTag',['../structvt_1_1runnable_1_1_runnable_maker.html#a3a22a3b3952eb54f07e610000f833d7e',1,'vt::runnable::RunnableMaker']]],
   ['withtdepoch',['withTDEpoch',['../structvt_1_1runnable_1_1_runnable_maker.html#a60b98132fcf31de89854ca70c087eb0e',1,'vt::runnable::RunnableMaker']]],
   ['withtdepochfrommsg',['withTDEpochFromMsg',['../structvt_1_1runnable_1_1_runnable_maker.html#ab1d3e7c7e5da4cf309a58b0e4a17070e',1,'vt::runnable::RunnableMaker']]],

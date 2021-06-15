@@ -29,7 +29,7 @@ var searchData=
   ['statmsg',['StatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea6f7b858bb59c79485a8babe54de62e23',1,'vt::trace']]],
   ['statsmaplb',['StatsMapLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5cabe5786565be3f6ef20bb58481695b652',1,'vt::vrt::collection::balance']]],
   ['std',['std',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c',1,'vt::vrt::collection::lb']]],
-  ['sum',['Sum',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5',1,'vt::runtime::component::Sum()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea1d623b89683f9ce4e074de1676d12416',1,'vt::vrt::collection::lb::sum()']]],
+  ['sum',['sum',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea1d623b89683f9ce4e074de1676d12416',1,'vt::vrt::collection::lb::sum()'],['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5',1,'vt::runtime::component::Sum()']]],
   ['support',['support',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682',1,'vt::messaging']]],
   ['surrogateblock',['SurrogateBlock',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da1804069086100b7787935bb9deab7302',1,'vt::trace']]],
   ['syncinform',['SyncInform',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a38645ae954fc9b85e4c8f020eb0234aaa7228d42ce6e32b9d69a58878e39ecfa5',1,'vt::vrt::collection::lb']]],
