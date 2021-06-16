@@ -111,7 +111,7 @@ var searchData=
   ['blocked_5fon_5fnode_5f',['blocked_on_node_',['../structvt_1_1seq_1_1_seq_node.html#a92c37e08aca5bd90a86870ddf6049cd1',1,'vt::seq::SeqNode']]],
   ['blockmapdenseflatindex',['blockMapDenseFlatIndex',['../namespacevt_1_1mapping.html#abaff3ea69ef07a3762befc3628b8b577',1,'vt::mapping']]],
   ['blockmaptype',['BlockMapType',['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804.html#a279e6bcca5709c1376785e6b36b5bce3',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()'],['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371.html#a25cf02d8b5c04bf66ef67778fe5df36a',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()'],['../structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4.html#ab057a004cf95904add5dfbcc354a177b',1,'vt::vrt::collection::value &gt;&gt;::BlockMapType()']]],
-  ['blockonasyncop',['blockOnAsyncOp',['../structvt_1_1messaging_1_1_active_messenger.html#a74894de2846aae7b10e35ef8b71aa601',1,'vt::messaging::ActiveMessenger']]],
+  ['blockonasyncop',['blockOnAsyncOp',['../structvt_1_1messaging_1_1_active_messenger.html#add04ad2e4c5d7578410debbb0fa93838',1,'vt::messaging::ActiveMessenger']]],
   ['blue',['blue',['../namespacevt_1_1debug.html#a26b73aa7586b78f4c148b26e5414ebe1',1,'vt::debug']]],
   ['bocinitmsg',['BocInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea73578cc48815262a4bbdaa2da8bdbc60',1,'vt::trace']]],
   ['bold',['bold',['../namespacevt_1_1debug.html#a7a1e7bc4a250917d20840a4d48e27388',1,'vt::debug']]],

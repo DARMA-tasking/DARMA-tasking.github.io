@@ -259,7 +259,7 @@ var searchData=
   ['registeractivefunctor',['registerActiveFunctor',['../namespacevt_1_1auto__registry.html#ab7e130e8790e4df4dc1d35476d1736e0',1,'vt::auto_registry']]],
   ['registeractivegen',['registerActiveGen',['../namespacevt_1_1auto__registry.html#aa16ec3feb8483e91ba4775b634ba0c65',1,'vt::auto_registry']]],
   ['registeractivehandler',['registerActiveHandler',['../structvt_1_1registry_1_1_registry.html#ad4fdbf2cfbe4e852c5556435efe4255f',1,'vt::registry::Registry']]],
-  ['registerasyncop',['registerAsyncOp',['../structvt_1_1messaging_1_1_active_messenger.html#a4d7cf846208fcb80cbc941005a7bfe9b',1,'vt::messaging::ActiveMessenger']]],
+  ['registerasyncop',['registerAsyncOp',['../structvt_1_1messaging_1_1_active_messenger.html#a3e26d32c550adc1f3589aef49fcfd06e',1,'vt::messaging::ActiveMessenger']]],
   ['registerbasecollective',['registerBaseCollective',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a6e869a6e38c7fe4e176814ca93ecf36e',1,'vt::objgroup::ObjGroupManager::registerBaseCollective()'],['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html#a3504fe25af8c839995a98d445af37282',1,'vt::objgroup::proxy::Proxy::registerBaseCollective()']]],
   ['registercallback',['registerCallback',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a27f1aea903f8e05655eb84ae1474c729',1,'vt::pipe::PipeManagerBase']]],
   ['registercollectivetyped',['registerCollectiveTyped',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#ad851bdc250182163eb4996888ba1b863',1,'vt::rdma::RDMAManager']]],

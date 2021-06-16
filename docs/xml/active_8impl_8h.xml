@@ -6460,44 +6460,9 @@
 <codeline lineno="549"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a7b5a8fc73617491423bf68c4fbe1e2a2" kindref="member">setupEpochMsg</ref>(msg.<ref refid="structvt_1_1messaging_1_1_msg_shared_ptr_1a6e6e25e087e662d9171fa20b5092efdd" kindref="member">get</ref>());</highlight></codeline>
 <codeline lineno="550"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="551"><highlight class="normal"></highlight></codeline>
-<codeline lineno="552"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="553" refid="structvt_1_1messaging_1_1_active_messenger_1a4d7cf846208fcb80cbc941005a7bfe9b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a4d7cf846208fcb80cbc941005a7bfe9b" kindref="member">ActiveMessenger::registerAsyncOp</ref>(std::unique_ptr&lt;T&gt;<sp/>in)<sp/>{</highlight></codeline>
-<codeline lineno="554"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a2f3fd6978007e5740861bd05c28dd588" kindref="member">in_progress_ops</ref>.emplace(<ref refid="structvt_1_1messaging_1_1_async_op_wrapper" kindref="compound">AsyncOpWrapper</ref>{std::move(in)});</highlight></codeline>
-<codeline lineno="555"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"></highlight></codeline>
-<codeline lineno="557"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="558" refid="structvt_1_1messaging_1_1_active_messenger_1a74894de2846aae7b10e35ef8b71aa601" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a74894de2846aae7b10e35ef8b71aa601" kindref="member">ActiveMessenger::blockOnAsyncOp</ref>(std::unique_ptr&lt;T&gt;<sp/>op)<sp/>{</highlight></codeline>
-<codeline lineno="559"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TA<sp/>=<sp/>sched::ThreadAction;</highlight></codeline>
-<codeline lineno="561"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tid<sp/>=<sp/>TA::getActiveThreadID();</highlight></codeline>
-<codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tid<sp/>==<sp/>no_thread_id)<sp/>{</highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="namespacevt_1aa17c6eae35e7e41a8b11d4047b7c0839" kindref="member">theConfig</ref>()-&gt;vt_ult_disable)<sp/>{</highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight></codeline>
-<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;You<sp/>have<sp/>disabled<sp/>user-level<sp/>threads<sp/>with<sp/>--vt_ult_disable,&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>please<sp/>enable<sp/>to<sp/>block<sp/>on<sp/>a<sp/>async<sp/>operation&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight><highlight class="stringliteral">&quot;Trying<sp/>to<sp/>block<sp/>a<sp/>thread<sp/>on<sp/>an<sp/>AsyncOp<sp/>when<sp/>no<sp/>thread<sp/>is<sp/>active&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="572"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="573"><highlight class="normal"></highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a2f3fd6978007e5740861bd05c28dd588" kindref="member">in_progress_ops</ref>.emplace(<ref refid="structvt_1_1messaging_1_1_async_op_wrapper" kindref="compound">AsyncOpWrapper</ref>{std::move(op),<sp/>tid});</highlight></codeline>
-<codeline lineno="575"><highlight class="normal"></highlight></codeline>
-<codeline lineno="576"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Suspend<sp/>the<sp/>currently<sp/>running<sp/>thread!</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="577"><highlight class="normal"><sp/><sp/>TA::suspend();</highlight></codeline>
-<codeline lineno="578"><highlight class="normal"></highlight></codeline>
-<codeline lineno="579"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="580"><highlight class="normal"><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight></codeline>
-<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Using<sp/>a<sp/>blocking<sp/>async<sp/>operation<sp/>without<sp/>threads<sp/>is<sp/>not<sp/>allowed.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Please<sp/>enable<sp/>fcontext<sp/>in<sp/>cmake<sp/>and<sp/>re-run&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="583"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="584"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="585"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="586"><highlight class="normal"></highlight></codeline>
-<codeline lineno="587"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt::messaging</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="588"><highlight class="normal"></highlight></codeline>
-<codeline lineno="589"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_MESSAGING_ACTIVE_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt::messaging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_MESSAGING_ACTIVE_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="src/vt/messaging/active.impl.h"/>
   </compounddef>

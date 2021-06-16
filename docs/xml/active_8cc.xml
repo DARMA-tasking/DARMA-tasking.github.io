@@ -4969,7 +4969,40 @@
 <codeline lineno="1277"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a8b5994a5aedabc64006ce820db2e938c" kindref="member">theRegistry</ref>()-&gt;<ref refid="structvt_1_1registry_1_1_registry_1aa251ec78d5033c6d05139d598789aa6b" kindref="member">unregisterHandlerFn</ref>(han,<sp/>tag);</highlight></codeline>
 <codeline lineno="1278"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1280"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::messaging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a3e26d32c550adc1f3589aef49fcfd06e" kindref="member">ActiveMessenger::registerAsyncOp</ref>(std::unique_ptr&lt;AsyncOp&gt;<sp/>in)<sp/>{</highlight></codeline>
+<codeline lineno="1281"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a2f3fd6978007e5740861bd05c28dd588" kindref="member">in_progress_ops</ref>.emplace(<ref refid="structvt_1_1messaging_1_1_async_op_wrapper" kindref="compound">AsyncOpWrapper</ref>{std::move(in)});</highlight></codeline>
+<codeline lineno="1282"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1284"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1add04ad2e4c5d7578410debbb0fa93838" kindref="member">ActiveMessenger::blockOnAsyncOp</ref>(std::unique_ptr&lt;AsyncOp&gt;<sp/>op)<sp/>{</highlight></codeline>
+<codeline lineno="1285"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TA<sp/>=<sp/>sched::ThreadAction;</highlight></codeline>
+<codeline lineno="1287"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tid<sp/>=<sp/>TA::getActiveThreadID();</highlight></codeline>
+<codeline lineno="1288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1289"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tid<sp/>==<sp/>no_thread_id)<sp/>{</highlight></codeline>
+<codeline lineno="1290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="namespacevt_1aa17c6eae35e7e41a8b11d4047b7c0839" kindref="member">theConfig</ref>()-&gt;vt_ult_disable)<sp/>{</highlight></codeline>
+<codeline lineno="1291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight></codeline>
+<codeline lineno="1292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;You<sp/>have<sp/>disabled<sp/>user-level<sp/>threads<sp/>with<sp/>--vt_ult_disable,&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>please<sp/>enable<sp/>to<sp/>block<sp/>on<sp/>an<sp/>async<sp/>operation&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="1295"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="1296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight><highlight class="stringliteral">&quot;Trying<sp/>to<sp/>block<sp/>a<sp/>thread<sp/>on<sp/>an<sp/>AsyncOp<sp/>when<sp/>no<sp/>thread<sp/>is<sp/>active&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1297"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1298"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="1299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1300"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1messaging_1_1_active_messenger_1a2f3fd6978007e5740861bd05c28dd588" kindref="member">in_progress_ops</ref>.emplace(<ref refid="structvt_1_1messaging_1_1_async_op_wrapper" kindref="compound">AsyncOpWrapper</ref>{std::move(op),<sp/>tid});</highlight></codeline>
+<codeline lineno="1301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1302"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Suspend<sp/>the<sp/>currently<sp/>running<sp/>thread!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1303"><highlight class="normal"><sp/><sp/>TA::suspend();</highlight></codeline>
+<codeline lineno="1304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1305"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1306"><highlight class="normal"><sp/><sp/><ref refid="hard__error_8h_1afc4cdafa6d3b99f94c26a5d4290999a9" kindref="member">vtAbort</ref>(</highlight></codeline>
+<codeline lineno="1307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Using<sp/>a<sp/>blocking<sp/>async<sp/>operation<sp/>without<sp/>threads<sp/>is<sp/>not<sp/>allowed.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Please<sp/>enable<sp/>fcontext<sp/>in<sp/>cmake<sp/>and<sp/>re-run&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1309"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="1310"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1311"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1313"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>vt::messaging</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/messaging/active.cc"/>
   </compounddef>
