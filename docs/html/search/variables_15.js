@@ -79,6 +79,7 @@ var searchData=
   ['vt_5flb_5fquiet',['vt_lb_quiet',['../structvt_1_1arguments_1_1_app_config.html#a7942c44d537f66f507209de26cbbb55d',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fshow_5fspec',['vt_lb_show_spec',['../structvt_1_1arguments_1_1_app_config.html#aeec1d5697a4bfc5af3a8b763b88ae964',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fstats',['vt_lb_stats',['../structvt_1_1arguments_1_1_app_config.html#ae068940c3112fa20643649e22ecf6d20',1,'vt::arguments::AppConfig']]],
+  ['vt_5flb_5fstats_5fcompress',['vt_lb_stats_compress',['../structvt_1_1arguments_1_1_app_config.html#a10f226c0ade83dd09ca7ad437ffdef02',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fstats_5fdir',['vt_lb_stats_dir',['../structvt_1_1arguments_1_1_app_config.html#adb78fa14bd7976375bfba0e01852729f',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fstats_5fdir_5fin',['vt_lb_stats_dir_in',['../structvt_1_1arguments_1_1_app_config.html#a8e3afb199f0e872d2840a5f27bcbd70f',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fstats_5ffile',['vt_lb_stats_file',['../structvt_1_1arguments_1_1_app_config.html#a0e105137c152e366877505914c51c467',1,'vt::arguments::AppConfig']]],

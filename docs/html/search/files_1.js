@@ -7,6 +7,7 @@ var searchData=
   ['base_2efwd_2eh',['base.fwd.h',['../base_8fwd_8h.html',1,'']]],
   ['base_2eh',['base.h',['../src_2vt_2context_2runnable__context_2base_8h.html',1,'(Global Namespace)'],['../src_2vt_2runtime_2component_2base_8h.html',1,'(Global Namespace)'],['../src_2vt_2vrt_2base_2base_8h.html',1,'(Global Namespace)'],['../src_2vt_2vrt_2collection_2types_2base_8h.html',1,'(Global Namespace)'],['../lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h.html',1,'(Global Namespace)']]],
   ['base_2eimpl_2eh',['base.impl.h',['../base_8impl_8h.html',1,'']]],
+  ['base_5fappender_2eh',['base_appender.h',['../base__appender_8h.html',1,'']]],
   ['base_5fcollection_5felm_5fproxy_2eh',['base_collection_elm_proxy.h',['../base__collection__elm__proxy_8h.html',1,'']]],
   ['base_5fcollection_5felm_5fproxy_2eimpl_2eh',['base_collection_elm_proxy.impl.h',['../base__collection__elm__proxy_8impl_8h.html',1,'']]],
   ['base_5fcollection_5fproxy_2eh',['base_collection_proxy.h',['../base__collection__proxy_8h.html',1,'']]],

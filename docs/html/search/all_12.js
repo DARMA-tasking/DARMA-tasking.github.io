@@ -1,6 +1,7 @@
 var searchData=
 [
   ['quadrillions',['Quadrillions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a903b4b27ad12bd1c09261a7eeab2a9b5',1,'vt::runtime::component']]],
+  ['quality_5f',['quality_',['../structvt_1_1util_1_1compress_1_1_compressor.html#a3a880299b41bc07ba175cd65aa1b7fd2',1,'vt::util::compress::Compressor']]],
   ['quantile',['quantile',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#afbaecd0105590bf33bbf73611fea5a5c',1,'vt::util::adt::HistogramApprox']]],
   ['quantitytype',['QuantityType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a3f57312926295ad8d55bbe6d8d74e5a1',1,'vt::vrt::collection::lb::BaseLB']]],
   ['queryindexcontext',['queryIndexContext',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a5364a7039d323f3733b6ab1816cf61d4',1,'vt::vrt::collection::CollectionManager']]],

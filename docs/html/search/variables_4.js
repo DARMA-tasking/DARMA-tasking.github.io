@@ -1,6 +1,7 @@
 var searchData=
 [
   ['d',['D',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#afcfe54a5e5844f7483cd730c9970fe36',1,'vt::term::ds::TermDS']]],
+  ['d_5f',['d_',['../structvt_1_1util_1_1json_1_1_decompression_input_container.html#a2798121aebac93d48b7d01e3950091d5',1,'vt::util::json::DecompressionInputContainer']]],
   ['data',['data',['../structvt_1_1location_1_1_location_coord.html#aa94c83bab2f01365b14852e7b80e6aec',1,'vt::location::LocationCoord::data()'],['../structvt_1_1trace_1_1_log.html#ac79b001b6167a37e337bc9d704af8535',1,'vt::trace::Log::data()']]],
   ['data_5f',['data_',['../structvt_1_1util_1_1adt_1_1_union_base.html#a3badf6a022a698dc00937b3df621caf8',1,'vt::util::adt::UnionBase']]],
   ['data_5fbase_5f',['data_base_',['../structvt_1_1rdma_1_1_holder.html#a347938e7cc24c482672fc73ed7be9406',1,'vt::rdma::Holder']]],
@@ -12,6 +13,7 @@ var searchData=
   ['data_5ftype',['data_type',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html#abf36342ab6f92372bf13cf35be7bbb25',1,'vt::trace::Log::Data::SysData::data_type()'],['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a74f45e93662407f9b432a640807472c9',1,'vt::trace::Log::Data::UserData::data_type()']]],
   ['data_5fwindow_5f',['data_window_',['../structvt_1_1rdma_1_1_holder.html#a05f6eae32db15a58ef6cced25fde7980',1,'vt::rdma::Holder']]],
   ['dealloc_5fuser_5fbuf',['dealloc_user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a1d0de0586d485b2b6af7daacafa7ea0d',1,'vt::messaging::PendingRecv::dealloc_user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#ad1cd80fe79577e1a22177ad1f49f8c0d',1,'vt::messaging::InProgressDataIRecv::dealloc_user_buf()']]],
+  ['dec_5f',['dec_',['../structvt_1_1util_1_1compress_1_1_decompressor.html#ae65156f7178d43c24eeacf68b157308f',1,'vt::util::compress::Decompressor']]],
   ['default_5fcomm_5f',['default_comm_',['../structvt_1_1group_1_1_info_coll.html#a22f10b499eb9a012071bc5c8aeaaec6a',1,'vt::group::InfoColl::default_comm_()'],['../structvt_1_1group_1_1_group_manager.html#a2f40ded22e7e9bde566dffcbdff10ded',1,'vt::group::GroupManager::default_comm_()']]],
   ['default_5fcore_5f',['default_core_',['../structvt_1_1vrt_1_1_virtual_info.html#af708e80cfd5b57bba690af59d0eead21',1,'vt::vrt::VirtualInfo']]],
   ['default_5fcreator_5f',['default_creator_',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder.html#abd3a6a6a1eda5083b97348c16ef58858',1,'vt::collective::reduce::detail::ReduceScopeHolder']]],

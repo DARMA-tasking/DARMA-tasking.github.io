@@ -50,6 +50,7 @@ var searchData=
   ['activevrttypedfntype',['ActiveVrtTypedFnType',['../namespacevt_1_1vrt.html#a14077459ea3367e5834151d314ff4bc8',1,'vt::vrt']]],
   ['adapt',['Adapt',['../namespacevt_1_1mapping.html#ab3efa0ad45a85d80210d4acef3bb6c22',1,'vt::mapping']]],
   ['adaptertype',['AdapterType',['../structvt_1_1auto__registry_1_1_runnable_gen.html#a19d340c580c1b042a173e22650f88cd7',1,'vt::auto_registry::RunnableGen::AdapterType()'],['../structvt_1_1auto__registry_1_1_runnable_functor.html#a9453e4491db65054b10e21b12658b1bc',1,'vt::auto_registry::RunnableFunctor::AdapterType()']]],
+  ['adaptortype',['AdaptorType',['../structvt_1_1util_1_1json_1_1_appender.html#ae7a25e7544d8529cb466651fff13db0b',1,'vt::util::json::Appender']]],
   ['all_5ftrue',['all_true',['../namespacevt_1_1util.html#a3169b1fa334a1e8fa2326b8db648e446',1,'vt::util']]],
   ['alloctype',['AllocType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#af699b4961903ebe28d478088eae9b60a',1,'vt::term::interval::IntegralSetBase']]],
   ['andop',['AndOp',['../namespacevt_1_1collective.html#ae6f54eb36ce2d4203174e55167c4cd87',1,'vt::collective']]],

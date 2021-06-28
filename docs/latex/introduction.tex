@@ -877,24 +877,149 @@ When LB is invoked in {\bfseries {\itshape vt}}, the \hyperlink{lb-manager}{LB M
 The {\ttfamily Node\+Stats} component, after collecting statistics from the running program, can dump these to files in a V\+OM file (Virtual Object Map). As indicated by the name, the V\+OM file specifies the mapping of object to node for each phase along with statistics for each object (computation time and communication load).
 
 To output V\+OM files, pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats} to enable output along with {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+dir=$<$my-\/directory$>$} and {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+file=$<$my-\/base-\/name$>$} to control the directory the files are generated along with the base file name. With this enabled, {\bfseries {\itshape vt}} will generate a file for each node that contains the statistics and mapping.\hypertarget{node-stats_stats-file-format}{}\subsubsection{File Format}\label{node-stats_stats-file-format}
-Each line in the file will one of two formats. The first line is a computation time line for each phase, that breaks time down into subphases\+:
+The V\+OM files are output in J\+S\+ON format, either compressed with brotli compression (default on) or pure J\+S\+ON if the argument {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+compress} is set to {\ttfamily false}.
+
+The J\+S\+ON files contain an array of {\ttfamily phases} that have been captured by {\bfseries {\itshape vt}} and output to the file. Each phase has an {\ttfamily id} indicating which phase it was while the application was running. Each phase also has an array of {\ttfamily tasks} that represent work that was done during that phase. Each task has a {\ttfamily time}, {\ttfamily resource}, {\ttfamily node}, {\ttfamily entity}, and optionally a list of {\ttfamily subphases}. The {\ttfamily entity} contains information about the task that performed this work. If that {\ttfamily entity} is a virtual collection object, it will specify the unique {\ttfamily id} for the object, and optionally the {\ttfamily index}, {\ttfamily home}, and {\ttfamily collection\+\_\+id} for that object.
 
 
 \begin{DoxyCode}
-<phase>, <object-id>, <time-in-seconds> <#-of-subphases> '[' [<subphase-time-1>] ... [<subphase-time-N>]
-       ']'
+\{
+    "phases": [
+        \{
+            "id": 0,
+            "tasks": [
+                \{
+                    "entity": \{
+                        "collection\_id": 7,
+                        "home": 0,
+                        "id": 12884901888,
+                        "index": [
+                            3
+                        ],
+                        "type": "object"
+                    \},
+                    "node": 0,
+                    "resource": "cpu",
+                    "subphases": [
+                        \{
+                            "id": 0,
+                            "time": 0.014743804931640625
+                        \}
+                    ],
+                    "time": 0.014743804931640625
+                \},
+                \{
+                    "entity": \{
+                        "collection\_id": 7,
+                        "home": 0,
+                        "id": 4294967296,
+                        "index": [
+                            1
+                        ],
+                        "type": "object"
+                    \},
+                    "node": 0,
+                    "resource": "cpu",
+                    "subphases": [
+                        \{
+                            "id": 0,
+                            "time": 0.013672113418579102
+                        \}
+                    ],
+                    "time": 0.013672113418579102
+                \}
+            ]
+        \},
+        \{
+            "id": 1,
+            "tasks": [
+                \{
+                    "entity": \{
+                        "collection\_id": 7,
+                        "home": 0,
+                        "id": 12884901888,
+                        "index": [
+                            3
+                        ],
+                        "type": "object"
+                    \},
+                    "node": 0,
+                    "resource": "cpu",
+                    "subphases": [
+                        \{
+                            "id": 0,
+                            "time": 0.014104127883911133
+                        \}
+                    ],
+                    "time": 0.014104127883911133
+                \}
+            ]
+        \}
+    ]
+\}
 \end{DoxyCode}
 
 
-The second line format is a communication line\+:
+Each phase in the file may also have a {\ttfamily communications} array that specify any communication between tasks that occurred during the phase. Each communication has {\ttfamily type}, which is described below in the following table. Additionally, it specifies the {\ttfamily bytes}, number of {\ttfamily messages}, and the two entities that were involved in the operator as {\ttfamily to} and {\ttfamily from}. The entities may be of different types, like an {\ttfamily object} or {\ttfamily node} depending on the type of communication.
 
 
 \begin{DoxyCode}
-<phase>, <object-id1-to/recv>, <object-id2-from/send>, <num-bytes>, <comm-type=\{1..6\}>
+\{
+    "phases": [
+        \{
+            "communications": [
+                \{
+                    "bytes": 262.0,
+                    "from": \{
+                        "home": 1,
+                        "id": 1,
+                        "type": "object"
+                    \},
+                    "messages": 1,
+                    "to": \{
+                        "home": 0,
+                        "id": 4294967296,
+                        "type": "object"
+                    \},
+                    "type": "SendRecv"
+                \},
+                \{
+                    "bytes": 96.0,
+                    "from": \{
+                        "home": 0,
+                        "id": 4294967296,
+                        "type": "object"
+                    \},
+                    "messages": 1,
+                    "to": \{
+                        "id": 1,
+                        "type": "node"
+                    \},
+                    "type": "CollectionToNode"
+                \},
+                \{
+                    "bytes": 259.0,
+                    "from": \{
+                        "id": 0,
+                        "type": "node"
+                    \},
+                    "messages": 1,
+                    "to": \{
+                        "home": 0,
+                        "id": 0,
+                        "type": "object"
+                    \},
+                    "type": "NodeToCollection"
+                \}
+            ],
+            "id": 0
+        \}
+    ]
+\}
 \end{DoxyCode}
 
 
-Where {\ttfamily $<$comm-\/type$>$} is the type of communication occurred. The type of communication lines up the enum {\ttfamily \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a9cc6c6884ca0416dae824e9204093c57}{vt\+::vrt\+::collection\+::balance\+::\+Comm\+Category}} in the code.
+The type of communication lines up with the enum {\ttfamily \hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a9cc6c6884ca0416dae824e9204093c57}{vt\+::vrt\+::collection\+::balance\+::\+Comm\+Category}} in the code.
 
 \tabulinesep=1mm
 \begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}

@@ -65,6 +65,7 @@ var searchData=
   ['serializeparent_5ft',['serializeParent_t',['../structcheckpoint_1_1_serializable_traits.html#a38585e5b9aa0653c08ff48504e922ad5',1,'checkpoint::SerializableTraits']]],
   ['serializerdispatch',['SerializerDispatch',['../namespacecheckpoint_1_1dispatch.html#ae3a710db2b07fd1322ab9e6b3bbf45b4',1,'checkpoint::dispatch']]],
   ['serializerequired',['SerializeRequired',['../namespacevt.html#a9e60e2e8929828639383ac1d6643384d',1,'vt']]],
+  ['serializertype',['SerializerType',['../structvt_1_1util_1_1json_1_1_appender.html#a26808926bcd93d8f2b7d3d6ec279cc95',1,'vt::util::json::Appender']]],
   ['serializesizertype',['SerializeSizerType',['../namespacevt_1_1messaging.html#ad46de1ccda6ed95e8bb11e85c28be878',1,'vt::messaging']]],
   ['serializesupported',['SerializeSupported',['../namespacevt.html#a3862b8e3f67ab03f3a4313d828592fa9',1,'vt']]],
   ['serializethis_5ft',['serializeThis_t',['../structcheckpoint_1_1_serializable_traits.html#ac81eb64532a65d97dc995e582ef708ad',1,'checkpoint::SerializableTraits']]],
