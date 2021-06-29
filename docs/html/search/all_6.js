@@ -124,7 +124,6 @@ var searchData=
   ['envelope_2eh',['envelope.h',['../envelope_2envelope_8h.html',1,'(Global Namespace)'],['../envelope_8h.html',1,'(Global Namespace)']]],
   ['envelope_5fbase_2eh',['envelope_base.h',['../envelope__base_8h.html',1,'']]],
   ['envelope_5fextended_2eh',['envelope_extended.h',['../envelope__extended_8h.html',1,'']]],
-  ['envelope_5fextended_2eimpl_2eh',['envelope_extended.impl.h',['../envelope__extended_8impl_8h.html',1,'']]],
   ['envelope_5fextended_5futil_2eh',['envelope_extended_util.h',['../envelope__extended__util_8h.html',1,'']]],
   ['envelope_5fextended_5futil_2eimpl_2eh',['envelope_extended_util.impl.h',['../envelope__extended__util_8impl_8h.html',1,'']]],
   ['envelope_5fget_2eh',['envelope_get.h',['../envelope__get_8h.html',1,'']]],
