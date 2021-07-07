@@ -204,6 +204,7 @@ var searchData=
   ['getloadphasecount',['getLoadPhaseCount',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a300b1f891b3ce2a664e65cf8c9023dbd',1,'vt::vrt::collection::balance::ElementStats']]],
   ['getloadprofile',['getLoadProfile',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#a9c4cc1760d2a176ea190cd055b121ec2',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['getloadprofilemove',['getLoadProfileMove',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#a2f16402fb9c14fb36a378985919b35f0',1,'vt::vrt::collection::lb::GreedyPayload']]],
+  ['getlocalindices',['getLocalIndices',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a0708d6144e7beea89e4f07fae88e16fc',1,'vt::vrt::collection::CollectionManager']]],
   ['getlocation',['getLocation',['../structvt_1_1location_1_1_entity_location_coord.html#a129f501be83c7fceb47466c34d733248',1,'vt::location::EntityLocationCoord']]],
   ['getlocationhandler',['getLocationHandler',['../structvt_1_1location_1_1_entity_location_coord.html#a42978b37cb0a0847f929f49e6286e5bc',1,'vt::location::EntityLocationCoord']]],
   ['getlocfromnode',['getLocFromNode',['../structvt_1_1location_1_1_entity_msg.html#a38c36e0dd8a9207defaf44458a151d61',1,'vt::location::EntityMsg']]],
