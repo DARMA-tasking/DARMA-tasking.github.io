@@ -752,7 +752,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/dispatch/dispatch.impl.h" line="276" column="3" bodyfile="src/checkpoint/dispatch/dispatch.impl.h" bodystart="276" bodyend="280" declfile="src/checkpoint/dispatch/dispatch.h" declline="203" declcolumn="3"/>
+        <location file="src/checkpoint/dispatch/dispatch.impl.h" line="276" column="3" bodyfile="src/checkpoint/dispatch/dispatch.impl.h" bodystart="276" bodyend="283" declfile="src/checkpoint/dispatch/dispatch.h" declline="203" declcolumn="3"/>
       </memberdef>
       <memberdef kind="function" id="dispatch_8h_1a1830f5dccc7209dc2bbb3b7ac238c36a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -781,7 +781,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/dispatch/dispatch.impl.h" line="283" column="6" bodyfile="src/checkpoint/dispatch/dispatch.impl.h" bodystart="283" bodyend="285" declfile="src/checkpoint/dispatch/dispatch.h" declline="206" declcolumn="6"/>
+        <location file="src/checkpoint/dispatch/dispatch.impl.h" line="286" column="6" bodyfile="src/checkpoint/dispatch/dispatch.impl.h" bodystart="286" bodyend="288" declfile="src/checkpoint/dispatch/dispatch.h" declline="206" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1066,18 +1066,21 @@
 <codeline lineno="275"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
 <codeline lineno="276"><highlight class="normal">T*<sp/>deserializeType(SerialByteType*<sp/>data,<sp/>SerialByteType*<sp/>allocBuf)<sp/>{</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mem<sp/>=<sp/>allocBuf<sp/>?<sp/>allocBuf<sp/>:<sp/>Standard::allocate&lt;T&gt;();</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/>T*<sp/>t_buf<sp/>=<sp/>Standard::construct&lt;T&gt;(mem);</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Standard::unpack&lt;T,<sp/>UnpackerBuffer&lt;buffer::UserBuffer&gt;&gt;(t_buf,<sp/>data);</highlight></codeline>
-<codeline lineno="280"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deserializeType(InPlaceTag,<sp/>SerialByteType*<sp/>data,<sp/>T*<sp/>t)<sp/>{</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/>Standard::unpack&lt;T,<sp/>UnpackerBuffer&lt;buffer::UserBuffer&gt;&gt;(t,<sp/>data);</highlight></codeline>
-<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight></codeline>
-<codeline lineno="287"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>checkpoint::dispatch<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal"></highlight></codeline>
-<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_CHECKPOINT_DISPATCH_DISPATCH_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>t_buf<sp/>=<sp/>std::unique_ptr&lt;T&gt;(Standard::construct&lt;T&gt;(mem));</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/>T*<sp/>traverser<sp/>=</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>Standard::unpack&lt;T,<sp/>UnpackerBuffer&lt;buffer::UserBuffer&gt;&gt;(t_buf.get(),<sp/>data);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/>t_buf.release();</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>traverser;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deserializeType(InPlaceTag,<sp/>SerialByteType*<sp/>data,<sp/>T*<sp/>t)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/>Standard::unpack&lt;T,<sp/>UnpackerBuffer&lt;buffer::UserBuffer&gt;&gt;(t,<sp/>data);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>checkpoint::dispatch<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_CHECKPOINT_DISPATCH_DISPATCH_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="src/checkpoint/dispatch/dispatch.impl.h"/>
   </compounddef>
