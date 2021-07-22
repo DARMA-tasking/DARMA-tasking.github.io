@@ -27,6 +27,7 @@ var searchData=
   ['base_5fcollection_5fproxy_2eimpl_2eh',['base_collection_proxy.impl.h',['../base__collection__proxy_8impl_8h.html',1,'']]],
   ['base_5fcontainer_2eh',['base_container.h',['../base__container_8h.html',1,'']]],
   ['base_5felm_5fproxy_2eh',['base_elm_proxy.h',['../base__elm__proxy_8h.html',1,'']]],
+  ['base_5fepoch_5fstack_5fsize_5f',['base_epoch_stack_size_',['../structvt_1_1ctx_1_1_t_d.html#ae63dbf338735e6ffd69ae2d67a24e3fb',1,'vt::ctx::TD']]],
   ['base_5fhandle_2eh',['base_handle.h',['../base__handle_8h.html',1,'']]],
   ['base_5fholder_2eh',['base_holder.h',['../base__holder_8h.html',1,'']]],
   ['base_5fidx_5f',['base_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a03d02cc3c3685644c5a784bf21241105',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],

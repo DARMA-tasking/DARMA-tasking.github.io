@@ -2,6 +2,7 @@ var searchData=
 [
   ['barrier',['barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()']]],
   ['base_5f',['base_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model.html#a8a2a6b2d5e79a7c02002132913c9ae55',1,'vt::vrt::collection::balance::ComposedModel']]],
+  ['base_5fepoch_5fstack_5fsize_5f',['base_epoch_stack_size_',['../structvt_1_1ctx_1_1_t_d.html#ae63dbf338735e6ffd69ae2d67a24e3fb',1,'vt::ctx::TD']]],
   ['base_5fidx_5f',['base_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a03d02cc3c3685644c5a784bf21241105',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
   ['base_5fmodel_5f',['base_model_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#ace781095ef59c156a0b23dea6dea70db',1,'vt::vrt::collection::balance::LBManager']]],
   ['bcast_5fcol_5fdir_5fcb_5f',['bcast_col_dir_cb_',['../unionvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_union.html#aa402256d18ac8a5c5d14bc96ef1d332e',1,'vt::pipe::callback::cbunion::CallbackUnion']]],
