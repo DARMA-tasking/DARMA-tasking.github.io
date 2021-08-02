@@ -15,6 +15,13 @@ Inheritance diagram for vt\+:\+:vrt\+:\+:collection\+:\+:Collection\+Manager\+:\
 \includegraphics[height=2.034884cm]{structvt_1_1vrt_1_1collection_1_1_collection_manager}
 \end{center}
 \end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_col_msg}{Restore\+Migrate\+Col\+Msg}
+\begin{DoxyCompactList}\small\item\em Migrate collection element to restore where it belongs. \end{DoxyCompactList}\item 
+struct \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg}{Restore\+Migrate\+Msg}
+\begin{DoxyCompactList}\small\item\em Migrate elements to restore where it belongs based on the checkpoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -223,6 +230,8 @@ std\+::string \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_af
 \begin{DoxyCompactList}\small\item\em Checkpoint the collection (collective). Must wait for termination (consistent snapshot) of work on the collection before invoking. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename ColT $>$ }\\\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a56458ed7f9bb22b631b9b3a745f42f94}{Collection\+Proxy\+Wrap\+Type}$<$ ColT $>$ \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a315a74b9299f31ebc5e3e4becdd9f79e}{restore\+From\+File} (typename Col\+T\+::\+Index\+Type range, std\+::string const \&file\+\_\+base)
 \begin{DoxyCompactList}\small\item\em Restore the collection (collective) from file. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ColT $>$ }\\void \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a401419597474752d8554a6f96a972a6b}{restore\+From\+File\+In\+Place} (\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a56458ed7f9bb22b631b9b3a745f42f94}{Collection\+Proxy\+Wrap\+Type}$<$ ColT $>$ proxy, typename Col\+T\+::\+Index\+Type range, std\+::string const \&file\+\_\+base)
+\begin{DoxyCompactList}\small\item\em Restore the collection (collective) from file on top of an existing collection. Migrates collection elements to the rank saved from the checkpoint. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename SerializerT $>$ }\\void \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_af9101933d9e9ca9aa0b6b1f39edbb9f0}{serialize} (SerializerT \&s)
 \item 
 {\footnotesize template$<$typename ColT , mapping\+::\+Active\+Map\+Typed\+Fn\+Type$<$ typename Col\+T\+::\+Index\+Type $>$ fn$>$ }\\\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_af8091fcb8218dad155ea028c9b5d283f}{Collection\+Manager\+::\+Is\+Default\+Constructable\+Type}$<$ ColT, typename Col\+T\+::\+Index\+Type $>$ \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a5d1abd77ffc06ec34afa96d317f98a73}{construct\+Collective} (typename Col\+T\+::\+Index\+Type range, \hyperlink{namespacevt_a84ab281dae04a52a4b243d6bf62d0e52}{Tag\+Type} const \&tag)
@@ -287,7 +296,9 @@ std\+::string \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_af
 {\footnotesize template$<$typename ColT , typename IndexT $>$ }\\static void \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_afe9a779bc2dd8c639cf0dea5d910ec4b}{update\+Insert\+Epoch\+Handler} (\hyperlink{structvt_1_1vrt_1_1collection_1_1_update_insert_msg}{Update\+Insert\+Msg}$<$ ColT, IndexT $>$ $\ast$msg)
 \begin{DoxyCompactList}\small\item\em Update the insert epoch. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename  = void$>$ }\\static void \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a1e3aca203f1197782ec543da1d16b115}{finished\+Update\+Han} (\hyperlink{structvt_1_1vrt_1_1collection_1_1_finished_update_msg}{Finished\+Update\+Msg} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em Finished insert. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Finished insert. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ColT $>$ }\\static void \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a77f6fb6d9440338fd9a7d610828e5f5c}{migrate\+To\+Restore\+Location} (\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg}{Restore\+Migrate\+Msg}$<$ ColT $>$ $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Migrate element to restore location from checkpoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -2647,6 +2658,22 @@ Migrate an element out of this node.
 \begin{DoxyReturn}{Returns}
 migration status 
 \end{DoxyReturn}
+\mbox{\Hypertarget{structvt_1_1vrt_1_1collection_1_1_collection_manager_a77f6fb6d9440338fd9a7d610828e5f5c}\label{structvt_1_1vrt_1_1collection_1_1_collection_manager_a77f6fb6d9440338fd9a7d610828e5f5c}} 
+\index{vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}!migrate\+To\+Restore\+Location@{migrate\+To\+Restore\+Location}}
+\index{migrate\+To\+Restore\+Location@{migrate\+To\+Restore\+Location}!vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}}
+\subsubsection{\texorpdfstring{migrate\+To\+Restore\+Location()}{migrateToRestoreLocation()}}
+{\footnotesize\ttfamily template$<$typename ColT $>$ \\
+void vt\+::vrt\+::collection\+::\+Collection\+Manager\+::migrate\+To\+Restore\+Location (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg}{Restore\+Migrate\+Msg}$<$ ColT $>$ $\ast$}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Migrate element to restore location from checkpoint. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & the migrate message \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1vrt_1_1collection_1_1_collection_manager_af7cc4c83ae2792595eee99a3206ed633}\label{structvt_1_1vrt_1_1collection_1_1_collection_manager_af7cc4c83ae2792595eee99a3206ed633}} 
 \index{vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}!name@{name}}
 \index{name@{name}!vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}}
@@ -2889,6 +2916,26 @@ Resets the phase to 0 for every element.
 \begin{DoxyReturn}{Returns}
 proxy to the new collection 
 \end{DoxyReturn}
+\mbox{\Hypertarget{structvt_1_1vrt_1_1collection_1_1_collection_manager_a401419597474752d8554a6f96a972a6b}\label{structvt_1_1vrt_1_1collection_1_1_collection_manager_a401419597474752d8554a6f96a972a6b}} 
+\index{vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}!restore\+From\+File\+In\+Place@{restore\+From\+File\+In\+Place}}
+\index{restore\+From\+File\+In\+Place@{restore\+From\+File\+In\+Place}!vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}}
+\subsubsection{\texorpdfstring{restore\+From\+File\+In\+Place()}{restoreFromFileInPlace()}}
+{\footnotesize\ttfamily template$<$typename ColT $>$ \\
+void vt\+::vrt\+::collection\+::\+Collection\+Manager\+::restore\+From\+File\+In\+Place (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a56458ed7f9bb22b631b9b3a745f42f94}{Collection\+Proxy\+Wrap\+Type}$<$ ColT $>$}]{proxy,  }\item[{typename Col\+T\+::\+Index\+Type}]{range,  }\item[{std\+::string const \&}]{file\+\_\+base }\end{DoxyParamCaption})}
+
+
+
+Restore the collection (collective) from file on top of an existing collection. Migrates collection elements to the rank saved from the checkpoint. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em proxy} & the collection proxy \\
+\hline
+\mbox{\tt in}  & {\em range} & the range of the collection to restore \\
+\hline
+\mbox{\tt in}  & {\em file\+\_\+base} & the base file name for the files to read \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1vrt_1_1collection_1_1_collection_manager_a52ce99a3c227bfd77089725c3a173373}\label{structvt_1_1vrt_1_1collection_1_1_collection_manager_a52ce99a3c227bfd77089725c3a173373}} 
 \index{vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}!run\+Constructor@{run\+Constructor}}
 \index{run\+Constructor@{run\+Constructor}!vt\+::vrt\+::collection\+::\+Collection\+Manager@{vt\+::vrt\+::collection\+::\+Collection\+Manager}}

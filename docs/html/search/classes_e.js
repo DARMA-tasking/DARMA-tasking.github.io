@@ -59,6 +59,7 @@ var searchData=
   ['proxycollectionelmtraits',['ProxyCollectionElmTraits',['../structvt_1_1vrt_1_1collection_1_1_proxy_collection_elm_traits.html',1,'vt::vrt::collection']]],
   ['proxycollectionelmtraits_3c_20colt_2c_20indextype_20_3e',['ProxyCollectionElmTraits&lt; ColT, IndexType &gt;',['../structvt_1_1vrt_1_1collection_1_1_proxy_collection_elm_traits.html',1,'vt::vrt::collection']]],
   ['proxycollectiontraits',['ProxyCollectionTraits',['../structvt_1_1vrt_1_1collection_1_1_proxy_collection_traits.html',1,'vt::vrt::collection']]],
+  ['proxycollectiontraits_3c_20colt_2c_20typename_20colt_3a_3aindextype_20_3e',['ProxyCollectionTraits&lt; ColT, typename ColT::IndexType &gt;',['../structvt_1_1vrt_1_1collection_1_1_proxy_collection_traits.html',1,'vt::vrt::collection']]],
   ['proxyelm',['ProxyElm',['../structvt_1_1objgroup_1_1proxy_1_1_proxy_elm.html',1,'vt::objgroup::proxy']]],
   ['proxyelm_3c_20void_20_3e',['ProxyElm&lt; void &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy_elm_3_01void_01_4.html',1,'vt::objgroup::proxy']]],
   ['ps',['PS',['../structvt_1_1util_1_1memory_1_1_p_s.html',1,'vt::util::memory']]],

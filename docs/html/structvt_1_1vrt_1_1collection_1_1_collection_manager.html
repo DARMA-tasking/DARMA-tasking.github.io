@@ -133,6 +133,16 @@
         <section id="pub-types">
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-doc">
+            <dt>
+              <div class="m-doc-template">template&lt;typename ColT, typename IdxT = typename ColT::IndexType&gt;</div>
+              struct <a href="structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_col_msg.html" class="m-doc">RestoreMigrateColMsg</a>
+            </dt>
+            <dd>Migrate collection element to restore where it belongs.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename ColT, typename MsgT = <a href="namespacevt.html#a3a3ddfef40b4c90915fa43cdd5f129ea" class="m-doc">vt::<wbr />Message</a>, typename IdxT = typename ColT::IndexType&gt;</div>
+              struct <a href="structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg.html" class="m-doc">RestoreMigrateMsg</a>
+            </dt>
+            <dd>Migrate elements to restore where it belongs based on the checkpoint.</dd>
             <dt id="ad20a11229c9e9efe69135c207047bf85">
               using <a href="#ad20a11229c9e9efe69135c207047bf85" class="m-doc-self">CollectionType</a> = typename <a href="structvt_1_1vrt_1_1collection_1_1_holder.html" class="m-doc">Holder</a>&lt;ColT, IndexT&gt;::<a href="structvt_1_1vrt_1_1collection_1_1_collection.html" class="m-doc">Collection</a>
             </dt>
@@ -384,6 +394,11 @@
               <span class="m-doc-wrap-bumper">static void <a href="#a1e3aca203f1197782ec543da1d16b115" class="m-doc">finishedUpdateHan</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1vrt_1_1collection_1_1_finished_update_msg.html" class="m-doc">FinishedUpdateMsg</a>* msg)</span>
             </dt>
             <dd>Finished insert.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename ColT&gt;</div>
+              <span class="m-doc-wrap-bumper">static void <a href="#a77f6fb6d9440338fd9a7d610828e5f5c" class="m-doc">migrateToRestoreLocation</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg.html" class="m-doc">RestoreMigrateMsg</a>&lt;ColT&gt;* msg)</span>
+            </dt>
+            <dd>Migrate element to restore location from checkpoint.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
@@ -908,6 +923,13 @@
               std::string const&amp; file_base) -&gt; <a href="structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a56458ed7f9bb22b631b9b3a745f42f94" class="m-doc">CollectionProxyWrapType</a>&lt;ColT&gt;</span>
             </dt>
             <dd>Restore the collection (collective) from file.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename ColT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a401419597474752d8554a6f96a972a6b" class="m-doc">restoreFromFileInPlace</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a56458ed7f9bb22b631b9b3a745f42f94" class="m-doc">CollectionProxyWrapType</a>&lt;ColT&gt; proxy,
+              typename ColT::IndexType range,
+              std::string const&amp; file_base)</span>
+            </dt>
+            <dd>Restore the collection (collective) from file on top of an existing collection. Migrates collection elements to the rank saved from the checkpoint.</dd>
             <dt id="af9101933d9e9ca9aa0b6b1f39edbb9f0">
               <div class="m-doc-template">template&lt;typename SerializerT&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#af9101933d9e9ca9aa0b6b1f39edbb9f0" class="m-doc-self">serialize</a>(</span><span class="m-doc-wrap">SerializerT&amp; s)</span>
@@ -1603,6 +1625,26 @@
                 <tr>
                   <td style="width: 1%">msg&nbsp;<span class="m-label m-flat m-info">in</span></td>
                   <td>the finished update</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a77f6fb6d9440338fd9a7d610828e5f5c"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename ColT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">static void vt::<wbr />vrt::<wbr />collection::<wbr />CollectionManager::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a77f6fb6d9440338fd9a7d610828e5f5c" class="m-doc-self">migrateToRestoreLocation</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1vrt_1_1collection_1_1_collection_manager_1_1_restore_migrate_msg.html" class="m-doc">RestoreMigrateMsg</a>&lt;ColT&gt;* msg)</span></span>
+            </h3>
+            <p>Migrate element to restore location from checkpoint.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">msg&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the migrate message</td>
                 </tr>
               </tbody>
             </table>
@@ -4001,6 +4043,36 @@
               </tfoot>
             </table>
 <aside class="m-note m-info"><h4>Note</h4><p>Resets the phase to 0 for every element.</p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a401419597474752d8554a6f96a972a6b"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename ColT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void vt::<wbr />vrt::<wbr />collection::<wbr />CollectionManager::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a401419597474752d8554a6f96a972a6b" class="m-doc-self">restoreFromFileInPlace</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a56458ed7f9bb22b631b9b3a745f42f94" class="m-doc">CollectionProxyWrapType</a>&lt;ColT&gt; proxy,
+              typename ColT::IndexType range,
+              std::string const&amp; file_base)</span></span>
+            </h3>
+            <p>Restore the collection (collective) from file on top of an existing collection. Migrates collection elements to the rank saved from the checkpoint.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">proxy&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the collection proxy</td>
+                </tr>
+                <tr>
+                  <td>range&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the range of the collection to restore</td>
+                </tr>
+                <tr>
+                  <td>file_base&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the base file name for the files to read</td>
+                </tr>
+              </tbody>
+            </table>
           </div></section>
           <section class="m-doc-details" id="a5d1abd77ffc06ec34afa96d317f98a73"><div>
             <h3>
