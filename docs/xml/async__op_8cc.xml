@@ -3664,7 +3664,7 @@
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><ref refid="structvt_1_1messaging_1_1_async_op_1a4d2f22c0789b0fecbaced56c3129d1d4" kindref="member">AsyncOp::AsyncOp</ref>()<sp/>{</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref><sp/>=<sp/><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">theMsg</ref>()-&gt;<ref refid="structvt_1_1messaging_1_1_active_messenger_1a627a8b2918ad283edf386038cf5693ca" kindref="member">getEpoch</ref>();</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a3c31a1c36b5d55e9d28b5b26b2436573" kindref="member">produce</ref>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref>);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a6624f4c21fd145f5f8d4dc3cb792e5da" kindref="member">addLocalDependency</ref>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref>);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><ref refid="structvt_1_1messaging_1_1_async_op_1a4d2f22c0789b0fecbaced56c3129d1d4" kindref="member">AsyncOp::AsyncOp</ref>(<ref refid="structvt_1_1messaging_1_1_async_op_1a4d2f22c0789b0fecbaced56c3129d1d4" kindref="member">AsyncOp</ref>&amp;&amp;<sp/>in)<sp/>{</highlight></codeline>
@@ -3673,12 +3673,14 @@
 <codeline lineno="56"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*virtual*/</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1messaging_1_1_async_op_1adf861ee523573ddd8434b78496a78271" kindref="member">AsyncOp::~AsyncOp</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref><sp/>!=<sp/>no_epoch)<sp/>{</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref>);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::messaging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>case<sp/>only<sp/>occurs<sp/>in<sp/>a<sp/>moved-from<sp/>instance,<sp/>in<sp/>which<sp/>case<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>move-ee<sp/>will<sp/>make<sp/>the<sp/>matching<sp/>calls</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref><sp/>!=<sp/>no_epoch)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1ad00ee5e13c7832e1803238c746ee0fd4" kindref="member">releaseLocalDependency</ref>(<ref refid="structvt_1_1messaging_1_1_async_op_1a19b64071b5b952c062139c9d1b1ce15b" kindref="member">cur_epoch_</ref>);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::messaging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/messaging/async_op.cc"/>
   </compounddef>
