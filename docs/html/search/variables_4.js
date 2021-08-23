@@ -38,13 +38,12 @@ var searchData=
   ['dir_5f',['dir_',['../structvt_1_1location_1_1_directory.html#a8febd5f13d21274bce41021ba2a3da03',1,'vt::location::Directory']]],
   ['directory_5f',['directory_',['../structvt_1_1location_1_1_loc_lookup.html#aa8a90e2b6ab251ae50425055f071e7c0',1,'vt::location::LocLookup']]],
   ['dispatch_5f',['dispatch_',['../structvt_1_1objgroup_1_1_obj_group_manager.html#af0a909e8963f651ba854ef6199612960',1,'vt::objgroup::ObjGroupManager::dispatch_()'],['../structvt_1_1pipe_1_1_pipe_state.html#aca06c747d1462b15cf61431ea7d35330',1,'vt::pipe::PipeState::dispatch_()']]],
-  ['dist_5ftag_5fid_5f',['dist_tag_id_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ac6d4e3a2e80c670dc5c31c0c02ec0e1f',1,'vt::vrt::collection::CollectionManager']]],
   ['dmpollcount',['dmPollCount',['../structvt_1_1messaging_1_1_active_messenger.html#abb8fb58c74b059143a49fc18140c62f6',1,'vt::messaging::ActiveMessenger']]],
   ['dmpostedcountergauge',['dmPostedCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a5fcc4dc86c3b084e781bdb656230c90f',1,'vt::messaging::ActiveMessenger']]],
   ['dmrecvcountergauge',['dmRecvCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a910d9d24eea2daf233a063fd1348ec31',1,'vt::messaging::ActiveMessenger']]],
   ['dmsentcountergauge',['dmSentCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a96a3d12f2dcad41e66f7ee766d1e8d5f',1,'vt::messaging::ActiveMessenger']]],
   ['done_5f',['done_',['../structvt_1_1runnable_1_1_runnable_new.html#ae296cbcff8fe4f664af37960dd00397e',1,'vt::runnable::RunnableNew']]],
-  ['doneinserting',['doneInserting',['../structvt_1_1vrt_1_1collection_1_1_insertable.html#a265055b249a884d0108e2a6ec3b4dacb',1,'vt::vrt::collection::Insertable']]],
   ['down_5ftree_5fcont_5f',['down_tree_cont_',['../structvt_1_1group_1_1_info_coll.html#aa6f3626398eb4473b21bfb2a43ba3c96',1,'vt::group::InfoColl']]],
-  ['down_5ftree_5ffin_5fcont_5f',['down_tree_fin_cont_',['../structvt_1_1group_1_1_info_coll.html#a05eef11154e3dc70bb84c6e3b4c3be6c',1,'vt::group::InfoColl']]]
+  ['down_5ftree_5ffin_5fcont_5f',['down_tree_fin_cont_',['../structvt_1_1group_1_1_info_coll.html#a05eef11154e3dc70bb84c6e3b4c3be6c',1,'vt::group::InfoColl']]],
+  ['dynamic_5fmembership_5f',['dynamic_membership_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ab032b5a40a6ffdd0b763af5968cec42a',1,'vt::vrt::collection::param::ConstructParams']]]
 ];

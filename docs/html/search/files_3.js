@@ -17,8 +17,6 @@ var searchData=
   ['default_5fmsg_2eh',['default_msg.h',['../default__msg_8h.html',1,'']]],
   ['default_5fop_2eh',['default_op.h',['../default__op_8h.html',1,'']]],
   ['default_5fop_2eimpl_2eh',['default_op.impl.h',['../default__op_8impl_8h.html',1,'']]],
-  ['deletable_2eh',['deletable.h',['../deletable_8h.html',1,'']]],
-  ['deletable_5fepoch_2eh',['deletable_epoch.h',['../deletable__epoch_8h.html',1,'']]],
   ['demangle_2ecc',['demangle.cc',['../demangle_8cc.html',1,'']]],
   ['demangle_2eh',['demangle.h',['../demangle_8h.html',1,'']]],
   ['dense_2ecc',['dense.cc',['../dense_8cc.html',1,'']]],
@@ -60,6 +58,5 @@ var searchData=
   ['ds_2ecc',['ds.cc',['../ds_8cc.html',1,'']]],
   ['ds_2efwd_2eh',['ds.fwd.h',['../ds_8fwd_8h.html',1,'']]],
   ['ds_2eh',['ds.h',['../ds_8h.html',1,'']]],
-  ['ds_5fheaders_2eh',['ds_headers.h',['../ds__headers_8h.html',1,'']]],
-  ['dynamic_2eh',['dynamic.h',['../dynamic_8h.html',1,'']]]
+  ['ds_5fheaders_2eh',['ds_headers.h',['../ds__headers_8h.html',1,'']]]
 ];

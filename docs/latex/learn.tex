@@ -912,13 +912,17 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{   * range}
 \textcolor{comment}{   */}
 
-  \textcolor{keywordflow}{if} (this\_node == 0) \{
-    \textcolor{comment}{// Range of 32 elements for the collection}
-    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_1_1index_a091a4f5a7a2c993d9727eaa60cf67d81}{::vt::Index1D}(32);
-    \textcolor{comment}{// Construct the collection: invoked by one node. By default, the elements}
-    \textcolor{comment}{// will be block mapped to the nodes}
-    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<MyCol>(range);
+  \textcolor{comment}{// Range of 32 elements for the collection}
+  \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(32);
 
+  \textcolor{comment}{// Construct the collection (collective variant): invoked by all nodes. By}
+  \textcolor{comment}{// default, the elements will be block mapped to the nodes}
+  \textcolor{keyword}{auto} proxy = vt::makeCollection<MyCol>()
+    .bounds(range)    \textcolor{comment}{// Set the bounds for the collection}
+    .bulkInsert()     \textcolor{comment}{// Bulk insert all the elements within the bounds}
+    .wait();          \textcolor{comment}{// Wait for construction and get the proxy back}
+
+  \textcolor{keywordflow}{if} (this\_node == 0) \{
     \textcolor{comment}{// Broadcast a message to the entire collection. The msgHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
     proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<MyCollMsg,&MyCol::msgHandler>();
@@ -926,6 +930,10 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
     \textcolor{comment}{// Send a message to the 5th element of the collection}
     proxy[5].send<MyCollMsg,&MyCol::msgHandler>();
   \}
+
+  \textcolor{comment}{// Collectively broadcast to the collection (all nodes participate for a}
+  \textcolor{comment}{// single broadcast)}
+  proxy.broadcastCollective<MyCollMsg,&MyCol::msgHandler>();
 \}
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-2b}{}\subsection{Learning about collection reductions}\label{tutorial-2b}
@@ -1001,10 +1009,14 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \textcolor{comment}{// Range of 32 elements for the collection}
-    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_1_1index_a091a4f5a7a2c993d9727eaa60cf67d81}{::vt::Index1D}(32);
-    \textcolor{comment}{// Construct the collection: invoked by one node. By default, the elements}
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(32);
+
+    \textcolor{comment}{// Construct the collection in a rooted manner. By default, the elements}
     \textcolor{comment}{// will be block mapped to the nodes}
-    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a4de84e9efd7a3948e3c20be549441cfd}{construct}<ReduceCol>(range);
+    \textcolor{keyword}{auto} proxy = vt::makeCollectionRooted<ReduceCol>()
+      .bounds(range)     \textcolor{comment}{// Set the bounds for the collection}
+      .bulkInsert()      \textcolor{comment}{// Bulk insert all the elements within the bounds}
+      .wait();           \textcolor{comment}{// Wait for construction and get the proxy back}
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
@@ -1448,8 +1460,10 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
   \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
 
-  \textcolor{keyword}{auto} col\_proxy =
-    \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<LinearPb1DJacobi>(range);
+  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb1DJacobi>()
+    .bounds(range)
+    .bulkInsert()
+    .wait();
 
   \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy, grp\_proxy, num\_objs, numRowsPerObject, 
       maxIter]\{
@@ -1929,8 +1943,10 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     static\_cast<BaseIndexType>(numY\_objs)
   );
 
-  \textcolor{keyword}{auto} col\_proxy =
-    \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<LinearPb2DJacobi>(range);
+  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb2DJacobi>()
+    .bounds(range)
+    .bulkInsert()
+    .wait();
 
   \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([col\_proxy, grp\_proxy, numX\_objs, numY\_objs, maxIter] \{
     col\_proxy.broadcastCollective<LinearPb2DJacobi::LPMsg, &LinearPb2DJacobi::init>(
@@ -2144,8 +2160,10 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType};
   \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(static\_cast<BaseIndexType>(num\_objs));
 
-  \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::theCollection}()->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa2531212565b2c6f85fa3b55d278bbba}{constructCollective}<Integration1D>(
-      range);
+  \textcolor{keyword}{auto} proxy = vt::makeCollection<Integration1D>()
+    .bounds(range)
+    .bulkInsert()
+    .wait();
 
   \hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}([proxy, num\_objs, numIntPerObject]\{
     proxy.broadcastCollective<Integration1D::InitMsg, &Integration1D::compute>(

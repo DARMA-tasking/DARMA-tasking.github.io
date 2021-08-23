@@ -5,7 +5,6 @@ var searchData=
   ['unitspersecond',['UnitsPerSecond',['../namespacevt_1_1runtime_1_1component.html#a99ec18b08862c712176126bb7d0e307aa5e8baedb490ce30a7296558f8091eaa3',1,'vt::runtime::component']]],
   ['unknown',['unknown',['../namespacevt_1_1config.html#a46e57c33bee1b9f1fa95455af86d80e0a5cf76001b3a600198f00d5971a0eeb55',1,'vt::config']]],
   ['unpacking',['Unpacking',['../namespacecheckpoint.html#ae2509499ccd8b1dc48fb535bf8aa3059a9b87ab5a4e2e99d758991f06cad9c3bf',1,'checkpoint']]],
-  ['unreleased',['Unreleased',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa049d696d24fded6f07730c9b85bbf25f',1,'vt::vrt::collection']]],
   ['user',['user',['../structvt_1_1trace_1_1_log.html#ae1c08093fd18967b7d4912d04d6acc3da14b709efcf6184d83649a7b3ce6cf8ca',1,'vt::trace::Log']]],
   ['userdefined',['UserDefined',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a72b44c7e6b2052509331d57b9c94c84aac90d702da275c4b81b75a6a0163bc2bf',1,'vt::vrt::collection::lb']]],
   ['userevent',['UserEvent',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1dab84a8f283221ed88a8bec0fdaf2d13b4',1,'vt::trace']]],

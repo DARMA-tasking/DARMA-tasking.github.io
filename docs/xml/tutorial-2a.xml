@@ -41,13 +41,17 @@
 <codeline><highlight class="comment"><sp/><sp/><sp/>*<sp/>range</highlight></codeline>
 <codeline><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Range<sp/>of<sp/>32<sp/>elements<sp/>for<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1_1index_1a091a4f5a7a2c993d9727eaa60cf67d81" kindref="member">::vt::Index1D</ref>(32);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Construct<sp/>the<sp/>collection:<sp/>invoked<sp/>by<sp/>one<sp/>node.<sp/>By<sp/>default,<sp/>the<sp/>elements</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>will<sp/>be<sp/>block<sp/>mapped<sp/>to<sp/>the<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">theCollection</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a4de84e9efd7a3948e3c20be549441cfd" kindref="member">construct</ref>&lt;MyCol&gt;(range);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Range<sp/>of<sp/>32<sp/>elements<sp/>for<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="namespacevt_1a5540efc78234273e1796fb003fe4d234" kindref="member">vt::Index1D</ref>(32);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Construct<sp/>the<sp/>collection<sp/>(collective<sp/>variant):<sp/>invoked<sp/>by<sp/>all<sp/>nodes.<sp/>By</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>default,<sp/>the<sp/>elements<sp/>will<sp/>be<sp/>block<sp/>mapped<sp/>to<sp/>the<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>vt::makeCollection&lt;MyCol&gt;()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.bounds(range)<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>the<sp/>bounds<sp/>for<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.bulkInsert()<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Bulk<sp/>insert<sp/>all<sp/>the<sp/>elements<sp/>within<sp/>the<sp/>bounds</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.wait();<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Wait<sp/>for<sp/>construction<sp/>and<sp/>get<sp/>the<sp/>proxy<sp/>back</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Broadcast<sp/>a<sp/>message<sp/>to<sp/>the<sp/>entire<sp/>collection.<sp/>The<sp/>msgHandler<sp/>will<sp/>be</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>invoked<sp/>on<sp/>every<sp/>element<sp/>to<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;MyCollMsg,&amp;MyCol::msgHandler&gt;();</highlight></codeline>
@@ -55,6 +59,10 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Send<sp/>a<sp/>message<sp/>to<sp/>the<sp/>5th<sp/>element<sp/>of<sp/>the<sp/>collection</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy[5].send&lt;MyCollMsg,&amp;MyCol::msgHandler&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Collectively<sp/>broadcast<sp/>to<sp/>the<sp/>collection<sp/>(all<sp/>nodes<sp/>participate<sp/>for<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>single<sp/>broadcast)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>proxy.broadcastCollective&lt;MyCollMsg,&amp;MyCol::msgHandler&gt;();</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>    </detaileddescription>
   </compounddef>

@@ -7,7 +7,6 @@ var searchData=
   ['nodeseedmaptype',['NodeSeedMapType',['../namespacevt_1_1mapping.html#a84d654b657f2dbe639ada06ae688e4c7',1,'vt::mapping']]],
   ['nodesettype',['NodeSetType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#aa18a0edaf10119e307e7209371caa673',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['nodetype',['NodeType',['../namespacevt.html#a866da9d0efc19c0a1ce79e9e492f47e2',1,'vt']]],
-  ['non_5fidx_5ft',['non_idx_t',['../structvt_1_1vrt_1_1collection_1_1_constructor_type.html#a25485f9d6d78bd2e7d43f41562411d6a',1,'vt::vrt::collection::ConstructorType']]],
   ['nonconstreft',['NonConstRefT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#a22ac8ae19000187cd7d3d218f3efa46e',1,'checkpoint::dispatch::CleanType']]],
   ['nonconstt',['NonConstT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#af8cc50327016b4a8410504e245edeb6f',1,'checkpoint::dispatch::CleanType']]],
   ['none',['None',['../namespacevt_1_1collective.html#ab9abd77f58f0ede6d24462b95d0a1989',1,'vt::collective']]],

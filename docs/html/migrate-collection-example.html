@@ -105,9 +105,9 @@
 
 <span class="k">struct</span> <span class="nl">Hello</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Hello</span><span class="p">,</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">&gt;</span> <span class="p">{</span>
 
-  <span class="k">explicit</span> <span class="n">Hello</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">create</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Hello</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">this_node</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: Hello: create={}, index={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">this_node</span><span class="p">,</span> <span class="n">create</span><span class="p">,</span> <span class="n">getIndex</span><span class="p">());</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: Hello: index={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">this_node</span><span class="p">,</span> <span class="n">getIndex</span><span class="p">());</span>
     <span class="n">test_val</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">()</span> <span class="o">*</span> <span class="mf">29.3</span><span class="p">;</span>
   <span class="p">}</span>
 
@@ -159,10 +159,13 @@
     <span class="n">num_elms</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
   <span class="p">}</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="n">num_elms</span><span class="p">);</span>
-    <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">construct</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="n">this_node</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="n">num_elms</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeCollection</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">bulkInsert</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
 
+  <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochRooted</span><span class="p">([</span><span class="o">=</span><span class="p">]</span> <span class="p">{</span> <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">ColMsg</span><span class="p">,</span> <span class="n">doWork</span><span class="o">&gt;</span><span class="p">(</span><span class="n">this_node</span><span class="p">);</span> <span class="p">});</span>
 
     <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochRooted</span><span class="p">(</span>

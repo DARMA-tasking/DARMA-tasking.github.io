@@ -2,9 +2,6 @@ var searchData=
 [
   ['active',['active',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a82f77c67af0c363709010c6df4dbd920',1,'vt::config::active()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4d3d769b812b6faa6b76e1a8abaece2d',1,'vt::error::Active()']]],
   ['activemsgtag',['ActiveMsgTag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55ab1ee9044bcae54b74056a088a0d57ac1',1,'vt::messaging']]],
-  ['afterfullyconstructed',['AfterFullyConstructed',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa0f7a17004b32392e5c7e8da3020f3c62',1,'vt::vrt::collection']]],
-  ['aftergroupready',['AfterGroupReady',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faa3f87b3703c1c4e5afe8d9e3a891c82d4',1,'vt::vrt::collection']]],
-  ['aftermetadataknown',['AfterMetaDataKnown',['../namespacevt_1_1vrt_1_1collection.html#a2545006e681bacc1f00be9d5d6bdc8faaac942bb8dfdc5b8917b317e697ffc97b',1,'vt::vrt::collection']]],
   ['anoncb',['AnonCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a4e3f23f80d17e652ec7089a6b84e5051',1,'vt::pipe::callback::cbunion']]],
   ['arbitrary',['Arbitrary',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a3c71e131f84e2ccbb95f43a1058c749ca3c1fc46575f79b15fc8990642387d07f',1,'vt::vrt::collection::lb']]],
   ['arrayeltinitmsg',['ArrayEltInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ead00a54412c9e53aae62181a452a7d3ff',1,'vt::trace']]],

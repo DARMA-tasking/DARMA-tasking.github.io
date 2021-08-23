@@ -2,7 +2,6 @@ var searchData=
 [
   ['g_5fcons1',['g_cons1',['../structvt_1_1term_1_1_term_state.html#a91952f12d457df3a7e5f634957e9cbd7',1,'vt::term::TermState']]],
   ['g_5fcons2',['g_cons2',['../structvt_1_1term_1_1_term_state.html#aaaf3c5cec9c925c420082bb284a5a78e',1,'vt::term::TermState']]],
-  ['g_5fepoch_5f',['g_epoch_',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a7d080a6dc4e89607097f79e751dbbd70',1,'vt::vrt::collection::InsertMsg']]],
   ['g_5fprod1',['g_prod1',['../structvt_1_1term_1_1_term_state.html#a75ab01f0dcceb86687a3e26edada0620',1,'vt::term::TermState']]],
   ['g_5fprod2',['g_prod2',['../structvt_1_1term_1_1_term_state.html#a5e7029af1dca0645c92f5a00316dc039',1,'vt::term::TermState']]],
   ['gauge_5f',['gauge_',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html#a76c78392b6cc713038031300eb00e86c',1,'vt::runtime::component::meter::CounterGauge']]],
@@ -15,7 +14,8 @@ var searchData=
   ['given_5fobjs',['given_objs',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a010367d94903aa52b9e48ecc715820c6',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['global_5fterm_5factions_5f',['global_term_actions_',['../structvt_1_1term_1_1_term_action.html#ab3254cc3e17bf4649173323eedb10ae7',1,'vt::term::TermAction']]],
   ['group',['group',['../structvt_1_1messaging_1_1_active_envelope.html#a99173c33673ca13d681910bb07b9a7a0',1,'vt::messaging::ActiveEnvelope']]],
-  ['group_5f',['group_',['../structvt_1_1group_1_1_finished_reduce_msg.html#abb883384574d4ace6af3eecd90587c8c',1,'vt::group::FinishedReduceMsg::group_()'],['../structvt_1_1group_1_1_info.html#acf2b210e3a0cb0d52649e42f07bc2503',1,'vt::group::Info::group_()'],['../structvt_1_1group_1_1_group_msg.html#a490c257a68f857c6833804c065cb5d4f',1,'vt::group::GroupMsg::group_()'],['../structvt_1_1vrt_1_1collection_1_1_collection_group_msg.html#a239d07dbff6442f841aafe126af98dce',1,'vt::vrt::collection::CollectionGroupMsg::group_()']]],
+  ['group_5f',['group_',['../structvt_1_1group_1_1_finished_reduce_msg.html#abb883384574d4ace6af3eecd90587c8c',1,'vt::group::FinishedReduceMsg::group_()'],['../structvt_1_1group_1_1_info.html#acf2b210e3a0cb0d52649e42f07bc2503',1,'vt::group::Info::group_()'],['../structvt_1_1group_1_1_group_msg.html#a490c257a68f857c6833804c065cb5d4f',1,'vt::group::GroupMsg::group_()']]],
+  ['group_5fconstructors_5f',['group_constructors_',['../structvt_1_1vrt_1_1collection_1_1_typeless_holder.html#af0e61d3465642c9ebf6b30e16ed843f0',1,'vt::vrt::collection::TypelessHolder']]],
   ['group_5fid_5f',['group_id_',['../structvt_1_1pipe_1_1_pipe_manager.html#a55c4e1e68f74a2a0796a24ea06711563',1,'vt::pipe::PipeManager']]],
   ['group_5finfo',['group_info',['../structvt_1_1rdma_1_1_state.html#ad8dc4c1a674c5a0b14789a53e54815d3',1,'vt::rdma::State']]],
   ['group_5frange_5f',['group_range_',['../structvt_1_1group_1_1_group_range_msg.html#affc9dc8fa60a656874103d836ba5a3b8',1,'vt::group::GroupRangeMsg']]],

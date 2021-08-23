@@ -9,6 +9,7 @@ var searchData=
   ['getrusage',['Getrusage',['../structvt_1_1util_1_1memory_1_1_getrusage.html',1,'vt::util::memory']]],
   ['gettable',['Gettable',['../structvt_1_1vrt_1_1collection_1_1_gettable.html',1,'vt::vrt::collection']]],
   ['grapevinecriterion',['GrapevineCriterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_grapevine_criterion.html',1,'vt::vrt::collection::lb']]],
+  ['greedybcastmsg',['GreedyBcastMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_bcast_msg.html',1,'vt::vrt::collection::lb']]],
   ['greedycollectmsg',['GreedyCollectMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_collect_msg.html',1,'vt::vrt::collection::lb']]],
   ['greedycompareloadmax',['GreedyCompareLoadMax',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_compare_load_max.html',1,'vt::vrt::collection::lb']]],
   ['greedycompareloadmin',['GreedyCompareLoadMin',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_compare_load_min.html',1,'vt::vrt::collection::lb']]],
@@ -17,6 +18,7 @@ var searchData=
   ['greedypayload',['GreedyPayload',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html',1,'vt::vrt::collection::lb']]],
   ['greedyproc',['GreedyProc',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_proc.html',1,'vt::vrt::collection::lb']]],
   ['greedyrecord',['GreedyRecord',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_record.html',1,'vt::vrt::collection::lb']]],
+  ['greedysendmsg',['GreedySendMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_send_msg.html',1,'vt::vrt::collection::lb']]],
   ['group',['Group',['../structvt_1_1rdma_1_1_group.html',1,'vt::rdma']]],
   ['groupactiveattorney',['GroupActiveAttorney',['../structvt_1_1group_1_1_group_active_attorney.html',1,'vt::group']]],
   ['groupcollective',['GroupCollective',['../structvt_1_1group_1_1_group_collective.html',1,'vt::group']]],
@@ -34,5 +36,5 @@ var searchData=
   ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
   ['grouprangemsg',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]]
 ];

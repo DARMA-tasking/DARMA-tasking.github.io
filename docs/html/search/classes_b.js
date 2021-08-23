@@ -34,6 +34,8 @@ var searchData=
   ['minop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['MinOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_min_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['mode_20_26mod_29_20not_5feq_200_20_3e_3e',['mode &amp;mod) not_eq 0 &gt;&gt;',['../structvt_1_1config_1_1_check_enabled_3_01_op_00_01_c_00_01cat_00_01ctx_00_01mod_00_01typename_01d404ca8a687fcb080ca8b0942743aa40.html',1,'vt::config']]],
   ['modifiedgrapevinecriterion',['ModifiedGrapevineCriterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_modified_grapevine_criterion.html',1,'vt::vrt::collection::lb']]],
+  ['modifiertoken',['ModifierToken',['../structvt_1_1vrt_1_1collection_1_1_modifier_token.html',1,'vt::vrt::collection']]],
+  ['modifyable',['Modifyable',['../structvt_1_1vrt_1_1collection_1_1_modifyable.html',1,'vt::vrt::collection']]],
   ['movablefn',['MovableFn',['../structvt_1_1runtime_1_1component_1_1_movable_fn.html',1,'vt::runtime::component']]],
   ['movablefntyped',['MovableFnTyped',['../structvt_1_1runtime_1_1component_1_1_movable_fn_typed.html',1,'vt::runtime::component']]],
   ['move',['Move',['../structvt_1_1util_1_1adt_1_1detail_1_1_move.html',1,'vt::util::adt::detail']]],

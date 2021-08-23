@@ -27,6 +27,177 @@
 <codeline><highlight class="normal">balancing<sp/>strategies.<sp/>You<sp/>can<sp/>use<sp/>`--vt_lb_keep_last_elm`<sp/>flag<sp/>to<sp/>prohibit<sp/>load</highlight></codeline>
 <codeline><highlight class="normal">balancer<sp/>from<sp/>migrating<sp/>last<sp/>element<sp/>in<sp/>collection.</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">\subsection<sp/>collection-configuration<sp/>Configuring<sp/>Collections</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>preferred<sp/>interface<sp/>for<sp/>constructing<sp/>a<sp/>new<sp/>collection<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">`vt::makeCollection&lt;T&gt;()`.<sp/>Using<sp/>a<sp/>fluent-style<sp/>interface,<sp/>`makeCollection`</highlight></codeline>
+<codeline><highlight class="normal">returns<sp/>a<sp/>configuration<sp/>object<sp/>to<sp/>set<sp/>properties<sp/>of<sp/>the<sp/>collection<sp/>before</highlight></codeline>
+<codeline><highlight class="normal">actually<sp/>constructing<sp/>the<sp/>collection.<sp/>Once<sp/>it<sp/>is<sp/>configured,<sp/>the<sp/>`.wait()`<sp/>or</highlight></codeline>
+<codeline><highlight class="normal">`.deferWithEpoch(callback)`<sp/>methods<sp/>allows<sp/>one<sp/>to<sp/>either<sp/>block<sp/>until<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">collection<sp/>is<sp/>created<sp/>or<sp/>wait<sp/>on<sp/>the<sp/>returned<sp/>epoch<sp/>until<sp/>construction<sp/>finishes</highlight></codeline>
+<codeline><highlight class="normal">(respectively).<sp/>The<sp/>`wait()`<sp/>variant<sp/>returns<sp/>the<sp/>proxy<sp/>for<sp/>use<sp/>immediately</highlight></codeline>
+<codeline><highlight class="normal">(after<sp/>blocking),<sp/>whereas<sp/>`deferWithEpoch(callback)`<sp/>supplies<sp/>the<sp/>proxy<sp/>when<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">epoch<sp/>terminates<sp/>by<sp/>triggering<sp/>the<sp/>callback<sp/>passed<sp/>to<sp/>it.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-collective-vs-rooted<sp/>Collective<sp/>vs.<sp/>Rooted</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>function<sp/>`vt::makeCollection&lt;T&gt;()`<sp/>will<sp/>create<sp/>a<sp/>collection<sp/>in<sp/>a<sp/>collective</highlight></codeline>
+<codeline><highlight class="normal">fashion,<sp/>meaning<sp/>it<sp/>must<sp/>be<sp/>called<sp/>in<sp/>tandem<sp/>on<sp/>all<sp/>nodes.<sp/>Alternatively,<sp/>one</highlight></codeline>
+<codeline><highlight class="normal">may<sp/>call<sp/>`vt::makeCollectionRooted&lt;T&gt;()`<sp/>to<sp/>construct<sp/>a<sp/>rooted<sp/>collection,<sp/>which</highlight></codeline>
+<codeline><highlight class="normal">is<sp/>invoked<sp/>only<sp/>on<sp/>a<sp/>single<sp/>rank.<sp/>(and<sp/>the<sp/>proxy<sp/>is<sp/>returned<sp/>to<sp/>a<sp/>single</highlight></codeline>
+<codeline><highlight class="normal">rank).<sp/>After<sp/>waiting<sp/>for<sp/>construction,<sp/>elements<sp/>will<sp/>have<sp/>been<sp/>constructed<sp/>on</highlight></codeline>
+<codeline><highlight class="normal">their<sp/>appropriate<sp/>ranks,<sp/>and<sp/>the<sp/>provided<sp/>collection<sp/>proxy<sp/>will<sp/>be<sp/>usable<sp/>on<sp/>any</highlight></codeline>
+<codeline><highlight class="normal">rank<sp/>it&apos;s<sp/>sent<sp/>to.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-bounds-insertion<sp/>Bounds<sp/>and<sp/>Insertion</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>collections<sp/>without<sp/>dynamic<sp/>membership<sp/>at<sp/>runtime,<sp/>one<sp/>must<sp/>call</highlight></codeline>
+<codeline><highlight class="normal">`.bounds(my_range)`<sp/>to<sp/>specify<sp/>the<sp/>bounds<sp/>in<sp/>each<sp/>dimension<sp/>for<sp/>the<sp/>collection</highlight></codeline>
+<codeline><highlight class="normal">or<sp/>specify<sp/>exactly<sp/>one<sp/>bulk<sp/>insertion<sp/>range<sp/>(`.bulkInsert(my_range_1)`),<sp/>where</highlight></codeline>
+<codeline><highlight class="normal">`my_range_1`<sp/>will<sp/>be<sp/>the<sp/>assumed<sp/>bounds<sp/>for<sp/>the<sp/>collection.<sp/>Bulk<sp/>insertion<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">one<sp/>such<sp/>way<sp/>to<sp/>specify<sp/>how<sp/>insertions<sp/>should<sp/>happen<sp/>during<sp/>construction.<sp/>The</highlight></codeline>
+<codeline><highlight class="normal">`.bulkInsert()`<sp/>method<sp/>(with<sp/>no<sp/>parameter)<sp/>tells<sp/>the<sp/>runtime<sp/>to<sp/>insert<sp/>all</highlight></codeline>
+<codeline><highlight class="normal">collection<sp/>elements<sp/>within<sp/>the<sp/>bounds<sp/>using<sp/>the<sp/>mapping<sp/>function<sp/>to<sp/>determine</highlight></codeline>
+<codeline><highlight class="normal">placement.<sp/>The<sp/>user<sp/>can<sp/>also<sp/>specify<sp/>specific<sp/>ranges<sp/>to<sp/>bulk<sp/>insert<sp/>using</highlight></codeline>
+<codeline><highlight class="normal">`.bulkInsert(my_range_1)`<sp/>with<sp/>a<sp/>parameter<sp/>(this<sp/>can<sp/>be<sp/>called<sp/>multiple</highlight></codeline>
+<codeline><highlight class="normal">times).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>collective<sp/>collection<sp/>constructions,<sp/>one<sp/>may<sp/>also<sp/>use<sp/>list<sp/>insertion</highlight></codeline>
+<codeline><highlight class="normal">(`.listInsert(my_index_list)`)<sp/>to<sp/>specify<sp/>non-contiguous<sp/>lists<sp/>of<sp/>indices<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>runtime<sp/>should<sp/>insert<sp/>at<sp/>construction<sp/>time.<sp/>Finally,<sp/>for<sp/>collective</highlight></codeline>
+<codeline><highlight class="normal">constructions,<sp/>one<sp/>may<sp/>call<sp/>`.listInsertHere(my_index_list)`<sp/>to<sp/>specifically</highlight></codeline>
+<codeline><highlight class="normal">instruct<sp/>the<sp/>runtime<sp/>to<sp/>construct<sp/>a<sp/>list<sp/>of<sp/>collection<sp/>elements<sp/>on<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">particular<sp/>rank<sp/>where<sp/>it<sp/>is<sp/>invoked.<sp/>This<sp/>overrides<sp/>the<sp/>mapping<sp/>function<sp/>that<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">user<sp/>supplies.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-mapping<sp/>Mapping<sp/>Functions<sp/>and<sp/>Object<sp/>Groups</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>default,<sp/>a<sp/>mapping<sp/>function<sp/>is<sp/>applied<sp/>to<sp/>every<sp/>collection.<sp/>If<sp/>the<sp/>collection</highlight></codeline>
+<codeline><highlight class="normal">has<sp/>bounds,<sp/>the<sp/>system<sp/>will<sp/>choose<sp/>a<sp/>default<sp/>blocked<sp/>mapping<sp/>(across<sp/>all</highlight></codeline>
+<codeline><highlight class="normal">dimensions)<sp/>for<sp/>initial<sp/>placement.<sp/>For<sp/>collections<sp/>without<sp/>bounds<sp/>(ones<sp/>with</highlight></codeline>
+<codeline><highlight class="normal">dynamic<sp/>membership),<sp/>the<sp/>system<sp/>uses<sp/>a<sp/>simple<sp/>xor<sp/>hash<sp/>function<sp/>to<sp/>generate<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">valid<sp/>initial<sp/>location<sp/>for<sp/>each<sp/>index<sp/>deterministically.<sp/>One<sp/>may<sp/>specify<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">mapping<sp/>function<sp/>in<sp/>two<sp/>ways:<sp/>the<sp/>user<sp/>can<sp/>provide<sp/>a<sp/>stateless<sp/>function<sp/>as<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>argument<sp/>to<sp/>`.mapperFunc&lt;my_map&gt;()`,<sp/>where<sp/>`my_map`<sp/>has<sp/>the<sp/>following</highlight></codeline>
+<codeline><highlight class="normal">definition<sp/>(shown<sp/>for<sp/>a<sp/>1-dimensional<sp/>collection):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">vt::NodeType<sp/>my_map(vt::Index1D*<sp/>idx,<sp/>vt::Index1D*<sp/>bounds,<sp/>vt::NodeType<sp/>num_nodes)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>idx-&gt;x()<sp/>%<sp/>num_nodes;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Or,<sp/>alternatively,<sp/>one<sp/>may<sp/>specify<sp/>a<sp/>object<sp/>group<sp/>mapper,<sp/>which<sp/>contains<sp/>an</highlight></codeline>
+<codeline><highlight class="normal">instance<sp/>across<sp/>all<sp/>ranks<sp/>that<sp/>may<sp/>communicate<sp/>to<sp/>determine<sp/>placement.<sp/>The</highlight></codeline>
+<codeline><highlight class="normal">`.mapperObjGroup(proxy)`<sp/>method<sp/>configures<sp/>the<sp/>mapping<sp/>object<sp/>with<sp/>an<sp/>object</highlight></codeline>
+<codeline><highlight class="normal">group<sp/>instance<sp/>that<sp/>already<sp/>exists.<sp/>Otherwise,<sp/>one<sp/>may<sp/>just<sp/>give<sp/>the<sp/>type<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">constructor<sp/>arguments<sp/>to<sp/>create<sp/>a<sp/>new<sp/>instance:</highlight></codeline>
+<codeline><highlight class="normal">`.mapperObjGroup&lt;MyObjectGroup&gt;(args...)`.<sp/>An<sp/>object<sp/>group<sp/>mapper<sp/>must<sp/>inherit</highlight></codeline>
+<codeline><highlight class="normal">from<sp/>`vt::mapping::BaseMapper`<sp/>and<sp/>implement<sp/>the<sp/>pure<sp/>virtual<sp/>method<sp/>`NodeType</highlight></codeline>
+<codeline><highlight class="normal">map(IdxT*<sp/>idx,<sp/>int<sp/>ndim,<sp/>NodeType<sp/>num_nodes)`<sp/>to<sp/>define<sp/>the<sp/>mapping<sp/>for<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">runtime.<sp/>As<sp/>an<sp/>example,<sp/>the<sp/>object<sp/>group<sp/>mapper<sp/>used<sp/>by<sp/>default<sp/>for<sp/>unbounded</highlight></codeline>
+<codeline><highlight class="normal">collections<sp/>is<sp/>implemented<sp/>as<sp/>follows:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>IdxT&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>UnboundedDefaultMap<sp/>:<sp/>vt::mapping::BaseMapper&lt;IdxT&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>static<sp/>ObjGroupProxyType<sp/>construct()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>proxy<sp/>=<sp/>theObjGroup()-&gt;makeCollective&lt;UnboundedDefaultMap&lt;IdxT&gt;&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>proxy.getProxy();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>NodeType<sp/>map(IdxT*<sp/>idx,<sp/>int<sp/>ndim,<sp/>NodeType<sp/>num_nodes)<sp/>override<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>IdxT::DenseIndexType<sp/>val<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(int<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>ndim;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>val<sp/>^=<sp/>idx-&gt;get(i);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>val<sp/>%<sp/>num_nodes;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Note<sp/>that<sp/>all<sp/>collection<sp/>mapping<sp/>functions<sp/>or<sp/>object<sp/>groups<sp/>must<sp/>be</highlight></codeline>
+<codeline><highlight class="normal">deterministic<sp/>across<sp/>all<sp/>nodes<sp/>for<sp/>the<sp/>same<sp/>inputs.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-element-construction<sp/>Element<sp/>Construction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>default,<sp/>the<sp/>collection<sp/>type<sp/>`T`<sp/>(that<sp/>inherits<sp/>from<sp/>the<sp/>runtime<sp/>base<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">`vt::Collection&lt;T,<sp/>IndexType&gt;`)<sp/>must<sp/>have<sp/>a<sp/>default<sp/>constructor.<sp/>However,<sp/>this</highlight></codeline>
+<codeline><highlight class="normal">can<sp/>be<sp/>avoided<sp/>by<sp/>configuring<sp/>the<sp/>collection<sp/>with<sp/>a<sp/>specialized<sp/>element</highlight></codeline>
+<codeline><highlight class="normal">constructor<sp/>using<sp/>`.elementConstructor(x)`,<sp/>where<sp/>`x`&apos;s<sp/>type<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">`std::function&lt;std::unique_ptr&lt;ColT&gt;(IndexT<sp/>idx)&gt;`<sp/>and<sp/>`ColT`<sp/>is<sp/>the<sp/>collection</highlight></codeline>
+<codeline><highlight class="normal">type<sp/>and<sp/>`IndexT`<sp/>is<sp/>the<sp/>index<sp/>type<sp/>for<sp/>the<sp/>collection.<sp/>This<sp/>configuration<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">only<sp/>valid<sp/>for<sp/>collective<sp/>constructions<sp/>because<sp/>the<sp/>element<sp/>constructor<sp/>function</highlight></codeline>
+<codeline><highlight class="normal">can<sp/>not<sp/>be<sp/>safely<sp/>sent<sp/>over<sp/>the<sp/>network.<sp/>If<sp/>this<sp/>is<sp/>provided,<sp/>the<sp/>collection</highlight></codeline>
+<codeline><highlight class="normal">manager<sp/>will<sp/>not<sp/>try<sp/>to<sp/>default<sp/>construct<sp/>the<sp/>collection<sp/>elements,<sp/>instead</highlight></codeline>
+<codeline><highlight class="normal">calling<sp/>the<sp/>user-provided<sp/>constructor<sp/>passed<sp/>to<sp/>this<sp/>function.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-element-migratability<sp/>Element<sp/>Migratability</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>default,<sp/>all<sp/>collection<sp/>elements<sp/>are<sp/>migratable<sp/>and<sp/>can<sp/>be<sp/>moved<sp/>by<sp/>the<sp/>load</highlight></codeline>
+<codeline><highlight class="normal">balancer<sp/>when<sp/>it<sp/>is<sp/>invoked<sp/>by<sp/>the<sp/>user.<sp/>However,<sp/>one<sp/>may<sp/>inform<sp/>VT<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">collection<sp/>is<sp/>entirely<sp/>non-migratable<sp/>by<sp/>setting<sp/>the<sp/>parameter</highlight></codeline>
+<codeline><highlight class="normal">`.migratable(false)`<sp/>during<sp/>construction.<sp/>By<sp/>doing<sp/>this,<sp/>work<sp/>executed<sp/>by<sp/>its</highlight></codeline>
+<codeline><highlight class="normal">elements<sp/>will<sp/>be<sp/>recorded<sp/>as<sp/>background<sp/>load<sp/>on<sp/>the<sp/>initially<sp/>mapped<sp/>rank<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">excluded<sp/>from<sp/>the<sp/>load<sp/>balancer<sp/>migration<sp/>decisions.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\subsubsection<sp/>collection-dynamic-membership<sp/>Dynamic<sp/>Membership</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>default,<sp/>collections<sp/>do<sp/>not<sp/>have<sp/>dynamic<sp/>membership:<sp/>they<sp/>might<sp/>be<sp/>dense<sp/>or</highlight></codeline>
+<codeline><highlight class="normal">sparse<sp/>within<sp/>the<sp/>specified<sp/>bounds,<sp/>but<sp/>the<sp/>set<sp/>of<sp/>collection<sp/>elements<sp/>that<sp/>are</highlight></codeline>
+<codeline><highlight class="normal">created<sp/>at<sp/>construction<sp/>time<sp/>persists<sp/>(and<sp/>never<sp/>grows<sp/>or<sp/>shrinks)<sp/>until<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">collection<sp/>is<sp/>completely<sp/>destroyed.<sp/>Dynamic<sp/>membership<sp/>allows<sp/>the<sp/>user<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">specify<sp/>insertions<sp/>and<sp/>deletions<sp/>as<sp/>the<sp/>program<sp/>executes<sp/>in<sp/>a<sp/>safe<sp/>and<sp/>orderly</highlight></codeline>
+<codeline><highlight class="normal">manner.<sp/>To<sp/>enable<sp/>this,<sp/>one<sp/>must<sp/>call<sp/>`.dynamicMembership(true)`.<sp/>Note<sp/>that<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">previous<sp/>requirement<sp/>of<sp/>specifying<sp/>collection<sp/>bounds<sp/>becomes<sp/>optional<sp/>with</highlight></codeline>
+<codeline><highlight class="normal">dynamic<sp/>membership.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Once<sp/>a<sp/>collection<sp/>is<sp/>constructed<sp/>with<sp/>dynamic<sp/>membership,<sp/>one<sp/>must<sp/>start<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">collective<sp/>modification<sp/>epoch<sp/>to<sp/>make<sp/>changes<sp/>to<sp/>the<sp/>collection&apos;s</highlight></codeline>
+<codeline><highlight class="normal">membership.<sp/>This<sp/>is<sp/>performed<sp/>in<sp/>the<sp/>following<sp/>way<sp/>(note<sp/>that<sp/>this<sp/>is<sp/>a</highlight></codeline>
+<codeline><highlight class="normal">collective<sp/>interface):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>auto<sp/>proxy<sp/>=<sp/>vt::makeCollection&lt;MyCollection&gt;()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.dynamicMembership(true)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.collective(true)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.wait();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>auto<sp/>range<sp/>=<sp/>vt::Index1D(num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>auto<sp/>token<sp/>=<sp/>proxy.beginModification();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>for<sp/>(int<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>range.x()<sp/>/<sp/>2;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(i<sp/>%<sp/>num_nodes<sp/>==<sp/>this_node)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>proxy[i].insertAt(token,<sp/>i<sp/>%<sp/>2);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>proxy.finishModification(std::move(token));</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>calls<sp/>to<sp/>`proxy.beginModification()`<sp/>start<sp/>the<sp/>insertion/deletion<sp/>epoch<sp/>by</highlight></codeline>
+<codeline><highlight class="normal">returning<sp/>a<sp/>token<sp/>that<sp/>must<sp/>be<sp/>passed<sp/>to<sp/>the<sp/>actual<sp/>modification<sp/>calls.<sp/>To</highlight></codeline>
+<codeline><highlight class="normal">insert<sp/>a<sp/>new<sp/>collection<sp/>element,<sp/>the<sp/>interface<sp/>provides<sp/>several<sp/>methods<sp/>on<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">indexed<sp/>proxy:<sp/>`insert`,<sp/>`insertAt`,<sp/>`insertMsg`<sp/>or<sp/>`insertAtMsg`.<sp/>The<sp/>`insert`</highlight></codeline>
+<codeline><highlight class="normal">method<sp/>performs<sp/>the<sp/>insertion<sp/>at<sp/>the<sp/>location<sp/>specified<sp/>by<sp/>the<sp/>mapping</highlight></codeline>
+<codeline><highlight class="normal">function/mapping<sp/>object<sp/>group<sp/>that<sp/>is<sp/>provided<sp/>when<sp/>the<sp/>collection<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">constructed.<sp/>The<sp/>`insertAt`<sp/>or<sp/>`insertAtMsg`<sp/>allow<sp/>the<sp/>user<sp/>to<sp/>specify<sp/>exactly</highlight></codeline>
+<codeline><highlight class="normal">where<sp/>the<sp/>new<sp/>element<sp/>should<sp/>reside<sp/>overriding<sp/>the<sp/>default<sp/>mapping<sp/>for<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">element.<sp/>The<sp/>`insertMsg`<sp/>or<sp/>`insertAtMsg`<sp/>calls<sp/>allow<sp/>the<sp/>user<sp/>to<sp/>pass<sp/>a<sp/>message</highlight></codeline>
+<codeline><highlight class="normal">to<sp/>the<sp/>collection<sp/>element<sp/>which<sp/>invokes<sp/>a<sp/>non-default<sp/>constructor<sp/>that<sp/>has<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">user-specified<sp/>message<sp/>as<sp/>an<sp/>argument.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Finally,<sp/>one<sp/>may<sp/>call<sp/>`destroy`<sp/>on<sp/>the<sp/>indexed<sp/>proxy<sp/>to<sp/>delete<sp/>an<sp/>element.<sp/>All</highlight></codeline>
+<codeline><highlight class="normal">these<sp/>modifications<sp/>take<sp/>place<sp/>after<sp/>`finishModification`<sp/>is<sp/>invoked---a<sp/>blocking</highlight></codeline>
+<codeline><highlight class="normal">call<sp/>that<sp/>enacts<sp/>the<sp/>changes<sp/>across<sp/>the<sp/>system.<sp/>Once<sp/>`finishModification`</highlight></codeline>
+<codeline><highlight class="normal">returns,<sp/>the<sp/>runtime<sp/>guarantees<sp/>that<sp/>all<sp/>changes<sp/>have<sp/>taken<sp/>place<sp/>across<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">system<sp/>and<sp/>all<sp/>spanning<sp/>trees<sp/>are<sp/>reconstructed<sp/>or<sp/>modified<sp/>based<sp/>on<sp/>the<sp/>changes</highlight></codeline>
+<codeline><highlight class="normal">made.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>a<sp/>reduction<sp/>is<sp/>ongoing<sp/>while<sp/>insertions<sp/>or<sp/>deletions<sp/>happen,<sp/>the<sp/>new<sp/>elements</highlight></codeline>
+<codeline><highlight class="normal">are<sp/>still<sp/>expected<sp/>to<sp/>contribute.<sp/>That<sp/>is,<sp/>new<sp/>collection<sp/>elements<sp/>are<sp/>part<sp/>of</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>next<sp/>sequenced<sp/>reduction<sp/>that<sp/>has<sp/>not<sp/>causally<sp/>terminated<sp/>across<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">distributed<sp/>system.<sp/>For<sp/>code<sp/>readability,<sp/>we<sp/>generally<sp/>recommend<sp/>that<sp/>the<sp/>user</highlight></codeline>
+<codeline><highlight class="normal">wait<sp/>on<sp/>termination<sp/>of<sp/>any<sp/>reductions<sp/>before<sp/>membership<sp/>modifications<sp/>are<sp/>made.</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">\section<sp/>rooted-hello-world-collection<sp/>Hello<sp/>World<sp/>1D<sp/>Dense<sp/>Collection<sp/>(Rooted)</highlight></codeline>
 <codeline><highlight class="normal">\snippet<sp/><sp/>examples/hello_world/hello_world_collection.cc<sp/>Hello<sp/>world<sp/>collection</highlight></codeline>
 <codeline></codeline>

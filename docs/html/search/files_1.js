@@ -17,6 +17,7 @@ var searchData=
   ['base_5fhandle_2eh',['base_handle.h',['../base__handle_8h.html',1,'']]],
   ['base_5fholder_2eh',['base_holder.h',['../base__holder_8h.html',1,'']]],
   ['base_5findex_2eh',['base_index.h',['../base__index_8h.html',1,'']]],
+  ['base_5fmapper_5fobject_2eh',['base_mapper_object.h',['../base__mapper__object_8h.html',1,'']]],
   ['base_5fserializer_2eh',['base_serializer.h',['../base__serializer_8h.html',1,'']]],
   ['base_5funit_2ecc',['base_unit.cc',['../base__unit_8cc.html',1,'']]],
   ['base_5funit_2eh',['base_unit.h',['../base__unit_8h.html',1,'']]],

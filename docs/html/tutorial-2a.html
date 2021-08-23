@@ -140,13 +140,17 @@
 <span class="cm">   * range</span>
 <span class="cm">   */</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Range of 32 elements for the collection</span>
-    <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
-    <span class="c1">// Construct the collection: invoked by one node. By default, the elements</span>
-    <span class="c1">// will be block mapped to the nodes</span>
-    <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">theCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">construct</span><span class="o">&lt;</span><span class="n">MyCol</span><span class="o">&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+  <span class="c1">// Range of 32 elements for the collection</span>
+  <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
 
+  <span class="c1">// Construct the collection (collective variant): invoked by all nodes. By</span>
+  <span class="c1">// default, the elements will be block mapped to the nodes</span>
+  <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeCollection</span><span class="o">&lt;</span><span class="n">MyCol</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>    <span class="c1">// Set the bounds for the collection</span>
+    <span class="p">.</span><span class="n">bulkInsert</span><span class="p">()</span>     <span class="c1">// Bulk insert all the elements within the bounds</span>
+    <span class="p">.</span><span class="n">wait</span><span class="p">();</span>          <span class="c1">// Wait for construction and get the proxy back</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Broadcast a message to the entire collection. The msgHandler will be</span>
     <span class="c1">// invoked on every element to the collection</span>
     <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">MyCollMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">MyCol</span><span class="o">::</span><span class="n">msgHandler</span><span class="o">&gt;</span><span class="p">();</span>
@@ -154,6 +158,10 @@
     <span class="c1">// Send a message to the 5th element of the collection</span>
     <span class="n">proxy</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">MyCollMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">MyCol</span><span class="o">::</span><span class="n">msgHandler</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="p">}</span>
+
+  <span class="c1">// Collectively broadcast to the collection (all nodes participate for a</span>
+  <span class="c1">// single broadcast)</span>
+  <span class="n">proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span><span class="n">MyCollMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">MyCol</span><span class="o">::</span><span class="n">msgHandler</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span></pre>
       </div>
     </div>
