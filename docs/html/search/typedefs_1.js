@@ -3,6 +3,7 @@ var searchData=
   ['barrierstatetype',['BarrierStateType',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#a9b612818f7b44ca65f2caee0dee094f3',1,'vt::collective::barrier::Barrier']]],
   ['barriertype',['BarrierType',['../namespacevt.html#a25e481f0d6bbc7204db23d1c87a62e77',1,'vt']]],
   ['base',['Base',['../structvt_1_1seq_1_1_tagged_sequencer_vrt.html#abef9929f24652d9ff758a98e44961263',1,'vt::seq::TaggedSequencerVrt']]],
+  ['baseindextype',['BaseIndexType',['../structvt_1_1mapping_1_1_base_mapper.html#a92c525b6dd69ead3a631626a75c4c0bc',1,'vt::mapping::BaseMapper']]],
   ['basemessage',['BaseMessage',['../namespacevt.html#ac34f95a5e2b8109b55bfba52b074443d',1,'vt']]],
   ['basemsgtype',['BaseMsgType',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a778cb9ec8919e4a309d28ed345ac318d',1,'vt::messaging::MsgSharedPtr::BaseMsgType()'],['../namespacevt.html#a44d0d4e144748f2b19a1cfd962f50338',1,'vt::BaseMsgType()']]],
   ['baseproxylisttype',['BaseProxyListType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a497383a759f7426e824b4f7475b3d5d3',1,'vt::objgroup::ObjGroupManager']]],

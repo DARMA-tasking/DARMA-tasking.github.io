@@ -47,6 +47,7 @@ var searchData=
   ['basehandle',['BaseHandle',['../structvt_1_1rdma_1_1_base_handle.html',1,'vt::rdma']]],
   ['baseholder',['BaseHolder',['../structvt_1_1vrt_1_1collection_1_1_base_holder.html',1,'vt::vrt::collection::BaseHolder'],['../structvt_1_1vrt_1_1collection_1_1_base_holder.html#a748c42f9fcddba89eae7d55424080e4e',1,'vt::vrt::collection::BaseHolder::BaseHolder()']]],
   ['baseindex',['BaseIndex',['../structvt_1_1index_1_1_base_index.html',1,'vt::index']]],
+  ['baseindextype',['BaseIndexType',['../structvt_1_1mapping_1_1_base_mapper.html#a92c525b6dd69ead3a631626a75c4c0bc',1,'vt::mapping::BaseMapper']]],
   ['baselb',['BaseLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html',1,'vt::vrt::collection::lb::BaseLB'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#addef25b03975034a0936c515a2942d43',1,'vt::vrt::collection::lb::BaseLB::BaseLB(bool in_comm_aware=false, bool in_comm_collectives=false, int32_t in_bin_size=default_bin_size)'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#af34c68c8ecf1341189a67c3405036d16',1,'vt::vrt::collection::lb::BaseLB::BaseLB(BaseLB const &amp;)=delete'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a1d1ae8a311e14e27b26624caee930535',1,'vt::vrt::collection::lb::BaseLB::BaseLB(BaseLB &amp;&amp;) noexcept=default']]],
   ['baselb_2ecc',['baselb.cc',['../baselb_8cc.html',1,'']]],
   ['baselb_2eh',['baselb.h',['../baselb_8h.html',1,'']]],
