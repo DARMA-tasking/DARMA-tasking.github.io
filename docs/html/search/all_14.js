@@ -564,7 +564,7 @@ var searchData=
   ['stat_5f',['stat_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats_msg.html#a733572c8a92c1b72f059c99feecb02e3',1,'vt::vrt::collection::balance::NodeStatsMsg']]],
   ['stat_5fwriter_5f',['stat_writer_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#ac55b2919f97d6e8eab3eb21bb764cf93',1,'vt::vrt::collection::balance::NodeStats']]],
   ['statdonemsg',['StatDoneMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaba14871248009cab8f27ec99089d6c44',1,'vt::trace']]],
-  ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma::State'],['../structvt_1_1rdma_1_1_state_message.html#a9a80ddef962eae297172e1f269a59b7f',1,'vt::rdma::StateMessage::state()'],['../structvt_1_1rdma_1_1_state.html#a7ab4e08a915e4b8357e8f079844c9378',1,'vt::rdma::State::State()']]],
+  ['state',['State',['../structvt_1_1rdma_1_1_state.html',1,'vt::rdma::State'],['../structvt_1_1rdma_1_1_state.html#a7ab4e08a915e4b8357e8f079844c9378',1,'vt::rdma::State::State()'],['../structvt_1_1rdma_1_1_state_message.html#a9a80ddef962eae297172e1f269a59b7f',1,'vt::rdma::StateMessage::state()']]],
   ['state_2eh',['state.h',['../state_8h.html',1,'']]],
   ['state_5f',['state_',['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a49b9fcaf2f8b76d350d1e3b809add2aa',1,'vt::collective::reduce::Reduce::state_()'],['../structvt_1_1location_1_1_loc_record.html#a61f9aee0764759d61b9e3fddebe602cd',1,'vt::location::LocRecord::state_()']]],
   ['state_5flookup_5f',['state_lookup_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ab30bde72498ebf851969c1914c3378c6',1,'vt::collective::reduce::ReduceStateHolder']]],
