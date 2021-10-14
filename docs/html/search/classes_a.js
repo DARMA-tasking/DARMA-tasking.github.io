@@ -16,6 +16,7 @@ var searchData=
   ['loadmodel',['LoadModel',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_load_model.html',1,'vt::vrt::collection::balance']]],
   ['loadmsg',['LoadMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html',1,'vt::vrt::collection::balance']]],
   ['loadmsgasync',['LoadMsgAsync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg_async.html',1,'vt::vrt::collection::balance']]],
+  ['loadsamplerbaselb',['LoadSamplerBaseLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_load_sampler_base_l_b.html',1,'vt::vrt::collection::lb']]],
   ['locationcache',['LocationCache',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
   ['locationcache_3c_20elmtype_2c_20locrectype_20_3e',['LocationCache&lt; ElmType, LocRecType &gt;',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
   ['locationcache_3c_20entityid_2c_20locrectype_20_3e',['LocationCache&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
