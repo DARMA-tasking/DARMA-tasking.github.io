@@ -117,167 +117,129 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define INCLUDED_CHECKPOINT_DISPATCH_RECONSTRUCTOR_H</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &quot;checkpoint/common.h&quot;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &quot;checkpoint/traits/serializable_traits.h&quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &quot;checkpoint/traits/reconstructor_traits.h&quot;</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;checkpoint/dispatch/reconstructor_tag.h&quot;</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">namespace </span>checkpoint { <span class="keyword">namespace </span>dispatch {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">   58</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">Reconstructor</a> {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">using</span> isDefaultConsType =</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;std::is_default_constructible&lt;U&gt;::value, T&gt;::type;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">using</span> isNotDefaultConsType =</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;not std::is_default_constructible&lt;U&gt;::value, T&gt;::type;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">using</span> isReconstructibleType =</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U,void&gt;::is_intrusive_reconstructible</a>, T</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  &gt;::type;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">using</span> isNonIntReconstructibleType =</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U,void&gt;::is_nonintrusive_reconstructible</a>, T</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  &gt;::type;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">using</span> isNotReconstructibleType =</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;not SerializableTraits&lt;U,void&gt;::is_reconstructible, T&gt;::type;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">using</span> isTaggedConstructibleType =</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;SerializableTraits&lt;U,void&gt;::is_tagged_constructible, T&gt;::type;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">using</span> isNotTaggedConstructibleType =</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;not SerializableTraits&lt;U,void&gt;::is_tagged_constructible, T&gt;::type;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">namespace </span>checkpoint { <span class="keyword">namespace </span>dispatch {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">   57</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">Reconstructor</a> {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// Default-construct as lowest priority in reconstruction preference</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">static</span> T* constructDefault(<span class="keywordtype">void</span>* buf, isDefaultConsType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    debug_checkpoint(</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="stringliteral">&quot;DeserializerDispatch: default constructor: buf=%p\n&quot;</span>, buf</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    T* t_ptr = <span class="keyword">new</span> (buf) T{};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> t_ptr;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// Fail, no valid option to constructing T</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">static</span> T* constructDefault(<span class="keywordtype">void</span>* buf, isNotDefaultConsType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    static_assert(</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U, void&gt;::is_tagged_constructible</a> or</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U, void&gt;::is_reconstructible</a> or</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::is_default_constructible&lt;U&gt;::value,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="stringliteral">&quot;Either a default constructor, reconstruct() function, or tagged &quot;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="stringliteral">&quot;constructor are required for de-serialization&quot;</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">   * Try to reconstruct with the following precedence:</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">   *   - Tagged constructor: T(SERIALIZE_CONSTRUCT_TAG{})</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">   *   - Reconstruct: T::reconstruct(buf) or reconstruct(t, buf)</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">   *   - Default constructor: T()</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">   * If none of these options work, static assert failure</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">using</span> isConstructible =</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;SerializableTraits&lt;U,void&gt;::is_constructible, T&gt;::type;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">using</span> isNotConstructible =</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;not SerializableTraits&lt;U,void&gt;::is_constructible, T&gt;::type;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="comment">// Intrusive reconstruct</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">static</span> T* constructReconstruct(<span class="keywordtype">void</span>* buf, isReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: T::reconstruct(): buf=%p\n&quot;</span>, buf);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">auto</span>&amp; t = T::reconstruct(buf);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> &amp;t;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="comment">// Default-construct as lowest priority in reconstruction preference</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="comment">// Non-intrusive reconstruct</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">static</span> T* constructDefault(<span class="keywordtype">void</span>* buf, isDefaultConsType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: default constructor: buf=%p\n&quot;</span>, buf);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    T* t_ptr = <span class="keyword">new</span> (buf) T{};</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> t_ptr;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="comment">// Fail, no valid option to constructing T</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">static</span> T* constructDefault(<span class="keywordtype">void</span>* buf, isNotDefaultConsType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    static_assert(</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U,void&gt;::is_tagged_constructible</a> or</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <a class="code" href="structcheckpoint_1_1_serializable_traits.html">SerializableTraits&lt;U,void&gt;::is_reconstructible</a> or</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      std::is_default_constructible&lt;U&gt;::value,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="stringliteral">&quot;Either a default constructor, reconstruct() function, or tagged &quot;</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <span class="stringliteral">&quot;constructor are required for de-serialization&quot;</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    );</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="comment">/*</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">   * Try to reconstruct with the following precedence:</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">   *   - Tagged constructor: T(SERIALIZE_CONSTRUCT_TAG{})</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">   *   - Reconstruct: T::reconstruct(buf) or reconstruct(t, buf)</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">   *   - Default constructor: T()</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">   * If none of these options work, static assert failure</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">// Intrusive reconstruct</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">static</span> T* constructReconstruct(<span class="keywordtype">void</span>* buf, isNonIntReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    debug_checkpoint(</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <span class="stringliteral">&quot;DeserializerDispatch: non-int reconstruct(): buf=%p\n&quot;</span>, buf</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    );</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    T* t = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// Explicitly call bare to invoke ADL</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    reconstruct(t, buf);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">  113</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">constructReconstruct</a>(<span class="keywordtype">void</span>* buf, isNotReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> constructDefault&lt;U&gt;(buf);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">  119</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">constructTag</a>(<span class="keywordtype">void</span>* buf, isTaggedConstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: tagged constructor: buf=%p\n&quot;</span>, buf);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    T* t_ptr = <span class="keyword">new</span> (buf) T{<a class="code" href="structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g.html">SERIALIZE_CONSTRUCT_TAG</a>{}};</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> t_ptr;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">  127</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">constructTag</a>(<span class="keywordtype">void</span>* buf, isNotTaggedConstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> constructReconstruct&lt;U&gt;(buf);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keyword">static</span> T* constructReconstruct(<span class="keywordtype">void</span>* buf, isReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: T::reconstruct(): buf=%p\n&quot;</span>, buf);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keyword">auto</span>&amp; t = T::reconstruct(buf);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> &amp;t;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="comment">// Non-intrusive reconstruct</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keyword">static</span> T* constructReconstruct(<span class="keywordtype">void</span>* buf, isNonIntReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: non-int reconstruct(): buf=%p\n&quot;</span>, buf);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    T* t = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="comment">// Explicitly call bare to invoke ADL</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    reconstruct(t,buf);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">return</span> t;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  }</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">  150</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">constructReconstruct</a>(<span class="keywordtype">void</span>* buf, isNotReconstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">return</span> constructDefault&lt;U&gt;(buf);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">  156</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">constructTag</a>(<span class="keywordtype">void</span>* buf, isTaggedConstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    debug_checkpoint(<span class="stringliteral">&quot;DeserializerDispatch: tagged constructor: buf=%p\n&quot;</span>, buf);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    T* t_ptr = <span class="keyword">new</span> (buf) T{<a class="code" href="structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g.html">SERIALIZE_CONSTRUCT_TAG</a>{}};</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">return</span> t_ptr;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">  164</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">constructTag</a>(<span class="keywordtype">void</span>* buf, isNotTaggedConstructibleType&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">return</span> constructReconstruct&lt;U&gt;(buf);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="keyword">static</span> T* construct(<span class="keywordtype">void</span>* buf) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> constructTag&lt;U&gt;(buf);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">  176</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">constructAllowFailImpl</a>(<span class="keywordtype">void</span>* buf, isConstructible&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">return</span> construct&lt;U&gt;(buf);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">constructAllowFailImpl</a>(<span class="keywordtype">void</span>* buf, isNotConstructible&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    std::unique_ptr&lt;char[]&gt; msg = std::make_unique&lt;char[]&gt;(32768);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    sprintf(</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;      &amp;msg[0],</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      <span class="stringliteral">&quot;Checkpoint is failing to reconstruct a class %s, due to it being &quot;</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <span class="stringliteral">&quot;abstract or the absence of a suitable constructor (default or tagged) &quot;</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      <span class="stringliteral">&quot;or reconstruct()&quot;</span>,</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      <span class="keyword">typeid</span>(T).name()</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    );</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    checkpointAssert(<span class="keyword">false</span>, msg.get());</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  }</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">// Used for instantiating reconstructor on abstract types that might not be</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="comment">// reconstructible</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keyword">static</span> T* constructAllowFail(<span class="keywordtype">void</span>* buf) {</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> constructAllowFailImpl&lt;U&gt;(buf);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;};</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}} <span class="comment">/* end namespace checkpoint::dispatch */</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_CHECKPOINT_DISPATCH_RECONSTRUCTOR_H*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keyword">static</span> T* construct(<span class="keywordtype">void</span>* buf) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span> constructTag&lt;U&gt;(buf);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">  139</a></span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">constructAllowFailImpl</a>(<span class="keywordtype">void</span>* buf, isConstructible&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> construct&lt;U&gt;(buf);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="keyword">static</span> T* <a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">constructAllowFailImpl</a>(<span class="keywordtype">void</span>* buf, isNotConstructible&lt;U&gt;* = <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    std::unique_ptr&lt;char[]&gt; msg = std::make_unique&lt;char[]&gt;(32768);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    sprintf(</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;      &amp;msg[0],</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;      <span class="stringliteral">&quot;Checkpoint is failing to reconstruct a class %s, due to it being &quot;</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;      <span class="stringliteral">&quot;abstract or the absence of a suitable constructor (default or tagged) &quot;</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;      <span class="stringliteral">&quot;or reconstruct()&quot;</span>,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;      <span class="keyword">typeid</span>(T).name()</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    );</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    checkpointAssert(<span class="keyword">false</span>, msg.get());</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="comment">// Used for instantiating reconstructor on abstract types that might not be</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="comment">// reconstructible</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U = T&gt;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="keyword">static</span> T* constructAllowFail(<span class="keywordtype">void</span>* buf) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> constructAllowFailImpl&lt;U&gt;(buf);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;};</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}} <span class="comment">/* end namespace checkpoint::dispatch */</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_CHECKPOINT_DISPATCH_RECONSTRUCTOR_H*/</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_a8a504054312ef8e5703d938cc2ef75be"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">checkpoint::dispatch::Reconstructor::constructReconstruct</a></div><div class="ttdeci">static T * constructReconstruct(void *buf, isNotReconstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Non-reconstruct pass-through.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:150</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_a8a504054312ef8e5703d938cc2ef75be"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a8a504054312ef8e5703d938cc2ef75be">checkpoint::dispatch::Reconstructor::constructReconstruct</a></div><div class="ttdeci">static T * constructReconstruct(void *buf, isNotReconstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Non-reconstruct pass-through.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:113</div></div>
 <div class="ttc" id="astructcheckpoint_1_1_serializable_traits_html"><div class="ttname"><a href="structcheckpoint_1_1_serializable_traits.html">checkpoint::SerializableTraits</a></div><div class="ttdef"><b>Definition:</b> serializable_traits.h:83</div></div>
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_a116025ae56a26ed4d6a51b999f57fd47"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">checkpoint::dispatch::Reconstructor::constructTag</a></div><div class="ttdeci">static T * constructTag(void *buf, isNotTaggedConstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Non-tagged constructor pass-through.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:164</div></div>
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_ac702decacef9a6ef4d0cf5492187b9ab"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">checkpoint::dispatch::Reconstructor::constructTag</a></div><div class="ttdeci">static T * constructTag(void *buf, isTaggedConstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Tagged constructor.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:156</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_a116025ae56a26ed4d6a51b999f57fd47"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#a116025ae56a26ed4d6a51b999f57fd47">checkpoint::dispatch::Reconstructor::constructTag</a></div><div class="ttdeci">static T * constructTag(void *buf, isNotTaggedConstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Non-tagged constructor pass-through.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:127</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_ac702decacef9a6ef4d0cf5492187b9ab"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac702decacef9a6ef4d0cf5492187b9ab">checkpoint::dispatch::Reconstructor::constructTag</a></div><div class="ttdeci">static T * constructTag(void *buf, isTaggedConstructibleType&lt; U &gt; *=nullptr)</div><div class="ttdoc">Tagged constructor.</div><div class="ttdef"><b>Definition:</b> reconstructor.h:119</div></div>
 <div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g_html"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g.html">checkpoint::dispatch::SERIALIZE_CONSTRUCT_TAG</a></div><div class="ttdef"><b>Definition:</b> reconstructor_tag.h:49</div></div>
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_ac4eac94cd715ae6637f5f5c52bb78584"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">checkpoint::dispatch::Reconstructor::constructAllowFailImpl</a></div><div class="ttdeci">static T * constructAllowFailImpl(void *buf, isConstructible&lt; U &gt; *=nullptr)</div><div class="ttdef"><b>Definition:</b> reconstructor.h:176</div></div>
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">checkpoint::dispatch::Reconstructor</a></div><div class="ttdef"><b>Definition:</b> reconstructor.h:58</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html_ac4eac94cd715ae6637f5f5c52bb78584"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html#ac4eac94cd715ae6637f5f5c52bb78584">checkpoint::dispatch::Reconstructor::constructAllowFailImpl</a></div><div class="ttdeci">static T * constructAllowFailImpl(void *buf, isConstructible&lt; U &gt; *=nullptr)</div><div class="ttdef"><b>Definition:</b> reconstructor.h:139</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">checkpoint::dispatch::Reconstructor</a></div><div class="ttdef"><b>Definition:</b> reconstructor.h:57</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

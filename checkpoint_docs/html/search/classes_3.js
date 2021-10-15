@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['footprinter_117',['Footprinter',['../structcheckpoint_1_1_footprinter.html',1,'checkpoint']]]
+  ['cleantype_118',['CleanType',['../structcheckpoint_1_1dispatch_1_1_clean_type.html',1,'checkpoint::dispatch']]]
 ];
