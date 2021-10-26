@@ -22,7 +22,7 @@ var searchData=
   ['bounds',['bounds',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#a1a3f0e52624de2c77d4d5fcd15e293eb',1,'vt::vrt::collection::CollectionHolder']]],
   ['bounds_5f',['bounds_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a07775dd24ad9720f285dfcdc1cb67183',1,'vt::vrt::collection::param::ConstructParams']]],
   ['broadcast_5fdest',['broadcast_dest',['../namespacevt_1_1messaging.html#a11d2b356f56486f2e60f0255cb6b05ff',1,'vt::messaging']]],
-  ['buf',['buf',['../structvt_1_1messaging_1_1_in_progress_base.html#a0ca5ccc2c8a35f0094893d6da21af4fd',1,'vt::messaging::InProgressBase']]],
+  ['buf',['buf',['../structvt_1_1messaging_1_1_in_progress_base.html#a0ca5ccc2c8a35f0094893d6da21af4fd',1,'vt::messaging::InProgressBase::buf()'],['../structcheckpoint_1_1dispatch_1_1_allocator.html#a3d770c2b7a033aff92ba603be5b1027f',1,'checkpoint::dispatch::Allocator::buf()']]],
   ['buf_5fin_5f',['buf_in_',['../structvt_1_1util_1_1compress_1_1_decompressor.html#a47ec6000bc3a90508998f828551e3cea',1,'vt::util::compress::Decompressor']]],
   ['buf_5fsize_5f',['buf_size_',['../structvt_1_1util_1_1compress_1_1_compressor.html#a580e68eec22dc1e2f86c228b062f0c68',1,'vt::util::compress::Compressor']]],
   ['buffer',['buffer',['../unionvt_1_1pool_1_1_alloc_view.html#ac3bfb82a8b9841cf3c4bd9aace2e559b',1,'vt::pool::AllocView']]],

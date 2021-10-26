@@ -36,5 +36,5 @@ var searchData=
   ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
   ['grouprangemsg',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]]
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
 ];

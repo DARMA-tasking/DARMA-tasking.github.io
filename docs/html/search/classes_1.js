@@ -16,6 +16,7 @@ var searchData=
   ['alignedcharunion_3c_20strongtag_2c_20tagpair_2c_20strongseq_2c_20stronguserid_2c_20strongepoch_20_3e',['AlignedCharUnion&lt; StrongTag, TagPair, StrongSeq, StrongUserID, StrongEpoch &gt;',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html',1,'vt::util::adt']]],
   ['aligner',['Aligner',['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner.html',1,'vt::util::adt::detail']]],
   ['aligner_3c_20t_20_3e',['Aligner&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
+  ['allocator',['Allocator',['../structcheckpoint_1_1dispatch_1_1_allocator.html',1,'checkpoint::dispatch']]],
   ['alloclayout',['AllocLayout',['../structvt_1_1pool_1_1_alloc_layout.html',1,'vt::pool']]],
   ['allocview',['AllocView',['../unionvt_1_1pool_1_1_alloc_view.html',1,'vt::pool']]],
   ['allunique',['AllUnique',['../structvt_1_1util_1_1adt_1_1detail_1_1_all_unique.html',1,'vt::util::adt::detail']]],

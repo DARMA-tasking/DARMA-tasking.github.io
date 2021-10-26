@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_7eactivemessenger',['~ActiveMessenger',['../structvt_1_1messaging_1_1_active_messenger.html#a10ef2a3dae9bcaddaa1f80903274e7b3',1,'vt::messaging::ActiveMessenger']]],
+  ['_7eallocator',['~Allocator',['../structcheckpoint_1_1dispatch_1_1_allocator.html#a7048344a23ba3b7bd0fa2ed0123586e5',1,'checkpoint::dispatch::Allocator']]],
   ['_7eappender',['~Appender',['../structvt_1_1util_1_1json_1_1_appender.html#afc07753487e15d62f981c195d0ba6b17',1,'vt::util::json::Appender']]],
   ['_7easyncevent',['~AsyncEvent',['../structvt_1_1event_1_1_async_event.html#a605a6078d0bcd10467a21464fe143561',1,'vt::event::AsyncEvent']]],
   ['_7easyncop',['~AsyncOp',['../structvt_1_1messaging_1_1_async_op.html#adf861ee523573ddd8434b78496a78271',1,'vt::messaging::AsyncOp']]],

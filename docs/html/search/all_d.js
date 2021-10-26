@@ -31,8 +31,6 @@ var searchData=
   ['lb_5fmanager_2ecc',['lb_manager.cc',['../lb__manager_8cc.html',1,'']]],
   ['lb_5fmanager_2eh',['lb_manager.h',['../lb__manager_8h.html',1,'']]],
   ['lb_5fname_5f',['lb_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#ad163d019f9d92288f78026d95a55e175',1,'vt::vrt::collection::balance::SpecEntry']]],
-  ['lb_5fnames_5f',['lb_names_',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a25f2d26f8832c24be922ebbb2cd7c119',1,'vt::vrt::collection::balance']]],
-  ['lb_5fstat_5fname_5f',['lb_stat_name_',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a93087d8eb275a6113b9d32e41ef87277',1,'vt::vrt::collection::lb']]],
   ['lb_5fstats_2ecc',['lb_stats.cc',['../lb__stats_8cc.html',1,'']]],
   ['lb_5fstats_2efwd_2eh',['lb_stats.fwd.h',['../lb__stats_8fwd_8h.html',1,'']]],
   ['lb_5fstats_2eh',['lb_stats.h',['../lb__stats_8h.html',1,'']]],

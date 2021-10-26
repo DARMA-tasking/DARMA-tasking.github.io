@@ -184,6 +184,8 @@ var searchData=
   ['allocatenewepoch',['allocateNewEpoch',['../structvt_1_1epoch_1_1_epoch_window.html#a0c18249fdbc30c5e4ee0de6949a320a4',1,'vt::epoch::EpochWindow']]],
   ['allocatenewrdmahandler',['allocateNewRdmaHandler',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a9b393c6dbd360c0b7bfb899e3fc0451b',1,'vt::rdma::RDMAManager']]],
   ['allocatenewtag',['allocateNewTag',['../structvt_1_1messaging_1_1_active_messenger.html#af2339f3300276bdc7e55706ce0cfff2a',1,'vt::messaging::ActiveMessenger']]],
+  ['allocator',['Allocator',['../structcheckpoint_1_1dispatch_1_1_allocator.html',1,'checkpoint::dispatch::Allocator&lt; T &gt;'],['../structcheckpoint_1_1dispatch_1_1_allocator.html#a40c8a12993552385721e85ca5b383d90',1,'checkpoint::dispatch::Allocator::Allocator()']]],
+  ['allocator_2eh',['allocator.h',['../allocator_8h.html',1,'']]],
   ['allocator_5f',['allocator_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a90e91c26c97dc9ea779e42e6c634d456',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
   ['alloclayout',['AllocLayout',['../structvt_1_1pool_1_1_alloc_layout.html',1,'vt::pool']]],
   ['alloctype',['AllocType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#af699b4961903ebe28d478088eae9b60a',1,'vt::term::interval::IntegralSetBase']]],

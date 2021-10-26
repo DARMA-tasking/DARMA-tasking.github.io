@@ -16,8 +16,6 @@ var searchData=
   ['lb_5f',['lb_',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a81a48c32a51a56d1006dc212b2de60aa',1,'vt::term::interval::IntegralSetBase::lb_()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a12aa2c05e55f64d6b83f66fbeabddf47',1,'vt::term::interval::Interval::lb_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_msg.html#ab3bba23a78a0b6d988e64949808d3137',1,'vt::vrt::collection::balance::InvokeMsg::lb_()']]],
   ['lb_5finstances_5f',['lb_instances_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#aa25f8223d51a33ca1c583b56fd2a98c2',1,'vt::vrt::collection::balance::LBManager']]],
   ['lb_5fname_5f',['lb_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#ad163d019f9d92288f78026d95a55e175',1,'vt::vrt::collection::balance::SpecEntry']]],
-  ['lb_5fnames_5f',['lb_names_',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a25f2d26f8832c24be922ebbb2cd7c119',1,'vt::vrt::collection::balance']]],
-  ['lb_5fstat_5fname_5f',['lb_stat_name_',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a93087d8eb275a6113b9d32e41ef87277',1,'vt::vrt::collection::lb']]],
   ['lc',['lC',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a7b24d9eb35f71de23824ea8434a52cfd',1,'vt::term::ds::TermDS']]],
   ['ld',['lD',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#acd01a2b3778d0510fe35f6497f33eda9',1,'vt::term::ds::TermDS']]],
   ['leaf_5fclosure',['leaf_closure',['../structvt_1_1seq_1_1_seq_closure.html#a8489de87b5b4d74cbcfb7e8624068907',1,'vt::seq::SeqClosure']]],

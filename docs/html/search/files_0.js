@@ -12,6 +12,7 @@ var searchData=
   ['activefn_2eh',['activefn.h',['../activefn_8h.html',1,'']]],
   ['adapt_5fmappers_2eh',['adapt_mappers.h',['../adapt__mappers_8h.html',1,'']]],
   ['all_5ftrue_2eh',['all_true.h',['../all__true_8h.html',1,'']]],
+  ['allocator_2eh',['allocator.h',['../allocator_8h.html',1,'']]],
   ['and_5fop_2eh',['and_op.h',['../and__op_8h.html',1,'']]],
   ['app_5fconfig_2eh',['app_config.h',['../app__config_8h.html',1,'']]],
   ['args_2ecc',['args.cc',['../args_8cc.html',1,'']]],

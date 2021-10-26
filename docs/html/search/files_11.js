@@ -40,6 +40,7 @@ var searchData=
   ['read_5flb_2eh',['read_lb.h',['../read__lb_8h.html',1,'']]],
   ['reconstructor_2eh',['reconstructor.h',['../reconstructor_8h.html',1,'']]],
   ['reconstructor_5ftag_2eh',['reconstructor_tag.h',['../reconstructor__tag_8h.html',1,'']]],
+  ['reconstructor_5ftraits_2eh',['reconstructor_traits.h',['../reconstructor__traits_8h.html',1,'']]],
   ['record_2eh',['record.h',['../record_8h.html',1,'']]],
   ['record_2eimpl_2eh',['record.impl.h',['../record_8impl_8h.html',1,'']]],
   ['reducable_2eh',['reducable.h',['../reducable_8h.html',1,'']]],
