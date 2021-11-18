@@ -35,6 +35,8 @@ var searchData=
   ['epoch_5fgraph_2ecc',['epoch_graph.cc',['../epoch__graph_8cc.html',1,'']]],
   ['epoch_5fgraph_2eh',['epoch_graph.h',['../epoch__graph_8h.html',1,'']]],
   ['epoch_5fgraph_5freduce_2eh',['epoch_graph_reduce.h',['../epoch__graph__reduce_8h.html',1,'']]],
+  ['epoch_5fguard_2ecc',['epoch_guard.cc',['../epoch__guard_8cc.html',1,'']]],
+  ['epoch_5fguard_2eh',['epoch_guard.h',['../epoch__guard_8h.html',1,'']]],
   ['epoch_5fheaders_2eh',['epoch_headers.h',['../epoch__headers_8h.html',1,'']]],
   ['epoch_5flabel_2ecc',['epoch_label.cc',['../epoch__label_8cc.html',1,'']]],
   ['epoch_5flabel_2eh',['epoch_label.h',['../epoch__label_8h.html',1,'']]],

@@ -33,6 +33,7 @@ var searchData=
   ['_7edispatchcollectionbase',['~DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html#a8c27f42a9b91fd31b0aa7b30da4d614c',1,'vt::vrt::collection::DispatchCollectionBase']]],
   ['_7eelementholder',['~ElementHolder',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#ab74327ed9bdbe171d7feab3a1efb8d63',1,'vt::vrt::collection::ElementHolder']]],
   ['_7eentitylocationcoord',['~EntityLocationCoord',['../structvt_1_1location_1_1_entity_location_coord.html#af68fd9bb9fcbf02f693ba2af503ed409',1,'vt::location::EntityLocationCoord']]],
+  ['_7eepochguard',['~EpochGuard',['../structvt_1_1_epoch_guard.html#adf6677491e5d70a81645216b3cb65d0a',1,'vt::EpochGuard']]],
   ['_7eeventrecord',['~EventRecord',['../structvt_1_1event_1_1_event_record.html#ae46827dcbe7eab923e6083006475fa65',1,'vt::event::EventRecord']]],
   ['_7egreedylb',['~GreedyLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a234935b9bb58ef4b7680be7540035c6f',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['_7egroupmanager',['~GroupManager',['../structvt_1_1group_1_1_group_manager.html#a87c2b3dc934de17d0ec1372957b234e5',1,'vt::group::GroupManager']]],
