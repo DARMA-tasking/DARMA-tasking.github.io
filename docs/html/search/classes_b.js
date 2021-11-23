@@ -7,6 +7,7 @@ var searchData=
   ['manager',['Manager',['../structvt_1_1rdma_1_1_manager.html',1,'vt::rdma']]],
   ['map',['Map',['../structvt_1_1rdma_1_1_map.html',1,'vt::rdma']]],
   ['mappednode',['MappedNode',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html',1,'vt::vrt::collection']]],
+  ['mapsdispatcher',['MapsDispatcher',['../structvt_1_1auto__registry_1_1_maps_dispatcher.html',1,'vt::auto_registry']]],
   ['mask',['Mask',['../structvt_1_1sched_1_1_mask.html',1,'vt::sched']]],
   ['mask_3c_20n_2c_20m_2c_200_2c_20r_2c_20false_2c_20typename_20std_3a_3aenable_5fif_3c_20n_20_21_3dr_20_3e_3a_3atype_20_3e',['Mask&lt; N, M, 0, R, false, typename std::enable_if&lt; N !=R &gt;::type &gt;',['../structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01false_00_01typename_01std_1_1enabl81bb113ca3757a124cb0c647589aa3dd.html',1,'vt::sched']]],
   ['mask_3c_20n_2c_20m_2c_200_2c_20r_2c_20true_2c_20typename_20std_3a_3aenable_5fif_3c_20n_20_21_3dr_20_3e_3a_3atype_20_3e',['Mask&lt; N, M, 0, R, true, typename std::enable_if&lt; N !=R &gt;::type &gt;',['../structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable84a8b0b373fb69b0fca50672234c2a86.html',1,'vt::sched']]],

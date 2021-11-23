@@ -9,6 +9,8 @@ var searchData=
   ['functionwrapper_3c_20returnt_28functort_3a_3a_2a_29_28argst_2e_2e_2e_29_3e',['FunctionWrapper&lt; ReturnT(FunctorT::*)(ArgsT...)&gt;',['../structvt_1_1util_1_1_function_wrapper_3_01_return_t_07_functor_t_1_1_5_08_07_args_t_8_8_8_08_4.html',1,'vt::util']]],
   ['functoradapter',['FunctorAdapter',['../structvt_1_1auto__registry_1_1_functor_adapter.html',1,'vt::auto_registry']]],
   ['functoradapterargs',['FunctorAdapterArgs',['../structvt_1_1auto__registry_1_1_functor_adapter_args.html',1,'vt::auto_registry']]],
+  ['functoradapterargs_3c_20objtypet_20_3e',['FunctorAdapterArgs&lt; ObjTypeT &gt;',['../structvt_1_1auto__registry_1_1_functor_adapter_args_3_01_obj_type_t_01_4.html',1,'vt::auto_registry']]],
+  ['functoradapterargs_3c_20objtypet_2c_20msgt_20_3e',['FunctorAdapterArgs&lt; ObjTypeT, MsgT &gt;',['../structvt_1_1auto__registry_1_1_functor_adapter_args_3_01_obj_type_t_00_01_msg_t_01_4.html',1,'vt::auto_registry']]],
   ['functoradaptermember',['FunctorAdapterMember',['../structvt_1_1auto__registry_1_1_functor_adapter_member.html',1,'vt::auto_registry']]],
   ['functoradapterparam',['FunctorAdapterParam',['../structvt_1_1auto__registry_1_1_functor_adapter_param.html',1,'vt::auto_registry']]],
   ['functorextractor',['FunctorExtractor',['../structvt_1_1util_1_1_functor_extractor.html',1,'vt::util']]],

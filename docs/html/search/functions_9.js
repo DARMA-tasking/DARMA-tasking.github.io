@@ -116,6 +116,7 @@ var searchData=
   ['isgroupdefault',['isGroupDefault',['../structvt_1_1group_1_1_info_coll.html#a6adf605b8d46a4174a8fd1321fd8fd3f',1,'vt::group::InfoColl::isGroupDefault()'],['../structvt_1_1group_1_1_group_manager.html#ad4d55f7bcf2aadd97c858b3f11c5d365',1,'vt::group::GroupManager::isGroupDefault()']]],
   ['ishandler',['isHandler',['../structvt_1_1rdma_1_1_handle_manager.html#a8e70acc8027b2be6cab2d9e2a165c7f2',1,'vt::rdma::HandleManager']]],
   ['ishandlerauto',['isHandlerAuto',['../structvt_1_1_handler_manager.html#a3324aeb71747bdd6b99194674dc03434',1,'vt::HandlerManager']]],
+  ['ishandlerbasemsgderived',['isHandlerBaseMsgDerived',['../structvt_1_1_handler_manager.html#a88c108df63f4d16a17485c08eefe31c5',1,'vt::HandlerManager']]],
   ['ishandlerfunctor',['isHandlerFunctor',['../structvt_1_1_handler_manager.html#a0d03f576b15390773522317a4086e725',1,'vt::HandlerManager']]],
   ['ishandlermember',['isHandlerMember',['../structvt_1_1_handler_manager.html#a693afb1f820721217771ff0b9bcd71ae',1,'vt::HandlerManager']]],
   ['ishandlerobjgroup',['isHandlerObjGroup',['../structvt_1_1_handler_manager.html#a41bb9a71156fa3010988e8b576022bf5',1,'vt::HandlerManager']]],
