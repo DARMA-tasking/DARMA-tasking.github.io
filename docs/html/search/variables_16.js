@@ -5,6 +5,7 @@ var searchData=
   ['wave',['wave',['../structvt_1_1term_1_1_term_msg.html#a4090f02c6dae636a0c2b31c101532255',1,'vt::term::TermMsg']]],
   ['which_5f',['which_',['../structvt_1_1util_1_1adt_1_1_union_base.html#ae46ed3323e83507ef0b47ad82db493d0',1,'vt::util::adt::UnionBase']]],
   ['whole_5fphase',['WHOLE_PHASE',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a0eb2d2db9e2d4329e2f76332c1fb2429',1,'vt::vrt::collection::balance::PhaseOffset']]],
+  ['whole_5fphase_5fload',['whole_phase_load',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_summary.html#aebd92c5a080a326b3ecb6a78a43dcb18',1,'vt::vrt::collection::balance::LoadSummary']]],
   ['window_5f',['window_',['../structvt_1_1rdma_1_1_channel.html#aaecfddf4b74d52f4924d228ec46bcf59',1,'vt::rdma::Channel::window_()'],['../structvt_1_1rdma_1_1_lock_m_p_i.html#a641c0b10028472abe859317c94a1c511',1,'vt::rdma::LockMPI::window_()']]],
   ['window_5fbits_5f',['window_bits_',['../structvt_1_1util_1_1compress_1_1_compressor.html#ab446c4e6d76b2444a09ccb763bcd159f',1,'vt::util::compress::Compressor']]],
   ['work_5f',['work_',['../structvt_1_1sched_1_1_base_unit.html#ab425435c3b6c1cdf2fc208f1e50ea84c',1,'vt::sched::BaseUnit']]],

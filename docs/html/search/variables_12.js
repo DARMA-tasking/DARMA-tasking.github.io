@@ -88,6 +88,7 @@ var searchData=
   ['submitted_5fwave_5f',['submitted_wave_',['../structvt_1_1term_1_1_term_state.html#ae68bc728e864de5493e3fb61579c1c4a',1,'vt::term::TermState']]],
   ['subphase',['subphase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a61facb996e52cae3e9a8c9d4d3091ee0',1,'vt::vrt::collection::balance::PhaseOffset']]],
   ['subphase_5fcomm_5f',['subphase_comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#aa08f9c01d36183eb705efa2a0596cc2a',1,'vt::vrt::collection::balance::ElementStats']]],
+  ['subphase_5floads',['subphase_loads',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_summary.html#ad26ab5db6aaf53e5f337382620d0a361',1,'vt::vrt::collection::balance::LoadSummary']]],
   ['subphase_5ftimings_5f',['subphase_timings_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#a7e50111243418cbad1559c01feb2238a',1,'vt::vrt::collection::balance::ElementStats']]],
   ['subphases_5f',['subphases_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_select_subphases.html#ad9ad62b67851546a4377ee6a4e17181e',1,'vt::vrt::collection::balance::SelectSubphases']]],
   ['subtree_5f',['subtree_',['../structvt_1_1group_1_1_info_coll.html#a42a225abb3f2d734ae4eddaecdb56b9e',1,'vt::group::InfoColl']]],

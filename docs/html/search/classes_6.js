@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['filteriterator',['FilterIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_filter_iterator.html',1,'vt::vrt::collection::balance']]],
   ['finishedreducemsg',['FinishedReduceMsg',['../structvt_1_1group_1_1_finished_reduce_msg.html',1,'vt::group']]],
   ['footprinter',['Footprinter',['../structcheckpoint_1_1_footprinter.html',1,'checkpoint']]],
   ['from_5fs',['from_s',['../structvt_1_1from__s.html',1,'vt']]],

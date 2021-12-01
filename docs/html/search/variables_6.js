@@ -7,6 +7,7 @@ var searchData=
   ['file_5fname_5f',['file_name_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#a831648ee90fa0d8dbda3d987ce2a441c',1,'vt::vrt::collection::CollectionDirectory::Element']]],
   ['file_5ftype',['file_type',['../structvt_1_1trace_1_1vt__gz_file.html#ad76fc8569dffe67628ad492daee76dbf',1,'vt::trace::vt_gzFile']]],
   ['filename_5f',['filename_',['../structvt_1_1util_1_1json_1_1_reader.html#a291e175a92898f3cb80c2f05f1350326',1,'vt::util::json::Reader']]],
+  ['filter',['filter',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_filter_iterator.html#a89d9841e7176310ab6c712643f88ead7',1,'vt::vrt::collection::balance::FilterIterator']]],
   ['final_5fchild',['final_child',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#adc83bddfb1fc46d47c4b3b2c0d75038a',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['final_5fchild_5f',['final_child_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_down_msg.html#abb94529b3dcc3611eaf2d242d8da2cdd',1,'vt::vrt::collection::lb::LBTreeDownMsg']]],
   ['finalize_5fcont_5f',['finalize_cont_',['../structvt_1_1group_1_1_info_coll.html#aa767d1c96a39903722351cd0cf758a94',1,'vt::group::InfoColl']]],

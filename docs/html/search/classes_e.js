@@ -41,6 +41,7 @@ var searchData=
   ['priorityunit',['PriorityUnit',['../structvt_1_1sched_1_1_priority_unit.html',1,'vt::sched']]],
   ['processbuffer',['ProcessBuffer',['../structvt_1_1util_1_1container_1_1_process_buffer.html',1,'vt::util::container']]],
   ['progressable',['Progressable',['../structvt_1_1runtime_1_1component_1_1_progressable.html',1,'vt::runtime::component']]],
+  ['proposedreassignment',['ProposedReassignment',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_proposed_reassignment.html',1,'vt::vrt::collection::balance']]],
   ['proxy',['Proxy',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20manager_20_3e',['Proxy&lt; Manager &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
   ['proxy_3c_20subhandle_3c_20t_2c_20e_2c_20indext_20_3e_20_3e',['Proxy&lt; SubHandle&lt; T, E, IndexT &gt; &gt;',['../structvt_1_1objgroup_1_1proxy_1_1_proxy.html',1,'vt::objgroup::proxy']]],
