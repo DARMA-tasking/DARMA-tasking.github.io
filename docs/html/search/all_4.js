@@ -228,7 +228,6 @@ var searchData=
   ['clearpipe',['clearPipe',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a9f31fab057a4e9af38547859572b6127',1,'vt::pipe::signal::SignalHolder']]],
   ['clearstats',['clearStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a99adbf5c5165b274dd5abd761ed72c45',1,'vt::vrt::collection::balance::NodeStats']]],
   ['clearsuccessors',['clearSuccessors',['../structvt_1_1term_1_1_epoch_dependency.html#a1c62e1abdda2b802361e2100b7d1fc15',1,'vt::term::EpochDependency']]],
-  ['cli',['CLI',['../namespace_c_l_i.html',1,'']]],
   ['closefile',['closeFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a959990ab99e72d5a7df854582ecd83b2',1,'checkpoint::buffer::IOBuffer']]],
   ['closestatsfile',['closeStatsFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#abd5133b734537e6a9190e9976f009f89',1,'vt::vrt::collection::balance::NodeStats']]],
   ['cmf_5ftype_5f',['cmf_type_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#ac18e0879c068166c1b5a382dc37b0905',1,'vt::vrt::collection::lb::TemperedLB']]],

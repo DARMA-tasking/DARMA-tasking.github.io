@@ -2,7 +2,6 @@ var searchData=
 [
   ['buffer',['buffer',['../namespacecheckpoint_1_1buffer.html',1,'checkpoint']]],
   ['checkpoint',['checkpoint',['../namespacecheckpoint.html',1,'']]],
-  ['cli',['CLI',['../namespace_c_l_i.html',1,'']]],
   ['debug',['debug',['../namespacecheckpoint_1_1debug.html',1,'checkpoint']]],
   ['detail',['detail',['../namespacecheckpoint_1_1detail.html',1,'checkpoint']]],
   ['dispatch',['dispatch',['../namespacecheckpoint_1_1dispatch.html',1,'checkpoint']]],

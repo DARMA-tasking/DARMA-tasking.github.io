@@ -9,6 +9,7 @@ var searchData=
   ['barrier',['barrier',['../namespacevt_1_1collective_1_1barrier.html',1,'vt::collective']]],
   ['callback',['callback',['../namespacevt_1_1pipe_1_1callback.html',1,'vt::pipe']]],
   ['cbunion',['cbunion',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html',1,'vt::pipe::callback']]],
+  ['cli',['CLI',['../namespacevt_1_1_c_l_i.html',1,'vt']]],
   ['col_5fproxy',['col_proxy',['../namespacevt_1_1vrt_1_1collection_1_1col__proxy.html',1,'vt::vrt::collection']]],
   ['collection',['collection',['../namespacevt_1_1vrt_1_1collection.html',1,'vt::vrt::collection'],['../collection.html',1,'introduction']]],
   ['collective',['collective',['../namespacevt_1_1collective.html',1,'vt']]],
