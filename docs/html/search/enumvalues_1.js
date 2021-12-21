@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['barehandler',['BareHandler',['../namespacevt_1_1elm.html#a38258bcd01ff9b6e184a30afdd3a7df2a2082a9f9beb5b70fd737977634a29604',1,'vt::elm']]],
   ['barrier',['Barrier',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a48656da7a6e48c6887d94f4c69c731b6',1,'vt::error::Barrier()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a39d4d58fa73c76f6cb97e6dc20e0d1c0',1,'vt::config::barrier()']]],
   ['base',['Base',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a095a1b43effec73955e31e790438de49',1,'vt::runtime::component']]],
   ['basemsgderived',['BaseMsgDerived',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2acff3b95c0c9083c01b66480d93ef1209',1,'vt']]],
@@ -21,6 +22,6 @@ var searchData=
   ['beginusereventpair',['BeginUserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da566366b99702f7603997d1407afee876',1,'vt::trace']]],
   ['billions',['Billions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a0280d8e6daff700da39edfbc74a15981',1,'vt::runtime::component']]],
   ['bocinitmsg',['BocInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea73578cc48815262a4bbdaa2da8bdbc60',1,'vt::trace']]],
-  ['broadcast',['broadcast',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a96457a80e68a41a3c6283126efe6200e',1,'vt::config::broadcast()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9cc6c6884ca0416dae824e9204093c57abe55b6387170df0ca68f41225268e842',1,'vt::vrt::collection::balance::Broadcast()']]],
+  ['broadcast',['Broadcast',['../namespacevt_1_1elm.html#ab7367fdbe88bdcf329563642147f9ae2abe55b6387170df0ca68f41225268e842',1,'vt::elm::Broadcast()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a96457a80e68a41a3c6283126efe6200e',1,'vt::config::broadcast()']]],
   ['bytes',['Bytes',['../namespacevt_1_1runtime_1_1component.html#a99ec18b08862c712176126bb7d0e307aa600e754f49b68aa0fc90a9cd64eb7051',1,'vt::runtime::component::Bytes()'],['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a600e754f49b68aa0fc90a9cd64eb7051',1,'vt::util::memory::Bytes()']]]
 ];

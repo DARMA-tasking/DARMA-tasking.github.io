@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['eelmidcontrolbits',['eElmIDControlBits',['../namespacevt_1_1elm.html#a38258bcd01ff9b6e184a30afdd3a7df2',1,'vt::elm']]],
+  ['eelmidproxybitsnonobjgroup',['eElmIDProxyBitsNonObjGroup',['../namespacevt_1_1elm.html#aecc441d9d3dee46f8a528484bdc8350c',1,'vt::elm']]],
+  ['eelmidproxybitsobjgroup',['eElmIDProxyBitsObjGroup',['../namespacevt_1_1elm.html#ab2606b4fa55a31961da3b9379b3eb70d',1,'vt::elm']]],
   ['eenvelopetype',['eEnvelopeType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6c',1,'vt::messaging']]],
   ['eepochcategory',['eEpochCategory',['../namespacevt_1_1epoch.html#a956abe0aceef0d10a988de8acb002c7c',1,'vt::epoch']]],
   ['eepochcoll',['eEpochColl',['../namespacevt_1_1epoch.html#aff6d7581e1d2888909564a5deaaf11a9',1,'vt::epoch']]],

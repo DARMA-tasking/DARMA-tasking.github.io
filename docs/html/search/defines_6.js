@@ -3,6 +3,7 @@ var searchData=
   ['included_5fcheckpoint_5fbuffer_5fio_5fbuffer_5fcc',['INCLUDED_CHECKPOINT_BUFFER_IO_BUFFER_CC',['../io__buffer_8cc.html#adc2d576313f5e95113cdf99e8005c257',1,'io_buffer.cc']]],
   ['included_5fvt_5fcollective_5fcollective_5fscope_5fcc',['INCLUDED_VT_COLLECTIVE_COLLECTIVE_SCOPE_CC',['../collective__scope_8cc.html#a7b9ce9b82418ee6ec6f629271ac99524',1,'collective_scope.cc']]],
   ['included_5fvt_5fcontext_5frunnable_5fcontext_5ftrace_5fcc',['INCLUDED_VT_CONTEXT_RUNNABLE_CONTEXT_TRACE_CC',['../context_2runnable__context_2trace_8cc.html#a46018937ba4cf40bed40e4eef6ba68d3',1,'trace.cc']]],
+  ['included_5fvt_5felm_5felm_5fstats_5fcc',['INCLUDED_VT_ELM_ELM_STATS_CC',['../elm__stats_8cc.html#a725127478a52876ca035c4c7dc32f2a5',1,'elm_stats.cc']]],
   ['included_5fvt_5frdmahandle_5frequest_5fholder_5fcc',['INCLUDED_VT_RDMAHANDLE_REQUEST_HOLDER_CC',['../request__holder_8cc.html#a8664f7fca66bda9ec9e90852f319c76f',1,'request_holder.cc']]],
   ['included_5fvt_5fruntime_5fcomponent_5fcomponent_5fpack_5fcc',['INCLUDED_VT_RUNTIME_COMPONENT_COMPONENT_PACK_CC',['../component__pack_8cc.html#acac9d12dbd83bc6123db2fe23d993298',1,'component_pack.cc']]],
   ['included_5fvt_5fscheduler_5fpriority_5fmanip_5fcc',['INCLUDED_VT_SCHEDULER_PRIORITY_MANIP_CC',['../priority__manip_8cc.html#adff1d84250f6745efa08c47cbcf93531',1,'priority_manip.cc']]],

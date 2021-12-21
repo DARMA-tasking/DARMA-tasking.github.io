@@ -13,5 +13,5 @@ var searchData=
   ['contextattorney',['ContextAttorney',['../structvt_1_1ctx_1_1_context.html#a75c33a90ea59b21ab5375343af0f8e26',1,'vt::ctx::Context']]],
   ['diagnostic',['Diagnostic',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Counter::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::CounterGauge::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_gauge.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Gauge::Diagnostic()'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_timer.html#a48f263de9dbf26c1fc7736031cca9613',1,'vt::runtime::component::meter::Timer::Diagnostic()']]],
   ['lbstats',['LBStats',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aeb058da9e1abd5f5db0aaf913d6acd80',1,'vt::vrt::collection::CollectionManager']]],
-  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html#ad16bcfc5db0df5769bebcb8888c723d0',1,'vt::vrt::collection::balance::ElementStats']]]
+  ['migratable',['Migratable',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_collection_stats.html#ad16bcfc5db0df5769bebcb8888c723d0',1,'vt::vrt::collection::balance::CollectionStats']]]
 ];

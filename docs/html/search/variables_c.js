@@ -25,7 +25,7 @@ var searchData=
   ['maybe_5fready_5ftag_5fhan_5f',['maybe_ready_tag_han_',['../structvt_1_1messaging_1_1_active_messenger.html#a2db0ef8babe408d23a62518bd0ff180b',1,'vt::messaging::ActiveMessenger']]],
   ['medium_5fmsg',['medium_msg',['../structvt_1_1pool_1_1_pool.html#a268cb9b30cde3272c49e67e781f0345e',1,'vt::pool::Pool']]],
   ['memory_5funit_5fnames',['memory_unit_names',['../namespacevt_1_1util_1_1memory.html#aa772e07fd4860ed4086654c53eed51c2',1,'vt::util::memory']]],
-  ['messages',['messages',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_volume.html#a707f9b288a607743f071dff02a42fd09',1,'vt::vrt::collection::balance::CommVolume']]],
+  ['messages',['messages',['../structvt_1_1elm_1_1_comm_volume.html#a401827dc013273393db0ef10f6bfedd0',1,'vt::elm::CommVolume']]],
   ['migratable_5f',['migratable_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a811d67f8d46e6b6ad2736bba81201354',1,'vt::vrt::collection::param::ConstructParams']]],
   ['migrate_5fin_5f',['migrate_in_',['../structvt_1_1rdma_1_1_sub_handle.html#a2832d6a83d0ecc36d342d33fcf5ce6dd',1,'vt::rdma::SubHandle']]],
   ['migrate_5fout_5f',['migrate_out_',['../structvt_1_1rdma_1_1_sub_handle.html#a13c434425c8ab69abfd202acf8979119',1,'vt::rdma::SubHandle']]],

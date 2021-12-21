@@ -24,7 +24,7 @@ var searchData=
   ['deallocate',['Deallocate',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate.html',1,'vt::util::adt::detail::Deallocate&lt; T, Ts &gt;'],['../structvt_1_1rdma_1_1_holder.html#afe6dd03862a68f941a44258aac9ef03d',1,'vt::rdma::Holder::deallocate()']]],
   ['deallocate_3c_20t_20_3e',['Deallocate&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['deallocateas',['deallocateAs',['../structvt_1_1util_1_1adt_1_1_union_destroy_3_01_t_00_01typename_01std_1_1enable__if__t_3_01not_0117947c5b8b44b7d9f4a4df27d8795277.html#a699eec83059ebb0e747ac7549e2aaf29',1,'vt::util::adt::UnionDestroy&lt; T, typename std::enable_if_t&lt; not detail::IsTriviallyDestructible&lt; T, Ts... &gt;::value &gt;, Ts... &gt;']]],
-  ['debug_5fcheckpoint',['DEBUG_CHECKPOINT',['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a5f0eef1f739e977285c9d7fd5bc18722',1,'DEBUG_CHECKPOINT():&#160;common.h'],['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a7c3e2df5c024d2137e920504aa8741f2',1,'debug_checkpoint():&#160;common.h']]],
+  ['debug_5fcheckpoint',['debug_checkpoint',['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a7c3e2df5c024d2137e920504aa8741f2',1,'debug_checkpoint():&#160;common.h'],['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a5f0eef1f739e977285c9d7fd5bc18722',1,'DEBUG_CHECKPOINT():&#160;common.h']]],
   ['debug_5fcolorize_2eh',['debug_colorize.h',['../debug__colorize_8h.html',1,'']]],
   ['debug_5fconfig_2eh',['debug_config.h',['../debug__config_8h.html',1,'']]],
   ['debug_5ffmt_2eh',['debug_fmt.h',['../debug__fmt_8h.html',1,'']]],
@@ -331,6 +331,7 @@ var searchData=
   ['dumpstate',['dumpState',['../structvt_1_1runtime_1_1component_1_1_component.html#adaf8bd995d4c91702e2ff7806ad9e695',1,'vt::runtime::component::Component::dumpState()'],['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a1b6da987a14917c7ee8a4d00138e62e6',1,'vt::runtime::component::Diagnostic::dumpState()'],['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1af9b94870159b8796053112c31f9570',1,'vt::term::interval::IntegralSetBase::dumpState()'],['../structvt_1_1term_1_1interval_1_1_strong_integral_set.html#a689e0bdef33b443174b408165861bbfe',1,'vt::term::interval::StrongIntegralSet::dumpState()']]],
   ['dynamic_5fmembership_5f',['dynamic_membership_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ab032b5a40a6ffdd0b763af5968cec42a',1,'vt::vrt::collection::param::ConstructParams']]],
   ['dynamicmembership',['dynamicMembership',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a2f27d980a653cfa641723f03e7b13e87',1,'vt::vrt::collection::param::ConstructParams']]],
+  ['getholderbase',['getHolderBase',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a82fbcce71412249dde967ed026e172fe',1,'vt::objgroup::ObjGroupManager']]],
   ['darma',['DARMA',['../index.html',1,'']]],
   ['stateds',['StateDS',['../structvt_1_1term_1_1_termination_detector.html#a9c0b991de134b4bc5bebf051bd067b9f',1,'vt::term::TerminationDetector']]]
 ];

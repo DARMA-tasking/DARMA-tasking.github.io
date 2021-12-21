@@ -2,8 +2,9 @@ var searchData=
 [
   ['element',['Element',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html',1,'vt::vrt::collection::CollectionDirectory']]],
   ['elementholder',['ElementHolder',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html',1,'vt::vrt::collection']]],
-  ['elementidstruct',['ElementIDStruct',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_i_d_struct.html',1,'vt::vrt::collection::balance']]],
-  ['elementstats',['ElementStats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_element_stats.html',1,'vt::vrt::collection::balance']]],
+  ['elementidstruct',['ElementIDStruct',['../structvt_1_1elm_1_1_element_i_d_struct.html',1,'vt::elm']]],
+  ['elementstats',['ElementStats',['../structvt_1_1elm_1_1_element_stats.html',1,'vt::elm']]],
+  ['elmidbits',['ElmIDBits',['../structvt_1_1elm_1_1_elm_i_d_bits.html',1,'vt::elm']]],
   ['elminsertable',['ElmInsertable',['../structvt_1_1vrt_1_1collection_1_1_elm_insertable.html',1,'vt::vrt::collection']]],
   ['endpoint',['Endpoint',['../structvt_1_1rdma_1_1_endpoint.html',1,'vt::rdma']]],
   ['entireholder',['EntireHolder',['../structvt_1_1vrt_1_1collection_1_1_entire_holder.html',1,'vt::vrt::collection']]],

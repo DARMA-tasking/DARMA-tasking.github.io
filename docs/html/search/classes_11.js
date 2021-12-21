@@ -15,6 +15,7 @@ var searchData=
   ['sendinfo',['SendInfo',['../structvt_1_1messaging_1_1_send_info.html',1,'vt::messaging']]],
   ['sendmsgcb',['SendMsgCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_msg_c_b.html',1,'vt::pipe::callback::cbunion']]],
   ['sendobjgrpcb',['SendObjGrpCB',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_send_obj_grp_c_b.html',1,'vt::pipe::callback::cbunion']]],
+  ['sendrecvtag',['SendRecvTag',['../structvt_1_1elm_1_1_comm_key_1_1_send_recv_tag.html',1,'vt::elm::CommKey']]],
   ['sentinelobject',['SentinelObject',['../structvt_1_1auto__registry_1_1_sentinel_object.html',1,'vt::auto_registry']]],
   ['seqclosure',['SeqClosure',['../structvt_1_1seq_1_1_seq_closure.html',1,'vt::seq']]],
   ['seqcontext',['SeqContext',['../structvt_1_1seq_1_1_seq_context.html',1,'vt::seq']]],
