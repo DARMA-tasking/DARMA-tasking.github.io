@@ -23,7 +23,7 @@ var searchData=
   ['instantiatetuplehelper_3c_20objt_20_3e',['InstantiateTupleHelper&lt; ObjT &gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_tuple_helper_3_01_obj_t_01_4.html',1,'checkpoint::dispatch::vrt']]],
   ['instantiatetuplehelper_3c_20objt_2c_20t_2c_20ts_2e_2e_2e_20_3e',['InstantiateTupleHelper&lt; ObjT, T, Ts... &gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_tuple_helper_3_01_obj_t_00_01_t_00_01_ts_8_8_8_01_4.html',1,'checkpoint::dispatch::vrt']]],
   ['integralsetbase',['IntegralSetBase',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html',1,'vt::term::interval']]],
-  ['integralsetbase_3c_20epochtype_20_3e',['IntegralSetBase&lt; EpochType &gt;',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html',1,'vt::term::interval']]],
+  ['integralsetbase_3c_20impltype_20_3e',['IntegralSetBase&lt; ImplType &gt;',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html',1,'vt::term::interval']]],
   ['interval',['Interval',['../structvt_1_1term_1_1interval_1_1_interval.html',1,'vt::term::interval']]],
   ['intervalcompare',['IntervalCompare',['../structvt_1_1term_1_1interval_1_1_interval_compare.html',1,'vt::term::interval']]],
   ['intervalsetiter',['IntervalSetIter',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html',1,'vt::term::interval::IntegralSetBase']]],

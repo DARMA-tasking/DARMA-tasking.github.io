@@ -49,6 +49,7 @@ var searchData=
   ['prealloc',['prealloc',['../structvt_1_1pool_1_1_alloc_layout.html#aa52924574bb32f84ed997e583edccf65',1,'vt::pool::AllocLayout']]],
   ['pred',['pred',['../structvt_1_1term_1_1ds_1_1_ack_request.html#afb3bc50a132952ca60f0652c0396a6ac',1,'vt::term::ds::AckRequest']]],
   ['pred_5f',['pred_',['../structvt_1_1term_1_1ds_1_1_ack_msg.html#a5371aca85f6cc60da48b9a9314fa02ca',1,'vt::term::ds::AckMsg']]],
+  ['presentation',['presentation',['../structfmt_1_1formatter_3_01vt_1_1epoch_1_1_epoch_type_01_4.html#ac1feeb2c08d651fe22aa6fc600a207cf',1,'fmt::formatter&lt; vt::epoch::EpochType &gt;']]],
   ['prev_5ftask_5f',['prev_task_',['../structvt_1_1ctx_1_1_set_context.html#af5a9e9f7f2f7deeadd17da554e8aa39b',1,'vt::ctx::SetContext']]],
   ['priority',['priority',['../structvt_1_1messaging_1_1_pending_recv.html#ac532592ff86b902de3c38c971db6290e',1,'vt::messaging::PendingRecv::priority()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#a4ba8a7812367449cfe568d87806fd4c4',1,'vt::messaging::InProgressDataIRecv::priority()']]],
   ['priority_5f',['priority_',['../structvt_1_1sched_1_1_priority_unit.html#ad8f7fe9067612b7902a6258f3260cfac',1,'vt::sched::PriorityUnit::priority_()'],['../structvt_1_1sched_1_1detail_1_1_suspended_runnable.html#ab591ea2e254d1f520c775a082f361c68',1,'vt::sched::detail::SuspendedRunnable::priority_()']]],

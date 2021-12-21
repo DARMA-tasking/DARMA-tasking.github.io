@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5f',['N_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a8055733259d06927a4c3e02e0d1649e4',1,'vt::runtime::component::detail::DiagnosticValueWrapper::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#aa800c86e610ba7b4ff0ddf0c91210136',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()']]],
+  ['n_5f',['n_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#aa800c86e610ba7b4ff0ddf0c91210136',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()'],['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a8055733259d06927a4c3e02e0d1649e4',1,'vt::runtime::component::detail::DiagnosticValueWrapper::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()']]],
   ['n_5frejected_5f',['n_rejected_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_rejection_stats.html#a1925785748fd405e5f9062a2c38b36f6',1,'vt::vrt::collection::balance::RejectionStats']]],
   ['n_5ftransfers_5f',['n_transfers_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_rejection_stats.html#a5cf0b43c9b564e132da0a7045ab9c865',1,'vt::vrt::collection::balance::RejectionStats']]],
   ['name_5f',['name_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6189fab0f945cd51f56aed0ebcd14ed6',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
@@ -21,7 +21,7 @@ var searchData=
   ['next_5fcollective_5fhook_5fid_5f',['next_collective_hook_id_',['../structvt_1_1phase_1_1_phase_manager.html#a4270d82b84c02d60c16521d4c5972657',1,'vt::phase::PhaseManager']]],
   ['next_5fcollective_5fid_5f',['next_collective_id_',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ace73d30a3cdd56b3c68c81265bf95020',1,'vt::vrt::collection::CollectionManager']]],
   ['next_5felm_5f',['next_elm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a7b1b992f34d07739e854c95ef921f0ab',1,'vt::vrt::collection::balance::NodeStats']]],
-  ['next_5fepoch_5f',['next_epoch_',['../structvt_1_1epoch_1_1_epoch_window.html#a946a18f109dcae51f347d02c6a700c4e',1,'vt::epoch::EpochWindow']]],
+  ['next_5fepoch_5f',['next_epoch_',['../structvt_1_1epoch_1_1_epoch_window.html#a962a9c46d450a13ccfd9bf4b822bf527',1,'vt::epoch::EpochWindow']]],
   ['next_5fgroup_5fid_5f',['next_group_id_',['../structvt_1_1group_1_1_group_manager.html#ad14079e35fc22c1ddc8627f4f8bd2ffe',1,'vt::group::GroupManager']]],
   ['next_5fin_5f',['next_in_',['../structvt_1_1util_1_1compress_1_1_decompressor.html#a466a4d462c81a5032753fdfc11bfd54c',1,'vt::util::compress::Decompressor']]],
   ['next_5fnode_5f',['next_node_',['../structvt_1_1seq_1_1_seq_node.html#a168421e6d8e2171227445dc5e7740d01',1,'vt::seq::SeqNode']]],

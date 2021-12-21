@@ -78,6 +78,7 @@ var searchData=
   ['makeepochrooted',['makeEpochRooted',['../structvt_1_1term_1_1_termination_detector.html#ae4df2a2e947665cc89971a61de787a98',1,'vt::term::TerminationDetector::makeEpochRooted(UseDS use_ds=UseDS{false}, ParentEpochCapture parent=ParentEpochCapture{})'],['../structvt_1_1term_1_1_termination_detector.html#ac7e27dfc37a7a4cb1e1538f4f9eac4c6',1,'vt::term::TerminationDetector::makeEpochRooted(std::string const &amp;label, UseDS use_ds=UseDS{false}, ParentEpochCapture parent=ParentEpochCapture{})']]],
   ['makeepochrootedds',['makeEpochRootedDS',['../structvt_1_1term_1_1_termination_detector.html#ab415e4ad8be8c61f05005fbf60167fdf',1,'vt::term::TerminationDetector']]],
   ['makeepochrootedwave',['makeEpochRootedWave',['../structvt_1_1term_1_1_termination_detector.html#af4e6b3ce62dd3b1f0f0f9f5829e94720',1,'vt::term::TerminationDetector']]],
+  ['makeepochzero',['makeEpochZero',['../namespacevt_1_1epoch.html#a8fb587afa4725bab7d0d4d593331f5c3',1,'vt::epoch']]],
   ['makeevent',['makeEvent',['../structvt_1_1event_1_1_event_i_d_manager.html#a69ba81a6d7adbe78d961057dd9d4a457',1,'vt::event::EventIDManager']]],
   ['makefilename',['makeFilename',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ae8d3db4274a1239fa0097dae11e93bb9',1,'vt::vrt::collection::CollectionManager']]],
   ['makefntype',['MakeFnType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a397d787b3876752a6d70511b2769b872',1,'vt::objgroup::ObjGroupManager']]],

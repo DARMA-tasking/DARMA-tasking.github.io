@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['v_5f',['v_',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_strong.html#a1952e524a596e85011084327aacff707',1,'vt::collective::reduce::detail::Strong']]],
+  ['v_5f',['v_',['../structvt_1_1util_1_1strong_1_1detail_1_1_strong.html#a33b2c6727665a7c34405125870e71895',1,'vt::util::strong::detail::Strong']]],
   ['val_5f',['val_',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html#a3d393a0bf3245aeac348b66be4e566f9',1,'vt::collective::reduce::operators::ReduceDataMsg']]],
   ['valid',['valid',['../structvt_1_1messaging_1_1_in_progress_base.html#a5dce1ae0bdfaa40935023561e0d16671',1,'vt::messaging::InProgressBase::valid()'],['../structvt_1_1messaging_1_1_async_op_wrapper.html#a040e00648d1bb44428dac609671ef2ae',1,'vt::messaging::AsyncOpWrapper::valid()']]],
   ['valid_5f',['valid_',['../structvt_1_1rdma_1_1_handle_set.html#a60d4c2fb59c226743eb8d9cb79d00e7a',1,'vt::rdma::HandleSet']]],

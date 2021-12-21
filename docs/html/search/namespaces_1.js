@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['std',['std',['../namespacestd.html',1,'']]]
+  ['fmt',['fmt',['../namespacefmt.html',1,'']]]
 ];
