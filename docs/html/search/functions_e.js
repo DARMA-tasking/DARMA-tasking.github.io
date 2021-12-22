@@ -54,8 +54,8 @@ var searchData=
   ['npr',['npr',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a177178abc3a99dbbe51c5873e86f1ada',1,'vt::vrt::collection::balance::LoadData']]],
   ['null',['null',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_general_callback.html#a83f4aa6c8934af199a34afe0d1266f3a',1,'vt::pipe::callback::cbunion::GeneralCallback::null()'],['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a69279b16198da6a06c5cfb28203c9819',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle::null()']]],
   ['nullmutex',['NullMutex',['../structvt_1_1util_1_1mutex_1_1_null_mutex.html#a83dc2b0c0d0b3b2ff4896352d669623b',1,'vt::util::mutex::NullMutex::NullMutex()=default'],['../structvt_1_1util_1_1mutex_1_1_null_mutex.html#aec62ba43a3e6e4e869da7408930e2f6c',1,'vt::util::mutex::NullMutex::NullMutex(NullMutex const &amp;)=delete']]],
-  ['numelements',['numElements',['../structvt_1_1vrt_1_1collection_1_1_holder.html#aebff9d8a0b857688bf3b303cb832b543',1,'vt::vrt::collection::Holder']]],
-  ['numelementsexpr',['numElementsExpr',['../structvt_1_1vrt_1_1collection_1_1_holder.html#aafc7aad37f14db35c91d3e085bdf0500',1,'vt::vrt::collection::Holder']]],
+  ['numelements',['numElements',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a430a021e0113ddfeb18a1bb2e72522ba',1,'vt::vrt::collection::Holder']]],
+  ['numelementsexpr',['numElementsExpr',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ae75fb5f11a3383a8e758d9a6d24fd536',1,'vt::vrt::collection::Holder']]],
   ['numentries',['numEntries',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#ab7a988ed27206ee728474ad200c47291',1,'vt::vrt::collection::balance::ReadLBSpec']]],
   ['numlevels',['numLevels',['../structvt_1_1collective_1_1tree_1_1_tree.html#a56532f6b47b9c71864980b73deee2d5a',1,'vt::collective::tree::Tree']]],
   ['numsuccessors',['numSuccessors',['../structvt_1_1term_1_1_epoch_dependency.html#a57675ad1655cc593bf486249b1cd4e26',1,'vt::term::EpochDependency']]]

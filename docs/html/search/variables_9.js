@@ -50,7 +50,7 @@ var searchData=
   ['is_5fconstructible',['is_constructible',['../structcheckpoint_1_1_serializable_traits.html#a7720e2f57d1b3d2f87fd022b47d0b775',1,'checkpoint::SerializableTraits']]],
   ['is_5fdefault_5fconstructible',['is_default_constructible',['../structcheckpoint_1_1_serializable_traits.html#a4bdbe26cdd11c7ff07f84e4cfdf34e7f',1,'checkpoint::SerializableTraits']]],
   ['is_5fdefault_5fgroup_5f',['is_default_group_',['../structvt_1_1group_1_1_info_coll.html#ab08014fe1c28b172fc4b2b68a5fbc2a1',1,'vt::group::InfoColl']]],
-  ['is_5fdestroyed_5f',['is_destroyed_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a862e7f99e626f9ea11de83b635466cab',1,'vt::vrt::collection::Holder']]],
+  ['is_5fdestroyed_5f',['is_destroyed_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a2deaf94120926bbab4dfcc818ea4087e',1,'vt::vrt::collection::Holder']]],
   ['is_5fdone_5f',['is_done_',['../structvt_1_1runnable_1_1_runnable_maker.html#a1a09d169753ee4c91ba1b42c291038f0',1,'vt::runnable::RunnableMaker']]],
   ['is_5fds_5f',['is_ds_',['../structvt_1_1term_1_1_epoch_dependency.html#af0e5729c264094d1bbc132f429a1219b',1,'vt::term::EpochDependency']]],
   ['is_5fempty_5fgroup_5f',['is_empty_group_',['../structvt_1_1group_1_1_info_coll.html#a79d01c69f5ffe1fc63bc80aba8e1a0f8',1,'vt::group::InfoColl']]],

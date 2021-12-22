@@ -58,7 +58,7 @@ var searchData=
   ['signal',['Signal',['../structvt_1_1pipe_1_1signal_1_1_signal.html',1,'vt::pipe::signal']]],
   ['signalbase',['SignalBase',['../structvt_1_1pipe_1_1signal_1_1_signal_base.html',1,'vt::pipe::signal']]],
   ['signalholder',['SignalHolder',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html',1,'vt::pipe::signal']]],
-  ['sizer',['Sizer',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer.html',1,'vt::util::adt::detail::Sizer&lt; T, Ts &gt;'],['../structcheckpoint_1_1_sizer.html',1,'checkpoint::Sizer']]],
+  ['sizer',['Sizer',['../structcheckpoint_1_1_sizer.html',1,'checkpoint::Sizer'],['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer.html',1,'vt::util::adt::detail::Sizer&lt; T, Ts &gt;']]],
   ['sizer_3c_20t_20_3e',['Sizer&lt; T &gt;',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['specentry',['SpecEntry',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html',1,'vt::vrt::collection::balance::SpecEntry'],['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_entry.html',1,'vt::trace::file_spec::TraceSpec::SpecEntry']]],
   ['specmsg',['SpecMsg',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_msg.html',1,'vt::trace::file_spec::TraceSpec']]],

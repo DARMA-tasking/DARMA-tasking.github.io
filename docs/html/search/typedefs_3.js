@@ -41,7 +41,7 @@ var searchData=
   ['dispatchertype',['DispatcherType',['../structcheckpoint_1_1_serializer.html#ad8effc5884f1ed37b6b4507422f6d72c',1,'checkpoint::Serializer']]],
   ['dispatchfunctype',['DispatchFuncType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a983e301505317c5ba2041461e7dec84a',1,'vt::pipe::PipeManagerBase::DispatchFuncType()'],['../structvt_1_1pipe_1_1_pipe_state.html#ad81b637847d9c3185420c58c9272ed7d',1,'vt::pipe::PipeState::DispatchFuncType()']]],
   ['dispatchhandlertype',['DispatchHandlerType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a0cfe02a0426e95ec9daa2ef7374e07c7',1,'vt::vrt::collection::CollectionManager']]],
-  ['distribconstructfn',['DistribConstructFn',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a7503830bc133013d542856fa39834dcc',1,'vt::vrt::collection::CollectionManager']]],
+  ['distribconstructfn',['DistribConstructFn',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9ef5ab71e344fdee8525c3f18241c305',1,'vt::vrt::collection::CollectionManager']]],
   ['domaintype',['DomainType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a74b3ffb0498e75459e23d59b2d4facfa',1,'vt::term::interval::IntegralSetBase::DomainType()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a237ccc9805d839c82151945ad80b796c',1,'vt::term::interval::Interval::DomainType()']]],
   ['donemsg',['DoneMsg',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a31fc42c00ddc382be9c198459793e1e9',1,'vt::trace::file_spec::TraceSpec']]],
   ['dumpstacktype',['DumpStackType',['../namespacevt_1_1debug_1_1stack.html#a68d963f7e74664a123681e231d7913d9',1,'vt::debug::stack']]]

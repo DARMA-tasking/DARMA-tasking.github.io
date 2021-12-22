@@ -36,7 +36,7 @@ var searchData=
   ['usedbuffersize',['usedBufferSize',['../structcheckpoint_1_1_serializer.html#a9193aca9404eadbb6617273d0fb1343b',1,'checkpoint::Serializer::usedBufferSize()'],['../structcheckpoint_1_1_packer_buffer.html#a15b3ac40c21710da2f9813579c9a9c0e',1,'checkpoint::PackerBuffer::usedBufferSize()'],['../structcheckpoint_1_1_unpacker_buffer.html#a2d72e0fc79aaa6e062f17b44b74ed0cc',1,'checkpoint::UnpackerBuffer::usedBufferSize()']]],
   ['useds',['UseDS',['../structvt_1_1term_1_1_use_d_s.html#a29261f18f8f9303bbad2c8ee27f352ad',1,'vt::term::UseDS']]],
   ['useeagerprotocol',['useEagerProtocol',['../structvt_1_1location_1_1_entity_location_coord.html#a5d41b90c998e6de566868868c9cc4ba1',1,'vt::location::EntityLocationCoord']]],
-  ['usegroup',['useGroup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#af9a9e5dbf89d84e9fb4d267f720bfa4e',1,'vt::vrt::collection::Holder']]],
+  ['usegroup',['useGroup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a937fec77df65d71ad2d6a7c70017c49f',1,'vt::vrt::collection::Holder']]],
   ['user',['user',['../structvt_1_1trace_1_1_user_event_registry.html#a6a2156b87f22007a4a20ca1b7e96d2fe',1,'vt::trace::UserEventRegistry']]],
   ['user1',['user1',['../structvt_1_1arguments_1_1_app_config.html#a2f94b5667c784de4398cb27110555e86',1,'vt::arguments::AppConfig']]],
   ['user2',['user2',['../structvt_1_1arguments_1_1_app_config.html#ab504a2952d75b3f1fa9d81e8122cbc41',1,'vt::arguments::AppConfig']]],

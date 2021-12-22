@@ -20,7 +20,7 @@ var searchData=
   ['group_5fid_5f',['group_id_',['../structvt_1_1pipe_1_1_pipe_manager.html#a55c4e1e68f74a2a0796a24ea06711563',1,'vt::pipe::PipeManager']]],
   ['group_5finfo',['group_info',['../structvt_1_1rdma_1_1_state.html#ad8dc4c1a674c5a0b14789a53e54815d3',1,'vt::rdma::State']]],
   ['group_5frange_5f',['group_range_',['../structvt_1_1group_1_1_group_range_msg.html#affc9dc8fa60a656874103d836ba5a3b8',1,'vt::group::GroupRangeMsg']]],
-  ['group_5fready_5f',['group_ready_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ad4041accaac66318b6ddc027f9730d32',1,'vt::vrt::collection::Holder']]],
-  ['group_5froot_5f',['group_root_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a2809b2adf064822eeab947991e8f12d3',1,'vt::vrt::collection::Holder']]],
+  ['group_5fready_5f',['group_ready_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#afa3f96bdf578c8a188c1aca64bc343d7',1,'vt::vrt::collection::Holder']]],
+  ['group_5froot_5f',['group_root_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ade00ee9b6c49770e4ecf0d2920bb841b',1,'vt::vrt::collection::Holder']]],
   ['guarded_5fepoch_5f',['guarded_epoch_',['../structvt_1_1_epoch_guard.html#aecd3303d5b5594b0f19791a472ce515c',1,'vt::EpochGuard']]]
 ];
