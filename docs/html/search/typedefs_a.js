@@ -3,7 +3,6 @@ var searchData=
   ['lbcontfntype',['LBContFnType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a1f897dfd5f4e29e997533aeefe7b252d',1,'vt::vrt::collection::Holder']]],
   ['lbcontlisttype',['LBContListType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a4a738b6b6c2216d7a5b528956502172a',1,'vt::vrt::collection::Holder']]],
   ['lbproxytype',['LBProxyType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a8b1a7735366beb85c2c2ccc3912cdd80',1,'vt::vrt::collection::balance::LBManager']]],
-  ['lbtypetype',['LBTypeType',['../namespacestd.html#ae3c14c256fabd8bbed83c439b367c3d8',1,'std']]],
   ['listenerbasetype',['ListenerBaseType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a84b564235f6d400782769c94a75d6622',1,'vt::pipe::signal::SignalHolder']]],
   ['listenerlistitertype',['ListenerListIterType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#af0d3ccf4a8700979f414a0485cf41df5',1,'vt::pipe::signal::SignalHolder']]],
   ['listenerlisttype',['ListenerListType',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#ae37fd15e6a901de2f90620780e936f6e',1,'vt::pipe::signal::SignalHolder']]],

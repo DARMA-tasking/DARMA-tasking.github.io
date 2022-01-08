@@ -9,7 +9,7 @@ var searchData=
   ['rdma_5fblockelmrangetype',['RDMA_BlockElmRangeType',['../namespacevt_1_1rdma.html#a8320f97b4a2866df60d9778486dbcd0f',1,'vt::rdma']]],
   ['rdma_5fblockmaptype',['RDMA_BlockMapType',['../namespacevt_1_1rdma.html#a049e294a5236ad30692253d5f82886c9',1,'vt::rdma']]],
   ['rdma_5fblocktype',['RDMA_BlockType',['../namespacevt.html#ae54d2ca8f6bb4d65faf65118c82cd6f7',1,'vt']]],
-  ['rdma_5fchannellookuptype',['RDMA_ChannelLookupType',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a3df5b264f344d9d4530a96264782a725',1,'vt::rdma::RDMAManager::RDMA_ChannelLookupType()'],['../namespacestd.html#a30c426bd959ae4c3814e36d01efe9df7',1,'std::RDMA_ChannelLookupType()']]],
+  ['rdma_5fchannellookuptype',['RDMA_ChannelLookupType',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a3df5b264f344d9d4530a96264782a725',1,'vt::rdma::RDMAManager']]],
   ['rdma_5fchanneltype',['RDMA_ChannelType',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#ad6a7e417dca07fe5743318e1153677a8',1,'vt::rdma::RDMAManager']]],
   ['rdma_5fcontainertype',['RDMA_ContainerType',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a55dd81ff646ebb9d61ebf3a7239ec3b8',1,'vt::rdma::RDMAManager']]],
   ['rdma_5fcontinuationdeletetype',['RDMA_ContinuationDeleteType',['../namespacevt.html#a4dfad0b5809d9812d60a0311a45ae0c2',1,'vt']]],

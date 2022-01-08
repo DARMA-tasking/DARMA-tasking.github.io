@@ -103,7 +103,7 @@
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="reduce_8h.html">&lt;src/vt/collective/reduce/reduce.h&gt;</a></div>
         </h1>
         <p>A specific, isolated reducer instance for a given scope that sequences reduce operations via the reduction stamp within that scope.</p>
-        <div class="m-block m-default">
+        <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li>
@@ -116,7 +116,7 @@
               </ul>
             </li>
           </ul>
-        </div>
+        </nav>
 <p>Holds the state as a reduction makes it up the spanning tree until it reaches the root. Combines messages with the user-specified reduction operator as they move up the spanning tree.</p><p>The interaction between the reduction implementation&#x27;s message buffering and termination detection may be unintuitive. It is believed and demonstrated to operate as intended, based on the following reasoning.</p><ul><li>There is some epoch <code>reduce_epoch</code></li><li>We assume all contributions to a given reduction (via <code><a href="structvt_1_1collective_1_1reduce_1_1_reduce.html#adf8bd9748a220a3ed29087c30f8adafc" class="m-doc">reduce()</a></code> calls) occur in <code>reduce_epoch</code></li><li>Proposition: The result of the reduction will be delivered in <code>reduce_epoch</code>, and <code>reduce_epoch</code> will not terminate before that result is delivered.</li><li>On any given node, some local contribution to the reduction will be the last. That last contribution runs in <code>reduce_epoch</code>, which cannot have terminated before it runs.</li><li>On a leaf node, the reduction message up the spanning tree will be produced and sent in <code>reduce_epoch</code>.</li><li>At every interior node in the spanning tree, all reduction messages will be received and processed in <code>reduce_epoch</code>.</li><li>The reduction message passed up the spanning tree from every node will thus be produced and sent in <code>reduce_epoch</code>.</li><li>The root of the spanning tree will receive and process the last reduction message in <code>reduce_epoch</code>, passing it to the callback.</li></ul>
         <section id="base-classes">
           <h2><a href="#base-classes">Base classes</a></h2>

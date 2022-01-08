@@ -11,7 +11,6 @@ var searchData=
   ['maybereadytype',['MaybeReadyType',['../structvt_1_1messaging_1_1_active_messenger.html#a745d5e8cad8c2f67d20479afacc6e134',1,'vt::messaging::ActiveMessenger']]],
   ['memorypoolptrtype',['MemoryPoolPtrType',['../structvt_1_1pool_1_1_pool.html#a21e20f5b56c3bae4f0d0cc36ed9c5eee',1,'vt::pool::Pool']]],
   ['memorypooltype',['MemoryPoolType',['../structvt_1_1pool_1_1_pool.html#a06673914350d933ad5205155eca14a3b',1,'vt::pool::Pool']]],
-  ['memoryunittype',['MemoryUnitType',['../namespacestd.html#ad7105ed4fa94bea7fce7b09cea2c7165',1,'std']]],
   ['mempoolmtype',['MemPoolMType',['../structvt_1_1pool_1_1_pool.html#a8a201b9a843e47cd4e7b568a8e4483da',1,'vt::pool::Pool']]],
   ['mempoolstype',['MemPoolSType',['../structvt_1_1pool_1_1_pool.html#a9f94985824d12c43357cfe50eaaefd38',1,'vt::pool::Pool']]],
   ['message',['Message',['../namespacevt.html#a3a3ddfef40b4c90915fa43cdd5f129ea',1,'vt']]],

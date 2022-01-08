@@ -48,7 +48,6 @@ var searchData=
   ['lbtreeupmsg',['LBTreeUpMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html',1,'vt::vrt::collection::lb::LBTreeUpMsg'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html#a3dd039d297e1ea09939a13ad5a3722a3',1,'vt::vrt::collection::lb::LBTreeUpMsg::LBTreeUpMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html#ac2ff0f6b4a047ab11a0cd372c54a141e',1,'vt::vrt::collection::lb::LBTreeUpMsg::LBTreeUpMsg(LoadType const in_child_load, NodeType const in_child, ObjSampleType in_load, NodeType const in_child_size)']]],
   ['lbtreeupsend',['lbTreeUpSend',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a8a9d35f8b4a8cd21461209136e64ad30',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['lbtype',['LBType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5c',1,'vt::vrt::collection::balance']]],
-  ['lbtypetype',['LBTypeType',['../namespacestd.html#ae3c14c256fabd8bbed83c439b367c3d8',1,'std']]],
   ['lc',['lC',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a7b24d9eb35f71de23824ea8434a52cfd',1,'vt::term::ds::TermDS']]],
   ['ld',['lD',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#acd01a2b3778d0510fe35f6497f33eda9',1,'vt::term::ds::TermDS']]],
   ['leaf_5fclosure',['leaf_closure',['../structvt_1_1seq_1_1_seq_closure.html#a8489de87b5b4d74cbcfb7e8624068907',1,'vt::seq::SeqClosure']]],
