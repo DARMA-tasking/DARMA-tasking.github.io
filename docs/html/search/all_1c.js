@@ -71,6 +71,7 @@ var searchData=
   ['_7erunnablemaker',['~RunnableMaker',['../structvt_1_1runnable_1_1_runnable_maker.html#a0700d91c1114ae97ac74a4841ec2499c',1,'vt::runnable::RunnableMaker']]],
   ['_7eruntime',['~Runtime',['../structvt_1_1runtime_1_1_runtime.html#ae164ab301b823d985a62b7a5fb62cf07',1,'vt::runtime::Runtime']]],
   ['_7eruntimeholder',['~RuntimeHolder',['../structvt_1_1runtime_1_1_runtime_holder.html#a835f3a9c7d875e05d4a8fffee0c1d430',1,'vt::runtime::RuntimeHolder']]],
+  ['_7eschedulerloopguard',['~SchedulerLoopGuard',['../structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard.html#a99f568ec1bd01de497ee706c005087c8',1,'vt::sched::Scheduler::SchedulerLoopGuard']]],
   ['_7eseqnode',['~SeqNode',['../structvt_1_1seq_1_1_seq_node.html#a6254d7b3d17294368a42153ac4164df1',1,'vt::seq::SeqNode']]],
   ['_7eserializedinfo',['~SerializedInfo',['../structcheckpoint_1_1_serialized_info.html#aca442bb41f5c514fb79b776f5baaa0c1',1,'checkpoint::SerializedInfo']]],
   ['_7estatsmaplb',['~StatsMapLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_stats_map_l_b.html#afd879aa0258b984785b70249c7f06846',1,'vt::vrt::collection::lb::StatsMapLB']]],

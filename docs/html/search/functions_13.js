@@ -11,6 +11,7 @@ var searchData=
   ['schedule',['schedule',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a7199e829343abd7700dcdcd0a02cd477',1,'vt::vrt::collection::CollectionManager::schedule(ActionType action)'],['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aaa19d241c982123103147b568f97b842',1,'vt::vrt::collection::CollectionManager::schedule(MsgT msg, bool execute_now, EpochType cur_epoch, ActionType action)']]],
   ['scheduler',['Scheduler',['../structvt_1_1sched_1_1_scheduler.html#a54b61f09996bca1d5ed5332e1a4e2b60',1,'vt::sched::Scheduler']]],
   ['schedulercomm',['schedulerComm',['../structvt_1_1worker_1_1_worker_group_comm.html#a2801e1bc38337507fd6f14ff8b439b84',1,'vt::worker::WorkerGroupComm']]],
+  ['schedulerloopguard',['SchedulerLoopGuard',['../structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard.html#ae27a3a8d8d60384f8d94475926bbd19e',1,'vt::sched::Scheduler::SchedulerLoopGuard']]],
   ['schedulethenfinalize',['scheduleThenFinalize',['../structvt_1_1_collective_any_ops.html#a10be760566e5c50ce6d35ab93d7736ce',1,'vt::CollectiveAnyOps']]],
   ['scope',['scope',['../structvt_1_1collective_1_1reduce_1_1_reduce_msg.html#a7b31a26204ab86778a9058e42589e549',1,'vt::collective::reduce::ReduceMsg::scope()'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_i_d_impl.html#adc91349dad2340899b7a11df59528ef2',1,'vt::collective::reduce::detail::ReduceIDImpl::scope()']]],
   ['scopeimpl',['ScopeImpl',['../structvt_1_1collective_1_1detail_1_1_scope_impl.html#a47576d9402b53721b08154f8fafb2646',1,'vt::collective::detail::ScopeImpl']]],
