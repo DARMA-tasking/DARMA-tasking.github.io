@@ -147,7 +147,7 @@ var searchData=
   ['addsuspended',['addSuspended',['../structvt_1_1sched_1_1_suspended_units.html#af98ef20b8bf4e914b673a50c3d3a83ba',1,'vt::sched::SuspendedUnits']]],
   ['addterminationargs',['addTerminationArgs',['../structvt_1_1arguments_1_1_arg_config.html#a0504992629228af199a906edc43b4d0a',1,'vt::arguments::ArgConfig']]],
   ['addthreadingargs',['addThreadingArgs',['../structvt_1_1arguments_1_1_arg_config.html#a1aa260ad019aa77393ebe557480dfcc0',1,'vt::arguments::ArgConfig']]],
-  ['addtime',['addTime',['../structvt_1_1elm_1_1_element_stats.html#af2d4d8b10b3f97b6a13a9bf8df0561ca',1,'vt::elm::ElementStats']]],
+  ['addtime',['addTime',['../structvt_1_1elm_1_1_element_stats.html#a17db2e465f6b06239f0b0ceb4e7d9f42',1,'vt::elm::ElementStats']]],
   ['addtraceargs',['addTraceArgs',['../structvt_1_1arguments_1_1_arg_config.html#ab3de7d531bd7f09c7ea1b37c9e57a02f',1,'vt::arguments::ArgConfig']]],
   ['addtrigger',['addTrigger',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#a42729a0a83f734dad3ef6d95b5afb3d9',1,'vt::timetrigger::TimeTriggerManager']]],
   ['adduserargs',['addUserArgs',['../structvt_1_1arguments_1_1_arg_config.html#aa578460e6783d03ce25e349f8affea99',1,'vt::arguments::ArgConfig']]],

@@ -5,6 +5,7 @@ var searchData=
   ['footprinter',['Footprinter',['../structcheckpoint_1_1_footprinter.html',1,'checkpoint']]],
   ['formatter_3c_3a_3avt_3a_3aelm_3a_3aelementidstruct_20_3e',['formatter&lt;::vt::elm::ElementIDStruct &gt;',['../structfmt_1_1formatter_3_1_1vt_1_1elm_1_1_element_i_d_struct_01_4.html',1,'fmt']]],
   ['formatter_3c_3a_3avt_3a_3aepoch_3a_3aepochtype_20_3e',['formatter&lt;::vt::epoch::EpochType &gt;',['../structfmt_1_1formatter_3_1_1vt_1_1epoch_1_1_epoch_type_01_4.html',1,'fmt']]],
+  ['formatter_3c_3a_3avt_3a_3atimetypewrapper_20_3e',['formatter&lt;::vt::TimeTypeWrapper &gt;',['../structfmt_1_1formatter_3_1_1vt_1_1_time_type_wrapper_01_4.html',1,'fmt']]],
   ['from_5fs',['from_s',['../structvt_1_1from__s.html',1,'vt']]],
   ['fromnode',['FromNode',['../structvt_1_1ctx_1_1_from_node.html',1,'vt::ctx']]],
   ['functionwrapper',['FunctionWrapper',['../structvt_1_1util_1_1_function_wrapper.html',1,'vt::util']]],

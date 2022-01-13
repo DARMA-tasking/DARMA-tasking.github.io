@@ -70,6 +70,7 @@ var searchData=
   ['timer',['Timer',['../structvt_1_1runtime_1_1component_1_1meter_1_1_timer.html#af32ee3397a43cd6af675904d70295211',1,'vt::runtime::component::meter::Timer::Timer()=default'],['../structvt_1_1runtime_1_1component_1_1meter_1_1_timer.html#afc814a211d7354cad6e64783e1f8fe8a',1,'vt::runtime::component::meter::Timer::Timer(detail::DiagnosticValue&lt; T &gt; *in_sum, detail::DiagnosticValue&lt; T &gt; *in_avg, detail::DiagnosticValue&lt; T &gt; *in_max, detail::DiagnosticValue&lt; T &gt; *in_min)']]],
   ['timetomicros',['timeToMicros',['../structvt_1_1trace_1_1_trace_lite.html#a54f5dd2119d3de0bb5df60d7986ea7aa',1,'vt::trace::TraceLite']]],
   ['timetriggermanager',['TimeTriggerManager',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#a5739a97e0a8c7a19943d030a04e63a35',1,'vt::timetrigger::TimeTriggerManager']]],
+  ['timetypewrapper',['TimeTypeWrapper',['../structvt_1_1_time_type_wrapper.html#a5309dddc7320386d0eb9193c543b1aa2',1,'vt::TimeTypeWrapper']]],
   ['to',['to',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#ae3d838b37f94f5f63ffc433518d46ada',1,'vt::messaging::MsgSharedPtr']]],
   ['tojson',['toJson',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_data.html#ac864e580e764d093b427e459d46b2bd4',1,'vt::vrt::collection::balance::StatsData']]],
   ['tonode',['toNode',['../structvt_1_1elm_1_1_comm_key.html#a049276643e77cfea00a68e5dcaa87eb2',1,'vt::elm::CommKey']]],
