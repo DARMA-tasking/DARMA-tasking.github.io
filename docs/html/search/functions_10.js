@@ -55,7 +55,7 @@ var searchData=
   ['prettyfunctionfortype',['prettyFunctionForType',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a544c77a181038fc1de063fe3d3fc761d',1,'vt::util::demangle::TemplateExtract']]],
   ['prettyfunctionforvalue',['prettyFunctionForValue',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a2fa8ebf7aca434dc7bf6c3113b04226b',1,'vt::util::demangle::TemplateExtract']]],
   ['prettyfunctionforvalueptr',['prettyFunctionForValuePtr',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a1fc274aa3088c6c65c5da2450896d6bf',1,'vt::util::demangle::TemplateExtract']]],
-  ['prettyprintstack',['prettyPrintStack',['../namespacevt_1_1debug_1_1stack.html#a6c32eaeca4f5c8da5af1451d77031b3e',1,'vt::debug::stack']]],
+  ['prettyprintstack',['prettyPrintStack',['../namespacevt_1_1debug_1_1stack.html#a4746a54afce7bc3b686cf6fa8c2d279f',1,'vt::debug::stack']]],
   ['printcache',['printCache',['../structvt_1_1location_1_1_location_cache.html#a0c8f06fd5c1ff26c30c0c25b5800ba30',1,'vt::location::LocationCache::printCache()'],['../structvt_1_1location_1_1_loc_lookup.html#a03bf48e7c5af3720c13e00ead13c83a0',1,'vt::location::LocLookup::printCache()']]],
   ['printcomponentfootprint',['printComponentFootprint',['../namespacevt_1_1runtime.html#aaaded5fb88c918140e08be1b0c1fd488',1,'vt::runtime']]],
   ['printcurrentcache',['printCurrentCache',['../structvt_1_1location_1_1_entity_location_coord.html#a33f2bf9523cfc89fae0f1151fa2d87db',1,'vt::location::EntityLocationCoord']]],

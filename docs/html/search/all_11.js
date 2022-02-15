@@ -235,7 +235,7 @@ var searchData=
   ['prettyprintcat',['PrettyPrintCat',['../structvt_1_1config_1_1_pretty_print_cat.html',1,'vt::config']]],
   ['prettyprintctx',['PrettyPrintCtx',['../structvt_1_1config_1_1_pretty_print_ctx.html',1,'vt::config']]],
   ['prettyprintmode',['PrettyPrintMode',['../structvt_1_1config_1_1_pretty_print_mode.html',1,'vt::config']]],
-  ['prettyprintstack',['prettyPrintStack',['../namespacevt_1_1debug_1_1stack.html#a6c32eaeca4f5c8da5af1451d77031b3e',1,'vt::debug::stack']]],
+  ['prettyprintstack',['prettyPrintStack',['../namespacevt_1_1debug_1_1stack.html#a4746a54afce7bc3b686cf6fa8c2d279f',1,'vt::debug::stack']]],
   ['prev_5ftask_5f',['prev_task_',['../structvt_1_1ctx_1_1_set_context.html#af5a9e9f7f2f7deeadd17da554e8aa39b',1,'vt::ctx::SetContext']]],
   ['print_5fbool',['print_bool',['../debug__printconst_8h.html#aac76e066ee747d3089751f067090346b',1,'debug_printconst.h']]],
   ['print_5fchannel_5ftype',['PRINT_CHANNEL_TYPE',['../rdma__common_8h.html#acb652eed9d0bce43968f07eebb9ee9a0',1,'rdma_common.h']]],
