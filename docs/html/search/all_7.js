@@ -5,7 +5,6 @@ var searchData=
   ['fatalerror',['fatalError',['../structvt_1_1runtime_1_1component_1_1_base_component.html#a43eeed44aa64c77f5491abb4f5a39e9a',1,'vt::runtime::component::BaseComponent::fatalError()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a16f7bc87be8e1ed23aaaa01d585c9f3d',1,'vt::vrt::collection::balance::NodeStats::fatalError()']]],
   ['fd_5f',['fd_',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#aaae9d622f010fb34e3644ae7ffc355d7',1,'checkpoint::buffer::IOBuffer']]],
   ['features_5fdefines_2eh',['features_defines.h',['../features__defines_8h.html',1,'']]],
-  ['features_5fenableif_2eh',['features_enableif.h',['../features__enableif_8h.html',1,'']]],
   ['features_5ffeatureswitch_2eh',['features_featureswitch.h',['../features__featureswitch_8h.html',1,'']]],
   ['fence',['fence',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456.html#a2b0167a409d6fb571fb87eab5ee07f1e',1,'vt::rdma::value &gt;&gt;::fence()'],['../structvt_1_1rdma_1_1_holder.html#ae0131450f2f087c80faa444810aa25ed',1,'vt::rdma::Holder::fence()']]],
   ['fetchinfo',['fetchInfo',['../structvt_1_1rdma_1_1_sub_handle.html#a98a57c00dcd4b2311937a1af439c10b1',1,'vt::rdma::SubHandle']]],

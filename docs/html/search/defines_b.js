@@ -14,7 +14,7 @@ var searchData=
   ['vt_5fapplyx_5f',['vt_applyx_',['../config__assert_8h.html#a814fd042a8609e2f7fc920908fe5ef5c',1,'config_assert.h']]],
   ['vt_5fapplyxn',['vt_applyxn',['../config__assert_8h.html#ad6169f295687d46151577edd3ebf9fb9',1,'config_assert.h']]],
   ['vt_5fassert_5fshould_5ffail',['vt_assert_should_fail',['../config__assert_8h.html#a167a8dc0f81f643ecce69eaf3219ba07',1,'config_assert.h']]],
-  ['vt_5fcheck_5fenabled',['vt_check_enabled',['../features__enableif_8h.html#a62fe65c25c90d03bc704afc5d80d7210',1,'features_enableif.h']]],
+  ['vt_5fcheck_5fenabled',['vt_check_enabled',['../features__defines_8h.html#a62fe65c25c90d03bc704afc5d80d7210',1,'features_defines.h']]],
   ['vt_5fconfig_5fprint_5fforce_5fimpl',['vt_config_print_force_impl',['../debug__print_8h.html#a09737c8f93c886bc5262eb9022f97633',1,'debug_print.h']]],
   ['vt_5fdebug_5fargument_5foption',['vt_debug_argument_option',['../debug__print_8h.html#a6fbe25816e97dc821cf56de661e2e2e1',1,'debug_print.h']]],
   ['vt_5fdebug_5fforce_5fenabled',['vt_debug_force_enabled',['../debug__masterconfig_8h.html#ab400ac124f280ae931986dc95dbeab74',1,'debug_masterconfig.h']]],

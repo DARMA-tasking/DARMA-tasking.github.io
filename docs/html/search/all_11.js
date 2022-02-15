@@ -229,7 +229,6 @@ var searchData=
   ['presentation',['presentation',['../structfmt_1_1formatter_3_1_1vt_1_1elm_1_1_element_i_d_struct_01_4.html#af4ff8d1310326d50c5190b346197d424',1,'fmt::formatter&lt;::vt::elm::ElementIDStruct &gt;::presentation()'],['../structfmt_1_1formatter_3_1_1vt_1_1epoch_1_1_epoch_type_01_4.html#adbbd56e88fa7fa5151ed77bbc9b66895',1,'fmt::formatter&lt;::vt::epoch::EpochType &gt;::presentation()']]],
   ['pretty_5fprint_5fmessage_2ecc',['pretty_print_message.cc',['../pretty__print__message_8cc.html',1,'']]],
   ['pretty_5fprint_5fmessage_2eh',['pretty_print_message.h',['../pretty__print__message_8h.html',1,'']]],
-  ['pretty_5fprint_5fstack_2eh',['pretty_print_stack.h',['../pretty__print__stack_8h.html',1,'']]],
   ['prettyfunctionfortype',['prettyFunctionForType',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a544c77a181038fc1de063fe3d3fc761d',1,'vt::util::demangle::TemplateExtract']]],
   ['prettyfunctionforvalue',['prettyFunctionForValue',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a2fa8ebf7aca434dc7bf6c3113b04226b',1,'vt::util::demangle::TemplateExtract']]],
   ['prettyfunctionforvalueptr',['prettyFunctionForValuePtr',['../structvt_1_1util_1_1demangle_1_1_template_extract.html#a1fc274aa3088c6c65c5da2450896d6bf',1,'vt::util::demangle::TemplateExtract']]],

@@ -198,7 +198,7 @@ var searchData=
   ['vt_5fapplyxn',['vt_applyxn',['../config__assert_8h.html#ad6169f295687d46151577edd3ebf9fb9',1,'config_assert.h']]],
   ['vt_5fassert_5fshould_5ffail',['vt_assert_should_fail',['../config__assert_8h.html#a167a8dc0f81f643ecce69eaf3219ba07',1,'config_assert.h']]],
   ['vt_5fauto_5fcolor',['vt_auto_color',['../structvt_1_1arguments_1_1_app_config.html#ab0d9d89764f3dde07ebb0cbf67b60c9b',1,'vt::arguments::AppConfig']]],
-  ['vt_5fcheck_5fenabled',['vt_check_enabled',['../features__enableif_8h.html#a62fe65c25c90d03bc704afc5d80d7210',1,'features_enableif.h']]],
+  ['vt_5fcheck_5fenabled',['vt_check_enabled',['../features__defines_8h.html#a62fe65c25c90d03bc704afc5d80d7210',1,'features_defines.h']]],
   ['vt_5fcolor',['vt_color',['../structvt_1_1arguments_1_1_app_config.html#a8add08e932dec103e52255fd77e15b0f',1,'vt::arguments::AppConfig']]],
   ['vt_5fconfig_5fprint_5fforce_5fimpl',['vt_config_print_force_impl',['../debug__print_8h.html#a09737c8f93c886bc5262eb9022f97633',1,'debug_print.h']]],
   ['vt_5fdebug_5factive',['vt_debug_active',['../structvt_1_1arguments_1_1_app_config.html#a506408dd0aad49b55666edfc525f8a29',1,'vt::arguments::AppConfig']]],
