@@ -3,6 +3,7 @@
   <compounddef id="collective__ops_8cc" kind="file" language="C++">
     <compoundname>collective_ops.cc</compoundname>
     <includes refid="collective__ops_8h" local="yes">vt/collective/collective_ops.h</includes>
+    <includes refid="context_8h" local="yes">vt/context/context.h</includes>
     <includes refid="runtime_8h" local="yes">vt/runtime/runtime.h</includes>
     <includes refid="scheduler_8h" local="yes">vt/scheduler/scheduler.h</includes>
     <includes refid="runtime__inst_8h" local="yes">vt/runtime/runtime_inst.h</includes>
@@ -619,6 +620,8 @@
         <label>src/vt/collective/collective_ops.cc</label>
         <link refid="collective__ops_8cc"/>
         <childnode refid="38777" relation="include">
+        </childnode>
+        <childnode refid="38826" relation="include">
         </childnode>
         <childnode refid="38949" relation="include">
         </childnode>
@@ -3862,6 +3865,28 @@
       </node>
     </incdepgraph>
     <innernamespace refid="namespacevt">vt</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" prot="public" static="no">
+        <name>printIfOverwritten</name>
+        <param><defname>opt</defname></param>
+        <initializer>do {                                                                         \
+    if (cliConfig.opt != appConfig.opt) {                                      \
+      ++overwrittens;                                                          \
+      fmt::print(                                                              \
+        &quot;{}\t{}--&quot; #opt &quot;{}\n&quot;,                                                \
+        vt_pre, magenta, reset                                                 \
+      );                                                                       \
+    }                                                                          \
+  } while (0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/collective/collective_ops.cc" line="59" column="9" bodyfile="src/vt/collective/collective_ops.cc" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -3911,143 +3936,307 @@
 <codeline lineno="42"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="collective__ops_8h" kindref="compound">vt/collective/collective_ops.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="runtime_8h" kindref="compound">vt/runtime/runtime.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="scheduler_8h" kindref="compound">vt/scheduler/scheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="runtime__inst_8h" kindref="compound">vt/runtime/runtime_inst.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tls_8h" kindref="compound">vt/utils/tls/tls.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mpi.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1afbf0247b03bc917bb8dbf56142eb698e" kindref="member">CollectiveAnyOps&lt;instance&gt;::initialize</ref>(</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**&amp;<sp/>argv,<sp/><ref refid="namespacevt_1aa93398ea48f2cb6c188512250f7cc248" kindref="member">WorkerCountType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>num_workers,</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_interop,<sp/>MPI_Comm*<sp/>comm</highlight></codeline>
-<codeline lineno="60"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_inst" kindref="compound">vt::runtime::RuntimeInst</ref>;</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime" kindref="compound">vt::runtime::Runtime</ref>;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58" kindref="member">vt::runtime::eRuntimeInstance</ref>;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/>MPI_Comm<sp/>resolved_comm<sp/>=<sp/>comm<sp/>not_eq<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>?<sp/>*comm<sp/>:<sp/>MPI_COMM_WORLD;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref><sp/>=<sp/>std::make_unique&lt;Runtime&gt;(</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>argc,<sp/>argv,<sp/>num_workers,<sp/>is_interop,<sp/>resolved_comm</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_ptr<sp/>=<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref>.get();</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(instance<sp/>==<sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101" kindref="member">runtime::RuntimeInstType::DefaultInstance</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>global<sp/>variable<sp/>for<sp/>default<sp/>instance<sp/>for<sp/>backward<sp/>compatibility</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref><sp/>=<sp/>rt_ptr;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/>rt_ptr;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a7590edf43fad3a219ef9335a97f4aebb" kindref="member">initialize</ref>();</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1a71998fecf2a4d70b11e3ae4aa47810db" kindref="member">runtime::makeRuntimePtr</ref>(rt_ptr);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1aa86dfdc9c8ac6f25033948b5dd26fb5b" kindref="member">CollectiveAnyOps&lt;instance&gt;::setCurrentRuntimeTLS</ref>(<ref refid="namespacevt_1a8019b70cc4b9b0833c38559c85dfd53b" kindref="member">RuntimeUnsafePtrType</ref><sp/>in)<sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>has_rt<sp/>=<sp/>in<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_use<sp/>=<sp/>has_rt<sp/>?<sp/>in<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/>rt_use;</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a10be760566e5c50ce6d35ab93d7736ce" kindref="member">CollectiveAnyOps&lt;instance&gt;::scheduleThenFinalize</ref>(</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/>in_rt,<sp/><ref refid="namespacevt_1aa93398ea48f2cb6c188512250f7cc248" kindref="member">WorkerCountType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>workers</highlight></codeline>
-<codeline lineno="95"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>has_rt<sp/>=<sp/>in_rt<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_use<sp/>=<sp/>has_rt<sp/>?<sp/>in_rt.unsafe()<sp/>:<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>sched_fn<sp/>=<sp/>[=]{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([rt_use]{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>rt_use-&gt;isTerminated();<sp/>});</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(workers<sp/>==<sp/>no_workers)<sp/>{</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>sched_fn();</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>vt_threading_enabled</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>theWorkerGrp()-&gt;spawnWorkersBlock(sched_fn);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>sched_fn();</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1_collective_any_ops_1ae2260154e455458fc26f02f0bce6702d" kindref="member">CollectiveAnyOps&lt;instance&gt;::finalize</ref>(has_rt<sp/>?<sp/>std::move(in_rt)<sp/>:<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1ae2260154e455458fc26f02f0bce6702d" kindref="member">CollectiveAnyOps&lt;instance&gt;::finalize</ref>(<ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/>in_rt)<sp/>{</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_inst" kindref="compound">vt::runtime::RuntimeInst</ref>;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime" kindref="compound">vt::runtime::Runtime</ref>;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58" kindref="member">vt::runtime::eRuntimeInstance</ref>;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(instance<sp/>==<sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101" kindref="member">runtime::RuntimeInstType::DefaultInstance</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>global<sp/>variable<sp/>for<sp/>default<sp/>instance<sp/>for<sp/>backward<sp/>compatibility</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(in_rt)<sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>in_rt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a31a089ab739c612171e581ead8922e8b" kindref="member">CollectiveAnyOps&lt;instance&gt;::abort</ref>(</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code</highlight></codeline>
-<codeline lineno="139"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(trace_enabled)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//---<sp/>Try<sp/>to<sp/>flush<sp/>most<sp/>of<sp/>the<sp/>traces<sp/>before<sp/>aborting</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;theTrace-&gt;cleanupTracesFile();</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a6780309c9de951abbf73780860bff5af" kindref="member">abort</ref>(str,<sp/>code);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="namespacevt_1_1debug_1a852027d87cfb65bb21dd8ce1e8c23c61" kindref="member">vt::debug::preConfig</ref>()-&gt;vt_throw_on_abort)<sp/>{</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Special<sp/>case<sp/>when<sp/>preConfig<sp/>has<sp/>&apos;vt_throw_on_abort&apos;<sp/>option<sp/>set</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>meant<sp/>to<sp/>be<sp/>used<sp/>by<sp/>nompi<sp/>unit<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(str);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>std::_Exit(code);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a5ae4676659166ab1e1ac7334776d58c3" kindref="member">CollectiveAnyOps&lt;instance&gt;::output</ref>(</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>decorate,</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>formatted,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>abort_out</highlight></codeline>
-<codeline lineno="161"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1af9784d4fc19d1df2b86b2c8e01d15295" kindref="member">output</ref>(str,code,error,decorate,formatted);</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>::fmt::print(str.c_str());</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(error<sp/>and<sp/>abort_out)<sp/>{</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1ad36ca8eb7e5b9cc794a793b290b9c2c7" kindref="member">vt::abort</ref>(</highlight><highlight class="stringliteral">&quot;Assertion<sp/>Failed&quot;</highlight><highlight class="normal">,<sp/>129);</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><ref refid="namespacevt_1af64846b57dfcaf104da3ef6967917573" kindref="member">HandlerType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1a7e8425c141657c1b8286c5b56c5fd43d" kindref="member">CollectiveAnyOps&lt;instance&gt;::registerHandler</ref>(<ref refid="namespacevt_1a2a06c34cafcd511828f16cbf1476b924" kindref="member">ActiveClosureFnType</ref><sp/>fn)<sp/>{</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a8b5994a5aedabc64006ce820db2e938c" kindref="member">theRegistry</ref>()-&gt;<ref refid="structvt_1_1registry_1_1_registry_1ad4fdbf2cfbe4e852c5556435efe4255f" kindref="member">registerActiveHandler</ref>(fn);</highlight></codeline>
-<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CollectiveAnyOps&lt;collective_default_inst&gt;;</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="context_8h" kindref="compound">vt/context/context.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="runtime_8h" kindref="compound">vt/runtime/runtime.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="scheduler_8h" kindref="compound">vt/scheduler/scheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="runtime__inst_8h" kindref="compound">vt/runtime/runtime_inst.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tls_8h" kindref="compound">vt/utils/tls/tls.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mpi.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>printIfOverwritten(opt)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/>do<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>if<sp/>(cliConfig.opt<sp/>!=<sp/>appConfig.opt)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>++overwrittens;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;{}\t{}--&quot;<sp/>#opt<sp/>&quot;{}\n&quot;,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vt_pre,<sp/>magenta,<sp/>reset<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/>}<sp/>while<sp/>(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>printOverwrittens(</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1arguments_1_1_app_config" kindref="compound">vt::arguments::AppConfig</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;cliConfig,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1arguments_1_1_app_config" kindref="compound">vt::arguments::AppConfig</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;appConfig</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">debug::green</ref>();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">debug::reset</ref>();</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">magenta</ref><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">debug::magenta</ref>();</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>vt_pre<sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1acfaac527e91984bde40775eb9b4372ef" kindref="member">debug::vtPre</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>fmt::print(</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{}{}Predefined<sp/>options<sp/>overwritten<sp/>by<sp/>CLI<sp/>arguments:{}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>vt_pre,<sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref>,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>overwrittens<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_color);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_color);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_quiet);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_sched_progress_han);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_sched_progress_sec);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_sigint);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_sigsegv);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_sigbus);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_terminate);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_memory_reporters);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_each_phase);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_node);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_allow_memory_report_with_ps);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_at_threshold);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_threshold);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_sched_poll);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_memory_footprint);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_warn_stack);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_assert_stack);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_abort_stack);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_stack);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_stack_file);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_stack_dir);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_stack_mod);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_mpi);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_pmpi);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_sys_all);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_sys_term);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_sys_location);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_sys_collection);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_sys_serial_msg);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_file);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_dir);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_mod);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_flush_size);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_spec);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_spec_file);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_memory_usage);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_event_polling);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_trace_irecv_polling);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_show_spec);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_quiet);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_file_name);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_name);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_args);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_interval);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats_compress);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats_dir);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats_file);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats_dir_in);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_lb_stats_file_in);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_help_lb_args);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_detect_hang);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_print_no_progress);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_epoch_graph_on_hang);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_epoch_graph_terse);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_term_rooted_use_ds);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_term_rooted_use_wave);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_hang_freq);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_diag_enable);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_diag_print_summary);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_diag_summary_csv_file);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_diag_summary_file);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_diag_csv_base_units);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_pause);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_no_assert_fail);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_throw_on_abort);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_max_mpi_send_size);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_level);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_all);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_none);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_gen);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_runtime);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_active);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_term);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_termds);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_barrier);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_event);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_pipe);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_pool);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_reduce);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_rdma);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_rdma_channel);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_rdma_state);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_param);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_handler);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_hierlb);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_temperedlb);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_scatter);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_sequence);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_sequence_vrt);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_serial_msg);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_trace);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_location);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_lb);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_vrt);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_vrt_coll);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_worker);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_group);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_broadcast);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_objgroup);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_phase);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_context);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_epoch);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_debug_print_flush);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_1);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_2);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_3);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_int_1);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_int_2);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_int_3);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_str_1);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_str_2);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_user_str_3);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_output_config);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><ref refid="collective__ops_8cc_1a812383effc3e39f8321104edc0bcde60" kindref="member">printIfOverwritten</ref>(vt_output_config_file);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(overwrittens<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}\tNone.\n&quot;</highlight><highlight class="normal">,<sp/>vt_pre);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>anon<sp/>namespace<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1ae0b57c10a49875db49abc536a2a5c19c" kindref="member">CollectiveAnyOps&lt;instance&gt;::initialize</ref>(</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**&amp;<sp/>argv,<sp/><ref refid="namespacevt_1aa93398ea48f2cb6c188512250f7cc248" kindref="member">WorkerCountType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>num_workers,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_interop,<sp/>MPI_Comm*<sp/>comm,<sp/>arguments::AppConfig<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>appConfig</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_inst" kindref="compound">vt::runtime::RuntimeInst</ref>;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime" kindref="compound">vt::runtime::Runtime</ref>;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58" kindref="member">vt::runtime::eRuntimeInstance</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/>MPI_Comm<sp/>resolved_comm<sp/>=<sp/>comm<sp/>not_eq<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>?<sp/>*comm<sp/>:<sp/>MPI_COMM_WORLD;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref><sp/>=<sp/>std::make_unique&lt;Runtime&gt;(</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>argc,<sp/>argv,<sp/>num_workers,<sp/>is_interop,<sp/>resolved_comm,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101" kindref="member">eRuntimeInstance::DefaultInstance</ref>,<sp/>appConfig</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_ptr<sp/>=<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref>.get();</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(instance<sp/>==<sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101" kindref="member">runtime::RuntimeInstType::DefaultInstance</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>global<sp/>variable<sp/>for<sp/>default<sp/>instance<sp/>for<sp/>backward<sp/>compatibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref><sp/>=<sp/>rt_ptr;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/>rt_ptr;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a7590edf43fad3a219ef9335a97f4aebb" kindref="member">initialize</ref>();</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>appConfig<sp/>is<sp/>not<sp/>nullptr,<sp/>compare<sp/>CLI<sp/>arguments<sp/>with<sp/>user-defined<sp/>ones,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>report<sp/>overwritten<sp/>ones.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(appConfig<sp/>&amp;&amp;<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;getNode()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>printOverwrittens(*<ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">rt</ref>-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1aebf06f17830f0d7f1377c14ce5c38845" kindref="member">getAppConfig</ref>(),<sp/>*appConfig);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1a71998fecf2a4d70b11e3ae4aa47810db" kindref="member">runtime::makeRuntimePtr</ref>(rt_ptr);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1aa86dfdc9c8ac6f25033948b5dd26fb5b" kindref="member">CollectiveAnyOps&lt;instance&gt;::setCurrentRuntimeTLS</ref>(<ref refid="namespacevt_1a8019b70cc4b9b0833c38559c85dfd53b" kindref="member">RuntimeUnsafePtrType</ref><sp/>in)<sp/>{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>has_rt<sp/>=<sp/>in<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_use<sp/>=<sp/>has_rt<sp/>?<sp/>in<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/>rt_use;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a10be760566e5c50ce6d35ab93d7736ce" kindref="member">CollectiveAnyOps&lt;instance&gt;::scheduleThenFinalize</ref>(</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/>in_rt,<sp/><ref refid="namespacevt_1aa93398ea48f2cb6c188512250f7cc248" kindref="member">WorkerCountType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>workers</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>has_rt<sp/>=<sp/>in_rt<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>rt_use<sp/>=<sp/>has_rt<sp/>?<sp/>in_rt.unsafe()<sp/>:<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>sched_fn<sp/>=<sp/>[=]{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([rt_use]{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>not<sp/>rt_use-&gt;isTerminated();<sp/>});</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(workers<sp/>==<sp/>no_workers)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>sched_fn();</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>vt_threading_enabled</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>theWorkerGrp()-&gt;spawnWorkersBlock(sched_fn);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>sched_fn();</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1_collective_any_ops_1ae2260154e455458fc26f02f0bce6702d" kindref="member">CollectiveAnyOps&lt;instance&gt;::finalize</ref>(has_rt<sp/>?<sp/>std::move(in_rt)<sp/>:<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1ae2260154e455458fc26f02f0bce6702d" kindref="member">CollectiveAnyOps&lt;instance&gt;::finalize</ref>(<ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref><sp/>in_rt)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_inst" kindref="compound">vt::runtime::RuntimeInst</ref>;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime" kindref="compound">vt::runtime::Runtime</ref>;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58" kindref="member">vt::runtime::eRuntimeInstance</ref>;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>sst<sp/>global<sp/>rt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">RuntimeInst&lt;instance&gt;::rt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(instance<sp/>==<sp/><ref refid="namespacevt_1_1runtime_1afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101" kindref="member">runtime::RuntimeInstType::DefaultInstance</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>global<sp/>variable<sp/>for<sp/>default<sp/>instance<sp/>for<sp/>backward<sp/>compatibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(in_rt)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>in_rt<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a31a089ab739c612171e581ead8922e8b" kindref="member">CollectiveAnyOps&lt;instance&gt;::abort</ref>(</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(trace_enabled)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//---<sp/>Try<sp/>to<sp/>flush<sp/>most<sp/>of<sp/>the<sp/>traces<sp/>before<sp/>aborting</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;theTrace-&gt;cleanupTracesFile();</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1a6780309c9de951abbf73780860bff5af" kindref="member">abort</ref>(str,<sp/>code);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="namespacevt_1_1debug_1a852027d87cfb65bb21dd8ce1e8c23c61" kindref="member">vt::debug::preConfig</ref>()-&gt;vt_throw_on_abort)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Special<sp/>case<sp/>when<sp/>preConfig<sp/>has<sp/>&apos;vt_throw_on_abort&apos;<sp/>option<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>meant<sp/>to<sp/>be<sp/>used<sp/>by<sp/>nompi<sp/>unit<sp/>tests</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(str);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>std::_Exit(code);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1_collective_any_ops_1a5ae4676659166ab1e1ac7334776d58c3" kindref="member">CollectiveAnyOps&lt;instance&gt;::output</ref>(</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/>std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>str,<sp/><ref refid="namespacevt_1a793764d753923abc3d32929870beb485" kindref="member">ErrorCodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>code,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>decorate,</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>formatted,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>abort_out</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tls_rt<sp/>=<sp/><ref refid="namespacevt_1a07abc8f1752a784f54c226bbc4c3b1fe" kindref="member">curRT</ref>;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>myrt<sp/>=<sp/>tls_rt<sp/>?<sp/>tls_rt<sp/>:<sp/><ref refid="namespacevt_1acce65ec10b513659274e722365aaa36d" kindref="member">::vt::rt</ref>;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(myrt)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>myrt-&gt;<ref refid="structvt_1_1runtime_1_1_runtime_1af9784d4fc19d1df2b86b2c8e01d15295" kindref="member">output</ref>(str,code,error,decorate,formatted);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>::fmt::print(str.c_str());</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(error<sp/>and<sp/>abort_out)<sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1ad36ca8eb7e5b9cc794a793b290b9c2c7" kindref="member">vt::abort</ref>(</highlight><highlight class="stringliteral">&quot;Assertion<sp/>Failed&quot;</highlight><highlight class="normal">,<sp/>129);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;runtime::RuntimeInstType<sp/>instance&gt;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><ref refid="namespacevt_1af64846b57dfcaf104da3ef6967917573" kindref="member">HandlerType</ref><sp/><ref refid="structvt_1_1_collective_any_ops_1a7e8425c141657c1b8286c5b56c5fd43d" kindref="member">CollectiveAnyOps&lt;instance&gt;::registerHandler</ref>(<ref refid="namespacevt_1a2a06c34cafcd511828f16cbf1476b924" kindref="member">ActiveClosureFnType</ref><sp/>fn)<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1a8b5994a5aedabc64006ce820db2e938c" kindref="member">theRegistry</ref>()-&gt;<ref refid="structvt_1_1registry_1_1_registry_1ad4fdbf2cfbe4e852c5556435efe4255f" kindref="member">registerActiveHandler</ref>(fn);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CollectiveAnyOps&lt;collective_default_inst&gt;;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/collective/collective_ops.cc"/>
   </compounddef>

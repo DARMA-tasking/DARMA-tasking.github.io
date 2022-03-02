@@ -227,12 +227,12 @@ $ vt/ci/test\_cpp.sh <full-path-to-vt-source> <full-path-to-build-dir>
 \end{DoxyCode}
  \hypertarget{tutorial}{}\section{Tutorial}\label{tutorial}
 Tutorial of how to use {\bfseries {\itshape vt}}\hypertarget{tutorial_tutorial-init-finalize-vt}{}\subsection{Initializing/\+Finalizing}\label{tutorial_tutorial-init-finalize-vt}
-To initialize {\bfseries {\itshape vt}} all you must do is invoke the {\ttfamily \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt\+::initialize}} call with the program arguments, which creates and initializes a new {\bfseries {\itshape vt}} runtime. The initialize call reads the {\bfseries {\itshape vt}} arguments and removes them, leaving the remaining for the program.
+To initialize {\bfseries {\itshape vt}} all you must do is invoke the {\ttfamily \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt\+::initialize}} call with the program arguments, which creates and initializes a new {\bfseries {\itshape vt}} runtime. The initialize call reads the {\bfseries {\itshape vt}} arguments and removes them, leaving the remaining for the program.
 
 
 \begin{DoxyCode}
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
-  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv);
    \textcolor{comment}{// program here}
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
 \}
@@ -245,13 +245,52 @@ If you are already using M\+PI in your program already, you don\textquotesingle{
 \begin{DoxyCode}
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
   MPI\_Init(&argc, &argv);
-  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv, &MPI\_COMM\_WORLD);
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv, &MPI\_COMM\_WORLD);
    \textcolor{comment}{// program here}
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
   MPI\_Finalize();
 \}
 \end{DoxyCode}
-\hypertarget{tutorial_tutorial-walkthrough}{}\subsection{Tutorial Code Snippets}\label{tutorial_tutorial-walkthrough}
+
+
+If, for any reason, you want to predefine configuration, you can do it by creating {\ttfamily App\+Config} object, setting its members as you wish, and passing it to {\ttfamily \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt\+::initialize}}\+:
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  arguments::AppConfig appConfig\{\};
+  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"RotateLB"};
+  appConfig.vt\_lb\_stats = \textcolor{keyword}{true};
+
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv, &appConfig);
+   \textcolor{comment}{// program here}
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+\}
+\end{DoxyCode}
+
+
+You can do also do it if you initialized M\+PI on your own\+:
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
+  MPI\_Init(&argc, &argv);
+
+  arguments::AppConfig appConfig\{\};
+  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"RotateLB"};
+  appConfig.vt\_lb\_stats = \textcolor{keyword}{true};
+
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv, &MPI\_COMM\_WORLD, &appConfig);
+   \textcolor{comment}{// program here}
+  \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
+  MPI\_Finalize();
+\}
+\end{DoxyCode}
+
+
+It is worth noting that if you run your application with any of vt\textquotesingle{}s command-\/line arguments and at the same time you define and pass {\ttfamily App\+Config} to {\ttfamily \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt\+::initialize}}, C\+LI arguments have a higher priority. In other words, if you predefine in source code and give from the command line the same vt\textquotesingle{}s argument, but with a different value, the program will use the C\+LI one.
+
+There is also an option to use configuration file. Refer to C\+L\+I11 documentation for details \href{https://cliutils.github.io/CLI11/book/chapters/config.html}{\tt https\+://cliutils.\+github.\+io/\+C\+L\+I11/book/chapters/config.\+html}. Important thing to remember -\/ C\+L\+I11 processes configuration file before command line arguments, so in the end command line arguments might overwrite values defined in configuration file.\hypertarget{tutorial_tutorial-walkthrough}{}\subsection{Tutorial Code Snippets}\label{tutorial_tutorial-walkthrough}
 This page walks through the tutorial that exists in the source code. See {\ttfamily vt/tutorial/$\ast$.h} for the tutorial pieces in the repository. The main tutorial example code that stitches the pieces together is located in example\+: {\ttfamily vt/tutorial/tutorial\+\_\+main.\+h}. The actual code that compiles into an example is in {\ttfamily vt/examples/tutorial.\+cc}.
 
 
@@ -1429,7 +1468,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   std::string name(argv[0]);
 
-  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv);
 
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
@@ -1894,7 +1933,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   std::string name(argv[0]);
 
-  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv);
 
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
 
@@ -2134,7 +2173,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   std::string name(argv[0]);
 
-  \hyperlink{namespacevt_aaa266774ea8339c58be0202b00fafa62}{vt::initialize}(argc, argv);
+  \hyperlink{namespacevt_aae6ab5af3e11886ce73c4c3ffa008201}{vt::initialize}(argc, argv);
 
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->

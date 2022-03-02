@@ -39,6 +39,43 @@
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal">\endcode</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">If,<sp/>for<sp/>any<sp/>reason,<sp/>you<sp/>want<sp/>to<sp/>predefine<sp/>configuration,<sp/>you<sp/>can<sp/>do<sp/>it</highlight></codeline>
+<codeline><highlight class="normal">by<sp/>creating<sp/>`AppConfig`<sp/>object,<sp/>setting<sp/>its<sp/>members<sp/>as<sp/>you<sp/>wish,</highlight></codeline>
+<codeline><highlight class="normal">and<sp/>passing<sp/>it<sp/>to<sp/>`vt::initialize`:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>main(int<sp/>argc,<sp/>char**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>arguments::AppConfig<sp/>appConfig{};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>appConfig.vt_lb_name<sp/>=<sp/>&quot;RotateLB&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>appConfig.vt_lb_stats<sp/>=<sp/>true;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::initialize(argc,<sp/>argv,<sp/>&amp;appConfig);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>//<sp/>program<sp/>here</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::finalize();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>do<sp/>also<sp/>do<sp/>it<sp/>if<sp/>you<sp/>initialized<sp/>MPI<sp/>on<sp/>your<sp/>own:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code{.cpp}</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>main(int<sp/>argc,<sp/>char**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MPI_Init(&amp;argc,<sp/>&amp;argv);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>arguments::AppConfig<sp/>appConfig{};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>appConfig.vt_lb_name<sp/>=<sp/>&quot;RotateLB&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>appConfig.vt_lb_stats<sp/>=<sp/>true;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::initialize(argc,<sp/>argv,<sp/>&amp;MPI_COMM_WORLD,<sp/>&amp;appConfig);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>//<sp/>program<sp/>here</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>vt::finalize();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>MPI_Finalize();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>worth<sp/>noting<sp/>that<sp/>if<sp/>you<sp/>run<sp/>your<sp/>application<sp/>with<sp/>any<sp/>of<sp/>vt&apos;s<sp/>command-line<sp/>arguments<sp/>and<sp/>at<sp/>the<sp/>same<sp/>time<sp/>you<sp/>define<sp/>and<sp/>pass<sp/>`AppConfig`<sp/>to<sp/>`vt::initialize`,<sp/>CLI<sp/>arguments<sp/>have<sp/>a<sp/>higher<sp/>priority.<sp/>In<sp/>other<sp/>words,<sp/>if<sp/>you<sp/>predefine<sp/>in<sp/>source<sp/>code<sp/>and<sp/>give<sp/>from<sp/>the<sp/>command<sp/>line<sp/>the<sp/>same<sp/>vt&apos;s<sp/>argument,<sp/>but<sp/>with<sp/>a<sp/>different<sp/>value,<sp/>the<sp/>program<sp/>will<sp/>use<sp/>the<sp/>CLI<sp/>one.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">There<sp/>is<sp/>also<sp/>an<sp/>option<sp/>to<sp/>use<sp/>configuration<sp/>file.<sp/>Refer<sp/>to<sp/>CLI11<sp/>documentation<sp/>for<sp/>details<sp/>https://cliutils.github.io/CLI11/book/chapters/config.html.<sp/>Important<sp/>thing<sp/>to<sp/>remember<sp/>-<sp/>CLI11<sp/>processes<sp/>configuration<sp/>file<sp/>before<sp/>command<sp/>line<sp/>arguments,<sp/>so<sp/>in<sp/>the<sp/>end<sp/>command<sp/>line<sp/>arguments<sp/>might<sp/>overwrite<sp/>values<sp/>defined<sp/>in<sp/>configuration<sp/>file.</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">\section<sp/>tutorial-walkthrough<sp/>Tutorial<sp/>Code<sp/>Snippets</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">This<sp/>page<sp/>walks<sp/>through<sp/>the<sp/>tutorial<sp/>that<sp/>exists<sp/>in<sp/>the<sp/>source<sp/>code.<sp/>See</highlight></codeline>
