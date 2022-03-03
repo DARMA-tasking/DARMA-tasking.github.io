@@ -148,5 +148,8 @@ var searchData=
   ['vt_5fuser_5fstr_5f1',['vt_user_str_1',['../structvt_1_1arguments_1_1_app_config.html#a82c297d0e47d184d31e1995bd4875679',1,'vt::arguments::AppConfig']]],
   ['vt_5fuser_5fstr_5f2',['vt_user_str_2',['../structvt_1_1arguments_1_1_app_config.html#ae32089b77ac32131a690657847c7e194',1,'vt::arguments::AppConfig']]],
   ['vt_5fuser_5fstr_5f3',['vt_user_str_3',['../structvt_1_1arguments_1_1_app_config.html#a98ff430b46d126075db46ef5a9fb9c70',1,'vt::arguments::AppConfig']]],
+  ['vt_5fversion_5fmajor',['vt_version_major',['../vt__git__revision_8h.html#af5206dbb721cad548c1ba218839f3775',1,'vt_git_revision.h']]],
+  ['vt_5fversion_5fminor',['vt_version_minor',['../vt__git__revision_8h.html#ab1941816a81d8f313e2069ce1e9155c6',1,'vt_git_revision.h']]],
+  ['vt_5fversion_5fpatch',['vt_version_patch',['../vt__git__revision_8h.html#a625dd532e5e71480f7bb33dd09782dd6',1,'vt_git_revision.h']]],
   ['vtlivetime',['vtLiveTime',['../structvt_1_1sched_1_1_scheduler.html#adce0ae8437702f0aa29cbdea4fd58a12',1,'vt::sched::Scheduler']]]
 ];
