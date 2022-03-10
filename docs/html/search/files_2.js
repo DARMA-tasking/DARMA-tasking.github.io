@@ -76,6 +76,7 @@ var searchData=
   ['collection_2emd',['collection.md',['../collection_8md.html',1,'']]],
   ['collection_5fbuilder_2eimpl_2eh',['collection_builder.impl.h',['../collection__builder_8impl_8h.html',1,'']]],
   ['collection_5fchain_5fset_2eh',['collection_chain_set.h',['../collection__chain__set_8h.html',1,'']]],
+  ['collection_5fchain_5fset_2eimpl_2eh',['collection_chain_set.impl.h',['../collection__chain__set_8impl_8h.html',1,'']]],
   ['collection_5fcontext_5fholder_2eh',['collection_context_holder.h',['../collection__context__holder_8h.html',1,'']]],
   ['collection_5fdirectory_2eh',['collection_directory.h',['../collection__directory_8h.html',1,'']]],
   ['collection_5felm_5fproxy_2eh',['collection_elm_proxy.h',['../collection__elm__proxy_8h.html',1,'']]],

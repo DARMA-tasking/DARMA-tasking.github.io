@@ -18,6 +18,7 @@ var searchData=
   ['_7ecallbackbase',['~CallbackBase',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#adc39148be97af3105f9b5765431bdc9a',1,'vt::pipe::callback::CallbackBase']]],
   ['_7echannel',['~Channel',['../structvt_1_1rdma_1_1_channel.html#a4e32f293df8c7d988a080065647c4253',1,'vt::rdma::Channel']]],
   ['_7ecollectionbase',['~CollectionBase',['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#aa343e5527cb05addb8bbb04994ebc23e',1,'vt::vrt::collection::CollectionBase']]],
+  ['_7ecollectionchainset',['~CollectionChainSet',['../classvt_1_1messaging_1_1_collection_chain_set.html#a8ee6333242f51748e17328f185b3b999',1,'vt::messaging::CollectionChainSet']]],
   ['_7ecollectionholder',['~CollectionHolder',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#a01b3cf95992bb56c40fa926611b41288',1,'vt::vrt::collection::CollectionHolder']]],
   ['_7ecollectionmanager',['~CollectionManager',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aea0c10371b37041bcc855eef0c767b85',1,'vt::vrt::collection::CollectionManager']]],
   ['_7ecollectivescope',['~CollectiveScope',['../structvt_1_1collective_1_1_collective_scope.html#a0b8d9664cdc7f94bed4b17e0eb5c2b77',1,'vt::collective::CollectiveScope']]],

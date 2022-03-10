@@ -9,6 +9,11 @@ A set of chains to maintain a sequence for a set of collection elements that may
 
 {\ttfamily \#include $<$vt/messaging/collection\+\_\+chain\+\_\+set.\+h$>$}
 
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvt_1_1messaging_1_1_collection_chain_set_1_1_idx_msg}{Idx\+Msg}
+\begin{DoxyCompactList}\small\item\em Message that contains an index sent to remove or add remotely. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,6 +22,10 @@ A set of chains to maintain a sequence for a set of collection elements that may
 \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a71328cb5c03210ffdb0bd5dd5f3b6797}{Collection\+Chain\+Set} (const \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} \&)=delete
 \item 
 \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a21be566436c86fa59a02a1bd073a9e48}{Collection\+Chain\+Set} (\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} \&\&)=delete
+\item 
+{\footnotesize template$<$typename ProxyT , typename IndexT  = typename Proxy\+T\+::\+Index\+Type$>$ }\\\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a307795a4cfc6c794ea3979655a97be91}{Collection\+Chain\+Set} (ProxyT proxy, \hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2}{Chain\+Set\+Layout} layout=\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408}{Local})
+\begin{DoxyCompactList}\small\item\em Construct with a collection proxy to track indices on each node depending on the layout specified. Tracking dependencies on the local node may be better for performance as it may reduce the number of messages that must be sent. \end{DoxyCompactList}\item 
+\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a8ee6333242f51748e17328f185b3b999}{$\sim$\+Collection\+Chain\+Set} ()
 \item 
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aefc11c9b011b4916c3b80dfc8f776239}{add\+Index} (Index idx)
 \begin{DoxyCompactList}\small\item\em Add an index to the set. \end{DoxyCompactList}\item 
@@ -43,15 +52,24 @@ static void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a982745c451
 \begin{DoxyCompactList}\small\item\em The next collective step of both Collection\+Chain\+Sets to execute over all shared indices of the Collection\+Chain\+Sets over all nodes. \end{DoxyCompactList}\item 
 static void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a6560ca64c07967bbd81c57dcd009dd60}{merge\+Step\+Collective} (std\+::string const \&label, \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} \&a, \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} \&b, std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$ step\+\_\+action)
 \begin{DoxyCompactList}\small\item\em The next collective step of both Collection\+Chain\+Sets to execute over all shared indices of the Collection\+Chain\+Sets over all nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_af1b3ca58d3d018fa2a81b86d62fec4ff}{add\+Index\+Han} (\hyperlink{structvt_1_1messaging_1_1_collection_chain_set_1_1_idx_msg}{Idx\+Msg} $\ast$msg)
+\item 
+void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_abbc0c0995c4961fcd07f46303b06d58e}{remove\+Index\+Han} (\hyperlink{structvt_1_1messaging_1_1_collection_chain_set_1_1_idx_msg}{Idx\+Msg} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Remove an index remotely. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 std\+::unordered\+\_\+map$<$ Index, \hyperlink{classvt_1_1messaging_1_1_dependent_send_chain}{Dependent\+Send\+Chain} $>$ \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_afd05e48d93d231320364149fd538beab}{chains\+\_\+}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Set of {\ttfamily \hyperlink{classvt_1_1messaging_1_1_dependent_send_chain}{Dependent\+Send\+Chain}} managed on this node for indices. \end{DoxyCompactList}\item 
+std\+::function$<$ void()$>$ \hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a0c471bdf6ef26c2ca5c214bdda8eb866}{deallocator\+\_\+}
+\begin{DoxyCompactList}\small\item\em Deallocator that type erases element listener de-\/registration. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$class Index$>$\newline
+\subsubsection*{template$<$typename Index$>$\newline
 struct vt\+::messaging\+::\+Collection\+Chain\+Set$<$ Index $>$}
 
 A set of chains to maintain a sequence for a set of collection elements that may be local or remote. 
@@ -62,23 +80,52 @@ Manages a set of chains (sequences) on a set of elements where this is construct
 \mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_aeb43ad4a2e46ea059817b639b72ddb3b}\label{classvt_1_1messaging_1_1_collection_chain_set_aeb43ad4a2e46ea059817b639b72ddb3b}} 
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!Collection\+Chain\+Set@{Collection\+Chain\+Set}}
 \index{Collection\+Chain\+Set@{Collection\+Chain\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
-\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
 \mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a71328cb5c03210ffdb0bd5dd5f3b6797}\label{classvt_1_1messaging_1_1_collection_chain_set_a71328cb5c03210ffdb0bd5dd5f3b6797}} 
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!Collection\+Chain\+Set@{Collection\+Chain\+Set}}
 \index{Collection\+Chain\+Set@{Collection\+Chain\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
-\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} (\begin{DoxyParamCaption}\item[{const \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
 \mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a21be566436c86fa59a02a1bd073a9e48}\label{classvt_1_1messaging_1_1_collection_chain_set_a21be566436c86fa59a02a1bd073a9e48}} 
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!Collection\+Chain\+Set@{Collection\+Chain\+Set}}
 \index{Collection\+Chain\+Set@{Collection\+Chain\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
-\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} (\begin{DoxyParamCaption}\item[{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a307795a4cfc6c794ea3979655a97be91}\label{classvt_1_1messaging_1_1_collection_chain_set_a307795a4cfc6c794ea3979655a97be91}} 
+\index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!Collection\+Chain\+Set@{Collection\+Chain\+Set}}
+\index{Collection\+Chain\+Set@{Collection\+Chain\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
+\subsubsection{\texorpdfstring{Collection\+Chain\+Set()}{CollectionChainSet()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename Index $>$ \\
+template$<$typename ProxyT , typename IndexT $>$ \\
+\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} (\begin{DoxyParamCaption}\item[{ProxyT}]{proxy,  }\item[{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2}{Chain\+Set\+Layout}}]{layout = {\ttfamily \hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408}{Local}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct with a collection proxy to track indices on each node depending on the layout specified. Tracking dependencies on the local node may be better for performance as it may reduce the number of messages that must be sent. 
+
+\begin{DoxyNote}{Note}
+This constructor is a collective invocation.
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em proxy} & the collection proxy \\
+\hline
+\mbox{\tt in}  & {\em layout} & the location the chain set tracks each element \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a8ee6333242f51748e17328f185b3b999}\label{classvt_1_1messaging_1_1_collection_chain_set_a8ee6333242f51748e17328f185b3b999}} 
+\index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!````~Collection\+Chain\+Set@{$\sim$\+Collection\+Chain\+Set}}
+\index{````~Collection\+Chain\+Set@{$\sim$\+Collection\+Chain\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
+\subsubsection{\texorpdfstring{$\sim$\+Collection\+Chain\+Set()}{~CollectionChainSet()}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
+\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::$\sim$\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -87,7 +134,7 @@ Manages a set of chains (sequences) on a set of elements where this is construct
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!add\+Index@{add\+Index}}
 \index{add\+Index@{add\+Index}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{add\+Index()}{addIndex()}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::add\+Index (\begin{DoxyParamCaption}\item[{Index}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -101,11 +148,25 @@ Creates a new, empty {\ttfamily \hyperlink{classvt_1_1messaging_1_1_dependent_se
 \mbox{\tt in}  & {\em idx} & the index to add \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_af1b3ca58d3d018fa2a81b86d62fec4ff}\label{classvt_1_1messaging_1_1_collection_chain_set_af1b3ca58d3d018fa2a81b86d62fec4ff}} 
+\index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!add\+Index\+Han@{add\+Index\+Han}}
+\index{add\+Index\+Han@{add\+Index\+Han}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
+\subsubsection{\texorpdfstring{add\+Index\+Han()}{addIndexHan()}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
+void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::add\+Index\+Han (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_collection_chain_set_1_1_idx_msg}{Idx\+Msg} $\ast$}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+brief Add an index remotely
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & index message \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a5768b5b636799860a63ab182a1e34c9a}\label{classvt_1_1messaging_1_1_collection_chain_set_a5768b5b636799860a63ab182a1e34c9a}} 
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!foreach@{foreach}}
 \index{foreach@{foreach}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{foreach()}{foreach()}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::foreach (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Index)$>$}]{fn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -116,7 +177,7 @@ Run a lambda immediately on each element in the index set.
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!get\+Set@{get\+Set}}
 \index{get\+Set@{get\+Set}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{get\+Set()}{getSet()}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 std\+::unordered\+\_\+set$<$Index$>$ \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::get\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -127,7 +188,7 @@ Get the set of indices registered with this chain set.
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!merge\+Step\+Collective@{merge\+Step\+Collective}}
 \index{merge\+Step\+Collective@{merge\+Step\+Collective}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{merge\+Step\+Collective()}{mergeStepCollective()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 static void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::merge\+Step\+Collective (\begin{DoxyParamCaption}\item[{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&}]{a,  }\item[{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&}]{b,  }\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
@@ -152,7 +213,7 @@ Each index in Collection\+Chainset a must exist in Collection\+Chainset b
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!merge\+Step\+Collective@{merge\+Step\+Collective}}
 \index{merge\+Step\+Collective@{merge\+Step\+Collective}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{merge\+Step\+Collective()}{mergeStepCollective()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 static void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::merge\+Step\+Collective (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{label,  }\item[{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&}]{a,  }\item[{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{Collection\+Chain\+Set}$<$ Index $>$ \&}]{b,  }\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
@@ -179,7 +240,7 @@ Each index in Collection\+Chainset a must exist in Collection\+Chainset b
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!next\+Step@{next\+Step}}
 \index{next\+Step@{next\+Step}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{next\+Step()}{nextStep()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::next\+Step (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{label,  }\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -199,7 +260,7 @@ Goes through every chain index and enqueues the action at the end of the current
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!next\+Step@{next\+Step}}
 \index{next\+Step@{next\+Step}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{next\+Step()}{nextStep()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::next\+Step (\begin{DoxyParamCaption}\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -217,7 +278,7 @@ Goes through every chain index and enqueues the action at the end of the current
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!next\+Step\+Collective@{next\+Step\+Collective}}
 \index{next\+Step\+Collective@{next\+Step\+Collective}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{next\+Step\+Collective()}{nextStepCollective()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::next\+Step\+Collective (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{label,  }\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -237,7 +298,7 @@ Should be used for steps with internal recursive communication and global inter-
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!next\+Step\+Collective@{next\+Step\+Collective}}
 \index{next\+Step\+Collective@{next\+Step\+Collective}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{next\+Step\+Collective()}{nextStepCollective()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::next\+Step\+Collective (\begin{DoxyParamCaption}\item[{std\+::function$<$ \hyperlink{structvt_1_1messaging_1_1_pending_send}{Pending\+Send}(Index)$>$}]{step\+\_\+action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -255,7 +316,7 @@ Should be used for steps with internal recursive communication and global inter-
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!phase\+Done@{phase\+Done}}
 \index{phase\+Done@{phase\+Done}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{phase\+Done()}{phaseDone()}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::phase\+Done (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -266,7 +327,7 @@ Indicate that the current phase is complete. Resets the state on each {\ttfamily
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!remove\+Index@{remove\+Index}}
 \index{remove\+Index@{remove\+Index}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{remove\+Index()}{removeIndex()}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::remove\+Index (\begin{DoxyParamCaption}\item[{Index}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
@@ -280,6 +341,22 @@ The chain for that index being removed must be terminated (at the end of the cha
 \mbox{\tt in}  & {\em idx} & the index to remove \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_abbc0c0995c4961fcd07f46303b06d58e}\label{classvt_1_1messaging_1_1_collection_chain_set_abbc0c0995c4961fcd07f46303b06d58e}} 
+\index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!remove\+Index\+Han@{remove\+Index\+Han}}
+\index{remove\+Index\+Han@{remove\+Index\+Han}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
+\subsubsection{\texorpdfstring{remove\+Index\+Han()}{removeIndexHan()}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
+void \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::remove\+Index\+Han (\begin{DoxyParamCaption}\item[{\hyperlink{structvt_1_1messaging_1_1_collection_chain_set_1_1_idx_msg}{Idx\+Msg} $\ast$}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Remove an index remotely. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em msg} & index message \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Data Documentation}
@@ -287,11 +364,27 @@ The chain for that index being removed must be terminated (at the end of the cha
 \index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!chains\+\_\+@{chains\+\_\+}}
 \index{chains\+\_\+@{chains\+\_\+}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
 \subsubsection{\texorpdfstring{chains\+\_\+}{chains\_}}
-{\footnotesize\ttfamily template$<$class Index $>$ \\
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
 std\+::unordered\+\_\+map$<$Index, \hyperlink{classvt_1_1messaging_1_1_dependent_send_chain}{Dependent\+Send\+Chain}$>$ \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::chains\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+Set of {\ttfamily \hyperlink{classvt_1_1messaging_1_1_dependent_send_chain}{Dependent\+Send\+Chain}} managed on this node for indices. 
+
+\mbox{\Hypertarget{classvt_1_1messaging_1_1_collection_chain_set_a0c471bdf6ef26c2ca5c214bdda8eb866}\label{classvt_1_1messaging_1_1_collection_chain_set_a0c471bdf6ef26c2ca5c214bdda8eb866}} 
+\index{vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}!deallocator\+\_\+@{deallocator\+\_\+}}
+\index{deallocator\+\_\+@{deallocator\+\_\+}!vt\+::messaging\+::\+Collection\+Chain\+Set@{vt\+::messaging\+::\+Collection\+Chain\+Set}}
+\subsubsection{\texorpdfstring{deallocator\+\_\+}{deallocator\_}}
+{\footnotesize\ttfamily template$<$typename Index$>$ \\
+std\+::function$<$void()$>$ \hyperlink{classvt_1_1messaging_1_1_collection_chain_set}{vt\+::messaging\+::\+Collection\+Chain\+Set}$<$ Index $>$\+::deallocator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Deallocator that type erases element listener de-\/registration. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/vt/messaging/\hyperlink{collection__chain__set_8h}{collection\+\_\+chain\+\_\+set.\+h}\end{DoxyCompactItemize}
+src/vt/messaging/\hyperlink{collection__chain__set_8h}{collection\+\_\+chain\+\_\+set.\+h}\item 
+src/vt/messaging/\hyperlink{collection__chain__set_8impl_8h}{collection\+\_\+chain\+\_\+set.\+impl.\+h}\end{DoxyCompactItemize}
