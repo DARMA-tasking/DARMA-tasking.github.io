@@ -258,7 +258,7 @@ var searchData=
   ['printernamevalue_3c_200_2c_20const_2c_20consu_20_3e',['PrinterNameValue&lt; 0, ConsT, ConsU &gt;',['../structvt_1_1util_1_1error_1_1_printer_name_value_3_010_00_01_cons_t_00_01_cons_u_01_4.html',1,'vt::util::error']]],
   ['printifoverwritten',['printIfOverwritten',['../collective__ops_8cc.html#a812383effc3e39f8321104edc0bcde60',1,'collective_ops.cc']]],
   ['printlbargshelp',['printLBArgsHelp',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a313786fd69d0687572b0465e37acb9aa',1,'vt::vrt::collection::balance::LBManager::printLBArgsHelp(LBType lb)'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a53276c3cae8d6c50305d8940ee983ebf',1,'vt::vrt::collection::balance::LBManager::printLBArgsHelp(std::string lb)']]],
-  ['printmemoryfootprint',['printMemoryFootprint',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a7fd89ee3e072bece7f3b289a8f8dd220',1,'vt::runtime::component::ComponentPack::printMemoryFootprint()'],['../structvt_1_1runtime_1_1_runtime.html#a28b2eb9d72dae880fad3b5940ae043b1',1,'vt::runtime::Runtime::printMemoryFootprint()']]],
+  ['printmemoryfootprint',['printMemoryFootprint',['../structvt_1_1runtime_1_1_runtime.html#a28b2eb9d72dae880fad3b5940ae043b1',1,'vt::runtime::Runtime']]],
   ['printmemoryusage',['printMemoryUsage',['../structvt_1_1sched_1_1_scheduler.html#a48a6fdb0c7384df09b467c0e68ca8e6f',1,'vt::sched::Scheduler']]],
   ['printshutdownbanner',['printShutdownBanner',['../structvt_1_1runtime_1_1_runtime.html#a04efbdc6b8826e2c885987279a4762f1',1,'vt::runtime::Runtime']]],
   ['printstartupbanner',['printStartupBanner',['../structvt_1_1runtime_1_1_runtime.html#add9fabaf1c2f47ebf9c662f4b5f5931f',1,'vt::runtime::Runtime']]],

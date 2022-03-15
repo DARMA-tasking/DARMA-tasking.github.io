@@ -60,7 +60,7 @@ var searchData=
   ['printcurrentcache',['printCurrentCache',['../structvt_1_1location_1_1_entity_location_coord.html#a33f2bf9523cfc89fae0f1151fa2d87db',1,'vt::location::EntityLocationCoord']]],
   ['printenum',['printEnum',['../namespacevt_1_1debug.html#afaa2c8383e718071689dfea2c959a467',1,'vt::debug']]],
   ['printlbargshelp',['printLBArgsHelp',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a313786fd69d0687572b0465e37acb9aa',1,'vt::vrt::collection::balance::LBManager::printLBArgsHelp(LBType lb)'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a53276c3cae8d6c50305d8940ee983ebf',1,'vt::vrt::collection::balance::LBManager::printLBArgsHelp(std::string lb)']]],
-  ['printmemoryfootprint',['printMemoryFootprint',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a7fd89ee3e072bece7f3b289a8f8dd220',1,'vt::runtime::component::ComponentPack::printMemoryFootprint()'],['../structvt_1_1runtime_1_1_runtime.html#a28b2eb9d72dae880fad3b5940ae043b1',1,'vt::runtime::Runtime::printMemoryFootprint()']]],
+  ['printmemoryfootprint',['printMemoryFootprint',['../structvt_1_1runtime_1_1_runtime.html#a28b2eb9d72dae880fad3b5940ae043b1',1,'vt::runtime::Runtime']]],
   ['printmemoryusage',['printMemoryUsage',['../structvt_1_1sched_1_1_scheduler.html#a48a6fdb0c7384df09b467c0e68ca8e6f',1,'vt::sched::Scheduler']]],
   ['printshutdownbanner',['printShutdownBanner',['../structvt_1_1runtime_1_1_runtime.html#a04efbdc6b8826e2c885987279a4762f1',1,'vt::runtime::Runtime']]],
   ['printstartupbanner',['printStartupBanner',['../structvt_1_1runtime_1_1_runtime.html#add9fabaf1c2f47ebf9c662f4b5f5931f',1,'vt::runtime::Runtime']]],
