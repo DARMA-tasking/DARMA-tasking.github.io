@@ -168,6 +168,7 @@ var searchData=
   ['gethandleridentifier',['getHandlerIdentifier',['../structvt_1_1_handler_manager.html#a1fc8635a26795f11f16f47eaf74b25a7',1,'vt::HandlerManager']]],
   ['gethandlermap',['getHandlerMap',['../namespacevt_1_1auto__registry.html#a5969065f9c4ca94b47b3d896859d2cf9',1,'vt::auto_registry']]],
   ['gethandlernotag',['getHandlerNoTag',['../structvt_1_1registry_1_1_registry.html#ae5bbdd48ff66c6d64af9f03076374070',1,'vt::registry::Registry']]],
+  ['gethandlerregistrytype',['getHandlerRegistryType',['../structvt_1_1_handler_manager.html#ade4007fa07de57af7775cff18ee670e1',1,'vt::HandlerManager']]],
   ['getheaderbytes',['getHeaderBytes',['../structvt_1_1pool_1_1_header_manager.html#ab244141fad3a844ac1b66fe83d12f105',1,'vt::pool::HeaderManager']]],
   ['getheaderoversizebytes',['getHeaderOversizeBytes',['../structvt_1_1pool_1_1_header_manager.html#a4b6ab8aab1f6f1a5b6f7da2b39914567',1,'vt::pool::HeaderManager']]],
   ['getheaderptr',['getHeaderPtr',['../structvt_1_1pool_1_1_header_manager.html#a56ed12c2d6a6de2c2c543ecb95fb4838',1,'vt::pool::HeaderManager']]],

@@ -49,6 +49,7 @@ var searchData=
   ['auto_5fregistry_5fmap_5fimpl_2eh',['auto_registry_map_impl.h',['../auto__registry__map__impl_8h.html',1,'']]],
   ['auto_5fregistry_5frdma_2eh',['auto_registry_rdma.h',['../auto__registry__rdma_8h.html',1,'']]],
   ['auto_5fregistry_5frdma_2eimpl_2eh',['auto_registry_rdma.impl.h',['../auto__registry__rdma_8impl_8h.html',1,'']]],
+  ['auto_5fregistry_5ftype_5fenum_2eh',['auto_registry_type_enum.h',['../auto__registry__type__enum_8h.html',1,'']]],
   ['auto_5fregistry_5fvc_2eh',['auto_registry_vc.h',['../auto__registry__vc_8h.html',1,'']]],
   ['auto_5fregistry_5fvc_5fimpl_2eh',['auto_registry_vc_impl.h',['../auto__registry__vc__impl_8h.html',1,'']]]
 ];

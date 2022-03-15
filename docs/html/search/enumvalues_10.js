@@ -1,7 +1,7 @@
 var searchData=
 [
   ['randomlb',['RandomLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca6aadc0284cdcb7afaf7043f5d49179b9',1,'vt::vrt::collection::balance']]],
-  ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
+  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()']]],
   ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
   ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
   ['readfromfile',['ReadFromFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2abe9348ae77ec17acd67aa1ff39a18d83',1,'checkpoint::buffer::IOBuffer']]],
@@ -9,6 +9,7 @@ var searchData=
   ['reggeneral',['RegGeneral',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241aed767d8e868d24805af30efeb716d412',1,'vt::auto_registry']]],
   ['regindex',['RegIndex',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241afcf88785f449d5ff3251eddef9e0ae8a',1,'vt::auto_registry']]],
   ['registry',['Registry',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4e1ab36884b253ce24768da1c4080a14',1,'vt::error']]],
+  ['registrytype',['RegistryType',['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2a38b6a6e4bb9065af38719600c607754a',1,'vt']]],
   ['regmap',['RegMap',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a5bea9106f95a8bef8ca7cd40bc47a759',1,'vt::auto_registry']]],
   ['regobjgroup',['RegObjGroup',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a56bbebfc734558a4a4606cb988692fb9',1,'vt::auto_registry']]],
   ['regrdmaget',['RegRDMAGet',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241a7d04d9f3c814885ce58139f6f4d7a8f3',1,'vt::auto_registry']]],

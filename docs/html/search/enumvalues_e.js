@@ -18,7 +18,7 @@ var searchData=
   ['persist',['Persist',['../namespacevt_1_1pipe.html#a21eef17afd7b326e3b65894dffa25901ac18837aff5b91489fb6ecd1d654c9fe6',1,'vt::pipe']]],
   ['petabytes',['Petabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a05a340fbd2fb19c6bf2a92a854b8db6f',1,'vt::util::memory']]],
   ['phase',['phase',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ab2d71eabd52b3ba898df5e1ee6a20089',1,'vt::config']]],
-  ['pipe',['pipe',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()']]],
+  ['pipe',['Pipe',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a2ab1f3f893823298751fdf60b4e0365a',1,'vt::error::Pipe()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689ad2f6c4149417910966357969e4740fbd',1,'vt::config::pipe()']]],
   ['pool',['Pool',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12adef36b726efed529b13ba240dd331a12',1,'vt::error::Pool()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a50ba0efa092380eb92cee1d921d6e40f',1,'vt::config::pool()']]],
   ['prohibit',['prohibit',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f',1,'vt::messaging']]],
   ['pt2pt',['pt2pt',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a0c49bf89a59ba0fd5160bc3894417dfaa01a4aa94928c33396b2a8c4cbfd6483e',1,'vt::vrt::collection::lb']]],

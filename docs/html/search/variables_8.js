@@ -1,7 +1,6 @@
 var searchData=
 [
   ['han',['han',['../structvt_1_1messaging_1_1_active_envelope.html#a0d27da3b0da69281b7572ea29fcf61fc',1,'vt::messaging::ActiveEnvelope::han()'],['../structvt_1_1rdma_1_1_channel_message.html#a9c91ffd641d8e7b05a4ee6999aad3cc1',1,'vt::rdma::ChannelMessage::han()']]],
-  ['han_5ftype_5f',['han_type_',['../structvt_1_1runnable_1_1_runnable_maker.html#afb8a21bfcf5a2a36a3d18dec16d422c8',1,'vt::runnable::RunnableMaker']]],
   ['handle',['handle',['../structvt_1_1rdma_1_1_channel_lookup.html#a02cd23701c295b73675c998d4e84c4b9',1,'vt::rdma::ChannelLookup::handle()'],['../structvt_1_1rdma_1_1_state.html#ac6ea5c9dffcc795713d1766b1c3e7028',1,'vt::rdma::State::handle()']]],
   ['handle_5f',['handle_',['../structvt_1_1rdma_1_1_handle_key.html#aef941a463846fb7abd0080c524a3ba4c',1,'vt::rdma::HandleKey::handle_()'],['../structvt_1_1rdma_1_1_holder.html#a0995b9b9adfce492d7d3dead1ed8ac7a',1,'vt::rdma::Holder::handle_()']]],
   ['handle_5ftype',['handle_type',['../structvt_1_1rdma_1_1_base_typed_handle.html#afdff2a8569424f4b9be14ac0f2daf5ca',1,'vt::rdma::BaseTypedHandle']]],

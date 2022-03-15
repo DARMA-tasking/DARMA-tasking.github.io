@@ -289,6 +289,7 @@ var searchData=
   ['auto_5fregistry_5fmap_5fimpl_2eh',['auto_registry_map_impl.h',['../auto__registry__map__impl_8h.html',1,'']]],
   ['auto_5fregistry_5frdma_2eh',['auto_registry_rdma.h',['../auto__registry__rdma_8h.html',1,'']]],
   ['auto_5fregistry_5frdma_2eimpl_2eh',['auto_registry_rdma.impl.h',['../auto__registry__rdma_8impl_8h.html',1,'']]],
+  ['auto_5fregistry_5ftype_5fenum_2eh',['auto_registry_type_enum.h',['../auto__registry__type__enum_8h.html',1,'']]],
   ['auto_5fregistry_5fvc_2eh',['auto_registry_vc.h',['../auto__registry__vc_8h.html',1,'']]],
   ['auto_5fregistry_5fvc_5fimpl_2eh',['auto_registry_vc_impl.h',['../auto__registry__vc__impl_8h.html',1,'']]],
   ['auto_5fthreshold',['auto_threshold',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a480ec7c5fa24215d70d34901f0549ff0',1,'vt::vrt::collection::lb::GreedyLB::auto_threshold()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a4f1e749384f8ae015ed1aabaa1b9a732',1,'vt::vrt::collection::lb::HierarchicalLB::auto_threshold()']]],
