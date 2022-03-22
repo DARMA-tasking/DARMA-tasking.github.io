@@ -34,6 +34,7 @@ var searchData=
   ['vt_5fdefine_5fdebug_5fscoped_5fmodifiers',['vt_define_debug_scoped_modifiers',['../debug__print_8cc.html#a93ce753742f7e1672aa78456f7bc3353',1,'debug_print.cc']]],
   ['vt_5ffeature_5fbit_5fcheck_5foverflow',['vt_feature_bit_check_overflow',['../features__defines_8h.html#ac50d686a063d8e741fb52c74de502e52',1,'features_defines.h']]],
   ['vt_5ffeature_5fci_5fbuild',['vt_feature_ci_build',['../features__defines_8h.html#aadc802110b1aa41ff37ca89d9bb6c148',1,'features_defines.h']]],
+  ['vt_5ffeature_5fdebug_5fverbose',['vt_feature_debug_verbose',['../features__defines_8h.html#a39bbded0e04308715dc6a257aef1b3ba',1,'features_defines.h']]],
   ['vt_5ffeature_5fdiagnostics',['vt_feature_diagnostics',['../features__defines_8h.html#ae954c6514f1e02f1dbe1d763b738e74c',1,'features_defines.h']]],
   ['vt_5ffeature_5fdiagnostics_5fruntime',['vt_feature_diagnostics_runtime',['../features__defines_8h.html#a72cb6f574c501225780fdb16c5b684fe',1,'features_defines.h']]],
   ['vt_5ffeature_5ffcontext',['vt_feature_fcontext',['../features__defines_8h.html#afb6a9b0a96ad9b4437c5f8d275fe5faf',1,'features_defines.h']]],
