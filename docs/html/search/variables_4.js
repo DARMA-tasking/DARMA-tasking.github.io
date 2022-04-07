@@ -31,7 +31,6 @@ var searchData=
   ['depart_5f',['depart_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_reassignment.html#a8fa0e732209e0f186eb10a15b29a0914',1,'vt::vrt::collection::balance::Reassignment']]],
   ['deps_5f',['deps_',['../structvt_1_1term_1_1_term_state.html#a0beb233e97e22d6c303397bca99c5176',1,'vt::term::TermState']]],
   ['depth_5f',['depth_',['../structcheckpoint_1_1dispatch_1_1serialization__error.html#ada6ac0017a7af74ce56a6bf0f8c78260',1,'checkpoint::dispatch::serialization_error']]],
-  ['derived_5fto_5fbases_5f',['derived_to_bases_',['../structvt_1_1objgroup_1_1_obj_group_manager.html#aee25f043f12ed4447af6974acc5aa4cf',1,'vt::objgroup::ObjGroupManager']]],
   ['desc_5f',['desc_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#a1c70c4da286b442bf1dd0285f5c10fb3',1,'vt::runtime::component::detail::DiagnosticBase']]],
   ['dest',['dest',['../structvt_1_1messaging_1_1_active_envelope.html#ad82d63430ef2ae4d03c1a986fa2f9350',1,'vt::messaging::ActiveEnvelope']]],
   ['destroy_5flb_5f',['destroy_lb_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a31af388e759240311470c17ec569155c',1,'vt::vrt::collection::balance::LBManager']]],
