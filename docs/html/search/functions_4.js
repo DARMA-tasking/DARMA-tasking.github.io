@@ -21,6 +21,7 @@ var searchData=
   ['defaultelmmap',['defaultElmMap',['../structvt_1_1rdma_1_1_map.html#aebbab4065afa91396bd259001fbd4744',1,'vt::rdma::Map']]],
   ['defaultgethandlerfn',['defaultGetHandlerFn',['../structvt_1_1rdma_1_1_state.html#a1bf31d5a7099c678a004b12e374ad220',1,'vt::rdma::State']]],
   ['defaultgroup',['DefaultGroup',['../structvt_1_1group_1_1global_1_1_default_group.html#ab21200c02abd2a011352bee173951942',1,'vt::group::global::DefaultGroup']]],
+  ['defaultpostlbwork',['defaultPostLBWork',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a702179841dc5bb5f730bf81a74092ae2',1,'vt::vrt::collection::balance::LBManager']]],
   ['defaultputhandlerfn',['defaultPutHandlerFn',['../structvt_1_1rdma_1_1_state.html#a529be951a782923d38158859111897cd',1,'vt::rdma::State']]],
   ['deferwithepoch',['deferWithEpoch',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ae74cccae180eb7f0aedf0650396fb8cc',1,'vt::vrt::collection::param::ConstructParams']]],
   ['deletegroupcollective',['deleteGroupCollective',['../structvt_1_1group_1_1_group_manager.html#a1c38f4681975c289a5bfab42da08de55',1,'vt::group::GroupManager']]],

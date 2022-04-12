@@ -432,7 +432,7 @@ var searchData=
   ['computed_5f',['computed_',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a4c87edbed1fca305b729e037c3c760f3',1,'vt::util::stats::LinearRegression']]],
   ['computefixedbuckets',['computeFixedBuckets',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#a740842719c1af07e00fcfaa4093dc193',1,'vt::util::adt::HistogramApprox']]],
   ['computereducestamp',['computeReduceStamp',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aee32428b23705756658c5e27f336725e',1,'vt::vrt::collection::CollectionManager']]],
-  ['computestatistics',['computeStatistics',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a6a4cbdd10db1223f1d3e458be37bc1c0',1,'vt::vrt::collection::balance::LBManager']]],
+  ['computestatistics',['computeStatistics',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a11affdf8bb17ff6d2906c7342285d6ec',1,'vt::vrt::collection::balance::LBManager']]],
   ['concatenatediterator',['ConcatenatedIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_concatenated_iterator.html',1,'vt::vrt::collection::balance::ConcatenatedIterator'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_concatenated_iterator.html#a69257d76a55b73fc572196e01665d6d5',1,'vt::vrt::collection::balance::ConcatenatedIterator::ConcatenatedIterator()']]],
   ['concurrent_5fdeque_2eh',['concurrent_deque.h',['../concurrent__deque_8h.html',1,'']]],
   ['concurrent_5fdeque_5flocked_2eh',['concurrent_deque_locked.h',['../concurrent__deque__locked_8h.html',1,'']]],

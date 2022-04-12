@@ -31,6 +31,7 @@ var searchData=
   ['per_5fbyte_5fweight_5f',['per_byte_weight_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead.html#a35c4dcc20558f0f5092f9d5ab2e1a662',1,'vt::vrt::collection::balance::CommOverhead']]],
   ['per_5fmsg_5fweight_5f',['per_msg_weight_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead.html#a5767b946ab89c461f3387825e8ef86df',1,'vt::vrt::collection::balance::CommOverhead']]],
   ['period_5f',['period_',['../structvt_1_1timetrigger_1_1_trigger.html#aa95009a5d9a17ffdb84b5317a7a5dfc2',1,'vt::timetrigger::Trigger']]],
+  ['phase',['phase',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_reassignment_msg.html#aa50fedcf313128383376cc636dacb0a7',1,'vt::vrt::collection::balance::ReassignmentMsg']]],
   ['phase_5f',['phase_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a9bb7a04d3ef1012c95322d8375593498',1,'vt::vrt::collection::lb::BaseLB::phase_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_msg.html#a0649dc6323a462880a2e327509eeb21c',1,'vt::vrt::collection::balance::InvokeMsg::phase_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_collect_stats_msg.html#a968baac6bc7d2bc23d48053c887d194a',1,'vt::vrt::collection::balance::CollectStatsMsg::phase_()']]],
   ['phase_5fcomm_5f',['phase_comm_',['../structvt_1_1elm_1_1_element_stats.html#ab44d8162968d9310df926c7312d49c1d',1,'vt::elm::ElementStats']]],
   ['phase_5ftimings_5f',['phase_timings_',['../structvt_1_1elm_1_1_element_stats.html#a7f9571931802777ac73afa0c0d8976f5',1,'vt::elm::ElementStats']]],
