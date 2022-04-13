@@ -21,7 +21,7 @@ var searchData=
   ['newphase',['newPhase',['../structvt_1_1group_1_1global_1_1_default_group.html#ae37dc75ff9eec3871d0734ac122ecd47',1,'vt::group::global::DefaultGroup']]],
   ['newphasehandler',['newPhaseHandler',['../structvt_1_1group_1_1global_1_1_default_group.html#af9665f651b7f77071cd96065dc230dea',1,'vt::group::global::DefaultGroup']]],
   ['newphasesendchildren',['newPhaseSendChildren',['../structvt_1_1group_1_1global_1_1_default_group.html#ad1e58f42ba1ec0c0ea07cb1da6581d0a',1,'vt::group::global::DefaultGroup']]],
-  ['newpipestate',['newPipeState',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a458f8135ed2a44ec51afb21676c5db50',1,'vt::pipe::PipeManagerBase']]],
+  ['newpipestate',['newPipeState',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a835a8b819cfe7100b723b6d9b22cca57',1,'vt::pipe::PipeManagerBase']]],
   ['newputchannel',['newPutChannel',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#ae64c8e90dc45fcd44129e4c62f3b65ea',1,'vt::rdma::RDMAManager']]],
   ['newroot',['newRoot',['../structvt_1_1group_1_1_info_coll.html#a9d6575ca76673103be0c4960c818a892',1,'vt::group::InfoColl']]],
   ['newroothan',['newRootHan',['../structvt_1_1group_1_1_info_coll.html#a1c37f69107e014a3aef10346e5ebe0c7',1,'vt::group::InfoColl']]],

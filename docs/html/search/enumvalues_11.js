@@ -8,7 +8,7 @@ var searchData=
   ['sendmsgcb',['SendMsgCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a2fd34e7b68fef8c346691fbd07d7484e',1,'vt::pipe::callback::cbunion']]],
   ['sendobjgrpcb',['SendObjGrpCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4adfb74177ee87ea06f3e829aa6597b459',1,'vt::pipe::callback::cbunion']]],
   ['sendrecv',['SendRecv',['../namespacevt_1_1elm.html#ab7367fdbe88bdcf329563642147f9ae2a95aeb71ffd419cc14c6929f9dcd6cdff',1,'vt::elm']]],
-  ['sequence',['sequence',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d88819a9eaa5f03b8432110059234c',1,'vt::config::sequence()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a3ff39d3acb327553070a64ef0cb321d5',1,'vt::error::Sequence()']]],
+  ['sequence',['Sequence',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a3ff39d3acb327553070a64ef0cb321d5',1,'vt::error::Sequence()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d88819a9eaa5f03b8432110059234c',1,'vt::config::sequence()']]],
   ['sequence_5fvrt',['sequence_vrt',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a5c4a4681463b7a071f9a19bac0d3ef56',1,'vt::config']]],
   ['sequencedorder',['SequencedOrder',['../namespacevt_1_1seq.html#a313357c71bba2bea5c57f50d69f1edf7a6d6423d4f7844da48a87a926492256d3',1,'vt::seq']]],
   ['serial_5fmsg',['serial_msg',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a1a6250cbf239ae1424048d1e62f68d50',1,'vt::config']]],

@@ -33,7 +33,7 @@ var searchData=
   ['reducers_5f',['reducers_',['../structvt_1_1collective_1_1reduce_1_1_reduce_manager.html#a8226dde1ab69b8332db65f558f405ad5',1,'vt::collective::reduce::ReduceManager']]],
   ['ref',['ref',['../structvt_1_1messaging_1_1_active_envelope.html#a61861e4316e9c65f7a18ba792da412e2',1,'vt::messaging::ActiveEnvelope']]],
   ['reference_5fcounted_5f',['reference_counted_',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#a5b996f1bdf68fe4ef90c8c1fe2241c59',1,'vt::pipe::callback::CallbackBase']]],
-  ['refs_5f',['refs_',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#aced0bdc19ac44bcb9f3ff3739e148143',1,'vt::pipe::callback::CallbackBase']]],
+  ['refs_5f',['refs_',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#ab9464e03ecca5b6ce2186f5cc6e8110f',1,'vt::pipe::callback::CallbackBase']]],
   ['region_5f',['region_',['../structvt_1_1group_1_1_info_rooted.html#a8a4129a53b81053b106c6f491a51205b',1,'vt::group::InfoRooted']]],
   ['region_5flist_5f',['region_list_',['../structvt_1_1group_1_1_info_rooted.html#a51a1676e5c5d5a76543db96f7d8d893b',1,'vt::group::InfoRooted']]],
   ['registered_5f',['registered_',['../structvt_1_1registry_1_1_registry.html#adb3e36c663839801759d6bd264b8c4b5',1,'vt::registry::Registry']]],

@@ -71,7 +71,7 @@ var searchData=
   ['reducevectype',['ReduceVecType',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#afea0a5b0e2cdfd86417394d044e440db',1,'vt::collective::reduce::ReduceState']]],
   ['reference',['reference',['../structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter.html#a59b5e1223198deaeacb85051517dd80a',1,'vt::term::interval::IntegralSetBase::IntervalSetIter::reference()'],['../structvt_1_1util_1_1json_1_1_input_iterator.html#ac178e9ca2ff42160d54fd0b9080c1d40',1,'vt::util::json::InputIterator::reference()']]],
   ['referencetype',['ReferenceType',['../structvt_1_1runtime_1_1_runtime_holder.html#a45aaa245b06497cfce58452b0d64b3fa',1,'vt::runtime::RuntimeHolder']]],
-  ['reftype',['RefType',['../namespacevt.html#a9b39ce9494bb04674d0d5b895a5aa50f',1,'vt']]],
+  ['reftype',['RefType',['../namespacevt.html#a60fda95dc2316580f0ccf87d570f1d9e',1,'vt']]],
   ['regconttype',['RegContType',['../namespacevt_1_1auto__registry.html#a988a4943e4c8fe82b56f5b13bddceb2b',1,'vt::auto_registry']]],
   ['regionelmsizetype',['RegionElmSizeType',['../namespacevt_1_1rdma.html#ac07ef96e399913495fde1da0f83f684c',1,'vt::rdma']]],
   ['regionptr',['RegionPtr',['../structvt_1_1group_1_1region_1_1_region.html#a79f6795196ce4fd9fff863cf2a5bf30d',1,'vt::group::region::Region']]],

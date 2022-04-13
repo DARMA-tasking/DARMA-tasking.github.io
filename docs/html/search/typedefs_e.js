@@ -17,6 +17,7 @@ var searchData=
   ['phasetype',['PhaseType',['../namespacevt.html#a46ce6733d5cdbd735d561b7b4029f6d7',1,'vt::PhaseType()'],['../namespacevt_1_1group_1_1global.html#a1ad2576a1029e469969bdcd577122ee3',1,'vt::group::global::PhaseType()']]],
   ['physicalresourcetype',['PhysicalResourceType',['../namespacevt.html#a2dc36fcada816dc6d11774d650328ee9',1,'vt']]],
   ['pipeidtype',['PipeIDType',['../namespacevt_1_1pipe.html#a8aa7908de242917ac0922b9e9c85fea4',1,'vt::pipe']]],
+  ['pipereftype',['PipeRefType',['../namespacevt.html#ace18d74dd489d9ea506d38789fffce34',1,'vt']]],
   ['piperemoteoptype',['PipeRemoteOpType',['../namespacevt_1_1pipe.html#a9f156f00d06693969d89a230a38eab52',1,'vt::pipe']]],
   ['pipestatetype',['PipeStateType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a1364798bda487c9fb04879599f96c507',1,'vt::pipe::PipeManagerBase']]],
   ['pipetype',['PipeType',['../namespacevt.html#ac9852acda74d1896f48f406cd72c7bd3',1,'vt']]],
