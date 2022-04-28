@@ -42,7 +42,7 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{objgroup}{Object Group Manager} &{\ttfamily \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt\+::the\+Obj\+Group()}} &Create object instances across nodes. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{param}{Parameterization} &{\ttfamily \hyperlink{namespacevt_a268431014c9031c0f7c33d32c1b8645c}{vt\+::the\+Param()}} &Handler parameterization. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{pipe}{Pipe Manager} &{\ttfamily \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt\+::the\+C\+B()}} &Create opaque callback endpoints. & {\bfseries Core} \\\cline{1-4}
-\hyperlink{node-stats}{Node Statistics} &{\ttfamily \hyperlink{namespacevt_ae1526efa346612ad330d9a628e596c54}{vt\+::the\+Node\+Stats()}} &Manager object profiling data. & {\bfseries Optional} \\\cline{1-4}
+\hyperlink{node-lb-data}{Node LB Data} &{\ttfamily \hyperlink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{vt\+::the\+Node\+L\+B\+Data()}} &Manager object profiling data. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{phase}{Phase Manager} &{\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt\+::the\+Phase()}} &Manage phases of time. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{pool}{Memory Pool} &{\ttfamily \hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{vt\+::the\+Pool()}} &Memory pool for efficient allocation. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{rdma}{R\+D\+MA Manager} &{\ttfamily \hyperlink{namespacevt_a68b8410bc2b86d3b5228d7dbb6b40bac}{vt\+::the\+R\+D\+M\+A()}} &Node-\/level R\+D\+MA. & {\bfseries Experimental} \\\cline{1-4}
@@ -55,7 +55,7 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{epoch}{Epoch Manager} &{\ttfamily \hyperlink{namespacevt_ad246530e523687095c567ccab203556a}{vt\+::the\+Epoch()}} &Manage TD epochs. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{time-trigger}{Time Triggers} &{\ttfamily \hyperlink{namespacevt_a1e1a39cdf2a3fc1adefcdfcca4716bf2}{vt\+::the\+Time\+Trigger()}} &Time-\/based progress actions. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{trace}{Tracing} &{\ttfamily vt\+::the\+Trace()} &Trace distributed events. & {\bfseries Optional} \\\cline{1-4}
-\hyperlink{stats-reader}{LB Restart Reader} &{\ttfamily \hyperlink{namespacevt_ad73860100c7d2ca1d833eab74942ee73}{vt\+::the\+Stats\+Reader()}} &Follow input LB distribution. & {\bfseries Optional} \\\cline{1-4}
+\hyperlink{lb-data-reader}{LB Restart Reader} &{\ttfamily \hyperlink{namespacevt_a6dc000b04e41df77184588b50280b312}{vt\+::the\+L\+B\+Data\+Reader()}} &Follow input LB distribution. & {\bfseries Optional} \\\cline{1-4}
 \end{longtabu}
 \hypertarget{introduction_how-to-build-intro}{}\section{How to build}\label{introduction_how-to-build-intro}
 {\bfseries {\itshape vt}} can be built with cmake or inside a docker container. Learn \hyperlink{vt-build}{How to Build}\hypertarget{introduction_vt-hello-world}{}\section{Hello World Example}\label{introduction_vt-hello-world}
@@ -245,7 +245,7 @@ Collection of tasks
 
 The virtual context collection component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager}{vt\+::vrt\+::collection\+::\+Collection\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt\+::the\+Collection()}} is a core VT component that manages multi-\/dimensional collections of {\itshape virtual context} (or a migratable C++ object registered with {\bfseries {\itshape vt}}) elements. It manages the creation, deletion, and messaging across elements at runtime supporting dense, sparse, on-\/demand, and staged insert modes. It utilizes the \hyperlink{location}{Location Manager} to manage the location of these elements to efficiently deliver messages. It also utilizes the \hyperlink{group}{Group Manager} to build a spanning tree across the nodes that the collection is currently mapped to. This group makes broadcasts efficient and allows reductions to make progress without waiting for nodes that do not have collection elements.
 
-The proc-\/stats component stores the statistics for live collections that then passes the instrumented data to the \hyperlink{lb-manager}{LB Manager} component to apply load balancing strategies. You can use {\ttfamily -\/-\/vt\+\_\+lb\+\_\+keep\+\_\+last\+\_\+elm} flag to prohibit load balancer from migrating last element in collection.
+The \hyperlink{node-lb-data}{Node LB Data} component stores the LB data for live collections that then passes the instrumented data to the \hyperlink{lb-manager}{LB Manager} component to apply load balancing strategies. You can use {\ttfamily -\/-\/vt\+\_\+lb\+\_\+keep\+\_\+last\+\_\+elm} flag to prohibit load balancer from migrating last element in collection.
 
 The preferred interface for constructing a new collection is {\ttfamily \hyperlink{namespacevt_a95c0d739e465e5324c2383f43ab2a145}{vt\+::make\+Collection}$<$T$>$()}. Using a fluent-\/style interface, {\ttfamily make\+Collection} returns a configuration object to set properties of the collection before actually constructing the collection. Once it is configured, the {\ttfamily .wait()} or {\ttfamily .defer\+With\+Epoch(callback)} methods allows one to either block until the collection is created or wait on the returned epoch until construction finishes (respectively). The {\ttfamily wait()} variant returns the proxy for use immediately (after blocking), whereas {\ttfamily defer\+With\+Epoch(callback)} supplies the proxy when the epoch terminates by triggering the callback passed to it.
 
@@ -731,7 +731,7 @@ Greedy\+LB &Centralized &Gather to central node apply min/max heap &{\ttfamily \
 Tempered\+LB &Distributed &Inspired by epidemic algorithms &{\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b}{vt\+::vrt\+::collection\+::lb\+::\+Tempered\+LB}} \\\cline{1-4}
 Hierarchical\+LB &Hierarchical &Build tree to move objects nodes &{\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b}{vt\+::vrt\+::collection\+::lb\+::\+Hierarchical\+LB}} \\\cline{1-4}
 Zoltan\+LB &Hyper-\/graph Partitioner &Run Zoltan in hyper-\/graph mode to LB &{\ttfamily vt\+::vrt\+::collection\+::lb\+::\+Zoltan\+LB} \\\cline{1-4}
-Stats\+Map\+LB &User-\/specified &Read file to determine mapping &{\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1lb_1_1_stats_map_l_b}{vt\+::vrt\+::collection\+::lb\+::\+Stats\+Map\+LB}} \\\cline{1-4}
+Offline\+LB &User-\/specified &Read file to determine mapping &{\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1lb_1_1_offline_l_b}{vt\+::vrt\+::collection\+::lb\+::\+Offline\+LB}} \\\cline{1-4}
 \end{longtabu}
 \hypertarget{lb-manager_load-models}{}\subsection{Object Load Models}\label{lb-manager_load-models}
 The performance-\/oriented load balancers described in the preceding section require a prediction of the loads each object will represent during the phases between one load balancing invocation and the next. These predictions are provided by load models, which are implementations of the {\ttfamily vt\+::vrt\+:collection\+:\+:balance\+::\+Load\+Model} interface. There are a number of general-\/purpose load model implementations provided by {\bfseries {\itshape vt}}.
@@ -957,16 +957,16 @@ The pipe manager also supports \char`\"{}typed\char`\"{} callbacks where the cal
   \textcolor{keywordflow}{return} 0;
 \}
 \end{DoxyCodeInclude}
-\hypertarget{node-stats}{}\section{Node Statistics}\label{node-stats}
+\hypertarget{node-lb-data}{}\section{Node LB Data}\label{node-lb-data}
 Manager object profiling data
 
-The node statistics manager component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats}{vt\+::vrt\+::collection\+::balance\+::\+Node\+Stats}}, accessed via {\ttfamily \hyperlink{namespacevt_ae1526efa346612ad330d9a628e596c54}{vt\+::the\+Node\+Stats()}} manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.
+The node LB data manager component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data}{vt\+::vrt\+::collection\+::balance\+::\+Node\+L\+B\+Data}}, accessed via {\ttfamily \hyperlink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{vt\+::the\+Node\+L\+B\+Data()}} manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.
 
-When LB is invoked in {\bfseries {\itshape vt}}, the \hyperlink{lb-manager}{LB Manager} passes the node statistics to the various LB strategies to run the load balancer. The node statistics component can also dump the statistic data it holds to files, which can be read externally. The L\+B\+AF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.\hypertarget{node-stats_export-lb-stats-file}{}\subsection{Exporting L\+B Statistic Files (\+V\+O\+M)}\label{node-stats_export-lb-stats-file}
-The {\ttfamily Node\+Stats} component, after collecting statistics from the running program, can dump these to files in a V\+OM file (Virtual Object Map). As indicated by the name, the V\+OM file specifies the mapping of object to node for each phase along with statistics for each object (computation time and communication load).
+When LB is invoked in {\bfseries {\itshape vt}}, the \hyperlink{lb-manager}{LB Manager} passes the node LB data to the various LB strategies to run the load balancer. The node LB data component can also dump the LB data it holds to files, which can be read externally. The L\+B\+AF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.\hypertarget{node-lb-data_export-lb-data-file}{}\subsection{Exporting L\+B Data Files (\+V\+O\+M)}\label{node-lb-data_export-lb-data-file}
+The {\ttfamily Node\+L\+B\+Data} component, after collecting LB data from the running program, can dump these to files in a V\+OM file (Virtual Object Map). As indicated by the name, the V\+OM file specifies the mapping of object to node for each phase along with LB data for each object (computation time and communication load).
 
-To output V\+OM files, pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats} to enable output along with {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+dir=$<$my-\/directory$>$} and {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+file=$<$my-\/base-\/name$>$} to control the directory the files are generated along with the base file name. With this enabled, {\bfseries {\itshape vt}} will generate a file for each node that contains the statistics and mapping.\hypertarget{node-stats_stats-file-format}{}\subsubsection{File Format}\label{node-stats_stats-file-format}
-The V\+OM files are output in J\+S\+ON format, either compressed with brotli compression (default on) or pure J\+S\+ON if the argument {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+compress} is set to {\ttfamily false}.
+To output V\+OM files, pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data} to enable output along with {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+dir=$<$my-\/directory$>$} and {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+file=$<$my-\/base-\/name$>$} to control the directory the files are generated along with the base file name. With this enabled, {\bfseries {\itshape vt}} will generate a file for each node that contains the LB data and mapping.\hypertarget{node-lb-data_lb-data-file-format}{}\subsubsection{File Format}\label{node-lb-data_lb-data-file-format}
+The V\+OM files are output in J\+S\+ON format, either compressed with brotli compression (default on) or pure J\+S\+ON if the argument {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+compress} is set to {\ttfamily false}.
 
 The J\+S\+ON files contain an array of {\ttfamily phases} that have been captured by {\bfseries {\itshape vt}} and output to the file. Each phase has an {\ttfamily id} indicating which phase it was while the application was running. Each phase also has an array of {\ttfamily tasks} that represent work that was done during that phase. Each task has a {\ttfamily time}, {\ttfamily resource}, {\ttfamily node}, {\ttfamily entity}, and optionally a list of {\ttfamily subphases}. The {\ttfamily entity} contains information about the task that performed this work. If that {\ttfamily entity} is a virtual collection object, it will specify the unique {\ttfamily id} for the object, and optionally the {\ttfamily index}, {\ttfamily home}, and {\ttfamily collection\+\_\+id} for that object.
 
@@ -1404,20 +1404,20 @@ The sets of mod-\/phase and phase-\/specific entries must be unique. There may b
   [297,303], ...
 \}
 \end{DoxyCode}
- \hypertarget{stats-reader}{}\section{LB Restart Reader}\label{stats-reader}
+ \hypertarget{lb-data-reader}{}\section{LB Restart Reader}\label{lb-data-reader}
 Follow input LB distribution
 
-The LB stats restart reader component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader}{vt\+::vrt\+::collection\+::balance\+::\+Stats\+Restart\+Reader}}, accessed via {\ttfamily \hyperlink{namespacevt_ad73860100c7d2ca1d833eab74942ee73}{vt\+::the\+Stats\+Reader()}} reads in an input object distribution for a given program and follows the distribution as specified in the file.
+The LB data restart reader component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader}{vt\+::vrt\+::collection\+::balance\+::\+L\+B\+Data\+Restart\+Reader}}, accessed via {\ttfamily \hyperlink{namespacevt_a6dc000b04e41df77184588b50280b312}{vt\+::the\+L\+B\+Data\+Reader()}} reads in an input object distribution for a given program and follows the distribution as specified in the file.
 
 A common flow is the following\+:
 \begin{DoxyItemize}
-\item Run the program to output stats files (with the flag {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats})
+\item Run the program to output LB data files (with the flag {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data})
 \item Input those files to the L\+B\+AF (Load Balancing Analysis Framework) to generate a new load distribution offline (e.\+g., to test a new LB strategy).
 \begin{DoxyItemize}
-\item Tell L\+B\+AF to generate a new set of stats files that contains a new mapping of object to processor
+\item Tell L\+B\+AF to generate a new set of LB data files that contains a new mapping of object to processor
 \end{DoxyItemize}
-\item Run the program with the {\ttfamily Stats\+Restart\+Reader} to test this new mapping on the actual application
+\item Run the program with the {\ttfamily L\+B\+Data\+Restart\+Reader} to test this new mapping on the actual application
 \begin{DoxyItemize}
-\item Using the options {\ttfamily -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+dir\+\_\+in=inputdir -\/-\/vt\+\_\+lb\+\_\+stats\+\_\+file\+\_\+in=filename} 
+\item Using the options {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+dir\+\_\+in=inputdir -\/-\/vt\+\_\+lb\+\_\+data\+\_\+file\+\_\+in=filename} 
 \end{DoxyItemize}
 \end{DoxyItemize}

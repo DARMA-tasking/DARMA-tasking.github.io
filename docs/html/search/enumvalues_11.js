@@ -26,7 +26,6 @@ var searchData=
   ['static',['Static',['../namespacevt_1_1group.html#a5a472f320821bf638e6df82757b71163a67197d5832dbcbeb0d003fc3d92596ac',1,'vt::group']]],
   ['staticsize',['StaticSize',['../namespacevt_1_1rdma.html#a0234ff19cfb3c04718cfdfd36b2d6d88a0c5c41d6a0319a61d3a5e8a060b7c4d7',1,'vt::rdma']]],
   ['statmsg',['StatMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea6f7b858bb59c79485a8babe54de62e23',1,'vt::trace']]],
-  ['statsmaplb',['StatsMapLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5cabe5786565be3f6ef20bb58481695b652',1,'vt::vrt::collection::balance']]],
   ['std',['std',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c',1,'vt::vrt::collection::lb']]],
   ['sum',['Sum',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5',1,'vt::runtime::component::Sum()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea1d623b89683f9ce4e074de1676d12416',1,'vt::vrt::collection::lb::sum()']]],
   ['support',['support',['../namespacevt_1_1messaging.html#a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682',1,'vt::messaging']]],

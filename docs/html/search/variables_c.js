@@ -50,7 +50,7 @@ var searchData=
   ['msg_5flen',['msg_len',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html#a514d2e0977e4acf99920ed45a910ae0a',1,'vt::trace::Log::Data::SysData']]],
   ['msgs',['msgs',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#afded8bde5c4b8e5aebf6000c7efb9514',1,'vt::collective::reduce::ReduceState']]],
   ['msgs_5f',['msgs_',['../structvt_1_1group_1_1_info_coll.html#a30fc9a06654d5213b3355834938d6034',1,'vt::group::InfoColl']]],
-  ['msgsreceived',['msgsReceived',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_stats_restart_reader.html#aac24c7a1c06519aaa6b3af18276415b4',1,'vt::vrt::collection::balance::StatsRestartReader']]],
+  ['msgsreceived',['msgsReceived',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a6701886537453e5e053141c70de6df05',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['mutex_5f',['mutex_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#a8da1ebe17962ddcccd229f8f75f62fca',1,'vt::util::container::ProcessBuffer::mutex_()'],['../structvt_1_1util_1_1mutex_1_1_lock_guard_ptr.html#a305be2f257219435a9f50af1c1ebbac9',1,'vt::util::mutex::LockGuardPtr::mutex_()']]],
   ['mynode_5f',['myNode_',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a543388bdb406506b6cedd94205bc3efd',1,'vt::vrt::VirtualContextManager']]]
 ];

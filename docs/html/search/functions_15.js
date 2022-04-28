@@ -26,7 +26,7 @@ var searchData=
   ['updatelocation',['updateLocation',['../structvt_1_1location_1_1_entity_location_coord.html#a6102920cd3ab80156a77e5f15d92ffcf',1,'vt::location::EntityLocationCoord']]],
   ['updatenode',['updateNode',['../structvt_1_1location_1_1_loc_record.html#aa66e4f13e89526636b87b3c950bdd91c',1,'vt::location::LocRecord']]],
   ['updatependingrequest',['updatePendingRequest',['../structvt_1_1location_1_1_entity_location_coord.html#a96e4c5c2a943450554b17c34f05995d0',1,'vt::location::EntityLocationCoord']]],
-  ['updatephase',['updatePhase',['../structvt_1_1elm_1_1_element_stats.html#acaa20f9ee9c21209eb1c001b39732029',1,'vt::elm::ElementStats']]],
+  ['updatephase',['updatePhase',['../structvt_1_1elm_1_1_element_l_b_data.html#acb64ab9bcd98f12bd5cae08ebbefd943',1,'vt::elm::ElementLBData']]],
   ['updateresolvedepochs',['updateResolvedEpochs',['../structvt_1_1term_1_1_termination_detector.html#a7637035e3f3c0f898d8dc79bbc2d8bf4',1,'vt::term::TerminationDetector']]],
   ['updatestats',['updateStats',['../structvt_1_1runtime_1_1component_1_1meter_1_1_diagnostic_stats_pack.html#a76c69a042e32f540707de15227fd77d8',1,'vt::runtime::component::meter::DiagnosticStatsPack']]],
   ['uphan',['upHan',['../structvt_1_1group_1_1_info_coll.html#a18031bc67be6fe75bf4bb04dbf4f5156',1,'vt::group::InfoColl']]],

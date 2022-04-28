@@ -2,8 +2,10 @@ var searchData=
 [
   ['lazymigrationmsg',['LazyMigrationMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html',1,'vt::vrt::collection::balance']]],
   ['lbargsenumconverter',['LBArgsEnumConverter',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html',1,'vt::vrt::collection::balance']]],
+  ['lbdata',['LBData',['../structvt_1_1ctx_1_1_l_b_data.html',1,'vt::ctx']]],
+  ['lbdataholder',['LBDataHolder',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html',1,'vt::vrt::collection::balance']]],
+  ['lbdatarestartreader',['LBDataRestartReader',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html',1,'vt::vrt::collection::balance']]],
   ['lbmanager',['LBManager',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html',1,'vt::vrt::collection::balance']]],
-  ['lbstats',['LBStats',['../structvt_1_1ctx_1_1_l_b_stats.html',1,'vt::ctx']]],
   ['lbtreedownmsg',['LBTreeDownMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_down_msg.html',1,'vt::vrt::collection::lb']]],
   ['lbtreeupmsg',['LBTreeUpMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_l_b_tree_up_msg.html',1,'vt::vrt::collection::lb']]],
   ['less_3c_20vt_3a_3autil_3a_3astrong_3a_3adetail_3a_3astrong_3c_20t_2c_20init_5fval_2c_20tag_20_3e_20_3e',['less&lt; vt::util::strong::detail::Strong&lt; T, init_val, Tag &gt; &gt;',['../structstd_1_1less_3_01vt_1_1util_1_1strong_1_1detail_1_1_strong_3_01_t_00_01init__val_00_01_tag_01_4_01_4.html',1,'std']]],

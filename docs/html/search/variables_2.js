@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['bare_5fhandler_5fdummy_5felm_5fid_5ffor_5flb_5fstats_5f',['bare_handler_dummy_elm_id_for_lb_stats_',['../structvt_1_1messaging_1_1_active_messenger.html#a1a8c250488e42b3f498baec7132c1b2b',1,'vt::messaging::ActiveMessenger']]],
-  ['bare_5fhandler_5fstats_5f',['bare_handler_stats_',['../structvt_1_1messaging_1_1_active_messenger.html#af5e4ceb0cd7e8262740d91f905ced2a5',1,'vt::messaging::ActiveMessenger']]],
+  ['bare_5fhandler_5fdummy_5felm_5fid_5ffor_5flb_5fdata_5f',['bare_handler_dummy_elm_id_for_lb_data_',['../structvt_1_1messaging_1_1_active_messenger.html#aafc3fafa7dd26af3db14c9514f7a69be',1,'vt::messaging::ActiveMessenger']]],
+  ['bare_5fhandler_5flb_5fdata_5f',['bare_handler_lb_data_',['../structvt_1_1messaging_1_1_active_messenger.html#a81c1445908fe33e56d859073edc09534',1,'vt::messaging::ActiveMessenger']]],
   ['barrier',['barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()']]],
   ['base_5f',['base_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model.html#a8a2a6b2d5e79a7c02002132913c9ae55',1,'vt::vrt::collection::balance::ComposedModel']]],
   ['base_5fepoch_5fstack_5fsize_5f',['base_epoch_stack_size_',['../structvt_1_1ctx_1_1_t_d.html#ae63dbf338735e6ffd69ae2d67a24e3fb',1,'vt::ctx::TD']]],

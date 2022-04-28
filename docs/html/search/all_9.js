@@ -172,7 +172,7 @@ var searchData=
   ['hasnoninserialize',['hasNoninSerialize',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#aee9d815f18b48855fefbecbbbf60436b',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
   ['hasnotsplitserialize',['hasNotSplitSerialize',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#a596c2f6081cc55d5ff0b7486f50b227b',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
   ['hasnotvirtualserialize',['hasNotVirtualSerialize',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#aa9c0d5e9e139a9d922b1ce4adf339465',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
-  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats.html#a975f917ab141ad5ca7f5905fe281e412',1,'vt::vrt::collection::balance::NodeStats']]],
+  ['hasobjecttomigrate',['hasObjectToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#af025247a42d9b3ff6ba476714aad42fa',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['hasparent',['hasParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a5d112306bb319f8d5f542a104ccb87a6',1,'vt::term::ds::TermDS']]],
   ['hasschedrun',['hasSchedRun',['../structvt_1_1runtime_1_1_runtime.html#ae0f66c530a72122874079b52fb259dfb',1,'vt::runtime::Runtime::hasSchedRun()'],['../structvt_1_1sched_1_1_scheduler.html#ac7a9512a4a616d51915d5dfee84ff986',1,'vt::sched::Scheduler::hasSchedRun()']]],
   ['hasspec',['hasSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#ad83e3bc71e3ebcd794fc38e7c2b7a74c',1,'vt::trace::file_spec::TraceSpec']]],

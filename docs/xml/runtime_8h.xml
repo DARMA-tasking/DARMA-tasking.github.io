@@ -22,7 +22,7 @@
     <includedby refid="runtime__inst_8impl_8h" local="yes">src/vt/runtime/runtime_inst.impl.h</includedby>
     <includedby refid="scheduler_8cc" local="yes">src/vt/scheduler/scheduler.cc</includedby>
     <includedby refid="trace_2trace_8cc" local="yes">src/vt/trace/trace.cc</includedby>
-    <includedby refid="node__stats_8cc" local="yes">src/vt/vrt/collection/balance/node_stats.cc</includedby>
+    <includedby refid="node__lb__data_8cc" local="yes">src/vt/vrt/collection/balance/node_lb_data.cc</includedby>
     <includedby refid="vrt_2collection_2manager_8cc" local="yes">src/vt/vrt/collection/manager.cc</includedby>
     <incdepgraph>
       <node id="235885">
@@ -2280,6 +2280,10 @@
         <childnode refid="235976" relation="include">
         </childnode>
       </node>
+      <node id="235990">
+        <label>src/vt/vrt/collection/balance/node_lb_data.cc</label>
+        <link refid="node__lb__data_8cc"/>
+      </node>
       <node id="235977">
         <label>src/vt/termination/termination.cc</label>
         <link refid="termination_8cc"/>
@@ -2297,10 +2301,6 @@
         </childnode>
         <childnode refid="235974" relation="include">
         </childnode>
-      </node>
-      <node id="235990">
-        <label>src/vt/vrt/collection/balance/node_stats.cc</label>
-        <link refid="node__stats_8cc"/>
       </node>
       <node id="235972">
         <label>src/vt/transport.h</label>
@@ -2495,7 +2495,7 @@
 <codeline lineno="294"><highlight class="normal"></highlight></codeline>
 <codeline lineno="300"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a264ccc1306fc3b5dfc20830fa313cba0" kindref="member">initializeWorkers</ref>(<ref refid="namespacevt_1aa93398ea48f2cb6c188512250f7cc248" kindref="member">WorkerCountType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>num_workers);</highlight></codeline>
 <codeline lineno="301"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a2c4ba18d500526776e4e0d1fcde215eb" kindref="member">needStatsRestartReader</ref>();</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a494534b0e9e9fcbb10262442d7e427c9" kindref="member">needLBDataRestartReader</ref>();</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
 <codeline lineno="313"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a1c4fda11afb43bb2607cd1f00686550c" kindref="member">setup</ref>();</highlight></codeline>
 <codeline lineno="314"><highlight class="normal"></highlight></codeline>
@@ -2550,8 +2550,8 @@
 <codeline lineno="411" refid="structvt_1_1runtime_1_1_runtime_1af2d01d5059edf4aed086f087e5ed1e91" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;objgroup::ObjGroupManager&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1af2d01d5059edf4aed086f087e5ed1e91" kindref="member">theObjGroup</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="412" refid="structvt_1_1runtime_1_1_runtime_1a99d9a28de0742915ca6b25393807dd8b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;util::memory::MemoryUsage&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a99d9a28de0742915ca6b25393807dd8b" kindref="member">theMemUsage</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="413" refid="structvt_1_1runtime_1_1_runtime_1a4772a2e3ae26f5dae29ea474ac0050c7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;rdma::Manager&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a4772a2e3ae26f5dae29ea474ac0050c7" kindref="member">theHandleRDMA</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="414" refid="structvt_1_1runtime_1_1_runtime_1a93ce0722815077fc9bedcd09c429b6aa" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;vrt::collection::balance::NodeStats&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a93ce0722815077fc9bedcd09c429b6aa" kindref="member">theNodeStats</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="415" refid="structvt_1_1runtime_1_1_runtime_1ada50802f68607a89f9a268cf1a021926" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;vrt::collection::balance::StatsRestartReader&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1ada50802f68607a89f9a268cf1a021926" kindref="member">theStatsReader</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="414" refid="structvt_1_1runtime_1_1_runtime_1a0a596fabff7d26a9417e8f7886410eee" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;vrt::collection::balance::NodeLBData&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0a596fabff7d26a9417e8f7886410eee" kindref="member">theNodeLBData</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="415" refid="structvt_1_1runtime_1_1_runtime_1afb8103d823cabc7bacb6035f785e9324" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;vrt::collection::balance::LBDataRestartReader&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1afb8103d823cabc7bacb6035f785e9324" kindref="member">theLBDataReader</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="416" refid="structvt_1_1runtime_1_1_runtime_1a0d324f5964ce89e2974a41bc3129829e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;vrt::collection::balance::LBManager&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0d324f5964ce89e2974a41bc3129829e" kindref="member">theLBManager</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="417" refid="structvt_1_1runtime_1_1_runtime_1a3d72d73ecd4ba3f0104dca596eae3862" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;timetrigger::TimeTriggerManager&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a3d72d73ecd4ba3f0104dca596eae3862" kindref="member">theTimeTrigger</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="418" refid="structvt_1_1runtime_1_1_runtime_1aaad9fd5e7f0bb2d4bcc73fe1ce60bd9f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1a0893bf0a8c03b898e8ab66b52cec80ad" kindref="member">ComponentPtrType&lt;phase::PhaseManager&gt;</ref><sp/><ref refid="structvt_1_1runtime_1_1_runtime_1aaad9fd5e7f0bb2d4bcc73fe1ce60bd9f" kindref="member">thePhase</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>

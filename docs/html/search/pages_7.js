@@ -1,9 +1,9 @@
 var searchData=
 [
+  ['lb_20restart_20reader',['LB Restart Reader',['../lb-data-reader.html',1,'introduction']]],
   ['lb_20manager',['LB Manager',['../lb-manager.html',1,'introduction']]],
   ['learn',['Learn',['../learn.html',1,'']]],
   ['location_20manager',['Location Manager',['../location.html',1,'introduction']]],
-  ['lb_20restart_20reader',['LB Restart Reader',['../stats-reader.html',1,'introduction']]],
   ['learning_20about_20context',['Learning about context',['../tutorial-1a.html',1,'tutorial']]],
   ['learning_20about_20active_20handlers',['Learning about active handlers',['../tutorial-1b.html',1,'tutorial']]],
   ['learning_20about_20serialization',['Learning about serialization',['../tutorial-1c.html',1,'tutorial']]],

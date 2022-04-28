@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['node_20statistics',['Node Statistics',['../node-stats.html',1,'introduction']]]
+  ['node_20lb_20data',['Node LB Data',['../node-lb-data.html',1,'introduction']]]
 ];
