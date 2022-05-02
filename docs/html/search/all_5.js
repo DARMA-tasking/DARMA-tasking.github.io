@@ -327,6 +327,7 @@ var searchData=
   ['ds_2eh',['ds.h',['../ds_8h.html',1,'']]],
   ['ds_5fheaders_2eh',['ds_headers.h',['../ds__headers_8h.html',1,'']]],
   ['dump',['dump',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#a26c7f2922772baf00c50dcf5e88ad023',1,'vt::util::adt::HistogramApprox']]],
+  ['dump_5fto_5fjson_5f',['dump_to_json_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_base.html#a7bd87e77194a384ecb0a7450d9e7a24a',1,'vt::vrt::collection::storage::StoreElmBase']]],
   ['dumpstack',['dumpStack',['../namespacevt_1_1debug_1_1stack.html#a89827f4a5411b18eb8fd0ea41d7b869d',1,'vt::debug::stack']]],
   ['dumpstacktype',['DumpStackType',['../namespacevt_1_1debug_1_1stack.html#ad492fbef68802fc38922b49caf401d63',1,'vt::debug::stack']]],
   ['dumpstate',['dumpState',['../structvt_1_1runtime_1_1component_1_1_component.html#adaf8bd995d4c91702e2ff7806ad9e695',1,'vt::runtime::component::Component::dumpState()'],['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a1b6da987a14917c7ee8a4d00138e62e6',1,'vt::runtime::component::Diagnostic::dumpState()'],['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a1af9b94870159b8796053112c31f9570',1,'vt::term::interval::IntegralSetBase::dumpState()'],['../structvt_1_1term_1_1interval_1_1_strong_integral_set.html#a689e0bdef33b443174b408165861bbfe',1,'vt::term::interval::StrongIntegralSet::dumpState()']]],

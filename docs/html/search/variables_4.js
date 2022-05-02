@@ -46,5 +46,6 @@ var searchData=
   ['done_5f',['done_',['../structvt_1_1runnable_1_1_runnable_new.html#ae296cbcff8fe4f664af37960dd00397e',1,'vt::runnable::RunnableNew']]],
   ['down_5ftree_5fcont_5f',['down_tree_cont_',['../structvt_1_1group_1_1_info_coll.html#aa6f3626398eb4473b21bfb2a43ba3c96',1,'vt::group::InfoColl']]],
   ['down_5ftree_5ffin_5fcont_5f',['down_tree_fin_cont_',['../structvt_1_1group_1_1_info_coll.html#a05eef11154e3dc70bb84c6e3b4c3be6c',1,'vt::group::InfoColl']]],
+  ['dump_5fto_5fjson_5f',['dump_to_json_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_base.html#a7bd87e77194a384ecb0a7450d9e7a24a',1,'vt::vrt::collection::storage::StoreElmBase']]],
   ['dynamic_5fmembership_5f',['dynamic_membership_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ab032b5a40a6ffdd0b763af5968cec42a',1,'vt::vrt::collection::param::ConstructParams']]]
 ];

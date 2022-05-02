@@ -125,7 +125,7 @@ var searchData=
   ['addmemoryevent',['addMemoryEvent',['../structvt_1_1trace_1_1_trace.html#abc497f6fa641ac1c2c20889815b06dbc',1,'vt::trace::Trace']]],
   ['addmodel',['addModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html#a79ecd769664dcaabe413a5d77033b81b',1,'vt::vrt::collection::balance::PerCollection']]],
   ['addnode',['addNode',['../structvt_1_1seq_1_1_seq_list.html#a3dd63f53576d65c85eb840d1ac4ddb27',1,'vt::seq::SeqList']]],
-  ['addnodelbdata',['addNodeLBData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#ae5ed4321e300d17f5c1286f75351a7ab',1,'vt::vrt::collection::balance::NodeLBData']]],
+  ['addnodelbdata',['addNodeLBData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a70b3e6ebe09346bf2986c10e2384e55b',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a59a33d9ef1dfe4616d701036e0c39ab9',1,'vt::vrt::collection::balance::LoadMsg']]],
   ['addparallelfunction',['addParallelFunction',['../structvt_1_1seq_1_1_seq_node.html#adfe191e3f7ff499909c222cd4dbc3525',1,'vt::seq::SeqNode']]],
   ['addsequencedchild',['addSequencedChild',['../structvt_1_1seq_1_1_seq_node.html#a7554b8cdfe9a983d937554979505b76e',1,'vt::seq::SeqNode']]],
