@@ -5,7 +5,6 @@
     <includes refid="stack__out_8h" local="yes">vt/configs/error/stack_out.h</includes>
     <includes refid="debug__colorize_8h" local="yes">vt/configs/debug/debug_colorize.h</includes>
     <includes refid="context_8h" local="yes">vt/context/context.h</includes>
-    <includes local="no">libunwind.h</includes>
     <includes local="no">cxxabi.h</includes>
     <incdepgraph>
       <node id="72342">
@@ -275,8 +274,6 @@
         </childnode>
         <childnode refid="72382" relation="include">
         </childnode>
-        <childnode refid="72383" relation="include">
-        </childnode>
       </node>
       <node id="72331">
         <label>checkpoint/container/array_serialize.h</label>
@@ -411,9 +408,6 @@
         </childnode>
         <childnode refid="72240" relation="include">
         </childnode>
-      </node>
-      <node id="72382">
-        <label>libunwind.h</label>
       </node>
       <node id="72330">
         <label>stdexcept</label>
@@ -917,7 +911,7 @@
         <childnode refid="72302" relation="include">
         </childnode>
       </node>
-      <node id="72383">
+      <node id="72382">
         <label>cxxabi.h</label>
       </node>
       <node id="72323">
@@ -1593,18 +1587,6 @@
     <innernamespace refid="namespacevt">vt</innernamespace>
     <innernamespace refid="namespacevt_1_1debug">vt::debug</innernamespace>
     <innernamespace refid="namespacevt_1_1debug_1_1stack">vt::debug::stack</innernamespace>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="stack__out_8cc_1a7c1fcd39dbc33728a8e1f1f5212203bc" prot="public" static="no">
-        <name>UNW_LOCAL_ONLY</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/vt/configs/error/stack_out.cc" line="48" column="9" bodyfile="src/vt/configs/error/stack_out.cc" bodystart="48" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -1657,108 +1639,170 @@
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="debug__colorize_8h" kindref="compound">vt/configs/debug/debug_colorize.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="context_8h" kindref="compound">vt/context/context.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UNW_LOCAL_ONLY</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;libunwind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cxxabi.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52" refid="namespacevt_1_1debug_1_1stack" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">debug<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">stack<sp/>{</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/><ref refid="namespacevt_1_1debug_1_1stack_1a89827f4a5411b18eb8fd0ea41d7b869d" kindref="member">dumpStack</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>skip)<sp/>{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/>stack;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/>unw_cursor_t<sp/>cursor;</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/>unw_context_t<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5dad3be974af03e75e234cb475c2cb20" kindref="member">context</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cxxabi.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(vt_has_libunwind_h)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>UNW_LOCAL_ONLY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>include<sp/>&lt;libunwind.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(vt_has_execinfo_h)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>include<sp/>&lt;execinfo.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>include<sp/>&lt;dlfcn.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="namespacevt_1_1debug_1_1stack" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">debug<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">stack<sp/>{</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>cursor<sp/>to<sp/>current<sp/>frame<sp/>for<sp/>local<sp/>unwinding.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_getcontext(&amp;context)<sp/>or<sp/>unw_init_local(&amp;cursor,<sp/>&amp;context))<sp/>{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Unwinding<sp/>error:<sp/>unable<sp/>to<sp/>get<sp/>stack<sp/>backtrace&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Unwind<sp/>frames<sp/>one<sp/>by<sp/>one,<sp/>going<sp/>up<sp/>the<sp/>frame<sp/>stack.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(skip--<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>unw_word_t<sp/>offset,<sp/>pc;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_get_reg(&amp;cursor,<sp/>UNW_REG_IP,<sp/>&amp;pc)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pc<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>sym[256];</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_get_proc_name(&amp;cursor,<sp/>sym,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(sym),<sp/>&amp;offset)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>nameptr<sp/>=<sp/>sym;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>demangled<sp/>=<sp/>abi::__cxa_demangle(sym,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;status);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nameptr<sp/>=<sp/>demangled;</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;int&gt;(2<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)<sp/>*<sp/>2),<sp/>pc,<sp/>nameptr,<sp/>offset)</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::free(demangled);</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Unwinding<sp/>error:<sp/>unable<sp/>to<sp/>obtain<sp/>symbol<sp/>name<sp/>for<sp/>this<sp/>frame&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(unw_step(&amp;cursor)<sp/>&gt;<sp/>0);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
-<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal">std::string<sp/><ref refid="namespacevt_1_1debug_1_1stack_1a4746a54afce7bc3b686cf6fa8c2d279f" kindref="member">prettyPrintStack</ref>(<ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>stack)<sp/>{</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">::vt::debug::green</ref>();</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">bred</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">::vt::debug::bred</ref>();</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">::vt::debug::reset</ref>();</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">magenta</ref><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">::vt::debug::magenta</ref>();</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">::vt::debug::yellow</ref>();</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>vt_pre<sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1acfaac527e91984bde40775eb9b4372ef" kindref="member">::vt::debug::vtPre</ref>();</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>node_str<sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a13a11e278ff8e5a4093396437511aeb7" kindref="member">::vt::debug::proc</ref>(<ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>);</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>prefix<sp/><sp/><sp/><sp/><sp/>=<sp/>vt_pre<sp/>+<sp/>node_str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>seperator<sp/><sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}{}{:-^120}{}\n&quot;</highlight><highlight class="normal">,<sp/>prefix,<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref>,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>title_node<sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;on<sp/>Node<sp/>{}&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>title<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;<sp/>Dump<sp/>Stack<sp/>Backtrace<sp/>{}<sp/>&quot;</highlight><highlight class="normal">,<sp/>title_node);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/>std::string<sp/>out<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}&quot;</highlight><highlight class="normal">,<sp/>seperator);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}{}{:-^120}{}\n&quot;</highlight><highlight class="normal">,<sp/>prefix,<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref>,<sp/>title,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>);</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}&quot;</highlight><highlight class="normal">,<sp/>seperator);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>t<sp/>:<sp/>stack)<sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ret_str<sp/>=<sp/>fmt::format(</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{}{}{:&lt;3}{}<sp/>{}{:&lt;3}<sp/>{:#x}{}<sp/>{}{}{}<sp/>+<sp/>{}{}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>prefix,</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">bred</ref>,<sp/>i,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">magenta</ref>,<sp/>std::get&lt;0&gt;(t),<sp/>std::get&lt;1&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref>,<sp/><sp/><sp/>std::get&lt;2&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;3&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>out<sp/>+=<sp/>ret_str;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>i++;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//out<sp/>+=<sp/>seperator<sp/>+<sp/>seperator<sp/>+<sp/>seperator;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
-<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/><ref refid="namespacevt_1_1debug_1_1stack_1a89827f4a5411b18eb8fd0ea41d7b869d" kindref="member">dumpStack</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>skip)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/>stack;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#if<sp/>defined(vt_has_libunwind_h)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>unw_cursor_t<sp/>cursor;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>unw_context_t<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a5dad3be974af03e75e234cb475c2cb20" kindref="member">context</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>cursor<sp/>to<sp/>current<sp/>frame<sp/>for<sp/>local<sp/>unwinding.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_getcontext(&amp;context)<sp/>or<sp/>unw_init_local(&amp;cursor,<sp/>&amp;context))<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Unwinding<sp/>error:<sp/>unable<sp/>to<sp/>get<sp/>stack<sp/>backtrace&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Unwind<sp/>frames<sp/>one<sp/>by<sp/>one,<sp/>going<sp/>up<sp/>the<sp/>frame<sp/>stack.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(skip--<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unw_word_t<sp/>offset,<sp/>pc;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_get_reg(&amp;cursor,<sp/>UNW_REG_IP,<sp/>&amp;pc)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pc<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>sym[256];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unw_get_proc_name(&amp;cursor,<sp/>sym,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(sym),<sp/>&amp;offset)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>nameptr<sp/>=<sp/>sym;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>demangled<sp/>=<sp/>abi::__cxa_demangle(sym,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>&amp;status);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nameptr<sp/>=<sp/>demangled;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;int&gt;(2<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)<sp/>*<sp/>2),<sp/>pc,<sp/>nameptr,<sp/>offset)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::free(demangled);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Unwinding<sp/>error:<sp/>unable<sp/>to<sp/>obtain<sp/>symbol<sp/>name<sp/>for<sp/>this<sp/>frame&quot;</highlight><highlight class="normal">,<sp/>0)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(unw_step(&amp;cursor)<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#elif<sp/>defined(vt_has_execinfo_h)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>callstack[128];</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>max_frames<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(callstack)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(callstack[0]);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_frames<sp/>=<sp/>backtrace(callstack,<sp/>max_frames);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>symbols<sp/>=<sp/>backtrace_symbols(callstack,<sp/>num_frames);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>skip;<sp/>i<sp/>&lt;<sp/>num_frames;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//printf(&quot;%s\n&quot;,<sp/>symbols[i]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>str<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Dl_info<sp/>info;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dladdr(callstack[i],<sp/>&amp;info)<sp/>&amp;&amp;<sp/>info.dli_sname)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*demangled<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(info.dli_sname[0]<sp/>==<sp/></highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>demangled<sp/>=<sp/>abi::__cxa_demangle(info.dli_sname,<sp/>NULL,<sp/>0,<sp/>&amp;status);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>call<sp/>=<sp/>status<sp/>==<sp/>0<sp/>?</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>demangled<sp/>:<sp/>info.dli_sname<sp/>==<sp/>0<sp/>?<sp/>symbols[i]<sp/>:<sp/>info.dli_sname;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;int&gt;(2<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)<sp/>*<sp/>2),<sp/>reinterpret_cast&lt;long&gt;(callstack[i]),<sp/>call,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;char*&gt;(callstack[i])<sp/>-<sp/>static_cast&lt;char*&gt;(info.dli_saddr)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>t<sp/>=<sp/>stack.back();</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>str<sp/>=<sp/>fmt::format(</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{:&lt;4}<sp/>{:&lt;4}<sp/>{:&lt;15}<sp/>{}<sp/>+<sp/>{}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i,<sp/>std::get&lt;0&gt;(t),<sp/>std::get&lt;1&gt;(t),<sp/>std::get&lt;2&gt;(t),<sp/>std::get&lt;3&gt;(t)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal">}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::debug::stack<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::free(demangled);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stack.emplace_back(</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;int&gt;(2<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)<sp/>*<sp/>2),<sp/>reinterpret_cast&lt;long&gt;(callstack[i]),<sp/>symbols[i],<sp/>0</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>t<sp/>=<sp/>stack.back();</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>str<sp/>=<sp/>fmt::format(</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{:10}<sp/>{}<sp/>{}<sp/>{}\n&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>std::get&lt;0&gt;(t),<sp/>std::get&lt;1&gt;(t),<sp/>std::get&lt;2&gt;(t)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>std::free(symbols);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#else<sp/>//neither<sp/>libnunwind.h<sp/>or<sp/>libexecinfo.h<sp/>is<sp/>available</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stack;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal">std::string<sp/><ref refid="namespacevt_1_1debug_1_1stack_1a4746a54afce7bc3b686cf6fa8c2d279f" kindref="member">prettyPrintStack</ref>(<ref refid="namespacevt_1_1debug_1_1stack_1ad492fbef68802fc38922b49caf401d63" kindref="member">DumpStackType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>stack)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">::vt::debug::green</ref>();</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">bred</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">::vt::debug::bred</ref>();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">::vt::debug::reset</ref>();</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">magenta</ref><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">::vt::debug::magenta</ref>();</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">::vt::debug::yellow</ref>();</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>vt_pre<sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1acfaac527e91984bde40775eb9b4372ef" kindref="member">::vt::debug::vtPre</ref>();</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">::vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>node_str<sp/><sp/><sp/>=<sp/><ref refid="namespacevt_1_1debug_1a13a11e278ff8e5a4093396437511aeb7" kindref="member">::vt::debug::proc</ref>(<ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>prefix<sp/><sp/><sp/><sp/><sp/>=<sp/>vt_pre<sp/>+<sp/>node_str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>seperator<sp/><sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}{}{:-^120}{}\n&quot;</highlight><highlight class="normal">,<sp/>prefix,<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref>,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>title_node<sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;on<sp/>Node<sp/>{}&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacevt_1_1config_1a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81" kindref="member">node</ref>);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>title<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;<sp/>Dump<sp/>Stack<sp/>Backtrace<sp/>{}<sp/>&quot;</highlight><highlight class="normal">,<sp/>title_node);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>std::string<sp/>out<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}&quot;</highlight><highlight class="normal">,<sp/>seperator);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}{}{:-^120}{}\n&quot;</highlight><highlight class="normal">,<sp/>prefix,<sp/><ref refid="namespacevt_1_1debug_1ad85c9e5ee0f986151a01212647d2b60d" kindref="member">yellow</ref>,<sp/>title,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>out<sp/>+=<sp/>fmt::format(</highlight><highlight class="stringliteral">&quot;{}&quot;</highlight><highlight class="normal">,<sp/>seperator);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>t<sp/>:<sp/>stack)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ret_str<sp/>=<sp/>fmt::format(</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;{}{}{:&lt;3}{}<sp/>{}{:&lt;3}<sp/>{:#x}{}<sp/>{}{}{}<sp/>+<sp/>{}{}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>prefix,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1ae03a761958b929eaa82f356059f71a46" kindref="member">bred</ref>,<sp/>i,<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1a1617ac1c602fb27518f6ab8fd4bf99c1" kindref="member">magenta</ref>,<sp/>std::get&lt;0&gt;(t),<sp/>std::get&lt;1&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1debug_1ac88d2f3171c5f622861b5c8ea986f281" kindref="member">green</ref>,<sp/><sp/><sp/>std::get&lt;2&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref>,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;3&gt;(t),<sp/><ref refid="namespacevt_1_1debug_1a4456c051bd468fe024334f24887867af" kindref="member">reset</ref></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/>out<sp/>+=<sp/>ret_str;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>i++;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//out<sp/>+=<sp/>seperator<sp/>+<sp/>seperator<sp/>+<sp/>seperator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::debug::stack<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/configs/error/stack_out.cc"/>
   </compounddef>
