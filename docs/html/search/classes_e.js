@@ -13,6 +13,7 @@ var searchData=
   ['percollection',['PerCollection',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html',1,'vt::vrt::collection::balance']]],
   ['persistencemedianlastn',['PersistenceMedianLastN',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html',1,'vt::vrt::collection::balance']]],
   ['phasehookid',['PhaseHookID',['../structvt_1_1phase_1_1_phase_hook_i_d.html',1,'vt::phase']]],
+  ['phaseinfo',['PhaseInfo',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_phase_info.html',1,'vt::vrt::collection::lb']]],
   ['phasemanager',['PhaseManager',['../structvt_1_1phase_1_1_phase_manager.html',1,'vt::phase']]],
   ['phaseoffset',['PhaseOffset',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html',1,'vt::vrt::collection::balance']]],
   ['pipeidbuilder',['PipeIDBuilder',['../structvt_1_1pipe_1_1_pipe_i_d_builder.html',1,'vt::pipe']]],

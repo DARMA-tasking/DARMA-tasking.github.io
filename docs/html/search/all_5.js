@@ -327,6 +327,8 @@ var searchData=
   ['ds_2efwd_2eh',['ds.fwd.h',['../ds_8fwd_8h.html',1,'']]],
   ['ds_2eh',['ds.h',['../ds_8h.html',1,'']]],
   ['ds_5fheaders_2eh',['ds_headers.h',['../ds__headers_8h.html',1,'']]],
+  ['dualloadmapobjectiterator',['DualLoadMapObjectIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html#a21f014ad87cc4f8214d58c87fc15bd7b',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator::DualLoadMapObjectIterator()']]],
+  ['dualloadmaptype',['DualLoadMapType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html#a283605916dbc414bbc6e176b9f3fb240',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator']]],
   ['dump',['dump',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#a26c7f2922772baf00c50dcf5e88ad023',1,'vt::util::adt::HistogramApprox']]],
   ['dump_5fto_5fjson_5f',['dump_to_json_',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_base.html#a7bd87e77194a384ecb0a7450d9e7a24a',1,'vt::vrt::collection::storage::StoreElmBase']]],
   ['dumpstack',['dumpStack',['../namespacevt_1_1debug_1_1stack.html#a89827f4a5411b18eb8fd0ea41d7b869d',1,'vt::debug::stack']]],

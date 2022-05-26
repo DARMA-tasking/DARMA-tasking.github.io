@@ -1,7 +1,7 @@
 var searchData=
 [
   ['makefntype',['MakeFnType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#a397d787b3876752a6d70511b2769b872',1,'vt::objgroup::ObjGroupManager']]],
-  ['map_5fiterator_5ftype',['map_iterator_type',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_map_object_iterator.html#ae487f542c8875bc4cd60da54da5545ce',1,'vt::vrt::collection::balance::LoadMapObjectIterator']]],
+  ['map_5fiterator_5ftype',['map_iterator_type',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_map_object_iterator.html#ae487f542c8875bc4cd60da54da5545ce',1,'vt::vrt::collection::balance::LoadMapObjectIterator::map_iterator_type()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html#a86bac54b4dc71af6b0a7cf5aa7ced433',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator::map_iterator_type()']]],
   ['mapadapter',['MapAdapter',['../namespacevt_1_1mapping.html#a41b113c28bb6430fbcb5be66e08ccf9f',1,'vt::mapping']]],
   ['mapfunctoradapt',['MapFunctorAdapt',['../namespacevt_1_1mapping.html#add4b5257a62b56d194f7e931b608f8f0',1,'vt::mapping']]],
   ['mapparampacktype',['MapParamPackType',['../structvt_1_1vrt_1_1collection_1_1_default_map_base.html#a94765cd0fe916d073a01eba6eb796f8e',1,'vt::vrt::collection::DefaultMapBase']]],

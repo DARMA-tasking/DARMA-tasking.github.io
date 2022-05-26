@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['p_5fc',['P_c',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1ac81086e94cc11392bc08344156ee454b',1,'vt::vrt::collection::lb']]],
-  ['p_5fl',['P_l',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1af76181d80de89c5736a21709e19caa61',1,'vt::vrt::collection::lb']]],
-  ['p_5ft',['P_t',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aa71b9ae19e509388f5ab7bc3559a9109',1,'vt::vrt::collection::lb']]],
   ['packing',['Packing',['../namespacecheckpoint.html#ae2509499ccd8b1dc48fb535bf8aa3059ac46192253e8458f209a350a132cfc876',1,'checkpoint']]],
   ['parallelconstruct',['ParallelConstruct',['../namespacevt_1_1seq.html#a3041a01a5db2bccb3183e73b49e78252ac5d7fb4472e67ad94349a2bfd6b14dfe',1,'vt::seq']]],
   ['parallelnode',['ParallelNode',['../namespacevt_1_1seq.html#ae721d4e8b95cf57a7e4169db1929e0f1ab93ad8a05dfc00c50baa291e7a808ba6',1,'vt::seq']]],

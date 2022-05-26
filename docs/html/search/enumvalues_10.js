@@ -1,11 +1,15 @@
 var searchData=
 [
   ['randomlb',['RandomLB',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5ca6aadc0284cdcb7afaf7043f5d49179b9',1,'vt::vrt::collection::balance']]],
+  ['rank_5fcomm',['Rank_comm',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a8f2d2f61dff75c470d9f7ba48d215c77',1,'vt::vrt::collection::lb']]],
+  ['rank_5fload_5fmodeled',['Rank_load_modeled',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aa91c95683ba4869756e2b2cb4483fd53',1,'vt::vrt::collection::lb']]],
+  ['rank_5fload_5fraw',['Rank_load_raw',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a7bfd12bd45cb5c751d0d9fb6d684d888',1,'vt::vrt::collection::lb']]],
+  ['rank_5fwork_5fmodeled',['Rank_work_modeled',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aea47680c2d3303e83328c406a71bde67',1,'vt::vrt::collection::lb']]],
   ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
   ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
   ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
   ['readfromfile',['ReadFromFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2abe9348ae77ec17acd67aa1ff39a18d83',1,'checkpoint::buffer::IOBuffer']]],
-  ['reduce',['reduce',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af558c370706b5e7bd8ba5224657ca9b4',1,'vt::config::reduce()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'vt::error::Reduce()']]],
+  ['reduce',['Reduce',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'vt::error::Reduce()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689af558c370706b5e7bd8ba5224657ca9b4',1,'vt::config::reduce()']]],
   ['reggeneral',['RegGeneral',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241aed767d8e868d24805af30efeb716d412',1,'vt::auto_registry']]],
   ['regindex',['RegIndex',['../namespacevt_1_1auto__registry.html#a9f369ca2b484130b396729e2ddf05241afcf88785f449d5ff3251eddef9e0ae8a',1,'vt::auto_registry']]],
   ['registry',['Registry',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4e1ab36884b253ce24768da1c4080a14',1,'vt::error']]],

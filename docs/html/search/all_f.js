@@ -78,6 +78,7 @@ var searchData=
   ['nextstepcollective',['nextStepCollective',['../classvt_1_1messaging_1_1_collection_chain_set.html#a095bc4907c3bd60668483de52b79b08e',1,'vt::messaging::CollectionChainSet::nextStepCollective(std::string const &amp;label, std::function&lt; PendingSend(Index)&gt; step_action)'],['../classvt_1_1messaging_1_1_collection_chain_set.html#a7d226984e696278b9ca7e539c974bab4',1,'vt::messaging::CollectionChainSet::nextStepCollective(std::function&lt; PendingSend(Index)&gt; step_action)']]],
   ['nexttriggertime',['nextTriggerTime',['../structvt_1_1timetrigger_1_1_trigger.html#a77c78026bc618f6084ecda2a3e0198ba',1,'vt::timetrigger::Trigger']]],
   ['nfrom_5f',['nfrom_',['../structvt_1_1elm_1_1_comm_key.html#a8d37a724bb947b07e514320ff5f3c3b6',1,'vt::elm::CommKey']]],
+  ['nlohmann_5fjson_5fserialize_5fenum',['NLOHMANN_JSON_SERIALIZE_ENUM',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb7ccb2ce4711e921658f65fef098f82',1,'vt::vrt::collection::lb']]],
   ['no_5fgroup_5fpos',['no_group_pos',['../structvt_1_1rdma_1_1_channel.html#a5b8e4d79d272951f51a9856705110d24',1,'vt::rdma::Channel']]],
   ['no_5fsubphase',['no_subphase',['../structvt_1_1elm_1_1_element_l_b_data.html#af93ba399701c539f3acbe75095e0d080',1,'vt::elm::ElementLBData']]],
   ['nocategoryepoch',['NoCategoryEpoch',['../namespacevt_1_1epoch.html#a956abe0aceef0d10a988de8acb002c7caa6136714a068313660a40ae6bd15410c',1,'vt::epoch']]],
