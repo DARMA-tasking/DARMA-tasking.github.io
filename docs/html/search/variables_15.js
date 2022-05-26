@@ -84,6 +84,7 @@ var searchData=
   ['vt_5flb_5fkeep_5flast_5felm',['vt_lb_keep_last_elm',['../structvt_1_1arguments_1_1_app_config.html#ab5dd6ec0c6828ff0ee8a539d63273e36',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fname',['vt_lb_name',['../structvt_1_1arguments_1_1_app_config.html#a1d8ed9d03eb82a15a81ad5e1ca6388b4',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fquiet',['vt_lb_quiet',['../structvt_1_1arguments_1_1_app_config.html#a7942c44d537f66f507209de26cbbb55d',1,'vt::arguments::AppConfig']]],
+  ['vt_5flb_5fself_5fmigration',['vt_lb_self_migration',['../structvt_1_1arguments_1_1_app_config.html#a14f9206360ee902f908670fce103f96b',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fshow_5fspec',['vt_lb_show_spec',['../structvt_1_1arguments_1_1_app_config.html#aeec1d5697a4bfc5af3a8b763b88ae964',1,'vt::arguments::AppConfig']]],
   ['vt_5fmax_5fmpi_5fsend_5fsize',['vt_max_mpi_send_size',['../structvt_1_1arguments_1_1_app_config.html#aac217c9539cf7ee131cedc2c503ef866',1,'vt::arguments::AppConfig']]],
   ['vt_5fmemory_5freporters',['vt_memory_reporters',['../structvt_1_1arguments_1_1_app_config.html#acb03c37af0097278fddcdd456e5312de',1,'vt::arguments::AppConfig']]],
