@@ -277,7 +277,7 @@ var searchData=
   ['getphase',['getPhase',['../structvt_1_1elm_1_1_element_l_b_data.html#ab3e11f3720c9c8ce83b23610eccbef08',1,'vt::elm::ElementLBData::getPhase()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_collect_stats_msg.html#abf9f2c61e673905a9d97d6de42a009e5',1,'vt::vrt::collection::balance::CollectStatsMsg::getPhase()']]],
   ['getpipe',['getPipe',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a3422df77d381724e530631720ec9720b',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle::getPipe()'],['../structvt_1_1pipe_1_1interface_1_1_base_container.html#a5301aebfd709a96a3de5e03218c9300f',1,'vt::pipe::interface::BaseContainer::getPipe()'],['../structvt_1_1pipe_1_1_callback_msg.html#aeddb711b3d197e766b384692246ed4a5',1,'vt::pipe::CallbackMsg::getPipe()'],['../structvt_1_1pipe_1_1_pipe_state.html#ab69e2e4c5783a5df48087fdb436a7a2f',1,'vt::pipe::PipeState::getPipe()']]],
   ['getpipeid',['getPipeID',['../structvt_1_1pipe_1_1_pipe_i_d_builder.html#ac02b448be5ebc3545ae961e16263b78e',1,'vt::pipe::PipeIDBuilder']]],
-  ['getpooltype',['getPoolType',['../structvt_1_1pool_1_1_pool.html#a9aa5afbbea5a61265746c4d461502d62',1,'vt::pool::Pool']]],
+  ['getpooltype',['getPoolType',['../structvt_1_1pool_1_1_pool.html#a6b0dea52c80b6493431ce94840e7bc4a',1,'vt::pool::Pool']]],
   ['getpred',['getPred',['../structvt_1_1term_1_1ds_1_1_ack_msg.html#aee8c447d40b6aebf018a7402527a355e',1,'vt::term::ds::AckMsg']]],
   ['getpriority',['getPriority',['../structvt_1_1sched_1_1_priority_manip.html#a078ab0d05954a2718203af1684b4e360',1,'vt::sched::PriorityManip']]],
   ['getproduceepochfrommsg',['getProduceEpochFromMsg',['../structvt_1_1messaging_1_1_pending_send.html#a8293dffe4d8cdc81de573d2edf0ee4cb',1,'vt::messaging::PendingSend']]],

@@ -358,7 +358,7 @@ var searchData=
   ['released',['released',['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a930afd77ab1b22519988dc108487a6e3',1,'vt::collective::barrier::BarrierState']]],
   ['releaselbdatafromunneededphases',['releaseLBDataFromUnneededPhases',['../structvt_1_1elm_1_1_element_l_b_data.html#ad74e3a2d52dc65533df25846211c9aa4',1,'vt::elm::ElementLBData']]],
   ['releaselocaldependency',['releaseLocalDependency',['../structvt_1_1term_1_1_termination_detector.html#ad00ee5e13c7832e1803238c746ee0fd4',1,'vt::term::TerminationDetector']]],
-  ['remainingsize',['remainingSize',['../structvt_1_1pool_1_1_pool.html#a7d6742d6abc615255e25363a1be067be',1,'vt::pool::Pool']]],
+  ['remainingsize',['remainingSize',['../structvt_1_1pool_1_1_pool.html#a2e81bedc1cd986b9994f66f614dac28d',1,'vt::pool::Pool']]],
   ['remote',['Remote',['../namespacevt_1_1vrt.html#a408950d7781cc0422dcc4bdf723fc281ac81bc94ba7d9e2ef6791ddbd24daa667',1,'vt::vrt::Remote()'],['../namespacevt_1_1term.html#ad8ec9b371608fc88e7fdeef219785b27af8508f576cd3f742dfc268258dcdf0dd',1,'vt::term::Remote()'],['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd',1,'vt::location::Remote()']]],
   ['remote_5fcontainer_2eh',['remote_container.h',['../remote__container_8h.html',1,'']]],
   ['remote_5fcontainer_2eimpl_2eh',['remote_container.impl.h',['../remote__container_8impl_8h.html',1,'']]],

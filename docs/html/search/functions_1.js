@@ -81,6 +81,7 @@ var searchData=
   ['allocate',['allocate',['../structcheckpoint_1_1dispatch_1_1_standard.html#a289fce710a512a3dbbd96076ed8d721e',1,'checkpoint::dispatch::Standard']]],
   ['allocateconcretetype',['allocateConcreteType',['../namespacecheckpoint_1_1dispatch_1_1vrt_1_1objregistry.html#a744a3536afb9023749a6857bd1ec9f83',1,'checkpoint::dispatch::vrt::objregistry']]],
   ['allocatedatawindow',['allocateDataWindow',['../structvt_1_1rdma_1_1_holder.html#a7dc5e735fb6f919dabec8e118683b4ae',1,'vt::rdma::Holder']]],
+  ['allocatedsize',['allocatedSize',['../structvt_1_1pool_1_1_pool.html#aa973879eb9a13583ba3ec5da29c77a20',1,'vt::pool::Pool']]],
   ['allocatenewepoch',['allocateNewEpoch',['../structvt_1_1epoch_1_1_epoch_window.html#a0c18249fdbc30c5e4ee0de6949a320a4',1,'vt::epoch::EpochWindow']]],
   ['allocatenewrdmahandler',['allocateNewRdmaHandler',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a9b393c6dbd360c0b7bfb899e3fc0451b',1,'vt::rdma::RDMAManager']]],
   ['allocatenewtag',['allocateNewTag',['../structvt_1_1messaging_1_1_active_messenger.html#af2339f3300276bdc7e55706ce0cfff2a',1,'vt::messaging::ActiveMessenger']]],
