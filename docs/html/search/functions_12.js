@@ -46,6 +46,7 @@ var searchData=
   ['recvobjsbcast',['recvObjsBcast',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a0fce6ced2d28e1828ad5a414117f63c0',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['recvobjsdirect',['recvObjsDirect',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a9d03bddd3f8266b68c4e0d0c8671f86e',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['recvobjshan',['recvObjsHan',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a2590d9a14ee124f30d86557f3cc5fb25',1,'vt::vrt::collection::lb::GreedyLB']]],
+  ['recvsharededges',['recvSharedEdges',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a5fc35b2b0fb14da5a44b124b4dc8fbc9',1,'vt::vrt::collection::lb::BaseLB']]],
   ['recvtonode',['recvToNode',['../structvt_1_1elm_1_1_element_l_b_data.html#ac9fefbad98060214e8720b46a5a8aaf6',1,'vt::elm::ElementLBData']]],
   ['recvvirtualproxy',['recvVirtualProxy',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ab79342508fe36427b54e3d94297e223a',1,'vt::vrt::VirtualContextManager']]],
   ['red',['red',['../namespacevt_1_1debug.html#a6b162f2ca1d964d7cf05c4079d5554a0',1,'vt::debug']]],

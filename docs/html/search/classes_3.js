@@ -80,6 +80,7 @@ var searchData=
   ['colmsgwrap',['ColMsgWrap',['../structvt_1_1vrt_1_1collection_1_1_col_msg_wrap.html',1,'vt::vrt::collection']]],
   ['commadelimit',['CommaDelimit',['../structvt_1_1util_1_1memory_1_1_comma_delimit.html',1,'vt::util::memory']]],
   ['commkey',['CommKey',['../structvt_1_1elm_1_1_comm_key.html',1,'vt::elm']]],
+  ['commmsg',['CommMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_comm_msg.html',1,'vt::vrt::collection::lb']]],
   ['commoverhead',['CommOverhead',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead.html',1,'vt::vrt::collection::balance']]],
   ['commvolume',['CommVolume',['../structvt_1_1elm_1_1_comm_volume.html',1,'vt::elm']]],
   ['compare',['Compare',['../structvt_1_1util_1_1adt_1_1detail_1_1_compare.html',1,'vt::util::adt::detail']]],

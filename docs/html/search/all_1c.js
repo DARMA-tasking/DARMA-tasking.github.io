@@ -80,6 +80,7 @@ var searchData=
   ['_7etaggedsequencer',['~TaggedSequencer',['../structvt_1_1seq_1_1_tagged_sequencer.html#aceb5a6bcf3915be2cc5d046c6b789af2',1,'vt::seq::TaggedSequencer']]],
   ['_7etd',['~TD',['../structvt_1_1ctx_1_1_t_d.html#a7682445c6790c8176124c080c3ca340c',1,'vt::ctx::TD']]],
   ['_7etemperedlb',['~TemperedLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#ad8138112521d369244bd38a327c41832',1,'vt::vrt::collection::lb::TemperedLB']]],
+  ['_7etemperedwmin',['~TemperedWMin',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a7225191709849520f021c6a5df9f26ba',1,'vt::vrt::collection::lb::TemperedWMin']]],
   ['_7etermds',['~TermDS',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#ab7990eff9ce88551b3e2133f1664593a',1,'vt::term::ds::TermDS']]],
   ['_7eterminationdetector',['~TerminationDetector',['../structvt_1_1term_1_1_termination_detector.html#a1a1a29c2374a70427d8173ec31d55421',1,'vt::term::TerminationDetector']]],
   ['_7etestserializationlb',['~TestSerializationLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_test_serialization_l_b.html#aa90398f1c00e00b6cb422e42d8c7860c',1,'vt::vrt::collection::lb::TestSerializationLB']]],

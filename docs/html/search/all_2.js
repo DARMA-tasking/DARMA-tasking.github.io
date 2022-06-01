@@ -184,6 +184,7 @@ var searchData=
   ['allunique_3c_20u_2c_20t_20_3e',['AllUnique&lt; U, T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_all_unique_3_01_u_00_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['allunique_3c_20u_2c_20t_2c_20ts_2e_2e_2e_20_3e',['AllUnique&lt; U, T, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_all_unique_3_01_u_00_01_t_00_01_ts_8_8_8_01_4.html',1,'vt::util::adt::detail']]],
   ['allunique_3c_20u_2c_20ts_2e_2e_2e_20_3e',['AllUnique&lt; U, Ts... &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_all_unique.html',1,'vt::util::adt::detail']]],
+  ['alpha_5f',['alpha_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a3c73a78b96830428d3f87b5f930ebef5',1,'vt::vrt::collection::lb::TemperedWMin']]],
   ['alwaysflush',['alwaysFlush',['../structvt_1_1arguments_1_1_app_config.html#adea8d58f81c4df7df475ac9f7780decc',1,'vt::arguments::AppConfig']]],
   ['amforwardcountergauge',['amForwardCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a3f7864f87ef5d5aa841fa04bb4ab3fb8',1,'vt::messaging::ActiveMessenger']]],
   ['amhandlercount',['amHandlerCount',['../structvt_1_1messaging_1_1_active_messenger.html#a6f7a203c3fc2cabd2f6900ecfcd72f89',1,'vt::messaging::ActiveMessenger']]],
