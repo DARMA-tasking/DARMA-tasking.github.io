@@ -247,9 +247,9 @@ The virtual context collection component {\ttfamily \hyperlink{structvt_1_1vrt_1
 
 The \hyperlink{node-lb-data}{Node LB Data} component stores the LB data for live collections that then passes the instrumented data to the \hyperlink{lb-manager}{LB Manager} component to apply load balancing strategies. You can use {\ttfamily -\/-\/vt\+\_\+lb\+\_\+keep\+\_\+last\+\_\+elm} flag to prohibit load balancer from migrating last element in collection.
 
-The preferred interface for constructing a new collection is {\ttfamily \hyperlink{namespacevt_a95c0d739e465e5324c2383f43ab2a145}{vt\+::make\+Collection}$<$T$>$()}. Using a fluent-\/style interface, {\ttfamily make\+Collection} returns a configuration object to set properties of the collection before actually constructing the collection. Once it is configured, the {\ttfamily .wait()} or {\ttfamily .defer\+With\+Epoch(callback)} methods allows one to either block until the collection is created or wait on the returned epoch until construction finishes (respectively). The {\ttfamily wait()} variant returns the proxy for use immediately (after blocking), whereas {\ttfamily defer\+With\+Epoch(callback)} supplies the proxy when the epoch terminates by triggering the callback passed to it.
+The preferred interface for constructing a new collection is {\ttfamily \hyperlink{namespacevt_a19a89f0706559e09bbe84eec1ff9f1e7}{vt\+::make\+Collection}$<$T$>$()}. Using a fluent-\/style interface, {\ttfamily make\+Collection} returns a configuration object to set properties of the collection before actually constructing the collection. Once it is configured, the {\ttfamily .wait()} or {\ttfamily .defer\+With\+Epoch(callback)} methods allows one to either block until the collection is created or wait on the returned epoch until construction finishes (respectively). The {\ttfamily wait()} variant returns the proxy for use immediately (after blocking), whereas {\ttfamily defer\+With\+Epoch(callback)} supplies the proxy when the epoch terminates by triggering the callback passed to it.
 
-The function {\ttfamily \hyperlink{namespacevt_a95c0d739e465e5324c2383f43ab2a145}{vt\+::make\+Collection}$<$T$>$()} will create a collection in a collective fashion, meaning it must be called in tandem on all nodes. Alternatively, one may call {\ttfamily \hyperlink{namespacevt_a37806a29a810adceb5792f7cfd4de106}{vt\+::make\+Collection\+Rooted}$<$T$>$()} to construct a rooted collection, which is invoked only on a single rank. (and the proxy is returned to a single rank). After waiting for construction, elements will have been constructed on their appropriate ranks, and the provided collection proxy will be usable on any rank it\textquotesingle{}s sent to.
+The function {\ttfamily \hyperlink{namespacevt_a19a89f0706559e09bbe84eec1ff9f1e7}{vt\+::make\+Collection}$<$T$>$()} will create a collection in a collective fashion, meaning it must be called in tandem on all nodes. Alternatively, one may call {\ttfamily \hyperlink{namespacevt_acbbf58b2c85959c964a7ae8c536fe9bc}{vt\+::make\+Collection\+Rooted}$<$T$>$()} to construct a rooted collection, which is invoked only on a single rank. (and the proxy is returned to a single rank). After waiting for construction, elements will have been constructed on their appropriate ranks, and the provided collection proxy will be usable on any rank it\textquotesingle{}s sent to.
 
 For collections without dynamic membership at runtime, one must call {\ttfamily .bounds(my\+\_\+range)} to specify the bounds in each dimension for the collection or specify exactly one bulk insertion range ({\ttfamily .bulk\+Insert(my\+\_\+range\+\_\+1)}), where {\ttfamily my\+\_\+range\+\_\+1} will be the assumed bounds for the collection. Bulk insertion is one such way to specify how insertions should happen during construction. The {\ttfamily .bulk\+Insert()} method (with no parameter) tells the runtime to insert all collection elements within the bounds using the mapping function to determine placement. The user can also specify specific ranges to bulk insert using {\ttfamily .bulk\+Insert(my\+\_\+range\+\_\+1)} with a parameter (this can be called multiple times).
 
@@ -261,7 +261,7 @@ By default, a mapping function is applied to every collection. If the collection
 \begin{DoxyCode}
 \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} my\_map(\hyperlink{structvt_1_1index_1_1_dense_index_array}{vt::Index1D}* idx, \hyperlink{structvt_1_1index_1_1_dense_index_array}{vt::Index1D}* bounds, 
       \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes) \{
-    \textcolor{keywordflow}{return} idx->\hyperlink{structvt_1_1index_1_1_dense_index_array_a0604b24914af854d09d4da97eae4ef74}{x}() % num\_nodes;
+  \textcolor{keywordflow}{return} idx->\hyperlink{structvt_1_1index_1_1_dense_index_array_a0604b24914af854d09d4da97eae4ef74}{x}() % num\_nodes;
 \}
 \end{DoxyCode}
 
@@ -273,7 +273,7 @@ Or, alternatively, one may specify a object group mapper, which contains an inst
 \textcolor{keyword}{template} <\textcolor{keyword}{typename} IdxT>
 \textcolor{keyword}{struct }UnboundedDefaultMap : \hyperlink{structvt_1_1mapping_1_1_base_mapper}{vt::mapping::BaseMapper}<IdxT> \{
   \textcolor{keyword}{static} \hyperlink{namespacevt_ad7cae989df485fccca57f0792a880a8e}{ObjGroupProxyType} construct() \{
-    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a651c44a47c6bcdc9f1b6c9e857fa03f2}{makeCollective}<UnboundedDefaultMap<IdxT>>();
+    \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}<UnboundedDefaultMap<IdxT>>();
     \textcolor{keywordflow}{return} proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a76cda2351cf7801abe2ebffa1403c5b8}{getProxy}();
   \}
 
@@ -300,7 +300,7 @@ Once a collection is constructed with dynamic membership, one must start a colle
 
 
 \begin{DoxyCode}
-\textcolor{keyword}{auto} proxy = vt::makeCollection<MyCollection>()
+\textcolor{keyword}{auto} proxy = vt::makeCollection<MyCollection>(\textcolor{stringliteral}{"collection\_label"})
   .dynamicMembership(\textcolor{keyword}{true})
   .collective(\textcolor{keyword}{true})
   .wait();
@@ -309,7 +309,7 @@ Once a collection is constructed with dynamic membership, one must start a colle
 \textcolor{keyword}{auto} token = proxy.beginModification();
 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < range.x() / 2; i++) \{
   \textcolor{keywordflow}{if} (i % num\_nodes == this\_node) \{
-      proxy[i].insertAt(token, i % 2);
+    proxy[i].insertAt(token, i % 2);
   \}
 \}
 proxy.finishModification(std::move(token));
@@ -354,7 +354,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(num\_elms);
-    \textcolor{keyword}{auto} proxy = vt::makeCollectionRooted<Hello>()
+    \textcolor{keyword}{auto} proxy = vt::makeCollectionRooted<Hello>(\textcolor{stringliteral}{"examples\_hello\_world\_collection"})
       .bounds(range)
       .bulkInsert()
       .wait();
@@ -398,7 +398,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
   \}
 
   \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(num\_elms);
-  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>()
+  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>(\textcolor{stringliteral}{"examples\_hello\_world\_collection\_collective"})
     .bounds(range)
     .bulkInsert()
     .wait();
@@ -449,7 +449,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
   \}
 
   \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(num\_elms);
-  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>()
+  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>(\textcolor{stringliteral}{"hello\_world\_collection\_reduce"})
     .bounds(range)
     .bulkInsert()
     .wait();
@@ -524,7 +524,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     \}
   \}
 
-  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>()
+  \textcolor{keyword}{auto} proxy = vt::makeCollection<Hello>(\textcolor{stringliteral}{"examples\_hello\_world\_collection\_staged\_insert"})
     .bounds(range)
     .listInsertHere(std::move(elms))
     .wait();
@@ -812,7 +812,9 @@ The object group manager component {\ttfamily \hyperlink{structvt_1_1objgroup_1_
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
       \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
 
-  \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a651c44a47c6bcdc9f1b6c9e857fa03f2}{makeCollective}<MyObjGroup>();
+  \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}<MyObjGroup>(
+    \textcolor{stringliteral}{"examples\_hello\_world"}
+  );
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     proxy[0].send<MyMsg,&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(5,10);
@@ -928,8 +930,8 @@ The pipe manager also supports \char`\"{}typed\char`\"{} callbacks where the cal
     \textcolor{keywordflow}{return} \hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}(\textcolor{stringliteral}{"requires at least 2 nodes"});
   \}
 
-  \textcolor{keyword}{auto} obj = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a651c44a47c6bcdc9f1b6c9e857fa03f2}{makeCollective}<MyObj>();
-  \textcolor{keyword}{auto} col = vt::makeCollection<MyCol>()
+  \textcolor{keyword}{auto} obj = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}<MyObj>(\textcolor{stringliteral}{"examples\_callback"});
+  \textcolor{keyword}{auto} col = vt::makeCollection<MyCol>(\textcolor{stringliteral}{"examples\_callback"})
     .bounds(\hyperlink{structvt_1_1index_1_1_dense_index_array}{vt::Index1D}(8))
     .bulkInsert()
     .wait();
