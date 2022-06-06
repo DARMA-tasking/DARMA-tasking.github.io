@@ -107,6 +107,7 @@ var searchData=
   ['billions',['Billions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a0280d8e6daff700da39edfbc74a15981',1,'vt::runtime::component']]],
   ['bin_5fsize_5f',['bin_size_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_load_sampler_base_l_b.html#ae3be6a0560eb24b5796ad3f3612c9524',1,'vt::vrt::collection::lb::LoadSamplerBaseLB']]],
   ['bit_5fand_5fop_2eh',['bit_and_op.h',['../bit__and__op_8h.html',1,'']]],
+  ['bit_5fcast',['bit_cast',['../namespacevt_1_1utils.html#a5aec27f45ff5fd0bacb4b589a100e5be',1,'vt::utils']]],
   ['bit_5for_5fop_2eh',['bit_or_op.h',['../bit__or__op_8h.html',1,'']]],
   ['bit_5fxor_5fop_2eh',['bit_xor_op.h',['../bit__xor__op_8h.html',1,'']]],
   ['bitandop',['BitAndOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_bit_and_op.html',1,'vt::collective::reduce::operators::BitAndOp&lt; T &gt;'],['../namespacevt_1_1collective.html#a64c800cae2fcb4ec24d2c5540cca0f9e',1,'vt::collective::BitAndOp()']]],

@@ -25,6 +25,7 @@ var searchData=
   ['beginmodification',['beginModification',['../structvt_1_1vrt_1_1collection_1_1_modifyable.html#a29d7b74d412571f4c5d413232a1788cd',1,'vt::vrt::collection::Modifyable::beginModification()'],['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#ac390149ecceb5a5b183086e509c3bfaa',1,'vt::vrt::collection::CollectionManager::beginModification()']]],
   ['beginprocessing',['beginProcessing',['../structvt_1_1trace_1_1_trace.html#a8f1a745228757b9d2ece4cd226d9540c',1,'vt::trace::Trace']]],
   ['beginschedulerloop',['beginSchedulerLoop',['../structvt_1_1trace_1_1_trace.html#a0e6566503861138843e7dc0a9ba30180',1,'vt::trace::Trace']]],
+  ['bit_5fcast',['bit_cast',['../namespacevt_1_1utils.html#a5aec27f45ff5fd0bacb4b589a100e5be',1,'vt::utils']]],
   ['bitorsetfield',['bitorSetField',['../structvt_1_1utils_1_1_bit_packer.html#a21b7e6fed5cddc8c74ac1de98fe1de3e',1,'vt::utils::BitPacker']]],
   ['blockmapdenseflatindex',['blockMapDenseFlatIndex',['../namespacevt_1_1mapping.html#abaff3ea69ef07a3762befc3628b8b577',1,'vt::mapping']]],
   ['blockonasyncop',['blockOnAsyncOp',['../structvt_1_1messaging_1_1_active_messenger.html#add04ad2e4c5d7578410debbb0fa93838',1,'vt::messaging::ActiveMessenger']]],
