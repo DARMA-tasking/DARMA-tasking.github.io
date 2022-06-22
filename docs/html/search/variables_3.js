@@ -76,6 +76,7 @@ var searchData=
   ['count_5fif_5funiform_5f',['count_if_uniform_',['../structvt_1_1rdma_1_1_sub_handle.html#a0e764c3fd8c4601a58ae396b2253d1fd',1,'vt::rdma::SubHandle']]],
   ['counter_5f',['counter_',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html#a633dac04bd7b420a158ce12e36afb320',1,'vt::runtime::component::meter::CounterGauge']]],
   ['created_5fdir_5f',['created_dir_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a9cccb7e2185485d798da41ca580460a9',1,'vt::vrt::collection::balance::NodeLBData']]],
+  ['created_5flbstats_5fdir_5f',['created_lbstats_dir_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a87cf4beb67cee5dfe49366ce2387cf06',1,'vt::vrt::collection::balance::LBManager']]],
   ['criterion_5f',['criterion_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion.html#abec00c435938c265ec0b3e3d984c09a6',1,'vt::vrt::collection::lb::Criterion::criterion_()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a808bb3c7d3bdf1ecfc8fe8cb24848047',1,'vt::vrt::collection::lb::TemperedLB::criterion_()']]],
   ['cs_5f',['cs_',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#a777a1384cff8b2bd7e0cd8b8a7c4def4',1,'vt::util::adt::HistogramApprox']]],
   ['ctx',['ctx',['../namespacevt_1_1config.html#a0551245b6b893932b95aaf8eac94eed1',1,'vt::config']]],

@@ -9906,81 +9906,94 @@
 <codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;LBManager::createStatsFile:<sp/>file={}\n&quot;</highlight><highlight class="normal">,<sp/>file_name</highlight></codeline>
 <codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="719"><highlight class="normal"></highlight></codeline>
-<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>JSONAppender<sp/>=<sp/>util::json::Appender&lt;std::ofstream&gt;;</highlight></codeline>
-<codeline lineno="721"><highlight class="normal"></highlight></codeline>
-<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a6a5c0370df20ab5adb200fb766b03776" kindref="member">statistics_writer_</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>statistics_writer_<sp/>=<sp/>std::make_unique&lt;JSONAppender&gt;(</highlight></codeline>
-<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;phases&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;LBStatsfile&quot;</highlight><highlight class="normal">,<sp/>file_name,<sp/>compress</highlight></codeline>
-<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="727"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="728"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="729"><highlight class="normal"></highlight></codeline>
-<codeline lineno="730"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a7fcd0cc4e6fa9a101411ece9bc687141" kindref="member">LBManager::closeStatisticsFile</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="731"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a6a5c0370df20ab5adb200fb766b03776" kindref="member">statistics_writer_</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="732"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="733"><highlight class="normal"></highlight></codeline>
-<codeline lineno="734"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Go<sp/>through<sp/>the<sp/>comm<sp/>graph<sp/>and<sp/>extract<sp/>out<sp/>paired<sp/>SendRecv<sp/>edges<sp/>that<sp/>are</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="735"><highlight class="normal"></highlight><highlight class="comment">//<sp/>not<sp/>self-send<sp/>and<sp/>have<sp/>a<sp/>non-local<sp/>edge</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="736"><highlight class="normal">std::unordered_map&lt;NodeType,<sp/>lb::BaseLB::ElementCommType&gt;</highlight></codeline>
-<codeline lineno="737"><highlight class="normal"><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1ac3a36cc89a7a64a5a0dc703562b5151f" kindref="member">getSharedEdges</ref>(<ref refid="namespacevt_1_1elm_1a38487cb8896b9b4763efa9022fab560e" kindref="member">elm::CommMapType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>comm_data)<sp/>{</highlight></codeline>
-<codeline lineno="738"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
-<codeline lineno="739"><highlight class="normal"><sp/><sp/>std::unordered_map&lt;NodeType,<sp/>lb::BaseLB::ElementCommType&gt;<sp/>shared_edges;</highlight></codeline>
-<codeline lineno="740"><highlight class="normal"></highlight></codeline>
-<codeline lineno="741"><highlight class="normal"><sp/><sp/><ref refid="debug__print_8h_1ab994f04eda64129ff010c6fcea609ecb" kindref="member">vt_debug_print</ref>(</highlight></codeline>
-<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27" kindref="member">verbose</ref>,<sp/>lb,<sp/></highlight><highlight class="stringliteral">&quot;getSharedEdges:<sp/>comm<sp/>size={}\n&quot;</highlight><highlight class="normal">,<sp/>comm_data.size()</highlight></codeline>
-<codeline lineno="743"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="744"><highlight class="normal"></highlight></codeline>
-<codeline lineno="745"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>elm<sp/>:<sp/>comm_data)<sp/>{</highlight></codeline>
-<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight></codeline>
-<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elm.first.commCategory()<sp/>==<sp/><ref refid="namespacevt_1_1elm_1ab7367fdbe88bdcf329563642147f9ae2a95aeb71ffd419cc14c6929f9dcd6cdff" kindref="member">elm::CommCategory::SendRecv</ref><sp/>and</highlight></codeline>
-<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>not<sp/>elm.first.selfEdge()</highlight></codeline>
-<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
-<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>from<sp/>=<sp/>elm.first.fromObj();</highlight></codeline>
-<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>to<sp/>=<sp/>elm.first.toObj();</highlight></codeline>
-<codeline lineno="752"><highlight class="normal"></highlight></codeline>
-<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>from_node<sp/>=<sp/>from.curr_node;</highlight></codeline>
-<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>to.curr_node;</highlight></codeline>
-<codeline lineno="755"><highlight class="normal"></highlight></codeline>
-<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="debug__print_8h_1ab994f04eda64129ff010c6fcea609ecb" kindref="member">vt_debug_print</ref>(</highlight></codeline>
-<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27" kindref="member">verbose</ref>,<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a52846d453b8bd4300e17a373cdf0cbdd" kindref="member">temperedwmin</ref>,<sp/></highlight><highlight class="stringliteral">&quot;getSharedEdges:<sp/>elm:<sp/>from={},<sp/>to={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>from,<sp/>to</highlight></codeline>
-<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="760"><highlight class="normal"></highlight></codeline>
-<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
-<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>from_node<sp/>==<sp/>this_node<sp/>or<sp/>to_node<sp/>==<sp/>this_node,</highlight></codeline>
-<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;One<sp/>node<sp/>must<sp/>involve<sp/>this<sp/>node&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>dir<sp/>=<sp/><ref refid="namespacevt_1aa17c6eae35e7e41a8b11d4047b7c0839" kindref="member">theConfig</ref>()-&gt;<ref refid="structvt_1_1arguments_1_1_app_config_1ada6b65e4526bf9a809f6f601f8713e51" kindref="member">vt_lb_statistics_dir</ref>;</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Node<sp/>0<sp/>creates<sp/>the<sp/>directory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;getNode()<sp/>==<sp/>0<sp/>and</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>not<sp/>dir.empty()<sp/>and<sp/>not<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a87cf4beb67cee5dfe49366ce2387cf06" kindref="member">created_lbstats_dir_</ref></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flag<sp/>=<sp/>mkdir(dir.c_str(),<sp/>S_IRWXU);</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(flag<sp/>&lt;<sp/>0<sp/>&amp;&amp;<sp/>errno<sp/>!=<sp/>EEXIST)<sp/>{</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>directory:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>dir);</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a87cf4beb67cee5dfe49366ce2387cf06" kindref="member">created_lbstats_dir_</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight></codeline>
+<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>JSONAppender<sp/>=<sp/>util::json::Appender&lt;std::ofstream&gt;;</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"></highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a6a5c0370df20ab5adb200fb766b03776" kindref="member">statistics_writer_</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>statistics_writer_<sp/>=<sp/>std::make_unique&lt;JSONAppender&gt;(</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;phases&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;LBStatsfile&quot;</highlight><highlight class="normal">,<sp/>file_name,<sp/>compress</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="741"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"></highlight></codeline>
+<codeline lineno="743"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a7fcd0cc4e6fa9a101411ece9bc687141" kindref="member">LBManager::closeStatisticsFile</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager_1a6a5c0370df20ab5adb200fb766b03776" kindref="member">statistics_writer_</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="745"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"></highlight></codeline>
+<codeline lineno="747"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Go<sp/>through<sp/>the<sp/>comm<sp/>graph<sp/>and<sp/>extract<sp/>out<sp/>paired<sp/>SendRecv<sp/>edges<sp/>that<sp/>are</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="748"><highlight class="normal"></highlight><highlight class="comment">//<sp/>not<sp/>self-send<sp/>and<sp/>have<sp/>a<sp/>non-local<sp/>edge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="749"><highlight class="normal">std::unordered_map&lt;NodeType,<sp/>lb::BaseLB::ElementCommType&gt;</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1ac3a36cc89a7a64a5a0dc703562b5151f" kindref="member">getSharedEdges</ref>(<ref refid="namespacevt_1_1elm_1a38487cb8896b9b4763efa9022fab560e" kindref="member">elm::CommMapType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>comm_data)<sp/>{</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/>std::unordered_map&lt;NodeType,<sp/>lb::BaseLB::ElementCommType&gt;<sp/>shared_edges;</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"></highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><ref refid="debug__print_8h_1ab994f04eda64129ff010c6fcea609ecb" kindref="member">vt_debug_print</ref>(</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27" kindref="member">verbose</ref>,<sp/>lb,<sp/></highlight><highlight class="stringliteral">&quot;getSharedEdges:<sp/>comm<sp/>size={}\n&quot;</highlight><highlight class="normal">,<sp/>comm_data.size()</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>elm<sp/>:<sp/>comm_data)<sp/>{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elm.first.commCategory()<sp/>==<sp/><ref refid="namespacevt_1_1elm_1ab7367fdbe88bdcf329563642147f9ae2a95aeb71ffd419cc14c6929f9dcd6cdff" kindref="member">elm::CommCategory::SendRecv</ref><sp/>and</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>not<sp/>elm.first.selfEdge()</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>from<sp/>=<sp/>elm.first.fromObj();</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>to<sp/>=<sp/>elm.first.toObj();</highlight></codeline>
 <codeline lineno="765"><highlight class="normal"></highlight></codeline>
-<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(from_node<sp/>!=<sp/>this_node)<sp/>{</highlight></codeline>
-<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared_edges[from_node][elm.first]<sp/>=<sp/>elm.second;</highlight></codeline>
-<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(to_node<sp/>!=<sp/>this_node)<sp/>{</highlight></codeline>
-<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared_edges[to_node][elm.first]<sp/>=<sp/>elm.second;</highlight></codeline>
-<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="772"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>from_node<sp/>=<sp/>from.curr_node;</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>to_node<sp/>=<sp/>to.curr_node;</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"></highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="debug__print_8h_1ab994f04eda64129ff010c6fcea609ecb" kindref="member">vt_debug_print</ref>(</highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27" kindref="member">verbose</ref>,<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a52846d453b8bd4300e17a373cdf0cbdd" kindref="member">temperedwmin</ref>,<sp/></highlight><highlight class="stringliteral">&quot;getSharedEdges:<sp/>elm:<sp/>from={},<sp/>to={}\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>from,<sp/>to</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="773"><highlight class="normal"></highlight></codeline>
-<codeline lineno="774"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>shared_edges;</highlight></codeline>
-<codeline lineno="775"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="776"><highlight class="normal"></highlight></codeline>
-<codeline lineno="777"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1adb94fe32f6565b52ab18e5e0131c48b0" kindref="member">makeGraphSymmetric</ref>(</highlight></codeline>
-<codeline lineno="778"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a46ce6733d5cdbd735d561b7b4029f6d7" kindref="member">PhaseType</ref><sp/>phase,<sp/>objgroup::proxy::Proxy&lt;lb::BaseLB&gt;<sp/>proxy</highlight></codeline>
-<codeline lineno="779"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="780"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">theNodeLBData</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data_1a01ac3980585c93769570fd4e76ea9218" kindref="member">getNodeComm</ref>()-&gt;find(phase);</highlight></codeline>
-<codeline lineno="781"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter<sp/>==<sp/><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">theNodeLBData</ref>()-&gt;getNodeComm()-&gt;<ref refid="namespacevt_1_1util_1_1json_1a6f1b13d9471c62e046731666abd9c5ed" kindref="member">end</ref>())<sp/>{</highlight></codeline>
-<codeline lineno="782"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="783"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="784"><highlight class="normal"></highlight></codeline>
-<codeline lineno="785"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>shared_edges<sp/>=<sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1ac3a36cc89a7a64a5a0dc703562b5151f" kindref="member">getSharedEdges</ref>(iter-&gt;second);</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>from_node<sp/>==<sp/>this_node<sp/>or<sp/>to_node<sp/>==<sp/>this_node,</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;One<sp/>node<sp/>must<sp/>involve<sp/>this<sp/>node&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"></highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(from_node<sp/>!=<sp/>this_node)<sp/>{</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared_edges[from_node][elm.first]<sp/>=<sp/>elm.second;</highlight></codeline>
+<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(to_node<sp/>!=<sp/>this_node)<sp/>{</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared_edges[to_node][elm.first]<sp/>=<sp/>elm.second;</highlight></codeline>
+<codeline lineno="783"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="785"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="786"><highlight class="normal"></highlight></codeline>
-<codeline lineno="787"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>elm<sp/>:<sp/>shared_edges)<sp/>{</highlight></codeline>
-<codeline lineno="788"><highlight class="normal"><sp/><sp/><sp/><sp/>proxy[elm.first].send&lt;lb::CommMsg,<sp/>&amp;<ref refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b_1a5fc35b2b0fb14da5a44b124b4dc8fbc9" kindref="member">lb::BaseLB::recvSharedEdges</ref>&gt;(</highlight></codeline>
-<codeline lineno="789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elm.second</highlight></codeline>
-<codeline lineno="790"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="791"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="792"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="793"><highlight class="normal"></highlight></codeline>
-<codeline lineno="794"><highlight class="normal">}}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::vrt::collection::balance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="787"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>shared_edges;</highlight></codeline>
+<codeline lineno="788"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="789"><highlight class="normal"></highlight></codeline>
+<codeline lineno="790"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1adb94fe32f6565b52ab18e5e0131c48b0" kindref="member">makeGraphSymmetric</ref>(</highlight></codeline>
+<codeline lineno="791"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a46ce6733d5cdbd735d561b7b4029f6d7" kindref="member">PhaseType</ref><sp/>phase,<sp/>objgroup::proxy::Proxy&lt;lb::BaseLB&gt;<sp/>proxy</highlight></codeline>
+<codeline lineno="792"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">theNodeLBData</ref>()-&gt;<ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data_1a01ac3980585c93769570fd4e76ea9218" kindref="member">getNodeComm</ref>()-&gt;find(phase);</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iter<sp/>==<sp/><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">theNodeLBData</ref>()-&gt;getNodeComm()-&gt;<ref refid="namespacevt_1_1util_1_1json_1a6f1b13d9471c62e046731666abd9c5ed" kindref="member">end</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="796"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="797"><highlight class="normal"></highlight></codeline>
+<codeline lineno="798"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>shared_edges<sp/>=<sp/><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1ac3a36cc89a7a64a5a0dc703562b5151f" kindref="member">getSharedEdges</ref>(iter-&gt;second);</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"></highlight></codeline>
+<codeline lineno="800"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;&amp;<sp/>elm<sp/>:<sp/>shared_edges)<sp/>{</highlight></codeline>
+<codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/>proxy[elm.first].send&lt;lb::CommMsg,<sp/>&amp;<ref refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b_1a5fc35b2b0fb14da5a44b124b4dc8fbc9" kindref="member">lb::BaseLB::recvSharedEdges</ref>&gt;(</highlight></codeline>
+<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elm.second</highlight></codeline>
+<codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="804"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="805"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="806"><highlight class="normal"></highlight></codeline>
+<codeline lineno="807"><highlight class="normal">}}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::vrt::collection::balance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/vrt/collection/balance/lb_invoke/lb_manager.cc"/>
   </compounddef>
