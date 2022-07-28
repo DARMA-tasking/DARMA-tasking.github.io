@@ -252,6 +252,7 @@ var searchData=
   ['serialize_5ft',['serialize_t',['../structcheckpoint_1_1_serializable_traits.html#a416ff19cd1038279ace5cb49e3a9fb7d',1,'checkpoint::SerializableTraits']]],
   ['serializearray',['serializeArray',['../namespacecheckpoint_1_1dispatch.html#a055fa8c0078dbd129325b1038079d87d',1,'checkpoint::dispatch']]],
   ['serializeas',['serializeAs',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html#a1278b482c837c11fd2f6f41b7f8b0f33',1,'vt::util::adt::AlignedCharUnion']]],
+  ['serializecontainercapacity',['serializeContainerCapacity',['../namespacecheckpoint.html#abb25020fd55429c701342e79205a8d9a',1,'checkpoint']]],
   ['serializecontainerelems',['serializeContainerElems',['../namespacecheckpoint.html#a9c880ba9bb9a106e784e06554b2fbcf2',1,'checkpoint']]],
   ['serializecontainersize',['serializeContainerSize',['../namespacecheckpoint.html#a3359595d5a4c6fcf5fc95069c71f869b',1,'checkpoint']]],
   ['serialized_5fdata_5fmsg_2eh',['serialized_data_msg.h',['../serialized__data__msg_8h.html',1,'']]],

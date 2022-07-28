@@ -21,7 +21,7 @@ var searchData=
   ['layout',['layout',['../unionvt_1_1pool_1_1_alloc_view.html#a332dd2cdc50fc0101cb07a00f692daec',1,'vt::pool::AllocView']]],
   ['lazymigrateobjsto',['lazyMigrateObjsTo',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a00af3637cea1d345fea518d2608d5596',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['lazymigrationmsg',['LazyMigrationMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html',1,'vt::vrt::collection::balance::LazyMigrationMsg'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html#a05c45988e43b726f0792e8fb43183036',1,'vt::vrt::collection::balance::LazyMigrationMsg::LazyMigrationMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_lazy_migration_msg.html#aa63fe960ff146d67756b83b5e7d529e9',1,'vt::vrt::collection::balance::LazyMigrationMsg::LazyMigrationMsg(NodeType in_to_node, ObjsType const &amp;in_objs)']]],
-  ['lb',['LB',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ac951270e425b15fc20c64da4341c1d89',1,'vt::error::LB()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aecb25779c74e06cc3e6baf03ed8289ed',1,'vt::config::lb()']]],
+  ['lb',['lb',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aecb25779c74e06cc3e6baf03ed8289ed',1,'vt::config::lb()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ac951270e425b15fc20c64da4341c1d89',1,'vt::error::LB()']]],
   ['lb_20restart_20reader',['LB Restart Reader',['../lb-data-reader.html',1,'introduction']]],
   ['lb_2ddata_2dreader_2emd',['lb-data-reader.md',['../lb-data-reader_8md.html',1,'']]],
   ['lb_20manager',['LB Manager',['../lb-manager.html',1,'introduction']]],

@@ -10,6 +10,7 @@ var searchData=
   ['knowledge_5f',['knowledge_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a4b6087104debbccb5396cb96a599767f',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['knowledgeenum',['KnowledgeEnum',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a72b44c7e6b2052509331d57b9c94c84a',1,'vt::vrt::collection::lb']]],
   ['known_5froot_5fnode_5f',['known_root_node_',['../structvt_1_1group_1_1_info_coll.html#a89e612584c480324a5d11c2c5d672c81',1,'vt::group::InfoColl']]],
+  ['kokkos_5funordered_5fmap_5fserialize_2eh',['kokkos_unordered_map_serialize.h',['../kokkos__unordered__map__serialize_8h.html',1,'']]],
   ['krte',['krte',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a01ab8ead157e42fa39ac1ab19ab109c0',1,'vt::vrt::collection::balance::LoadData']]],
   ['kur',['kur',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea7663d8c57a4fe7d83db6bbc1bff52586',1,'vt::vrt::collection::lb']]]
 ];
