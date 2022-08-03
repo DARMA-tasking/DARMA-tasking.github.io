@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['datacollection',['DataCollection',['../namespacevt_1_1phase.html#aec9a63fdd99680d7a7fe99d321193811ae9b52b42e3fb150bbdd851e4ad7bfa4c',1,'vt::phase']]],
   ['datamsgtag',['DataMsgTag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55a9bee0499791527abc5fcf1099c3cc188',1,'vt::messaging']]],
   ['debugdiagnostic',['DebugDiagnostic',['../namespacevt_1_1runtime_1_1component.html#af0bb99d9a054682217874bdc735ecac0a6f2a28752e3919bfba519660555f2c61',1,'vt::runtime::component']]],
   ['defaultinstance',['DefaultInstance',['../namespacevt_1_1runtime.html#afca910c1b38b3975f7c1da8001a77d58af4b803eff3cdc140ed473828f9c89101',1,'vt::runtime']]],

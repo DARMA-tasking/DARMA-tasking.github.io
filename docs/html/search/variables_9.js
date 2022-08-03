@@ -78,6 +78,7 @@ var searchData=
   ['is_5freconstructible',['is_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a6cc78a7cc9b4645727c92437619fce83',1,'checkpoint::SerializableTraits']]],
   ['is_5fremote_5f',['is_remote_',['../structvt_1_1group_1_1_info_rooted.html#ae35381afa327833a2b9f4bb758703a11',1,'vt::group::InfoRooted']]],
   ['is_5froot_5f',['is_root_',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a6580f48704b511253b50f63a8ccf1b68',1,'vt::collective::reduce::ReduceLink::is_root_()'],['../structvt_1_1collective_1_1tree_1_1_tree.html#abe6e5a200fc08f3dc040bd134e97d8f2',1,'vt::collective::tree::Tree::is_root_()']]],
+  ['is_5frooted_5f',['is_rooted_',['../structvt_1_1phase_1_1_phase_hook_i_d.html#a88e238f6a6411dc0974e93a0b4972833',1,'vt::phase::PhaseHookID']]],
   ['is_5fsame',['is_same',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_00_01_u_00_01_us_8_8_8_01_4.html#a7b2235c3b5d29130243299e42c2fada4',1,'vt::util::adt::detail::MustBe&lt; T, U, Us... &gt;::is_same()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_01_4.html#a8708bc6f123e9851bc944a785e01e54f',1,'vt::util::adt::detail::MustBe&lt; T &gt;::is_same()']]],
   ['is_5fserializable',['is_serializable',['../structcheckpoint_1_1_serializable_traits.html#a3941c4fcb5397fe564a3453857aa9183',1,'checkpoint::SerializableTraits']]],
   ['is_5fsetup_5f',['is_setup_',['../structvt_1_1group_1_1_info_rooted.html#a15e10cbd49b9f1a70c1a1524ba91d3d8',1,'vt::group::InfoRooted']]],

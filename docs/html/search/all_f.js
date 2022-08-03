@@ -65,6 +65,7 @@ var searchData=
   ['next_5fseq_5f',['next_seq_',['../structvt_1_1collective_1_1detail_1_1_scope_impl.html#a66d11b610384061b202fff45d2f18bbf',1,'vt::collective::detail::ScopeImpl::next_seq_()'],['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a368873db0ddebf8365fdd3021927a691',1,'vt::collective::reduce::Reduce::next_seq_()']]],
   ['next_5fsystem_5fscope_5f',['next_system_scope_',['../structvt_1_1collective_1_1_collective_alg.html#ad830a204e2989b28cc90d54e83f518b5',1,'vt::collective::CollectiveAlg']]],
   ['next_5ftrigger_5fid_5f',['next_trigger_id_',['../structvt_1_1timetrigger_1_1_time_trigger_manager.html#a97d23d2d8ae1bafe79456c68db0d5b26',1,'vt::timetrigger::TimeTriggerManager']]],
+  ['next_5funsync_5fhook_5fid_5f',['next_unsync_hook_id_',['../structvt_1_1phase_1_1_phase_manager.html#abb2e9aeb7dba41c6e33322ccfc04de3b',1,'vt::phase::PhaseManager']]],
   ['next_5fvrt_5fid',['next_vrt_id',['../structvt_1_1seq_1_1_seq_manager.html#aa76d48546de0c1eba39bd44212f554b4',1,'vt::seq::SeqManager']]],
   ['nextcollectiveid',['nextCollectiveID',['../structvt_1_1group_1_1_group_manager.html#ae8ccd9feb60fcd1ee85cc1f09ed003fb',1,'vt::group::GroupManager']]],
   ['nextmsg',['NextMsg',['../structvt_1_1phase_1_1_next_msg.html',1,'vt::phase']]],

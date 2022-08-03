@@ -195,6 +195,7 @@ var searchData=
   ['getinstanceid',['getInstanceID',['../structvt_1_1runtime_1_1_runtime.html#a06400b91b766f83d4b630bdc9ed840b1',1,'vt::runtime::Runtime']]],
   ['getintercept',['getIntercept',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a23b4e2e170789dc9632ad780fe4a4290',1,'vt::util::stats::LinearRegression']]],
   ['getiscollective',['getIsCollective',['../structvt_1_1phase_1_1_phase_hook_i_d.html#ad3f0edab6498385a2611f41f7a658ffa',1,'vt::phase::PhaseHookID']]],
+  ['getisrooted',['getIsRooted',['../structvt_1_1phase_1_1_phase_hook_i_d.html#a0084724ed8635e3307198227d7055a9a',1,'vt::phase::PhaseHookID']]],
   ['getiter',['getIter',['../structvt_1_1location_1_1_directory.html#ae54fc683860dbfd4145012b93332d70c',1,'vt::location::Directory']]],
   ['getiterend',['getIterEnd',['../structvt_1_1location_1_1_directory.html#a7960b610e733ac8df4417a6181e32fe1',1,'vt::location::Directory']]],
   ['getkey',['getKey',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#a5d7fb1508e6828047c4d9818a5a77668',1,'vt::runtime::component::detail::DiagnosticBase']]],
