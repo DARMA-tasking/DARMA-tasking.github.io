@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['tagcontainertype',['TagContainerType',['../structvt_1_1rdma_1_1_state.html#ad84b403803cc575ef54d0d0ac74017e9',1,'vt::rdma::State::TagContainerType()'],['../structvt_1_1registry_1_1_registry.html#abefc9cdcc8557c5d547dd3ae44ae0996',1,'vt::registry::Registry::TagContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state.html#af44de5aa05c93ee8fa1bc2a84c7107bb',1,'vt::seq::SeqMsgState::TagContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a64d396aacb60dcc361f846d807bd074a',1,'vt::seq::SeqMsgStateVirtual::TagContainerType()']]],
+  ['tagcontainertype',['TagContainerType',['../structvt_1_1rdma_1_1_state.html#ad84b403803cc575ef54d0d0ac74017e9',1,'vt::rdma::State::TagContainerType()'],['../structvt_1_1registry_1_1_registry.html#abefc9cdcc8557c5d547dd3ae44ae0996',1,'vt::registry::Registry::TagContainerType()']]],
   ['tagenvelope',['TagEnvelope',['../namespacevt.html#a7b951ab92dca9319e12e3fc406ccb309',1,'vt']]],
   ['tagged_5fconstructor_5ft',['tagged_constructor_t',['../structcheckpoint_1_1_serializable_traits.html#a5a1f289a5008468335f22e288a96d861',1,'checkpoint::SerializableTraits']]],
-  ['taggedactioncontainertype',['TaggedActionContainerType',['../structvt_1_1seq_1_1_seq_msg_state.html#a0f9787d4224b8017484093f967200209',1,'vt::seq::SeqMsgState::TaggedActionContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a1298c226eeddc2e8fbd58bf1b92ef2aa',1,'vt::seq::SeqMsgStateVirtual::TaggedActionContainerType()']]],
-  ['taggedmsgcontainertype',['TaggedMsgContainerType',['../structvt_1_1seq_1_1_seq_msg_state.html#a57de558c4a7efb36b5358117c6f6d4c5',1,'vt::seq::SeqMsgState::TaggedMsgContainerType()'],['../structvt_1_1seq_1_1_seq_msg_state_virtual.html#a9760353cffc9071f3e24054562a86db3',1,'vt::seq::SeqMsgStateVirtual::TaggedMsgContainerType()']]],
   ['taggerhandlertype',['TaggerHandlerType',['../structvt_1_1registry_1_1_registry.html#aed8ec48ac909aea3e4dbc21aa6f8e898',1,'vt::registry::Registry']]],
   ['tagpair',['TagPair',['../namespacevt_1_1collective_1_1reduce.html#ae3111ccd7e2214f079222e4c016b6652',1,'vt::collective::reduce']]],
   ['tagtype',['TagType',['../namespacevt.html#a84ab281dae04a52a4b243d6bf62d0e52',1,'vt']]],
@@ -52,7 +50,6 @@ var searchData=
   ['typedeventcontainertype',['TypedEventContainerType',['../structvt_1_1event_1_1_async_event.html#af0397f32fb9d7dd136c544737eeb7796',1,'vt::event::AsyncEvent']]],
   ['typedindexcontainer',['TypedIndexContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a7f238e98ee835799bc876c180a226b0d',1,'vt::vrt::collection::Holder']]],
   ['typedlbcontainer',['TypedLBContainer',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a299791b3df9ee801283b1ca8ed24433b',1,'vt::vrt::collection::Holder']]],
-  ['typeenum',['TypeEnum',['../structvt_1_1seq_1_1_seq_node.html#ac24353353c002acd8c5d6aa533533216',1,'vt::seq::SeqNode']]],
   ['typeidx',['TypeIdx',['../namespacecheckpoint_1_1dispatch_1_1vrt.html#acd3f9e6b091bcfbc23dc35ea8ef45d3b',1,'checkpoint::dispatch::vrt']]],
   ['typeindex',['TypeIndex',['../namespacecheckpoint_1_1dispatch_1_1typeregistry.html#a40b8b0de7b59181c6b3d8f2657280467',1,'checkpoint::dispatch::typeregistry']]],
   ['typenames',['TypeNames',['../namespacecheckpoint_1_1dispatch_1_1typeregistry.html#ae6cc6f19ecb8f66f73fa14a1acdc9b6e',1,'checkpoint::dispatch::typeregistry']]]

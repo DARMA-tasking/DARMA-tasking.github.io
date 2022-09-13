@@ -17,6 +17,5 @@ var searchData=
   ['operationtype',['OperationType',['../structvt_1_1collective_1_1tree_1_1_tree.html#a5ce4242e9580c807baa74168401f381a',1,'vt::collective::tree::Tree']]],
   ['operator_5feq_5ft',['operator_eq_t',['../structvt_1_1index_1_1_index_traits.html#a23832f22385d2d20bb1fc9885aef6146',1,'vt::index::IndexTraits']]],
   ['orderedsettype',['OrderedSetType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#af29bc3750493c7de4043f43ef7eb2ca2',1,'vt::term::interval::IntegralSetBase']]],
-  ['orderenum',['OrderEnum',['../structvt_1_1seq_1_1_seq_node.html#a1a934ba4a7da31ed1fa9c7789b8448ac',1,'vt::seq::SeqNode']]],
   ['orop',['OrOp',['../namespacevt_1_1collective.html#a47e3b11aa019f643f23effceb60ee94a',1,'vt::collective']]]
 ];

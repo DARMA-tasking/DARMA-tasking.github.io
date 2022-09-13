@@ -38,6 +38,5 @@ var searchData=
   ['full_5fdir_5fname_5f',['full_dir_name_',['../structvt_1_1trace_1_1_trace_lite.html#a3871cf535ca6f31bfb499a46cde4c80c',1,'vt::trace::TraceLite']]],
   ['full_5fsts_5fname_5f',['full_sts_name_',['../structvt_1_1trace_1_1_trace_lite.html#aa7236609212e978252ddefd9c0131537',1,'vt::trace::TraceLite']]],
   ['full_5ftrace_5fname_5f',['full_trace_name_',['../structvt_1_1trace_1_1_trace_lite.html#a0381e516d389555b3b40b954d276eff9',1,'vt::trace::TraceLite']]],
-  ['funcs',['funcs',['../unionvt_1_1seq_1_1u_seq_node_payload.html#ae29c56313f829840c64f9712fd457f5e',1,'vt::seq::uSeqNodePayload']]],
   ['future_5fphase_5fblock_5fsize_5f',['future_phase_block_size_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a26b2a79fd6145e7e3ab56581a8558584',1,'vt::vrt::collection::balance::MultiplePhases']]]
 ];

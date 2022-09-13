@@ -3,7 +3,7 @@ var searchData=
   ['aborted_5f',['aborted_',['../structvt_1_1runtime_1_1_runtime.html#a19b9ad0859c6fb417b734ac1cc8be1a7',1,'vt::runtime::Runtime']]],
   ['ackedarbitrary',['ackedArbitrary',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a3d2853955fae8dbf0180704c67e6eec2',1,'vt::term::ds::TermDS']]],
   ['ackedparent',['ackedParent',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a694ea9720fa7137d823a58b55250119f',1,'vt::term::ds::TermDS']]],
-  ['action',['action',['../structvt_1_1seq_1_1_action.html#aff78400db5a8a2ba0faaa80acb90ec78',1,'vt::seq::Action::action()'],['../structvt_1_1seq_1_1_action_virtual.html#a438e5137b43bd3b61f8125ce55561d71',1,'vt::seq::ActionVirtual::action()'],['../structvt_1_1vrt_1_1_pending_request.html#af6fddf631eb75dd7045f14ce76e30178',1,'vt::vrt::PendingRequest::action()']]],
+  ['action',['action',['../structvt_1_1vrt_1_1_pending_request.html#af6fddf631eb75dd7045f14ce76e30178',1,'vt::vrt::PendingRequest']]],
   ['action_5f',['action_',['../structvt_1_1collective_1_1detail_1_1_scope_impl_1_1_collective_info.html#a60c9ddcd8da8dbab5b66fcef3b6f8ce9',1,'vt::collective::detail::ScopeImpl::CollectiveInfo::action_()'],['../structvt_1_1location_1_1_pending_location_lookup.html#a601536844f9545be1cdf913fcd49d393',1,'vt::location::PendingLocationLookup::action_()']]],
   ['action_5fdepth_5f',['action_depth_',['../structvt_1_1sched_1_1_scheduler.html#a2cd57a3a421320e22d3ee8a6d47eb19e',1,'vt::sched::Scheduler']]],
   ['action_5fto_5ftrigger',['action_to_trigger',['../structvt_1_1rdma_1_1_action.html#a4a559b38b1e3d551f25f4874d0c17bec',1,'vt::rdma::Action']]],

@@ -30,7 +30,7 @@ var searchData=
   ['envtagtype',['EnvTagType',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6ca26b9cbbc5e12dbc64f8906b505e7c37e',1,'vt::messaging']]],
   ['envterm',['EnvTerm',['../namespacevt_1_1messaging.html#a6508ef3a4701a2e6fd0bfe3edcc63a6cab8e8cf33ab704f4caddd2d7bcc9268e8',1,'vt::messaging']]],
   ['epoch',['Epoch',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ad5d00abe34d0a2a47284b4bd534e4030',1,'vt::error::Epoch()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19',1,'vt::config::epoch()']]],
-  ['event',['Event',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aa4ecfc70574394990cf17bd83df499f7',1,'vt::error::Event()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df',1,'vt::config::event()']]],
+  ['event',['event',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df',1,'vt::config::event()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aa4ecfc70574394990cf17bd83df499f7',1,'vt::error::Event()']]],
   ['eventident',['EventIdent',['../namespacevt_1_1event.html#ad563011dc9e3e01042df27d00092aceba2afe9027cb72d9816ad052b1614fbc7f',1,'vt::event']]],
   ['eventready',['EventReady',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429cac39388d25cc07031a0e9939837999e92',1,'vt::event']]],
   ['eventremote',['EventRemote',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429ca6c1cd1c5d55dc05e2b16a4f5f2d2dadd',1,'vt::event']]],

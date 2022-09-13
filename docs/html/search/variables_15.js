@@ -47,8 +47,6 @@ var searchData=
   ['vt_5fdebug_5freduce',['vt_debug_reduce',['../structvt_1_1arguments_1_1_app_config.html#afbd51efafa7ed24270a965af6e596232',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fruntime',['vt_debug_runtime',['../structvt_1_1arguments_1_1_app_config.html#a69b1371fb39fa1e541045c04cae8c28f',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fscatter',['vt_debug_scatter',['../structvt_1_1arguments_1_1_app_config.html#a986874798c711a33adf02e9c14b6488b',1,'vt::arguments::AppConfig']]],
-  ['vt_5fdebug_5fsequence',['vt_debug_sequence',['../structvt_1_1arguments_1_1_app_config.html#ab0ac2b709e0424c78d38b5f7e6570ffc',1,'vt::arguments::AppConfig']]],
-  ['vt_5fdebug_5fsequence_5fvrt',['vt_debug_sequence_vrt',['../structvt_1_1arguments_1_1_app_config.html#adc64abd1a30dad4e238b14c254e41cd0',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fserial_5fmsg',['vt_debug_serial_msg',['../structvt_1_1arguments_1_1_app_config.html#acdbaa0fe035d7968ffd04cf0670aa3eb',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5ftemperedlb',['vt_debug_temperedlb',['../structvt_1_1arguments_1_1_app_config.html#a0bfe98d17018f222aac3c135877f2e34',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5ftemperedwmin',['vt_debug_temperedwmin',['../structvt_1_1arguments_1_1_app_config.html#a55079a4d84cf05e43ea6a334e91ff826',1,'vt::arguments::AppConfig']]],

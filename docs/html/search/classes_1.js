@@ -2,8 +2,7 @@ var searchData=
 [
   ['ackmsg',['AckMsg',['../structvt_1_1term_1_1ds_1_1_ack_msg.html',1,'vt::term::ds']]],
   ['ackrequest',['AckRequest',['../structvt_1_1term_1_1ds_1_1_ack_request.html',1,'vt::term::ds']]],
-  ['action',['Action',['../structvt_1_1rdma_1_1_action.html',1,'vt::rdma::Action'],['../structvt_1_1seq_1_1_action.html',1,'vt::seq::Action&lt; MessageT &gt;']]],
-  ['actionvirtual',['ActionVirtual',['../structvt_1_1seq_1_1_action_virtual.html',1,'vt::seq']]],
+  ['action',['Action',['../structvt_1_1rdma_1_1_action.html',1,'vt::rdma']]],
   ['activeenvelope',['ActiveEnvelope',['../structvt_1_1messaging_1_1_active_envelope.html',1,'vt::messaging']]],
   ['activemessenger',['ActiveMessenger',['../structvt_1_1messaging_1_1_active_messenger.html',1,'vt::messaging']]],
   ['activemsg',['ActiveMsg',['../structvt_1_1messaging_1_1_active_msg.html',1,'vt::messaging']]],

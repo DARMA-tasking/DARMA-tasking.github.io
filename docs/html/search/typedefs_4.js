@@ -60,6 +60,5 @@ var searchData=
   ['eventrecordtypetype',['EventRecordTypeType',['../structvt_1_1event_1_1_async_event.html#a4cf6f3c99e69b2efeb5fa9b3ffbcca4a',1,'vt::event::AsyncEvent']]],
   ['eventstatetype',['EventStateType',['../structvt_1_1event_1_1_async_event.html#a35f2dfb3322fc042d4561ce1e119a0c8',1,'vt::event::AsyncEvent']]],
   ['eventtriggerconttype',['EventTriggerContType',['../structvt_1_1sched_1_1_scheduler.html#a68203230dc48285d3d50bbb363ed267b',1,'vt::sched::Scheduler']]],
-  ['eventtype',['EventType',['../namespacevt.html#a009267401def7ae8bf201892222d060f',1,'vt']]],
-  ['expandedclosurecontainertype',['ExpandedClosureContainerType',['../structvt_1_1seq_1_1_seq_node.html#aff21f386bb9bce2ce5c940edffcdb0a0',1,'vt::seq::SeqNode']]]
+  ['eventtype',['EventType',['../namespacevt.html#a009267401def7ae8bf201892222d060f',1,'vt']]]
 ];

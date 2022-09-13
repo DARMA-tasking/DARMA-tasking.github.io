@@ -53,8 +53,6 @@ var searchData=
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#aa72a9a7c6b1ea78eeccb928c68a4c505',1,'vt::serialization::SerializedMessenger']]],
   ['broadcastspec',['broadcastSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a3a5ececf49f827a057a7bea8ac7e7584',1,'vt::trace::file_spec::TraceSpec']]],
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a76b964a87805d59f20d0cbf861f546a2',1,'vt::messaging::BufferedActiveMsg']]],
-  ['bufferunmatchedaction',['bufferUnmatchedAction',['../structvt_1_1seq_1_1_seq_matcher.html#aca3ab24ab457f57cd341c21aff0c0951',1,'vt::seq::SeqMatcher::bufferUnmatchedAction()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a1679c1eba073362e70808fb89a174c6c',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedAction()']]],
-  ['bufferunmatchedmessage',['bufferUnmatchedMessage',['../structvt_1_1seq_1_1_seq_matcher.html#a1dc8c34d3611f4eac7e21089e1484e52',1,'vt::seq::SeqMatcher::bufferUnmatchedMessage()'],['../structvt_1_1seq_1_1_seq_matcher_virtual.html#a60dd673159850b4dea0b0d5e69f2ddef',1,'vt::seq::SeqMatcherVirtual::bufferUnmatchedMessage()']]],
   ['buildcontainerstring',['buildContainerString',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#ada0f64fb2e7d5f1e7827bec2762a1291',1,'vt::util::adt::HistogramApprox']]],
   ['builddata',['buildData',['../namespacevt.html#a59494f92a4811ae4f2b5264a50aa78dd',1,'vt']]],
   ['builddefaulttree',['buildDefaultTree',['../structvt_1_1group_1_1global_1_1_default_group.html#a2f503c7d6615e558ce08b0de7a1e8bfa',1,'vt::group::global::DefaultGroup']]],

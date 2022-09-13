@@ -108,8 +108,6 @@ var searchData=
   ['component_3c_20rdmamanager_20_3e',['Component&lt; RDMAManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20registry_20_3e',['Component&lt; Registry &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20scheduler_20_3e',['Component&lt; Scheduler &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
-  ['component_3c_20sequencer_20_3e',['Component&lt; Sequencer &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
-  ['component_3c_20sequencervirtual_20_3e',['Component&lt; SequencerVirtual &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20terminationdetector_20_3e',['Component&lt; TerminationDetector &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20timetriggermanager_20_3e',['Component&lt; TimeTriggerManager &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],
   ['component_3c_20trace_20_3e',['Component&lt; Trace &gt;',['../structvt_1_1runtime_1_1component_1_1_component.html',1,'vt::runtime::component']]],

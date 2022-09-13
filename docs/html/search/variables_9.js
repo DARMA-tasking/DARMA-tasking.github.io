@@ -63,7 +63,6 @@ var searchData=
   ['is_5findex',['is_index',['../structvt_1_1index_1_1_index_traits.html#a254b0c96b3b6a75e56e3d7ddd3787621',1,'vt::index::IndexTraits']]],
   ['is_5finterop_5f',['is_interop_',['../structvt_1_1runtime_1_1_runtime.html#a1169e49a960d59b2e1c7d9f5f9ef838d',1,'vt::runtime::Runtime']]],
   ['is_5fintrusive_5freconstructible',['is_intrusive_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a9879da69f4597dfb32b869142c1c46c9',1,'checkpoint::SerializableTraits']]],
-  ['is_5fleaf',['is_leaf',['../structvt_1_1seq_1_1_seq_closure.html#aa2ac69110e7697d2250b218b227ce60a',1,'vt::seq::SeqClosure']]],
   ['is_5flive',['is_live',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#a5f8a11f6cda4bfd18f869eb2f711f329',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['is_5flocal',['is_local',['../structvt_1_1rdma_1_1_info.html#aca2fbe3e10b689bba2ace9bed33bd5cb',1,'vt::rdma::Info']]],
   ['is_5flocked',['is_locked',['../structvt_1_1messaging_1_1_active_envelope.html#a17ded970dbc5c61160848d5ecf5c57ab',1,'vt::messaging::ActiveEnvelope']]],

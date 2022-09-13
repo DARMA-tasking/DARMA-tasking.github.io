@@ -18,7 +18,6 @@ var searchData=
   ['unpackerbuffer',['UnpackerBuffer',['../structcheckpoint_1_1_unpacker_buffer.html',1,'checkpoint']]],
   ['untypedcollection',['UntypedCollection',['../structvt_1_1vrt_1_1collection_1_1_untyped_collection.html',1,'vt::vrt::collection']]],
   ['useds',['UseDS',['../structvt_1_1term_1_1_use_d_s.html',1,'vt::term']]],
-  ['useqnodepayload',['uSeqNodePayload',['../unionvt_1_1seq_1_1u_seq_node_payload.html',1,'vt::seq']]],
   ['userbuffer',['UserBuffer',['../structcheckpoint_1_1buffer_1_1_user_buffer.html',1,'checkpoint::buffer']]],
   ['userdata',['UserData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html',1,'vt::trace::Log::Data']]],
   ['usereventregistry',['UserEventRegistry',['../structvt_1_1trace_1_1_user_event_registry.html',1,'vt::trace']]],

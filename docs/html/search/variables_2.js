@@ -20,7 +20,6 @@ var searchData=
   ['between_5fsched_5fevent_5ftype_5f',['between_sched_event_type_',['../structvt_1_1trace_1_1_trace.html#a3be76c8f807837a4b242a5a28c005599',1,'vt::trace::Trace']]],
   ['bin_5fsize_5f',['bin_size_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_load_sampler_base_l_b.html#ae3be6a0560eb24b5796ad3f3612c9524',1,'vt::vrt::collection::lb::LoadSamplerBaseLB']]],
   ['block_5fmap',['block_map',['../structvt_1_1rdma_1_1_map.html#a4c23ea8b0775c9598d818348e66b4976',1,'vt::rdma::Map']]],
-  ['blocked_5fon_5fnode_5f',['blocked_on_node_',['../structvt_1_1seq_1_1_seq_node.html#a92c37e08aca5bd90a86870ddf6049cd1',1,'vt::seq::SeqNode']]],
   ['bottom_5fparent',['bottom_parent',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a613ebde72cb389a12eb7a522e0a5a690',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['bound_5f',['bound_',['../structvt_1_1group_1_1region_1_1_shallow_list.html#ad1567c77ff9e5cbf61264910072b087f',1,'vt::group::region::ShallowList']]],
   ['bounds',['bounds',['../structvt_1_1vrt_1_1collection_1_1_collection_holder.html#abc736d9b5626b8207433d3c9d0383f6a',1,'vt::vrt::collection::CollectionHolder']]],

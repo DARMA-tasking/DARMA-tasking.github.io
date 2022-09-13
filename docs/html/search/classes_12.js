@@ -1,10 +1,6 @@
 var searchData=
 [
   ['tagactiveenvelope',['TagActiveEnvelope',['../structvt_1_1messaging_1_1_tag_active_envelope.html',1,'vt::messaging']]],
-  ['taggedsequencer',['TaggedSequencer',['../structvt_1_1seq_1_1_tagged_sequencer.html',1,'vt::seq']]],
-  ['taggedsequencer_3c_20seqtype_2c_20seqmigratabletriggertype_20_3e',['TaggedSequencer&lt; SeqType, SeqMigratableTriggerType &gt;',['../structvt_1_1seq_1_1_tagged_sequencer.html',1,'vt::seq']]],
-  ['taggedsequencervrt',['TaggedSequencerVrt',['../structvt_1_1seq_1_1_tagged_sequencer_vrt.html',1,'vt::seq']]],
-  ['taggedsequencervrt_3c_20seqtype_2c_20seqmigratabletriggertype_20_3e',['TaggedSequencerVrt&lt; SeqType, SeqMigratableTriggerType &gt;',['../structvt_1_1seq_1_1_tagged_sequencer_vrt.html',1,'vt::seq']]],
   ['tagpair',['TagPair',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_tag_pair.html',1,'vt::collective::reduce::detail']]],
   ['tagtag',['TagTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_tag_tag.html',1,'vt::collective::reduce::detail::tags']]],
   ['target',['Target',['../structvt_1_1rdma_1_1_target.html',1,'vt::rdma']]],
@@ -42,7 +38,7 @@ var searchData=
   ['traverse',['Traverse',['../structcheckpoint_1_1dispatch_1_1_traverse.html',1,'checkpoint::dispatch']]],
   ['tree',['Tree',['../structvt_1_1collective_1_1tree_1_1_tree.html',1,'vt::collective::tree']]],
   ['trigger',['Trigger',['../structvt_1_1timetrigger_1_1_trigger.html',1,'vt::timetrigger']]],
-  ['type',['Type',['../structvt_1_1runtime_1_1component_1_1registry_1_1_type.html',1,'vt::runtime::component::registry::Type&lt; ObjT &gt;'],['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;']]],
+  ['type',['Type',['../structvt_1_1objgroup_1_1registry_1_1_type.html',1,'vt::objgroup::registry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;'],['../structvt_1_1runtime_1_1component_1_1registry_1_1_type.html',1,'vt::runtime::component::registry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;']]],
   ['typelessholder',['TypelessHolder',['../structvt_1_1vrt_1_1collection_1_1_typeless_holder.html',1,'vt::vrt::collection']]],
   ['typempi',['TypeMPI',['../structvt_1_1rdma_1_1_type_m_p_i.html',1,'vt::rdma']]],
   ['typempi_3c_20char_20_3e',['TypeMPI&lt; char &gt;',['../structvt_1_1rdma_1_1_type_m_p_i_3_01char_01_4.html',1,'vt::rdma']]],

@@ -65,7 +65,6 @@ var searchData=
   ['runtime',['runtime',['../namespacevt_1_1runtime.html',1,'vt']]],
   ['scatter',['scatter',['../namespacevt_1_1collective_1_1scatter.html',1,'vt::collective']]],
   ['sched',['sched',['../namespacevt_1_1sched.html',1,'vt']]],
-  ['seq',['seq',['../namespacevt_1_1seq.html',1,'vt']]],
   ['serialization',['serialization',['../namespacevt_1_1serialization.html',1,'vt']]],
   ['signal',['signal',['../namespacevt_1_1pipe_1_1signal.html',1,'vt::pipe']]],
   ['stack',['stack',['../namespacevt_1_1debug_1_1stack.html',1,'vt::debug']]],

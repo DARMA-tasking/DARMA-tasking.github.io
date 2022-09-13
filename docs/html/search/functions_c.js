@@ -50,7 +50,6 @@ var searchData=
   ['logevent',['logEvent',['../structvt_1_1trace_1_1_trace_lite.html#aeb468f1222761674e4ffb0cfa27f0641',1,'vt::trace::TraceLite']]],
   ['lookup',['lookup',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a1432de82ec0ae7aa521038f01e0b83f3',1,'vt::vrt::collection::Holder']]],
   ['lookupbyteshandler',['lookupBytesHandler',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#a3d8b57617a652d55cf2714930d618c05',1,'vt::rdma::RDMAManager']]],
-  ['lookupcontextexecute',['lookupContextExecute',['../structvt_1_1seq_1_1_tagged_sequencer.html#aacd0771ce78276cd9385f5ca742fe099',1,'vt::seq::TaggedSequencer']]],
   ['lookuplocation',['lookupLocation',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html#a881a52cad96b7fb7754da0fa7dbe3c98',1,'vt::vrt::collection::MappedNode']]],
   ['lower',['lower',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a5d0984e302e0ddb9828130261b86ec50',1,'vt::term::interval::IntegralSetBase::lower()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a36da58c3174932da9889d973c2940789',1,'vt::term::interval::Interval::lower()'],['../structvt_1_1term_1_1interval_1_1_strong_integral_set.html#a640d829d912ce07095ad70206b9a87ba',1,'vt::term::interval::StrongIntegralSet::lower()']]]
 ];
