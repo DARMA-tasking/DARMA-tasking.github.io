@@ -21,7 +21,7 @@ var searchData=
   ['default_5fgroup_5f',['default_group_',['../structvt_1_1group_1_1_group_msg.html#a42bcb186fa2675b7a16411a959dd936e',1,'vt::group::GroupMsg::default_group_()'],['../namespacevt_1_1group_1_1global.html#a7b35a98031034bd9b2f6837a6b089c39',1,'vt::group::global::default_group_()']]],
   ['default_5fnode_5f',['default_node_',['../structvt_1_1vrt_1_1_virtual_info.html#aab9e25f18e560b403b3f62ebea9f8233',1,'vt::vrt::VirtualInfo']]],
   ['default_5fpast_5flen',['default_past_len',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model.html#a5735a20dfd17fb2804a1b9b90d5649d1',1,'vt::vrt::collection::balance::LinearModel']]],
-  ['default_5fpool_5fsize',['default_pool_size',['../structvt_1_1pool_1_1_memory_pool_equal.html#a67dae02a7795b182a7302b9eb34924e7',1,'vt::pool::MemoryPoolEqual']]],
+  ['default_5fpool_5fsize',['default_pool_size',['../structvt_1_1pool_1_1_memory_pool_equal.html#a8daca02e94e9ab587670808525561c71',1,'vt::pool::MemoryPoolEqual']]],
   ['default_5fproxy_5f',['default_proxy_',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html#ad192b793a3929262a6b44951b628d215',1,'vt::vrt::collection::DispatchCollectionBase']]],
   ['default_5fspanning_5ftree_5f',['default_spanning_tree_',['../structvt_1_1group_1_1_info_rooted.html#a22bd6307d7ab65ff48b126f1b9dcf9e2',1,'vt::group::InfoRooted']]],
   ['delayed_5f',['delayed_',['../structvt_1_1rdma_1_1_request_holder.html#a7114ca667688685b7fcb627de3b605c0',1,'vt::rdma::RequestHolder']]],

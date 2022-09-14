@@ -44,7 +44,7 @@ var searchData=
   ['signalvoid',['SignalVoid',['../namespacevt_1_1pipe_1_1signal.html#ac80a6a95b9545fa65856842a88ac6087',1,'vt::pipe::signal']]],
   ['sigvoidtype',['SigVoidType',['../namespacevt_1_1pipe_1_1signal.html#acbe257d1ae44f20fa9fd9b6ed3057caf',1,'vt::pipe::signal']]],
   ['sizetype',['SizeType',['../structvt_1_1group_1_1region_1_1_region.html#a9bb381adf31111aae34dbc644bad6c1f',1,'vt::group::region::Region::SizeType()'],['../structvt_1_1pool_1_1_pool.html#a4030898e09d0160c24743a7b949c0d46',1,'vt::pool::Pool::SizeType()'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a6f35f4923f1329d25378656b0582e916',1,'vt::util::container::ConcurrentDequeLocked::SizeType()'],['../namespacevt_1_1serialization.html#ac7b555941c0bfd470bee3df22b967ff9',1,'vt::serialization::SizeType()']]],
-  ['slottype',['SlotType',['../structvt_1_1pool_1_1_memory_pool_equal.html#a101fdcb943d0cb0863cf17655e0b4e1c',1,'vt::pool::MemoryPoolEqual']]],
+  ['slottype',['SlotType',['../structvt_1_1pool_1_1_memory_pool_equal.html#af05a2c24c95c666b20e3758745be746b',1,'vt::pool::MemoryPoolEqual']]],
   ['spawn_5ft',['spawn_t',['../structvt_1_1worker_1_1_worker_traits.html#ab1c6768c82bad9bb5a911b5a676788a3',1,'vt::worker::WorkerTraits']]],
   ['spawnworkers_5ft',['spawnWorkers_t',['../structvt_1_1worker_1_1_worker_group_traits.html#a9a4aa1adc4280b6689a7c0212eca4577',1,'vt::worker::WorkerGroupTraits']]],
   ['spawnworkersblock_5ft',['spawnWorkersBlock_t',['../structvt_1_1worker_1_1_worker_group_traits.html#a23a7958cfe2a25001735c4d8eff808e8',1,'vt::worker::WorkerGroupTraits']]],

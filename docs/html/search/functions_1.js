@@ -69,7 +69,7 @@ var searchData=
   ['afterlb',['afterLB',['../structvt_1_1rdma_1_1_sub_handle.html#a9d441d9e8080998111cc659b8ce725b1',1,'vt::rdma::SubHandle']]],
   ['alignedcharunion',['AlignedCharUnion',['../structvt_1_1util_1_1adt_1_1_aligned_char_union.html#a8d0afe238f4a44735bb37be847f55c45',1,'vt::util::adt::AlignedCharUnion']]],
   ['aligner',['Aligner',['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner.html#a998732c9b376b2a0020425ba72d5d5ae',1,'vt::util::adt::detail::Aligner::Aligner()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner_3_01_t_01_4.html#a30f27c81da8f268242d9d89b3a0c436e',1,'vt::util::adt::detail::Aligner&lt; T &gt;::Aligner()']]],
-  ['alloc',['alloc',['../structvt_1_1pool_1_1_pool.html#a0bf20e8b4ad1b85fb8952d81d433da55',1,'vt::pool::Pool::alloc()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a070cb7e7f56cde226fe95a71832d7deb',1,'vt::pool::MemoryPoolEqual::alloc()']]],
+  ['alloc',['alloc',['../structvt_1_1pool_1_1_pool.html#a0bf20e8b4ad1b85fb8952d81d433da55',1,'vt::pool::Pool::alloc()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a727cf3e178072758dee1938fb6d1034a',1,'vt::pool::MemoryPoolEqual::alloc()']]],
   ['allocate',['allocate',['../structcheckpoint_1_1dispatch_1_1_standard.html#a289fce710a512a3dbbd96076ed8d721e',1,'checkpoint::dispatch::Standard']]],
   ['allocateconcretetype',['allocateConcreteType',['../namespacecheckpoint_1_1dispatch_1_1vrt_1_1objregistry.html#a744a3536afb9023749a6857bd1ec9f83',1,'checkpoint::dispatch::vrt::objregistry']]],
   ['allocatedatawindow',['allocateDataWindow',['../structvt_1_1rdma_1_1_holder.html#a7dc5e735fb6f919dabec8e118683b4ae',1,'vt::rdma::Holder']]],

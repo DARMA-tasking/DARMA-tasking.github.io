@@ -155,7 +155,7 @@ var searchData=
   ['aligner_3c_20t_20_3e',['Aligner&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_aligner_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['all_5ftrue',['all_true',['../namespacevt_1_1util.html#a3169b1fa334a1e8fa2326b8db648e446',1,'vt::util']]],
   ['all_5ftrue_2eh',['all_true.h',['../all__true_8h.html',1,'']]],
-  ['alloc',['alloc',['../structvt_1_1pool_1_1_pool.html#a0bf20e8b4ad1b85fb8952d81d433da55',1,'vt::pool::Pool::alloc()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a070cb7e7f56cde226fe95a71832d7deb',1,'vt::pool::MemoryPoolEqual::alloc()']]],
+  ['alloc',['alloc',['../structvt_1_1pool_1_1_pool.html#a0bf20e8b4ad1b85fb8952d81d433da55',1,'vt::pool::Pool::alloc()'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a727cf3e178072758dee1938fb6d1034a',1,'vt::pool::MemoryPoolEqual::alloc()']]],
   ['alloc_5fsize',['alloc_size',['../structvt_1_1pool_1_1_header.html#ad1f8e915eee733cd6b4d8efbfe51d551',1,'vt::pool::Header']]],
   ['alloc_5fworker',['alloc_worker',['../structvt_1_1pool_1_1_header.html#a054f2ad817d27c9725677c10ee487875',1,'vt::pool::Header']]],
   ['allocate',['allocate',['../structcheckpoint_1_1dispatch_1_1_standard.html#a289fce710a512a3dbbd96076ed8d721e',1,'checkpoint::dispatch::Standard']]],

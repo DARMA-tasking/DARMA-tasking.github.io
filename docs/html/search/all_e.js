@@ -222,7 +222,7 @@ var searchData=
   ['memory_5fusage_2eh',['memory_usage.h',['../memory__usage_8h.html',1,'']]],
   ['memoryfree',['MemoryFree',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da183cc2f17a6c69923fc44e71f41e21d2',1,'vt::trace']]],
   ['memorymalloc',['MemoryMalloc',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da5e5983c9162dc8f45b2154848599abbf',1,'vt::trace']]],
-  ['memorypoolequal',['MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html',1,'vt::pool::MemoryPoolEqual&lt; num_bytes_t &gt;'],['../structvt_1_1pool_1_1_memory_pool_equal.html#a588ccd66ce55b16d85ee47a739ec7cdd',1,'vt::pool::MemoryPoolEqual::MemoryPoolEqual()']]],
+  ['memorypoolequal',['MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html',1,'vt::pool::MemoryPoolEqual&lt; num_bytes_t, use_header &gt;'],['../structvt_1_1pool_1_1_memory_pool_equal.html#ad1f64e3c3c70d8c037c592f96443d02a',1,'vt::pool::MemoryPoolEqual::MemoryPoolEqual()']]],
   ['memorypoolptrtype',['MemoryPoolPtrType',['../structvt_1_1pool_1_1_pool.html#a21e20f5b56c3bae4f0d0cc36ed9c5eee',1,'vt::pool::Pool']]],
   ['memorypooltype',['MemoryPoolType',['../structvt_1_1pool_1_1_pool.html#a06673914350d933ad5205155eca14a3b',1,'vt::pool::Pool']]],
   ['memoryserializer',['MemorySerializer',['../structcheckpoint_1_1_memory_serializer.html',1,'checkpoint::MemorySerializer'],['../structcheckpoint_1_1_memory_serializer.html#a9c748be7a41c032f2a33fbdc0dbd3611',1,'checkpoint::MemorySerializer::MemorySerializer(ModeType const &amp;in_mode, SerialByteType *in_start)'],['../structcheckpoint_1_1_memory_serializer.html#ae1532a75ce6849ad1f1ceb7a379e56da',1,'checkpoint::MemorySerializer::MemorySerializer(ModeType const &amp;in_mode)']]],
