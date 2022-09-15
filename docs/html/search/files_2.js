@@ -62,6 +62,7 @@ var searchData=
   ['checkpoint_5flearn_5fserialize_2emd',['checkpoint_learn_serialize.md',['../checkpoint__learn__serialize_8md.html',1,'']]],
   ['checkpoint_5ftraits_2eh',['checkpoint_traits.h',['../checkpoint__traits_8h.html',1,'']]],
   ['chrono_5fserialize_2eh',['chrono_serialize.h',['../chrono__serialize_8h.html',1,'']]],
+  ['circular_5fbuffer_2eh',['circular_buffer.h',['../circular__buffer_8h.html',1,'']]],
   ['clean_5ftype_2eh',['clean_type.h',['../clean__type_8h.html',1,'']]],
   ['code_2eh',['code.h',['../code_8h.html',1,'']]],
   ['code_5fclass_2eh',['code_class.h',['../code__class_8h.html',1,'']]],

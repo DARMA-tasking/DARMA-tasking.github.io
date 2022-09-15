@@ -26,6 +26,7 @@ var searchData=
   ['has_5fthis_5fserialize',['has_this_serialize',['../structcheckpoint_1_1_serializable_traits.html#ab228ede8ce64a9aaebf9ce43ac388400',1,'checkpoint::SerializableTraits']]],
   ['has_5fvirtual_5fserialize',['has_virtual_serialize',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a21d83fdae98269101791620d64160887',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
   ['hasconstruct',['hasConstruct',['../structvt_1_1runtime_1_1component_1_1_component_traits.html#af0ab616ad3c6a062e23aac0332cb6e69',1,'vt::runtime::component::ComponentTraits']]],
+  ['head_5f',['head_',['../structvt_1_1util_1_1container_1_1_circular_buffer.html#a543bede3221fb2df06bd856bc4a45f21',1,'vt::util::container::CircularBuffer']]],
   ['hi',['hi',['../structvt_1_1rdma_1_1_region.html#a59ead9e316796250e28c58574d3d256f',1,'vt::rdma::Region']]],
   ['hi_5f',['hi_',['../structvt_1_1group_1_1region_1_1_range.html#ac4a27a2eba9f7efc7d96beb12cecdc04',1,'vt::group::region::Range::hi_()'],['../structvt_1_1group_1_1region_1_1_range_data.html#a9f3dad7035bf7cb591885af57528d210',1,'vt::group::region::RangeData::hi_()'],['../structvt_1_1util_1_1adt_1_1_ranged_counter.html#a453f72e1b6d6bf2bf380bff7fe477c34',1,'vt::util::adt::RangedCounter::hi_()']]],
   ['hint_5f',['hint_',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a50bd3ba628483148568402f9b474f680',1,'vt::term::interval::IntegralSetBase']]],

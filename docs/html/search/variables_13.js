@@ -5,6 +5,7 @@ var searchData=
   ['tag',['tag',['../structvt_1_1messaging_1_1_tag_active_envelope.html#ab5fdfcb898f8e0ca0b5c580018824766',1,'vt::messaging::TagActiveEnvelope::tag()'],['../structvt_1_1messaging_1_1_epoch_tag_active_envelope.html#aafb75781896b2eebe8cf1feae02c46f5',1,'vt::messaging::EpochTagActiveEnvelope::tag()'],['../structvt_1_1messaging_1_1_send_info.html#a2019e919629f4d5e3f3bca818136535b',1,'vt::messaging::SendInfo::tag()'],['../structvt_1_1rdma_1_1_info.html#a7d19beb6e7a0757aea7d3a16f610b6dd',1,'vt::rdma::Info::tag()']]],
   ['tag_5f',['tag_',['../structvt_1_1runnable_1_1_runnable_maker.html#a5d76922354a61ff8d94eb734960fb64b',1,'vt::runnable::RunnableMaker']]],
   ['tagged_5fregistered_5f',['tagged_registered_',['../structvt_1_1registry_1_1_registry.html#ad7d3a1810876242414c29c24db82bb6c',1,'vt::registry::Registry']]],
+  ['tail_5f',['tail_',['../structvt_1_1util_1_1container_1_1_circular_buffer.html#a5eb4acef245cc1a7a455a9ef99f1f4b4',1,'vt::util::container::CircularBuffer']]],
   ['taken_5fobjs',['taken_objs',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a72831d31662a79dcb0cf5e1f9f2499dc',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['target',['target',['../structvt_1_1rdma_1_1_channel_lookup.html#a5fc6e66edbe73653e261246202d22b97',1,'vt::rdma::ChannelLookup::target()'],['../structvt_1_1rdma_1_1_create_channel.html#ad562afaf95db8f77426f698b207de63f',1,'vt::rdma::CreateChannel::target()']]],
   ['target_5f',['target_',['../structvt_1_1rdma_1_1_channel.html#a50932f1ef290b73c7d3010e5e5cd24f7',1,'vt::rdma::Channel']]],
