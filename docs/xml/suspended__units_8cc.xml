@@ -3806,27 +3806,35 @@
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1af98ef20b8bf4e914b673a50c3d3a83ba" kindref="member">SuspendedUnits::addSuspended</ref>(</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid,<sp/>RunnablePtrType<sp/>runnable,<sp/><ref refid="namespacevt_1a86bff9f556eb761b27fc8600d006ac04" kindref="member">PriorityType</ref><sp/>p</highlight></codeline>
 <codeline lineno="52"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(runnable-&gt;isSuspended(),<sp/></highlight><highlight class="stringliteral">&quot;Runnable<sp/>must<sp/>be<sp/>suspended<sp/>to<sp/>add&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.emplace(</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>std::piecewise_construct,</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::forward_as_tuple(tid),</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>detail::SuspendedRunnable{std::move(runnable),<sp/>p}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a9c6e5accda32f30bf5541fe1f6be7d05" kindref="member">SuspendedUnits::resumeRunnable</ref>(<ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid)<sp/>{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.find(tid);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="hard__error_8h_1a899f856bd95d2b3990d90d0835b6f191" kindref="member">vtAbortIf</ref>(iter<sp/>==<sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.end(),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>have<sp/>valid<sp/>thread<sp/>ID<sp/>to<sp/>resume&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>std::move(iter-&gt;second.runnable_);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>p<sp/>=<sp/>iter-&gt;second.priority_;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a768062132bfdc473b84722a3d51c26f3" kindref="member">enqueue</ref>(p,<sp/>std::move(r));</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.erase(iter);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::sched<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(runnable-&gt;isSuspended(),<sp/></highlight><highlight class="stringliteral">&quot;Runnable<sp/>must<sp/>be<sp/>suspended<sp/>to<sp/>add&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.emplace(</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::piecewise_construct,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>std::forward_as_tuple(tid),</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>std::forward_as_tuple(</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>detail::SuspendedRunnable{std::move(runnable),<sp/>p}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>code<sp/>path&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a9c6e5accda32f30bf5541fe1f6be7d05" kindref="member">SuspendedUnits::resumeRunnable</ref>(<ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iter<sp/>=<sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.find(tid);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><ref refid="hard__error_8h_1a899f856bd95d2b3990d90d0835b6f191" kindref="member">vtAbortIf</ref>(iter<sp/>==<sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.end(),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>have<sp/>valid<sp/>thread<sp/>ID<sp/>to<sp/>resume&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>std::move(iter-&gt;second.runnable_);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>p<sp/>=<sp/>iter-&gt;second.priority_;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a768062132bfdc473b84722a3d51c26f3" kindref="member">enqueue</ref>(p,<sp/>std::move(r));</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="structvt_1_1sched_1_1_suspended_units_1a21eb59ab4bd3b27bbb5f2913a15b0d49" kindref="member">units_</ref>.erase(iter);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>code<sp/>path&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::sched<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/scheduler/suspended_units.cc"/>
   </compounddef>
