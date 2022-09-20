@@ -273,6 +273,7 @@ var searchData=
   ['directory_3c_20entityid_2c_20locrectype_20_3e',['Directory&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_directory.html',1,'vt::location']]],
   ['directory_5f',['directory_',['../structvt_1_1location_1_1_loc_lookup.html#aa8a90e2b6ab251ae50425055f071e7c0',1,'vt::location::LocLookup']]],
   ['directorymaptype',['DirectoryMapType',['../structvt_1_1location_1_1_directory.html#a6a897ff3929eccb2d334eb0b87b53f57',1,'vt::location::Directory']]],
+  ['disabletd',['disableTD',['../structvt_1_1term_1_1_termination_detector.html#a52ccd19418bca09be5cc3f5bf47efba5',1,'vt::term::TerminationDetector']]],
   ['disabletracing',['disableTracing',['../structvt_1_1trace_1_1_trace_lite.html#ac494fd6858647fd548b6554cf066568b',1,'vt::trace::TraceLite']]],
   ['disengage',['disengage',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#a55a5290621f7de06a421793daba374e8',1,'vt::term::ds::StateDS']]],
   ['disengaged',['disengaged',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a7f77705496eed386505e5bd266fc9800',1,'vt::term::ds::TermDS']]],
