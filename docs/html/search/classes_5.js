@@ -18,6 +18,7 @@ var searchData=
   ['epochimpltag',['EpochImplTag',['../structvt_1_1epoch_1_1detail_1_1_epoch_impl_tag.html',1,'vt::epoch::detail']]],
   ['epochlabel',['EpochLabel',['../structvt_1_1term_1_1_epoch_label.html',1,'vt::term']]],
   ['epochmanip',['EpochManip',['../structvt_1_1epoch_1_1_epoch_manip.html',1,'vt::epoch']]],
+  ['epochstack',['EpochStack',['../structvt_1_1term_1_1_epoch_stack.html',1,'vt::term']]],
   ['epochtag',['EpochTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_epoch_tag.html',1,'vt::collective::reduce::detail::tags']]],
   ['epochtagactiveenvelope',['EpochTagActiveEnvelope',['../structvt_1_1messaging_1_1_epoch_tag_active_envelope.html',1,'vt::messaging']]],
   ['epochtype',['EpochType',['../structvt_1_1epoch_1_1_epoch_type.html',1,'vt::epoch']]],

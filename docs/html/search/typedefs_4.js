@@ -35,7 +35,7 @@ var searchData=
   ['epochgraphmsg',['EpochGraphMsg',['../structvt_1_1term_1_1_termination_detector.html#aec8abc5a3b161ac7df73ff3ba385dace',1,'vt::term::TerminationDetector']]],
   ['epochimpltype',['EpochImplType',['../namespacevt_1_1epoch_1_1detail.html#a9adc5df96a521e516dc20511eb553075',1,'vt::epoch::detail']]],
   ['epochmessage',['EpochMessage',['../namespacevt.html#ad67368ffae52d7325002586b41bb150e',1,'vt']]],
-  ['epochstacktype',['EpochStackType',['../structvt_1_1messaging_1_1_active_messenger.html#a746358029c37dabf2b4c8ad26642aee9',1,'vt::messaging::ActiveMessenger']]],
+  ['epochstacktype',['EpochStackType',['../structvt_1_1term_1_1_termination_detector.html#ae12368cf9d7866c96deb32b0b61b977f',1,'vt::term::TerminationDetector']]],
   ['epochstatetype',['EpochStateType',['../structvt_1_1term_1_1_term_action.html#afcbc07a9b40ff2b6d53e9522877a745d',1,'vt::term::TermAction']]],
   ['epochtagenvelope',['EpochTagEnvelope',['../namespacevt.html#af23b58014ced6898422213a0e5e6a27a',1,'vt']]],
   ['epochtagmessage',['EpochTagMessage',['../namespacevt.html#a4ccc13b06bff8a4a35426a1a082a95a9',1,'vt']]],

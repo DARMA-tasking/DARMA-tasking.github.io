@@ -53,6 +53,7 @@ var searchData=
   ['spec_5fmod_5f',['spec_mod_',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec_1_1_spec_msg.html#a6857f603118b595c04ce28caf1ffb779',1,'vt::trace::file_spec::TraceSpec::SpecMsg::spec_mod_()'],['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#aae4873bc7f4d6ae6c33098670c8a550e',1,'vt::trace::file_spec::TraceSpec::spec_mod_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a72033347ba73a23dd3494ead118e44d1',1,'vt::vrt::collection::balance::ReadLBSpec::spec_mod_()']]],
   ['spec_5fprec_5f',['spec_prec_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#a53d7c8950db9d6b4d8b7d895d0a264d0',1,'vt::vrt::collection::balance::ReadLBSpec']]],
   ['spec_5fproxy_5f',['spec_proxy_',['../structvt_1_1trace_1_1_trace.html#a15282e64860d2a553d39396c9c1fe784',1,'vt::trace::Trace']]],
+  ['stack_5f',['stack_',['../structvt_1_1term_1_1_epoch_stack.html#a6ba9e4683df356f409c8ba27f977a99a',1,'vt::term::EpochStack']]],
   ['staged_5f',['staged_',['../structvt_1_1util_1_1json_1_1_appender.html#a70d829fed542b8958636ba51a6ba2f89',1,'vt::util::json::Appender']]],
   ['stamp_5f',['stamp_',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_i_d_impl.html#a84804f019298c0321847c09749ced0bb',1,'vt::collective::reduce::detail::ReduceIDImpl']]],
   ['standalone_5finitalized_5f',['standalone_initalized_',['../structvt_1_1trace_1_1_trace_lite.html#a1c41f9e975ef1ba41cc6550bab7b2375',1,'vt::trace::TraceLite']]],

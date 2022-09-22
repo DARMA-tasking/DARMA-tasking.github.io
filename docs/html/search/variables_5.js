@@ -33,7 +33,7 @@ var searchData=
   ['epoch_5fcallable_5factions_5f',['epoch_callable_actions_',['../structvt_1_1term_1_1_term_action.html#a43bab937874af46a501ccf865336fcb9',1,'vt::term::TermAction']]],
   ['epoch_5fproduced_5f',['epoch_produced_',['../structvt_1_1messaging_1_1_pending_send.html#a77a8ad56dc73c0821c3fa4cef0b4c27a',1,'vt::messaging::PendingSend']]],
   ['epoch_5fready_5f',['epoch_ready_',['../structvt_1_1term_1_1_termination_detector.html#a22c7c6cc9c6cd48b5570dbae226a56f3',1,'vt::term::TerminationDetector']]],
-  ['epoch_5fstack_5f',['epoch_stack_',['../structvt_1_1messaging_1_1_active_messenger.html#a477f7599bd71cba2865e49f3610e6025',1,'vt::messaging::ActiveMessenger']]],
+  ['epoch_5fstack_5f',['epoch_stack_',['../structvt_1_1term_1_1_termination_detector.html#a3a50dbf1d18f2157de76b2c5ee9a44d0',1,'vt::term::TerminationDetector']]],
   ['epoch_5fstate_5f',['epoch_state_',['../structvt_1_1term_1_1_termination_detector.html#a0c55ef5345253002f9de6e5c4337c53a',1,'vt::term::TerminationDetector']]],
   ['epoch_5fwait_5fstatus_5f',['epoch_wait_status_',['../structvt_1_1term_1_1_termination_detector.html#a95cdb85a87fcf162725bc6515b43a002',1,'vt::term::TerminationDetector']]],
   ['erased',['erased',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a8e12bc6e128cbf4829f13a578219a0be',1,'vt::vrt::collection::Holder']]],
