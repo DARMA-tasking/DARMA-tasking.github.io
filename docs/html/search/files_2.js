@@ -72,6 +72,7 @@ var searchData=
   ['col_5flb_5fdata_2eh',['col_lb_data.h',['../col__lb__data_8h.html',1,'']]],
   ['col_5flb_5fdata_2eimpl_2eh',['col_lb_data.impl.h',['../col__lb__data_8impl_8h.html',1,'']]],
   ['coll_5fmsg_2eh',['coll_msg.h',['../coll__msg_8h.html',1,'']]],
+  ['collection_2ecc',['collection.cc',['../collection_8cc.html',1,'']]],
   ['collection_2eh',['collection.h',['../collection_8h.html',1,'']]],
   ['collection_2eimpl_2eh',['collection.impl.h',['../collection_8impl_8h.html',1,'']]],
   ['collection_2emd',['collection.md',['../collection_8md.html',1,'']]],

@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['handlerbitstype',['HandlerBitsType',['../structvt_1_1_handler_manager.html#ac2c93e168ab703b2441e0c38aa28a08f',1,'vt::HandlerManager::HandlerBitsType()'],['../structvt_1_1registry_1_1_registry.html#acf13f3553c4f5c82dd9bd1cb716d435f',1,'vt::registry::Registry::HandlerBitsType()']]],
+  ['handlerbitstype',['HandlerBitsType',['../structvt_1_1_handler_manager.html#ac2c93e168ab703b2441e0c38aa28a08f',1,'vt::HandlerManager']]],
   ['handlercontroltype',['HandlerControlType',['../namespacevt.html#adbbef13b92f0a93b14c219b7cc8a48f2',1,'vt']]],
   ['handlerdma',['HandleRDMA',['../namespacevt.html#abc3449a4b87363b942453d0b8cc18a7d',1,'vt']]],
   ['handleridentifiertype',['HandlerIdentifierType',['../namespacevt.html#a59ae068fe828d1c33051ff96f3d016b6',1,'vt']]],
-  ['handlermanagertype',['HandlerManagerType',['../structvt_1_1messaging_1_1_active_messenger.html#ac7e9165df6550ea333f8eb018a5a0e60',1,'vt::messaging::ActiveMessenger::HandlerManagerType()'],['../structvt_1_1registry_1_1_registry.html#a0717ad6519a3d2c6f3e1848182db4bfa',1,'vt::registry::Registry::HandlerManagerType()'],['../namespacevt_1_1param.html#ad9561687e11201a35ed8aba0b666c0b4',1,'vt::param::HandlerManagerType()'],['../namespacevt_1_1auto__registry.html#a6014637a7590cbfcd2884a23c3e5b576',1,'vt::auto_registry::HandlerManagerType()']]],
+  ['handlermanagertype',['HandlerManagerType',['../structvt_1_1messaging_1_1_active_messenger.html#ac7e9165df6550ea333f8eb018a5a0e60',1,'vt::messaging::ActiveMessenger::HandlerManagerType()'],['../namespacevt_1_1param.html#ad9561687e11201a35ed8aba0b666c0b4',1,'vt::param::HandlerManagerType()'],['../namespacevt_1_1auto__registry.html#a6014637a7590cbfcd2884a23c3e5b576',1,'vt::auto_registry::HandlerManagerType()']]],
   ['handlertype',['HandlerType',['../namespacevt.html#af64846b57dfcaf104da3ef6967917573',1,'vt']]],
   ['handletomanager',['HandleToManager',['../structvt_1_1rdma_1_1_manager.html#aac6e7c58d320c302ea08461941d65f6e',1,'vt::rdma::Manager']]],
   ['handletype',['HandleType',['../structvt_1_1rdma_1_1_handle_set.html#ab3a698ee86bae503dfa84617205b2dd9',1,'vt::rdma::HandleSet::HandleType()'],['../structvt_1_1rdma_1_1_sub_handle.html#a782bd6ddc85c6a81d7f55d207fad71cd',1,'vt::rdma::SubHandle::HandleType()']]],
-  ['hantagcontainertype',['HanTagContainerType',['../structvt_1_1registry_1_1_registry.html#ab5d336044aee749d39c8feabe4fa6983',1,'vt::registry::Registry']]],
   ['has_5fbase_5ftypedef',['has_base_typedef',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a5ef65f047ffa20ed206485238ceb2af5',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
   ['has_5fbase_5ftypedef_5ft',['has_base_typedef_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a900e9fcb655c36ab48fd6db0f0258b75',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
   ['has_5fbuild_5findex',['has_build_index',['../structvt_1_1index_1_1_index_traits.html#a9507b2186fbda410df0f7c685504e314',1,'vt::index::IndexTraits']]],

@@ -4,7 +4,6 @@ var searchData=
   ['bare_5fhandler_5flb_5fdata_5f',['bare_handler_lb_data_',['../structvt_1_1messaging_1_1_active_messenger.html#a81c1445908fe33e56d859073edc09534',1,'vt::messaging::ActiveMessenger']]],
   ['barrier',['barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html#ad07b4e665f05847318343b3b17e0c554',1,'vt::collective::barrier::BarrierMsg::barrier()'],['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html#a0eff12c9cf71de0e09b5ca6b529f903a',1,'vt::collective::barrier::BarrierState::barrier()']]],
   ['base_5f',['base_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model.html#a8a2a6b2d5e79a7c02002132913c9ae55',1,'vt::vrt::collection::balance::ComposedModel']]],
-  ['base_5fepoch_5fstack_5fsize_5f',['base_epoch_stack_size_',['../structvt_1_1ctx_1_1_t_d.html#ae63dbf338735e6ffd69ae2d67a24e3fb',1,'vt::ctx::TD']]],
   ['base_5fidx_5f',['base_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a03d02cc3c3685644c5a784bf21241105',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
   ['base_5fmodel_5f',['base_model_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#ace781095ef59c156a0b23dea6dea70db',1,'vt::vrt::collection::balance::LBManager']]],
   ['base_5fstats_5f',['base_stats_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#aae83b83b87e2dea3d44861bd3fb1fde8',1,'vt::vrt::collection::lb::BaseLB']]],

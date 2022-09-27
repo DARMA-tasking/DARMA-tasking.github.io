@@ -41,6 +41,6 @@ var searchData=
   ['putmessage',['PutMessage',['../namespacevt_1_1rdma.html#ae0a0330c647ec5ac5d508750f4cd4a06',1,'vt::rdma']]],
   ['putptrconsttype',['PutPtrConstType',['../namespacevt.html#a494d6c6dc5cdb9a8d61eaedfa2c4d4f3',1,'vt']]],
   ['putptrtype',['PutPtrType',['../namespacevt.html#a537693bfe0223c71eb52bdbd6ea2c741',1,'vt']]],
-  ['putshortenvelope',['PutShortEnvelope',['../namespacevt.html#a8d7a7de9e76bfea1600009a775b7298c',1,'vt']]],
-  ['putunderenvelopet',['PutUnderEnvelopeT',['../namespacevt.html#a233c004b26ccd826ef10686169371e01',1,'vt']]]
+  ['putshortenvelope',['PutShortEnvelope',['../namespacevt.html#a4e561211bbf1d8d9a4766eb159852736',1,'vt']]],
+  ['putunderenvelopet',['PutUnderEnvelopeT',['../namespacevt.html#a38f077afcffb8ed5e18c6760e6697bbc',1,'vt']]]
 ];

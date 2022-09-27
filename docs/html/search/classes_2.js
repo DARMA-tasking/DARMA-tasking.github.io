@@ -3,7 +3,6 @@ var searchData=
   ['barrier',['Barrier',['../structvt_1_1collective_1_1barrier_1_1_barrier.html',1,'vt::collective::barrier']]],
   ['barriermsg',['BarrierMsg',['../structvt_1_1collective_1_1barrier_1_1_barrier_msg.html',1,'vt::collective::barrier']]],
   ['barrierstate',['BarrierState',['../structvt_1_1collective_1_1barrier_1_1_barrier_state.html',1,'vt::collective::barrier']]],
-  ['base',['Base',['../structvt_1_1ctx_1_1_base.html',1,'vt::ctx']]],
   ['baseappender',['BaseAppender',['../structvt_1_1util_1_1json_1_1_base_appender.html',1,'vt::util::json']]],
   ['basecollectionelmproxy',['BaseCollectionElmProxy',['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html',1,'vt::vrt::collection']]],
   ['basecollectionproxy',['BaseCollectionProxy',['../structvt_1_1vrt_1_1collection_1_1_base_collection_proxy.html',1,'vt::vrt::collection']]],

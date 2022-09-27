@@ -37,7 +37,6 @@ var searchData=
   ['refs_5f',['refs_',['../structvt_1_1pipe_1_1callback_1_1_callback_base.html#ab9464e03ecca5b6ce2186f5cc6e8110f',1,'vt::pipe::callback::CallbackBase']]],
   ['region_5f',['region_',['../structvt_1_1group_1_1_info_rooted.html#a8a4129a53b81053b106c6f491a51205b',1,'vt::group::InfoRooted']]],
   ['region_5flist_5f',['region_list_',['../structvt_1_1group_1_1_info_rooted.html#a51a1676e5c5d5a76543db96f7d8d893b',1,'vt::group::InfoRooted']]],
-  ['registered_5f',['registered_',['../structvt_1_1registry_1_1_registry.html#adb3e36c663839801759d6bd264b8c4b5',1,'vt::registry::Registry']]],
   ['registered_5fcomponents_5f',['registered_components_',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a615b981d265458c952406691c89ce0f6',1,'vt::runtime::component::ComponentPack']]],
   ['registered_5fset_5f',['registered_set_',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a7dd24ee6d0e1a8e66dd35257ba3e6d75',1,'vt::runtime::component::ComponentPack']]],
   ['registrar',['registrar',['../structvt_1_1auto__registry_1_1_registrar_wrapper_gen.html#a5f5d8dbaf072b2eaba56990e0af2b12d',1,'vt::auto_registry::RegistrarWrapperGen::registrar()'],['../structvt_1_1auto__registry_1_1_registrar_wrapper_functor.html#a637c66e11e7a955e7e57b03048f78a6d',1,'vt::auto_registry::RegistrarWrapperFunctor::registrar()'],['../structvt_1_1auto__registry_1_1_registrar_wrapper_index.html#add44f571a89096032e8fc5e5ce54f248',1,'vt::auto_registry::RegistrarWrapperIndex::registrar()'],['../structvt_1_1vrt_1_1collection_1_1_registrar_wrapper_vrt.html#afc5092f83f5858d4581d93533db68769',1,'vt::vrt::collection::RegistrarWrapperVrt::registrar()']]],
@@ -66,6 +65,7 @@ var searchData=
   ['round_5f',['round_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg_async.html#adc179114938252d9cd0c7664b94887ee',1,'vt::vrt::collection::balance::LoadMsgAsync']]],
   ['rt',['rt',['../structvt_1_1runtime_1_1_runtime_inst.html#a19ed3095efba69b6ab453eb9129eafd0',1,'vt::runtime::RuntimeInst::rt()'],['../namespacevt.html#acce65ec10b513659274e722365aaa36d',1,'vt::rt()']]],
   ['rt_5f',['rt_',['../structvt_1_1runtime_1_1_runtime_holder.html#a6b0f4efb09cd9dd6747aa5e8237e23ff',1,'vt::runtime::RuntimeHolder']]],
+  ['runnable',['runnable',['../structvt_1_1runnable_1_1_runnable_new_alloc.html#acec458ff78bea4438946ebadac54d52f',1,'vt::runnable::RunnableNewAlloc']]],
   ['runnable_5f',['runnable_',['../structvt_1_1sched_1_1detail_1_1_suspended_runnable.html#a75e2acf06f06e65bee0f88a14accc1c8',1,'vt::sched::detail::SuspendedRunnable']]],
   ['runtime_5factive_5f',['runtime_active_',['../structvt_1_1runtime_1_1_runtime.html#a0ab12b00f03032638dbc467d165bed30',1,'vt::runtime::Runtime']]]
 ];
