@@ -113,6 +113,7 @@ var searchData=
   ['load_5finfo_5f',['load_info_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a0262ca11f901c152c0d13fa64701fb44',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['load_5fmodel_2eh',['load_model.h',['../load__model_8h.html',1,'']]],
   ['load_5fmodel_5f',['load_model_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#ae6cd8bdf27d81dc55f9eec9038b347dc',1,'vt::vrt::collection::lb::BaseLB']]],
+  ['load_5fmodel_5fptr',['load_model_ptr',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a02400fd847cdebdf68d733e166b34cfd',1,'vt::vrt::collection::lb::TemperedWMin']]],
   ['load_5fover',['load_over',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#ae2701a450913d33bf8767164976b6e4c',1,'vt::vrt::collection::lb::GreedyLB::load_over()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#aced5f1ddf40eb67f0a86ebe56d75d22c',1,'vt::vrt::collection::lb::HierarchicalLB::load_over()']]],
   ['load_5fprofile_5f',['load_profile_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#afb95c0d993a5e23a1b66d7c411d5a415',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['load_5fsampler_2ecc',['load_sampler.cc',['../load__sampler_8cc.html',1,'']]],

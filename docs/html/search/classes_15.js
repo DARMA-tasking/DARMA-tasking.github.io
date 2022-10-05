@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['weightedcommunicationvolume',['WeightedCommunicationVolume',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume.html',1,'vt::vrt::collection::balance']]],
   ['weightedmessages',['WeightedMessages',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_messages.html',1,'vt::vrt::collection::balance']]],
   ['which',['Which',['../structvt_1_1util_1_1adt_1_1detail_1_1_which.html',1,'vt::util::adt::detail']]],
   ['whichimpl',['WhichImpl',['../structvt_1_1util_1_1adt_1_1detail_1_1_which_impl.html',1,'vt::util::adt::detail']]],

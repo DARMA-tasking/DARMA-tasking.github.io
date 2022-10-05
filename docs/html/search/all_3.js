@@ -100,7 +100,7 @@ var searchData=
   ['begintrace',['BeginTrace',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da052e139ef40865e0ea57809542259e2e',1,'vt::trace']]],
   ['beginunpack',['BeginUnpack',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da345ded25a364981430ac7be0702dd6ad',1,'vt::trace']]],
   ['beginusereventpair',['BeginUserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da566366b99702f7603997d1407afee876',1,'vt::trace']]],
-  ['beta_5f',['beta_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#abce8c16e0a7656a9df933f54ce7d2256',1,'vt::vrt::collection::lb::TemperedWMin']]],
+  ['beta_5f',['beta_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume.html#a292ab215ce7bced8fa55e8ecb8ab6c85',1,'vt::vrt::collection::balance::WeightedCommunicationVolume::beta_()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#abce8c16e0a7656a9df933f54ce7d2256',1,'vt::vrt::collection::lb::TemperedWMin::beta_()']]],
   ['between_5fsched_5fevent_5f',['between_sched_event_',['../structvt_1_1trace_1_1_trace.html#a3fdadda342771b037bb85aa77e0fc9cb',1,'vt::trace::Trace']]],
   ['between_5fsched_5fevent_5ftype_5f',['between_sched_event_type_',['../structvt_1_1trace_1_1_trace.html#a3be76c8f807837a4b242a5a28c005599',1,'vt::trace::Trace']]],
   ['billions',['Billions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a0280d8e6daff700da39edfbc74a15981',1,'vt::runtime::component']]],

@@ -2,7 +2,7 @@ var searchData=
 [
   ['samplefromcmf',['sampleFromCMF',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a674736589bb2c1cadba7516e0bf598b9',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['saveinfo',['saveInfo',['../structvt_1_1rdma_1_1_cache.html#ab8f9bc1877a3be2f277e7280f3db1075',1,'vt::rdma::Cache']]],
-  ['scatter',['scatter',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a0873f5fd4b890ad95e6ed6c097efe8bd',1,'vt::collective::scatter::Scatter::scatter(std::size_t const &amp;total_size, std::size_t const &amp;max_proc_size, FuncSizeType size_fn, FuncDataType data_fn)'],['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a33ea9a78c5d43dcea4ec2cb69d8b00b4',1,'vt::collective::scatter::Scatter::Scatter()']]],
+  ['scatter',['Scatter',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a33ea9a78c5d43dcea4ec2cb69d8b00b4',1,'vt::collective::scatter::Scatter::Scatter()'],['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a0873f5fd4b890ad95e6ed6c097efe8bd',1,'vt::collective::scatter::Scatter::scatter(std::size_t const &amp;total_size, std::size_t const &amp;max_proc_size, FuncSizeType size_fn, FuncDataType data_fn)']]],
   ['scatterdispatcher',['ScatterDispatcher',['../structvt_1_1auto__registry_1_1_scatter_dispatcher.html#a1059ed7e28fe51d138a6945593dce385',1,'vt::auto_registry::ScatterDispatcher']]],
   ['scatterhandler',['scatterHandler',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a96466ab88d5f8e69613c69e0e644e10c',1,'vt::collective::scatter::Scatter']]],
   ['scatterin',['scatterIn',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#aa80a957377cce3126058f3d7d30d2fed',1,'vt::collective::scatter::Scatter']]],

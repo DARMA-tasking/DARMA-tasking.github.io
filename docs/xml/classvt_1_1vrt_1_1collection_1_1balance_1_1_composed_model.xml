@@ -12,6 +12,7 @@
     <derivedcompoundref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n" prot="public" virt="non-virtual">vt::vrt::collection::balance::PersistenceMedianLastN</derivedcompoundref>
     <derivedcompoundref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_proposed_reassignment" prot="public" virt="non-virtual">vt::vrt::collection::balance::ProposedReassignment</derivedcompoundref>
     <derivedcompoundref refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_select_subphases" prot="public" virt="non-virtual">vt::vrt::collection::balance::SelectSubphases</derivedcompoundref>
+    <derivedcompoundref refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume" prot="public" virt="non-virtual">vt::vrt::collection::balance::WeightedCommunicationVolume</derivedcompoundref>
     <derivedcompoundref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_messages" prot="public" virt="non-virtual">vt::vrt::collection::balance::WeightedMessages</derivedcompoundref>
     <includes refid="composed__model_8h" local="no">composed_model.h</includes>
       <sectiondef kind="private-attrib">
@@ -26,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="84" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.h" bodystart="84" bodyend="-1"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="85" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -100,6 +101,7 @@
         <reimplementedby refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence_1a3b7513c6552fc464a12b2d2b076a5c55">getModeledLoad</reimplementedby>
         <reimplementedby refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_norm_1a59a4b40b7e3c55b341e1663443af8b77">getModeledLoad</reimplementedby>
         <reimplementedby refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n_1a0a55948fec1d95b5102faa7ebfaa6d6d">getModeledLoad</reimplementedby>
+        <reimplementedby refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume_1a37c97a69e9e4bc8a80b2394d9bffb41e">getModeledLoad</reimplementedby>
         <reimplementedby refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_select_subphases_1abb8177e14c5bba35b583e40f9ab4e14f">getModeledLoad</reimplementedby>
         <reimplementedby refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model_1a41a58ff3762933d52a7e82917f8d7ec7">getModeledLoad</reimplementedby>
         <reimplementedby refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection_1a465b8f14dead0affdaeb0cf24373565f">getModeledLoad</reimplementedby>
@@ -136,6 +138,45 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
         </inbodydescription>
         <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="72" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="58" bodyend="60"/>
       </memberdef>
+      <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a3db01f9ec9440bc5b77fae390581c874" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacevt_1a876a9d0cd5a952859c72de8a46881442" kindref="member">TimeType</ref></type>
+        <definition>TimeType vt::vrt::collection::balance::ComposedModel::getModeledComm</definition>
+        <argsstring>(ElementIDStruct object, PhaseOffset when) const override</argsstring>
+        <name>getModeledComm</name>
+        <reimplements refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model_1a1143c5dda0d3e409db174d5de6bfceb5">getModeledComm</reimplements>
+        <reimplementedby refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_messages_1aa392b1af7d42136794129ac167b2dbd8">getModeledComm</reimplementedby>
+        <param>
+          <type><ref refid="namespacevt_1_1vrt_1_1collection_1_1balance_1a9f5b53fafb270212279a4757d2c4cd28" kindref="member">ElementIDStruct</ref></type>
+          <declname>object</declname>
+        </param>
+        <param>
+          <type><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset" kindref="compound">PhaseOffset</ref></type>
+          <declname>when</declname>
+        </param>
+        <briefdescription>
+<para>Provide an estimate of the communication cost for a given object during a specified interval. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">object</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The object whose communication is desired </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">when</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The interval in which the communication takes place</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>How much communication time the object is estimated to require</para></simplesect>
+The <computeroutput>updateLoads</computeroutput> method must have been called before any call to this. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="73" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="63" bodyend="65"/>
+      </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1ad6e2a1c572a80e35acad0fcf1a0e8071" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool vt::vrt::collection::balance::ComposedModel::hasRawLoad</definition>
@@ -149,7 +190,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="73" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="62" bodyend="64"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="74" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="67" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a970a2b3b5bda75934fb186d5fe8b9f00" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type><ref refid="namespacevt_1a876a9d0cd5a952859c72de8a46881442" kindref="member">TimeType</ref></type>
@@ -190,7 +231,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="74" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="66" bodyend="68"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="75" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="71" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a20bb994d1b3b27eb2a82729d7d5c30f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>unsigned int</type>
@@ -221,7 +262,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="75" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="70" bodyend="73"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="76" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="75" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a7d32b6f8a0ca5970674238325df11783" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_object_iterator" kindref="compound">ObjectIterator</ref></type>
@@ -236,7 +277,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 <para>Object enumeration, to abstract away access to the underlying structures from <ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data" kindref="compound">NodeLBData</ref></para><para>The <computeroutput>updateLoads</computeroutput> method must have been called before any call to this. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="77" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="75" bodyend="77"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="78" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="80" bodyend="82"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1abd58ffd308443021356aff2595c6980f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -251,7 +292,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 <para>Object enumeration, to abstract away access to the underlying structures from <ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data" kindref="compound">NodeLBData</ref></para><para>The <computeroutput>updateLoads</computeroutput> method must have been called before any call to this. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="79" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="79" bodyend="81"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="80" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="84" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a85bd890eb6e94c85cbfeb9ef321139dc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>unsigned int</type>
@@ -265,7 +306,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 <para>Returns the number of phases of history available</para><para>The <computeroutput>updateLoads</computeroutput> method must have been called before any call to this. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="80" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="83" bodyend="85"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="81" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="88" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a744a16572614d11e554b1bf53b7c57f6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -280,7 +321,7 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
 <para>Returns the number of subphases recorded in the most recent completed phase</para><para>The <computeroutput>updateLoads</computeroutput> method must have been called before any call to this. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="81" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="87" bodyend="89"/>
+        <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="82" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.cc" bodystart="92" bodyend="94"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -318,9 +359,15 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
         <childnode refid="1203" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="1214">
+      <node id="1215">
         <label>vt::vrt::collection::balance::WeightedMessages</label>
         <link refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_messages"/>
+        <childnode refid="1203" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1214">
+        <label>vt::vrt::collection::balance::WeightedCommunicationVolume</label>
+        <link refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume"/>
         <childnode refid="1203" relation="public-inheritance">
         </childnode>
       </node>
@@ -360,24 +407,24 @@ The <computeroutput>updateLoads</computeroutput> method must have been called be
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="1215">
+      <node id="1216">
         <label>vt::vrt::collection::balance::ComposedModel</label>
         <link refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model"/>
-        <childnode refid="1216" relation="public-inheritance">
+        <childnode refid="1217" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="1216">
+      <node id="1217">
         <label>vt::vrt::collection::balance::LoadModel</label>
         <link refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model"/>
       </node>
     </collaborationgraph>
-    <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="62" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.h" bodystart="61" bodyend="85"/>
+    <location file="src/vt/vrt/collection/balance/model/composed_model.h" line="62" column="1" bodyfile="src/vt/vrt/collection/balance/model/composed_model.h" bodystart="61" bodyend="86"/>
     <listofallmembers>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a8a2a6b2d5e79a7c02002132913c9ae55" prot="private" virt="non-virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>base_</name></member>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a7d32b6f8a0ca5970674238325df11783" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>begin</name></member>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a84b77c1fceb9e07a0706b896a4d9e9c9" prot="public" virt="non-virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>ComposedModel</name></member>
       <member refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model_1a2b3212a8438a4b58a73c41db841f15b7" prot="public" virt="non-virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>end</name></member>
-      <member refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model_1a1143c5dda0d3e409db174d5de6bfceb5" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>getModeledComm</name></member>
+      <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a3db01f9ec9440bc5b77fae390581c874" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>getModeledComm</name></member>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a1dc491d5661d7690a8014d7a5833d788" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>getModeledLoad</name></member>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1a85bd890eb6e94c85cbfeb9ef321139dc" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>getNumCompletedPhases</name></member>
       <member refid="classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model_1abd58ffd308443021356aff2595c6980f" prot="public" virt="virtual"><scope>vt::vrt::collection::balance::ComposedModel</scope><name>getNumObjects</name></member>
