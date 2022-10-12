@@ -158,7 +158,7 @@ var searchData=
   ['broadcastnormalmsg',['broadcastNormalMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aa10f6bc4c1b886b78b22e0c9ca3805ef',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastroothandler',['broadcastRootHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9859d8346c9aac1fb0b65e6db82969db',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#aa72a9a7c6b1ea78eeccb928c68a4c505',1,'vt::serialization::SerializedMessenger']]],
-  ['broadcastspec',['broadcastSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a3a5ececf49f827a057a7bea8ac7e7584',1,'vt::trace::file_spec::TraceSpec']]],
+  ['broadcastspec',['broadcastSpec',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a87745527c8b2dc16cbeb3dd59219db1e',1,'vt::utils::file_spec::FileSpec']]],
   ['buf',['buf',['../structvt_1_1messaging_1_1_in_progress_base.html#a0ca5ccc2c8a35f0094893d6da21af4fd',1,'vt::messaging::InProgressBase::buf()'],['../structcheckpoint_1_1dispatch_1_1_allocator.html#a3d770c2b7a033aff92ba603be5b1027f',1,'checkpoint::dispatch::Allocator::buf()']]],
   ['buf_5f',['buf_',['../structvt_1_1sched_1_1_queue.html#a8518d84b809ea6d340e7a0d261533849',1,'vt::sched::Queue']]],
   ['buf_5fin_5f',['buf_in_',['../structvt_1_1util_1_1compress_1_1_decompressor.html#a47ec6000bc3a90508998f828551e3cea',1,'vt::util::compress::Decompressor']]],

@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['memoryunitenum',['MemoryUnitEnum',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6',1,'vt::util::memory']]],
-  ['migratestatus',['MigrateStatus',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804',1,'vt::vrt::collection']]],
-  ['modeenum',['ModeEnum',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a17af037ab505e902bc6133309a92ded2',1,'checkpoint::buffer::IOBuffer::ModeEnum()'],['../namespacevt_1_1config.html#a724e99568632cc0fe9c456c2230270d0',1,'vt::config::ModeEnum()']]],
-  ['moduleerrorcode',['ModuleErrorCode',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12',1,'vt::error']]],
-  ['mpitag',['MPITag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55',1,'vt::messaging']]]
+  ['lbtype',['LBType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ac4f99693509affcc67db182d4aad9b5c',1,'vt::vrt::collection::balance']]],
+  ['lifetimeenum',['LifetimeEnum',['../namespacevt_1_1pipe.html#acb42b284378c0fdac1d7c6335dc26f58',1,'vt::pipe']]],
+  ['lock',['Lock',['../namespacevt_1_1rdma.html#ac5c20b41a653e520b6305d4d454ecb70',1,'vt::rdma']]],
+  ['logdatatype',['LogDataType',['../structvt_1_1trace_1_1_log.html#ae1c08093fd18967b7d4912d04d6acc3d',1,'vt::trace::Log']]]
 ];

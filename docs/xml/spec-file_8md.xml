@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="spec-file_8md" kind="file" language="Markdown">
+    <compoundname>spec-file.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">\page<sp/>spec-file<sp/>Spec<sp/>File</highlight></codeline>
+<codeline><highlight class="normal">\brief<sp/>Specification<sp/>File<sp/>for<sp/>vt<sp/>components</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">VT<sp/>is<sp/>using<sp/>Specification<sp/>Files<sp/>for<sp/>various<sp/>components<sp/>(trace<sp/>and<sp/>LB).<sp/>Such<sp/>files<sp/>can<sp/>be<sp/>used<sp/>to<sp/>control<sp/>when<sp/>(on<sp/>which<sp/>Phases)<sp/>these<sp/>components<sp/>should<sp/>be<sp/>enabled/disabled.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>parser<sp/>will<sp/>read<sp/>the<sp/>following<sp/>format:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">[%]<sp/>&lt;phase&gt;<sp/>&lt;range<sp/>negative&gt;<sp/>&lt;range<sp/>positive&gt;</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>is<sp/>an<sp/>example<sp/>of<sp/>a<sp/>specification<sp/>file:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">0<sp/>0<sp/>10</highlight></codeline>
+<codeline><highlight class="normal">%100<sp/>-3<sp/>3</highlight></codeline>
+<codeline><highlight class="normal">200<sp/>-5<sp/>5</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>specifies<sp/>that<sp/>component<sp/>will<sp/>be<sp/>enabled<sp/>on<sp/>the<sp/>following<sp/>phases:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[0,10],<sp/>#<sp/>phase<sp/>0<sp/>with<sp/>offsets<sp/>0,+10<sp/>(subsumes<sp/>[0,3]<sp/>from<sp/>%100<sp/>-3<sp/>3)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[97,103]<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[195,205]<sp/>#<sp/>phase<sp/>200<sp/>with<sp/>offsets<sp/>-5,+5<sp/>(subsumes<sp/>[197,203]<sp/>from<sp/>%100<sp/>-3<sp/>3)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[297,303]<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[n%100-3,n%100+3]<sp/>...<sp/>#<sp/>any<sp/>phase<sp/>%<sp/>100<sp/>with<sp/>offset<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>sets<sp/>of<sp/>mod-phase<sp/>and<sp/>phase-specific<sp/>entries<sp/>must<sp/>be<sp/>unique.<sp/>There<sp/>may<sp/>be</highlight></codeline>
+<codeline><highlight class="normal">overlap<sp/>across<sp/>the<sp/>two<sp/>sets,<sp/>but<sp/>not<sp/>within<sp/>them.<sp/>Having<sp/>two<sp/>entries<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">start<sp/>with<sp/>`%100`<sp/>or<sp/>two<sp/>entries<sp/>that<sp/>start<sp/>with<sp/>`100`<sp/>would<sp/>be<sp/>invalid<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">trigger<sp/>a<sp/>parsing<sp/>error.<sp/>But<sp/>having<sp/>a<sp/>`%100`<sp/>and<sp/>`100`<sp/>entry<sp/>is<sp/>valid.</highlight></codeline>
+<codeline><highlight class="normal">Whether<sp/>component<sp/>is<sp/>enabled<sp/>is<sp/>calculated<sp/>as<sp/>an<sp/>OR<sp/>across<sp/>all<sp/>specification</highlight></codeline>
+<codeline><highlight class="normal">entries.<sp/>Thus,<sp/>if<sp/>a<sp/>given<sp/>phase<sp/>is<sp/>contained<sp/>in<sp/>any<sp/>spec<sp/>line,<sp/>it<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">enabled.<sp/>Note<sp/>that<sp/>`0<sp/>%<sp/>100<sp/>=<sp/>0`.<sp/>Therefore,<sp/>if<sp/>the<sp/>above<sp/>example<sp/>did<sp/>not</highlight></codeline>
+<codeline><highlight class="normal">contain<sp/>the<sp/>first<sp/>line,<sp/>component<sp/>would<sp/>be<sp/>enabled<sp/>as:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">\code</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[0,3],<sp/>#<sp/>any<sp/>phase<sp/>mod<sp/>100<sp/>from<sp/>-3,+3</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[97,103],</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[195,205],</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>[297,303],<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">\endcode</highlight></codeline>
+    </programlisting>
+    <location file="docs/md/spec-file.md"/>
+  </compounddef>
+</doxygen>

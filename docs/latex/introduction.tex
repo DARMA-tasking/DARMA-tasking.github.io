@@ -1134,7 +1134,10 @@ The type of communication lines up with the enum {\ttfamily vt\+::vrt\+::collect
 6 &{\ttfamily Comm\+Category\+::\+Node\+To\+Collection\+Bcast} &A broadcast from a node to a whole collection (receive-\/side) \\\cline{1-3}
 7 &{\ttfamily Comm\+Category\+::\+Collective\+To\+Collection\+Bcast} &Collective \textquotesingle{}broadcast\textquotesingle{} from every node to the local collection elements (receive-\/side) \\\cline{1-3}
 \end{longtabu}
-For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient). \hypertarget{phase}{}\section{Phase Manager}\label{phase}
+For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).\hypertarget{node-lb-data_lb-spec-file}{}\subsection{L\+B Specification File}\label{node-lb-data_lb-spec-file}
+In order to customize when LB output is enabled and disabled, a LB specification file can be passed to {\bfseries {\itshape vt}} via a command-\/line flag\+: {\ttfamily -\/-\/vt\+\_\+lb\+\_\+spec -\/-\/vt\+\_\+lb\+\_\+spec\+\_\+file=filename.\+spec}.
+
+For details about vt\textquotesingle{}s Specification File see vt-\/spec-\/file \hypertarget{phase}{}\section{Phase Manager}\label{phase}
 Manage phases of time
 
 The phase manager component {\ttfamily \hyperlink{structvt_1_1phase_1_1_phase_manager}{vt\+::phase\+::\+Phase\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt\+::the\+Phase()}} allows the delineation of collective intervals of time across all nodes. Load balancing, as well as other components, use phases as a boundary to perform many operations over an application\textquotesingle{}s execution such as work redistribution, outputting of statistical data, or flushing trace data.
@@ -1355,50 +1358,7 @@ To enable tracing at runtime, the trace component must be enabled at compile tim
 \hypertarget{trace_tracing-spec-file}{}\subsection{Tracing Specification File}\label{trace_tracing-spec-file}
 In order to customize when tracing is enabled and disabled, a trace specification file can be passed to {\bfseries {\itshape vt}} via a command-\/line flag\+: {\ttfamily -\/-\/vt\+\_\+trace\+\_\+spec -\/-\/vt\+\_\+trace\+\_\+spec\+\_\+file=filename.\+spec}.
 
-The parser will read the following format\+:
-
-
-\begin{DoxyCode}
-[%] <phase> <range negative> <range positive>
-\end{DoxyCode}
-
-
-The following is an example of a trace specification\+:
-
-
-\begin{DoxyCode}
-0 0 10
-%100 -3 3
-200 -5 5
-\end{DoxyCode}
-
-
-This specifies that tracing will be enabled on the following phases\+:
-
-
-\begin{DoxyCode}
-\{
-  [0,10], # phase 0 with offsets 0,+10 (subsumes [0,3] from %100 -3 3)
-  [97,103] # any phase % 100 with offset -3,+3
-  [195,205] # phase 200 with offsets -5,+5 (subsumes [197,203] from %100 -3 3)
-  [297,303] # any phase % 100 with offset -3,+3
-  [n%100-3,n%100+3] ... # any phase % 100 with offset -3,+3
-\}
-\end{DoxyCode}
-
-
-The sets of mod-\/phase and phase-\/specific entries must be unique. There may be overlap across the two sets, but not within them. Having two entries that start with {\ttfamily \%100} or two entries that start with {\ttfamily 100} would be invalid and trigger a parsing error. But having a {\ttfamily \%100} and {\ttfamily 100} entry is valid. Whether tracing is enabled is calculated as an OR across all specification entries. Thus, if a given phase is contained in any spec line, it is enabled. Note that {\ttfamily 0 \% 100 = 0}. Therefore, if the above example did not contain the first line, tracing would be enabled as\+:
-
-
-\begin{DoxyCode}
-\{
-  [0,3], # any phase mod 100 from -3,+3
-  [97,103],
-  [195,205],
-  [297,303], ...
-\}
-\end{DoxyCode}
- \hypertarget{lb-data-reader}{}\section{LB Restart Reader}\label{lb-data-reader}
+For details about vt\textquotesingle{}s Specification File see vt-\/spec-\/file \hypertarget{lb-data-reader}{}\section{LB Restart Reader}\label{lb-data-reader}
 Follow input LB distribution
 
 The LB data restart reader component {\ttfamily \hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader}{vt\+::vrt\+::collection\+::balance\+::\+L\+B\+Data\+Restart\+Reader}}, accessed via {\ttfamily \hyperlink{namespacevt_a6dc000b04e41df77184588b50280b312}{vt\+::the\+L\+B\+Data\+Reader()}} reads in an input object distribution for a given program and follows the distribution as specified in the file.

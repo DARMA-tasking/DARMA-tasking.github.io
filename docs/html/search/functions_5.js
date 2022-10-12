@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['eatwhitespace',['eatWhitespace',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a372568633fa39959d508984e5eb2ff96',1,'vt::trace::file_spec::TraceSpec::eatWhitespace()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a605ea184edf7f99b0022f960f71bf4d4',1,'vt::vrt::collection::balance::eatWhitespace()']]],
+  ['eatwhitespace',['eatWhitespace',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a8e57a8e3efd0e8dc640419de684d6490',1,'vt::utils::file_spec::FileSpec::eatWhitespace()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a605ea184edf7f99b0022f960f71bf4d4',1,'vt::vrt::collection::balance::eatWhitespace()']]],
   ['edgeid',['edgeID',['../structvt_1_1elm_1_1_comm_key.html#a23b4e6a59e39eac8a5e631496e6cd618',1,'vt::elm::CommKey']]],
   ['element',['Element',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab67c2afc048977d3d5797ecd5e66c87f',1,'vt::vrt::collection::CollectionDirectory::Element::Element()=default'],['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#a7f1693cd2493be6bb4cf6e969b23b9eb',1,'vt::vrt::collection::CollectionDirectory::Element::Element(IndexT in_idx, std::string in_file_name, std::size_t in_bytes)']]],
   ['elementconstructor',['elementConstructor',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a1a9710ed590f69867feccae0f432b724',1,'vt::vrt::collection::param::ConstructParams']]],

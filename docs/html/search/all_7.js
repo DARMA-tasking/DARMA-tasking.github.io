@@ -16,6 +16,8 @@ var searchData=
   ['file_5fname_5f',['file_name_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#a831648ee90fa0d8dbda3d987ce2a441c',1,'vt::vrt::collection::CollectionDirectory::Element']]],
   ['file_5ftype',['file_type',['../structvt_1_1trace_1_1vt__gz_file.html#ad76fc8569dffe67628ad492daee76dbf',1,'vt::trace::vt_gzFile']]],
   ['filename_5f',['filename_',['../structvt_1_1util_1_1json_1_1_reader.html#a291e175a92898f3cb80c2f05f1350326',1,'vt::util::json::Reader']]],
+  ['filespec',['FileSpec',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html',1,'vt::utils::file_spec']]],
+  ['filespectype',['FileSpecType',['../namespacevt_1_1utils_1_1file__spec.html#adc8912eb2949ca15d0f29afc0342f71e',1,'vt::utils::file_spec']]],
   ['fillvidmsg',['FillVidMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79eaedb4167fe2517a9a6880da3d230441d2',1,'vt::trace']]],
   ['filter',['filter',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_filter_iterator.html#a89d9841e7176310ab6c712643f88ead7',1,'vt::vrt::collection::balance::FilterIterator']]],
   ['filteriterator',['FilterIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_filter_iterator.html',1,'vt::vrt::collection::balance::FilterIterator'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_filter_iterator.html#a42adc2e7e360cfe536246aec10814296',1,'vt::vrt::collection::balance::FilterIterator::FilterIterator()']]],

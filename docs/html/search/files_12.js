@@ -39,6 +39,7 @@ var searchData=
   ['sizer_2eh',['sizer.h',['../src_2vt_2serialization_2sizer_8h.html',1,'(Global Namespace)'],['../lib_2checkpoint_2src_2checkpoint_2serializers_2sizer_8h.html',1,'(Global Namespace)']]],
   ['smart_5fptr_2eh',['smart_ptr.h',['../smart__ptr_8h.html',1,'']]],
   ['soft_5ferror_2eh',['soft_error.h',['../soft__error_8h.html',1,'']]],
+  ['spec_2dfile_2emd',['spec-file.md',['../spec-file_8md.html',1,'']]],
   ['spec_2ecc',['spec.cc',['../spec_8cc.html',1,'']]],
   ['spec_2eh',['spec.h',['../spec_8h.html',1,'']]],
   ['stack_5fout_2ecc',['stack_out.cc',['../stack__out_8cc.html',1,'']]],

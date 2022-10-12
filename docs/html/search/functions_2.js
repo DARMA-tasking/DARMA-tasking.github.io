@@ -51,7 +51,7 @@ var searchData=
   ['broadcastnormalmsg',['broadcastNormalMsg',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aa10f6bc4c1b886b78b22e0c9ca3805ef',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastroothandler',['broadcastRootHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9859d8346c9aac1fb0b65e6db82969db',1,'vt::vrt::collection::CollectionManager']]],
   ['broadcastserialmsg',['broadcastSerialMsg',['../structvt_1_1serialization_1_1_serialized_messenger.html#aa72a9a7c6b1ea78eeccb928c68a4c505',1,'vt::serialization::SerializedMessenger']]],
-  ['broadcastspec',['broadcastSpec',['../structvt_1_1trace_1_1file__spec_1_1_trace_spec.html#a3a5ececf49f827a057a7bea8ac7e7584',1,'vt::trace::file_spec::TraceSpec']]],
+  ['broadcastspec',['broadcastSpec',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a87745527c8b2dc16cbeb3dd59219db1e',1,'vt::utils::file_spec::FileSpec']]],
   ['bufferedactivemsg',['BufferedActiveMsg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a76b964a87805d59f20d0cbf861f546a2',1,'vt::messaging::BufferedActiveMsg']]],
   ['buildcontainerstring',['buildContainerString',['../structvt_1_1util_1_1adt_1_1_histogram_approx.html#ada0f64fb2e7d5f1e7827bec2762a1291',1,'vt::util::adt::HistogramApprox']]],
   ['builddata',['buildData',['../namespacevt.html#a59494f92a4811ae4f2b5264a50aa78dd',1,'vt']]],

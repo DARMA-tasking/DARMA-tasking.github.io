@@ -3,7 +3,7 @@ var searchData=
   ['malloc',['Malloc',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a1131a914388fac73e5f07b0ba0aad523',1,'vt::pool::Pool']]],
   ['manu',['Manu',['../namespacevt_1_1trace.html#a3ca7cf1ae2abfada66c406044aad2bc6ac56923da578010b0d0f49c47cc6ed18a',1,'vt::trace']]],
   ['mapping',['Mapping',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a0014f8b96d996135614c21355a053994',1,'vt::error']]],
-  ['max',['max',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea2ffe4e77325d9a7152f7086ea7aa5114',1,'vt::vrt::collection::lb::max()'],['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233',1,'vt::runtime::component::Max()']]],
+  ['max',['Max',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233',1,'vt::runtime::component::Max()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febea2ffe4e77325d9a7152f7086ea7aa5114',1,'vt::vrt::collection::lb::max()']]],
   ['medium',['Medium',['../structvt_1_1pool_1_1_pool.html#ace8d36439e5e599a8ee68b2f1a6a6b28a87f8a6ab85c9ced3702b4ea641ad4bb5',1,'vt::pool::Pool']]],
   ['megabytes',['Megabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6a2276a1b157f2813f3b65d04c0b1c56f6',1,'vt::util::memory']]],
   ['memoryfree',['MemoryFree',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da183cc2f17a6c69923fc44e71f41e21d2',1,'vt::trace']]],
@@ -17,7 +17,7 @@ var searchData=
   ['migrateinlocal',['MigrateInLocal',['../namespacevt_1_1vrt_1_1collection.html#ad221ad8aea9e586689b4335f5bcd9804a647a5be7aa591e4cf8c5119f2a3d5634',1,'vt::vrt::collection']]],
   ['millions',['Millions',['../namespacevt_1_1runtime_1_1component.html#a59a0e5faf8c985e274127e0d0cef2193a5a88080b3e181dea07aebed074848c71',1,'vt::runtime::component']]],
   ['milliseconds',['Milliseconds',['../namespacevt_1_1runtime_1_1component.html#a7c43622f1c2cc49bc223523837649b1aa38f246763036ccaeba7db6d563c4d821',1,'vt::runtime::component']]],
-  ['min',['min',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead8bd79cc131920d5de426f914d17405a',1,'vt::vrt::collection::lb::min()'],['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a78d811e98514cd165dda532286610fd2',1,'vt::runtime::component::Min()']]],
+  ['min',['Min',['../namespacevt_1_1runtime_1_1component.html#a896637e6e183a909a17bfd8d3943c206a78d811e98514cd165dda532286610fd2',1,'vt::runtime::component::Min()'],['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a74989c7b4dd16fcc067e90a29cd1febead8bd79cc131920d5de426f914d17405a',1,'vt::vrt::collection::lb::min()']]],
   ['modifiedgrapevine',['ModifiedGrapevine',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a4e454750e102cf5404d5ac151148951caf2d66de88187d7c4c75884f5605ae168',1,'vt::vrt::collection::lb']]],
   ['mpi_5feventrecord',['MPI_EventRecord',['../namespacevt_1_1event.html#a1ea9fec44d101bf40b8fd786d44ebed9a4d5894349a7d2598349be83e506c5450',1,'vt::event']]]
 ];

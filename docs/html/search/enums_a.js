@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['phasehook',['PhaseHook',['../namespacevt_1_1phase.html#aec9a63fdd99680d7a7fe99d321193811',1,'vt::phase']]],
-  ['positionenum',['PositionEnum',['../structvt_1_1term_1_1interval_1_1_interval.html#adfdde0c1b12f536189432b168f6df6b3',1,'vt::term::interval::Interval']]],
-  ['prioritylevel',['PriorityLevel',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498b',1,'vt::sched']]]
+  ['objectorderenum',['ObjectOrderEnum',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a3c71e131f84e2ccbb95f43a1058c749c',1,'vt::vrt::collection::lb']]]
 ];
