@@ -14,7 +14,7 @@ var searchData=
   ['rdma_5fput_5ffn',['rdma_put_fn',['../structvt_1_1rdma_1_1_state.html#a110a8f6b7d4be259748e173cdb03d341',1,'vt::rdma::State']]],
   ['rdma_5fto',['rdma_to',['../namespacevt.html#a627aea388cdbf2818bf1393dca90938e',1,'vt']]],
   ['rdma_5ftype',['rdma_type',['../structvt_1_1rdma_1_1_info.html#a123ce7dd75200e49c67ba513802c6e53',1,'vt::rdma::Info']]],
-  ['read_5fcomplete_5f',['read_complete_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_spec.html#af5c8b5f02b64bb47b59351d6facf465e',1,'vt::vrt::collection::balance::ReadLBSpec']]],
+  ['read_5fcomplete_5f',['read_complete_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_read_l_b_config.html#a1fcb6cf46a05f2b3bf3a3131f14310c0',1,'vt::vrt::collection::balance::ReadLBConfig']]],
   ['ready',['ready',['../structvt_1_1event_1_1_event_record.html#a5bbd2f1c9a7335ef4be44db273215f9a',1,'vt::event::EventRecord']]],
   ['ready_5f',['ready_',['../structvt_1_1rdma_1_1_holder.html#ad61ee11705da8cf0ba8664b3173e7370',1,'vt::rdma::Holder::ready_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a17f367f36559b48d0f18ec869e4ded8c',1,'vt::rdma::SubHandle::ready_()']]],
   ['reassignment',['reassignment',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_reassignment_msg.html#a17f0d17ffa2e5ba75e5b114a6de20449',1,'vt::vrt::collection::balance::ReassignmentMsg']]],

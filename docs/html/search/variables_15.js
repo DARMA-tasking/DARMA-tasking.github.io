@@ -84,7 +84,7 @@ var searchData=
   ['vt_5flb_5fname',['vt_lb_name',['../structvt_1_1arguments_1_1_app_config.html#a1d8ed9d03eb82a15a81ad5e1ca6388b4',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fquiet',['vt_lb_quiet',['../structvt_1_1arguments_1_1_app_config.html#a7942c44d537f66f507209de26cbbb55d',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fself_5fmigration',['vt_lb_self_migration',['../structvt_1_1arguments_1_1_app_config.html#a14f9206360ee902f908670fce103f96b',1,'vt::arguments::AppConfig']]],
-  ['vt_5flb_5fshow_5fspec',['vt_lb_show_spec',['../structvt_1_1arguments_1_1_app_config.html#aeec1d5697a4bfc5af3a8b763b88ae964',1,'vt::arguments::AppConfig']]],
+  ['vt_5flb_5fshow_5fconfig',['vt_lb_show_config',['../structvt_1_1arguments_1_1_app_config.html#ad761cc13b53725198b80057782e8e37b',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fspec',['vt_lb_spec',['../structvt_1_1arguments_1_1_app_config.html#a96fe39162c5ec3f909e3b12a1cdb85f1',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fspec_5ffile',['vt_lb_spec_file',['../structvt_1_1arguments_1_1_app_config.html#a4458b2db80357ede1542a435831311d3',1,'vt::arguments::AppConfig']]],
   ['vt_5flb_5fstatistics',['vt_lb_statistics',['../structvt_1_1arguments_1_1_app_config.html#a895853b39bd298996da1fb3eaba08210',1,'vt::arguments::AppConfig']]],

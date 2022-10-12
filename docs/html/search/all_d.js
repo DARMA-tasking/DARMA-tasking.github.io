@@ -43,7 +43,7 @@ var searchData=
   ['lb_5finstances_5f',['lb_instances_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#aa25f8223d51a33ca1c583b56fd2a98c2',1,'vt::vrt::collection::balance::LBManager']]],
   ['lb_5fmanager_2ecc',['lb_manager.cc',['../lb__manager_8cc.html',1,'']]],
   ['lb_5fmanager_2eh',['lb_manager.h',['../lb__manager_8h.html',1,'']]],
-  ['lb_5fname_5f',['lb_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_spec_entry.html#ad163d019f9d92288f78026d95a55e175',1,'vt::vrt::collection::balance::SpecEntry']]],
+  ['lb_5fname_5f',['lb_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_config_entry.html#accbac6ed9e02043f4b1b4e513a8d4ccb',1,'vt::vrt::collection::balance::ConfigEntry']]],
   ['lb_5ftype',['lb_type',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_phase_info.html#aee2cc2a019ebccb2d711254990a388cb',1,'vt::vrt::collection::lb::PhaseInfo']]],
   ['lb_5ftype_2ecc',['lb_type.cc',['../lb__type_8cc.html',1,'']]],
   ['lb_5ftype_2eh',['lb_type.h',['../lb__type_8h.html',1,'']]],
