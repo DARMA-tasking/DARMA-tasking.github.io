@@ -37,6 +37,7 @@ var searchData=
   ['is_5fserializable_20_3e_3e',['is_serializable &gt;&gt;',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_947e0655769addb625fb511f777768bd.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;']]],
   ['isbytecopyable',['isByteCopyable',['../structcheckpoint_1_1is_byte_copyable.html',1,'checkpoint']]],
   ['isbytecopyableimpl',['isByteCopyableImpl',['../structcheckpoint_1_1detail_1_1is_byte_copyable_impl.html',1,'checkpoint::detail']]],
+  ['isserializable',['IsSerializable',['../structvt_1_1location_1_1detail_1_1_is_serializable.html',1,'vt::location::detail']]],
   ['istriviallycopyable',['IsTriviallyCopyable',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable.html',1,'vt::util::adt::detail']]],
   ['istriviallycopyable_3c_20t_20_3e',['IsTriviallyCopyable&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['istriviallydestructible',['IsTriviallyDestructible',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible.html',1,'vt::util::adt::detail']]],
