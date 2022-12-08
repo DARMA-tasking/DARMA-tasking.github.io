@@ -69,7 +69,6 @@ var searchData=
   ['_7ereporter',['~Reporter',['../structvt_1_1util_1_1memory_1_1_reporter.html#a9b5c8c4345a2e1d758fd9f583d5ea63a',1,'vt::util::memory::Reporter']]],
   ['_7erequestholder',['~RequestHolder',['../structvt_1_1rdma_1_1_request_holder.html#a3853124a44bcbf4c3446f7d68fdfa0ed',1,'vt::rdma::RequestHolder']]],
   ['_7erotatelb',['~RotateLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_l_b.html#ae2a8e40cf47a9ea3be9d4ec6f44d9f50',1,'vt::vrt::collection::lb::RotateLB']]],
-  ['_7erunnablemaker',['~RunnableMaker',['../structvt_1_1runnable_1_1_runnable_maker.html#a0700d91c1114ae97ac74a4841ec2499c',1,'vt::runnable::RunnableMaker']]],
   ['_7eruntime',['~Runtime',['../structvt_1_1runtime_1_1_runtime.html#ae164ab301b823d985a62b7a5fb62cf07',1,'vt::runtime::Runtime']]],
   ['_7eruntimeholder',['~RuntimeHolder',['../structvt_1_1runtime_1_1_runtime_holder.html#a835f3a9c7d875e05d4a8fffee0c1d430',1,'vt::runtime::RuntimeHolder']]],
   ['_7eschedulerloopguard',['~SchedulerLoopGuard',['../structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard.html#a99f568ec1bd01de497ee706c005087c8',1,'vt::sched::Scheduler::SchedulerLoopGuard']]],
