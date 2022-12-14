@@ -72,7 +72,7 @@ var searchData=
   ['total_5fnum_5fnodes_5f',['total_num_nodes_',['../structvt_1_1group_1_1_group_info_msg.html#a1486c52bc955ec3a91fff0628a8212a9',1,'vt::group::GroupInfoMsg']]],
   ['total_5fsize_5f',['total_size_',['../structvt_1_1group_1_1_info_rooted.html#aa11ba8b4e8174e4a232e3375c4873b29',1,'vt::group::InfoRooted']]],
   ['total_5fterminated_5f',['total_terminated_',['../structvt_1_1epoch_1_1_epoch_window.html#a2c33b5bc9f0228eccd15b3788c4b1022',1,'vt::epoch::EpochWindow']]],
-  ['total_5fwork_5fmodel_5f',['total_work_model_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a62d4723702739009fbec9861b32b242d',1,'vt::vrt::collection::lb::TemperedWMin']]],
+  ['total_5fwork_5fmodel_5f',['total_work_model_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a823e9f6adf5517ee65be8e32ca50b139',1,'vt::vrt::collection::lb::TemperedWMin']]],
   ['totalmove',['totalMove',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a76edba85d36553f53aeaea7440cb24ad',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['trace_5fenabled_5fcur_5fphase_5f',['trace_enabled_cur_phase_',['../structvt_1_1trace_1_1_trace_lite.html#ae75d01f083974fe39f81455377ac3842',1,'vt::trace::TraceLite']]],
   ['trace_5fname_5f',['trace_name_',['../structvt_1_1trace_1_1_trace_lite.html#ae6209336c8aabf62ec626fa6b8fbc8ee',1,'vt::trace::TraceLite']]],

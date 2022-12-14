@@ -30,7 +30,7 @@ var searchData=
   ['get_5fepoch',['get_epoch',['../structvt_1_1_epoch_guard.html#a41d2d7190be38fe256d6d8476a1f460e',1,'vt::EpochGuard']]],
   ['get_5fevent',['get_event',['../structvt_1_1event_1_1_event_holder.html#ac679f89c2b133834d0a10181a80c5d47',1,'vt::event::EventHolder']]],
   ['get_5flb_5fnames',['get_lb_names',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#ab24424d5cc677e1c6dfe67d5e03efc70',1,'vt::vrt::collection::balance']]],
-  ['get_5flb_5fstat_5fname',['get_lb_stat_name',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#afec8ac9cb9a80a086ce5dee5376deb15',1,'vt::vrt::collection::lb']]],
+  ['get_5flb_5fstat_5fnames',['get_lb_stat_names',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#acd98c4a6bcb5725976e9cdd7f0d611bf',1,'vt::vrt::collection::lb']]],
   ['get_5fmap',['get_map',['../structvt_1_1rdma_1_1_group.html#a73a2d27f3ff477eb761d45c8b1bd6445',1,'vt::rdma::Group']]],
   ['get_5fmpi_5faccess_5f',['get_mpi_access_',['../structvt_1_1rdma_1_1_lock_m_p_i.html#aee2f5d322f09503f577f2c42cc904f68',1,'vt::rdma::LockMPI']]],
   ['get_5ftag_5fholder',['get_tag_holder',['../structvt_1_1rdma_1_1_state.html#a203be63dac93d826d17bcf3264270eb2',1,'vt::rdma::State']]],

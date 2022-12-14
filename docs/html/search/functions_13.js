@@ -190,6 +190,7 @@ var searchData=
   ['setseed',['setSeed',['../structvt_1_1vrt_1_1_virtual_info.html#a5c90fa0c4f42e6e80552a66403137d3f',1,'vt::vrt::VirtualInfo']]],
   ['setseq',['setSeq',['../structvt_1_1epoch_1_1_epoch_manip.html#a89010fc0f701da8c0914c3bed0bd8249',1,'vt::epoch::EpochManip']]],
   ['setstarttime',['setStartTime',['../structvt_1_1phase_1_1_phase_manager.html#a7844c9468a45c9e49d94436f3f565a1f',1,'vt::phase::PhaseManager']]],
+  ['setstrategyspecificmodel',['setStrategySpecificModel',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#abe5e30efbdb728854de25beb605189ae',1,'vt::vrt::collection::lb::BaseLB::setStrategySpecificModel()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a61b3a80da3e42f1e542a391e50d41c82',1,'vt::vrt::collection::balance::LBManager::setStrategySpecificModel()']]],
   ['setsubphase',['setSubPhase',['../structvt_1_1elm_1_1_element_l_b_data.html#a93c02f4370d1622fefe6a63f0f360d96',1,'vt::elm::ElementLBData']]],
   ['settagmessage',['setTagMessage',['../structvt_1_1messaging_1_1_active_messenger.html#ab6d3637cb3c416b3491b748aaf4bab48',1,'vt::messaging::ActiveMessenger']]],
   ['settagtype',['setTagType',['../namespacevt.html#ad088db89648b82eef7ca9b4837a907cd',1,'vt']]],

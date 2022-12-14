@@ -4,7 +4,7 @@ var searchData=
   ['rank_5fcomm',['Rank_comm',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a8f2d2f61dff75c470d9f7ba48d215c77',1,'vt::vrt::collection::lb']]],
   ['rank_5fload_5fmodeled',['Rank_load_modeled',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aa91c95683ba4869756e2b2cb4483fd53',1,'vt::vrt::collection::lb']]],
   ['rank_5fload_5fraw',['Rank_load_raw',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a7bfd12bd45cb5c751d0d9fb6d684d888',1,'vt::vrt::collection::lb']]],
-  ['rank_5fwork_5fmodeled',['Rank_work_modeled',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1aea47680c2d3303e83328c406a71bde67',1,'vt::vrt::collection::lb']]],
+  ['rank_5fstrategy_5fspecific_5fload_5fmodeled',['Rank_strategy_specific_load_modeled',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#af0e20ef9afee77295053aa83bf1348b1a5d7dda92cea8651a41dd471073a5afea',1,'vt::vrt::collection::lb']]],
   ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()']]],
   ['rdma_5fchannel',['rdma_channel',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a56136ec49b937c8b480d4ac7aa7c9d8c',1,'vt::config']]],
   ['rdma_5fstate',['rdma_state',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689abc38a48dc63e4c35f280b2b682bc8045',1,'vt::config']]],
