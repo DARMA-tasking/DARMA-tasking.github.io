@@ -498,7 +498,7 @@ var searchData=
   ['stdv',['stdv',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a543d6dc86703f061dce2b45a24a8dc9b',1,'vt::runtime::component::detail::DiagnosticValueWrapper::stdv()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#accad5fedd41c42f6d0d7f94ee78d97b1',1,'vt::vrt::collection::balance::LoadData::stdv()']]],
   ['stop',['stop',['../structvt_1_1runtime_1_1component_1_1meter_1_1_timer.html#a302a9e413a1188b3a30ece1905123249',1,'vt::runtime::component::meter::Timer']]],
   ['stoptime',['stopTime',['../structvt_1_1elm_1_1_element_l_b_data.html#a5558d58d3e3c1d0138cceda8a3d48e90',1,'vt::elm::ElementLBData']]],
-  ['storable',['Storable',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html',1,'vt::vrt::collection::storage::Storable'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html#aa6cb609d17c3fffd1416842cf9cc27e9',1,'vt::vrt::collection::storage::Storable::Storable()']]],
+  ['storable',['Storable',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html',1,'vt::vrt::collection::storage::Storable'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html#aa6cb609d17c3fffd1416842cf9cc27e9',1,'vt::vrt::collection::storage::Storable::Storable()=default'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html#a5a3e15eefa62b57645c73b06a0ffcbea',1,'vt::vrt::collection::storage::Storable::Storable(Storable const &amp;)=delete']]],
   ['storable_2ecc',['storable.cc',['../storable_8cc.html',1,'']]],
   ['storable_2eh',['storable.h',['../storable_8h.html',1,'']]],
   ['storable_2eimpl_2eh',['storable.impl.h',['../storable_8impl_8h.html',1,'']]],
