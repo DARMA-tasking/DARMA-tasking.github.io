@@ -5,4 +5,84 @@ The full code for this {\itshape checkpoint} example can be found here\+: {\ttfa
 
 
 \begin{DoxyCodeInclude}
+
+\textcolor{preprocessor}{#include <\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}>}
+
+\textcolor{preprocessor}{#include <cstdio>}
+
+\textcolor{comment}{// \(\backslash\)brief Namespace containing type which will be serialized}
+\textcolor{keyword}{namespace }magistrate \{ \textcolor{keyword}{namespace }nonintrusive \{ \textcolor{keyword}{namespace }examples \{
+
+\textcolor{comment}{// \(\backslash\)brief Simple structure with three variables of built-in types}
+\textcolor{keyword}{struct }MyTest3 \{
+  \textcolor{keywordtype}{int} a = 1, b = 2 , c = 3;
+
+  \textcolor{comment}{// \(\backslash\)brief Printing function unto the standard display}
+  \textcolor{keywordtype}{void} print() \{
+    printf(\textcolor{stringliteral}{"MyTest3: a=%d, b=%d, c=%d\(\backslash\)n"}, a, b, c);
+  \}
+\};
+
+\}\}\} \textcolor{comment}{// end namespace magistrate::nonintrusive::examples}
+
+\textcolor{comment}{// \(\backslash\)brief Function to serialize the MyTest3 structure.}
+\textcolor{comment}{// In Non-Intrusive way, this function needs to be placed in the namespace}
+\textcolor{comment}{// of the type which will be serialized.}
+\textcolor{keyword}{namespace }magistrate \{ \textcolor{keyword}{namespace }nonintrusive \{ \textcolor{keyword}{namespace }examples \{
+  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}
+  \textcolor{comment}{// a variable of type `MyTest3`. Non-nonintrusive version of the function}
+  \textcolor{comment}{// placed outside of `MyTest3` structure.}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// \(\backslash\)tparam <Serializer> The type of serializer depending on the pass}
+  \textcolor{comment}{// \(\backslash\)param[in,out] s the serializer for traversing this class}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// \(\backslash\)note The serialize method is typically called three times when}
+  \textcolor{comment}{// (de-)serializing to a byte buffer:}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// 1) Sizing: The first time its called, it sizes all the data it recursively}
+  \textcolor{comment}{// traverses to generate a final size for the buffer.}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// 2) Packing: As the traversal occurs, it copies the data traversed to the}
+  \textcolor{comment}{// byte buffer in the appropriate location.}
+  \textcolor{comment}{//}
+  \textcolor{comment}{// 3) Unpacking: As the byte buffer is traversed, it extracts the bytes from}
+  \textcolor{comment}{// the buffer to recursively reconstruct the types and setup the class members.}
+  \textcolor{comment}{//}
+  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
+  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(Serializer& s, MyTest3& my\_test3) \{
+    \textcolor{comment}{// a, b, c - variable of type `int` (built-in type)}
+    s | my\_test3.a;
+    s | my\_test3.b;
+    s | my\_test3.c;
+  \}
+
+\}\}\} \textcolor{comment}{// end namespace magistrate::nonintrusive::examples}
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{
+  \textcolor{keyword}{using namespace }magistrate::nonintrusive::examples;
+
+  \textcolor{comment}{// Define a variable of custom type `MyTest3`}
+  MyTest3 my\_test3;
+  my\_test3.print();
+
+  \textcolor{comment}{// Call the serialization routine for the variable `my\_test3`}
+  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}
+  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}
+  \textcolor{keyword}{auto} ret = \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{checkpoint::serialize}(my\_test3);
+
+  \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf = ret->getBuffer();
+  \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf\_size = ret->getSize();
+
+  \textcolor{comment}{// Print the buffer address and its size}
+  printf(\textcolor{stringliteral}{"ptr=%p, size=%ld\(\backslash\)n"}, static\_cast<void*>(buf), buf\_size);
+
+  \textcolor{comment}{// Deserialize the variable `my\_test3` from the serialized buffer}
+  \textcolor{keyword}{auto} t = checkpoint::deserialize<MyTest3>(buf);
+
+  \textcolor{comment}{// Display the de-serialized data}
+  t->print();
+
+  \textcolor{keywordflow}{return} 0;
+\}
+
 \end{DoxyCodeInclude}
