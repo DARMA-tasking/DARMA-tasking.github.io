@@ -1,27 +1,4 @@
 var searchData=
 [
-  ['debug_5fcheckpoint',['DEBUG_CHECKPOINT',['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a5f0eef1f739e977285c9d7fd5bc18722',1,'DEBUG_CHECKPOINT():&#160;common.h'],['../lib_2checkpoint_2src_2checkpoint_2common_8h.html#a7c3e2df5c024d2137e920504aa8741f2',1,'debug_checkpoint():&#160;common.h']]],
-  ['debug_5flocation',['DEBUG_LOCATION',['../src_2vt_2configs_2error_2common_8h.html#a287b57d7cf8a3a20f97c91893d2ebace',1,'common.h']]],
-  ['debug_5fpp',['debug_pp',['../args_8cc.html#a25c9c758f0b6e282a5677c46f8a843c1',1,'args.cc']]],
-  ['debug_5fvt_5fcontext',['DEBUG_VT_CONTEXT',['../context_8cc.html#a94c62418e219becc5e35d49a2708dc69',1,'context.cc']]],
-  ['declareclassinsideinittls',['DeclareClassInsideInitTLS',['../tls_8h.html#aa7255c26041f12501bbb01a47d08aeb2',1,'tls.h']]],
-  ['declareclassinsidetls',['DeclareClassInsideTLS',['../tls_8h.html#a2c507f8b98c5f50bfd6b7280cbc4605c',1,'tls.h']]],
-  ['declareclassoutsideinittls',['DeclareClassOutsideInitTLS',['../tls_8h.html#a892411f63bcc6ede4e5d469ccd89c3c2',1,'tls.h']]],
-  ['declareclassoutsidetls',['DeclareClassOutsideTLS',['../tls_8h.html#a4fe50d22f06d4968a129035f8a16ebd3',1,'tls.h']]],
-  ['declareclsinimpltls',['DeclareClsInImplTLS',['../tls_8impl_8h.html#ae0ca3c1cae783842f5000e1aff0a870e',1,'tls.impl.h']]],
-  ['declareclsininitimpltls',['DeclareClsInInitImplTLS',['../tls_8impl_8h.html#af198c5b035d72b29f5595649afc649c0',1,'tls.impl.h']]],
-  ['declareclsoutimpltls',['DeclareClsOutImplTLS',['../tls_8impl_8h.html#ad6d1f0bb4f634c5c2a9954b8acaf11a2',1,'tls.impl.h']]],
-  ['declareclsoutinitimpltls',['DeclareClsOutInitImplTLS',['../tls_8impl_8h.html#a484e170992cf8847428b518971fc1b56',1,'tls.impl.h']]],
-  ['declareimpltls',['DeclareImplTLS',['../tls_8impl_8h.html#a317408037d4c11400ea6880c6b12277d',1,'tls.impl.h']]],
-  ['declareinitimpltls',['DeclareInitImplTLS',['../tls_8impl_8h.html#a5531b0a654ab7abf9f66bbcc30244f94',1,'tls.impl.h']]],
-  ['declareinittls',['DeclareInitTLS',['../tls_8h.html#a2350115b977184038cd606a3091bee25',1,'tls.h']]],
-  ['declareinitvar',['DeclareInitVar',['../tls_8h.html#a61bb4b08e013548b62de058c65c3a90e',1,'tls.h']]],
-  ['declaremakestrclstls',['DeclareMakeStrClsTLS',['../tls_8impl_8h.html#a3c70f6039ccb9646300d73e910806ac1',1,'tls.impl.h']]],
-  ['declaremakestrtls',['DeclareMakeStrTLS',['../tls_8impl_8h.html#af853ece641bae8c820947e18191371be',1,'tls.impl.h']]],
-  ['declarestaticinittls',['DeclareStaticInitTLS',['../tls_8h.html#a919379f10e3c0db9bdb0bc2a9443d959',1,'tls.h']]],
-  ['declarestatictls',['DeclareStaticTLS',['../tls_8h.html#a03443779932d843463b28f4533585502',1,'tls.h']]],
-  ['declarestimpltls',['DeclareStImplTLS',['../tls_8impl_8h.html#a2c7ca64274057e963e54cc7b5b322df3',1,'tls.impl.h']]],
-  ['declarestinitimpltls',['DeclareStInitImplTLS',['../tls_8impl_8h.html#ac841c50923eabe55ae99c393ad6ba98a',1,'tls.impl.h']]],
-  ['declaretls',['DeclareTLS',['../tls_8h.html#a0abdef742729bca5521cb838efbffc9e',1,'tls.h']]],
-  ['diagnosic_5fvalue_5finstance',['DIAGNOSIC_VALUE_INSTANCE',['../diagnostic__value_8cc.html#a81513065df72cc221320e1181eb4b827',1,'diagnostic_value.cc']]]
+  ['gen_5fbit_5fmask',['gen_bit_mask',['../bits__packer_8impl_8h.html#a63bfbc9fd2b85de0d18e4a8d4739be50',1,'bits_packer.impl.h']]]
 ];

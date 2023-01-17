@@ -1,6 +1,7 @@
 var searchData=
 [
   ['nodeactiontype',['NodeActionType',['../namespacevt_1_1location.html#a3a9235e0ceb341bef225d2cc46606e9e',1,'vt::location']]],
+  ['nodelbdatatype',['NodeLBDataType',['../namespacevt.html#a19cb20485baa09ecc30086fbc62fd6ef',1,'vt']]],
   ['nodelisttype',['NodeListType',['../structvt_1_1collective_1_1tree_1_1_tree.html#a834e7b54ea2dceae42db7c5ea859753f',1,'vt::collective::tree::Tree::NodeListType()'],['../structvt_1_1group_1_1_group_collective.html#a24ad1fd43cf03d5026de910d85c7ac96',1,'vt::group::GroupCollective::NodeListType()']]],
   ['nodeloadtype',['NodeLoadType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a65e300c2d6119d11e9121b17f7f94850',1,'vt::vrt::collection::balance::LoadMsg']]],
   ['nodemaptype',['NodeMapType',['../namespacevt_1_1mapping.html#a8dbe779cb3e28ed8c424bcc8826765b9',1,'vt::mapping']]],
@@ -16,7 +17,6 @@ var searchData=
   ['nonintrustive_5fserialize_5ft',['nonintrustive_serialize_t',['../structcheckpoint_1_1_serializable_traits.html#a3284d2cfd29cfe429d5cf76186d3fe3c',1,'checkpoint::SerializableTraits']]],
   ['nonserialized',['NonSerialized',['../namespacevt.html#a378e4a02213923b4ba1c3f9d2a1424c7',1,'vt']]],
   ['notcopyable',['NotCopyable',['../namespacevt_1_1util.html#a0760a3963341a602dfe2dfc42d78c867',1,'vt::util']]],
-  ['nullmutextype',['NullMutexType',['../namespacevt_1_1util_1_1mutex.html#a92b4648d6c680ec378e4f36ac5af414a',1,'vt::util::mutex']]],
   ['numargstype',['NumArgsType',['../namespacevt_1_1auto__registry.html#aebda1d9d765bc9147dc654ad0712c936',1,'vt::auto_registry']]],
   ['numbytestype',['NumBytesType',['../namespacevt_1_1serialization.html#aaa03b9b407ed5776043c163629312e40',1,'vt::serialization']]],
   ['numdimensionstype',['NumDimensionsType',['../namespacevt_1_1index.html#a97aa9370711425850c86bcb7a20d73e8',1,'vt::index']]],

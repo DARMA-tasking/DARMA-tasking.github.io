@@ -7,7 +7,6 @@ var searchData=
   ['uniqueindexbittype',['UniqueIndexBitType',['../namespacevt.html#a913e1f07b5228dd8bb64040dc6dcea14',1,'vt']]],
   ['unit',['Unit',['../namespacevt_1_1sched.html#a3f19a4714fc5d9f901b45665a9d794d5',1,'vt::sched']]],
   ['unittype',['UnitType',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a2bcd1016fcdb6395844d4fd15d84a570',1,'vt::runtime::component::Diagnostic::UnitType()'],['../structvt_1_1sched_1_1_scheduler.html#a398229f29b0940cea85aba4bae78b0be',1,'vt::sched::Scheduler::UnitType()']]],
-  ['unlock_5ft',['unlock_t',['../structvt_1_1util_1_1mutex_1_1_mutex_traits.html#a85a0412ba9bfe2c48ee8bd27096050e6',1,'vt::util::mutex::MutexTraits']]],
   ['unpacker',['Unpacker',['../namespacecheckpoint.html#af36cfec8b3ef7476bb97b3b12908370d',1,'checkpoint']]],
   ['unpackerio',['UnpackerIO',['../namespacecheckpoint.html#a0efc06d99dce79e452b9d1b503059a74',1,'checkpoint']]],
   ['updatetype',['UpdateType',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a75e737294bb63e1898d9ac4515f0cf63',1,'vt::runtime::component::Diagnostic']]],

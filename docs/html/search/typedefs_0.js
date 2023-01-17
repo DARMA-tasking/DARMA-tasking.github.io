@@ -55,7 +55,6 @@ var searchData=
   ['applyfntype',['ApplyFnType',['../structvt_1_1group_1_1region_1_1_region.html#a7c9e99b1157d2fe2f3e6fc36a1463a96',1,'vt::group::region::Region::ApplyFnType()'],['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a4275ecc44239ac1aeedea9d31e93c78f',1,'vt::vrt::collection::param::ConstructParams::ApplyFnType()']]],
   ['applytype',['ApplyType',['../structvt_1_1index_1_1_dense_index_array.html#ab44b9e5a65d28520268523fbe99f6a9d',1,'vt::index::DenseIndexArray::ApplyType()'],['../structvt_1_1index_1_1_example_index.html#a7a5993e2e55fb1f80f59daa65ab7ead4',1,'vt::index::ExampleIndex::ApplyType()'],['../structvt_1_1index_1_1_index_traits.html#ab13467c0c40bb0f17103d108cd08437f',1,'vt::index::IndexTraits::ApplyType()']]],
   ['argstupletype',['ArgsTupleType',['../structvt_1_1vrt_1_1_vrt_construct_msg.html#a5ec9caa553a3004bce6a6ee151d15900',1,'vt::vrt::VrtConstructMsg']]],
-  ['atomictype',['AtomicType',['../namespacevt_1_1util_1_1atomic.html#a38dc3fa22349b32b4dd7171795815f77',1,'vt::util::atomic']]],
   ['autoactivecollectioncontainertype',['AutoActiveCollectionContainerType',['../namespacevt_1_1auto__registry.html#a6d9b82aa23fd781ab64b6b4e55a4c94f',1,'vt::auto_registry']]],
   ['autoactivecollectionmemcontainertype',['AutoActiveCollectionMemContainerType',['../namespacevt_1_1auto__registry.html#a2843152c64eb58ed89991d1d2ae2c3f1',1,'vt::auto_registry']]],
   ['autoactivecollectionmemtype',['AutoActiveCollectionMemType',['../namespacevt_1_1auto__registry.html#af5d102e15ae09e22dbc560f5b64ec758',1,'vt::auto_registry']]],

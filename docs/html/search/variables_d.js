@@ -6,7 +6,7 @@ var searchData=
   ['name_5f',['name_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6189fab0f945cd51f56aed0ebcd14ed6',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
   ['named_5fbarrier_5fstate_5f',['named_barrier_state_',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#ae5a50600bf815ba049915d93bc48b727',1,'vt::collective::barrier::Barrier']]],
   ['nchunks',['nchunks',['../structvt_1_1messaging_1_1_pending_recv.html#a81f94488ff0b51d17d09fad4db88ea37',1,'vt::messaging::PendingRecv::nchunks()'],['../structvt_1_1messaging_1_1_send_info.html#ada975d93f03f94b12c35442b27359f50',1,'vt::messaging::SendInfo::nchunks()'],['../structvt_1_1rdma_1_1_send_data_message.html#a47083ce90f9cbdaf648ec3956e340b71',1,'vt::rdma::SendDataMessage::nchunks()'],['../structvt_1_1serialization_1_1_serialized_data_msg_any.html#ae38aba68b339489ae16ad23b7c0cccf2',1,'vt::serialization::SerializedDataMsgAny::nchunks()']]],
-  ['needs_5flock_5f',['needs_lock_',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#af681c689f7800fca7e35364aeffd9964',1,'vt::util::container::ConcurrentDequeLocked::needs_lock_()'],['../structvt_1_1util_1_1container_1_1_process_buffer.html#af4c963364ec90b9384aaf850a95b9531',1,'vt::util::container::ProcessBuffer::needs_lock_()'],['../structvt_1_1vrt_1_1_virtual_info.html#a809cb8200de743c2ff7970baa50f99ee',1,'vt::vrt::VirtualInfo::needs_lock_()']]],
+  ['needs_5flock_5f',['needs_lock_',['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#af681c689f7800fca7e35364aeffd9964',1,'vt::util::container::ConcurrentDequeLocked::needs_lock_()'],['../structvt_1_1vrt_1_1_virtual_info.html#a809cb8200de743c2ff7970baa50f99ee',1,'vt::vrt::VirtualInfo::needs_lock_()']]],
   ['neg_5f',['neg_',['../structvt_1_1utils_1_1file__spec_1_1_file_spec_1_1_spec_entry.html#a23da7a0e8133ec0145b5de803c6b5237',1,'vt::utils::file_spec::FileSpec::SpecEntry']]],
   ['new_5fepoch',['new_epoch',['../structvt_1_1term_1_1_term_msg.html#a1890be8aa1a0d1a148331d3c0ea229e3',1,'vt::term::TermMsg']]],
   ['new_5fimbalance_5f',['new_imbalance_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a3ac4a348162582ab0b2dc0275cf243a9',1,'vt::vrt::collection::lb::TemperedLB']]],
@@ -56,11 +56,8 @@ var searchData=
   ['num_5fbytes_5f',['num_bytes_',['../structvt_1_1pool_1_1_memory_pool_equal.html#a50e14945e15e2ab88319e347c2a3f1b7',1,'vt::pool::MemoryPoolEqual::num_bytes_()'],['../structvt_1_1rdma_1_1_channel.html#af2828aad3c2db3071ba353645561922a',1,'vt::rdma::Channel::num_bytes_()'],['../structcheckpoint_1_1_footprinter.html#aa1e1872e87895430c567eb893b6f74bf',1,'checkpoint::Footprinter::num_bytes_()'],['../structcheckpoint_1_1_sizer.html#a94e13ec6a5656d3b82dc787c00390bf2',1,'checkpoint::Sizer::num_bytes_()']]],
   ['num_5fchildren_5f',['num_children_',['../structvt_1_1term_1_1_term_state.html#a88e0527d43708487ae4f37c154753da9',1,'vt::term::TermState']]],
   ['num_5fcollections_5f',['num_collections_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_invoke_msg.html#a10c7dcc893af9fdc8096575174e07441',1,'vt::vrt::collection::balance::InvokeMsg']]],
-  ['num_5fconsumed_5f',['num_consumed_',['../structvt_1_1worker_1_1_worker_group_counter.html#ae8c275b953a8e67c039cdb518fc8a705',1,'vt::worker::WorkerGroupCounter']]],
   ['num_5fcontrib_5f',['num_contrib_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#ad35cc97dda033eb3e933241e5436f224',1,'vt::collective::reduce::ReduceState']]],
-  ['num_5fenqueued_5f',['num_enqueued_',['../structvt_1_1worker_1_1_worker_group_counter.html#a9637b5ea108554b2243ad0de5f211940',1,'vt::worker::WorkerGroupCounter']]],
   ['num_5ferased_5fnot_5fremoved_5f',['num_erased_not_removed_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#aa482ff846286aa20fc6616482275c5aa',1,'vt::vrt::collection::Holder']]],
-  ['num_5ffinished_5f',['num_finished_',['../structvt_1_1worker_1_1_worker_group_counter.html#a725b7c60813d11208d5a1277bc0e7834',1,'vt::worker::WorkerGroupCounter']]],
   ['num_5ffull_5fbytes_5f',['num_full_bytes_',['../structvt_1_1pool_1_1_memory_pool_equal.html#a70c83d8bfd3a1c0c8f2c1a4a27e2aa04',1,'vt::pool::MemoryPoolEqual']]],
   ['num_5fiters_5f',['num_iters_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a7fb754a3c6f3a5ecfb731630da7c50cf',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['num_5flisteners_5fexpected_5f',['num_listeners_expected_',['../structvt_1_1pipe_1_1_pipe_state.html#a258aa24dd89b3b90e4f4045ec0d52cda',1,'vt::pipe::PipeState']]],
@@ -74,7 +71,5 @@ var searchData=
   ['num_5ftotal_5felems',['num_total_elems',['../structvt_1_1rdma_1_1_group.html#ad2de94667177ad994c5b5b7b697d09ac',1,'vt::rdma::Group']]],
   ['num_5ftrials_5f',['num_trials_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#ae72c8ffda32aab7bc7c1a6e7a0f68030',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['num_5fwaiting',['num_waiting',['../structvt_1_1rdma_1_1_action.html#a73109ea6c95089a53e639c22c5061d47',1,'vt::rdma::Action']]],
-  ['num_5fworkers_5f',['num_workers_',['../structvt_1_1runtime_1_1_runtime.html#ae0fc29c09650df6280cabeea1cb9e222',1,'vt::runtime::Runtime::num_workers_()'],['../structvt_1_1worker_1_1_worker_group_any.html#a84a8e36ce6d70e66b712ce04f224fd64',1,'vt::worker::WorkerGroupAny::num_workers_()']]],
-  ['numnodes_5f',['numNodes_',['../structvt_1_1ctx_1_1_context.html#a58cc20215314e915f43b829ad0470299',1,'vt::ctx::Context']]],
-  ['numworkers_5f',['numWorkers_',['../structvt_1_1ctx_1_1_context.html#a16e8488c6e6ad26c387ad6ef19f726b9',1,'vt::ctx::Context']]]
+  ['numnodes_5f',['numNodes_',['../structvt_1_1ctx_1_1_context.html#a58cc20215314e915f43b829ad0470299',1,'vt::ctx::Context']]]
 ];

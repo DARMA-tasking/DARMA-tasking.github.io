@@ -26,6 +26,5 @@ var searchData=
   ['eventstate',['EventState',['../namespacevt_1_1event.html#a787aca6361696d96d817a639195c429c',1,'vt::event']]],
   ['evirtualcollectionelemproxybits',['eVirtualCollectionElemProxyBits',['../namespacevt_1_1vrt_1_1collection.html#a216d0b183a155808303b12c258f259a0',1,'vt::vrt::collection']]],
   ['evirtualproxybits',['eVirtualProxyBits',['../namespacevt_1_1vrt.html#a408950d7781cc0422dcc4bdf723fc281',1,'vt::vrt']]],
-  ['evirtualproxyremotebits',['eVirtualProxyRemoteBits',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7e',1,'vt::vrt']]],
-  ['eworkergroupevent',['eWorkerGroupEvent',['../namespacevt_1_1worker.html#abcb798436f1cdc4fab035def5b912d1f',1,'vt::worker']]]
+  ['evirtualproxyremotebits',['eVirtualProxyRemoteBits',['../namespacevt_1_1vrt.html#a5a8105b744eec1e3d031c4cd92dece7e',1,'vt::vrt']]]
 ];

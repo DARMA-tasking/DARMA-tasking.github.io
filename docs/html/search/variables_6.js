@@ -14,7 +14,6 @@ var searchData=
   ['finalize_5fon_5fterm_5f',['finalize_on_term_',['../structvt_1_1runtime_1_1_runtime.html#a1a7a0e6783b3326a4ded84f829a1d0b3',1,'vt::runtime::Runtime']]],
   ['finalized_5f',['finalized_',['../structvt_1_1runtime_1_1_runtime.html#a2a798a2bf9b8c0a70785cde3cc8119c4',1,'vt::runtime::Runtime']]],
   ['finished_5f',['finished_',['../structvt_1_1term_1_1_term_terminated_reply_msg.html#a7d5f6264f595981386a08aefee4178f1',1,'vt::term::TermTerminatedReplyMsg::finished_()'],['../structvt_1_1util_1_1json_1_1_appender.html#aa34d4af41777c8f610e9c93b03a034de',1,'vt::util::json::Appender::finished_()']]],
-  ['finished_5ffn_5f',['finished_fn_',['../structvt_1_1worker_1_1_worker_group_any.html#ad4f81de6e1790126e507cde8e54ed864',1,'vt::worker::WorkerGroupAny']]],
   ['finished_5finit_5f',['finished_init_',['../structvt_1_1group_1_1_info_coll.html#a46f40eb8a2394642b362b08024454af0',1,'vt::group::InfoColl']]],
   ['finished_5fsetup_5faction_5f',['finished_setup_action_',['../structvt_1_1group_1_1_info.html#a40d013d297772502f189d08c7d474a6f',1,'vt::group::Info']]],
   ['finished_5fstartup_5f',['finished_startup_',['../structvt_1_1group_1_1global_1_1_default_group.html#a206241b82e6234ce815e9dde56a5838b',1,'vt::group::global::DefaultGroup']]],

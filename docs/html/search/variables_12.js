@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['s_5fmsg_5fworker_5f',['s_msg_worker_',['../structvt_1_1pool_1_1_pool.html#a9551faed42cf337990287481e158b01e',1,'vt::pool::Pool']]],
   ['sample_5f',['sample_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_payload.html#a06b7ae7ccf00d3d7afcf7398e632ca9c',1,'vt::vrt::collection::lb::GreedyPayload']]],
   ['sbrkinit_5f',['sbrkinit_',['../structvt_1_1util_1_1memory_1_1_sbrk.html#a583d05e2d35145d77402a3a84b3399ae',1,'vt::util::memory::Sbrk']]],
   ['scatter_5fproxy',['scatter_proxy',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a6be0a6b993320f141d5f94867511abfb',1,'vt::vrt::collection::lb::GreedyLB']]],

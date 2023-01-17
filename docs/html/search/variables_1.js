@@ -13,7 +13,6 @@ var searchData=
   ['added_5fcomponents_5f',['added_components_',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#aebf0761f1902a5336a247190ad8ba47d',1,'vt::runtime::component::ComponentPack']]],
   ['agg_5fnode_5fsize',['agg_node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#aa2ef8e33aaed4f1ae6405a3652de21bc',1,'vt::vrt::collection::lb::HierarchicalLB']]],
   ['alloc_5fsize',['alloc_size',['../structvt_1_1pool_1_1_header.html#ad1f8e915eee733cd6b4d8efbfe51d551',1,'vt::pool::Header']]],
-  ['alloc_5fworker',['alloc_worker',['../structvt_1_1pool_1_1_header.html#a054f2ad817d27c9725677c10ee487875',1,'vt::pool::Header']]],
   ['allocator_5f',['allocator_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a90e91c26c97dc9ea779e42e6c634d456',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
   ['alpha_5f',['alpha_',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_weighted_communication_volume.html#aaa23c5cee4ca724183ddd79b52c3e77a',1,'vt::vrt::collection::balance::WeightedCommunicationVolume::alpha_()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_w_min.html#a3c73a78b96830428d3f87b5f930ebef5',1,'vt::vrt::collection::lb::TemperedWMin::alpha_()']]],
   ['amforwardcountergauge',['amForwardCounterGauge',['../structvt_1_1messaging_1_1_active_messenger.html#a3f7864f87ef5d5aa841fa04bb4ab3fb8',1,'vt::messaging::ActiveMessenger']]],

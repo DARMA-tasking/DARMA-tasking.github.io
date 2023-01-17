@@ -52,13 +52,11 @@ var searchData=
   ['_7elbmanager',['~LBManager',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#aacec3c4ef45a173eae443722b2620d13',1,'vt::vrt::collection::balance::LBManager']]],
   ['_7eloadmodel',['~LoadModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model.html#a6478a387f285b322a48ee1d8a80fc6f7',1,'vt::vrt::collection::balance::LoadModel']]],
   ['_7elocationmanager',['~LocationManager',['../structvt_1_1location_1_1_location_manager.html#abdcd3feb1f6e7c22f88582ad87799de1',1,'vt::location::LocationManager']]],
-  ['_7elockguardptr',['~LockGuardPtr',['../structvt_1_1util_1_1mutex_1_1_lock_guard_ptr.html#af4304427f4783fc57e3fb889d4e64797',1,'vt::util::mutex::LockGuardPtr']]],
   ['_7elockmpi',['~LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html#aa504ea8f843941e7d409fa7979afd50d',1,'vt::rdma::LockMPI']]],
   ['_7ememorypoolequal',['~MemoryPoolEqual',['../structvt_1_1pool_1_1_memory_pool_equal.html#aa6f87becb85f4fc575b2d5dcd68d89af',1,'vt::pool::MemoryPoolEqual']]],
   ['_7emovablefn',['~MovableFn',['../structvt_1_1runtime_1_1component_1_1_movable_fn.html#a5a3a716c661129132695fa31af2878c5',1,'vt::runtime::component::MovableFn']]],
   ['_7emsgptrimplbase',['~MsgPtrImplBase',['../structvt_1_1messaging_1_1_msg_ptr_impl_base.html#afcf8208d8636a3793ccdf4bc7d4ee12a',1,'vt::messaging::MsgPtrImplBase']]],
   ['_7emsgsharedptr',['~MsgSharedPtr',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a41b62019acea0627ce3297d31257524c',1,'vt::messaging::MsgSharedPtr']]],
-  ['_7enullmutex',['~NullMutex',['../structvt_1_1util_1_1mutex_1_1_null_mutex.html#a09433197f2e0967c72fc9e77e514fcfb',1,'vt::util::mutex::NullMutex']]],
   ['_7eobjectiteratorimpl',['~ObjectIteratorImpl',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_object_iterator_impl.html#ab71847f88423abc159bf0d53ace9474b',1,'vt::vrt::collection::balance::ObjectIteratorImpl']]],
   ['_7eofflinelb',['~OfflineLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_offline_l_b.html#a72e0da5f0731ce6290d8bbcc505e4d7a',1,'vt::vrt::collection::lb::OfflineLB']]],
   ['_7eoutputadaptor',['~OutputAdaptor',['../structvt_1_1util_1_1json_1_1_output_adaptor.html#af564b111175dfa476ac7e942b5378012',1,'vt::util::json::OutputAdaptor']]],
@@ -82,6 +80,5 @@ var searchData=
   ['_7etrace',['~Trace',['../structvt_1_1trace_1_1_trace.html#a80b3426aed07572525ef4834b0c4dedd',1,'vt::trace::Trace']]],
   ['_7etracelite',['~TraceLite',['../structvt_1_1trace_1_1_trace_lite.html#a08eca22659dc1f361d534c2b9c03b90b',1,'vt::trace::TraceLite']]],
   ['_7euniondestroy',['~UnionDestroy',['../structvt_1_1util_1_1adt_1_1_union_destroy_3_01_t_00_01typename_01std_1_1enable__if__t_3_01not_0117947c5b8b44b7d9f4a4df27d8795277.html#a63ff918204bcd7a80361d617ead98c24',1,'vt::util::adt::UnionDestroy&lt; T, typename std::enable_if_t&lt; not detail::IsTriviallyDestructible&lt; T, Ts... &gt;::value &gt;, Ts... &gt;']]],
-  ['_7evrtbase',['~VrtBase',['../structvt_1_1vrt_1_1_vrt_base.html#a16d15fcaabbf2e477315466dcaaa6f84',1,'vt::vrt::VrtBase']]],
-  ['_7eworkergroupany',['~WorkerGroupAny',['../structvt_1_1worker_1_1_worker_group_any.html#a2427146b080679942534b8723475ade3',1,'vt::worker::WorkerGroupAny']]]
+  ['_7evrtbase',['~VrtBase',['../structvt_1_1vrt_1_1_vrt_base.html#a16d15fcaabbf2e477315466dcaaa6f84',1,'vt::vrt::VrtBase']]]
 ];

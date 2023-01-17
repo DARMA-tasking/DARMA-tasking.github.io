@@ -21,7 +21,7 @@ var searchData=
   ['modetype',['ModeType',['../structcheckpoint_1_1_serializer.html#a4c307e2592dc4224d8a13148109c5764',1,'checkpoint::Serializer']]],
   ['mpi_5fattr',['MPI_Attr',['../namespacevt_1_1util.html#acdef825f3bbbffb020925d3ba6151df9',1,'vt::util']]],
   ['mpi_5ftagtype',['MPI_TagType',['../namespacevt_1_1messaging.html#af700cb74b7b97c1a305267a9eb3ba91a',1,'vt::messaging']]],
-  ['msgbuffercontainertype',['MsgBufferContainerType',['../structvt_1_1vrt_1_1_virtual_info.html#a0f7b9bd9d5ae38c1e9df13e946b21814',1,'vt::vrt::VirtualInfo']]],
+  ['msgbuffercontainertype',['MsgBufferContainerType',['../structvt_1_1vrt_1_1_virtual_info.html#a58e94aae79e1e8f0bb4c2bf6c7ba608e',1,'vt::vrt::VirtualInfo']]],
   ['msgcontainertype',['MsgContainerType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ab89e17bd301b2aa684fce22f0b4af30a',1,'vt::objgroup::ObjGroupManager']]],
   ['msgcounttype',['MsgCountType',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a041d928748b444f18ea3ddb72fdbe08a',1,'vt::collective::reduce::ReduceLink']]],
   ['msgptr',['MsgPtr',['../namespacevt.html#a9f5ebd62ee9d6dd8829e3e1cc4f858e9',1,'vt']]],
@@ -31,6 +31,5 @@ var searchData=
   ['msgtype',['MsgType',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a714463f633ada883b4fbdfd3541d30a7',1,'vt::messaging::MsgSharedPtr::MsgType()'],['../structvt_1_1auto__registry_1_1_functor_adapter_args_3_01_obj_type_t_01_4.html#a99d8fa6287d00ce0ca7c7b93b69a9e23',1,'vt::auto_registry::FunctorAdapterArgs&lt; ObjTypeT &gt;::MsgType()'],['../structvt_1_1auto__registry_1_1_functor_adapter_args_3_01_obj_type_t_00_01_msg_t_01_4.html#acc29822fb90b386dd16a229450f9ec97',1,'vt::auto_registry::FunctorAdapterArgs&lt; ObjTypeT, MsgT &gt;::MsgType()'],['../structvt_1_1auto__registry_1_1_functor_adapter.html#a3f2d51bee96f70e8370e1892194dc599',1,'vt::auto_registry::FunctorAdapter::MsgType()'],['../structvt_1_1auto__registry_1_1_functor_adapter_member.html#aac047547f57874f5b42e9cc3c8ea534f',1,'vt::auto_registry::FunctorAdapterMember::MsgType()'],['../structvt_1_1util_1_1_msg_ptr_type_3_01_msg_shared_ptr_3_01_msg_t_01_4_01_4.html#a5bf797cea95b53d1c48dbfe168593970',1,'vt::util::MsgPtrType&lt; MsgSharedPtr&lt; MsgT &gt; &gt;::MsgType()'],['../structvt_1_1util_1_1_msg_ptr_type_3_01_msg_t_01_5_01_4.html#a2ce38649dec10ad50b94963563fac9de',1,'vt::util::MsgPtrType&lt; MsgT * &gt;::MsgType()']]],
   ['msgvirtualptr',['MsgVirtualPtr',['../namespacevt.html#a82b5c92ea7ca3ddd2e8a2e27df87fa1a',1,'vt']]],
   ['msgvirtualptrany',['MsgVirtualPtrAny',['../namespacevt.html#a54674b9f819f4f3a652c6f78d9b62aaf',1,'vt']]],
-  ['multiparamtype',['MultiParamType',['../namespacevt_1_1param.html#ada9e92f75ab7e859947a8ffe5bae6c5b',1,'vt::param']]],
-  ['mutextype',['MutexType',['../namespacevt_1_1util_1_1mutex.html#a891571f52e1bcf9eca62d0c2d0862a17',1,'vt::util::mutex']]]
+  ['multiparamtype',['MultiParamType',['../namespacevt_1_1param.html#ada9e92f75ab7e859947a8ffe5bae6c5b',1,'vt::param']]]
 ];

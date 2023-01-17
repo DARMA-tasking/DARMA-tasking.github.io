@@ -3,7 +3,6 @@ var searchData=
   ['m2_5f',['M2_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#af76d6679a75ff42618eabd6ae844e18e',1,'vt::runtime::component::detail::DiagnosticValueWrapper::M2_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a04e4244881beaca49025897e5620ed07',1,'vt::vrt::collection::balance::LoadData::M2_()']]],
   ['m3_5f',['M3_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a53e9c5563eb7a716f755536de3cc410d',1,'vt::runtime::component::detail::DiagnosticValueWrapper::M3_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a7a23cdc3dda02d87701437321537b79b',1,'vt::vrt::collection::balance::LoadData::M3_()']]],
   ['m4_5f',['M4_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#af7e886c6de25a8dfe72eb607bcd61d11',1,'vt::runtime::component::detail::DiagnosticValueWrapper::M4_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a0f702910e47d58e4c5754651ecc592f2',1,'vt::vrt::collection::balance::LoadData::M4_()']]],
-  ['m_5fmsg_5fworker_5f',['m_msg_worker_',['../structvt_1_1pool_1_1_pool.html#a86b8d7208cd3e42c821e23f0ab654d26',1,'vt::pool::Pool']]],
   ['m_5fp',['M_p',['../structvt_1_1sched_1_1_mask.html#a3949a195768183b0086b582bdc8855d2',1,'vt::sched::Mask::M_p()'],['../structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable84a8b0b373fb69b0fca50672234c2a86.html#ac7b7308185e80b997833fc8575384ea0',1,'vt::sched::Mask&lt; N, M, 0, R, true, typename std::enable_if&lt; N !=R &gt;::type &gt;::M_p()']]],
   ['made_5flist_5f',['made_list_',['../structvt_1_1group_1_1region_1_1_range.html#aa0193a445bff44cfb5c27864d485ce97',1,'vt::group::region::Range']]],
   ['make_5fmpi_5fgroup_5f',['make_mpi_group_',['../structvt_1_1group_1_1_info_coll.html#a1cd784e21b1e11f16eb5359ad8e34ac8',1,'vt::group::InfoColl']]],
@@ -24,7 +23,6 @@ var searchData=
   ['max_5fsize_5f',['max_size_',['../structvt_1_1location_1_1_location_cache.html#ad0073d311deb0afe733c3d35f1f7f912',1,'vt::location::LocationCache']]],
   ['max_5ftag_5f',['max_tag_',['../structvt_1_1util_1_1mpi__limits_1_1_m_p_i___attr.html#ae8f9fdb6426a31740e8a126eb0cb03fc',1,'vt::util::mpi_limits::MPI_Attr']]],
   ['max_5fthreshold',['max_threshold',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a3134b75d2fd3ff63faa6a41b4c7b3dae',1,'vt::vrt::collection::lb::GreedyLB::max_threshold()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a14170b4d5e34cb45fd9e3ba08f6886cb',1,'vt::vrt::collection::lb::HierarchicalLB::max_threshold()']]],
-  ['maybe_5fidle_5f',['maybe_idle_',['../structvt_1_1worker_1_1_worker_group_counter.html#ad8e2001326cc6034e5bb45b6b6572b32',1,'vt::worker::WorkerGroupCounter']]],
   ['medium_5fmsg',['medium_msg',['../structvt_1_1pool_1_1_pool.html#a268cb9b30cde3272c49e67e781f0345e',1,'vt::pool::Pool']]],
   ['memory_5funit_5fnames',['memory_unit_names',['../namespacevt_1_1util_1_1memory.html#aa772e07fd4860ed4086654c53eed51c2',1,'vt::util::memory']]],
   ['messages',['messages',['../structvt_1_1elm_1_1_comm_volume.html#a401827dc013273393db0ef10f6bfedd0',1,'vt::elm::CommVolume']]],
@@ -54,6 +52,5 @@ var searchData=
   ['msgs',['msgs',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#afded8bde5c4b8e5aebf6000c7efb9514',1,'vt::collective::reduce::ReduceState']]],
   ['msgs_5f',['msgs_',['../structvt_1_1group_1_1_info_coll.html#a30fc9a06654d5213b3355834938d6034',1,'vt::group::InfoColl']]],
   ['msgsreceived',['msgsReceived',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a6701886537453e5e053141c70de6df05',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
-  ['mutex_5f',['mutex_',['../structvt_1_1util_1_1container_1_1_process_buffer.html#a8da1ebe17962ddcccd229f8f75f62fca',1,'vt::util::container::ProcessBuffer::mutex_()'],['../structvt_1_1util_1_1mutex_1_1_lock_guard_ptr.html#a305be2f257219435a9f50af1c1ebbac9',1,'vt::util::mutex::LockGuardPtr::mutex_()']]],
   ['mynode_5f',['myNode_',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a543388bdb406506b6cedd94205bc3efd',1,'vt::vrt::VirtualContextManager']]]
 ];

@@ -28,8 +28,6 @@ var searchData=
   ['priorityarraytype',['PriorityArrayType',['../namespacevt_1_1sched.html#a2dbd1daff26f79efbff3f418ad9b2a8b',1,'vt::sched']]],
   ['priorityleveltype',['PriorityLevelType',['../namespacevt.html#a53e07fdb3351b0f263e0dfd51b968d5e',1,'vt']]],
   ['prioritytype',['PriorityType',['../namespacevt.html#a86bff9f556eb761b27fc8600d006ac04',1,'vt']]],
-  ['processfntype',['ProcessFnType',['../structvt_1_1util_1_1container_1_1_process_buffer.html#a20be3480fb453096015a6fe5ca370816',1,'vt::util::container::ProcessBuffer']]],
-  ['progress_5ft',['progress_t',['../structvt_1_1worker_1_1_worker_group_traits.html#ae36a285568af422079494454bd4bdeae',1,'vt::worker::WorkerGroupTraits::progress_t()'],['../structvt_1_1worker_1_1_worker_traits.html#a0cda24a5c8ac86e6877aaa24b23034fd',1,'vt::worker::WorkerTraits::progress_t()']]],
   ['proxycontainertype',['ProxyContainerType',['../structvt_1_1vrt_1_1collection_1_1_entire_holder.html#a8d1ceab08d81edb0d45f48ee84a05eea',1,'vt::vrt::collection::EntireHolder']]],
   ['proxyelmtype',['ProxyElmType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#adba6c8ecb0f4c30e719f1abb995cfc9b',1,'vt::objgroup::ObjGroupManager']]],
   ['proxyfntype',['ProxyFnType',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ae1b51eac652fafee85f4c370e2c3b585',1,'vt::vrt::collection::param::ConstructParams']]],

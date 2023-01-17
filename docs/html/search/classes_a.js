@@ -28,7 +28,6 @@ var searchData=
   ['locationmanager',['LocationManager',['../structvt_1_1location_1_1_location_manager.html',1,'vt::location']]],
   ['locationmsg',['LocationMsg',['../structvt_1_1location_1_1_location_msg.html',1,'vt::location']]],
   ['locentity',['LocEntity',['../structvt_1_1location_1_1_loc_entity.html',1,'vt::location']]],
-  ['lockguardptr',['LockGuardPtr',['../structvt_1_1util_1_1mutex_1_1_lock_guard_ptr.html',1,'vt::util::mutex']]],
   ['lockmpi',['LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html',1,'vt::rdma']]],
   ['loclookup',['LocLookup',['../structvt_1_1location_1_1_loc_lookup.html',1,'vt::location']]],
   ['loclookup_3c_20entityid_2c_20locrectype_20_3e',['LocLookup&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_loc_lookup.html',1,'vt::location']]],

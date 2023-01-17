@@ -29,7 +29,6 @@ var searchData=
   ['async_5fop_5fwrapper_2ecc',['async_op_wrapper.cc',['../async__op__wrapper_8cc.html',1,'']]],
   ['async_5fop_5fwrapper_2efwd_2eh',['async_op_wrapper.fwd.h',['../async__op__wrapper_8fwd_8h.html',1,'']]],
   ['async_5fop_5fwrapper_2eh',['async_op_wrapper.h',['../async__op__wrapper_8h.html',1,'']]],
-  ['atomic_2eh',['atomic.h',['../atomic_8h.html',1,'']]],
   ['atomic_5fserialize_2eh',['atomic_serialize.h',['../atomic__serialize_8h.html',1,'']]],
   ['auto_5fregistry_2ecc',['auto_registry.cc',['../auto__registry_8cc.html',1,'']]],
   ['auto_5fregistry_2eh',['auto_registry.h',['../auto__registry_8h.html',1,'']]],

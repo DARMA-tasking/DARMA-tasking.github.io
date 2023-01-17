@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['active',['active',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a82f77c67af0c363709010c6df4dbd920',1,'vt::config::active()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4d3d769b812b6faa6b76e1a8abaece2d',1,'vt::error::Active()']]],
+  ['active',['Active',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a4d3d769b812b6faa6b76e1a8abaece2d',1,'vt::error::Active()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a82f77c67af0c363709010c6df4dbd920',1,'vt::config::active()']]],
   ['activemsgtag',['ActiveMsgTag',['../namespacevt_1_1messaging.html#a1e0d9a8b346c8536b25544c725adcf55ab1ee9044bcae54b74056a088a0d57ac1',1,'vt::messaging']]],
   ['anoncb',['AnonCB',['../namespacevt_1_1pipe_1_1callback_1_1cbunion.html#ac8b41526501e39ec73a5fde238b996b4a4e3f23f80d17e652ec7089a6b84e5051',1,'vt::pipe::callback::cbunion']]],
   ['arbitrary',['Arbitrary',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#a3c71e131f84e2ccbb95f43a1058c749ca3c1fc46575f79b15fc8990642387d07f',1,'vt::vrt::collection::lb']]],

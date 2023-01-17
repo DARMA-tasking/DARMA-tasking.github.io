@@ -40,8 +40,6 @@ var searchData=
   ['timing_2ecc',['timing.cc',['../timing_8cc.html',1,'']]],
   ['timing_2eh',['timing.h',['../timing_8h.html',1,'']]],
   ['timing_5ftype_2eh',['timing_type.h',['../timing__type_8h.html',1,'']]],
-  ['tls_2eh',['tls.h',['../tls_8h.html',1,'']]],
-  ['tls_2eimpl_2eh',['tls.impl.h',['../tls_8impl_8h.html',1,'']]],
   ['trace_2donly_2emd',['trace-only.md',['../trace-only_8md.html',1,'']]],
   ['trace_2ecc',['trace.cc',['../context_2runnable__context_2trace_8cc.html',1,'(Global Namespace)'],['../trace_2trace_8cc.html',1,'(Global Namespace)']]],
   ['trace_2eh',['trace.h',['../context_2runnable__context_2trace_8h.html',1,'(Global Namespace)'],['../trace_2trace_8h.html',1,'(Global Namespace)']]],

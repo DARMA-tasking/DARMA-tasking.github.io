@@ -3,7 +3,6 @@ var searchData=
   ['adt',['adt',['../namespacevt_1_1adt.html',1,'vt::adt'],['../namespacevt_1_1util_1_1adt.html',1,'vt::util::adt']]],
   ['arguments',['arguments',['../namespacevt_1_1arguments.html',1,'vt']]],
   ['assert',['assert',['../namespacevt_1_1debug_1_1assert.html',1,'vt::debug']]],
-  ['atomic',['atomic',['../namespacevt_1_1util_1_1atomic.html',1,'vt::util']]],
   ['auto_5fregistry',['auto_registry',['../namespacevt_1_1auto__registry.html',1,'vt']]],
   ['balance',['balance',['../namespacevt_1_1vrt_1_1collection_1_1balance.html',1,'vt::vrt::collection']]],
   ['barrier',['barrier',['../namespacevt_1_1collective_1_1barrier.html',1,'vt::collective']]],
@@ -48,7 +47,6 @@ var searchData=
   ['messaging',['messaging',['../namespacevt_1_1messaging.html',1,'vt']]],
   ['meter',['meter',['../namespacevt_1_1runtime_1_1component_1_1meter.html',1,'vt::runtime::component']]],
   ['mpi_5flimits',['mpi_limits',['../namespacevt_1_1util_1_1mpi__limits.html',1,'vt::util']]],
-  ['mutex',['mutex',['../namespacevt_1_1util_1_1mutex.html',1,'vt::util']]],
   ['objgroup',['objgroup',['../namespacevt_1_1objgroup.html',1,'vt']]],
   ['operators',['operators',['../namespacevt_1_1collective_1_1reduce_1_1operators.html',1,'vt::collective::reduce']]],
   ['param',['param',['../namespacevt_1_1param.html',1,'vt::param'],['../namespacevt_1_1vrt_1_1collection_1_1param.html',1,'vt::vrt::collection::param']]],
@@ -78,12 +76,10 @@ var searchData=
   ['termination',['termination',['../namespacevt_1_1termination.html',1,'vt']]],
   ['timetrigger',['timetrigger',['../namespacevt_1_1timetrigger.html',1,'vt']]],
   ['timing',['timing',['../namespacevt_1_1timing.html',1,'vt']]],
-  ['tls',['tls',['../namespacevt_1_1util_1_1tls.html',1,'vt::util']]],
   ['trace',['trace',['../namespacevt_1_1trace.html',1,'vt']]],
   ['tree',['tree',['../namespacevt_1_1collective_1_1tree.html',1,'vt::collective']]],
   ['util',['util',['../namespacevt_1_1util.html',1,'vt']]],
   ['utils',['utils',['../namespacevt_1_1utils.html',1,'vt']]],
   ['vrt',['vrt',['../namespacevt_1_1vrt.html',1,'vt']]],
-  ['vt',['vt',['../namespacevt.html',1,'']]],
-  ['worker',['worker',['../namespacevt_1_1worker.html',1,'vt']]]
+  ['vt',['vt',['../namespacevt.html',1,'']]]
 ];

@@ -16,7 +16,6 @@ var searchData=
   ['deallocator_5f',['deallocator_',['../classvt_1_1messaging_1_1_collection_chain_set.html#a0c471bdf6ef26c2ca5c214bdda8eb866',1,'vt::messaging::CollectionChainSet']]],
   ['dec_5f',['dec_',['../structvt_1_1util_1_1compress_1_1_decompressor.html#ae65156f7178d43c24eeacf68b157308f',1,'vt::util::compress::Decompressor']]],
   ['default_5fcomm_5f',['default_comm_',['../structvt_1_1group_1_1_info_coll.html#a22f10b499eb9a012071bc5c8aeaaec6a',1,'vt::group::InfoColl::default_comm_()'],['../structvt_1_1group_1_1_group_manager.html#a2f40ded22e7e9bde566dffcbdff10ded',1,'vt::group::GroupManager::default_comm_()']]],
-  ['default_5fcore_5f',['default_core_',['../structvt_1_1vrt_1_1_virtual_info.html#af708e80cfd5b57bba690af59d0eead21',1,'vt::vrt::VirtualInfo']]],
   ['default_5fcreator_5f',['default_creator_',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder.html#abd3a6a6a1eda5083b97348c16ef58858',1,'vt::collective::reduce::detail::ReduceScopeHolder']]],
   ['default_5fgroup_5f',['default_group_',['../structvt_1_1group_1_1_group_msg.html#a42bcb186fa2675b7a16411a959dd936e',1,'vt::group::GroupMsg::default_group_()'],['../namespacevt_1_1group_1_1global.html#a7b35a98031034bd9b2f6837a6b089c39',1,'vt::group::global::default_group_()']]],
   ['default_5fnode_5f',['default_node_',['../structvt_1_1vrt_1_1_virtual_info.html#aab9e25f18e560b403b3f62ebea9f8233',1,'vt::vrt::VirtualInfo']]],
