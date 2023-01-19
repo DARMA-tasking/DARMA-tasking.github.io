@@ -30,7 +30,7 @@ var searchData=
   ['raw_5fptr_5fserialize_2eh',['raw_ptr_serialize.h',['../raw__ptr__serialize_8h.html',1,'']]],
   ['rawdata',['RawData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_raw_data.html',1,'vt::vrt::collection::balance::RawData'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_raw_data.html#a4879ed47b7d3da3008dc6199adc6d519',1,'vt::vrt::collection::balance::RawData::RawData()']]],
   ['rbegin',['rbegin',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#ab253d070e9a28940a9b727696b0bb25c',1,'vt::term::interval::IntegralSetBase']]],
-  ['rdma',['RDMA',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../rdma.html',1,'introduction']]],
+  ['rdma',['rdma',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a0b97b5f0db04922b0839112e029ba677',1,'vt::config::rdma()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12aaa51e3c693c25c733a722637fca75f51',1,'vt::error::RDMA()'],['../rdma.html',1,'introduction']]],
   ['rdma_2ecc',['rdma.cc',['../rdma_8cc.html',1,'']]],
   ['rdma_2eh',['rdma.h',['../rdma_8h.html',1,'']]],
   ['rdma_2emd',['rdma.md',['../rdma_8md.html',1,'']]],
