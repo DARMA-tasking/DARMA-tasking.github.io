@@ -55,7 +55,7 @@ var searchData=
   ['reducearrmsg',['ReduceArrMsg',['../namespacevt_1_1collective.html#a12eddadcf360fcb9d05149e2d8aa327a',1,'vt::collective']]],
   ['reduceidtype',['ReduceIDType',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ac75b7127c84d699f42c0bc3f3b02bb0b',1,'vt::collective::reduce::ReduceStateHolder']]],
   ['reduceidxfunctype',['ReduceIdxFuncType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a47a3227ae0195c15187e8dc8762f66c4',1,'vt::vrt::collection::CollectionManager::ReduceIdxFuncType()'],['../structvt_1_1vrt_1_1collection_1_1_reducable.html#a9f5a6c385efafe1fa52937f4809a9486',1,'vt::vrt::collection::Reducable::ReduceIdxFuncType()']]],
-  ['reducemsg',['ReduceMsg',['../namespacevt_1_1collective.html#a4c5bf7769ad4396573d6bcc85ec430a4',1,'vt::collective']]],
+  ['reducemsg',['ReduceMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a59e2b9e568683c89c9af430adacba420',1,'vt::vrt::collection::balance::LBDataRestartReader::ReduceMsg()'],['../namespacevt_1_1collective.html#a4c5bf7769ad4396573d6bcc85ec430a4',1,'vt::collective::ReduceMsg()']]],
   ['reducemsgtype',['ReduceMsgType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a3e688a286b16334d43666bae581231b7',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['reducenonemsg',['ReduceNoneMsg',['../namespacevt_1_1collective.html#aa439a90f05078f2bcf918641c951946f',1,'vt::collective']]],
   ['reducenumtype',['ReduceNumType',['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a6c3e63aca10c31d2823b0b18cf9762a4',1,'vt::collective::reduce::Reduce::ReduceNumType()'],['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#ae83d217c90b8a8895ca998d7ea9c49e4',1,'vt::collective::reduce::ReduceState::ReduceNumType()']]],

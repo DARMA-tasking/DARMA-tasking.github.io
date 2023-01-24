@@ -64,6 +64,7 @@ var searchData=
   ['num_5flisteners_5freceived_5f',['num_listeners_received_',['../structvt_1_1pipe_1_1_pipe_state.html#ae46d41d7d03a6503e5b647cb9a424bcf',1,'vt::pipe::PipeState']]],
   ['num_5flocal_5fcontrib_5f',['num_local_contrib_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state.html#a9aa48263112ed8e0b5033c002dc28ef2',1,'vt::collective::reduce::ReduceState']]],
   ['num_5fnodes_5f',['num_nodes_',['../structvt_1_1group_1_1_group_info_msg.html#a85b2c79bd1f446a956265df16e8d9a83',1,'vt::group::GroupInfoMsg']]],
+  ['num_5fphases_5f',['num_phases_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a8a9f63f593ce73388ca9b2da4b705b98',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['num_5fprint_5fconstant',['num_print_constant',['../structvt_1_1term_1_1_term_state.html#ac3289ddbfa5c385c4d91d240bc17d67f',1,'vt::term::TermState']]],
   ['num_5fsignals_5fexpected_5f',['num_signals_expected_',['../structvt_1_1pipe_1_1_pipe_state.html#a8f072bad48c155b0c8b43ca2f709cac5',1,'vt::pipe::PipeState']]],
   ['num_5fsignals_5freceived_5f',['num_signals_received_',['../structvt_1_1pipe_1_1_pipe_state.html#ac5a387ab62c0961fe8ffa32e0e56c439',1,'vt::pipe::PipeState']]],

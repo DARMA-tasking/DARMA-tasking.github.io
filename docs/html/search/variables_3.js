@@ -10,6 +10,7 @@ var searchData=
   ['cb',['cb',['../structvt_1_1rdma_1_1_create_channel.html#a0672669be0eb2cb8cf293e60a88af2ad',1,'vt::rdma::CreateChannel::cb()'],['../structvt_1_1rdma_1_1_channel_message.html#a70ba36eb1157e5c095c5acc79f9ba4f4',1,'vt::rdma::ChannelMessage::cb()']]],
   ['cb_5f',['cb_',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html#a89c7b9270ac15672f38c7256abe3c044',1,'vt::collective::reduce::operators::ReduceDataMsg::cb_()'],['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a6535ef3d7baf0130dcf2c23f63496f3d',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle::cb_()']]],
   ['chains_5f',['chains_',['../classvt_1_1messaging_1_1_collection_chain_set.html#afd05e48d93d231320364149fd538beab',1,'vt::messaging::CollectionChainSet']]],
+  ['changed_5fdistro_5f',['changed_distro_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#ade00b90a9eeee5d3dd05edee5d24e5a9',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['channel_5fcomm_5f',['channel_comm_',['../structvt_1_1rdma_1_1_channel.html#aded72d4b1d8e8ed23b4e384b96b99c67',1,'vt::rdma::Channel']]],
   ['channel_5fgroup_5f',['channel_group_',['../structvt_1_1rdma_1_1_channel.html#af4a0e2ef3352ae60e61601d65e120ab9',1,'vt::rdma::Channel']]],
   ['channel_5fgroup_5ftag_5f',['channel_group_tag_',['../structvt_1_1rdma_1_1_channel.html#a23d0c5d64266cb4dd19eb3e4539d24f0',1,'vt::rdma::Channel']]],
