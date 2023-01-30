@@ -47,6 +47,8 @@ var searchData=
   ['channellookup',['ChannelLookup',['../structvt_1_1rdma_1_1_channel_lookup.html',1,'vt::rdma']]],
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html',1,'vt::rdma']]],
   ['checkenabled',['CheckEnabled',['../structvt_1_1config_1_1_check_enabled.html',1,'vt::config']]],
+  ['checkpointreconstructor',['CheckpointReconstructor',['../structcheckpoint_1_1_checkpoint_reconstructor.html',1,'checkpoint']]],
+  ['checkpointreconstructor_3c_20std_3a_3atuple_3c_20args_2e_2e_2e_20_3e_20_3e',['CheckpointReconstructor&lt; std::tuple&lt; Args... &gt; &gt;',['../structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html',1,'checkpoint']]],
   ['circularbuffer',['CircularBuffer',['../structvt_1_1util_1_1container_1_1_circular_buffer.html',1,'vt::util::container']]],
   ['circularbuffer_3c_20t_2c_2064_20_3e',['CircularBuffer&lt; T, 64 &gt;',['../structvt_1_1util_1_1container_1_1_circular_buffer.html',1,'vt::util::container']]],
   ['circularbuffer_3c_20vt_3a_3asched_3a_3abaseunit_2c_2064_20_3e',['CircularBuffer&lt; vt::sched::BaseUnit, 64 &gt;',['../structvt_1_1util_1_1container_1_1_circular_buffer.html',1,'vt::util::container']]],

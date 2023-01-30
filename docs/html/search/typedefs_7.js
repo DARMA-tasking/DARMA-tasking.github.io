@@ -40,6 +40,7 @@ var searchData=
   ['has_5fserializeparent',['has_serializeParent',['../structcheckpoint_1_1_serializable_traits.html#a4785b7f54369ec889ac5a25a8256a578',1,'checkpoint::SerializableTraits']]],
   ['has_5fserializethis',['has_serializeThis',['../structcheckpoint_1_1_serializable_traits.html#adc99520813c22cf61ab70ba2fea3cdc6',1,'checkpoint::SerializableTraits']]],
   ['has_5fsetvirtualdisabled',['has_setVirtualDisabled',['../structcheckpoint_1_1_serializer_traits.html#adba95a75d3573b6d8d11bf9d2300a9ca',1,'checkpoint::SerializerTraits']]],
+  ['has_5fspecialized_5freconstruct',['has_specialized_reconstruct',['../structcheckpoint_1_1_serializable_traits.html#afa7760f6127136a1772b90cbe9922bc3',1,'checkpoint::SerializableTraits']]],
   ['has_5ftagged_5fconstructor',['has_tagged_constructor',['../structcheckpoint_1_1_serializable_traits.html#a3388d17f4748bf899e063b3d05e0dbe4',1,'checkpoint::SerializableTraits']]],
   ['has_5ftostring',['has_toString',['../structvt_1_1index_1_1_index_traits.html#ae91e2c26896622d9eab9416b4141042f',1,'vt::index::IndexTraits']]],
   ['has_5funiquebits',['has_uniqueBits',['../structvt_1_1index_1_1_index_traits.html#a6862d0422947a4835262b170637b462d',1,'vt::index::IndexTraits']]],

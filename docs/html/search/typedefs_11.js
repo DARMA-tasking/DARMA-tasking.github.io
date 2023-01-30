@@ -45,6 +45,7 @@ var searchData=
   ['sigvoidtype',['SigVoidType',['../namespacevt_1_1pipe_1_1signal.html#acbe257d1ae44f20fa9fd9b6ed3057caf',1,'vt::pipe::signal']]],
   ['sizetype',['SizeType',['../structvt_1_1group_1_1region_1_1_region.html#a9bb381adf31111aae34dbc644bad6c1f',1,'vt::group::region::Region::SizeType()'],['../structvt_1_1pool_1_1_pool.html#a4030898e09d0160c24743a7b949c0d46',1,'vt::pool::Pool::SizeType()'],['../structvt_1_1util_1_1container_1_1_concurrent_deque_locked.html#a6f35f4923f1329d25378656b0582e916',1,'vt::util::container::ConcurrentDequeLocked::SizeType()'],['../namespacevt_1_1serialization.html#ac7b555941c0bfd470bee3df22b967ff9',1,'vt::serialization::SizeType()']]],
   ['slottype',['SlotType',['../structvt_1_1pool_1_1_memory_pool_equal.html#af05a2c24c95c666b20e3758745be746b',1,'vt::pool::MemoryPoolEqual']]],
+  ['specialized_5freconstruct_5ft',['specialized_reconstruct_t',['../structcheckpoint_1_1_serializable_traits.html#a914c73251ad840e5370f1ac7cb1c18de',1,'checkpoint::SerializableTraits']]],
   ['specindex',['SpecIndex',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a3817fca09dbe932e0f6ba5729f1965ba',1,'vt::utils::file_spec::FileSpec']]],
   ['specmaptype',['SpecMapType',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a368a4ab8bf689e0b533abac71ae9393b',1,'vt::utils::file_spec::FileSpec']]],
   ['splitregiontype',['SplitRegionType',['../structvt_1_1group_1_1region_1_1_region.html#ab8d05c0978c7f38292a9ed5a15498a4b',1,'vt::group::region::Region']]],

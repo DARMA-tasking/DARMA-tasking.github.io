@@ -81,6 +81,7 @@ var searchData=
   ['is_5fserializable',['is_serializable',['../structcheckpoint_1_1_serializable_traits.html#a3941c4fcb5397fe564a3453857aa9183',1,'checkpoint::SerializableTraits']]],
   ['is_5fsetup_5f',['is_setup_',['../structvt_1_1group_1_1_info_rooted.html#a15e10cbd49b9f1a70c1a1524ba91d3d8',1,'vt::group::InfoRooted']]],
   ['is_5fsorted_5f',['is_sorted_',['../structvt_1_1group_1_1region_1_1_list.html#ac1c943c35cae4e25a2e65095d5e11bb4',1,'vt::group::region::List']]],
+  ['is_5fspecialized_5freconstructible',['is_specialized_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a305317a4e8fb44498f195a39bf59ad2d',1,'checkpoint::SerializableTraits']]],
   ['is_5fstatic_5f',['is_static_',['../structvt_1_1group_1_1_group_collective_info_msg.html#a6acef8fb045d7da296e36c83ea62acd9',1,'vt::group::GroupCollectiveInfoMsg::is_static_()'],['../structvt_1_1group_1_1_group_info_msg.html#a14177095a8b6dedb9a8521a9dfb60752',1,'vt::group::GroupInfoMsg::is_static_()']]],
   ['is_5ftagged_5fconstructible',['is_tagged_constructible',['../structcheckpoint_1_1_serializable_traits.html#aa6618d9f36e37127006112c73755fceb',1,'checkpoint::SerializableTraits']]],
   ['is_5ftarget',['is_target',['../structvt_1_1rdma_1_1_endpoint.html#a756be3e169f0d65f7cb73b04b3bcfca0',1,'vt::rdma::Endpoint']]],

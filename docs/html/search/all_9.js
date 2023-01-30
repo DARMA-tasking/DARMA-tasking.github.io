@@ -101,6 +101,7 @@ var searchData=
   ['has_5fserializethis',['has_serializeThis',['../structcheckpoint_1_1_serializable_traits.html#adc99520813c22cf61ab70ba2fea3cdc6',1,'checkpoint::SerializableTraits']]],
   ['has_5fsetvirtualdisabled',['has_setVirtualDisabled',['../structcheckpoint_1_1_serializer_traits.html#adba95a75d3573b6d8d11bf9d2300a9ca',1,'checkpoint::SerializerTraits']]],
   ['has_5fspec_5f',['has_spec_',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#a8a9add55a41950f8e283b7ea667ad782',1,'vt::utils::file_spec::FileSpec']]],
+  ['has_5fspecialized_5freconstruct',['has_specialized_reconstruct',['../structcheckpoint_1_1_serializable_traits.html#afa7760f6127136a1772b90cbe9922bc3',1,'checkpoint::SerializableTraits']]],
   ['has_5fsplit_5fserialize',['has_split_serialize',['../structcheckpoint_1_1_serializable_traits.html#a1fa333e360a0dfeafebe350436ae9141',1,'checkpoint::SerializableTraits']]],
   ['has_5ftagged_5fconstructor',['has_tagged_constructor',['../structcheckpoint_1_1_serializable_traits.html#a3388d17f4748bf899e063b3d05e0dbe4',1,'checkpoint::SerializableTraits']]],
   ['has_5ftd',['has_td',['../structvt_1_1runnable_1_1detail_1_1_contexts.html#a18a82b7cd9fbe3f5c281ff46cf030c7f',1,'vt::runnable::detail::Contexts']]],
