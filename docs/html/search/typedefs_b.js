@@ -22,7 +22,6 @@ var searchData=
   ['mpi_5fattr',['MPI_Attr',['../namespacevt_1_1util.html#acdef825f3bbbffb020925d3ba6151df9',1,'vt::util']]],
   ['mpi_5ftagtype',['MPI_TagType',['../namespacevt_1_1messaging.html#af700cb74b7b97c1a305267a9eb3ba91a',1,'vt::messaging']]],
   ['msgbuffercontainertype',['MsgBufferContainerType',['../structvt_1_1vrt_1_1_virtual_info.html#a58e94aae79e1e8f0bb4c2bf6c7ba608e',1,'vt::vrt::VirtualInfo']]],
-  ['msgcontainertype',['MsgContainerType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#ab89e17bd301b2aa684fce22f0b4af30a',1,'vt::objgroup::ObjGroupManager']]],
   ['msgcounttype',['MsgCountType',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a041d928748b444f18ea3ddb72fdbe08a',1,'vt::collective::reduce::ReduceLink']]],
   ['msgptr',['MsgPtr',['../namespacevt.html#a9f5ebd62ee9d6dd8829e3e1cc4f858e9',1,'vt']]],
   ['msgsharedptr',['MsgSharedPtr',['../namespacevt.html#ab2b3d506ec8e8d1540aede826d84a239',1,'vt']]],

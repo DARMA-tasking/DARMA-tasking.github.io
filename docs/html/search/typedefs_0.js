@@ -69,7 +69,7 @@ var searchData=
   ['autoactivemapfunctortype',['AutoActiveMapFunctorType',['../namespacevt_1_1auto__registry.html#a05a587ebd105ed89932361888de7e4ae',1,'vt::auto_registry']]],
   ['autoactivemaptype',['AutoActiveMapType',['../namespacevt_1_1auto__registry.html#ae1bc8f9afc86cc589761fbbf22064601',1,'vt::auto_registry']]],
   ['autoactiveobjgroupcontainertype',['AutoActiveObjGroupContainerType',['../namespacevt_1_1auto__registry.html#a2328b4aa12baaa0b0fc0bf07ed2be755',1,'vt::auto_registry']]],
-  ['autoactiveobjgrouptype',['AutoActiveObjGroupType',['../namespacevt_1_1auto__registry.html#a861d9d01e89c81f0a955188724aa25b3',1,'vt::auto_registry']]],
+  ['autoactiveobjgrouptype',['AutoActiveObjGroupType',['../namespacevt_1_1auto__registry.html#a4b369568c19084c562ddbeef6894a145',1,'vt::auto_registry']]],
   ['autoactiverdmagetcontainertype',['AutoActiveRDMAGetContainerType',['../namespacevt_1_1auto__registry.html#a85bc3ac8c35caf2f304c24a73a07f1c6',1,'vt::auto_registry']]],
   ['autoactiverdmagettype',['AutoActiveRDMAGetType',['../namespacevt_1_1auto__registry.html#a039813f93a5804c77ae612e0318fb335',1,'vt::auto_registry']]],
   ['autoactiverdmaputcontainertype',['AutoActiveRDMAPutContainerType',['../namespacevt_1_1auto__registry.html#a7051002e8986239f9c5f986384ebec66',1,'vt::auto_registry']]],

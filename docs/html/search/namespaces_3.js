@@ -22,7 +22,6 @@ var searchData=
   ['detail',['detail',['../namespacevt_1_1collective_1_1detail.html',1,'vt::collective::detail'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html',1,'vt::collective::reduce::detail'],['../namespacevt_1_1detail.html',1,'vt::detail'],['../namespacevt_1_1epoch_1_1detail.html',1,'vt::epoch::detail'],['../namespacevt_1_1location_1_1detail.html',1,'vt::location::detail'],['../namespacevt_1_1objgroup_1_1detail.html',1,'vt::objgroup::detail'],['../namespacevt_1_1runnable_1_1detail.html',1,'vt::runnable::detail'],['../namespacevt_1_1runtime_1_1component_1_1detail.html',1,'vt::runtime::component::detail'],['../namespacevt_1_1sched_1_1detail.html',1,'vt::sched::detail'],['../namespacevt_1_1util_1_1adt_1_1detail.html',1,'vt::util::adt::detail'],['../namespacevt_1_1util_1_1strong_1_1detail.html',1,'vt::util::strong::detail'],['../namespacevt_1_1vrt_1_1collection_1_1detail.html',1,'vt::vrt::collection::detail'],['../namespacevt_1_1vrt_1_1collection_1_1storage_1_1detail.html',1,'vt::vrt::collection::storage::detail']]],
   ['details',['details',['../namespacevt_1_1location_1_1details.html',1,'vt::location']]],
   ['diagnostic',['diagnostic',['../namespacevt_1_1diagnostic.html',1,'vt']]],
-  ['dispatch',['dispatch',['../namespacevt_1_1objgroup_1_1dispatch.html',1,'vt::objgroup']]],
   ['ds',['ds',['../namespacevt_1_1term_1_1ds.html',1,'vt::term']]],
   ['elm',['elm',['../namespacevt_1_1elm.html',1,'vt']]],
   ['elm_5fproxy',['elm_proxy',['../namespacevt_1_1vrt_1_1collection_1_1elm__proxy.html',1,'vt::vrt::collection']]],

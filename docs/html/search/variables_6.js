@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['f_5f',['f_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a48a5f74cbfd5eef7e89388f43873dc67',1,'vt::vrt::collection::lb::TemperedLB']]],
+  ['f_5f',['f_',['../structvt_1_1runnable_1_1_runnable_new.html#af29cbd1944bfb1e592e96c33c8a98d53',1,'vt::runnable::RunnableNew::f_()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#a48a5f74cbfd5eef7e89388f43873dc67',1,'vt::vrt::collection::lb::TemperedLB::f_()']]],
   ['failed_5f',['failed_',['../structvt_1_1util_1_1memory_1_1_stat.html#af94103c0d6758baa6386de53c30f6246',1,'vt::util::memory::Stat::failed_()'],['../structvt_1_1util_1_1memory_1_1_stat_m.html#a9c268c769506493be2a98ea4e6e553ff',1,'vt::util::memory::StatM::failed_()']]],
   ['fd_5f',['fd_',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#aaae9d622f010fb34e3644ae7ffc355d7',1,'checkpoint::buffer::IOBuffer']]],
   ['file_5f',['file_',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a3032074c49298bf2d87aeb5f7aa5f37d',1,'checkpoint::buffer::IOBuffer']]],
@@ -37,5 +37,7 @@ var searchData=
   ['full_5fdir_5fname_5f',['full_dir_name_',['../structvt_1_1trace_1_1_trace_lite.html#a3871cf535ca6f31bfb499a46cde4c80c',1,'vt::trace::TraceLite']]],
   ['full_5fsts_5fname_5f',['full_sts_name_',['../structvt_1_1trace_1_1_trace_lite.html#aa7236609212e978252ddefd9c0131537',1,'vt::trace::TraceLite']]],
   ['full_5ftrace_5fname_5f',['full_trace_name_',['../structvt_1_1trace_1_1_trace_lite.html#a0381e516d389555b3b40b954d276eff9',1,'vt::trace::TraceLite']]],
+  ['func_5f',['func_',['../structvt_1_1runnable_1_1_runnable_new.html#ac73d475f0e3e8aeebb28caefcbcf60e8',1,'vt::runnable::RunnableNew']]],
+  ['func_5fscat_5f',['func_scat_',['../structvt_1_1runnable_1_1_runnable_new.html#a0efbf8e5086cf724b0fd0318f9433d8c',1,'vt::runnable::RunnableNew']]],
   ['future_5fphase_5fblock_5fsize_5f',['future_phase_block_size_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a26b2a79fd6145e7e3ab56581a8558584',1,'vt::vrt::collection::balance::MultiplePhases']]]
 ];

@@ -31,8 +31,6 @@ var searchData=
   ['_7edecompressorbase',['~DecompressorBase',['../structvt_1_1util_1_1compress_1_1_decompressor_base.html#aa81872201422e0b7a5fed31b0fcb062b',1,'vt::util::compress::DecompressorBase']]],
   ['_7edependentsendchain',['~DependentSendChain',['../classvt_1_1messaging_1_1_dependent_send_chain.html#ab83d35f473326151fe0ab2fe82b6de6e',1,'vt::messaging::DependentSendChain']]],
   ['_7ediagnosticbase',['~DiagnosticBase',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html#adc580177d32483d2166bdcdb9adfd832',1,'vt::runtime::component::detail::DiagnosticBase']]],
-  ['_7edispatch',['~Dispatch',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch.html#af0c5622152b327cd5a5fb781b6062e42',1,'vt::objgroup::dispatch::Dispatch']]],
-  ['_7edispatchbase',['~DispatchBase',['../structvt_1_1objgroup_1_1dispatch_1_1_dispatch_base.html#ad3a30bcc1ed4d045c208818d10b6cf96',1,'vt::objgroup::dispatch::DispatchBase']]],
   ['_7edispatchcollectionbase',['~DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html#a8c27f42a9b91fd31b0aa7b30da4d614c',1,'vt::vrt::collection::DispatchCollectionBase']]],
   ['_7eelementholder',['~ElementHolder',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#a9f8f4304168ecb1a0b13f2b58a0abd0b',1,'vt::vrt::collection::ElementHolder']]],
   ['_7eentitylocationcoord',['~EntityLocationCoord',['../structvt_1_1location_1_1_entity_location_coord.html#af68fd9bb9fcbf02f693ba2af503ed409',1,'vt::location::EntityLocationCoord']]],
