@@ -150,6 +150,7 @@ var searchData=
   ['converter_3c_20double_20_3e',['Converter&lt; double &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01double_01_4.html',1,'vt::vrt::collection::balance']]],
   ['converter_3c_20int32_5ft_20_3e',['Converter&lt; int32_t &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01int32__t_01_4.html',1,'vt::vrt::collection::balance']]],
   ['converter_3c_20std_3a_3astring_20_3e',['Converter&lt; std::string &gt;',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_converter_3_01std_1_1string_01_4.html',1,'vt::vrt::collection::balance']]],
+  ['coord',['Coord',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_coord.html',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['copy',['Copy',['../structvt_1_1util_1_1adt_1_1detail_1_1_copy.html',1,'vt::util::adt::detail']]],
   ['copy_3c_20t_20_3e',['Copy&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_copy_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['counter',['Counter',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter.html',1,'vt::runtime::component::meter']]],

@@ -371,6 +371,8 @@ var searchData=
   ['msgsharedptr_3c_20basemsgtype_20_3e',['MsgSharedPtr&lt; BaseMsgType &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsharedptr_3c_20msgt_20_3e',['MsgSharedPtr&lt; MsgT &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsharedptr_3c_20vt_3a_3amessaging_3a_3aactivemsg_20_3e',['MsgSharedPtr&lt; vt::messaging::ActiveMsg &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
+  ['msgsharedptr_3c_20vt_3a_3avrt_3a_3acollection_3a_3abalance_3a_3albdatarestartreader_3a_3aarrivemsg_20_3e',['MsgSharedPtr&lt; vt::vrt::collection::balance::LBDataRestartReader::ArriveMsg &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
+  ['msgsharedptr_3c_20vt_3a_3avrt_3a_3acollection_3a_3abalance_3a_3albdatarestartreader_3a_3adepartmsg_20_3e',['MsgSharedPtr&lt; vt::vrt::collection::balance::LBDataRestartReader::DepartMsg &gt;',['../structvt_1_1messaging_1_1_msg_shared_ptr.html',1,'vt::messaging']]],
   ['msgsizer',['MsgSizer',['../structvt_1_1serialization_1_1_msg_sizer.html',1,'vt::serialization']]],
   ['msgsizetype',['MsgSizeType',['../namespacevt.html#a408e86a8c7c89309b52907dc5a513924',1,'vt']]],
   ['msgsystemsetpriority',['msgSystemSetPriority',['../namespacevt_1_1messaging.html#ab609ea1ed68952c30bc8f9bba8d796b2',1,'vt::messaging']]],

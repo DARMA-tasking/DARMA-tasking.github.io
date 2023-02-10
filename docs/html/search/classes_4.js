@@ -18,6 +18,7 @@ var searchData=
   ['definesserializationmode_3c_20selft_20_3e',['DefinesSerializationMode&lt; SelfT &gt;',['../structvt_1_1messaging_1_1_defines_serialization_mode.html',1,'vt::messaging']]],
   ['demanglerutils',['DemanglerUtils',['../structvt_1_1util_1_1demangle_1_1_demangler_utils.html',1,'vt::util::demangle']]],
   ['denseindexarray',['DenseIndexArray',['../structvt_1_1index_1_1_dense_index_array.html',1,'vt::index']]],
+  ['departmsg',['DepartMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg.html',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['dependentsendchain',['DependentSendChain',['../classvt_1_1messaging_1_1_dependent_send_chain.html',1,'vt::messaging']]],
   ['depspack',['DepsPack',['../structvt_1_1runtime_1_1component_1_1_base_component_1_1_deps_pack.html',1,'vt::runtime::component::BaseComponent']]],
   ['destroyable',['Destroyable',['../structvt_1_1vrt_1_1collection_1_1_destroyable.html',1,'vt::vrt::collection']]],

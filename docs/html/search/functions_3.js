@@ -35,6 +35,7 @@ var searchData=
   ['channellookup',['ChannelLookup',['../structvt_1_1rdma_1_1_channel_lookup.html#a6e438b399a526542f97ef6cbf96a7378',1,'vt::rdma::ChannelLookup::ChannelLookup(RDMA_HandleType const &amp;han, NodeType const &amp;in_target, NodeType const &amp;in_non_target)'],['../structvt_1_1rdma_1_1_channel_lookup.html#af5ffd2e82bd5972d35f03be34279e4d6',1,'vt::rdma::ChannelLookup::ChannelLookup(ChannelLookup const &amp;)=default']]],
   ['channelmessage',['ChannelMessage',['../structvt_1_1rdma_1_1_channel_message.html#ad6ee8a328480b24231dd247397774d49',1,'vt::rdma::ChannelMessage']]],
   ['checkallowedkeys',['checkAllowedKeys',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_config_entry.html#ab4cc68a4675c9480c3086596b7afbb6e',1,'vt::vrt::collection::balance::ConfigEntry']]],
+  ['checkbothends',['checkBothEnds',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#a7d8669c0396398818721febf079213c9',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['checkchanged',['checkChanged',['../structvt_1_1rdma_1_1_sub_handle.html#af872a0071eac521cb813d998763f5a31',1,'vt::rdma::SubHandle']]],
   ['checkdynamicruntimeenabled',['checkDynamicRuntimeEnabled',['../structvt_1_1trace_1_1_trace_lite.html#a8c80920e23cef1aeedbb2282fb6769f2',1,'vt::trace::TraceLite']]],
   ['checkenabled',['checkEnabled',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#ae7850a9915fb65decca92eb68f2293cb',1,'vt::utils::file_spec::FileSpec']]],

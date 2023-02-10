@@ -74,6 +74,7 @@ var searchData=
   ['continuation_5factions_5ft_5f',['continuation_actions_t_',['../structvt_1_1group_1_1_group_manager_t.html#ace6828eddb4d595c12ea5c07047207d6',1,'vt::group::GroupManagerT']]],
   ['control_5fbase_5f',['control_base_',['../structvt_1_1rdma_1_1_holder.html#a4f9ee10b09fb58524ac3659f180a4a96',1,'vt::rdma::Holder']]],
   ['control_5fwindow_5f',['control_window_',['../structvt_1_1rdma_1_1_holder.html#adfcf34183c7325a69e1ac6f550c471f1',1,'vt::rdma::Holder']]],
+  ['coordinate_5f',['coordinate_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#ab24e7539668dcbe68d141c2be45ad2d1',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['count',['count',['../structvt_1_1term_1_1ds_1_1_ack_request.html#adc7efe7df809adf8b7cefeb121509e5e',1,'vt::term::ds::AckRequest']]],
   ['count_5f',['count_',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#aaad578073c92d79401b0d900a8851985',1,'vt::collective::reduce::ReduceLink::count_()'],['../structvt_1_1rdma_1_1_base_typed_handle.html#ac474123342ec5f8f82d2346b09331fc4',1,'vt::rdma::BaseTypedHandle::count_()'],['../structvt_1_1rdma_1_1_holder.html#adba61a40f9dd80d86ac7d0d82d415923',1,'vt::rdma::Holder::count_()'],['../structvt_1_1rdma_1_1_index_info.html#aca150374e8415d497aeb789ecae05aec',1,'vt::rdma::IndexInfo::count_()'],['../structvt_1_1rdma_1_1impl_1_1_handle_data.html#ae4c0e267300c40b8de9233c0e968d1ad',1,'vt::rdma::impl::HandleData::count_()'],['../structvt_1_1rdma_1_1_sub_handle_1_1_sub_info.html#a44ea9e215bc2f41221f9cb00534f9e2c',1,'vt::rdma::SubHandle::SubInfo::count_()'],['../structvt_1_1term_1_1ds_1_1_ack_msg.html#ab973f14171a2e53dfd812c08407b6a51',1,'vt::term::ds::AckMsg::count_()'],['../structvt_1_1util_1_1adt_1_1detail_1_1_centroid.html#ac9df992e5ea17280b5d49bd0defa8c28',1,'vt::util::adt::detail::Centroid::count_()']]],
   ['count_5fif_5funiform_5f',['count_if_uniform_',['../structvt_1_1rdma_1_1_sub_handle.html#a0e764c3fd8c4601a58ae396b2253d1fd',1,'vt::rdma::SubHandle']]],
@@ -123,7 +124,7 @@ var searchData=
   ['cur_5fuser_5fid_5f',['cur_user_id_',['../structvt_1_1collective_1_1reduce_1_1_reduce_manager.html#a716c66493c02898d5ac8c2b8ca62efd0',1,'vt::collective::reduce::ReduceManager']]],
   ['cur_5fwave_5f',['cur_wave_',['../structvt_1_1term_1_1_term_state.html#a52c016e0a0c56fbbb1ef41838d985db3',1,'vt::term::TermState']]],
   ['curident_5f',['curIdent_',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a0aeca2e6cb7e3096d0f6dce413c3bc0a',1,'vt::vrt::VirtualContextManager']]],
-  ['curr_5fnode',['curr_node',['../structvt_1_1elm_1_1_element_i_d_struct.html#af0916244e9dbfe1c746e68b5fb1b5421',1,'vt::elm::ElementIDStruct']]],
+  ['curr_5fnode',['curr_node',['../structvt_1_1elm_1_1_element_i_d_struct.html#af0916244e9dbfe1c746e68b5fb1b5421',1,'vt::elm::ElementIDStruct::curr_node()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg.html#aa3393d7888ea637ced5b80a854090ce3',1,'vt::vrt::collection::balance::LBDataRestartReader::UpdateMsg::curr_node()']]],
   ['curremoteid_5f',['curRemoteID_',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ae2c642a96358980259bc165cad68ae6c',1,'vt::vrt::VirtualContextManager']]],
   ['currt',['curRT',['../namespacevt.html#a07abc8f1752a784f54c226bbc4c3b1fe',1,'vt']]]
 ];
