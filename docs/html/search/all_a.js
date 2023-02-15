@@ -248,6 +248,7 @@ var searchData=
   ['is_5fnonintrusive_5freconstructible',['is_nonintrusive_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a35d5afbe97197885a1513765a210837c',1,'checkpoint::SerializableTraits']]],
   ['is_5fobj_5f',['is_obj_',['../structvt_1_1rdma_1_1_handle_key.html#ab0caa0cf39617bb46a86780d5a27397e',1,'vt::rdma::HandleKey']]],
   ['is_5foverloaded_5f',['is_overloaded_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#af7e60fc255a3ebe6625f48b622d61a84',1,'vt::vrt::collection::lb::TemperedLB']]],
+  ['is_5frecent_5ftime_5fstale_5f',['is_recent_time_stale_',['../structvt_1_1sched_1_1_scheduler.html#abe2c298f88eec4dd3a80f1f892e56959',1,'vt::sched::Scheduler']]],
   ['is_5freconstructible',['is_reconstructible',['../structcheckpoint_1_1_serializable_traits.html#a6cc78a7cc9b4645727c92437619fce83',1,'checkpoint::SerializableTraits']]],
   ['is_5fremote_5f',['is_remote_',['../structvt_1_1group_1_1_info_rooted.html#ae35381afa327833a2b9f4bb758703a11',1,'vt::group::InfoRooted']]],
   ['is_5froot_5f',['is_root_',['../structvt_1_1collective_1_1reduce_1_1_reduce_link.html#a6580f48704b511253b50f63a8ccf1b68',1,'vt::collective::reduce::ReduceLink::is_root_()'],['../structvt_1_1collective_1_1tree_1_1_tree.html#abe6e5a200fc08f3dc040bd134e97d8f2',1,'vt::collective::tree::Tree::is_root_()']]],
