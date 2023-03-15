@@ -25,20 +25,12 @@
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>test_val<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline><highlight class="normal">};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ColMsg<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage</ref>&lt;Hello&gt;<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>ColMsg(<ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>in_from_node)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>from_node(in_from_node)</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>from_node<sp/>=<sp/>vt::uninitialized_destination;</highlight></codeline>
-<codeline><highlight class="normal">};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(ColMsg*<sp/>msg,<sp/>Hello*<sp/>col)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>doWork(Hello*<sp/>col)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;{}:<sp/>idx={}:<sp/>val={}\n&quot;</highlight><highlight class="normal">,<sp/>this_node,<sp/>col-&gt;getIndex(),<sp/>col-&gt;test_val);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>migrateToNext(ColMsg*<sp/>msg,<sp/>Hello*<sp/>col)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>migrateToNext(Hello*<sp/>col)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>this_node<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a0d52c263ce8516546a67443d9a86fa5f" kindref="member">getNode</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>num_nodes<sp/>=<sp/><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext</ref>()-&gt;<ref refid="structvt_1_1ctx_1_1_context_1a7f41071aadf6d5fa9e1b6c703c5ff19d" kindref="member">getNumNodes</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>next_node<sp/>=<sp/>(this_node<sp/>+<sp/>1)<sp/>%<sp/>num_nodes;</highlight></codeline>
@@ -69,13 +61,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>.wait();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this_node<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;ColMsg,<sp/>doWork&gt;(this_node);<sp/>});</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>[=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;ColMsg,<sp/>migrateToNext&gt;(this_node);<sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;ColMsg,<sp/>doWork&gt;(this_node);<sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;doWork&gt;();<sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;migrateToNext&gt;();<sp/>});</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacevt_1a9f5cbbc484d7f14f2ad0ee46d62dfb6e" kindref="member">vt::runInEpochRooted</ref>([=]<sp/>{<sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a0b716ca776b1f06e0d7d45afbe9e5274" kindref="member">broadcast</ref>&lt;doWork&gt;();<sp/>});</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>

@@ -40,7 +40,6 @@ Overview of functionality in {\bfseries {\itshape vt}}\hypertarget{introduction_
 \hyperlink{location}{Location Manager} &{\ttfamily \hyperlink{namespacevt_ace1c9d64e09732e3b7414d02517ecfdb}{vt\+::the\+Loc\+Man()}} &Virtual entity location management. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{mem-usage}{Memory Usage Tracker} &{\ttfamily \hyperlink{namespacevt_a38d485d3cf840b9a623e47e7754ef72e}{vt\+::the\+Mem\+Usage()}} &Track memory usage. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{objgroup}{Object Group Manager} &{\ttfamily \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt\+::the\+Obj\+Group()}} &Create object instances across nodes. & {\bfseries Core} \\\cline{1-4}
-\hyperlink{param}{Parameterization} &{\ttfamily \hyperlink{namespacevt_a268431014c9031c0f7c33d32c1b8645c}{vt\+::the\+Param()}} &Handler parameterization. & {\bfseries Experimental} \\\cline{1-4}
 \hyperlink{pipe}{Pipe Manager} &{\ttfamily \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt\+::the\+C\+B()}} &Create opaque callback endpoints. & {\bfseries Core} \\\cline{1-4}
 \hyperlink{node-lb-data}{Node LB Data} &{\ttfamily \hyperlink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{vt\+::the\+Node\+L\+B\+Data()}} &Manager object profiling data. & {\bfseries Optional} \\\cline{1-4}
 \hyperlink{phase}{Phase Manager} &{\ttfamily \hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt\+::the\+Phase()}} &Manage phases of time. & {\bfseries Core} \\\cline{1-4}
@@ -328,10 +327,8 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(counter\_ == 1, \textcolor{stringliteral}{"Must be equal"});
   \}
 
-  \textcolor{keyword}{using} TestMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<Hello>};
-
-  \textcolor{keywordtype}{void} doWork(TestMsg* msg) \{
-    fmt::print(\textcolor{stringliteral}{"Hello from \{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}());
+  \textcolor{keywordtype}{void} doWork(\textcolor{keywordtype}{int} val) \{
+    fmt::print(\textcolor{stringliteral}{"Hello from \{\}: val=\{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}(), val);
     counter\_++;
   \}
 
@@ -356,7 +353,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
       .bounds(range)
       .bulkInsert()
       .wait();
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<Hello::TestMsg,&Hello::doWork>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&Hello::doWork>(10);
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -376,11 +373,11 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(counter\_ == num\_nodes, \textcolor{stringliteral}{"Should receive # nodes broadcasts"});
   \}
 
-  \textcolor{keyword}{using} TestMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<Hello>};
-
-  \textcolor{keywordtype}{void} doWork(TestMsg* msg) \{
+  \textcolor{keywordtype}{void} doWork(\textcolor{keywordtype}{int} val) \{
     counter\_++;
-    fmt::print(\textcolor{stringliteral}{"Hello from \{\}, counter\_=\{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}().x(), counter\_);
+    fmt::print(
+      \textcolor{stringliteral}{"Hello from \{\}, val=\{\}, counter\_=\{\}\(\backslash\)n"}, \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}(), val, counter\_
+    );
   \}
 
 \textcolor{keyword}{private}:
@@ -402,7 +399,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     .wait();
 
   \textcolor{comment}{// All nodes send a broadcast to all elements}
-  proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<Hello::TestMsg,&Hello::doWork>();
+  proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&Hello::doWork>(29);
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
 
@@ -419,9 +416,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     fmt::print(\textcolor{stringliteral}{"Reduce complete at \{\} value \{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}(), msg->getVal());
   \}
 
-  \textcolor{keyword}{using} TestMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<Hello>};
-
-  \textcolor{keywordtype}{void} doWork(TestMsg* msg) \{
+  \textcolor{keywordtype}{void} doWork() \{
     fmt::print(\textcolor{stringliteral}{"Hello from \{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}());
 
     \textcolor{comment}{// Get the proxy for the collection}
@@ -453,7 +448,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     .wait();
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<Hello::TestMsg,&Hello::doWork>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&Hello::doWork>();
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -478,9 +473,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     \hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}(counter\_ == 1, \textcolor{stringliteral}{"Must be equal"});
   \}
 
-  \textcolor{keyword}{using} TestMsg = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage<Hello>};
-
-  \textcolor{keywordtype}{void} doWork(TestMsg* msg) \{
+  \textcolor{keywordtype}{void} doWork() \{
     counter\_++;
 
     \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
@@ -528,7 +521,7 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
     .wait();
 
   \textcolor{keywordflow}{if} (this\_node == 1) \{
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<Hello::TestMsg,&Hello::doWork>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&Hello::doWork>();
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -661,7 +654,7 @@ When creating a group, one may ask {\bfseries {\itshape vt}} to create a underly
       \textcolor{keywordflow}{if} (this\_node == 1) \{
         \textcolor{keyword}{auto} msg = vt::makeMessage<HelloGroupMsg>();
         \hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{vt::envelopeSetGroup}(msg->env, group);
-        \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}<HelloGroupMsg, hello\_group\_handler>(msg);
+        \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}<hello\_group\_handler>(msg);
       \}
     \}
   );
@@ -791,15 +784,10 @@ Create object instances across nodes
 The object group manager component {\ttfamily \hyperlink{structvt_1_1objgroup_1_1_obj_group_manager}{vt\+::objgroup\+::\+Obj\+Group\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt\+::the\+Obj\+Group()}} allows the creation and management of instances of a group of objects (one per node) that have a collective proxy for performing operations like sends, broadcasts, or reductions across the object group.\hypertarget{objgroup_objgroup-example}{}\subsection{Example creating an object group}\label{objgroup_objgroup-example}
 
 \begin{DoxyCodeInclude}
-\textcolor{keyword}{struct }MyMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{
-  MyMsg(\textcolor{keywordtype}{int} in\_a, \textcolor{keywordtype}{int} in\_b) : a(in\_a), b(in\_b) \{ \}
-  \textcolor{keywordtype}{int} a = 0, b = 0;
-\};
-
 \textcolor{keyword}{struct }MyObjGroup \{
-  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{handler}(MyMsg* msg) \{
+  \textcolor{keywordtype}{void} \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{handler}(\textcolor{keywordtype}{int} a, \textcolor{keywordtype}{int} b) \{
     \textcolor{keyword}{auto} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-    fmt::print(\textcolor{stringliteral}{"\{\}: MyObjGroup::handler on a=\{\}, b=\{\}\(\backslash\)n"}, \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}, msg->a, msg->b);
+    fmt::print(\textcolor{stringliteral}{"\{\}: MyObjGroup::handler on a=\{\}, b=\{\}\(\backslash\)n"}, \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}, a, b);
   \}
 \};
 
@@ -815,11 +803,11 @@ The object group manager component {\ttfamily \hyperlink{structvt_1_1objgroup_1_
   );
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    proxy[0].send<MyMsg,&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(5,10);
+    proxy[0].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(5,10);
     \textcolor{keywordflow}{if} (num\_nodes > 1) \{
-      proxy[1].send<MyMsg,&MyObjGroup::handler>(10,20);
+      proxy[1].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(10,20);
     \}
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<MyMsg,&MyObjGroup::handler>(400,500);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(400,500);
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
@@ -827,12 +815,7 @@ The object group manager component {\ttfamily \hyperlink{structvt_1_1objgroup_1_
   \textcolor{keywordflow}{return} 0;
 \}
 \end{DoxyCodeInclude}
-\hypertarget{param}{}\section{Parameterization}\label{param}
-Handler parameterization
-
- {\bfseries Experimental}
-
-The parameterization component {\ttfamily \hyperlink{structvt_1_1param_1_1_param}{vt\+::param\+::\+Param}}, accessed via {\ttfamily \hyperlink{namespacevt_a268431014c9031c0f7c33d32c1b8645c}{vt\+::the\+Param()}} is an experimental component for parameterizing arguments into active function handlers as an alternative to messages. \hypertarget{pipe}{}\section{Pipe Manager}\label{pipe}
+\hypertarget{pipe}{}\section{Pipe Manager}\label{pipe}
 Create opaque callback endpoints
 
 The pipe manager component {\ttfamily \hyperlink{structvt_1_1pipe_1_1_pipe_manager}{vt\+::pipe\+::\+Pipe\+Manager}}, accessed via {\ttfamily \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt\+::the\+C\+B()}} allows the creation of general pipes and callbacks between opaque endpoints that are not revealed through the type. Callbacks allow one to supply a general endpoint that accepts a type of data without revealing the actual endpoint instance. For example, one may create a callback that triggers a handler invocation on a certain node, broadcasts to a handler, sends to a collection or objgroup, or broadcasts to a collection or objgroup, etc.
@@ -908,13 +891,13 @@ The pipe manager also supports \char`\"{}typed\char`\"{} callbacks where the cal
 \textcolor{keyword}{struct }MyCol : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<MyCol, vt::Index1D> \{ \};
 
 \textcolor{comment}{// Collection handler callback endpoint}
-\textcolor{keywordtype}{void} colHan(TestMsg* msg, MyCol* col) \{
+\textcolor{keywordtype}{void} colHan(MyCol* col, TestMsg* msg) \{
   printOutput(msg, \textcolor{stringliteral}{"MyCol colHan (non-intrusive)"});
 \}
 
 \textcolor{keywordtype}{void} bounceCallback(\hyperlink{structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed}{vt::Callback<TestMsg>} cb) \{
   \textcolor{keyword}{auto} msg = vt::makeMessage<HelloMsg>(cb);
-  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<HelloMsg, hello\_world>(1, msg);
+  \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<hello\_world>(1, msg);
 \}
 
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
@@ -1240,7 +1223,7 @@ The termination detector also comes with hang detection to detect causes where n
   num--;
   \textcolor{keywordflow}{if} (num > 0) \{
     \textcolor{keyword}{auto} msg\_send = vt::makeMessage<TestMsg>();
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg\_send);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<test\_handler>(nextNode(), msg\_send);
   \}
 \}
 
@@ -1267,7 +1250,7 @@ The termination detector also comes with hang detection to detect causes where n
   \{
     \textcolor{keyword}{auto} msg = vt::makeMessage<TestMsg>();
     \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<test\_handler>(nextNode(), msg);
   \}
 
   \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
@@ -1300,7 +1283,7 @@ The termination detector also comes with hang detection to detect causes where n
   num--;
   \textcolor{keywordflow}{if} (num > 0) \{
     \textcolor{keyword}{auto} msg\_send = vt::makeMessage<TestMsg>();
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg\_send);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<test\_handler>(nextNode(), msg\_send);
   \}
 \}
 
@@ -1327,7 +1310,7 @@ The termination detector also comes with hang detection to detect causes where n
 
     \textcolor{keyword}{auto} msg = vt::makeMessage<TestMsg>();
     \hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}(msg->env, \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
-    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<TestMsg, test\_handler>(nextNode(), msg);
+    \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<test\_handler>(nextNode(), msg);
     \hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}()->\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}(\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch});
   \}
 

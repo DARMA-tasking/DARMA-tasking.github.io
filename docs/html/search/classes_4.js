@@ -1,7 +1,6 @@
 var searchData=
 [
   ['data',['Data',['../unionvt_1_1trace_1_1_log_1_1_data.html',1,'vt::trace::Log']]],
-  ['datamsg',['DataMsg',['../structvt_1_1param_1_1_data_msg.html',1,'vt::param']]],
   ['deallocate',['Deallocate',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate.html',1,'vt::util::adt::detail']]],
   ['deallocate_3c_20t_20_3e',['Deallocate&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_deallocate_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['debugprintop',['DebugPrintOp',['../structvt_1_1config_1_1_debug_print_op.html',1,'vt::config']]],
@@ -51,12 +50,6 @@ var searchData=
   ['directory_3c_20entityid_2c_20locrectype_20_3e',['Directory&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_directory.html',1,'vt::location']]],
   ['dispatchcollection',['DispatchCollection',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection.html',1,'vt::vrt::collection']]],
   ['dispatchcollectionbase',['DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html',1,'vt::vrt::collection']]],
-  ['dispatchimpl',['DispatchImpl',['../structvt_1_1auto__registry_1_1_handlers_dispatcher_1_1_dispatch_impl.html',1,'vt::auto_registry::HandlersDispatcher&lt; MsgT, HandlerT, ObjT &gt;::DispatchImpl&lt; T, typename &gt;'],['../structvt_1_1auto__registry_1_1_maps_dispatcher_1_1_dispatch_impl.html',1,'vt::auto_registry::MapsDispatcher&lt; IndexT, HandlerT &gt;::DispatchImpl&lt; T, typename &gt;'],['../structvt_1_1auto__registry_1_1_scatter_dispatcher_1_1_dispatch_impl.html',1,'vt::auto_registry::ScatterDispatcher&lt; MsgT, HandlerT, ObjT &gt;::DispatchImpl&lt; T, typename &gt;']]],
-  ['dispatchimpl_3c_20t_2c_20isactivecolmembertypedfntype_3c_20t_20_3e_20_3e',['DispatchImpl&lt; T, isActiveColMemberTypedFnType&lt; T &gt; &gt;',['../structvt_1_1auto__registry_1_1_handlers_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_col_mca715dc837e42086a4d620b73af1e2d9.html',1,'vt::auto_registry::HandlersDispatcher']]],
-  ['dispatchimpl_3c_20t_2c_20isactivecoltypedfntype_3c_20t_20_3e_20_3e',['DispatchImpl&lt; T, isActiveColTypedFnType&lt; T &gt; &gt;',['../structvt_1_1auto__registry_1_1_handlers_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_col_typed_fn_type_3_01_t_01_4_01_4.html',1,'vt::auto_registry::HandlersDispatcher']]],
-  ['dispatchimpl_3c_20t_2c_20isactivemapfnptrtype_3c_20t_20_3e_20_3e',['DispatchImpl&lt; T, isActiveMapFnPtrType&lt; T &gt; &gt;',['../structvt_1_1auto__registry_1_1_maps_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_map_fn_ptr_type_3_01_t_01_4_01_4.html',1,'vt::auto_registry::MapsDispatcher']]],
-  ['dispatchimpl_3c_20t_2c_20isactivetypedfntype_3c_20t_20_3e_20_3e',['DispatchImpl&lt; T, isActiveTypedFnType&lt; T &gt; &gt;',['../structvt_1_1auto__registry_1_1_handlers_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_typed_fn_type_3_01_t_01_4_01_4.html',1,'vt::auto_registry::HandlersDispatcher&lt; MsgT, HandlerT, ObjT &gt;::DispatchImpl&lt; T, isActiveTypedFnType&lt; T &gt; &gt;'],['../structvt_1_1auto__registry_1_1_scatter_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_typed_fn_type_3_01_t_01_4_01_4.html',1,'vt::auto_registry::ScatterDispatcher&lt; MsgT, HandlerT, ObjT &gt;::DispatchImpl&lt; T, isActiveTypedFnType&lt; T &gt; &gt;']]],
-  ['dispatchimpl_3c_20t_2c_20isactivevoidfntype_3c_20t_20_3e_20_3e',['DispatchImpl&lt; T, isActiveVoidFnType&lt; T &gt; &gt;',['../structvt_1_1auto__registry_1_1_handlers_dispatcher_1_1_dispatch_impl_3_01_t_00_01is_active_void_fn_type_3_01_t_01_4_01_4.html',1,'vt::auto_registry::HandlersDispatcher']]],
   ['dispatchop',['DispatchOp',['../structvt_1_1config_1_1_dispatch_op.html',1,'vt::config']]],
   ['dualloadmapobjectiterator',['DualLoadMapObjectIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html',1,'vt::vrt::collection::balance']]]
 ];

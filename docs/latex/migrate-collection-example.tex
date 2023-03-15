@@ -23,20 +23,12 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keywordtype}{double} test\_val = 0.0;
 \};
 
-\textcolor{keyword}{struct }ColMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<Hello> \{
-  \textcolor{keyword}{explicit} ColMsg(\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} \textcolor{keyword}{const}& in\_from\_node)
-    : from\_node(in\_from\_node)
-  \{ \}
-
-  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} from\_node = vt::uninitialized\_destination;
-\};
-
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} doWork(ColMsg* msg, Hello* col) \{
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} doWork(Hello* col) \{
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   fmt::print(\textcolor{stringliteral}{"\{\}: idx=\{\}: val=\{\}\(\backslash\)n"}, this\_node, col->getIndex(), col->test\_val);
 \}
 
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} migrateToNext(ColMsg* msg, Hello* col) \{
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} migrateToNext(Hello* col) \{
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
       \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
@@ -69,13 +61,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     .wait();
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}([=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<ColMsg, doWork>(this\_node); \});
-
-    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}(
-      [=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<ColMsg, migrateToNext>(this\_node); \}
-    );
-
-    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}([=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<ColMsg, doWork>(this\_node); \});
+    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}([=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<doWork>(); \});
+    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}([=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<migrateToNext>(); \});
+    \hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}([=] \{ proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<doWork>(); \});
   \}
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();

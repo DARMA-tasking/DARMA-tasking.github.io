@@ -138,10 +138,8 @@
     <span class="n">vtAssert</span><span class="p">(</span><span class="n">counter_</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Must be equal&quot;</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="k">using</span> <span class="n">TestMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">;</span>
-
-  <span class="kt">void</span> <span class="nf">doWork</span><span class="p">(</span><span class="n">TestMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello from {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">());</span>
+  <span class="kt">void</span> <span class="n">doWork</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello from {}: val={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">(),</span> <span class="n">val</span><span class="p">);</span>
     <span class="n">counter_</span><span class="o">++</span><span class="p">;</span>
   <span class="p">}</span>
 
@@ -166,7 +164,7 @@
       <span class="p">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
       <span class="p">.</span><span class="n">bulkInsert</span><span class="p">()</span>
       <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">::</span><span class="n">TestMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
   <span class="p">}</span>
 
   <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>
@@ -180,11 +178,11 @@
     <span class="n">vtAssert</span><span class="p">(</span><span class="n">counter_</span> <span class="o">==</span> <span class="n">num_nodes</span><span class="p">,</span> <span class="s">&quot;Should receive # nodes broadcasts&quot;</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="k">using</span> <span class="n">TestMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">;</span>
-
-  <span class="kt">void</span> <span class="nf">doWork</span><span class="p">(</span><span class="n">TestMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">doWork</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">counter_</span><span class="o">++</span><span class="p">;</span>
-    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello from {}, counter_={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">(),</span> <span class="n">counter_</span><span class="p">);</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
+      <span class="s">&quot;Hello from {}, val={}, counter_={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">getIndex</span><span class="p">(),</span> <span class="n">val</span><span class="p">,</span> <span class="n">counter_</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 
 <span class="k">private</span><span class="o">:</span>
@@ -206,7 +204,7 @@
     <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
 
   <span class="c1">// All nodes send a broadcast to all elements</span>
-  <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">::</span><span class="n">TestMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">29</span><span class="p">);</span>
 
   <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>
 
@@ -218,9 +216,7 @@
     <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Reduce complete at {} value {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">(),</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getVal</span><span class="p">());</span>
   <span class="p">}</span>
 
-  <span class="k">using</span> <span class="n">TestMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">;</span>
-
-  <span class="kt">void</span> <span class="nf">doWork</span><span class="p">(</span><span class="n">TestMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">doWork</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello from {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">());</span>
 
     <span class="c1">// Get the proxy for the collection</span>
@@ -252,7 +248,7 @@
     <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">::</span><span class="n">TestMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="p">}</span>
 
   <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>
@@ -272,9 +268,7 @@
     <span class="n">vtAssert</span><span class="p">(</span><span class="n">counter_</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Must be equal&quot;</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="k">using</span> <span class="n">TestMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">&gt;</span><span class="p">;</span>
-
-  <span class="kt">void</span> <span class="nf">doWork</span><span class="p">(</span><span class="n">TestMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">doWork</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">counter_</span><span class="o">++</span><span class="p">;</span>
 
     <span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">this_node</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
@@ -321,7 +315,7 @@
     <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">Hello</span><span class="o">::</span><span class="n">TestMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">Hello</span><span class="o">::</span><span class="n">doWork</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="p">}</span>
 
   <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>

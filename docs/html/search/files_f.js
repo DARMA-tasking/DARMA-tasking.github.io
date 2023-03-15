@@ -2,10 +2,8 @@ var searchData=
 [
   ['packer_2eh',['packer.h',['../packer_8h.html',1,'']]],
   ['packer_2eimpl_2eh',['packer.impl.h',['../packer_8impl_8h.html',1,'']]],
-  ['param_2emd',['param.md',['../param_8md.html',1,'']]],
-  ['param_5fmeta_2eh',['param_meta.h',['../param__meta_8h.html',1,'']]],
-  ['parameterization_2ecc',['parameterization.cc',['../parameterization_8cc.html',1,'']]],
-  ['parameterization_2eh',['parameterization.h',['../parameterization_8h.html',1,'']]],
+  ['param_5fcol_5fmsg_2eh',['param_col_msg.h',['../param__col__msg_8h.html',1,'']]],
+  ['param_5fmsg_2eh',['param_msg.h',['../param__msg_8h.html',1,'']]],
   ['payload_5fenvelope_2eh',['payload_envelope.h',['../payload__envelope_8h.html',1,'']]],
   ['pending_2eh',['pending.h',['../pending_8h.html',1,'']]],
   ['pending_5fsend_2ecc',['pending_send.cc',['../pending__send_8cc.html',1,'']]],

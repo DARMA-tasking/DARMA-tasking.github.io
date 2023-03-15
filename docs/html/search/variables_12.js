@@ -68,7 +68,6 @@ var searchData=
   ['strat_5f',['strat_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a41cd413b052ad6fb98fea034472fe31f',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['strategy_5fspecific_5fmodel_5f',['strategy_specific_model_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#ad9c5ed71d25d99877726394fe7f8f704',1,'vt::vrt::collection::balance::LBManager']]],
   ['stride_5f',['stride_',['../structvt_1_1group_1_1region_1_1_range.html#ad483fd4ac3bb38c69501fd95cef3890c',1,'vt::group::region::Range::stride_()'],['../structvt_1_1group_1_1region_1_1_range_data.html#a8f40ed5e914ee5f68c7f274df5cba1dd',1,'vt::group::region::RangeData::stride_()']]],
-  ['sub_5fhan',['sub_han',['../structvt_1_1param_1_1_data_msg.html#a5356937e3d47eff93d8b0c59247c5809',1,'vt::param::DataMsg']]],
   ['sub_5fhandles_5f',['sub_handles_',['../structvt_1_1rdma_1_1_sub_handle.html#ae5300cda983bbb530edff53b377a71a8',1,'vt::rdma::SubHandle']]],
   ['sub_5fhandles_5fstaged_5f',['sub_handles_staged_',['../structvt_1_1rdma_1_1_sub_handle.html#a5643ad6c60d3cf3478bc9d16dfe72489',1,'vt::rdma::SubHandle']]],
   ['sub_5flayout_5f',['sub_layout_',['../structvt_1_1rdma_1_1_sub_handle.html#aefa1426200c59256792c6e048d28d162',1,'vt::rdma::SubHandle']]],
