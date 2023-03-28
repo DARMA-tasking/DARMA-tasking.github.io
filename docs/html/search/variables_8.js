@@ -20,6 +20,7 @@ var searchData=
   ['has_5fno_5fmsg_5ftype',['has_no_msg_type',['../structvt_1_1pipe_1_1_functor_traits.html#aace8b00c70112f7711ce73f1799f7e00',1,'vt::pipe::FunctorTraits']]],
   ['has_5fnot_5fvirtual_5fserialize',['has_not_virtual_serialize',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a97ce9c5581f6ff66cbc91d5ca5750e2f',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
   ['has_5fparent_5fserialize',['has_parent_serialize',['../structcheckpoint_1_1_serializable_traits.html#a122e712dd9adffac78f239a7c30b0a8f',1,'checkpoint::SerializableTraits']]],
+  ['has_5fphysical_5fnode_5finfo',['has_physical_node_info',['../structvt_1_1runtime_1_1_runtime.html#a93b6754895751a60137b86a5ccac18aa',1,'vt::runtime::Runtime']]],
   ['has_5fprinted_5fepoch_5fgraph',['has_printed_epoch_graph',['../structvt_1_1term_1_1_termination_detector.html#a68afeac40869ccc50882f717106b382f',1,'vt::term::TerminationDetector']]],
   ['has_5froot_5f',['has_root_',['../structvt_1_1group_1_1_info_coll.html#abc9bebfacc0a99ea16893fce55bf8ffe',1,'vt::group::InfoColl']]],
   ['has_5fserialize_5ffunction',['has_serialize_function',['../structcheckpoint_1_1_serializable_traits.html#a4d17a7627a8e033cccb5cf4e6b8fd0dc',1,'checkpoint::SerializableTraits']]],

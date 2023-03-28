@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['p_5f',['p_',['../structvt_1_1runtime_1_1_runtime.html#a9f7ea8f6852d934e9c0122e074df0886',1,'vt::runtime::Runtime::p_()'],['../structvt_1_1util_1_1ptr_1_1_observer_ptr.html#afa7f8e2e3bca0e7ec27d61e10443b463',1,'vt::util::ptr::ObserverPtr::p_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a6f221924e77d7c24d97cd41da5ff274c',1,'vt::vrt::collection::balance::LoadData::P_()']]],
+  ['p_5f',['P_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a6f221924e77d7c24d97cd41da5ff274c',1,'vt::vrt::collection::balance::LoadData::P_()'],['../structvt_1_1runtime_1_1_runtime.html#a9f7ea8f6852d934e9c0122e074df0886',1,'vt::runtime::Runtime::p_()'],['../structvt_1_1util_1_1ptr_1_1_observer_ptr.html#afa7f8e2e3bca0e7ec27d61e10443b463',1,'vt::util::ptr::ObserverPtr::p_()']]],
   ['packed_5fdirect',['packed_direct',['../structvt_1_1rdma_1_1_send_data_message.html#a8d6ac5c7d5ea89478b7309dd26f04f76',1,'vt::rdma::SendDataMessage']]],
   ['par_5fname_5f',['par_name_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html#a3e7e8c3f195b637ca0286405d5f64e67',1,'vt::vrt::collection::balance::LBArgsEnumConverter']]],
   ['param_5fstr',['param_str',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#aaed7e09146a45c2932ca185a55161723',1,'vt::vrt::collection::balance']]],
@@ -33,6 +33,10 @@ var searchData=
   ['phase_5fcomm_5f',['phase_comm_',['../structvt_1_1elm_1_1_element_l_b_data.html#a343d66fb777c54e0bdaaddf6f54eda85',1,'vt::elm::ElementLBData']]],
   ['phase_5ftimings_5f',['phase_timings_',['../structvt_1_1elm_1_1_element_l_b_data.html#a21d18c146da6f3631829cb35e9490c0a',1,'vt::elm::ElementLBData']]],
   ['phases',['phases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a8548a90b20b426e5986f20beb139d3d1',1,'vt::vrt::collection::balance::PhaseOffset']]],
+  ['physical_5fnode_5fid',['physical_node_id',['../structvt_1_1runtime_1_1_runtime.html#a1c454863a1a4242437e1c457ee0f1e4e',1,'vt::runtime::Runtime']]],
+  ['physical_5fnode_5frank',['physical_node_rank',['../structvt_1_1runtime_1_1_runtime.html#a95ed57d55ef0c61fd37dd1c0eda6e2f8',1,'vt::runtime::Runtime']]],
+  ['physical_5fnode_5fsize',['physical_node_size',['../structvt_1_1runtime_1_1_runtime.html#a699053ce129769223ba1eba6b3ac4025',1,'vt::runtime::Runtime']]],
+  ['physical_5fnum_5fnodes',['physical_num_nodes',['../structvt_1_1runtime_1_1_runtime.html#a2c2103908d26e0dcf884f2605068e8f9',1,'vt::runtime::Runtime']]],
   ['pinged_5f',['pinged_',['../structvt_1_1vrt_1_1collection_1_1_insert_msg.html#a9b0a68bf8f23b5d377581e1e55ba5a50',1,'vt::vrt::collection::InsertMsg']]],
   ['pipe_5f',['pipe_',['../structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single.html#a7cff39d219279b2075d7db56e6b87944',1,'vt::pipe::callback::cbunion::CallbackRawBaseSingle::pipe_()'],['../structvt_1_1pipe_1_1interface_1_1_base_container.html#a3cada477b55c1201fabef5539825109c',1,'vt::pipe::interface::BaseContainer::pipe_()'],['../structvt_1_1pipe_1_1_callback_msg.html#ac35a396ab91b268d5ff972672955821c',1,'vt::pipe::CallbackMsg::pipe_()'],['../structvt_1_1pipe_1_1_pipe_state.html#a7444cbbce857d44145abb9e44eda23ea',1,'vt::pipe::PipeState::pipe_()']]],
   ['pipe_5fstate_5f',['pipe_state_',['../structvt_1_1pipe_1_1_pipe_manager_base.html#ab75d5e22880b1bb14a459fdb1147a0e6',1,'vt::pipe::PipeManagerBase']]],

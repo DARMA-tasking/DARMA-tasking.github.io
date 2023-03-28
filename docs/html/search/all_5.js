@@ -199,6 +199,7 @@ var searchData=
   ['detectcycles',['detectCycles',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#a8e76881b315cccf8171f177a84d66f83',1,'vt::runtime::component::ComponentPack::detectCycles()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#ab1b5d635c0d47e17fe1b5302370bf2d0',1,'vt::termination::graph::EpochGraph::detectCycles()']]],
   ['detectcyclesimpl',['detectCyclesImpl',['../structvt_1_1runtime_1_1component_1_1_component_pack.html#acbe1421990318c9c43d5a83add91fa31',1,'vt::runtime::component::ComponentPack::detectCyclesImpl()'],['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#aa0627e3c3ec01fca794fca2d2c9fec11',1,'vt::termination::graph::EpochGraph::detectCyclesImpl()']]],
   ['determinephasestomigrate',['determinePhasesToMigrate',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#af9cb0f3ba080b54902909a34f6fe0fef',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
+  ['determinephysicalnodeids',['determinePhysicalNodeIDs',['../structvt_1_1runtime_1_1_runtime.html#a34b322c63fa6ced8e80affcd4350c96f',1,'vt::runtime::Runtime']]],
   ['deterministic_5f',['deterministic_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#af99c4265a75445513e2aff865d65ba9e',1,'vt::vrt::collection::lb::TemperedLB']]],
   ['diagnosic_5fvalue_5finstance',['DIAGNOSIC_VALUE_INSTANCE',['../diagnostic__value_8cc.html#a81513065df72cc221320e1181eb4b827',1,'diagnostic_value.cc']]],
   ['diagnostic',['Diagnostic',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html',1,'vt::runtime::component']]],
