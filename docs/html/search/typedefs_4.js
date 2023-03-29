@@ -1,6 +1,7 @@
 var searchData=
 [
   ['eenvtype',['eEnvType',['../namespacevt.html#abdfe9ac50e3799705ee21853c1509bf6',1,'vt']]],
+  ['element_5ftype',['element_type',['../structdetection_1_1detector.html#a9eca84b9e67c56131be58d610ef43a2a',1,'detection::detector::element_type()'],['../structdetection_1_1detector_3_01_t_00_01std_1_1void__t_3_01_op_3_01_args_8_8_8_01_4_01_4_00_01_op_00_01_args_8_8_8_01_4.html#a9f8088c1ec1a97ff05fa3a7993893f48',1,'detection::detector&lt; T, std::void_t&lt; Op&lt; Args... &gt; &gt;, Op, Args... &gt;::element_type()']]],
   ['elementcommtype',['ElementCommType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#a83eb4daec14edfb8780422e95b8e38d3',1,'vt::vrt::collection::lb::BaseLB']]],
   ['elementidstruct',['ElementIDStruct',['../structvt_1_1ctx_1_1_l_b_data.html#aad9fac05c3faf80173b273d900db6fb1',1,'vt::ctx::LBData::ElementIDStruct()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a9f5b53fafb270212279a4757d2c4cd28',1,'vt::vrt::collection::balance::ElementIDStruct()']]],
   ['elementidtype',['ElementIDType',['../namespacevt_1_1elm.html#a63afb64985b41b7b6dcf2f01336391f8',1,'vt::elm::ElementIDType()'],['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a592736f733df4f90856df90a1fd08905',1,'vt::vrt::collection::balance::ElementIDType()']]],

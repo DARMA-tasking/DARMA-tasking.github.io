@@ -14,6 +14,7 @@ var searchData=
   ['nonconstt',['NonConstT',['../structcheckpoint_1_1dispatch_1_1_clean_type.html#af8cc50327016b4a8410504e245edeb6f',1,'checkpoint::dispatch::CleanType']]],
   ['none',['None',['../namespacevt_1_1collective.html#ab9abd77f58f0ede6d24462b95d0a1989',1,'vt::collective']]],
   ['noneop',['NoneOp',['../namespacevt_1_1collective.html#a812e9225d75c8888457b29f971c33f75',1,'vt::collective']]],
+  ['nonesuchtype',['NoneSuchType',['../namespacedetection.html#a08288d9ae2ffab86bb82bbdd27fbf77b',1,'detection']]],
   ['nonetype',['NoneType',['../namespacevt_1_1collective_1_1reduce_1_1operators.html#a1e8a587884de5e874a701ee300ca247c',1,'vt::collective::reduce::operators::NoneType()'],['../namespacevt_1_1collective.html#af988b64711231f96d33ebfaf891e52a4',1,'vt::collective::NoneType()']]],
   ['nonintrustive_5freconstruct_5ft',['nonintrustive_reconstruct_t',['../structcheckpoint_1_1_serializable_traits.html#abe5231bdf561e55fd9e0673e42a8a96c',1,'checkpoint::SerializableTraits']]],
   ['nonintrustive_5fserialize_5ft',['nonintrustive_serialize_t',['../structcheckpoint_1_1_serializable_traits.html#a3284d2cfd29cfe429d5cf76186d3fe3c',1,'checkpoint::SerializableTraits']]],

@@ -24,6 +24,8 @@ var searchData=
   ['destroyelmmsg',['DestroyElmMsg',['../structvt_1_1vrt_1_1collection_1_1_destroy_elm_msg.html',1,'vt::vrt::collection']]],
   ['destroyhandlers',['DestroyHandlers',['../structvt_1_1vrt_1_1collection_1_1_destroy_handlers.html',1,'vt::vrt::collection']]],
   ['destroymsg',['DestroyMsg',['../structvt_1_1vrt_1_1collection_1_1_destroy_msg.html',1,'vt::vrt::collection']]],
+  ['detector',['detector',['../structdetection_1_1detector.html',1,'detection']]],
+  ['detector_3c_20t_2c_20std_3a_3avoid_5ft_3c_20op_3c_20args_2e_2e_2e_20_3e_20_3e_2c_20op_2c_20args_2e_2e_2e_20_3e',['detector&lt; T, std::void_t&lt; Op&lt; Args... &gt; &gt;, Op, Args... &gt;',['../structdetection_1_1detector_3_01_t_00_01std_1_1void__t_3_01_op_3_01_args_8_8_8_01_4_01_4_00_01_op_00_01_args_8_8_8_01_4.html',1,'detection']]],
   ['diagnostic',['Diagnostic',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html',1,'vt::runtime::component']]],
   ['diagnosticbase',['DiagnosticBase',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_base.html',1,'vt::runtime::component::detail']]],
   ['diagnosticerasedvalue',['DiagnosticErasedValue',['../structvt_1_1runtime_1_1component_1_1_diagnostic_erased_value.html',1,'vt::runtime::component']]],

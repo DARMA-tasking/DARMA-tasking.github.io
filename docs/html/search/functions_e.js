@@ -44,6 +44,7 @@ var searchData=
   ['nodestackwrite',['nodeStackWrite',['../structvt_1_1runtime_1_1_runtime.html#aa9759e29e6159ac0d84c60dd609cbcad',1,'vt::runtime::Runtime']]],
   ['nodestatsmsg',['NodeStatsMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats_msg.html#a4d1c09dda8b28b2ca0b96ed19ab6ee1c',1,'vt::vrt::collection::balance::NodeStatsMsg::NodeStatsMsg()=default'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_stats_msg.html#ac060bdf23289ca43133bf59c9a7bf57c',1,'vt::vrt::collection::balance::NodeStatsMsg::NodeStatsMsg(std::vector&lt; LoadData &gt; ld)']]],
   ['nolocalunits',['noLocalUnits',['../structvt_1_1term_1_1_term_state.html#a6fd3b2a3c99002110ed7cfea8e30f021',1,'vt::term::TermState']]],
+  ['nonesuch',['NoneSuch',['../structdetection_1_1_none_such.html#a4ac3b272cd5ac3f2a69ca4fb25019715',1,'detection::NoneSuch::NoneSuch()=delete'],['../structdetection_1_1_none_such.html#afde4c614a0b571a38cb7fc1a68c81079',1,'detection::NoneSuch::NoneSuch(NoneSuch const &amp;)=delete']]],
   ['nonserializedmsg',['NonSerializedMsg',['../structvt_1_1messaging_1_1_non_serialized_msg.html#aaaf8f519b382fdad6f9fab8191a2950f',1,'vt::messaging::NonSerializedMsg']]],
   ['nontarget',['NonTarget',['../structvt_1_1rdma_1_1_non_target.html#a69f1bc7ca64bafacd10449b8a7b24d38',1,'vt::rdma::NonTarget']]],
   ['norm',['Norm',['../classvt_1_1vrt_1_1collection_1_1balance_1_1_norm.html#a054625ebe2a8dcd9f986f36f40b70ada',1,'vt::vrt::collection::balance::Norm']]],

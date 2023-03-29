@@ -9,6 +9,7 @@ var searchData=
   ['nodetocollectiontag',['NodeToCollectionTag',['../structvt_1_1elm_1_1_comm_key_1_1_node_to_collection_tag.html',1,'vt::elm::CommKey']]],
   ['nomsg',['NoMsg',['../structvt_1_1util_1_1fntraits_1_1detail_1_1_no_msg.html',1,'vt::util::fntraits::detail']]],
   ['none',['None',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_none.html',1,'vt::collective::reduce::operators']]],
+  ['nonesuch',['NoneSuch',['../structdetection_1_1_none_such.html',1,'detection']]],
   ['nonevrt',['NoneVrt',['../structvt_1_1serialization_1_1_none_vrt.html',1,'vt::serialization']]],
   ['nonserializedmsg',['NonSerializedMsg',['../structvt_1_1messaging_1_1_non_serialized_msg.html',1,'vt::messaging']]],
   ['nontarget',['NonTarget',['../structvt_1_1rdma_1_1_non_target.html',1,'vt::rdma']]],
