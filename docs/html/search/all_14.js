@@ -317,7 +317,7 @@ var searchData=
   ['setuphandler',['setupHandler',['../structvt_1_1runnable_1_1_runnable_new.html#ab95b9552fe304366b21421ded2b795dc',1,'vt::runnable::RunnableNew']]],
   ['setuphandlerelement',['setupHandlerElement',['../structvt_1_1runnable_1_1_runnable_new.html#aa494c41e589866c5a7f1669a5c2472b0',1,'vt::runnable::RunnableNew::setupHandlerElement(vrt::collection::UntypedCollection *elm, HandlerType handler)'],['../structvt_1_1runnable_1_1_runnable_new.html#aeaec7cf81fe97f2d6b57f35dbd408b5e',1,'vt::runnable::RunnableNew::setupHandlerElement(vrt::VirtualContext *elm, HandlerType handler)']]],
   ['setuphandlerobjgroup',['setupHandlerObjGroup',['../structvt_1_1runnable_1_1_runnable_new.html#abad781e1e7a4a58d00c6c0dd3a44d105',1,'vt::runnable::RunnableNew']]],
-  ['setupmappedvirutalcontext',['setupMappedVirutalContext',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a02630db1a09deb31e649a78846653f76',1,'vt::vrt::VirtualContextManager']]],
+  ['setupmappedvirtualcontext',['setupMappedVirtualContext',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ad8b9edf41fb309325cddc07dd49250ad',1,'vt::vrt::VirtualContextManager']]],
   ['setupmessageforrouting',['setupMessageForRouting',['../structvt_1_1location_1_1_entity_location_coord.html#ab0ac67afe38b64ec6c1df9119d49d587',1,'vt::location::EntityLocationCoord']]],
   ['setupnames',['setupNames',['../structvt_1_1trace_1_1_trace_lite.html#a1f8e52289799bcd6b469b20be7d1e149',1,'vt::trace::TraceLite']]],
   ['setupnewepoch',['setupNewEpoch',['../structvt_1_1term_1_1_termination_detector.html#a0522eb82931331906a8be4a3571393b5',1,'vt::term::TerminationDetector']]],
