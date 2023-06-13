@@ -102,44 +102,22 @@
           <span class="m-breadcrumb"><a href="tutorial.html">Tutorial</a> &raquo;</span>
           Learning about callbacks
         </h1>
-<pre class="m-code"><span class="c1">//              VT Base Message</span>
-<span class="c1">//             \----------------/</span>
-<span class="c1">//              \              /</span>
-<span class="k">struct</span> <span class="nl">DataMsg</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Message</span> <span class="p">{</span> <span class="p">};</span>
-
-<span class="k">struct</span> <span class="nl">MsgWithCallback</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Message</span> <span class="p">{</span>
-  <span class="n">MsgWithCallback</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="k">explicit</span> <span class="nf">MsgWithCallback</span><span class="p">(</span><span class="n">Callback</span><span class="o">&lt;</span><span class="n">DataMsg</span><span class="o">&gt;</span> <span class="n">in_cb</span><span class="p">)</span> <span class="o">:</span> <span class="n">cb</span><span class="p">(</span><span class="n">in_cb</span><span class="p">)</span> <span class="p">{}</span>
-
-  <span class="n">Callback</span><span class="o">&lt;</span><span class="n">DataMsg</span><span class="o">&gt;</span> <span class="n">cb</span><span class="p">;</span>
-<span class="p">};</span>
-
-
-<span class="c1">// Forward declaration for the active message handler</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">getCallbackHandler</span><span class="p">(</span><span class="n">MsgWithCallback</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
+<pre class="m-code"><span class="c1">// Forward declaration for the active message handler</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">getCallbackHandler</span><span class="p">(</span><span class="n">Callback</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cb</span><span class="p">);</span>
 
 <span class="c1">// An active message handler used as the target for a callback</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">callbackHandler</span><span class="p">(</span><span class="n">DataMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">callbackHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">NodeType</span> <span class="k">const</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: triggering active message callback</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">);</span>
+  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: triggering active message callback: {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="c1">// An active message handler used as the target for a callback</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">callbackBcastHandler</span><span class="p">(</span><span class="n">DataMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">callbackBcastHandler</span><span class="p">(</span><span class="kt">int</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">NodeType</span> <span class="k">const</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: triggering active message callback bcast</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">);</span>
+  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
+    <span class="s">&quot;{}: triggering active message callback bcast: {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">,</span> <span class="n">data</span>
+  <span class="p">);</span>
 <span class="p">}</span>
-
-<span class="c1">// A simple context object</span>
-<span class="k">struct</span> <span class="n">MyContext</span> <span class="p">{</span> <span class="p">};</span>
-<span class="k">static</span> <span class="n">MyContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="p">{};</span>
-
-<span class="c1">// A message handler with context used as the target for a callback</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">callbackCtx</span><span class="p">(</span><span class="n">DataMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">,</span> <span class="n">MyContext</span><span class="o">*</span> <span class="n">cbctx</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">NodeType</span> <span class="k">const</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: triggering context callback</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">);</span>
-<span class="p">}</span>
-
 
 <span class="c1">// Tutorial code to demonstrate using a callback</span>
 <span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">activeMessageCallback</span><span class="p">()</span> <span class="p">{</span>
@@ -160,50 +138,27 @@
     <span class="c1">// Node that we want to callback to execute on</span>
     <span class="n">NodeType</span> <span class="k">const</span> <span class="n">cb_node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="c1">// Example lambda callback (void)</span>
-    <span class="k">auto</span> <span class="n">void_fn</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">]{</span>
-      <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;{}: triggering void function callback</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">this_node</span><span class="p">);</span>
-    <span class="p">};</span>
-
-    <span class="c1">// Example of a void lambda callback</span>
-    <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeFunc</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">pipe</span><span class="o">::</span><span class="n">LifetimeEnum</span><span class="o">::</span><span class="n">Once</span><span class="p">,</span> <span class="n">void_fn</span><span class="p">);</span>
-      <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MsgWithCallback</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
-      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
-    <span class="p">}</span>
-
     <span class="c1">// Example of active message handler callback with send node</span>
     <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeSend</span><span class="o">&lt;</span><span class="n">DataMsg</span><span class="p">,</span><span class="n">callbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb_node</span><span class="p">);</span>
-      <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MsgWithCallback</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
-      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
+      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeSend</span><span class="o">&lt;</span><span class="n">callbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb_node</span><span class="p">);</span>
+      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">send</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Node</span><span class="p">{</span><span class="n">to_node</span><span class="p">},</span> <span class="n">cb</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="c1">// Example of active message handler callback with broadcast</span>
     <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeBcast</span><span class="o">&lt;</span><span class="n">DataMsg</span><span class="p">,</span><span class="n">callbackBcastHandler</span><span class="o">&gt;</span><span class="p">();</span>
-      <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MsgWithCallback</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
-      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Example of context callback</span>
-    <span class="p">{</span>
-      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeFunc</span><span class="o">&lt;</span><span class="n">DataMsg</span><span class="p">,</span><span class="n">MyContext</span><span class="o">&gt;</span><span class="p">(</span>
-        <span class="n">vt</span><span class="o">::</span><span class="n">pipe</span><span class="o">::</span><span class="n">LifetimeEnum</span><span class="o">::</span><span class="n">Once</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ctx</span><span class="p">,</span> <span class="n">callbackCtx</span>
-      <span class="p">);</span>
-      <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MsgWithCallback</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cb</span><span class="p">);</span>
-      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">sendMsg</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to_node</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
+      <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeBcast</span><span class="o">&lt;</span><span class="n">callbackBcastHandler</span><span class="o">&gt;</span><span class="p">();</span>
+      <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">send</span><span class="o">&lt;</span><span class="n">getCallbackHandler</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Node</span><span class="p">{</span><span class="n">to_node</span><span class="p">},</span> <span class="n">cb</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// Message handler for to receive callback and invoke it</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">getCallbackHandler</span><span class="p">(</span><span class="n">MsgWithCallback</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">getCallbackHandler</span><span class="p">(</span><span class="n">Callback</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cb</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">auto</span> <span class="k">const</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
   <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;getCallbackHandler: triggered on node={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">);</span>
 
   <span class="c1">// Send the callback a message</span>
-  <span class="n">msg</span><span class="o">-&gt;</span><span class="n">cb</span><span class="p">.</span><span class="n">send</span><span class="p">();</span>
+  <span class="n">cb</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="mi">29</span> <span class="o">+</span> <span class="n">cur_node</span><span class="p">);</span>
 <span class="p">}</span></pre>
       </div>
     </div>

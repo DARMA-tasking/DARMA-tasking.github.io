@@ -746,44 +746,23 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \hypertarget{tutorial-1g}{}\subsection{Learning about callbacks}\label{tutorial-1g}
 
 \begin{DoxyCodeInclude}
-\textcolor{comment}{//              VT Base Message}
-\textcolor{comment}{//             \(\backslash\)----------------/}
-\textcolor{comment}{//              \(\backslash\)              /}
-\textcolor{keyword}{struct }DataMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{ \};
-
-\textcolor{keyword}{struct }MsgWithCallback : \hyperlink{structvt_1_1messaging_1_1_active_msg}{::vt::Message} \{
-  MsgWithCallback() = \textcolor{keywordflow}{default};
-  \textcolor{keyword}{explicit} MsgWithCallback(Callback<DataMsg> in\_cb) : cb(in\_cb) \{\}
-
-  Callback<DataMsg> cb;
-\};
-
 
 \textcolor{comment}{// Forward declaration for the active message handler}
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(MsgWithCallback* msg);
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(Callback<int> cb);
 
 \textcolor{comment}{// An active message handler used as the target for a callback}
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackHandler(DataMsg* msg) \{
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackHandler(\textcolor{keywordtype}{int} data) \{
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback\(\backslash\)n"}, cur\_node);
+  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback: \{\}\(\backslash\)n"}, cur\_node, data);
 \}
 
 \textcolor{comment}{// An active message handler used as the target for a callback}
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackBcastHandler(DataMsg* msg) \{
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackBcastHandler(\textcolor{keywordtype}{int} data) \{
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback bcast\(\backslash\)n"}, cur\_node);
+  ::fmt::print(
+    \textcolor{stringliteral}{"\{\}: triggering active message callback bcast: \{\}\(\backslash\)n"}, cur\_node, data
+  );
 \}
-
-\textcolor{comment}{// A simple context object}
-\textcolor{keyword}{struct }MyContext \{ \};
-\textcolor{keyword}{static} MyContext \hyperlink{namespacevt_1_1config_a0551245b6b893932b95aaf8eac94eed1}{ctx} = \{\};
-
-\textcolor{comment}{// A message handler with context used as the target for a callback}
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackCtx(DataMsg* msg, MyContext* cbctx) \{
-  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering context callback\(\backslash\)n"}, cur\_node);
-\}
-
 
 \textcolor{comment}{// Tutorial code to demonstrate using a callback}
 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageCallback() \{
@@ -805,76 +784,39 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
     \textcolor{comment}{// Node that we want to callback to execute on}
     \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} cb\_node = 0;
 
-    \textcolor{comment}{// Example lambda callback (void)}
-    \textcolor{keyword}{auto} void\_fn = [=]\{
-      ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering void function callback\(\backslash\)n"}, this\_node);
-    \};
-
-    \textcolor{comment}{// Example of a void lambda callback}
-    \{
-      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a9ceec59c887d0fa1498b931c788962f6}{makeFunc}(
-      \hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58ae1a9dc9f23534e63de9df0d540ac1611}{vt::pipe::LifetimeEnum::Once}, void\_fn);
-      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<getCallbackHandler>(to\_node, msg);
-    \}
-
     \textcolor{comment}{// Example of active message handler callback with send node}
     \{
-      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<DataMsg,callbackHandler>(cb\_node);
-      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<getCallbackHandler>(to\_node, msg);
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}<callbackHandler>(cb\_node);
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}<getCallbackHandler>(\hyperlink{namespacevt_a04777c732e1a2b2c317995af9972b999}{Node}\{to\_node\}, cb);
     \}
 
     \textcolor{comment}{// Example of active message handler callback with broadcast}
     \{
-      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<DataMsg,callbackBcastHandler>();
-      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<getCallbackHandler>(to\_node, msg);
-    \}
-
-    \textcolor{comment}{// Example of context callback}
-    \{
-      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a9ceec59c887d0fa1498b931c788962f6}{makeFunc}<DataMsg,MyContext>(
-        \hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58ae1a9dc9f23534e63de9df0d540ac1611}{vt::pipe::LifetimeEnum::Once}, &\hyperlink{namespacevt_1_1config_a0551245b6b893932b95aaf8eac94eed1}{ctx}, callbackCtx
-      );
-      \textcolor{keyword}{auto} msg = ::vt::makeMessage<MsgWithCallback>(cb);
-      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}<getCallbackHandler>(to\_node, msg);
+      \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}<callbackBcastHandler>();
+      \hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}()->\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}<getCallbackHandler>(\hyperlink{namespacevt_a04777c732e1a2b2c317995af9972b999}{Node}\{to\_node\}, cb);
     \}
   \}
 \}
 
 \textcolor{comment}{// Message handler for to receive callback and invoke it}
-\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(MsgWithCallback* msg) \{
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(Callback<int> cb) \{
   \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   ::fmt::print(\textcolor{stringliteral}{"getCallbackHandler: triggered on node=\{\}\(\backslash\)n"}, cur\_node);
 
   \textcolor{comment}{// Send the callback a message}
-  msg->cb.send();
+  cb.send(29 + cur\_node);
 \}
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1h}{}\subsection{Learning about reductions}\label{tutorial-1h}
 
 \begin{DoxyCodeInclude}
-\textcolor{comment}{//                       Reduce Message VT Base Class}
-\textcolor{comment}{//                 \(\backslash\)--------------------------------------------/}
-\textcolor{comment}{//                  \(\backslash\)                                          /}
-\textcolor{comment}{//                   \(\backslash\)                            Reduce Data /}
-\textcolor{comment}{//                    \(\backslash\)                          \(\backslash\)-----------/}
-\textcolor{comment}{//                     \(\backslash\)                          \(\backslash\)         /}
-\textcolor{keyword}{struct }ReduceDataMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{::vt::collective::ReduceTMsg}<int32\_t> \{\};
-
-
-\textcolor{comment}{// Functor that is the target of the reduction}
-\textcolor{keyword}{struct }ReduceResult \{
-  \textcolor{keywordtype}{void} operator()(ReduceDataMsg* msg) \{
-    \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
+\textcolor{keywordtype}{void} reduceResult(\textcolor{keywordtype}{int} result) \{
+  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}()->
       \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
-    fmt::print(\textcolor{stringliteral}{"reduction value=\{\}\(\backslash\)n"}, msg->getConstVal());
-    assert(num\_nodes * 50 == msg->getConstVal());
-    (void)num\_nodes;  \textcolor{comment}{// don't warn about unused value when not debugging}
-  \}
-\};
-
+  (void)num\_nodes;  \textcolor{comment}{// don't warn about possibly unused variable}
+  fmt::print(\textcolor{stringliteral}{"reduction value=\{\}\(\backslash\)n"}, result);
+  assert(num\_nodes * 50 == result);
+\}
 
 \textcolor{comment}{// Tutorial code to demonstrate using reduction on all nodes}
 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} activeMessageReduce() \{
@@ -887,23 +829,11 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
   \textcolor{comment}{/*}
 \textcolor{comment}{   * Perform reduction over all the nodes.}
 \textcolor{comment}{   */}
-
-  \textcolor{comment}{// This is the type of the reduction (uses the plus operator over the data}
-  \textcolor{comment}{// type). Once can implement their own data type and overload the plus}
-  \textcolor{comment}{// operator for the combine during the reduce}
-  \textcolor{keyword}{using} ReduceOp = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{::vt::collective::PlusOp<int32\_t>};
-
   \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType} \textcolor{keyword}{const} root\_reduce\_node = 0;
 
-  \textcolor{keyword}{auto} reduce\_msg = ::vt::makeMessage<ReduceDataMsg>();
-
-  \textcolor{comment}{// Get a reference to the value to set it in this reduce msg}
-  reduce\_msg->getVal() = 50;
-
-  \textcolor{keyword}{auto} \textcolor{keyword}{const} default\_proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4447b8f4881710bc7b0b7a37de9d10b9}{getDefault}();
-  default\_proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_3_01void_01_4_a545aeca8f6c0250221796b2138a4583d}{reduceMsg}<ReduceOp, ReduceResult>(
-    root\_reduce\_node, reduce\_msg.get()
-  );
+  \textcolor{keyword}{auto} r = \hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{vt::theCollective}()->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afa3c814ff0e1c7ef1a9f76ed4036512b}{global}();
+  r->\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce}<reduceResult, \hyperlink{namespacevt_1_1collective_a7a695a8e6ed8247f643918113b7bf881}{collective::PlusOp}>(\hyperlink{structvt_1_1util_1_1strong_1_1detail_1_1_strong}{vt::Node}\{root\_reduce\_node\}, 
+      50);
 \}
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-2a}{}\subsection{Learning about collections}\label{tutorial-2a}
@@ -985,7 +915,8 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{//                \(\backslash\)                          \(\backslash\)       /}
 \textcolor{keyword}{struct }ReduceCol : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{::vt::Collection}<ReduceCol,Index1D> \{
 
-  \textcolor{keywordtype}{void} reduceHandler(ColRedMsg* msg);
+  \textcolor{keywordtype}{void} reduceHandler();
+  \textcolor{keywordtype}{void} reduceTarget(\textcolor{keywordtype}{int} value);
 
 \};
 
@@ -994,24 +925,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{//                \(\backslash\)                                 /}
 \textcolor{keyword}{struct }ColRedMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{::vt::CollectionMessage}<ReduceCol> \{ \};
 
-\textcolor{comment}{//                    Reduce Message VT Base Class}
-\textcolor{comment}{//              \(\backslash\)-------------------------------------------/}
-\textcolor{comment}{//               \(\backslash\)                                         /}
-\textcolor{comment}{//                \(\backslash\)                           Reduce Type /}
-\textcolor{comment}{//                 \(\backslash\)                          \(\backslash\)----------/}
-\textcolor{comment}{//                  \(\backslash\)                          \(\backslash\)        /}
-\textcolor{keyword}{struct }ReduceMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{::vt::collective::ReduceTMsg}<int32\_t> \{\};
-
-\textcolor{comment}{// Functor that is the target of the collection reduction}
-\textcolor{keyword}{struct }PrintReduceResult \{
-  \textcolor{keywordtype}{void} operator()(ReduceMsg* msg) \{
-    fmt::print(\textcolor{stringliteral}{"collection reduce value=\{\}\(\backslash\)n"}, msg->getConstVal());
-    assert(32 * 100 == msg->getConstVal());
-  \}
-\};
-
-
-\textcolor{keywordtype}{void} ReduceCol::reduceHandler(ColRedMsg* msg) \{
+\textcolor{keywordtype}{void} ReduceCol::reduceHandler() \{
   \textcolor{keyword}{auto} cur\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
   (void)cur\_node;  \textcolor{comment}{// don't warn about unused variable}
   \textcolor{keyword}{auto} idx = this->\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}();
@@ -1019,16 +933,19 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
   \textcolor{comment}{//::fmt::print("MyCol::reduceHandler index=\{\}, node=\{\}\(\backslash\)n", idx.x(), cur\_node);}
 
-  \textcolor{keyword}{using} ReduceOp = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<int32\_t>};
-
   \textcolor{keyword}{auto} proxy = getCollectionProxy();
-  \textcolor{keyword}{auto} reduce\_msg = makeMessage<ReduceMsg>();
-
-  \textcolor{comment}{// Get a reference to the value to set it in this reduce msg}
-  reduce\_msg->getVal() = 100;
+  \textcolor{keywordtype}{int} val = 100;
 
   \textcolor{comment}{// Invoke the reduce!}
-  proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<ReduceOp,PrintReduceResult>(reduce\_msg.get());
+  proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_ab8d4b9337c19d4ff0e758d03f3941b98}{allreduce}<&ReduceCol::reduceTarget, \hyperlink{namespacevt_1_1collective_a7a695a8e6ed8247f643918113b7bf881}{collective::PlusOp}>(val);
+\}
+
+\textcolor{keywordtype}{int} number\_of\_elements = 32;
+
+\textcolor{keywordtype}{void} ReduceCol::reduceTarget(\textcolor{keywordtype}{int} value) \{
+  fmt::print(\textcolor{stringliteral}{"collection reduce value=\{\}\(\backslash\)n"}, value);
+  assert(number\_of\_elements * 100 == value);
+
 \}
 
 \textcolor{comment}{// Tutorial code to demonstrate reducing a collection}
@@ -1043,8 +960,8 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \textcolor{comment}{   */}
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    \textcolor{comment}{// Range of 32 elements for the collection}
-    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(32);
+    \textcolor{comment}{// Range of `number\_of\_elements` elements for the collection}
+    \textcolor{keyword}{auto} range = \hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}(number\_of\_elements);
 
     \textcolor{comment}{// Construct the collection in a rooted manner. By default, the elements}
     \textcolor{comment}{// will be block mapped to the nodes}
@@ -1055,7 +972,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 
     \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}
     \textcolor{comment}{// invoked on every element to the collection}
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<ColRedMsg,&ReduceCol::reduceHandler>();
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&ReduceCol::reduceHandler>();
   \}
 \}
 \end{DoxyCodeInclude}
@@ -1192,9 +1109,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
 \textcolor{keyword}{struct }NodeObj \{
   \textcolor{keywordtype}{bool} is\_finished\_ = \textcolor{keyword}{false};
-  \textcolor{keyword}{struct }WorkFinishedMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{\};
-
-  \textcolor{keywordtype}{void} workFinishedHandler(WorkFinishedMsg*) \{ is\_finished\_ = \textcolor{keyword}{true}; \}
+  \textcolor{keywordtype}{void} workFinishedHandler() \{ is\_finished\_ = \textcolor{keyword}{true}; \}
   \textcolor{keywordtype}{bool} isWorkFinished() \{ \textcolor{keywordflow}{return} is\_finished\_; \}
 \};
 \textcolor{keyword}{using} NodeObjProxy = \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>};
@@ -1238,18 +1153,11 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
   \};
 
-  \textcolor{keyword}{struct }ReduxMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg}<double> \{
-    ReduxMsg() = \textcolor{keywordflow}{default};
-    \textcolor{keyword}{explicit} ReduxMsg(\textcolor{keywordtype}{double} in\_val) : \hyperlink{namespacevt_1_1collective_a28b82d5d48c9bc6e4fd738fcbf9e0f62}{ReduceTMsg}<double>(in\_val) \{ \}
-  \};
-
-  \textcolor{keywordtype}{void} checkCompleteCB(ReduxMsg* msg) \{
+  \textcolor{keywordtype}{void} checkCompleteCB(\textcolor{keywordtype}{double} normRes) \{
     \textcolor{comment}{//}
     \textcolor{comment}{// Only one object for the reduction will visit}
     \textcolor{comment}{// this function}
     \textcolor{comment}{//}
-
-    \textcolor{keywordtype}{double} normRes = msg->getConstVal();
 
     \textcolor{keyword}{auto} \textcolor{keyword}{const} iter\_max\_reached = iter\_ > maxIter\_;
     \textcolor{keyword}{auto} \textcolor{keyword}{const} norm\_res\_done = normRes < default\_tol;
@@ -1262,7 +1170,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       fmt::print(to\_print);
 
       \textcolor{comment}{// Notify all nodes that computation is finished}
-      objProxy\_.broadcast<NodeObj::WorkFinishedMsg, &NodeObj::workFinishedHandler>();
+      objProxy\_.broadcast<&NodeObj::workFinishedHandler>();
     \} \textcolor{keywordflow}{else} \{
       fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);
     \}
@@ -1303,11 +1211,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \}
 
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<
-      LinearPb1DJacobi,ReduxMsg,&LinearPb1DJacobi::checkCompleteCB
-    >(proxy[0]);
-    \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}<&LinearPb1DJacobi::checkCompleteCB, \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}>(
+      proxy[0], maxNorm
+    );
 
   \}
 
@@ -1561,9 +1467,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 
 \textcolor{keyword}{struct }NodeObj \{
   \textcolor{keywordtype}{bool} is\_finished\_ = \textcolor{keyword}{false};
-  \textcolor{keyword}{struct }WorkFinishedMsg : \hyperlink{structvt_1_1messaging_1_1_active_msg}{vt::Message} \{\};
-
-  \textcolor{keywordtype}{void} workFinishedHandler(WorkFinishedMsg*) \{ is\_finished\_ = \textcolor{keyword}{true}; \}
+  \textcolor{keywordtype}{void} workFinishedHandler() \{ is\_finished\_ = \textcolor{keyword}{true}; \}
   \textcolor{keywordtype}{bool} isWorkFinished() \{ \textcolor{keywordflow}{return} is\_finished\_; \}
 \};
 \textcolor{keyword}{using} NodeObjProxy = \hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>};
@@ -1610,19 +1514,12 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \};
 
 
-  \textcolor{keyword}{struct }ReduxMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg}<double> \{
-    ReduxMsg() = \textcolor{keywordflow}{default};
-    \textcolor{keyword}{explicit} ReduxMsg(\textcolor{keywordtype}{double} in\_val) : \hyperlink{namespacevt_1_1collective_a28b82d5d48c9bc6e4fd738fcbf9e0f62}{ReduceTMsg}<double>(in\_val) \{ \}
-  \};
-
-
-  \textcolor{keywordtype}{void} checkCompleteCB(ReduxMsg* msg) \{
+  \textcolor{keywordtype}{void} checkCompleteCB(\textcolor{keywordtype}{double} \textcolor{keyword}{const} normRes) \{
     \textcolor{comment}{//}
     \textcolor{comment}{// Only one object for the reduction will visit}
     \textcolor{comment}{// this function}
     \textcolor{comment}{//}
 
-    \textcolor{keyword}{const} \textcolor{keywordtype}{double} normRes = msg->getConstVal();
     \textcolor{keyword}{auto} \textcolor{keyword}{const} iter\_max\_reached = iter\_ > maxIter\_;
     \textcolor{keyword}{auto} \textcolor{keyword}{const} norm\_res\_done = normRes < default\_tol;
 
@@ -1634,7 +1531,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       fmt::print(to\_print);
 
       \textcolor{comment}{// Notify all nodes that computation is finished}
-      objProxy\_.broadcast<NodeObj::WorkFinishedMsg, &NodeObj::workFinishedHandler>();
+      objProxy\_.broadcast<&NodeObj::workFinishedHandler>();
     \} \textcolor{keywordflow}{else} \{
       fmt::print(\textcolor{stringliteral}{" ## ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);
     \}
@@ -1703,11 +1600,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \}
 
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<
-      LinearPb2DJacobi,ReduxMsg,&LinearPb2DJacobi::checkCompleteCB
-    >(proxy(0,0));
-    \textcolor{keyword}{auto} msg2 = vt::makeMessage<ReduxMsg>(maxNorm);
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp<double>}>(msg2.get(),cb);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}<&LinearPb2DJacobi::checkCompleteCB, \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}>(
+      proxy(0,0), maxNorm
+    );
   \}
 
   \textcolor{keyword}{struct }VecMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<LinearPb2DJacobi> \{
@@ -2054,7 +1949,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
   \textcolor{keywordflow}{return} sin(M\_PI * x);
 \}
 
-\textcolor{keyword}{using} ReduceMsg = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg<double>};
+\textcolor{keyword}{using} \hyperlink{namespacevt_1_1collective_a4c5bf7769ad4396573d6bcc85ec430a4}{ReduceMsg} = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg}{vt::collective::ReduceTMsg<double>};
 
 \textcolor{keyword}{struct }Integration1D : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<Integration1D, vt::Index1D> \{
 
@@ -2070,21 +1965,17 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
       numPartsPerObject\_(default\_nparts\_object)
   \{ \}
 
-  \textcolor{keyword}{struct }CheckIntegral \{
-
-    \textcolor{keywordtype}{void} operator()(ReduceMsg* msg) \{
-      fmt::print(\textcolor{stringliteral}{" >> The integral over [0, 1] is \{\}\(\backslash\)n"}, msg->getConstVal());
-      fmt::print(
-        \textcolor{stringliteral}{" >> The absolute error is \{\}\(\backslash\)n"},
-        std::fabs(msg->getConstVal() - exactIntegral)
-      );
-      \textcolor{comment}{//}
-      \textcolor{comment}{// Set the 'root\_reduce\_finished' variable to true.}
-      \textcolor{comment}{//}
-      root\_reduce\_finished = \textcolor{keyword}{true};
-    \}
-
-  \};
+  \textcolor{keywordtype}{void} checkIntegral(\textcolor{keywordtype}{double} val) \{
+    fmt::print(\textcolor{stringliteral}{" >> The integral over [0, 1] is \{\}\(\backslash\)n"}, val);
+    fmt::print(
+      \textcolor{stringliteral}{" >> The absolute error is \{\}\(\backslash\)n"},
+      std::fabs(val - exactIntegral)
+    );
+    \textcolor{comment}{//}
+    \textcolor{comment}{// Set the 'root\_reduce\_finished' variable to true.}
+    \textcolor{comment}{//}
+    root\_reduce\_finished = \textcolor{keyword}{true};
+  \}
 
   \textcolor{keyword}{struct }InitMsg : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_message}{vt::CollectionMessage}<Integration1D> \{
 
@@ -2146,9 +2037,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
     \textcolor{comment}{//}
 
     \textcolor{keyword}{auto} proxy = this->getCollectionProxy();
-    \textcolor{keyword}{auto} msgCB = vt::makeMessage<ReduceMsg>(quadsum);
-    \textcolor{keyword}{auto} cback = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<CheckIntegral>(reduce\_root\_node);
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<double>}>(msgCB.get(),cback);
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}<&Integration1D::checkIntegral, vt::collective::PlusOp>(
+      proxy[0], quadsum
+    );
   \}
 
 \};

@@ -113,7 +113,8 @@
 <span class="c1">//                \                          \       /</span>
 <span class="k">struct</span> <span class="nl">ReduceCol</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">ReduceCol</span><span class="p">,</span><span class="n">Index1D</span><span class="o">&gt;</span> <span class="p">{</span>
 
-  <span class="kt">void</span> <span class="n">reduceHandler</span><span class="p">(</span><span class="n">ColRedMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="n">reduceHandler</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="nf">reduceTarget</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">);</span>
 
 <span class="p">};</span>
 
@@ -122,24 +123,7 @@
 <span class="c1">//                \                                 /</span>
 <span class="k">struct</span> <span class="nl">ColRedMsg</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">ReduceCol</span><span class="o">&gt;</span> <span class="p">{</span> <span class="p">};</span>
 
-<span class="c1">//                    Reduce Message VT Base Class</span>
-<span class="c1">//              \-------------------------------------------/</span>
-<span class="c1">//               \                                         /</span>
-<span class="c1">//                \                           Reduce Type /</span>
-<span class="c1">//                 \                          \----------/</span>
-<span class="c1">//                  \                          \        /</span>
-<span class="k">struct</span> <span class="nl">ReduceMsg</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">ReduceTMsg</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span> <span class="p">{};</span>
-
-<span class="c1">// Functor that is the target of the collection reduction</span>
-<span class="k">struct</span> <span class="n">PrintReduceResult</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">ReduceMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;collection reduce value={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">());</span>
-    <span class="n">assert</span><span class="p">(</span><span class="mi">32</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">==</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">());</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-
-<span class="kt">void</span> <span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceHandler</span><span class="p">(</span><span class="n">ColRedMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceHandler</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">auto</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
   <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">cur_node</span><span class="p">;</span>  <span class="c1">// don&#39;t warn about unused variable</span>
   <span class="k">auto</span> <span class="n">idx</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getIndex</span><span class="p">();</span>
@@ -147,16 +131,19 @@
 
   <span class="c1">//::fmt::print(&quot;MyCol::reduceHandler index={}, node={}\n&quot;, idx.x(), cur_node);</span>
 
-  <span class="k">using</span> <span class="n">ReduceOp</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">;</span>
-
   <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">getCollectionProxy</span><span class="p">();</span>
-  <span class="k">auto</span> <span class="n">reduce_msg</span> <span class="o">=</span> <span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">ReduceMsg</span><span class="o">&gt;</span><span class="p">();</span>
-
-  <span class="c1">// Get a reference to the value to set it in this reduce msg</span>
-  <span class="n">reduce_msg</span><span class="o">-&gt;</span><span class="n">getVal</span><span class="p">()</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 
   <span class="c1">// Invoke the reduce!</span>
-  <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;</span><span class="n">ReduceOp</span><span class="p">,</span><span class="n">PrintReduceResult</span><span class="o">&gt;</span><span class="p">(</span><span class="n">reduce_msg</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+  <span class="n">proxy</span><span class="p">.</span><span class="n">allreduce</span><span class="o">&lt;&amp;</span><span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceTarget</span><span class="p">,</span> <span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&gt;</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">number_of_elements</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceTarget</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;collection reduce value={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">number_of_elements</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">==</span> <span class="n">value</span><span class="p">);</span>
+
 <span class="p">}</span>
 
 <span class="c1">// Tutorial code to demonstrate reducing a collection</span>
@@ -170,8 +157,8 @@
 <span class="cm">   */</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Range of 32 elements for the collection</span>
-    <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+    <span class="c1">// Range of `number_of_elements` elements for the collection</span>
+    <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="n">number_of_elements</span><span class="p">);</span>
 
     <span class="c1">// Construct the collection in a rooted manner. By default, the elements</span>
     <span class="c1">// will be block mapped to the nodes</span>
@@ -182,7 +169,7 @@
 
     <span class="c1">// Broadcast a message to the entire collection. The reduceHandler will be</span>
     <span class="c1">// invoked on every element to the collection</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">ColRedMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceHandler</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">ReduceCol</span><span class="o">::</span><span class="n">reduceHandler</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span></pre>
       </div>

@@ -115,7 +115,7 @@ var searchData=
   ['usereventidtype',['UserEventIDType',['../namespacevt_1_1trace.html#a5908920d051c144c89f17c69ed262350',1,'vt::trace']]],
   ['usereventpair',['UserEventPair',['../namespacevt_1_1trace.html#acf454dfbd581b0ebae895f90b5927a1da93e1a6af5dc75034578e8140d1c4dc1a',1,'vt::trace']]],
   ['usereventregistry',['UserEventRegistry',['../structvt_1_1trace_1_1_user_event_registry.html',1,'vt::trace']]],
-  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag']]],
+  ['useridtag',['UserIDTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::tags::UserIDTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::UserIDTag']]],
   ['useridtype',['UserIDType',['../namespacevt_1_1collective_1_1reduce.html#a6cdf1adaf7aedc9df00c92fe55cdcecd',1,'vt::collective::reduce::UserIDType()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#ae82d7b96b0885b9b7dfb0104398beead',1,'vt::collective::reduce::detail::UserIDType()']]],
   ['userlevelmax',['UserLevelMax',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498bada7b4271cb9b277f573951caa83f8128',1,'vt::sched']]],
   ['userlevelmin',['UserLevelMin',['../namespacevt_1_1sched.html#a2857a110a140d0a9f77d374c90eb498baee78e11eb2efcad3e8f54d60271ef6b6',1,'vt::sched']]],

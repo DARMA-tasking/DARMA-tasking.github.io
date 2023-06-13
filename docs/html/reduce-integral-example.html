@@ -160,21 +160,17 @@
       <span class="n">numPartsPerObject_</span><span class="p">(</span><span class="n">default_nparts_object</span><span class="p">)</span>
   <span class="p">{</span> <span class="p">}</span>
 
-  <span class="k">struct</span> <span class="n">CheckIntegral</span> <span class="p">{</span>
-
-    <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">ReduceMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; &gt;&gt; The integral over [0, 1] is {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">());</span>
-      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
-        <span class="s">&quot; &gt;&gt; The absolute error is {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">()</span> <span class="o">-</span> <span class="n">exactIntegral</span><span class="p">)</span>
-      <span class="p">);</span>
-      <span class="c1">//</span>
-      <span class="c1">// Set the &#39;root_reduce_finished&#39; variable to true.</span>
-      <span class="c1">//</span>
-      <span class="n">root_reduce_finished</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-    <span class="p">}</span>
-
-  <span class="p">};</span>
+  <span class="kt">void</span> <span class="n">checkIntegral</span><span class="p">(</span><span class="kt">double</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; &gt;&gt; The integral over [0, 1] is {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
+      <span class="s">&quot; &gt;&gt; The absolute error is {}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">exactIntegral</span><span class="p">)</span>
+    <span class="p">);</span>
+    <span class="c1">//</span>
+    <span class="c1">// Set the &#39;root_reduce_finished&#39; variable to true.</span>
+    <span class="c1">//</span>
+    <span class="n">root_reduce_finished</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="k">struct</span> <span class="nl">InitMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">Integration1D</span><span class="o">&gt;</span> <span class="p">{</span>
 
@@ -236,9 +232,9 @@
     <span class="c1">//</span>
 
     <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
-    <span class="k">auto</span> <span class="n">msgCB</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">ReduceMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="n">quadsum</span><span class="p">);</span>
-    <span class="k">auto</span> <span class="n">cback</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeSend</span><span class="o">&lt;</span><span class="n">CheckIntegral</span><span class="o">&gt;</span><span class="p">(</span><span class="n">reduce_root_node</span><span class="p">);</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;</span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">msgCB</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="n">cback</span><span class="p">);</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;&amp;</span><span class="n">Integration1D</span><span class="o">::</span><span class="n">checkIntegral</span><span class="p">,</span> <span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&gt;</span><span class="p">(</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">quadsum</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 
 <span class="p">};</span>

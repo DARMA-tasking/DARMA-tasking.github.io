@@ -102,25 +102,12 @@
           <span class="m-breadcrumb"><a href="tutorial.html">Tutorial</a> &raquo;</span>
           Learning about reductions
         </h1>
-<pre class="m-code"><span class="c1">//                       Reduce Message VT Base Class</span>
-<span class="c1">//                 \--------------------------------------------/</span>
-<span class="c1">//                  \                                          /</span>
-<span class="c1">//                   \                            Reduce Data /</span>
-<span class="c1">//                    \                          \-----------/</span>
-<span class="c1">//                     \                          \         /</span>
-<span class="k">struct</span> <span class="nl">ReduceDataMsg</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">ReduceTMsg</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span> <span class="p">{};</span>
-
-
-<span class="c1">// Functor that is the target of the reduction</span>
-<span class="k">struct</span> <span class="n">ReduceResult</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">ReduceDataMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">NodeType</span> <span class="k">const</span> <span class="n">num_nodes</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
-    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;reduction value={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">());</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">num_nodes</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">==</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">());</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">num_nodes</span><span class="p">;</span>  <span class="c1">// don&#39;t warn about unused value when not debugging</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
+<pre class="m-code"><span class="kt">void</span> <span class="nf">reduceResult</span><span class="p">(</span><span class="kt">int</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">NodeType</span> <span class="k">const</span> <span class="n">num_nodes</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">num_nodes</span><span class="p">;</span>  <span class="c1">// don&#39;t warn about possibly unused variable</span>
+  <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;reduction value={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">num_nodes</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">==</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
 
 <span class="c1">// Tutorial code to demonstrate using reduction on all nodes</span>
 <span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">activeMessageReduce</span><span class="p">()</span> <span class="p">{</span>
@@ -132,23 +119,10 @@
   <span class="cm">/*</span>
 <span class="cm">   * Perform reduction over all the nodes.</span>
 <span class="cm">   */</span>
-
-  <span class="c1">// This is the type of the reduction (uses the plus operator over the data</span>
-  <span class="c1">// type). Once can implement their own data type and overload the plus</span>
-  <span class="c1">// operator for the combine during the reduce</span>
-  <span class="k">using</span> <span class="n">ReduceOp</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">;</span>
-
   <span class="n">NodeType</span> <span class="k">const</span> <span class="n">root_reduce_node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-  <span class="k">auto</span> <span class="n">reduce_msg</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">ReduceDataMsg</span><span class="o">&gt;</span><span class="p">();</span>
-
-  <span class="c1">// Get a reference to the value to set it in this reduce msg</span>
-  <span class="n">reduce_msg</span><span class="o">-&gt;</span><span class="n">getVal</span><span class="p">()</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
-
-  <span class="k">auto</span> <span class="k">const</span> <span class="n">default_proxy</span> <span class="o">=</span> <span class="n">theObjGroup</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getDefault</span><span class="p">();</span>
-  <span class="n">default_proxy</span><span class="p">.</span><span class="n">reduceMsg</span><span class="o">&lt;</span><span class="n">ReduceOp</span><span class="p">,</span> <span class="n">ReduceResult</span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">root_reduce_node</span><span class="p">,</span> <span class="n">reduce_msg</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-  <span class="p">);</span>
+  <span class="k">auto</span> <span class="n">r</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCollective</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">global</span><span class="p">();</span>
+  <span class="n">r</span><span class="o">-&gt;</span><span class="n">reduce</span><span class="o">&lt;</span><span class="n">reduceResult</span><span class="p">,</span> <span class="n">collective</span><span class="o">::</span><span class="n">PlusOp</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">Node</span><span class="p">{</span><span class="n">root_reduce_node</span><span class="p">},</span> <span class="mi">50</span><span class="p">);</span>
 <span class="p">}</span></pre>
       </div>
     </div>

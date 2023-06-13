@@ -1,6 +1,7 @@
 var searchData=
 [
   ['gauge_2eh',['gauge.h',['../gauge_8h.html',1,'']]],
+  ['get_5freduce_5fstamp_2eh',['get_reduce_stamp.h',['../get__reduce__stamp_8h.html',1,'']]],
   ['gettable_2eh',['gettable.h',['../gettable_8h.html',1,'']]],
   ['gettable_2eimpl_2eh',['gettable.impl.h',['../gettable_8impl_8h.html',1,'']]],
   ['greedylb_2ecc',['greedylb.cc',['../greedylb_8cc.html',1,'']]],

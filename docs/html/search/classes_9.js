@@ -6,7 +6,7 @@ var searchData=
   ['indexinfo',['IndexInfo',['../structvt_1_1rdma_1_1_index_info.html',1,'vt::rdma']]],
   ['indextagtype',['IndexTagType',['../structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_1ceedd6f8d829061f3897a02dba9ce2d.html',1,'vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; not std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;']]],
   ['indextraits',['IndexTraits',['../structvt_1_1index_1_1_index_traits.html',1,'vt::index']]],
-  ['info',['Info',['../structvt_1_1rdma_1_1_info.html',1,'vt::rdma::Info'],['../structvt_1_1group_1_1_info.html',1,'vt::group::Info']]],
+  ['info',['Info',['../structvt_1_1group_1_1_info.html',1,'vt::group::Info'],['../structvt_1_1rdma_1_1_info.html',1,'vt::rdma::Info']]],
   ['infobase',['InfoBase',['../structvt_1_1group_1_1_info_base.html',1,'vt::group']]],
   ['infocoll',['InfoColl',['../structvt_1_1group_1_1_info_coll.html',1,'vt::group']]],
   ['informrdmamsg',['InformRDMAMsg',['../structvt_1_1rdma_1_1impl_1_1_inform_r_d_m_a_msg.html',1,'vt::rdma::impl']]],
@@ -34,12 +34,15 @@ var searchData=
   ['is_5fbyte_5fcopyable_5ft',['is_byte_copyable_t',['../structvt_1_1messaging_1_1is__byte__copyable__t.html',1,'vt::messaging']]],
   ['is_5fbytecopyable_20_3e_3e',['is_bytecopyable &gt;&gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_001f08bb798ccb49f9c53f303cf6b979fb.html',1,'checkpoint::dispatch::vrt']]],
   ['is_5fbytecopyable_29_20_3e_3e',['is_bytecopyable) &gt;&gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_004e0f4f52ca81416658a563b81b03387d.html',1,'checkpoint::dispatch::vrt']]],
-  ['is_5fserializable_20_3e_3e',['is_serializable &gt;&gt;',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_947e0655769addb625fb511f777768bd.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;']]],
+  ['is_5fsame_5fv_3c_20void_2c_20void_20_3e_20_3e_3e',['is_same_v&lt; void, void &gt; &gt;&gt;',['../structvt_1_1util_1_1fntraits_1_1detail_1_1_c_b_traits_impl_3_01std_1_1enable__if__t_3_01std_1_1i933df4c983821ba8d7030f4c9e1d83e1.html',1,'vt::util::fntraits::detail::is_same_v&lt; void, void &gt; &gt;&gt;'],['../structvt_1_1collective_1_1reduce_1_1_get_reduce_stamp_3_01std_1_1enable__if__t_3_01std_1_1is__saac3f8a4cbf86762dde62215be4a56bf0.html',1,'vt::collective::reduce::is_same_v&lt; void, void &gt; &gt;&gt;']]],
+  ['is_5fserializable_20_3e_3e',['is_serializable &gt;&gt;',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_947e0655769addb625fb511f777768bd.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;'],['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_3_01_t_00_01typename_01std_1_1enable__if_f645d7011e081ebef1092328b0917bfc.html',1,'vt::vrt::collection::storage::is_serializable &gt;&gt;&lt; T &gt;']]],
   ['isbytecopyable',['isByteCopyable',['../structcheckpoint_1_1is_byte_copyable.html',1,'checkpoint']]],
   ['isbytecopyableimpl',['isByteCopyableImpl',['../structcheckpoint_1_1detail_1_1is_byte_copyable_impl.html',1,'checkpoint::detail']]],
   ['isserializable',['IsSerializable',['../structvt_1_1location_1_1detail_1_1_is_serializable.html',1,'vt::location::detail']]],
   ['istriviallycopyable',['IsTriviallyCopyable',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable.html',1,'vt::util::adt::detail']]],
   ['istriviallycopyable_3c_20t_20_3e',['IsTriviallyCopyable&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_copyable_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['istriviallydestructible',['IsTriviallyDestructible',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible.html',1,'vt::util::adt::detail']]],
-  ['istriviallydestructible_3c_20t_20_3e',['IsTriviallyDestructible&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible_3_01_t_01_4.html',1,'vt::util::adt::detail']]]
+  ['istriviallydestructible_3c_20t_20_3e',['IsTriviallyDestructible&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_is_trivially_destructible_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
+  ['istuple',['IsTuple',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_is_tuple.html',1,'vt::collective::reduce::operators']]],
+  ['istuple_3c_20std_3a_3atuple_3c_20args_2e_2e_2e_20_3e_20_3e',['IsTuple&lt; std::tuple&lt; Args... &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_is_tuple_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html',1,'vt::collective::reduce::operators']]]
 ];

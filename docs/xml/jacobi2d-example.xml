@@ -36,9 +36,7 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">NodeObj<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_finished_<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">WorkFinishedMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>workFinishedHandler(WorkFinishedMsg*)<sp/>{<sp/>is_finished_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>workFinishedHandler()<sp/>{<sp/>is_finished_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isWorkFinished()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>is_finished_;<sp/>}</highlight></codeline>
 <codeline><highlight class="normal">};</highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>NodeObjProxy<sp/>=<sp/><ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy" kindref="compound">vt::objgroup::proxy::Proxy&lt;NodeObj&gt;</ref>;</highlight></codeline>
@@ -85,19 +83,12 @@
 <codeline><highlight class="normal"><sp/><sp/>};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ReduxMsg<sp/>:<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg" kindref="compound">vt::collective::ReduceTMsg</ref>&lt;double&gt;<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ReduxMsg()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>ReduxMsg(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>in_val)<sp/>:<sp/><ref refid="namespacevt_1_1collective_1a28b82d5d48c9bc6e4fd738fcbf9e0f62" kindref="member">ReduceTMsg</ref>&lt;double&gt;(in_val)<sp/>{<sp/>}</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>checkCompleteCB(ReduxMsg*<sp/>msg)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>checkCompleteCB(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>normRes)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Only<sp/>one<sp/>object<sp/>for<sp/>the<sp/>reduction<sp/>will<sp/>visit</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>normRes<sp/>=<sp/>msg-&gt;getConstVal();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>iter_max_reached<sp/>=<sp/>iter_<sp/>&gt;<sp/>maxIter_;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>norm_res_done<sp/>=<sp/>normRes<sp/>&lt;<sp/>default_tol;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -109,7 +100,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(to_print);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Notify<sp/>all<sp/>nodes<sp/>that<sp/>computation<sp/>is<sp/>finished</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>objProxy_.broadcast&lt;NodeObj::WorkFinishedMsg,<sp/>&amp;NodeObj::workFinishedHandler&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>objProxy_.broadcast&lt;&amp;NodeObj::workFinishedHandler&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>fmt::print(</highlight><highlight class="stringliteral">&quot;<sp/>##<sp/>ITER<sp/>{}<sp/>&gt;&gt;<sp/>Residual<sp/>Norm<sp/>=<sp/>{}<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>iter_,<sp/>normRes);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -178,11 +169,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>proxy<sp/>=<sp/>this-&gt;getCollectionProxy();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB</ref>()-&gt;<ref refid="structvt_1_1pipe_1_1_pipe_manager_1a73583be6260418b13ee66e56cdade2da" kindref="member">makeSend</ref>&lt;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LinearPb2DJacobi,ReduxMsg,&amp;LinearPb2DJacobi::checkCompleteCB</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&gt;(proxy(0,0));</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>msg2<sp/>=<sp/>vt::makeMessage&lt;ReduxMsg&gt;(maxNorm);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a61273d407174fb496b4aed10ec6650bd" kindref="member">reduce</ref>&lt;<ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op" kindref="compound">vt::collective::MaxOp&lt;double&gt;</ref>&gt;(msg2.get(),cb);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>proxy.<ref refid="structvt_1_1objgroup_1_1proxy_1_1_proxy_1a10836524197347f63d5507f08d871e4f" kindref="member">reduce</ref>&lt;&amp;LinearPb2DJacobi::checkCompleteCB,<sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op" kindref="compound">vt::collective::MaxOp</ref>&gt;(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>proxy(0,0),<sp/>maxNorm</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">VecMsg<sp/>:<sp/><ref refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kindref="compound">vt::CollectionMessage</ref>&lt;LinearPb2DJacobi&gt;<sp/>{</highlight></codeline>

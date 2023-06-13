@@ -410,24 +410,19 @@ If a reduction is ongoing while insertions or deletions happen, the new elements
 
 \begin{DoxyCodeInclude}
 \textcolor{keyword}{struct }Hello : \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection}{vt::Collection}<Hello, vt::Index1D> \{
-  \textcolor{keyword}{using} ReduceMsg = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg<int>};
-
-  \textcolor{keywordtype}{void} done(ReduceMsg* msg) \{
-    fmt::print(\textcolor{stringliteral}{"Reduce complete at \{\} value \{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}(), msg->getVal());
+  \textcolor{keywordtype}{void} done(\textcolor{keywordtype}{int} val, \textcolor{keywordtype}{double} val2) \{
+    fmt::print(\textcolor{stringliteral}{"Reduce complete at \{\} values \{\} \{\}\(\backslash\)n"}, \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}(), val, val2);
   \}
 
   \textcolor{keywordtype}{void} doWork() \{
-    fmt::print(\textcolor{stringliteral}{"Hello from \{\}\(\backslash\)n"}, this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}());
+    fmt::print(\textcolor{stringliteral}{"Hello from \{\}\(\backslash\)n"}, \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}());
 
     \textcolor{comment}{// Get the proxy for the collection}
-    \textcolor{keyword}{auto} proxy = this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}();
+    \textcolor{keyword}{auto} proxy = \hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}();
 
-    \textcolor{comment}{// Create a callback for when the reduction finishes}
-    \textcolor{keyword}{auto} cb = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<Hello,\hyperlink{namespacevt_1_1collective_a4c5bf7769ad4396573d6bcc85ec430a4}{ReduceMsg},&Hello::done>(proxy(2));
-
-    \textcolor{comment}{// Create and send the reduction message holding an int}
-    \textcolor{keyword}{auto} red\_msg = vt::makeMessage<ReduceMsg>(this->\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}().x());
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a61273d407174fb496b4aed10ec6650bd}{reduce}<\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp<int>}>(red\_msg.get(),cb);
+    \textcolor{keyword}{auto} val = \hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}().x();
+    \textcolor{keyword}{auto} val2 = 2.4;
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_ab8d4b9337c19d4ff0e758d03f3941b98}{allreduce}<&Hello::done, vt::collective::PlusOp>(val, val2);
   \}
 \};
 
@@ -561,9 +556,9 @@ $<$no-\/operator$>$ &{\ttfamily \hyperlink{namespacevt_1_1collective_a812e9225d7
 \textcolor{preprocessor}{#include <\hyperlink{transport_8h}{vt/transport.h}>}
 
 \textcolor{comment}{// Reduce ints}
-\textcolor{keyword}{struct }ReduceDataMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg}<int> \{
-  \textcolor{keyword}{explicit} ReduceDataMsg(\textcolor{keywordtype}{int} val)
-    : \hyperlink{namespacevt}{vt}::collective::\hyperlink{namespacevt_1_1collective_a28b82d5d48c9bc6e4fd738fcbf9e0f62}{ReduceTMsg}<int>(val)
+\textcolor{keyword}{struct }ReduceDataMsg : \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg}{vt::collective::ReduceTMsg}<int> \{
+  \textcolor{keyword}{explicit} \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg_ab5f090157aff94fa6b1c233ccc5e0e04}{ReduceDataMsg}(\textcolor{keywordtype}{int} val)
+    : \hyperlink{namespacevt}{vt}::collective::\hyperlink{namespacevt_1_1collective_1_1reduce_1_1operators_a85097552afc7e87d5d5092f068223ca0}{ReduceTMsg}<int>(val)
   \{ \}
 \};
 
@@ -610,10 +605,10 @@ When creating a group, one may ask {\bfseries {\itshape vt}} to create a underly
   fmt::print(\textcolor{stringliteral}{"\{\}: Hello from group handler\(\backslash\)n"}, \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->getNode());
 \}
 
-\textcolor{keyword}{using} ReduceMsg = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_t_msg}{vt::collective::ReduceTMsg<int>};
+\textcolor{keyword}{using} \hyperlink{namespacevt_1_1collective_a4c5bf7769ad4396573d6bcc85ec430a4}{ReduceMsg} = \hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg}{vt::collective::ReduceTMsg<int>};
 
 \textcolor{keyword}{struct }Print \{
-  \textcolor{keywordtype}{void} operator()(ReduceMsg* msg) \{
+  \textcolor{keywordtype}{void} operator()(\hyperlink{namespacevt_1_1collective_a4c5bf7769ad4396573d6bcc85ec430a4}{ReduceMsg}* msg) \{
     fmt::print(\textcolor{stringliteral}{"final value=\{\}\(\backslash\)n"}, msg->getConstVal());
   \}
 \};
@@ -920,24 +915,22 @@ The pipe manager also supports \char`\"{}typed\char`\"{} callbacks where the cal
   \textcolor{keywordflow}{if} (this\_node == 0) \{
     \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} dest = num\_nodes > 2 ? 2 : 0;
 
-    \textcolor{keyword}{auto} cb\_functor = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<CallbackFunctor>(dest);
+    \textcolor{keyword}{auto} cb\_functor = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}<CallbackFunctor>(dest);
     bounceCallback(cb\_functor);
 
-    \textcolor{keyword}{auto} cb\_func = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<TestMsg,callbackFunc>(dest);
+    \textcolor{keyword}{auto} cb\_func = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}<callbackFunc>(dest);
     bounceCallback(cb\_func);
 
-    \textcolor{keyword}{auto} cb\_obj = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<MyObj,TestMsg,&
-      \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObj::handler}>(obj[dest]);
+    \textcolor{keyword}{auto} cb\_obj = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObj::handler}>(obj[dest]);
     bounceCallback(cb\_obj);
 
-    \textcolor{keyword}{auto} cb\_obj\_bcast = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<MyObj,TestMsg,&
-      \hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObj::handler}>(obj);
+    \textcolor{keyword}{auto} cb\_obj\_bcast = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObj::handler}>(obj);
     bounceCallback(cb\_obj\_bcast);
 
-    \textcolor{keyword}{auto} cb\_col = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a73583be6260418b13ee66e56cdade2da}{makeSend}<MyCol,TestMsg,colHan>(col[5]);
+    \textcolor{keyword}{auto} cb\_col = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}<colHan>(col[5]);
     bounceCallback(cb\_col);
 
-    \textcolor{keyword}{auto} cb\_col\_bcast = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a2ea6bd5ea3e001662681b1e5a1971e9d}{makeBcast}<MyCol,TestMsg,colHan>(col);
+    \textcolor{keyword}{auto} cb\_col\_bcast = \hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}()->\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}<colHan>(col);
     bounceCallback(cb\_col\_bcast);
   \}
 

@@ -25,6 +25,7 @@ var searchData=
   ['pipestate',['PipeState',['../structvt_1_1pipe_1_1_pipe_state.html',1,'vt::pipe']]],
   ['plusop',['PlusOp',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op.html',1,'vt::collective::reduce::operators']]],
   ['plusop_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e',['PlusOp&lt; std::array&lt; T, N &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
+  ['plusop_3c_20std_3a_3atuple_3c_20params_2e_2e_2e_20_3e_20_3e',['PlusOp&lt; std::tuple&lt; Params... &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op_3_01std_1_1tuple_3_01_params_8_8_8_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['plusop_3c_20std_3a_3avector_3c_20bool_20_3e_20_3e',['PlusOp&lt; std::vector&lt; bool &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op_3_01std_1_1vector_3_01bool_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['plusop_3c_20std_3a_3avector_3c_20t_20_3e_20_3e',['PlusOp&lt; std::vector&lt; T &gt; &gt;',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op_3_01std_1_1vector_3_01_t_01_4_01_4.html',1,'vt::collective::reduce::operators']]],
   ['pollablecomponent',['PollableComponent',['../structvt_1_1runtime_1_1component_1_1_pollable_component.html',1,'vt::runtime::component']]],

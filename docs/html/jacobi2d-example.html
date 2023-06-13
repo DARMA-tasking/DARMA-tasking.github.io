@@ -133,9 +133,7 @@
 
 <span class="k">struct</span> <span class="n">NodeObj</span> <span class="p">{</span>
   <span class="kt">bool</span> <span class="n">is_finished_</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="nl">WorkFinishedMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">Message</span> <span class="p">{};</span>
-
-  <span class="kt">void</span> <span class="nf">workFinishedHandler</span><span class="p">(</span><span class="n">WorkFinishedMsg</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span> <span class="n">is_finished_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">workFinishedHandler</span><span class="p">()</span> <span class="p">{</span> <span class="n">is_finished_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">bool</span> <span class="nf">isWorkFinished</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">is_finished_</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">};</span>
 <span class="k">using</span> <span class="n">NodeObjProxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">objgroup</span><span class="o">::</span><span class="n">proxy</span><span class="o">::</span><span class="n">Proxy</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="p">;</span>
@@ -182,19 +180,12 @@
   <span class="p">};</span>
 
 
-  <span class="k">struct</span> <span class="nl">ReduxMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">ReduceTMsg</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">ReduxMsg</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-    <span class="k">explicit</span> <span class="nf">ReduxMsg</span><span class="p">(</span><span class="kt">double</span> <span class="n">in_val</span><span class="p">)</span> <span class="o">:</span> <span class="n">ReduceTMsg</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">in_val</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="p">};</span>
-
-
-  <span class="kt">void</span> <span class="nf">checkCompleteCB</span><span class="p">(</span><span class="n">ReduxMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">checkCompleteCB</span><span class="p">(</span><span class="kt">double</span> <span class="k">const</span> <span class="n">normRes</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//</span>
     <span class="c1">// Only one object for the reduction will visit</span>
     <span class="c1">// this function</span>
     <span class="c1">//</span>
 
-    <span class="k">const</span> <span class="kt">double</span> <span class="n">normRes</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">getConstVal</span><span class="p">();</span>
     <span class="k">auto</span> <span class="k">const</span> <span class="n">iter_max_reached</span> <span class="o">=</span> <span class="n">iter_</span> <span class="o">&gt;</span> <span class="n">maxIter_</span><span class="p">;</span>
     <span class="k">auto</span> <span class="k">const</span> <span class="n">norm_res_done</span> <span class="o">=</span> <span class="n">normRes</span> <span class="o">&lt;</span> <span class="n">default_tol</span><span class="p">;</span>
 
@@ -206,7 +197,7 @@
       <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="n">to_print</span><span class="p">);</span>
 
       <span class="c1">// Notify all nodes that computation is finished</span>
-      <span class="n">objProxy_</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">WorkFinishedMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">workFinishedHandler</span><span class="o">&gt;</span><span class="p">();</span>
+      <span class="n">objProxy_</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">workFinishedHandler</span><span class="o">&gt;</span><span class="p">();</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
       <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; ## ITER {} &gt;&gt; Residual Norm = {} </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">iter_</span><span class="p">,</span> <span class="n">normRes</span><span class="p">);</span>
     <span class="p">}</span>
@@ -275,11 +266,9 @@
     <span class="p">}</span>
 
     <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
-    <span class="k">auto</span> <span class="n">cb</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theCB</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeSend</span><span class="o">&lt;</span>
-      <span class="n">LinearPb2DJacobi</span><span class="p">,</span><span class="n">ReduxMsg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">LinearPb2DJacobi</span><span class="o">::</span><span class="n">checkCompleteCB</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="n">proxy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
-    <span class="k">auto</span> <span class="n">msg2</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">ReduxMsg</span><span class="o">&gt;</span><span class="p">(</span><span class="n">maxNorm</span><span class="p">);</span>
-    <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;</span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">MaxOp</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">msg2</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="n">cb</span><span class="p">);</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;&amp;</span><span class="n">LinearPb2DJacobi</span><span class="o">::</span><span class="n">checkCompleteCB</span><span class="p">,</span> <span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">MaxOp</span><span class="o">&gt;</span><span class="p">(</span>
+      <span class="n">proxy</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">maxNorm</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 
   <span class="k">struct</span> <span class="nl">VecMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb2DJacobi</span><span class="o">&gt;</span> <span class="p">{</span>

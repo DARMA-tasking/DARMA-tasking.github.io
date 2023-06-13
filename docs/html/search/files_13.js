@@ -68,6 +68,7 @@ var searchData=
   ['tree_2ecc',['tree.cc',['../tree_8cc.html',1,'']]],
   ['tree_2eh',['tree.h',['../tree_8h.html',1,'']]],
   ['trigger_2eh',['trigger.h',['../trigger_8h.html',1,'']]],
+  ['tuple_5fop_5fhelper_2eh',['tuple_op_helper.h',['../tuple__op__helper_8h.html',1,'']]],
   ['tuple_5fserialize_2eh',['tuple_serialize.h',['../tuple__serialize_8h.html',1,'']]],
   ['tutorial_2d1a_2emd',['tutorial-1a.md',['../tutorial-1a_8md.html',1,'']]],
   ['tutorial_2d1b_2emd',['tutorial-1b.md',['../tutorial-1b_8md.html',1,'']]],
