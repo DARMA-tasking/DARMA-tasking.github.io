@@ -137,16 +137,14 @@
           <dl class="m-doc">
             <dt>
               <div class="m-doc-template">template&lt;typename U&gt;</div>
-              <span class="m-doc-wrap-bumper">static auto <a href="#a4eb9b66378b5abbd2ba5ae80a4611e66" class="m-doc">maybeGenerateJson</a>(</span><span class="m-doc-wrap">const U&amp; u,
-              typename std::enable_if&lt;nlohmann::detail::has_to_json&lt;json, U&gt;::value&gt;::type* = nullptr) -&gt; json</span>
+              <span class="m-doc-wrap-bumper">static auto <a href="#ad10346011cc11fffcfb52bf4b124f207" class="m-doc">maybeGenerateJson</a>(</span><span class="m-doc-wrap">U const&amp; u) -&gt; json</span>
             </dt>
             <dd>Generate the json because it is jsonable.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename U&gt;</div>
-              <span class="m-doc-wrap-bumper">static auto <a href="#a5d1ccb671d2f0616eb257de00988fbac" class="m-doc">maybeGenerateJson</a>(</span><span class="m-doc-wrap">const U&amp; u,
-              typename std::enable_if&lt;not nlohmann::detail::has_to_json&lt;json, U&gt;::value&gt;::type* = nullptr) -&gt; json</span>
+              <span class="m-doc-wrap-bumper">static auto <a href="#a2da42349fb45cd9bc61c71073cf5dc76" class="m-doc">maybeGenerateVariant</a>(</span><span class="m-doc-wrap">U const&amp; u) -&gt; auto</span>
             </dt>
-            <dd>Abort because it is not jsonable.</dd>
+            <dd>Generate the variant if matches types.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
@@ -160,10 +158,11 @@
               <span class="m-doc-wrap-bumper"><a href="#a7fa798418159b33d18f1b4a687c727c1" class="m-doc-self">StoreElmBase</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a7eb48bee712612a702745f3abdfa72ed">
-              <span class="m-doc-wrap-bumper"><a href="#a7eb48bee712612a702745f3abdfa72ed" class="m-doc-self">StoreElmBase</a>(</span><span class="m-doc-wrap">bool dump_to_json)</span>
+            <dt>
+              <span class="m-doc-wrap-bumper"><a href="#a8deb42154070f2636df8f6fecdd6430c" class="m-doc">StoreElmBase</a>(</span><span class="m-doc-wrap">bool dump_to_json,
+              bool provide_to_lb)</span>
             </dt>
-            <dd><span></span></dd>
+            <dd>Store element base class constructor.</dd>
             <dt id="a564f20122fff98f72f65752ce610f05e">
               <span class="m-doc-wrap-bumper"><a href="#a564f20122fff98f72f65752ce610f05e" class="m-doc-self">~StoreElmBase</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">virtual</span></span>
             </dt>
@@ -177,6 +176,10 @@
               <span class="m-doc-wrap-bumper">auto <a href="#a3c207bb3612dba2db9fef7e0e7f2e717" class="m-doc">toJson</a>(</span><span class="m-doc-wrap">) -&gt; nlohmann::json <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd>Generate the json if applicable.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a1cfa9cc885ea3f22678b80701498c0ff" class="m-doc">toVariant</a>(</span><span class="m-doc-wrap">) -&gt; std::variant&lt;int, double, std::string&gt; <span class="m-label m-flat m-warning">pure virtual</span></span>
+            </dt>
+            <dd>Generate variant for LB.</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename T&gt;</div>
               <span class="m-doc-wrap-bumper">auto <a href="#aa20aab1f18c5c993151f556d03296441" class="m-doc">get</a>(</span><span class="m-doc-wrap">) -&gt; T&amp;</span>
@@ -196,6 +199,10 @@
               <span class="m-doc-wrap-bumper">auto <a href="#add1ac8f8fa0142bebb916bfd0474cc16" class="m-doc">shouldJson</a>(</span><span class="m-doc-wrap">) const -&gt; bool</span>
             </dt>
             <dd>Whether the value should be dumped to the json LB data file.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae28a8d2455a7429f43937fbe03249a4a" class="m-doc">provideToLB</a>(</span><span class="m-doc-wrap">) const -&gt; bool</span>
+            </dt>
+            <dd>Whether to provide to the LB.</dd>
           </dl>
         </section>
         <section id="pro-attribs">
@@ -205,17 +212,20 @@
               bool <a href="#a7bd87e77194a384ecb0a7450d9e7a24a" class="m-doc-self">dump_to_json_</a>
             </dt>
             <dd><span></span></dd>
+            <dt id="a2818c3e0d6a4c0705170f98c0b51347e">
+              bool <a href="#a2818c3e0d6a4c0705170f98c0b51347e" class="m-doc-self">provide_to_lb_</a>
+            </dt>
+            <dd><span></span></dd>
           </dl>
         </section>
         <section>
           <h2>Function documentation</h2>
-          <section class="m-doc-details" id="a4eb9b66378b5abbd2ba5ae80a4611e66"><div>
+          <section class="m-doc-details" id="ad10346011cc11fffcfb52bf4b124f207"><div>
             <h3>
               <div class="m-doc-template">
                 template&lt;typename U&gt;
               </div>
-              <span class="m-doc-wrap-bumper">static json vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a4eb9b66378b5abbd2ba5ae80a4611e66" class="m-doc-self">maybeGenerateJson</a>(</span><span class="m-doc-wrap">const U&amp; u,
-              typename std::enable_if&lt;nlohmann::detail::has_to_json&lt;json, U&gt;::value&gt;::type* = nullptr)</span></span>
+              <span class="m-doc-wrap-bumper">static json vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad10346011cc11fffcfb52bf4b124f207" class="m-doc-self">maybeGenerateJson</a>(</span><span class="m-doc-wrap">U const&amp; u)</span></span>
             </h3>
             <p>Generate the json because it is jsonable.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -230,15 +240,14 @@
               </tbody>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a5d1ccb671d2f0616eb257de00988fbac"><div>
+          <section class="m-doc-details" id="a2da42349fb45cd9bc61c71073cf5dc76"><div>
             <h3>
               <div class="m-doc-template">
                 template&lt;typename U&gt;
               </div>
-              <span class="m-doc-wrap-bumper">static json vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5d1ccb671d2f0616eb257de00988fbac" class="m-doc-self">maybeGenerateJson</a>(</span><span class="m-doc-wrap">const U&amp; u,
-              typename std::enable_if&lt;not nlohmann::detail::has_to_json&lt;json, U&gt;::value&gt;::type* = nullptr)</span></span>
+              <span class="m-doc-wrap-bumper">static auto vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2da42349fb45cd9bc61c71073cf5dc76" class="m-doc-self">maybeGenerateVariant</a>(</span><span class="m-doc-wrap">U const&amp; u)</span></span>
             </h3>
-            <p>Abort because it is not jsonable.</p>
+            <p>Generate the variant if matches types.</p>
             <table class="m-table m-fullwidth m-flat">
               <thead>
                 <tr><th colspan="2">Parameters</th></tr>
@@ -246,7 +255,29 @@
               <tbody>
                 <tr>
                   <td style="width: 1%">u&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the data that cannot be converted to json</td>
+                  <td>the data to convert to json</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8deb42154070f2636df8f6fecdd6430c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"> vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8deb42154070f2636df8f6fecdd6430c" class="m-doc-self">StoreElmBase</a>(</span><span class="m-doc-wrap">bool dump_to_json,
+              bool provide_to_lb)</span></span>
+            </h3>
+            <p>Store element base class constructor.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">dump_to_json&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>whether to dump to JSON output</td>
+                </tr>
+                <tr>
+                  <td>provide_to_lb&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>whether to provide to the LB</td>
                 </tr>
               </tbody>
             </table>
@@ -261,6 +292,20 @@
                 <tr>
                   <th style="width: 1%">Returns</th>
                   <td>the json</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a1cfa9cc885ea3f22678b80701498c0ff"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">std::variant&lt;int, double, std::string&gt; vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1cfa9cc885ea3f22678b80701498c0ff" class="m-doc-self">toVariant</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">pure virtual</span></span></span>
+            </h3>
+            <p>Generate variant for LB.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>the variant</td>
                 </tr>
               </tfoot>
             </table>
@@ -329,6 +374,20 @@
                 <tr>
                   <th style="width: 1%">Returns</th>
                   <td>whether to dump</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ae28a8d2455a7429f43937fbe03249a4a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />StoreElmBase::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae28a8d2455a7429f43937fbe03249a4a" class="m-doc-self">provideToLB</a>(</span><span class="m-doc-wrap">) const</span></span>
+            </h3>
+            <p>Whether to provide to the LB.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>is it for LB</td>
                 </tr>
               </tfoot>
             </table>

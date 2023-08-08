@@ -150,12 +150,13 @@
               <span class="m-doc-wrap-bumper">void <a href="#a8c0cbce1b3e261dd375d431a56a7c350" class="m-doc">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
               U&amp;&amp; u)</span>
             </dt>
-            <dd>Insert a new key/value pair.</dd>
+            <dd>Insert a new key/value pair (defaults to not providing to LB or dumping to JSON)</dd>
             <dt>
               <div class="m-doc-template">template&lt;typename U&gt;</div>
-              <span class="m-doc-wrap-bumper">void <a href="#a7c4652c490f753648bedf483bcb3f75d" class="m-doc">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
+              <span class="m-doc-wrap-bumper">void <a href="#a0408ee884f29a44e44af8819d9fc3d96" class="m-doc">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
               U&amp;&amp; u,
-              bool dump_to_json)</span>
+              bool dump_to_json,
+              bool provide_to_lb)</span>
             </dt>
             <dd>Insert a new key/value pair.</dd>
             <dt>
@@ -180,6 +181,11 @@
               <span class="m-doc-wrap-bumper">auto <a href="#afc24cbef1191dfd0457575ddd28b12d9" class="m-doc">toJson</a>(</span><span class="m-doc-wrap">) -&gt; nlohmann::json</span>
             </dt>
             <dd>Generate the json if applicable.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename Callable&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a8788e4d3df88f0c82c74a05cc4e328f3" class="m-doc">foreachLB</a>(</span><span class="m-doc-wrap">Callable&amp;&amp; c)</span>
+            </dt>
+            <dd>Traverse the keys/values in the storable for the LB.</dd>
           </dl>
         </section>
         <section>
@@ -212,7 +218,7 @@
               <span class="m-doc-wrap-bumper">void vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />Storable::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8c0cbce1b3e261dd375d431a56a7c350" class="m-doc-self">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
               U&amp;&amp; u)</span></span>
             </h3>
-            <p>Insert a new key/value pair.</p>
+            <p>Insert a new key/value pair (defaults to not providing to LB or dumping to JSON)</p>
             <table class="m-table m-fullwidth m-flat">
               <thead>
                 <tr><th colspan="2">Parameters</th></tr>
@@ -229,14 +235,15 @@
               </tbody>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a7c4652c490f753648bedf483bcb3f75d"><div>
+          <section class="m-doc-details" id="a0408ee884f29a44e44af8819d9fc3d96"><div>
             <h3>
               <div class="m-doc-template">
                 template&lt;typename U&gt;
               </div>
-              <span class="m-doc-wrap-bumper">void vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />Storable::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7c4652c490f753648bedf483bcb3f75d" class="m-doc-self">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
+              <span class="m-doc-wrap-bumper">void vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />Storable::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0408ee884f29a44e44af8819d9fc3d96" class="m-doc-self">valInsert</a>(</span><span class="m-doc-wrap">std::string const&amp; str,
               U&amp;&amp; u,
-              bool dump_to_json)</span></span>
+              bool dump_to_json,
+              bool provide_to_lb)</span></span>
             </h3>
             <p>Insert a new key/value pair.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -256,8 +263,13 @@
                   <td>dump_to_json&nbsp;<span class="m-label m-flat m-info">in</span></td>
                   <td>whether to include in json file</td>
                 </tr>
+                <tr>
+                  <td>provide_to_lb&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>whether to provide the data to the load balancers</td>
+                </tr>
               </tbody>
             </table>
+<aside class="m-note m-info"><h4>Note</h4><p>If <code>provide_to_lb</code> is enabled, the data must be convertible to an integer, double, or string</p></aside>
           </div></section>
           <section class="m-doc-details" id="a81a60463dff73c6375422344c8eb410c"><div>
             <h3>
@@ -363,6 +375,26 @@
                   <td>the json</td>
                 </tr>
               </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8788e4d3df88f0c82c74a05cc4e328f3"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename Callable&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void vt::<wbr />vrt::<wbr />collection::<wbr />storage::<wbr />Storable::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8788e4d3df88f0c82c74a05cc4e328f3" class="m-doc-self">foreachLB</a>(</span><span class="m-doc-wrap">Callable&amp;&amp; c)</span></span>
+            </h3>
+            <p>Traverse the keys/values in the storable for the LB.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">c&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the callable</td>
+                </tr>
+              </tbody>
             </table>
           </div></section>
         </section>

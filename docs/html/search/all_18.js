@@ -43,7 +43,7 @@ var searchData=
   ['work_5f',['work_',['../structvt_1_1sched_1_1_base_unit.html#ab425435c3b6c1cdf2fc208f1e50ea84c',1,'vt::sched::BaseUnit']]],
   ['work_5fqueue_5f',['work_queue_',['../structvt_1_1sched_1_1_scheduler.html#a8176bae441897c36b86e3fb917496a7a',1,'vt::sched::Scheduler']]],
   ['work_5funit_2eh',['work_unit.h',['../work__unit_8h.html',1,'']]],
-  ['worker',['worker',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()']]],
+  ['worker',['Worker',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()']]],
   ['workqueueempty',['workQueueEmpty',['../structvt_1_1sched_1_1_scheduler.html#a49bfd7d4a6d187c6c995b84885a1ed19',1,'vt::sched::Scheduler']]],
   ['workqueuesize',['workQueueSize',['../structvt_1_1sched_1_1_scheduler.html#a6ee315ffd90f37a277bb2b5622af1f4f',1,'vt::sched::Scheduler']]],
   ['workunitcount',['workUnitCount',['../structvt_1_1sched_1_1_scheduler.html#a1b22d8a8efd0cb27fdba01ae616e060b',1,'vt::sched::Scheduler']]],
