@@ -20,6 +20,7 @@ var searchData=
   ['basemsg',['BaseMsg',['../structvt_1_1messaging_1_1_base_msg.html',1,'vt::messaging']]],
   ['baseobj',['BaseObj',['../structvt_1_1objgroup_1_1_base_obj.html',1,'vt::objgroup']]],
   ['basescatterdispatcher',['BaseScatterDispatcher',['../structvt_1_1auto__registry_1_1_base_scatter_dispatcher.html',1,'vt::auto_registry']]],
+  ['baseserializer',['BaseSerializer',['../structcheckpoint_1_1_base_serializer.html',1,'checkpoint']]],
   ['basetypedhandle',['BaseTypedHandle',['../structvt_1_1rdma_1_1_base_typed_handle.html',1,'vt::rdma']]],
   ['basetypedhandle_3c_20t_2c_20e_2c_20vt_3a_3anodetype_20_3e',['BaseTypedHandle&lt; T, E, vt::NodeType &gt;',['../structvt_1_1rdma_1_1_base_typed_handle.html',1,'vt::rdma']]],
   ['baseunit',['BaseUnit',['../structvt_1_1sched_1_1_base_unit.html',1,'vt::sched']]],
@@ -44,6 +45,11 @@ var searchData=
   ['buildertag',['BuilderTag',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_1_1_builder_tag.html',1,'vt::vrt::collection::param::ConstructParams']]],
   ['buildgraphmsg',['BuildGraphMsg',['../structvt_1_1term_1_1_build_graph_msg.html',1,'vt::term']]],
   ['buildsettagtype',['BuildSetTagType',['../structvt_1_1rdma_1_1_handle_set_1_1_build_set_tag_type.html',1,'vt::rdma::HandleSet']]],
+  ['bytecopyablevariant',['ByteCopyableVariant',['../structcheckpoint_1_1detail_1_1_byte_copyable_variant.html',1,'checkpoint::detail']]],
+  ['bytecopyablevariant_3c_20arg_2c_20args_2e_2e_2e_20_3e',['ByteCopyableVariant&lt; Arg, Args... &gt;',['../structcheckpoint_1_1detail_1_1_byte_copyable_variant_3_01_arg_00_01_args_8_8_8_01_4.html',1,'checkpoint::detail']]],
+  ['bytecopyablevariant_3c_3e',['ByteCopyableVariant&lt;&gt;',['../structcheckpoint_1_1detail_1_1_byte_copyable_variant_3_4.html',1,'checkpoint::detail']]],
+  ['bytecopynonintrusive',['ByteCopyNonIntrusive',['../structcheckpoint_1_1_byte_copy_non_intrusive.html',1,'checkpoint']]],
+  ['bytecopynonintrusive_3c_20std_3a_3avariant_3c_20args_2e_2e_2e_20_3e_20_3e',['ByteCopyNonIntrusive&lt; std::variant&lt; Args... &gt; &gt;',['../structcheckpoint_1_1_byte_copy_non_intrusive_3_01std_1_1variant_3_01_args_8_8_8_01_4_01_4.html',1,'checkpoint']]],
   ['bytecopytrait',['ByteCopyTrait',['../structvt_1_1serialization_1_1_byte_copy_trait.html',1,'vt::serialization']]],
   ['bytewrapper',['ByteWrapper',['../structvt_1_1vrt_1_1collection_1_1storage_1_1detail_1_1_byte_wrapper.html',1,'vt::vrt::collection::storage::detail']]]
 ];

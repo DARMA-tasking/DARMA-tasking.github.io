@@ -33,6 +33,7 @@ var searchData=
   ['buffered_5fmsg',['buffered_msg',['../structvt_1_1messaging_1_1_buffered_active_msg.html#a88906175db478caa759a279ba6c43bea',1,'vt::messaging::BufferedActiveMsg']]],
   ['bulk_5finsert_5fbounds_5f',['bulk_insert_bounds_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#aa847998b769d10a8badfc95543113f52',1,'vt::vrt::collection::param::ConstructParams']]],
   ['bulk_5finserts_5f',['bulk_inserts_',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a4de8932b1c4f4e4e0998630cbe6ed08f',1,'vt::vrt::collection::param::ConstructParams']]],
+  ['byte_5fcopyable',['byte_copyable',['../structcheckpoint_1_1detail_1_1_byte_copyable_variant_3_01_arg_00_01_args_8_8_8_01_4.html#aad927b3301c6fe1b4b61b2c86232c449',1,'checkpoint::detail::ByteCopyableVariant&lt; Arg, Args... &gt;::byte_copyable()'],['../structcheckpoint_1_1detail_1_1_byte_copyable_variant_3_4.html#a3b7e0455491d4910df7e3f0996d1ef20',1,'checkpoint::detail::ByteCopyableVariant&lt;&gt;::byte_copyable()']]],
   ['bytes',['bytes',['../structvt_1_1elm_1_1_comm_volume.html#a3dc5194d74ff2c45e8cc941e3bff4a35',1,'vt::elm::CommVolume::bytes()'],['../structvt_1_1serialization_1_1_serial_payload_msg.html#ac9022dd53be215aeca6b300f84834806',1,'vt::serialization::SerialPayloadMsg::bytes()']]],
   ['bytes_5f',['bytes_',['../structvt_1_1vrt_1_1collection_1_1_collection_directory_1_1_element.html#ab88e568797e11c5ccc8c5313d85df527',1,'vt::vrt::collection::CollectionDirectory::Element']]]
 ];

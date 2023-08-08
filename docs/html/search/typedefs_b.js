@@ -18,7 +18,7 @@ var searchData=
   ['migratefntype',['MigrateFnType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a200140e389d08dc8d74db16589e736bc',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['migrationcountcb',['MigrationCountCB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_base_l_b.html#aba7198eb30aef1b19c1f1efdea760543',1,'vt::vrt::collection::lb::BaseLB']]],
   ['minop',['MinOp',['../namespacevt_1_1collective.html#a0d9f013f61a3e2a15a9e0491409f50f2',1,'vt::collective']]],
-  ['modetype',['ModeType',['../structcheckpoint_1_1_serializer.html#a4c307e2592dc4224d8a13148109c5764',1,'checkpoint::Serializer']]],
+  ['modetype',['ModeType',['../structcheckpoint_1_1_base_serializer.html#aaa856a02f204d9c3892810b87671b3e9',1,'checkpoint::BaseSerializer']]],
   ['mpi_5fattr',['MPI_Attr',['../namespacevt_1_1util.html#acdef825f3bbbffb020925d3ba6151df9',1,'vt::util']]],
   ['mpi_5ftagtype',['MPI_TagType',['../namespacevt_1_1messaging.html#af700cb74b7b97c1a305267a9eb3ba91a',1,'vt::messaging']]],
   ['msgbuffercontainertype',['MsgBufferContainerType',['../structvt_1_1vrt_1_1_virtual_info.html#a58e94aae79e1e8f0bb4c2bf6c7ba608e',1,'vt::vrt::VirtualInfo']]],

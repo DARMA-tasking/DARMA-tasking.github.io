@@ -102,7 +102,7 @@ var searchData=
   ['cur_5fident_5f',['cur_ident_',['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#abcdb9005492e7a1145c9b8c9e9e271b0',1,'vt::rdma::RDMAManager']]],
   ['cur_5fload',['cur_load',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#a5dd23bde0bd84e45f15ee9f144f7fb9e',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['cur_5floc_5finst',['cur_loc_inst',['../structvt_1_1location_1_1_location_manager.html#a644b4b030fd616375728316281295250',1,'vt::location::LocationManager']]],
-  ['cur_5fmode_5f',['cur_mode_',['../structcheckpoint_1_1_serializer.html#a89a1f207ad5ff75654cb6d48f432be37',1,'checkpoint::Serializer']]],
+  ['cur_5fmode_5f',['cur_mode_',['../structcheckpoint_1_1_base_serializer.html#a1755296c5fbd3cdc5df3390d20c80fae',1,'checkpoint::BaseSerializer']]],
   ['cur_5fnamed_5fbarrier_5f',['cur_named_barrier_',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#ad3e45365fa6ddf4ca0e08e7f877a580a',1,'vt::collective::barrier::Barrier']]],
   ['cur_5fnamed_5fcoll_5fbarrier_5f',['cur_named_coll_barrier_',['../structvt_1_1collective_1_1barrier_1_1_barrier.html#a19701ef650907899ae95d750343db5ac',1,'vt::collective::barrier::Barrier']]],
   ['cur_5fnode_5f',['cur_node_',['../structvt_1_1location_1_1_loc_record.html#aff7390974f2a2c874bde346db67fac13',1,'vt::location::LocRecord']]],

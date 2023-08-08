@@ -42,7 +42,7 @@ var searchData=
   ['dispatchbaseptrtype',['DispatchBasePtrType',['../namespacevt_1_1vrt_1_1collection.html#aa3b9731ae16d60fac43d68840f3606a5',1,'vt::vrt::collection']]],
   ['dispatchbasetype',['DispatchBaseType',['../namespacevt_1_1vrt_1_1collection.html#a9e2462f78f56998464ffc7f35369c70f',1,'vt::vrt::collection']]],
   ['dispatcherscattertype',['DispatcherScatterType',['../structvt_1_1runnable_1_1_runnable_new.html#a1e5173d3a71a30f4901c61b7de4092c6',1,'vt::runnable::RunnableNew']]],
-  ['dispatchertype',['DispatcherType',['../structvt_1_1runnable_1_1_runnable_new.html#ad0cb55d8e34960ef9dd139638cb721cd',1,'vt::runnable::RunnableNew::DispatcherType()'],['../structcheckpoint_1_1_serializer.html#ad8effc5884f1ed37b6b4507422f6d72c',1,'checkpoint::Serializer::DispatcherType()']]],
+  ['dispatchertype',['DispatcherType',['../structvt_1_1runnable_1_1_runnable_new.html#ad0cb55d8e34960ef9dd139638cb721cd',1,'vt::runnable::RunnableNew::DispatcherType()'],['../structcheckpoint_1_1_base_serializer.html#a6e98a837a89de1750749e4ef8742489c',1,'checkpoint::BaseSerializer::DispatcherType()']]],
   ['dispatchfunctype',['DispatchFuncType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a983e301505317c5ba2041461e7dec84a',1,'vt::pipe::PipeManagerBase::DispatchFuncType()'],['../structvt_1_1pipe_1_1_pipe_state.html#ad81b637847d9c3185420c58c9272ed7d',1,'vt::pipe::PipeState::DispatchFuncType()']]],
   ['dispatchhandlertype',['DispatchHandlerType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a0cfe02a0426e95ec9daa2ef7374e07c7',1,'vt::vrt::collection::CollectionManager']]],
   ['distribconstructfn',['DistribConstructFn',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9ef5ab71e344fdee8525c3f18241c305',1,'vt::vrt::collection::CollectionManager']]],

@@ -10,7 +10,7 @@ var searchData=
   ['vc_5fcontainer_5f',['vc_container_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ab343b98c5353be6ec95cb74fb428dcc6',1,'vt::vrt::collection::Holder']]],
   ['vc_5fptr_5f',['vc_ptr_',['../structvt_1_1vrt_1_1collection_1_1_element_holder.html#ad84006b095efa23b1b9513e5f31e1d33',1,'vt::vrt::collection::ElementHolder']]],
   ['version_5f',['version_',['../structvt_1_1util_1_1mpi__limits_1_1_m_p_i___attr.html#a5ac3d53035de2f0af3ac5b27bb7b91fc',1,'vt::util::mpi_limits::MPI_Attr']]],
-  ['virtual_5fdisabled_5f',['virtual_disabled_',['../structcheckpoint_1_1_serializer.html#a46ef3c0da77d80853882a7cad641c2af',1,'checkpoint::Serializer']]],
+  ['virtual_5fdisabled_5f',['virtual_disabled_',['../structcheckpoint_1_1_base_serializer.html#acdffc3101eb51baafe4a13939ba23e70',1,'checkpoint::BaseSerializer']]],
   ['virtual_5floc',['virtual_loc',['../structvt_1_1location_1_1_location_manager.html#af8cbcba6c30a17a56d69fcf48007cdad',1,'vt::location::LocationManager']]],
   ['vrt_5f',['vrt_',['../structvt_1_1rdma_1_1_handle_key.html#a8f7eb5fab7d65601e5a541797299bb83',1,'vt::rdma::HandleKey']]],
   ['vrt_5fdispatch_5fhan_5f',['vrt_dispatch_han_',['../structvt_1_1pipe_1_1callback_1_1_callback_proxy_bcast_direct.html#abbf88c330fa96ba4da3dae7f207a1641',1,'vt::pipe::callback::CallbackProxyBcastDirect::vrt_dispatch_han_()'],['../structvt_1_1pipe_1_1callback_1_1_callback_proxy_send_direct.html#a665d0e3eddc6aecea9112457ae96dae4',1,'vt::pipe::callback::CallbackProxySendDirect::vrt_dispatch_han_()']]],

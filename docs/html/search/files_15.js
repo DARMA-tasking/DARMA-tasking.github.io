@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['variant_5fserialize_2eh',['variant_serialize.h',['../variant__serialize_8h.html',1,'']]],
   ['vector_5fserialize_2eh',['vector_serialize.h',['../vector__serialize_8h.html',1,'']]],
   ['view_5fequality_2eh',['view_equality.h',['../view__equality_8h.html',1,'']]],
   ['view_5fserialize_2eh',['view_serialize.h',['../view__serialize_8h.html',1,'']]],
