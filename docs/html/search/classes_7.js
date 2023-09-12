@@ -12,7 +12,6 @@ var searchData=
   ['getfnptr_3c_20functort_2c_20false_2c_20msgt_20_3e',['GetFnPtr&lt; FunctorT, false, MsgT &gt;',['../structvt_1_1auto__registry_1_1_get_fn_ptr_3_01_functor_t_00_01false_00_01_msg_t_01_4.html',1,'vt::auto_registry']]],
   ['getfnptr_3c_20functort_2c_20true_2c_20msgt_20_3e',['GetFnPtr&lt; FunctorT, true, MsgT &gt;',['../structvt_1_1auto__registry_1_1_get_fn_ptr_3_01_functor_t_00_01true_00_01_msg_t_01_4.html',1,'vt::auto_registry']]],
   ['getinfochannel',['GetInfoChannel',['../structvt_1_1rdma_1_1_get_info_channel.html',1,'vt::rdma']]],
-  ['getplace',['GetPlace',['../structvt_1_1util_1_1adt_1_1detail_1_1_get_place.html',1,'vt::util::adt::detail']]],
   ['getreducestamp',['GetReduceStamp',['../structvt_1_1collective_1_1reduce_1_1_get_reduce_stamp.html',1,'vt::collective::reduce']]],
   ['getreducestamp_3c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5fsame_5fv_3c_20std_3a_3adecay_5ft_3c_20std_3a_3atuple_5felement_5ft_3c_20sizeof_2e_2e_2e_28args_29_20_2d_201_2c_20std_3a_3atuple_3c_20args_2e_2e_2e_20_3e_20_3e_20_3e_2c_20collective_3a_3areduce_3a_3areducestamp_20_3e_20_3e_2c_20args_2e_2e_2e_20_3e',['GetReduceStamp&lt; std::enable_if_t&lt; std::is_same_v&lt; std::decay_t&lt; std::tuple_element_t&lt; sizeof...(Args) - 1, std::tuple&lt; Args... &gt; &gt; &gt;, collective::reduce::ReduceStamp &gt; &gt;, Args... &gt;',['../structvt_1_1collective_1_1reduce_1_1_get_reduce_stamp_3_01std_1_1enable__if__t_3_01std_1_1is__sa2cf8316b2e34c0a2685c4cd088c88737.html',1,'vt::collective::reduce']]],
   ['getrusage',['Getrusage',['../structvt_1_1util_1_1memory_1_1_getrusage.html',1,'vt::util::memory']]],
@@ -44,5 +43,5 @@ var searchData=
   ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
   ['grouprangemsg',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
   ['groupsyncmsg',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
-  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag']]]
+  ['grouptag',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
 ];

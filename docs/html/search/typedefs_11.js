@@ -1,7 +1,6 @@
 var searchData=
 [
   ['s',['S',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html#a456d0c02fc35667989d79ddbb0393776',1,'checkpoint::dispatch::SerializerDispatchNonByte']]],
-  ['safeunion',['SafeUnion',['../namespacevt_1_1adt.html#ad2a7bbcb5f4735ae9d847f96ee62f144',1,'vt::adt']]],
   ['scattercontainertype',['ScatterContainerType',['../namespacevt_1_1auto__registry.html#a0f315fdd34135b6a311be7225157bb6b',1,'vt::auto_registry']]],
   ['schedulereventtype',['SchedulerEventType',['../structvt_1_1sched_1_1_scheduler.html#ad40b8136b7810da5bab9b27e317e4eb3',1,'vt::sched::Scheduler']]],
   ['scopemaptype',['ScopeMapType',['../structvt_1_1collective_1_1_collective_alg.html#abf644b20fe35cf654f5d4a6702ef5183',1,'vt::collective::CollectiveAlg']]],

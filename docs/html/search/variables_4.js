@@ -3,7 +3,6 @@ var searchData=
   ['d',['D',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#afcfe54a5e5844f7483cd730c9970fe36',1,'vt::term::ds::TermDS']]],
   ['d_5f',['d_',['../structvt_1_1util_1_1json_1_1_decompression_input_container.html#a2798121aebac93d48b7d01e3950091d5',1,'vt::util::json::DecompressionInputContainer']]],
   ['data',['data',['../structvt_1_1location_1_1_location_coord.html#aa94c83bab2f01365b14852e7b80e6aec',1,'vt::location::LocationCoord::data()'],['../structvt_1_1trace_1_1_log.html#ac79b001b6167a37e337bc9d704af8535',1,'vt::trace::Log::data()']]],
-  ['data_5f',['data_',['../structvt_1_1util_1_1adt_1_1_union_base.html#a3badf6a022a698dc00937b3df621caf8',1,'vt::util::adt::UnionBase']]],
   ['data_5fbase_5f',['data_base_',['../structvt_1_1rdma_1_1_holder.html#a347938e7cc24c482672fc73ed7be9406',1,'vt::rdma::Holder']]],
   ['data_5fhandle_5f',['data_handle_',['../structvt_1_1rdma_1_1_sub_handle.html#a9d6fa87336ed3a1f7e3167f1e44c07b2',1,'vt::rdma::SubHandle']]],
   ['data_5fptr',['data_ptr',['../structvt_1_1rdma_1_1_info.html#aec27c1a908087b3c0d1b962ea2a763f8',1,'vt::rdma::Info::data_ptr()'],['../structvt_1_1rdma_1_1_pending.html#afcbb4951a3cfaa8981063487c0b90548',1,'vt::rdma::Pending::data_ptr()']]],

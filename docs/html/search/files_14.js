@@ -2,7 +2,6 @@ var searchData=
 [
   ['unbounded_5fdefault_2eh',['unbounded_default.h',['../unbounded__default_8h.html',1,'']]],
   ['unbounded_5fdefault_2eimpl_2eh',['unbounded_default.impl.h',['../unbounded__default_8impl_8h.html',1,'']]],
-  ['union_2eh',['union.h',['../union_8h.html',1,'']]],
   ['unique_5fptr_5fserialize_2eh',['unique_ptr_serialize.h',['../unique__ptr__serialize_8h.html',1,'']]],
   ['unpacker_2eh',['unpacker.h',['../unpacker_8h.html',1,'']]],
   ['unpacker_2eimpl_2eh',['unpacker.impl.h',['../unpacker_8impl_8h.html',1,'']]],

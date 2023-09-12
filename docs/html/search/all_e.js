@@ -315,8 +315,7 @@ var searchData=
   ['movable_5ffn_2eh',['movable_fn.h',['../movable__fn_8h.html',1,'']]],
   ['movablefn',['MovableFn',['../structvt_1_1runtime_1_1component_1_1_movable_fn.html',1,'vt::runtime::component::MovableFn'],['../structvt_1_1runtime_1_1component_1_1_movable_fn.html#a1f4e6234a09bf4d9a08c79c1945ede55',1,'vt::runtime::component::MovableFn::MovableFn()=default'],['../structvt_1_1runtime_1_1component_1_1_movable_fn.html#ab74d7289ccfbca29df1487af4cdd1f52',1,'vt::runtime::component::MovableFn::MovableFn(MovableFn &amp;&amp;)=default'],['../structvt_1_1runtime_1_1component_1_1_movable_fn.html#a351c55ce7555f3ed5fb66fc18ae1ee86',1,'vt::runtime::component::MovableFn::MovableFn(MovableFn const &amp;)=delete']]],
   ['movablefntyped',['MovableFnTyped',['../structvt_1_1runtime_1_1component_1_1_movable_fn_typed.html',1,'vt::runtime::component::MovableFnTyped&lt; Fn &gt;'],['../structvt_1_1runtime_1_1component_1_1_movable_fn_typed.html#a3e4c8f91febea73dd6f3ce486fa0f5d8',1,'vt::runtime::component::MovableFnTyped::MovableFnTyped()']]],
-  ['move',['Move',['../structvt_1_1util_1_1adt_1_1detail_1_1_move.html',1,'vt::util::adt::detail::Move&lt; T, Ts &gt;'],['../structvt_1_1term_1_1_callable_holder.html#a9a1517406276e39c5a5c140196ea7ccf',1,'vt::term::CallableHolder::move()']]],
-  ['move_3c_20t_20_3e',['Move&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_move_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
+  ['move',['move',['../structvt_1_1term_1_1_callable_holder.html#a9a1517406276e39c5a5c140196ea7ccf',1,'vt::term::CallableHolder']]],
   ['movefrom',['moveFrom',['../structvt_1_1messaging_1_1_msg_shared_ptr.html#a351f61999bc2f15ec3027fcb76c9a942',1,'vt::messaging::MsgSharedPtr::moveFrom()'],['../unionvt_1_1trace_1_1_log_1_1_data.html#a964f30e8a416019ca364df82bae12f0a',1,'vt::trace::Log::Data::moveFrom()']]],
   ['mpi2_5f',['mpi2_',['../structvt_1_1rdma_1_1_holder.html#aecfc6828df1f361fa24e2780b07b6d56',1,'vt::rdma::Holder::mpi2_()'],['../structvt_1_1rdma_1_1_sub_handle.html#a780ccbe4a6a728cba4a45d0d7cabe02b',1,'vt::rdma::SubHandle::mpi2_()']]],
   ['mpi_5faccess_2ecc',['mpi_access.cc',['../mpi__access_8cc.html',1,'']]],
@@ -382,9 +381,6 @@ var searchData=
   ['multiple_5fphases_2ecc',['multiple_phases.cc',['../multiple__phases_8cc.html',1,'']]],
   ['multiple_5fphases_2eh',['multiple_phases.h',['../multiple__phases_8h.html',1,'']]],
   ['multiplephases',['MultiplePhases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html',1,'vt::vrt::collection::balance::MultiplePhases'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html#a28aba5fe005d35319e34ca8406aca936',1,'vt::vrt::collection::balance::MultiplePhases::MultiplePhases()']]],
-  ['mustbe',['MustBe',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be.html',1,'vt::util::adt::detail']]],
-  ['mustbe_3c_20t_20_3e',['MustBe&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
-  ['mustbe_3c_20t_2c_20u_2c_20us_2e_2e_2e_20_3e',['MustBe&lt; T, U, Us... &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_00_01_u_00_01_us_8_8_8_01_4.html',1,'vt::util::adt::detail']]],
   ['mynode_5f',['myNode_',['../structvt_1_1vrt_1_1_virtual_context_manager.html#a543388bdb406506b6cedd94205bc3efd',1,'vt::vrt::VirtualContextManager']]],
   ['memory_20pool',['Memory Pool',['../pool.html',1,'introduction']]]
 ];

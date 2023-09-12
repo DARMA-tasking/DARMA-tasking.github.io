@@ -24,8 +24,6 @@ var searchData=
   ['serializablederived',['SerializableDerived',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived.html',1,'checkpoint::dispatch::vrt']]],
   ['serializabletraits',['SerializableTraits',['../structcheckpoint_1_1_serializable_traits.html',1,'checkpoint']]],
   ['serialization_5ferror',['serialization_error',['../structcheckpoint_1_1dispatch_1_1serialization__error.html',1,'checkpoint::dispatch']]],
-  ['serialize',['Serialize',['../structvt_1_1util_1_1adt_1_1detail_1_1_serialize.html',1,'vt::util::adt::detail']]],
-  ['serialize_3c_20t_20_3e',['Serialize&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_serialize_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['serialize_5fconstruct_5ftag',['SERIALIZE_CONSTRUCT_TAG',['../structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g.html',1,'checkpoint::dispatch']]],
   ['serializeddatamsgany',['SerializedDataMsgAny',['../structvt_1_1serialization_1_1_serialized_data_msg_any.html',1,'vt::serialization']]],
   ['serializedinfo',['SerializedInfo',['../structcheckpoint_1_1_serialized_info.html',1,'checkpoint']]],
@@ -50,8 +48,7 @@ var searchData=
   ['simplefunctortraits',['SimpleFunctorTraits',['../structvt_1_1util_1_1_simple_functor_traits.html',1,'vt::util']]],
   ['simplefunctortraits_3c_20returnt_28functort_3a_3a_2a_29_28msgt_20_2a_29_20const_20_3e',['SimpleFunctorTraits&lt; ReturnT(FunctorT::*)(MsgT *) const &gt;',['../structvt_1_1util_1_1_simple_functor_traits_3_01_return_t_07_functor_t_1_1_5_08_07_msg_t_01_5_08_01const_01_4.html',1,'vt::util']]],
   ['simplefunctortraits_3c_20returnt_28functort_3a_3a_2a_29_28msgt_20_2a_29_3e',['SimpleFunctorTraits&lt; ReturnT(FunctorT::*)(MsgT *)&gt;',['../structvt_1_1util_1_1_simple_functor_traits_3_01_return_t_07_functor_t_1_1_5_08_07_msg_t_01_5_08_4.html',1,'vt::util']]],
-  ['sizer',['Sizer',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer.html',1,'vt::util::adt::detail::Sizer&lt; T, Ts &gt;'],['../structcheckpoint_1_1_sizer.html',1,'checkpoint::Sizer']]],
-  ['sizer_3c_20t_20_3e',['Sizer&lt; T &gt;',['../unionvt_1_1util_1_1adt_1_1detail_1_1_sizer_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
+  ['sizer',['Sizer',['../structcheckpoint_1_1_sizer.html',1,'checkpoint']]],
   ['specentry',['SpecEntry',['../structvt_1_1utils_1_1file__spec_1_1_file_spec_1_1_spec_entry.html',1,'vt::utils::file_spec::FileSpec']]],
   ['specmsg',['SpecMsg',['../structvt_1_1utils_1_1file__spec_1_1_file_spec_1_1_spec_msg.html',1,'vt::utils::file_spec::FileSpec']]],
   ['standard',['Standard',['../structcheckpoint_1_1dispatch_1_1_standard.html',1,'checkpoint::dispatch']]],
@@ -72,7 +69,5 @@ var searchData=
   ['subinfo',['SubInfo',['../structvt_1_1rdma_1_1_sub_handle_1_1_sub_info.html',1,'vt::rdma::SubHandle']]],
   ['suspendedrunnable',['SuspendedRunnable',['../structvt_1_1sched_1_1detail_1_1_suspended_runnable.html',1,'vt::sched::detail']]],
   ['suspendedunits',['SuspendedUnits',['../structvt_1_1sched_1_1_suspended_units.html',1,'vt::sched']]],
-  ['switch',['Switch',['../structvt_1_1util_1_1adt_1_1detail_1_1_switch.html',1,'vt::util::adt::detail']]],
-  ['switch_3c_20t_20_3e',['Switch&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_switch_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['sysdata',['SysData',['../structvt_1_1trace_1_1_log_1_1_data_1_1_sys_data.html',1,'vt::trace::Log::Data']]]
 ];

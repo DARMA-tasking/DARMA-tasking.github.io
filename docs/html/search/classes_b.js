@@ -41,8 +41,6 @@ var searchData=
   ['modifiertoken',['ModifierToken',['../structvt_1_1vrt_1_1collection_1_1_modifier_token.html',1,'vt::vrt::collection']]],
   ['movablefn',['MovableFn',['../structvt_1_1runtime_1_1component_1_1_movable_fn.html',1,'vt::runtime::component']]],
   ['movablefntyped',['MovableFnTyped',['../structvt_1_1runtime_1_1component_1_1_movable_fn_typed.html',1,'vt::runtime::component']]],
-  ['move',['Move',['../structvt_1_1util_1_1adt_1_1detail_1_1_move.html',1,'vt::util::adt::detail']]],
-  ['move_3c_20t_20_3e',['Move&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_move_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
   ['mpi_5fattr',['MPI_Attr',['../structvt_1_1util_1_1mpi__limits_1_1_m_p_i___attr.html',1,'vt::util::mpi_limits']]],
   ['msg_5fdefines_5fserialize_5fmode',['msg_defines_serialize_mode',['../structvt_1_1messaging_1_1msg__defines__serialize__mode.html',1,'vt::messaging']]],
   ['msg_5fdefines_5fserialize_5fmode_3c_20u_2c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5fbase_5fof_3c_20definesserializationmode_3c_20u_20_3e_2c_20u_20_3e_3a_3avalue_20_3e_20_3e',['msg_defines_serialize_mode&lt; U, std::enable_if_t&lt; std::is_base_of&lt; DefinesSerializationMode&lt; U &gt;, U &gt;::value &gt; &gt;',['../structvt_1_1messaging_1_1msg__defines__serialize__mode_3_01_u_00_01std_1_1enable__if__t_3_01std_8698c5f7a65cc513c46123d196b4add1.html',1,'vt::messaging']]],
@@ -64,8 +62,5 @@ var searchData=
   ['msgsizer',['MsgSizer',['../structvt_1_1serialization_1_1_msg_sizer.html',1,'vt::serialization']]],
   ['mstats',['Mstats',['../structvt_1_1util_1_1memory_1_1_mstats.html',1,'vt::util::memory']]],
   ['multimsg',['MultiMsg',['../structvt_1_1messaging_1_1_multi_msg.html',1,'vt::messaging']]],
-  ['multiplephases',['MultiplePhases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html',1,'vt::vrt::collection::balance']]],
-  ['mustbe',['MustBe',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be.html',1,'vt::util::adt::detail']]],
-  ['mustbe_3c_20t_20_3e',['MustBe&lt; T &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_01_4.html',1,'vt::util::adt::detail']]],
-  ['mustbe_3c_20t_2c_20u_2c_20us_2e_2e_2e_20_3e',['MustBe&lt; T, U, Us... &gt;',['../structvt_1_1util_1_1adt_1_1detail_1_1_must_be_3_01_t_00_01_u_00_01_us_8_8_8_01_4.html',1,'vt::util::adt::detail']]]
+  ['multiplephases',['MultiplePhases',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases.html',1,'vt::vrt::collection::balance']]]
 ];
