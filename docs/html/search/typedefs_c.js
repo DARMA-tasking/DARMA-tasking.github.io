@@ -4,7 +4,7 @@ var searchData=
   ['nodeactiontype',['NodeActionType',['../namespacevt_1_1location.html#a3a9235e0ceb341bef225d2cc46606e9e',1,'vt::location']]],
   ['nodelbdatatype',['NodeLBDataType',['../namespacevt.html#a19cb20485baa09ecc30086fbc62fd6ef',1,'vt']]],
   ['nodelisttype',['NodeListType',['../structvt_1_1collective_1_1tree_1_1_tree.html#a834e7b54ea2dceae42db7c5ea859753f',1,'vt::collective::tree::Tree::NodeListType()'],['../structvt_1_1group_1_1_group_collective.html#a24ad1fd43cf03d5026de910d85c7ac96',1,'vt::group::GroupCollective::NodeListType()']]],
-  ['nodeloadtype',['NodeLoadType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a65e300c2d6119d11e9121b17f7f94850',1,'vt::vrt::collection::balance::LoadMsg']]],
+  ['nodeloadtype',['NodeLoadType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a573cc4f6cf58c3160e94a6351a3912d2',1,'vt::vrt::collection::balance::LoadMsg']]],
   ['nodemaptype',['NodeMapType',['../namespacevt_1_1mapping.html#a8dbe779cb3e28ed8c424bcc8826765b9',1,'vt::mapping']]],
   ['nodeseedmaptype',['NodeSeedMapType',['../namespacevt_1_1mapping.html#a84d654b657f2dbe639ada06ae688e4c7',1,'vt::mapping']]],
   ['nodesettype',['NodeSetType',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#aa18a0edaf10119e307e7209371caa673',1,'vt::vrt::collection::lb::TemperedLB']]],

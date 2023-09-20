@@ -158,7 +158,6 @@ var searchData=
   ['countergauge_3c_20counterdefaulttype_2c_20gaugedefaulttype_20_3e',['CounterGauge&lt; CounterDefaultType, GaugeDefaultType &gt;',['../structvt_1_1runtime_1_1component_1_1meter_1_1_counter_gauge.html',1,'vt::runtime::component::meter']]],
   ['createchannel',['CreateChannel',['../structvt_1_1rdma_1_1_create_channel.html',1,'vt::rdma']]],
   ['criterion',['Criterion',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion.html',1,'vt::vrt::collection::lb']]],
-  ['criterionbase',['CriterionBase',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_criterion_base.html',1,'vt::vrt::collection::lb']]],
   ['cxx14_5fconjunction',['cxx14_conjunction',['../structvt_1_1messaging_1_1cxx14__conjunction.html',1,'vt::messaging']]],
   ['cxx14_5fconjunction_3c_20b1_20_3e',['cxx14_conjunction&lt; B1 &gt;',['../structvt_1_1messaging_1_1cxx14__conjunction_3_01_b1_01_4.html',1,'vt::messaging']]],
   ['cxx14_5fconjunction_3c_20b1_2c_20bn_2e_2e_2e_20_3e',['cxx14_conjunction&lt; B1, Bn... &gt;',['../structvt_1_1messaging_1_1cxx14__conjunction_3_01_b1_00_01_bn_8_8_8_01_4.html',1,'vt::messaging']]],
