@@ -69,6 +69,7 @@ var searchData=
   ['getcurrent',['getCurrent',['../structvt_1_1util_1_1json_1_1_decompression_input_container.html#a05e4f427b7fa0e0b178f74d3c5fc74ce',1,'vt::util::json::DecompressionInputContainer']]],
   ['getcurrentcontext',['getCurrentContext',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#aeb9f3e6a1411d77d0a9d87df97fc9e37',1,'vt::vrt::collection::CollectionManager']]],
   ['getcurrentelementid',['getCurrentElementID',['../structvt_1_1ctx_1_1_l_b_data.html#ac2f63d7854e0c1d4c1c2b9ddf200f8c6',1,'vt::ctx::LBData']]],
+  ['getcurrentepoch',['getCurrentEpoch',['../structvt_1_1term_1_1_term_action.html#a39d9b950c0a4820a424dc2d4dad4d38a',1,'vt::term::TermAction']]],
   ['getcurrentid',['getCurrentID',['../structvt_1_1vrt_1_1_virtual_context_manager.html#ad5d3f15d0882e273bf55a48610667881',1,'vt::vrt::VirtualContextManager']]],
   ['getcurrentphase',['getCurrentPhase',['../structvt_1_1phase_1_1_phase_manager.html#a217ff68fb553eedf12c9f4947a977ebd',1,'vt::phase::PhaseManager']]],
   ['getcurrenttime',['getCurrentTime',['../structvt_1_1trace_1_1_trace_lite.html#ad1d8159d645a3b7047ce3f2e0c080f8d',1,'vt::trace::TraceLite::getCurrentTime()'],['../namespacevt_1_1timing.html#adb71f74fee337dab5a317e58e7d35b1d',1,'vt::timing::getCurrentTime()']]],

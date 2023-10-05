@@ -8,6 +8,7 @@ var searchData=
   ['acknowledgehan',['acknowledgeHan',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#ab23731c48967204f38d54e2241952b9f',1,'vt::term::ds::StateDS']]],
   ['ackrequest',['AckRequest',['../structvt_1_1term_1_1ds_1_1_ack_request.html#a560c5b31832454ac8c6a06366c4efc09',1,'vt::term::ds::AckRequest']]],
   ['action',['Action',['../structvt_1_1rdma_1_1_action.html#a06e789113fd8ab00e25e3beb6c36581b',1,'vt::rdma::Action']]],
+  ['actionmsg',['ActionMsg',['../structvt_1_1term_1_1_term_action_1_1_action_msg.html#af6b21910f9a4376c20b5e475deecc2cd',1,'vt::term::TermAction::ActionMsg']]],
   ['activateepoch',['activateEpoch',['../structvt_1_1epoch_1_1_epoch_window.html#a6efc8f11ec346d89ebbfcb36069b6e78',1,'vt::epoch::EpochWindow::activateEpoch()'],['../structvt_1_1term_1_1_term_state.html#af18ed55a5c5b685b655e84aabd4d3d9c',1,'vt::term::TermState::activateEpoch()'],['../structvt_1_1term_1_1_termination_detector.html#af9f932ff57f12da573a75adbbaee73df',1,'vt::term::TerminationDetector::activateEpoch()']]],
   ['active',['active',['../structvt_1_1pool_1_1_pool.html#a3f34112821d767815d5049dc83503033',1,'vt::pool::Pool']]],
   ['active_5fenv',['active_env',['../structvt_1_1pool_1_1_pool.html#aa11bdd76d9f6491ac412d5abc5c63274',1,'vt::pool::Pool']]],
