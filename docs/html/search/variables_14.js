@@ -28,6 +28,7 @@ var searchData=
   ['user_5fhan',['user_han',['../structvt_1_1collective_1_1scatter_1_1_scatter_msg.html#ab99b929e800794c73fe3b845c8d9f794',1,'vt::collective::scatter::ScatterMsg']]],
   ['user_5flabel_5f',['user_label_',['../structvt_1_1termination_1_1graph_1_1_epoch_graph.html#ab999242f776318d97475ccbe6a362c71',1,'vt::termination::graph::EpochGraph']]],
   ['user_5fnote',['user_note',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a14f69beb263080bf4fd0872fafcf4b6c',1,'vt::trace::Log::Data::UserData']]],
+  ['user_5fper_5fphase_5fjson_5f',['user_per_phase_json_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html#aa4b11a094d2f858d29e4a91d61942ddf',1,'vt::vrt::collection::balance::LBDataHolder']]],
   ['user_5fscope_5f',['user_scope_',['../structvt_1_1collective_1_1_collective_alg.html#a72bb12e5bbe0c52e867c81e76db318d9',1,'vt::collective::CollectiveAlg']]],
   ['user_5fstart',['user_start',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#a99efa647964217841ba1862f07b00868',1,'vt::trace::Log::Data::UserData']]],
   ['user_5fstate_5fget_5fmsg_5f',['user_state_get_msg_',['../structvt_1_1rdma_1_1_state.html#af4ac112689f3a20eb497684c9116a291',1,'vt::rdma::State']]],
