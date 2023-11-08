@@ -123,6 +123,7 @@ var searchData=
   ['addlocalindex',['addLocalIndex',['../structvt_1_1rdma_1_1_sub_handle.html#a24f366ba0fe9d2228d82a2c766bdbf45',1,'vt::rdma::SubHandle']]],
   ['addmemoryevent',['addMemoryEvent',['../structvt_1_1trace_1_1_trace.html#a8e8c848a48e05ff947b28606766bd658',1,'vt::trace::Trace']]],
   ['addmodel',['addModel',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection.html#a79ecd769664dcaabe413a5d77033b81b',1,'vt::vrt::collection::balance::PerCollection']]],
+  ['addnewtempgroup',['AddNewTempGroup',['../structvt_1_1group_1_1_group_manager.html#ab9e05b24d6a5f2ea9b838f848f38657c',1,'vt::group::GroupManager']]],
   ['addnodelbdata',['addNodeLBData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a70b3e6ebe09346bf2986c10e2384e55b',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['addnodeload',['addNodeLoad',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg.html#a6d747c16d4f2382d132971c9fab36dca',1,'vt::vrt::collection::balance::LoadMsg']]],
   ['addsignal',['addSignal',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#ae32b546852bc4518b6d75f2e43a5eb5f',1,'vt::pipe::signal::SignalHolder']]],

@@ -789,21 +789,48 @@ The object group manager component {\ttfamily \hyperlink{structvt_1_1objgroup_1_
 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
   \hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{vt::initialize}(argc, argv);
 
-  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
-  \hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->
-      \hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
+  \textcolor{keyword}{const} \textcolor{keyword}{auto} this\_node = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}();
+  \textcolor{keyword}{const} \textcolor{keyword}{auto} num\_nodes = \hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}()->\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}();
 
-  \textcolor{keyword}{auto} proxy = \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}<MyObjGroup>(
-    \textcolor{stringliteral}{"examples\_hello\_world"}
-  );
+  \textcolor{keyword}{auto} proxy =
+    \hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}()->\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}<MyObjGroup>(\textcolor{stringliteral}{"examples\_hello\_world"});
+
+  \textcolor{comment}{// Create group of odd nodes and multicast to them (from root node)}
+  \hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}()->\hyperlink{structvt_1_1group_1_1_group_manager_a92b301d6cf77af7d57ed822c6f044d58}{newGroupCollective}(
+    this\_node % 2, [proxy, this\_node](::\hyperlink{namespacevt_a27b5e4411c9b6140c49100e050e2f743}{vt::GroupType} type) \{
+      \textcolor{keywordflow}{if} (this\_node == 0) \{
+        proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a48262367d5347f555bb028d97fa3b594}{multicast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(type, 122, 244);
+      \}
+    \});
+
+  \hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{vt::theCollective}()->\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}();
 
   \textcolor{keywordflow}{if} (this\_node == 0) \{
-    proxy[0].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(5,10);
+    \textcolor{comment}{// Send to object 0}
+    proxy[0].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(5, 10);
     \textcolor{keywordflow}{if} (num\_nodes > 1) \{
-      proxy[1].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(10,20);
+      \textcolor{comment}{// Send to object 1}
+      proxy[1].send<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(10, 20);
     \}
-    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(400,500);
+
+    \textcolor{comment}{// Broadcast to all nodes}
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(400, 500);
+
+    \textcolor{keyword}{using namespace }::\hyperlink{namespacevt_1_1group_1_1region}{vt::group::region};
+
+    \textcolor{comment}{// Create list of nodes and multicast to them}
+    List::ListType range;
+    \textcolor{keywordflow}{for} (\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{vt::NodeType} \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} = 0; \hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} < num\_nodes; ++\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}) \{
+      \textcolor{keywordflow}{if} (\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node} % 2 == 0) \{
+        range.push\_back(\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node});
+      \}
+    \}
+
+    proxy.\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a48262367d5347f555bb028d97fa3b594}{multicast}<&\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{MyObjGroup::handler}>(
+      std::make\_unique<List>(range), 20, 40
+    );
   \}
+  \hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{vt::theCollective}()->\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}();
 
   \hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}();
 

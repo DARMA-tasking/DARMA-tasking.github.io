@@ -373,6 +373,7 @@ var searchData=
   ['gettag',['getTag',['../structvt_1_1messaging_1_1_send_info.html#a2091dcc87c564afddebcfee8281aa464',1,'vt::messaging::SendInfo::getTag()'],['../structvt_1_1pipe_1_1signal_1_1_signal.html#a0d55d4712aadfc8cc848e8bd45814351',1,'vt::pipe::signal::Signal::getTag()']]],
   ['gettarget',['getTarget',['../structvt_1_1rdma_1_1_channel.html#a2185f0c194fd626b0e617c8e706bf297',1,'vt::rdma::Channel::getTarget()'],['../structvt_1_1rdma_1_1_r_d_m_a_manager.html#abde2782a98e21ad696be5aa621461814',1,'vt::rdma::RDMAManager::getTarget()']]],
   ['gettask',['getTask',['../structvt_1_1ctx_1_1_context.html#a4e78f77717329369173daf1b270a25b0',1,'vt::ctx::Context']]],
+  ['gettempgroupforrange',['GetTempGroupForRange',['../structvt_1_1group_1_1_group_manager.html#a84fa9b17dc05c4ca0c522885e9827a0e',1,'vt::group::GroupManager']]],
   ['getterminatedwindow',['getTerminatedWindow',['../structvt_1_1epoch_1_1_epoch_manip.html#a2ed00df099793bd9f9452203ba8ba571',1,'vt::epoch::EpochManip']]],
   ['getterminator',['getTerminator',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#a291452cba8050d7a5e377b1e86c3f42a',1,'vt::term::ds::StateDS']]],
   ['gettlregistry',['getTLRegistry',['../namespacevt_1_1vrt_1_1collection.html#a37734c53d0e2984a2f914b4d0561ea30',1,'vt::vrt::collection']]],
