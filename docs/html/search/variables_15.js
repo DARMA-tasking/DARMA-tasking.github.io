@@ -45,6 +45,7 @@ var searchData=
   ['vt_5fdebug_5frdma_5fchannel',['vt_debug_rdma_channel',['../structvt_1_1arguments_1_1_app_config.html#a2220d56f6ae5d1ff6215e081d40cd002',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5frdma_5fstate',['vt_debug_rdma_state',['../structvt_1_1arguments_1_1_app_config.html#a74e006fcccf1289d93626956ab641912',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5freduce',['vt_debug_reduce',['../structvt_1_1arguments_1_1_app_config.html#afbd51efafa7ed24270a965af6e596232',1,'vt::arguments::AppConfig']]],
+  ['vt_5fdebug_5freplay',['vt_debug_replay',['../structvt_1_1arguments_1_1_app_config.html#a1ebd5c3e775d84a644687278090fe458',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fruntime',['vt_debug_runtime',['../structvt_1_1arguments_1_1_app_config.html#a69b1371fb39fa1e541045c04cae8c28f',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fscatter',['vt_debug_scatter',['../structvt_1_1arguments_1_1_app_config.html#a986874798c711a33adf02e9c14b6488b',1,'vt::arguments::AppConfig']]],
   ['vt_5fdebug_5fserial_5fmsg',['vt_debug_serial_msg',['../structvt_1_1arguments_1_1_app_config.html#acdbaa0fe035d7968ffd04cf0670aa3eb',1,'vt::arguments::AppConfig']]],

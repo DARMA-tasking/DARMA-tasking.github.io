@@ -22,6 +22,7 @@ var searchData=
   ['withtdepoch',['withTDEpoch',['../structvt_1_1runnable_1_1_runnable_maker.html#a60b98132fcf31de89854ca70c087eb0e',1,'vt::runnable::RunnableMaker']]],
   ['withtdepochfrommsg',['withTDEpochFromMsg',['../structvt_1_1runnable_1_1_runnable_maker.html#ab1d3e7c7e5da4cf309a58b0e4a17070e',1,'vt::runnable::RunnableMaker']]],
   ['withtypeidx',['withTypeIdx',['../namespacecheckpoint_1_1dispatch.html#a23852566cd2c0568dac667166adc60b5',1,'checkpoint::dispatch']]],
+  ['workloaddatamigrator',['WorkloadDataMigrator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1replay_1_1_workload_data_migrator.html#a3bdffb57d5d79e7346117b92e4b01bee',1,'vt::vrt::collection::balance::replay::WorkloadDataMigrator']]],
   ['workqueueempty',['workQueueEmpty',['../structvt_1_1sched_1_1_scheduler.html#a49bfd7d4a6d187c6c995b84885a1ed19',1,'vt::sched::Scheduler']]],
   ['workqueuesize',['workQueueSize',['../structvt_1_1sched_1_1_scheduler.html#a6ee315ffd90f37a277bb2b5622af1f4f',1,'vt::sched::Scheduler']]],
   ['write',['write',['../structvt_1_1util_1_1compress_1_1_compressor.html#a6ffad58973420bf17cbd258cb49fc3c1',1,'vt::util::compress::Compressor']]],

@@ -59,6 +59,7 @@ var searchData=
   ['reduce',['reduce',['../namespacevt_1_1collective_1_1reduce.html',1,'vt::collective']]],
   ['region',['region',['../namespacevt_1_1group_1_1region.html',1,'vt::group']]],
   ['registry',['registry',['../namespacevt_1_1objgroup_1_1registry.html',1,'vt::objgroup::registry'],['../namespacevt_1_1runtime_1_1component_1_1registry.html',1,'vt::runtime::component::registry']]],
+  ['replay',['replay',['../namespacevt_1_1vrt_1_1collection_1_1balance_1_1replay.html',1,'vt::vrt::collection::balance']]],
   ['runnable',['runnable',['../namespacevt_1_1runnable.html',1,'vt']]],
   ['runtime',['runtime',['../namespacevt_1_1runtime.html',1,'vt']]],
   ['scatter',['scatter',['../namespacevt_1_1collective_1_1scatter.html',1,'vt::collective']]],
