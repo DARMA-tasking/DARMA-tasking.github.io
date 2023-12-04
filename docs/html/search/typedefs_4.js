@@ -14,6 +14,7 @@ var searchData=
   ['elmidtype',['ElmIDType',['../structvt_1_1objgroup_1_1holder_1_1_holder_base.html#a89c0ce1f23237ab00aee86d4d339bc50',1,'vt::objgroup::holder::HolderBase']]],
   ['elmproxytype',['ElmProxyType',['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html#a892c21eae1dca37321d7973f72b55b0a',1,'vt::vrt::collection::CollectionProxy::ElmProxyType()'],['../structvt_1_1vrt_1_1collection_1_1_collection_untyped_proxy.html#abf73984f3a31218515f9f4806f41cef5',1,'vt::vrt::collection::CollectionUntypedProxy::ElmProxyType()'],['../collection__elm__proxy_8h.html#a4db7e68088d49e1d3ff1cffb14d79a0e',1,'ElmProxyType():&#160;collection_elm_proxy.h']]],
   ['elmtype',['ElmType',['../structvt_1_1rdma_1_1_collection_info.html#a31cd8d00263f9260a6ca3d8e5cbc19e8',1,'vt::rdma::CollectionInfo']]],
+  ['elmuserdatatype',['ElmUserDataType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#abf9eea0f4c24e41036ab844025e7d4c8',1,'vt::vrt::collection::balance']]],
   ['endpoint',['Endpoint',['../structvt_1_1term_1_1ds_1_1_state_d_s.html#aba302de614dd639f5d93f4f5b6dd6108',1,'vt::term::ds::StateDS']]],
   ['entitymsgtype',['EntityMsgType',['../structvt_1_1location_1_1_entity_location_coord.html#a69e037fef241a04659b4068c8ae1513f',1,'vt::location::EntityLocationCoord']]],
   ['enumtostrmap',['EnumToStrMap',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html#ab4e2b0c525c1ea76f18f2ff45733f3c4',1,'vt::vrt::collection::balance::LBArgsEnumConverter']]],

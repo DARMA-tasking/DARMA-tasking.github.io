@@ -11,6 +11,7 @@ var searchData=
   ['unpackerio',['UnpackerIO',['../namespacecheckpoint.html#a0efc06d99dce79e452b9d1b503059a74',1,'checkpoint']]],
   ['updatetype',['UpdateType',['../structvt_1_1runtime_1_1component_1_1_diagnostic.html#a75e737294bb63e1898d9ac4515f0cf63',1,'vt::runtime::component::Diagnostic']]],
   ['userdatatype',['UserDataType',['../structvt_1_1trace_1_1_log.html#af392c3825bf45d286a0f77bddf7a96cf',1,'vt::trace::Log']]],
+  ['userdatavaluetype',['UserDataValueType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#aca96e6802f2f541caff4e536f2335425',1,'vt::vrt::collection::balance']]],
   ['usereventidtype',['UserEventIDType',['../namespacevt_1_1trace.html#a5908920d051c144c89f17c69ed262350',1,'vt::trace']]],
   ['useridtype',['UserIDType',['../namespacevt_1_1collective_1_1reduce.html#a6cdf1adaf7aedc9df00c92fe55cdcecd',1,'vt::collective::reduce::UserIDType()'],['../namespacevt_1_1collective_1_1reduce_1_1detail.html#ae82d7b96b0885b9b7dfb0104398beead',1,'vt::collective::reduce::detail::UserIDType()']]],
   ['usermsgtype',['UserMsgType',['../structvt_1_1vrt_1_1collection_1_1_collection_message.html#ace5b4eaa94f5b209ae321edd6c0b6c19',1,'vt::vrt::collection::CollectionMessage::UserMsgType()'],['../structvt_1_1vrt_1_1collection_1_1_col_msg_wrap.html#a168446c6b2feea3a003dbfa02f21e227',1,'vt::vrt::collection::ColMsgWrap::UserMsgType()']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['datamaptype',['DataMapType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#a5794b6bc763c88c78228074bd0d1a50f',1,'vt::vrt::collection::balance']]],
+  ['datamaptype',['DataMapType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#acf152c668ed9e2e9c6b29784181d2435',1,'vt::vrt::collection::balance']]],
   ['dataptrtype',['DataPtrType',['../structvt_1_1pipe_1_1signal_1_1_signal.html#a9c8166338314e5d595575c21eaa42859',1,'vt::pipe::signal::Signal::DataPtrType()'],['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#aad5bfc2b46dfa071ae638385324d7e31',1,'vt::pipe::signal::SignalHolder::DataPtrType()']]],
   ['datat',['DataT',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg.html#a33b96667b96604c31bf0986b52e0eee3',1,'vt::collective::reduce::operators::ReduceDataMsg::DataT()'],['../structvt_1_1rdma_1_1_base_typed_handle.html#a442fed4e2898c2fc2b7e8686283efdde',1,'vt::rdma::BaseTypedHandle::DataT()']]],
   ['datatype',['DataType',['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_arr_msg.html#a09afd457c37f46ed8ea06f8075195a16',1,'vt::collective::reduce::operators::ReduceArrMsg::DataType()'],['../structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_vec_msg.html#a556927389ef91ea8f5a7892501724a37',1,'vt::collective::reduce::operators::ReduceVecMsg::DataType()'],['../structvt_1_1pipe_1_1signal_1_1_signal.html#af5f782c77d6c762dc35fc097cce53732',1,'vt::pipe::signal::Signal::DataType()'],['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a4c1ad2d2a961f4d381d9c9455bc0d901',1,'vt::pipe::signal::SignalHolder::DataType()'],['../structvt_1_1term_1_1_epoch_stack.html#a1c8546a8c68578c23ed96e65a778b5dc',1,'vt::term::EpochStack::DataType()'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_bcast_msg.html#a56f882aadc6658debe93c6523b4e524f',1,'vt::vrt::collection::lb::GreedyBcastMsg::DataType()']]],
@@ -49,6 +49,6 @@ var searchData=
   ['distribconstructfn',['DistribConstructFn',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a9ef5ab71e344fdee8525c3f18241c305',1,'vt::vrt::collection::CollectionManager']]],
   ['domaintype',['DomainType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a74b3ffb0498e75459e23d59b2d4facfa',1,'vt::term::interval::IntegralSetBase::DomainType()'],['../structvt_1_1term_1_1interval_1_1_interval.html#a237ccc9805d839c82151945ad80b796c',1,'vt::term::interval::Interval::DomainType()']]],
   ['donemsg',['DoneMsg',['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#ac8062352203598c411265a478ec1b0c7',1,'vt::utils::file_spec::FileSpec']]],
-  ['dualloadmaptype',['DualLoadMapType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html#a283605916dbc414bbc6e176b9f3fb240',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator']]],
+  ['dualloadmaptype',['DualLoadMapType',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html#a73ef88ce9e6fa24ee9eacc749ef72d03',1,'vt::vrt::collection::balance::DualLoadMapObjectIterator']]],
   ['dumpstacktype',['DumpStackType',['../namespacevt_1_1debug_1_1stack.html#ad492fbef68802fc38922b49caf401d63',1,'vt::debug::stack']]]
 ];

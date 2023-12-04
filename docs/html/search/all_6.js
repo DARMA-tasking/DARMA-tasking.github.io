@@ -65,6 +65,7 @@ var searchData=
   ['elmproxytype',['ElmProxyType',['../structvt_1_1vrt_1_1collection_1_1_collection_proxy.html#a892c21eae1dca37321d7973f72b55b0a',1,'vt::vrt::collection::CollectionProxy::ElmProxyType()'],['../structvt_1_1vrt_1_1collection_1_1_collection_untyped_proxy.html#abf73984f3a31218515f9f4806f41cef5',1,'vt::vrt::collection::CollectionUntypedProxy::ElmProxyType()'],['../collection__elm__proxy_8h.html#a4db7e68088d49e1d3ff1cffb14d79a0e',1,'ElmProxyType():&#160;collection_elm_proxy.h']]],
   ['elms_5f',['elms_',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#a6b6c9d51286b662d28eb1dfac3047af0',1,'vt::term::interval::IntegralSetBase::elms_()'],['../structvt_1_1util_1_1container_1_1_circular_buffer.html#a9c05e2d6d78d7db1a57ff24a00f928e0',1,'vt::util::container::CircularBuffer::elms_()']]],
   ['elmtype',['ElmType',['../structvt_1_1rdma_1_1_collection_info.html#a31cd8d00263f9260a6ca3d8e5cbc19e8',1,'vt::rdma::CollectionInfo']]],
+  ['elmuserdatatype',['ElmUserDataType',['../namespacevt_1_1vrt_1_1collection_1_1balance.html#abf9eea0f4c24e41036ab844025e7d4c8',1,'vt::vrt::collection::balance']]],
   ['elocstate',['eLocState',['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547',1,'vt::location']]],
   ['emittracefortopprocessingevent',['emitTraceForTopProcessingEvent',['../structvt_1_1trace_1_1_trace_lite.html#a0fe1ea3e54a0428639c5fe338ce9a04f',1,'vt::trace::TraceLite']]],
   ['emph',['emph',['../namespacevt_1_1debug.html#add365336d7aa2053b5b7588ccad48ac7',1,'vt::debug']]],
