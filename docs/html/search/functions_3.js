@@ -67,6 +67,7 @@ var searchData=
   ['closefile',['closeFile',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html#a959990ab99e72d5a7df854582ecd83b2',1,'checkpoint::buffer::IOBuffer']]],
   ['closelbdatafile',['closeLBDataFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#ae966be24ee1338594860af5de92d3e12',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['closestatisticsfile',['closeStatisticsFile',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a7fcd0cc4e6fa9a101411ece9bc687141',1,'vt::vrt::collection::balance::LBManager']]],
+  ['collectattributes',['collectAttributes',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html#a42399903490624cc86cc9af57839806f',1,'vt::vrt::collection::storage::Storable']]],
   ['collecthandler',['collectHandler',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a3466c598044fc1536c3dcbaa2a9980ce',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['collection',['Collection',['../structvt_1_1ctx_1_1_collection.html#a19c7871680086e92be70f24d58bb0321',1,'vt::ctx::Collection::Collection()=default'],['../structvt_1_1ctx_1_1_collection.html#a461f8690260111c0dd2f21bd1b3acf6c',1,'vt::ctx::Collection::Collection(vrt::collection::Indexable&lt; IndexT &gt; *elm)']]],
   ['collectionautomsgdeliver',['collectionAutoMsgDeliver',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a13c79e91a7a429f8ad27f2629b51a312',1,'vt::vrt::collection::CollectionManager']]],

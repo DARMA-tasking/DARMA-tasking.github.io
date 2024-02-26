@@ -45,6 +45,7 @@ var searchData=
   ['node_5fobjgroup_5flookup_5f',['node_objgroup_lookup_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a168baa5b6f532b6f37431ef4e7f7e48e',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['node_5fsize',['node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#ac03c38a79a387b33024a98d788fc5afe',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['node_5fsubphase_5fcomm_5f',['node_subphase_comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html#a733c6d7b9fb2bb0c67588eed9b9cd5fc',1,'vt::vrt::collection::balance::LBDataHolder']]],
+  ['node_5fuser_5fattributes_5f',['node_user_attributes_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html#a24fff50ee98c5fc97ea1e3b6155fea9e',1,'vt::vrt::collection::balance::LBDataHolder']]],
   ['non_5ftarget',['non_target',['../structvt_1_1rdma_1_1_channel_lookup.html#ae01c924a3a559f70dfda62b187989f51',1,'vt::rdma::ChannelLookup::non_target()'],['../structvt_1_1rdma_1_1_create_channel.html#aca4aa45ce8f62e0f4ae02c0ea2c9428c',1,'vt::rdma::CreateChannel::non_target()'],['../structvt_1_1rdma_1_1_channel_message.html#a74a29aa6eedac5f27939642e81d31c59',1,'vt::rdma::ChannelMessage::non_target()']]],
   ['non_5ftarget_5f',['non_target_',['../structvt_1_1rdma_1_1_channel.html#aea0aa91cd0ab35f294ece2c16b46f99f',1,'vt::rdma::Channel']]],
   ['non_5ftarget_5fpos_5f',['non_target_pos_',['../structvt_1_1rdma_1_1_channel.html#aab4161123aa98085de1b2fbab5f76ec8',1,'vt::rdma::Channel']]],

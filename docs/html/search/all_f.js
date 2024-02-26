@@ -97,6 +97,7 @@ var searchData=
   ['node_5fobjgroup_5flookup_5f',['node_objgroup_lookup_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a168baa5b6f532b6f37431ef4e7f7e48e',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['node_5fsize',['node_size',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hier_l_b_child.html#ac03c38a79a387b33024a98d788fc5afe',1,'vt::vrt::collection::lb::HierLBChild']]],
   ['node_5fsubphase_5fcomm_5f',['node_subphase_comm_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html#a733c6d7b9fb2bb0c67588eed9b9cd5fc',1,'vt::vrt::collection::balance::LBDataHolder']]],
+  ['node_5fuser_5fattributes_5f',['node_user_attributes_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder.html#a24fff50ee98c5fc97ea1e3b6155fea9e',1,'vt::vrt::collection::balance::LBDataHolder']]],
   ['nodeactiontype',['NodeActionType',['../namespacevt_1_1location.html#a3a9235e0ceb341bef225d2cc46606e9e',1,'vt::location']]],
   ['nodebocinitmsg',['NodeBocInitMsg',['../namespacevt_1_1trace.html#a698098d397e4f62b8330d18279a3b79ea0652f454e578873eb4257d9bcaf4cb94',1,'vt::trace']]],
   ['nodelbdata',['NodeLBData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html',1,'vt::vrt::collection::balance::NodeLBData'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#a058aa408a360bb30c48bd210dd0f1e25',1,'vt::vrt::collection::balance::NodeLBData::NodeLBData()']]],
