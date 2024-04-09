@@ -68,6 +68,7 @@ var searchData=
   ['str_5fto_5fenum_5f',['str_to_enum_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html#aae1662ab7a78192d215aa616fac03de6',1,'vt::vrt::collection::balance::LBArgsEnumConverter']]],
   ['strat_5f',['strat_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b.html#a41cd413b052ad6fb98fea034472fe31f',1,'vt::vrt::collection::lb::GreedyLB']]],
   ['strategy_5fspecific_5fmodel_5f',['strategy_specific_model_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#ad9c5ed71d25d99877726394fe7f8f704',1,'vt::vrt::collection::balance::LBManager']]],
+  ['stream',['stream',['../structcheckpoint_1_1_stream_packer.html#aa5b89dd441e15eb18b8ab65b0b39f471',1,'checkpoint::StreamPacker::stream()'],['../structcheckpoint_1_1_stream_unpacker.html#aec9a1b42018ad4872ebd8917de9e019f',1,'checkpoint::StreamUnpacker::stream()']]],
   ['stride_5f',['stride_',['../structvt_1_1group_1_1region_1_1_range.html#ad483fd4ac3bb38c69501fd95cef3890c',1,'vt::group::region::Range::stride_()'],['../structvt_1_1group_1_1region_1_1_range_data.html#a8f40ed5e914ee5f68c7f274df5cba1dd',1,'vt::group::region::RangeData::stride_()']]],
   ['sub_5fhandles_5f',['sub_handles_',['../structvt_1_1rdma_1_1_sub_handle.html#ae5300cda983bbb530edff53b377a71a8',1,'vt::rdma::SubHandle']]],
   ['sub_5fhandles_5fstaged_5f',['sub_handles_staged_',['../structvt_1_1rdma_1_1_sub_handle.html#a5643ad6c60d3cf3478bc9d16dfe72489',1,'vt::rdma::SubHandle']]],

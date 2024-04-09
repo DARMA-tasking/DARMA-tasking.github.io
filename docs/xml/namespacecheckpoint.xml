@@ -21,6 +21,8 @@
     <innerclass refid="structcheckpoint_1_1_serializer_traits" prot="public">checkpoint::SerializerTraits</innerclass>
     <innerclass refid="structcheckpoint_1_1_serialize_virtual_type_if_needed" prot="public">checkpoint::SerializeVirtualTypeIfNeeded</innerclass>
     <innerclass refid="structcheckpoint_1_1_sizer" prot="public">checkpoint::Sizer</innerclass>
+    <innerclass refid="structcheckpoint_1_1_stream_packer" prot="public">checkpoint::StreamPacker</innerclass>
+    <innerclass refid="structcheckpoint_1_1_stream_unpacker" prot="public">checkpoint::StreamUnpacker</innerclass>
     <innerclass refid="structcheckpoint_1_1_unpacker_buffer" prot="public">checkpoint::UnpackerBuffer</innerclass>
     <innerclass refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732" prot="public">checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and not std::is_same&lt; SerializerT, checkpoint::Footprinter &gt;::value &gt;&gt;</innerclass>
     <innerclass refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016" prot="public">checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and std::is_same&lt; SerializerT, checkpoint::Footprinter &gt;::value &gt;&gt;</innerclass>
@@ -178,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lib/checkpoint/src/checkpoint/dispatch/vrt/base.h" line="97" column="1" bodyfile="lib/checkpoint/src/checkpoint/dispatch/vrt/base.h" bodystart="97" bodyend="-1"/>
+        <location file="lib/checkpoint/src/checkpoint/dispatch/vrt/base.h" line="99" column="1" bodyfile="lib/checkpoint/src/checkpoint/dispatch/vrt/base.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespacecheckpoint_1a9c4afb2c8d1bc1f58b9e158d64331d65" prot="public" static="no">
         <type><ref refid="structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived" kindref="compound">dispatch::vrt::SerializableDerived</ref>&lt; DerivedT, BaseT &gt;</type>
@@ -791,6 +793,128 @@
         </inbodydescription>
         <location file="lib/checkpoint/src/checkpoint/checkpoint_api.h" line="218" column="1" bodyfile="lib/checkpoint/src/checkpoint/checkpoint_api.impl.h" bodystart="120" bodyend="124"/>
       </memberdef>
+      <memberdef kind="function" id="namespacecheckpoint_1a6d52d7faa50354bc079e1d864963d29c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename StreamT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void checkpoint::serializeToStream</definition>
+        <argsstring>(T &amp;target, StreamT &amp;stream)</argsstring>
+        <name>serializeToStream</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>StreamT &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <briefdescription>
+<para>Serialize <computeroutput>T</computeroutput> to a stream. </para>        </briefdescription>
+        <detaileddescription>
+<para>Byte-serializes <computeroutput>T</computeroutput> to stream. Handling of any errors during writing to the stream will be handled by the stream itself, e.g. any exceptions or status bits to check will depend on stream type.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <computeroutput>T</computeroutput> to serialize </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to serialize into, with tellp and write functions. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/checkpoint/src/checkpoint/checkpoint_api.h" line="231" column="1" bodyfile="lib/checkpoint/src/checkpoint/checkpoint_api.impl.h" bodystart="127" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecheckpoint_1aa9a7965554c62b089bb326961747368d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename StreamT</type>
+          </param>
+        </templateparamlist>
+        <type>std::unique_ptr&lt; T &gt;</type>
+        <definition>std::unique_ptr&lt; T &gt; checkpoint::deserializeFromStream</definition>
+        <argsstring>(StreamT &amp;stream)</argsstring>
+        <name>deserializeFromStream</name>
+        <param>
+          <type>StreamT &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <briefdescription>
+<para>De-serialize and reify <computeroutput>T</computeroutput> from a stream. </para>        </briefdescription>
+        <detaileddescription>
+<para>De-serializes an object recursively by first invoking the reconstruction strategy and then <computeroutput>serialize</computeroutput> functions/methods recursively to rebuild the state of the object as serialized. During reconstruction, based on trait detection, <computeroutput>T</computeroutput> will either be default constructed or reconstructed based on a user-defined reconstruct method.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the stream to read with bytes for <computeroutput>T</computeroutput>, with tellg and read functions</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>unique pointer to the new object <computeroutput>T</computeroutput> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/checkpoint/src/checkpoint/checkpoint_api.h" line="247" column="1" bodyfile="lib/checkpoint/src/checkpoint/checkpoint_api.impl.h" bodystart="135" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecheckpoint_1ac5e1b98b72e9fa58cda71b79a009e1db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename StreamT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void checkpoint::deserializeInPlaceFromStream</definition>
+        <argsstring>(StreamT &amp;stream, T *buf)</argsstring>
+        <name>deserializeInPlaceFromStream</name>
+        <param>
+          <type>StreamT &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <param>
+          <type>T *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+<para>De-serialize and reify <computeroutput>T</computeroutput> from a stream in place on an existing pointer to <computeroutput>T</computeroutput>. </para>        </briefdescription>
+        <detaileddescription>
+<para>De-serializes an object recursively by invoking the <computeroutput>serialize</computeroutput> functions/methods recursively to rebuild the state of the object as serialized.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the stream to read with bytes for <computeroutput>T</computeroutput>, with tellg and read functions </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a valid, constructed <computeroutput>T</computeroutput> to deserialize into </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/checkpoint/src/checkpoint/checkpoint_api.h" line="261" column="1" bodyfile="lib/checkpoint/src/checkpoint/checkpoint_api.impl.h" bodystart="145" bodyend="149"/>
+      </memberdef>
       <memberdef kind="function" id="namespacecheckpoint_1a976e83bf5f22b7bfc5036fd829be039e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
@@ -1177,7 +1301,7 @@
         </inbodydescription>
         <location file="lib/checkpoint/src/checkpoint/container/list_serialize.h" line="81" column="1" bodyfile="lib/checkpoint/src/checkpoint/container/list_serialize.h" bodystart="81" bodyend="95"/>
       </memberdef>
-      <memberdef kind="function" id="namespacecheckpoint_1a9976fffc8f39073e5b40ec61d93a5482" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacecheckpoint_1a1022e2741b325048a74569a985eb7711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1191,19 +1315,16 @@
         </templateparamlist>
         <type>std::enable_if_t&lt; std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
         <definition>std::enable_if_t&lt; std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeOrderedElems</definition>
-        <argsstring>(Serializer &amp;s, ContainerT &amp;cont, typename ContainerT::size_type size)</argsstring>
+        <argsstring>(Serializer &amp;, ContainerT &amp;, typename ContainerT::size_type)</argsstring>
         <name>deserializeOrderedElems</name>
         <param>
           <type>Serializer &amp;</type>
-          <declname>s</declname>
         </param>
         <param>
           <type>ContainerT &amp;</type>
-          <declname>cont</declname>
         </param>
         <param>
           <type>typename ContainerT::size_type</type>
-          <declname>size</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -1336,7 +1457,7 @@
         </inbodydescription>
         <location file="lib/checkpoint/src/checkpoint/container/map_serialize.h" line="63" column="1" bodyfile="lib/checkpoint/src/checkpoint/container/map_serialize.h" bodystart="63" bodyend="76"/>
       </memberdef>
-      <memberdef kind="function" id="namespacecheckpoint_1a811956d461a3ebc7329272fd33e1084f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacecheckpoint_1ac1dd08a1833499b9b6a302934c0b4603" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1350,19 +1471,16 @@
         </templateparamlist>
         <type>std::enable_if_t&lt; std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
         <definition>std::enable_if_t&lt; std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeEmplaceElems</definition>
-        <argsstring>(Serializer &amp;s, ContainerT &amp;cont, typename ContainerT::size_type size)</argsstring>
+        <argsstring>(Serializer &amp;, ContainerT &amp;, typename ContainerT::size_type)</argsstring>
         <name>deserializeEmplaceElems</name>
         <param>
           <type>Serializer &amp;</type>
-          <declname>s</declname>
         </param>
         <param>
           <type>ContainerT &amp;</type>
-          <declname>cont</declname>
         </param>
         <param>
           <type>typename ContainerT::size_type</type>
-          <declname>size</declname>
         </param>
         <briefdescription>
         </briefdescription>

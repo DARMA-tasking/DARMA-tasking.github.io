@@ -222,6 +222,16 @@
             </dt>
             <dd><a href="structcheckpoint_1_1_sizer.html" class="m-doc">Sizer</a> serializers for sizing the contents of classes as a preprocessing pass before packing content so a properly sized buffer can be allocated.</dd>
             <dt>
+              <div class="m-doc-template">template&lt;typename StreamT = std::ostream&gt;</div>
+              struct <a href="structcheckpoint_1_1_stream_packer.html" class="m-doc">StreamPacker</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename StreamT = std::istream&gt;</div>
+              struct <a href="structcheckpoint_1_1_stream_unpacker.html" class="m-doc">StreamUnpacker</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
               <div class="m-doc-template">template&lt;typename BufferT&gt;</div>
               struct <a href="structcheckpoint_1_1_unpacker_buffer.html" class="m-doc">UnpackerBuffer</a>
             </dt>
@@ -417,6 +427,23 @@
             </dt>
             <dd>De-serialize and reify <code>T</code> from a file in place on an existing pointer to <code>T</code>.</dd>
             <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a6d52d7faa50354bc079e1d864963d29c" class="m-doc">serializeToStream</a>(</span><span class="m-doc-wrap">T&amp; target,
+              StreamT&amp; stream)</span>
+            </dt>
+            <dd>Serialize <code>T</code> to a stream.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#aa9a7965554c62b089bb326961747368d" class="m-doc">deserializeFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream) -&gt; std::unique_ptr&lt;T&gt;</span>
+            </dt>
+            <dd>De-serialize and reify <code>T</code> from a stream.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#ac5e1b98b72e9fa58cda71b79a009e1db" class="m-doc">deserializeInPlaceFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream,
+              T* buf)</span>
+            </dt>
+            <dd>De-serialize and reify <code>T</code> from a stream in place on an existing pointer to <code>T</code>.</dd>
+            <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename T, size_t N&gt;</div>
               <span class="m-doc-wrap-bumper">void <a href="#a976e83bf5f22b7bfc5036fd829be039e" class="m-doc">serialize</a>(</span><span class="m-doc-wrap">Serializer&amp; s,
               std::array&lt;T, N&gt;&amp; array)</span>
@@ -488,9 +515,9 @@
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a9976fffc8f39073e5b40ec61d93a5482" class="m-doc">deserializeOrderedElems</a>(</span><span class="m-doc-wrap">Serializer&amp; s,
-              ContainerT&amp; cont,
-              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#a1022e2741b325048a74569a985eb7711" class="m-doc">deserializeOrderedElems</a>(</span><span class="m-doc-wrap">Serializer&amp;,
+              ContainerT&amp;,
+              typename ContainerT::size_type) -&gt; std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -520,9 +547,9 @@
             <dd><span></span></dd>
             <dt>
               <div class="m-doc-template">template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a811956d461a3ebc7329272fd33e1084f" class="m-doc">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap">Serializer&amp; s,
-              ContainerT&amp; cont,
-              typename ContainerT::size_type size) -&gt; std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac1dd08a1833499b9b6a302934c0b4603" class="m-doc">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap">Serializer&amp;,
+              ContainerT&amp;,
+              typename ContainerT::size_type) -&gt; std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt;</span>
             </dt>
             <dd><span></span></dd>
             <dt>
@@ -1239,6 +1266,88 @@
             </table>
 <p>De-serializes an object recursively by invoking the <code>serialize</code> functions/methods recursively to rebuild the state of the object as serialized.</p>
           </div></section>
+          <section class="m-doc-details" id="a6d52d7faa50354bc079e1d864963d29c"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="checkpoint__api_8h.html">&lt;lib/checkpoint/src/checkpoint/checkpoint_api.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6d52d7faa50354bc079e1d864963d29c" class="m-doc-self">serializeToStream</a>(</span><span class="m-doc-wrap">T&amp; target,
+              StreamT&amp; stream)</span></span>
+            </h3>
+            <p>Serialize <code>T</code> to a stream.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">target&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the <code>T</code> to serialize</td>
+                </tr>
+                <tr>
+                  <td>stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>to serialize into, with tellp and write functions.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Byte-serializes <code>T</code> to stream. Handling of any errors during writing to the stream will be handled by the stream itself, e.g. any exceptions or status bits to check will depend on stream type.</p>
+          </div></section>
+          <section class="m-doc-details" id="aa9a7965554c62b089bb326961747368d"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="checkpoint__api_8h.html">&lt;lib/checkpoint/src/checkpoint/checkpoint_api.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">std::unique_ptr&lt;T&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aa9a7965554c62b089bb326961747368d" class="m-doc-self">deserializeFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream)</span></span>
+            </h3>
+            <p>De-serialize and reify <code>T</code> from a stream.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the stream to read with bytes for <code>T</code>, with tellg and read functions</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>unique pointer to the new object <code>T</code></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>De-serializes an object recursively by first invoking the reconstruction strategy and then <code>serialize</code> functions/methods recursively to rebuild the state of the object as serialized. During reconstruction, based on trait detection, <code>T</code> will either be default constructed or reconstructed based on a user-defined reconstruct method.</p>
+          </div></section>
+          <section class="m-doc-details" id="ac5e1b98b72e9fa58cda71b79a009e1db"><div>
+            <h3>
+              <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="checkpoint__api_8h.html">&lt;lib/checkpoint/src/checkpoint/checkpoint_api.h&gt;</a></div>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac5e1b98b72e9fa58cda71b79a009e1db" class="m-doc-self">deserializeInPlaceFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream,
+              T* buf)</span></span>
+            </h3>
+            <p>De-serialize and reify <code>T</code> from a stream in place on an existing pointer to <code>T</code>.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the stream to read with bytes for <code>T</code>, with tellg and read functions</td>
+                </tr>
+                <tr>
+                  <td>buf</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+<p>De-serializes an object recursively by invoking the <code>serialize</code> functions/methods recursively to rebuild the state of the object as serialized.</p>
+          </div></section>
           <section class="m-doc-details" id="a976e83bf5f22b7bfc5036fd829be039e"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="array__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/array_serialize.h&gt;</a></div>
@@ -1365,15 +1474,15 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a9976fffc8f39073e5b40ec61d93a5482"><div>
+          <section class="m-doc-details" id="a1022e2741b325048a74569a985eb7711"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="list__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/list_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9976fffc8f39073e5b40ec61d93a5482" class="m-doc-self">deserializeOrderedElems</a>(</span><span class="m-doc-wrap">Serializer&amp; s,
-              ContainerT&amp; cont,
-              typename ContainerT::size_type size)</span></span>
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1022e2741b325048a74569a985eb7711" class="m-doc-self">deserializeOrderedElems</a>(</span><span class="m-doc-wrap">Serializer&amp;,
+              ContainerT&amp;,
+              typename ContainerT::size_type)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>
@@ -1422,15 +1531,15 @@
             </h3>
             <p><span></span></p>
           </div></section>
-          <section class="m-doc-details" id="a811956d461a3ebc7329272fd33e1084f"><div>
+          <section class="m-doc-details" id="ac1dd08a1833499b9b6a302934c0b4603"><div>
             <h3>
               <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="map__serialize_8h.html">&lt;lib/checkpoint/src/checkpoint/container/map_serialize.h&gt;</a></div>
               <div class="m-doc-template">
                 template&lt;typename Serializer, typename ContainerT, typename ElmT&gt;
               </div>
-              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a811956d461a3ebc7329272fd33e1084f" class="m-doc-self">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap">Serializer&amp; s,
-              ContainerT&amp; cont,
-              typename ContainerT::size_type size)</span></span>
+              <span class="m-doc-wrap-bumper">std::enable_if_t&lt;std::is_same&lt;Serializer, <a href="structcheckpoint_1_1_footprinter.html" class="m-doc">checkpoint::<wbr />Footprinter</a>&gt;::value, void&gt; checkpoint::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac1dd08a1833499b9b6a302934c0b4603" class="m-doc-self">deserializeEmplaceElems</a>(</span><span class="m-doc-wrap">Serializer&amp;,
+              ContainerT&amp;,
+              typename ContainerT::size_type)</span></span>
             </h3>
             <p><span></span></p>
           </div></section>

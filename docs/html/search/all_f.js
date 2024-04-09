@@ -2,6 +2,7 @@ var searchData=
 [
   ['non_2dintrusive_20program_20example_201',['Non-Intrusive Program Example 1',['../ckpt_learn_ex1_nonintrusive.html',1,'']]],
   ['n_5f',['N_',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html#a8055733259d06927a4c3e02e0d1649e4',1,'vt::runtime::component::detail::DiagnosticValueWrapper::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a5e1f990aaaad4bfe9bf9f0a8dc4efecc',1,'vt::vrt::collection::balance::LoadData::N_()'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n.html#aa800c86e610ba7b4ff0ddf0c91210136',1,'vt::vrt::collection::balance::PersistenceMedianLastN::n_()']]],
+  ['n_5fbytes',['n_bytes',['../structcheckpoint_1_1_stream_packer.html#aef2aecbc78b2eb2acec0e2fa6773f16a',1,'checkpoint::StreamPacker::n_bytes()'],['../structcheckpoint_1_1_stream_unpacker.html#a5cdef5ef87e200f57d316cf5f099bd87',1,'checkpoint::StreamUnpacker::n_bytes()']]],
   ['naive_5fpersistence_2ecc',['naive_persistence.cc',['../naive__persistence_8cc.html',1,'']]],
   ['naive_5fpersistence_2eh',['naive_persistence.h',['../naive__persistence_8h.html',1,'']]],
   ['naivepersistence',['NaivePersistence',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html',1,'vt::vrt::collection::balance::NaivePersistence'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence.html#a7eb9921b30fbf64f3c2dbbe5a8cce396',1,'vt::vrt::collection::balance::NaivePersistence::NaivePersistence()']]],

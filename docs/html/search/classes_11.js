@@ -60,6 +60,8 @@ var searchData=
   ['storable',['Storable',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_storable.html',1,'vt::vrt::collection::storage']]],
   ['storeelm',['StoreElm',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm.html',1,'vt::vrt::collection::storage']]],
   ['storeelmbase',['StoreElmBase',['../structvt_1_1vrt_1_1collection_1_1storage_1_1_store_elm_base.html',1,'vt::vrt::collection::storage']]],
+  ['streampacker',['StreamPacker',['../structcheckpoint_1_1_stream_packer.html',1,'checkpoint']]],
+  ['streamunpacker',['StreamUnpacker',['../structcheckpoint_1_1_stream_unpacker.html',1,'checkpoint']]],
   ['strong',['Strong',['../structvt_1_1util_1_1strong_1_1detail_1_1_strong.html',1,'vt::util::strong::detail']]],
   ['strong_3c_20sequentialidtype_2c_20no_5fseq_5fid_2c_20tags_3a_3aseqtag_20_3e',['Strong&lt; SequentialIDType, no_seq_id, tags::SeqTag &gt;',['../structvt_1_1util_1_1strong_1_1detail_1_1_strong.html',1,'vt::util::strong::detail']]],
   ['strongintegralset',['StrongIntegralSet',['../structvt_1_1term_1_1interval_1_1_strong_integral_set.html',1,'vt::term::interval']]],
