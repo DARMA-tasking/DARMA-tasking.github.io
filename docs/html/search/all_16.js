@@ -79,7 +79,7 @@ var searchData=
   ['user2',['user2',['../structvt_1_1arguments_1_1_app_config.html#ab504a2952d75b3f1fa9d81e8122cbc41',1,'vt::arguments::AppConfig']]],
   ['user3',['user3',['../structvt_1_1arguments_1_1_app_config.html#ad11c798fedeafd2d5ec3f6737226afad',1,'vt::arguments::AppConfig']]],
   ['user_5f',['user_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6317d5623c1edcce684641fe0115824c',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
-  ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a18d11f650583c3da5a7362e0c998be5d',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#abe6d7de2eeb0aaa8bd453a7cb24969a8',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],
+  ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#acd0f33d9bdfaf6ba3d283d8e289eee86',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#affc7774716056ef55e65ebf8e288ac0f',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],
   ['user_5fbuffer_2eh',['user_buffer.h',['../user__buffer_8h.html',1,'']]],
   ['user_5fbuffer_5f',['user_buffer_',['../structvt_1_1rdma_1_1_base_typed_handle.html#af48b31b6d8f1319ee58c5544ad251bf9',1,'vt::rdma::BaseTypedHandle']]],
   ['user_5fdata',['user_data',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#ade431a285a79e18cfe816f03d1ae7285',1,'vt::trace::Log::Data::UserData::user_data()'],['../structvt_1_1trace_1_1_log.html#a7b251bc7dcebcbbafa29cc2ca6ea4c12',1,'vt::trace::Log::user_data()']]],

@@ -17,7 +17,7 @@ var searchData=
   ['usedsize_5f',['usedSize_',['../structcheckpoint_1_1_packer_buffer.html#ae20a1bc8f41e3af7e5b8ee3951f31353',1,'checkpoint::PackerBuffer::usedSize_()'],['../structcheckpoint_1_1_unpacker_buffer.html#ad8bc7d5cd0a7f6b22169c982abf08965',1,'checkpoint::UnpackerBuffer::usedSize_()']]],
   ['user',['user',['../unionvt_1_1trace_1_1_log_1_1_data.html#a8d893c0de3ee2fca0852607fa908a2e6',1,'vt::trace::Log::Data']]],
   ['user_5f',['user_',['../structvt_1_1trace_1_1_user_event_registry_1_1_new_user_event_msg.html#a6317d5623c1edcce684641fe0115824c',1,'vt::trace::UserEventRegistry::NewUserEventMsg']]],
-  ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#a18d11f650583c3da5a7362e0c998be5d',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#abe6d7de2eeb0aaa8bd453a7cb24969a8',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],
+  ['user_5fbuf',['user_buf',['../structvt_1_1messaging_1_1_pending_recv.html#acd0f33d9bdfaf6ba3d283d8e289eee86',1,'vt::messaging::PendingRecv::user_buf()'],['../structvt_1_1messaging_1_1_in_progress_data_i_recv.html#affc7774716056ef55e65ebf8e288ac0f',1,'vt::messaging::InProgressDataIRecv::user_buf()']]],
   ['user_5fbuffer_5f',['user_buffer_',['../structvt_1_1rdma_1_1_base_typed_handle.html#af48b31b6d8f1319ee58c5544ad251bf9',1,'vt::rdma::BaseTypedHandle']]],
   ['user_5fdata',['user_data',['../structvt_1_1trace_1_1_log_1_1_data_1_1_user_data.html#ade431a285a79e18cfe816f03d1ae7285',1,'vt::trace::Log::Data::UserData']]],
   ['user_5fdata_5f',['user_data_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_raw_data.html#affc68ccdb5d0692db6f464bbc19f8c57',1,'vt::vrt::collection::balance::RawData']]],

@@ -8,7 +8,7 @@ var searchData=
   ['forwarditer',['ForwardIter',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#abd0d7f40a96384d2db0a2782a8921a34',1,'vt::term::interval::IntegralSetBase']]],
   ['funcapplytype',['FuncApplyType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ad90339cb0c4fe0d69f4e0100265a15d4',1,'vt::vrt::collection::Holder']]],
   ['funcctxtype',['FuncCtxType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#ad8463823b6b4cfdb67c119d6d22e3bac',1,'vt::pipe::PipeManagerBase']]],
-  ['funcdatatype',['FuncDataType',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a4040244e8ed36afd5d408c27efceea1b',1,'vt::collective::scatter::Scatter']]],
+  ['funcdatatype',['FuncDataType',['../structvt_1_1collective_1_1scatter_1_1_scatter.html#a19da1fe0f7347a8e91f08b6a19fee781',1,'vt::collective::scatter::Scatter']]],
   ['funcexprtype',['FuncExprType',['../structvt_1_1vrt_1_1collection_1_1_holder.html#a4d4364a2f3aa30c8a86cb08742a84e25',1,'vt::vrt::collection::Holder']]],
   ['funcloctype',['FuncLocType',['../structvt_1_1vrt_1_1collection_1_1_mapped_node.html#af08e7287d3adf47dfca1e4184b82d060',1,'vt::vrt::collection::MappedNode']]],
   ['funcmsgctxtype',['FuncMsgCtxType',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a73fdf82ece0411b3dc644c99b763f7a9',1,'vt::pipe::PipeManagerBase']]],

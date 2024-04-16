@@ -32,13 +32,13 @@ var searchData=
   ['proxyelmtype',['ProxyElmType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#adba6c8ecb0f4c30e719f1abb995cfc9b',1,'vt::objgroup::ObjGroupManager']]],
   ['proxyfntype',['ProxyFnType',['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#ae1b51eac652fafee85f4c370e2c3b585',1,'vt::vrt::collection::param::ConstructParams']]],
   ['proxytype',['ProxyType',['../structvt_1_1objgroup_1_1_obj_group_manager.html#aea65eef52f240a52210132eef5ce591f',1,'vt::objgroup::ObjGroupManager::ProxyType()'],['../structvt_1_1pipe_1_1callback_1_1_callback_proxy_bcast.html#a27c62cb9cbd1dcd3f135dcd98d98c991',1,'vt::pipe::callback::CallbackProxyBcast::ProxyType()'],['../structvt_1_1pipe_1_1callback_1_1_callback_proxy_send.html#a2aece7c6f8bd17a4c0b1fdca75d84579',1,'vt::pipe::callback::CallbackProxySend::ProxyType()'],['../structvt_1_1rdma_1_1_manager.html#a75d5cdc6428ea19f5ec665b04dcd7166',1,'vt::rdma::Manager::ProxyType()'],['../structvt_1_1rdma_1_1_sub_handle.html#a758bee2e499658cfef92ace83eea6590',1,'vt::rdma::SubHandle::ProxyType()'],['../structvt_1_1utils_1_1file__spec_1_1_file_spec.html#ac4ad61ed146069ab671ec1bf909ebded',1,'vt::utils::file_spec::FileSpec::ProxyType()'],['../structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params.html#a837fb2b2a036f898fb65da72d3ee2fb0',1,'vt::vrt::collection::param::ConstructParams::ProxyType()'],['../structvt_1_1vrt_1_1collection_1_1_collection_base.html#a0c2fd2443732bebc963f6278b7ba089b',1,'vt::vrt::collection::CollectionBase::ProxyType()'],['../structvt_1_1vrt_1_1collection_1_1_base_collection_elm_proxy.html#a1a60a46fe46552edfaf5c8785e283615',1,'vt::vrt::collection::BaseCollectionElmProxy::ProxyType()']]],
-  ['ptrlenpairtype',['PtrLenPairType',['../namespacevt.html#a97f320a1d3b9b4035e591671cd7d10f0',1,'vt']]],
-  ['ptrtype',['PtrType',['../structvt_1_1_put_envelope.html#a9486c3caa1ba9be60e4ef6fdd1a11930',1,'vt::PutEnvelope::PtrType()'],['../structvt_1_1location_1_1_location_manager.html#a32d8bca6ed6909a2190286408335d3b4',1,'vt::location::LocationManager::PtrType()']]],
+  ['ptrlenpairtype',['PtrLenPairType',['../namespacevt.html#a2695972ba7486466c06160df0b12ee2d',1,'vt']]],
+  ['ptrtype',['PtrType',['../structvt_1_1_put_envelope.html#a19b17e2c7298ec892cd5a948d0a2d7f4',1,'vt::PutEnvelope::PtrType()'],['../structvt_1_1location_1_1_location_manager.html#a32d8bca6ed6909a2190286408335d3b4',1,'vt::location::LocationManager::PtrType()']]],
   ['putbackmessage',['PutBackMessage',['../namespacevt_1_1rdma.html#a07a52401fe8185d190371b3333dc61ac',1,'vt::rdma']]],
   ['putenvsizetype',['PutEnvSizeType',['../namespacevt.html#aa241444e21c15238e185923792814fe4',1,'vt']]],
   ['putmessage',['PutMessage',['../namespacevt_1_1rdma.html#ae0a0330c647ec5ac5d508750f4cd4a06',1,'vt::rdma']]],
-  ['putptrconsttype',['PutPtrConstType',['../namespacevt.html#a494d6c6dc5cdb9a8d61eaedfa2c4d4f3',1,'vt']]],
-  ['putptrtype',['PutPtrType',['../namespacevt.html#a537693bfe0223c71eb52bdbd6ea2c741',1,'vt']]],
+  ['putptrconsttype',['PutPtrConstType',['../namespacevt.html#ab7485f5735971a4951ec5e13d8cbf388',1,'vt']]],
+  ['putptrtype',['PutPtrType',['../namespacevt.html#a2714874e46551037c873d5e4a6603cc1',1,'vt']]],
   ['putshortenvelope',['PutShortEnvelope',['../namespacevt.html#a4e561211bbf1d8d9a4766eb159852736',1,'vt']]],
   ['putunderenvelopet',['PutUnderEnvelopeT',['../namespacevt.html#a38f077afcffb8ed5e18c6760e6697bbc',1,'vt']]]
 ];
