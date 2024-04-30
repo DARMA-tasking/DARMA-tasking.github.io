@@ -38,6 +38,7 @@ var searchData=
   ['vt_5ffeature_5fdiagnostics',['vt_feature_diagnostics',['../features__defines_8h.html#ae954c6514f1e02f1dbe1d763b738e74c',1,'features_defines.h']]],
   ['vt_5ffeature_5fdiagnostics_5fruntime',['vt_feature_diagnostics_runtime',['../features__defines_8h.html#a72cb6f574c501225780fdb16c5b684fe',1,'features_defines.h']]],
   ['vt_5ffeature_5ffcontext',['vt_feature_fcontext',['../features__defines_8h.html#afb6a9b0a96ad9b4437c5f8d275fe5faf',1,'features_defines.h']]],
+  ['vt_5ffeature_5ffmt_5fexternal',['vt_feature_fmt_external',['../features__defines_8h.html#af689b0add2540885ea7d4a04ef9c3d87',1,'features_defines.h']]],
   ['vt_5ffeature_5flblite',['vt_feature_lblite',['../features__defines_8h.html#afbce8968392aeea733b5f5b631df873a',1,'features_defines.h']]],
   ['vt_5ffeature_5flibfort',['vt_feature_libfort',['../features__defines_8h.html#a4f3d7234fa9887dba847bf5bfede213f',1,'features_defines.h']]],
   ['vt_5ffeature_5fmemory_5fpool',['vt_feature_memory_pool',['../features__defines_8h.html#afb68c9062332ccd009aa5c440339244d',1,'features_defines.h']]],
