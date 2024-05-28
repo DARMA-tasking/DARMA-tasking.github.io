@@ -135,7 +135,6 @@ var searchData=
   ['context_5fattorney_2ecc',['context_attorney.cc',['../context__attorney_8cc.html',1,'']]],
   ['context_5fattorney_2eh',['context_attorney.h',['../context__attorney_8h.html',1,'']]],
   ['context_5fattorney_5ffwd_2eh',['context_attorney_fwd.h',['../context__attorney__fwd_8h.html',1,'']]],
-  ['context_5fvrt_2ecc',['context_vrt.cc',['../context__vrt_8cc.html',1,'']]],
   ['context_5fvrt_2eh',['context_vrt.h',['../context__vrt_8h.html',1,'']]],
   ['context_5fvrt_5fattorney_2ecc',['context_vrt_attorney.cc',['../context__vrt__attorney_8cc.html',1,'']]],
   ['context_5fvrt_5fattorney_2eh',['context_vrt_attorney.h',['../context__vrt__attorney_8h.html',1,'']]],
