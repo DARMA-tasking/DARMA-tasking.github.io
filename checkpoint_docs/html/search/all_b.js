@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['num_5fbytes_5f_61',['num_bytes_',['../structcheckpoint_1_1_sizer.html#a94e13ec6a5656d3b82dc787c00390bf2',1,'checkpoint::Sizer']]]
+  ['managedbuffer_69',['ManagedBuffer',['../structcheckpoint_1_1buffer_1_1_managed_buffer.html',1,'checkpoint::buffer']]],
+  ['memoryserializer_70',['MemorySerializer',['../structcheckpoint_1_1_memory_serializer.html',1,'checkpoint']]]
 ];

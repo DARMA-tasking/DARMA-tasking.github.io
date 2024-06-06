@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['value_20_3e_3e_104',['value &gt;&gt;',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;'],['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;']]],
-  ['virtual_5fdisabled_5f_105',['virtual_disabled_',['../structcheckpoint_1_1_serializer.html#a46ef3c0da77d80853882a7cad641c2af',1,'checkpoint::Serializer']]],
-  ['virtualserializetraits_106',['VirtualSerializeTraits',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html',1,'checkpoint::dispatch::vrt']]]
+  ['unpack_123',['unpack',['../structcheckpoint_1_1dispatch_1_1_standard.html#a2115701d48c24ab6cbc0d811ef8840e3',1,'checkpoint::dispatch::Standard']]],
+  ['unpackerbuffer_124',['UnpackerBuffer',['../structcheckpoint_1_1_unpacker_buffer.html',1,'checkpoint']]],
+  ['usedbuffersize_125',['usedBufferSize',['../structcheckpoint_1_1_base_serializer.html#a6ccb8bb1430ac5665aac995b6330bc8a',1,'checkpoint::BaseSerializer']]],
+  ['userbuffer_126',['UserBuffer',['../structcheckpoint_1_1buffer_1_1_user_buffer.html',1,'checkpoint::buffer']]]
 ];

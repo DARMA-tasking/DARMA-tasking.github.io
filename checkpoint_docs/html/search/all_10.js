@@ -1,6 +1,28 @@
 var searchData=
 [
-  ['this_5fidx_5f_97',['this_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a0fc5b0685579bc7a19343c03c4062e77',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
-  ['traverse_98',['Traverse',['../structcheckpoint_1_1dispatch_1_1_traverse.html',1,'checkpoint::dispatch']]],
-  ['type_99',['Type',['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;']]]
+  ['serdesbytecopy_95',['SerdesByteCopy',['../structcheckpoint_1_1_serdes_byte_copy.html',1,'checkpoint']]],
+  ['serializablebase_96',['SerializableBase',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_base.html',1,'checkpoint::dispatch::vrt']]],
+  ['serializablederived_97',['SerializableDerived',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_serializable_derived.html',1,'checkpoint::dispatch::vrt']]],
+  ['serializabletraits_98',['SerializableTraits',['../structcheckpoint_1_1_serializable_traits.html',1,'checkpoint']]],
+  ['serialization_5ferror_99',['serialization_error',['../structcheckpoint_1_1dispatch_1_1serialization__error.html',1,'checkpoint::dispatch']]],
+  ['serialize_5fconstruct_5ftag_100',['SERIALIZE_CONSTRUCT_TAG',['../structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g.html',1,'checkpoint::dispatch']]],
+  ['serialize_5ft_101',['serialize_t',['../structcheckpoint_1_1_serializable_traits.html#a416ff19cd1038279ace5cb49e3a9fb7d',1,'checkpoint::SerializableTraits']]],
+  ['serializedinfo_102',['SerializedInfo',['../structcheckpoint_1_1_serialized_info.html',1,'checkpoint']]],
+  ['serializeentry_103',['SerializeEntry',['../structcheckpoint_1_1detail_1_1_serialize_entry.html',1,'checkpoint::detail']]],
+  ['serializeentry_3c_20arg_2c_20args_2e_2e_2e_20_3e_104',['SerializeEntry&lt; Arg, Args... &gt;',['../structcheckpoint_1_1detail_1_1_serialize_entry_3_01_arg_00_01_args_8_8_8_01_4.html',1,'checkpoint::detail']]],
+  ['serializeentry_3c_3e_105',['SerializeEntry&lt;&gt;',['../structcheckpoint_1_1detail_1_1_serialize_entry_3_4.html',1,'checkpoint::detail']]],
+  ['serializer_5f_106',['serializer_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a964df1472ba3ce4732531609f448206d',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
+  ['serializerdispatchbyte_107',['SerializerDispatchByte',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_byte.html',1,'checkpoint::dispatch']]],
+  ['serializerdispatchnonbyte_108',['SerializerDispatchNonByte',['../structcheckpoint_1_1dispatch_1_1_serializer_dispatch_non_byte.html',1,'checkpoint::dispatch']]],
+  ['serializerentry_109',['SerializerEntry',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html',1,'checkpoint::dispatch::vrt::serializer_registry']]],
+  ['serializertraits_110',['SerializerTraits',['../structcheckpoint_1_1_serializer_traits.html',1,'checkpoint']]],
+  ['serializevirtualtypeifneeded_111',['SerializeVirtualTypeIfNeeded',['../structcheckpoint_1_1_serialize_virtual_type_if_needed.html',1,'checkpoint']]],
+  ['setvirtualdisabled_112',['setVirtualDisabled',['../structcheckpoint_1_1_base_serializer.html#ab16e2ffa62f03f8410b116c637bd4adc',1,'checkpoint::BaseSerializer']]],
+  ['size_113',['size',['../structcheckpoint_1_1dispatch_1_1_standard.html#a3ab80d79667a790dd38d56c7aa52544c',1,'checkpoint::dispatch::Standard']]],
+  ['size_5f_114',['size_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a4395eb53a4569f96fde3dcf4e9b2ad02',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
+  ['sizer_115',['Sizer',['../structcheckpoint_1_1_sizer.html',1,'checkpoint::Sizer'],['../structcheckpoint_1_1_sizer.html#a17995329af9eec00859e86c6fabf4890',1,'checkpoint::Sizer::Sizer()']]],
+  ['skip_116',['skip',['../structcheckpoint_1_1_base_serializer.html#a7e3575fbbd4bf5bc39d8efb67c014e07',1,'checkpoint::BaseSerializer']]],
+  ['standard_117',['Standard',['../structcheckpoint_1_1dispatch_1_1_standard.html',1,'checkpoint::dispatch']]],
+  ['streampacker_118',['StreamPacker',['../structcheckpoint_1_1_stream_packer.html',1,'checkpoint']]],
+  ['streamunpacker_119',['StreamUnpacker',['../structcheckpoint_1_1_stream_unpacker.html',1,'checkpoint']]]
 ];

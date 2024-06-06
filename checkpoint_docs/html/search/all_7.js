@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['how_20to_20build_32',['How to Build',['../ckpt_learn_build.html',1,'ckpt_learn']]],
-  ['how_20to_20serialize_20data_33',['How to Serialize Data',['../ckpt_learn_serialize.html',1,'ckpt_learn']]],
-  ['has_5fbase_5ftypedef_5ft_34',['has_base_typedef_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a900e9fcb655c36ab48fd6db0f0258b75',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
-  ['has_5fbytecopytraittrue_35',['has_byteCopyTraitTrue',['../structcheckpoint_1_1_serializable_traits.html#a8e42305be1264b105f525ae7dff36c15',1,'checkpoint::SerializableTraits']]],
-  ['has_5fdynamic_5fserialize_5ft_36',['has_dynamic_serialize_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a5b78afee2cf468bf3fedddb017c9aad0',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
-  ['has_5fdynamic_5ftype_5findex_5ft_37',['has_dynamic_type_index_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a6a4e72c1d80374001f122c17ac1cc0e8',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
-  ['has_5fnot_5fvirtual_5fserialize_20_3e_3e_38',['has_not_virtual_serialize &gt;&gt;',['../structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_01169395079d468e6ff618832a51e34843.html',1,'checkpoint']]],
-  ['has_5fvirtual_5fserialize_20_3e_3e_39',['has_virtual_serialize &gt;&gt;',['../structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_019c8f7fc8348eb3352805b18f8a3adb0b.html',1,'checkpoint::has_virtual_serialize &gt;&gt;&lt; T, SerializerT &gt;'],['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01ab92c606a95e76aaa723ec61628f6529.html',1,'checkpoint::has_virtual_serialize &gt;&gt;&lt; T, SerializerT &gt;']]]
+  ['getbuffer_38',['getBuffer',['../structcheckpoint_1_1_base_serializer.html#a09da55de0edbc77e33c2a29b374ebdc1',1,'checkpoint::BaseSerializer']]],
+  ['getmode_39',['getMode',['../structcheckpoint_1_1_base_serializer.html#ad9a3bf9aa8081b6efdf8a45ba92ef641',1,'checkpoint::BaseSerializer']]],
+  ['getsize_40',['getSize',['../structcheckpoint_1_1_sizer.html#a9cabfd6cafb49a79b645663c41e4c74a',1,'checkpoint::Sizer']]],
+  ['getspotincrement_41',['getSpotIncrement',['../structcheckpoint_1_1_base_serializer.html#aa8c9131306f16832b72ce6abbffd825d',1,'checkpoint::BaseSerializer']]]
 ];

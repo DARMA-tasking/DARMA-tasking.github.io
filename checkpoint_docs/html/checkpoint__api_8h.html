@@ -164,6 +164,23 @@
               T* buf)</span>
             </dt>
             <dd>De-serialize and reify <code>T</code> from a file in place on an existing pointer to <code>T</code>.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a6d52d7faa50354bc079e1d864963d29c" class="m-doc">serializeToStream</a>(</span><span class="m-doc-wrap">T&amp; target,
+              StreamT&amp; stream)</span>
+            </dt>
+            <dd>Serialize <code>T</code> to a stream.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#aa9a7965554c62b089bb326961747368d" class="m-doc">deserializeFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream) -&gt; std::unique_ptr&lt;T&gt;</span>
+            </dt>
+            <dd>De-serialize and reify <code>T</code> from a stream.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;typename T, typename StreamT&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#ac5e1b98b72e9fa58cda71b79a009e1db" class="m-doc">deserializeInPlaceFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream,
+              T* buf)</span>
+            </dt>
+            <dd>De-serialize and reify <code>T</code> from a stream in place on an existing pointer to <code>T</code>.</dd>
           </dl>
         </section>
         <section>
@@ -439,6 +456,85 @@
                 <tr>
                   <td style="width: 1%">file&nbsp;<span class="m-label m-flat m-info">in</span></td>
                   <td>the filename to read with bytes for <code>T</code></td>
+                </tr>
+                <tr>
+                  <td>buf</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+<p>De-serializes an object recursively by invoking the <code>serialize</code> functions/methods recursively to rebuild the state of the object as serialized.</p>
+          </div></section>
+          <section class="m-doc-details" id="a6d52d7faa50354bc079e1d864963d29c"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6d52d7faa50354bc079e1d864963d29c" class="m-doc-self">serializeToStream</a>(</span><span class="m-doc-wrap">T&amp; target,
+              StreamT&amp; stream)</span></span>
+            </h3>
+            <p>Serialize <code>T</code> to a stream.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">target&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the <code>T</code> to serialize</td>
+                </tr>
+                <tr>
+                  <td>stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>to serialize into, with tellp and write functions.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>Byte-serializes <code>T</code> to stream. Handling of any errors during writing to the stream will be handled by the stream itself, e.g. any exceptions or status bits to check will depend on stream type.</p>
+          </div></section>
+          <section class="m-doc-details" id="aa9a7965554c62b089bb326961747368d"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">std::unique_ptr&lt;T&gt; </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aa9a7965554c62b089bb326961747368d" class="m-doc-self">deserializeFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream)</span></span>
+            </h3>
+            <p>De-serialize and reify <code>T</code> from a stream.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the stream to read with bytes for <code>T</code>, with tellg and read functions</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>unique pointer to the new object <code>T</code></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>De-serializes an object recursively by first invoking the reconstruction strategy and then <code>serialize</code> functions/methods recursively to rebuild the state of the object as serialized. During reconstruction, based on trait detection, <code>T</code> will either be default constructed or reconstructed based on a user-defined reconstruct method.</p>
+          </div></section>
+          <section class="m-doc-details" id="ac5e1b98b72e9fa58cda71b79a009e1db"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename T, typename StreamT&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac5e1b98b72e9fa58cda71b79a009e1db" class="m-doc-self">deserializeInPlaceFromStream</a>(</span><span class="m-doc-wrap">StreamT&amp; stream,
+              T* buf)</span></span>
+            </h3>
+            <p>De-serialize and reify <code>T</code> from a stream in place on an existing pointer to <code>T</code>.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">stream&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the stream to read with bytes for <code>T</code>, with tellg and read functions</td>
                 </tr>
                 <tr>
                   <td>buf</td>

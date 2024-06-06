@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['isfootprinting_177',['isFootprinting',['../structcheckpoint_1_1_serializer.html#a01f395bfaa39a8311925c71537877378',1,'checkpoint::Serializer']]],
-  ['ispacking_178',['isPacking',['../structcheckpoint_1_1_serializer.html#aee9d2701f508fff94bad836576443cd9',1,'checkpoint::Serializer']]],
-  ['issizing_179',['isSizing',['../structcheckpoint_1_1_serializer.html#a27e3304ca8c9de113675b7692e5aa65f',1,'checkpoint::Serializer']]],
-  ['isunpacking_180',['isUnpacking',['../structcheckpoint_1_1_serializer.html#a3a09ea026ff2c6ddf863f9c1a6463466',1,'checkpoint::Serializer']]],
-  ['isvirtualdisabled_181',['isVirtualDisabled',['../structcheckpoint_1_1_serializer.html#af45e225cdb3a750a06de80a8cd5c6c37',1,'checkpoint::Serializer']]]
+  ['getbuffer_212',['getBuffer',['../structcheckpoint_1_1_base_serializer.html#a09da55de0edbc77e33c2a29b374ebdc1',1,'checkpoint::BaseSerializer']]],
+  ['getmode_213',['getMode',['../structcheckpoint_1_1_base_serializer.html#ad9a3bf9aa8081b6efdf8a45ba92ef641',1,'checkpoint::BaseSerializer']]],
+  ['getsize_214',['getSize',['../structcheckpoint_1_1_sizer.html#a9cabfd6cafb49a79b645663c41e4c74a',1,'checkpoint::Sizer']]],
+  ['getspotincrement_215',['getSpotIncrement',['../structcheckpoint_1_1_base_serializer.html#aa8c9131306f16832b72ce6abbffd825d',1,'checkpoint::BaseSerializer']]]
 ];

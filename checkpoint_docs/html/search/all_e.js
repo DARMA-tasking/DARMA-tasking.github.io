@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['readfromfiletag_71',['ReadFromFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_read_from_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
-  ['reconstruct_72',['reconstruct',['../structcheckpoint_1_1dispatch_1_1_traverse.html#ad043c9e132aeb99049d0d3ff8df6b876',1,'checkpoint::dispatch::Traverse']]],
-  ['reconstructasvirtualifneeded_73',['ReconstructAsVirtualIfNeeded',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed.html',1,'checkpoint']]],
-  ['reconstructor_74',['Reconstructor',['../structcheckpoint_1_1dispatch_1_1_reconstructor.html',1,'checkpoint::dispatch']]],
-  ['registrar_75',['Registrar',['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar.html',1,'checkpoint::dispatch::typeregistry::Registrar&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::serializer_registry::Registrar&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::objregistry::Registrar&lt; ObjT &gt;']]]
+  ['program_20example_201_81',['Program Example 1',['../ckpt_learn_ex1.html',1,'ckpt_learn_examples']]],
+  ['program_20example_202_82',['Program Example 2',['../ckpt_learn_ex2.html',1,'ckpt_learn_examples']]],
+  ['program_20example_203_83',['Program Example 3',['../ckpt_learn_ex3.html',1,'ckpt_learn_examples']]],
+  ['program_20example_20serialize_20to_20file_84',['Program Example Serialize To File',['../ckpt_learn_ex4_tofile.html',1,'ckpt_learn_examples']]],
+  ['polymorphic_20serialization_20example_85',['Polymorphic Serialization Example',['../ckpt_learn_ex5_polymorphic.html',1,'ckpt_learn_examples']]],
+  ['polymorphic_20serialization_20example_20w_2fmacros_86',['Polymorphic Serialization Example w/Macros',['../ckpt_learn_ex6_polymorphic_macro.html',1,'ckpt_learn_examples']]],
+  ['program_20example_20traversal_87',['Program Example Traversal',['../ckpt_learn_ex7_traversal.html',1,'ckpt_learn_examples']]],
+  ['pack_88',['pack',['../structcheckpoint_1_1dispatch_1_1_standard.html#afe92288cac2dc35464ee33e91b4d91d0',1,'checkpoint::dispatch::Standard']]],
+  ['packerbuffer_89',['PackerBuffer',['../structcheckpoint_1_1_packer_buffer.html',1,'checkpoint']]]
 ];

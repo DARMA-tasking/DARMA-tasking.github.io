@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['writetofiletag_161',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]]
+  ['unpackerbuffer_195',['UnpackerBuffer',['../structcheckpoint_1_1_unpacker_buffer.html',1,'checkpoint']]],
+  ['userbuffer_196',['UserBuffer',['../structcheckpoint_1_1buffer_1_1_user_buffer.html',1,'checkpoint::buffer']]]
 ];

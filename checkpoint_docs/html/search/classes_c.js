@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['traverse_155',['Traverse',['../structcheckpoint_1_1dispatch_1_1_traverse.html',1,'checkpoint::dispatch']]],
-  ['type_156',['Type',['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;']]]
+  ['readfromfiletag_170',['ReadFromFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_read_from_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
+  ['reconstructasvirtualifneeded_171',['ReconstructAsVirtualIfNeeded',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed.html',1,'checkpoint']]],
+  ['reconstructor_172',['Reconstructor',['../structcheckpoint_1_1dispatch_1_1_reconstructor.html',1,'checkpoint::dispatch']]],
+  ['registrar_173',['Registrar',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::objregistry::Registrar&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::serializer_registry::Registrar&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar.html',1,'checkpoint::dispatch::typeregistry::Registrar&lt; ObjT &gt;']]]
 ];

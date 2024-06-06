@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['with_191',['with',['../structcheckpoint_1_1dispatch_1_1_traverse.html#a179ea8a80a3cf9a50091b70da785eb83',1,'checkpoint::dispatch::Traverse::with(T &amp;target, TraverserT &amp;t, SerialSizeType len=1)'],['../structcheckpoint_1_1dispatch_1_1_traverse.html#a52e345aa5da6b8d7866a15993356788c',1,'checkpoint::dispatch::Traverse::with(T &amp;target, Args &amp;&amp;... args)']]]
+  ['unpack_227',['unpack',['../structcheckpoint_1_1dispatch_1_1_standard.html#a2115701d48c24ab6cbc0d811ef8840e3',1,'checkpoint::dispatch::Standard']]],
+  ['usedbuffersize_228',['usedBufferSize',['../structcheckpoint_1_1_base_serializer.html#a6ccb8bb1430ac5665aac995b6330bc8a',1,'checkpoint::BaseSerializer']]]
 ];

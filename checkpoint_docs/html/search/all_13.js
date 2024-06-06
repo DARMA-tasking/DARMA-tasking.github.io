@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['with_107',['with',['../structcheckpoint_1_1dispatch_1_1_traverse.html#a179ea8a80a3cf9a50091b70da785eb83',1,'checkpoint::dispatch::Traverse::with(T &amp;target, TraverserT &amp;t, SerialSizeType len=1)'],['../structcheckpoint_1_1dispatch_1_1_traverse.html#a52e345aa5da6b8d7866a15993356788c',1,'checkpoint::dispatch::Traverse::with(T &amp;target, Args &amp;&amp;... args)']]],
-  ['writetofiletag_108',['WriteToFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_write_to_file_tag.html',1,'checkpoint::buffer::IOBuffer']]]
+  ['value_20_3e_3e_127',['value &gt;&gt;',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;'],['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;']]],
+  ['virtual_5fdisabled_5f_128',['virtual_disabled_',['../structcheckpoint_1_1_base_serializer.html#acdffc3101eb51baafe4a13939ba23e70',1,'checkpoint::BaseSerializer']]],
+  ['virtualserializetraits_129',['VirtualSerializeTraits',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html',1,'checkpoint::dispatch::vrt']]]
 ];

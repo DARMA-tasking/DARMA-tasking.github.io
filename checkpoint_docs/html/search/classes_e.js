@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value_20_3e_3e_159',['value &gt;&gt;',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;'],['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016.html',1,'checkpoint::value &gt;&gt;&lt; T, SerializerT &gt;']]],
-  ['virtualserializetraits_160',['VirtualSerializeTraits',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html',1,'checkpoint::dispatch::vrt']]]
+  ['traverse_193',['Traverse',['../structcheckpoint_1_1dispatch_1_1_traverse.html',1,'checkpoint::dispatch']]],
+  ['type_194',['Type',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;']]]
 ];

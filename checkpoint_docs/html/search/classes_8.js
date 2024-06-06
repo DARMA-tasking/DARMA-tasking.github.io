@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['objectentry_134',['ObjectEntry',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html',1,'checkpoint::dispatch::vrt::objregistry']]]
+  ['managedbuffer_165',['ManagedBuffer',['../structcheckpoint_1_1buffer_1_1_managed_buffer.html',1,'checkpoint::buffer']]],
+  ['memoryserializer_166',['MemorySerializer',['../structcheckpoint_1_1_memory_serializer.html',1,'checkpoint']]]
 ];

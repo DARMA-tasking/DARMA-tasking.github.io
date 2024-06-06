@@ -1,21 +1,11 @@
 var searchData=
 [
-  ['idx_5f_40',['idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html#a95864cbf2656db8f3d003f1d7d59ad0e',1,'checkpoint::dispatch::vrt::objregistry::ObjectEntry']]],
-  ['introduction_41',['Introduction',['../index.html',1,'']]],
-  ['inplacetag_42',['InPlaceTag',['../structcheckpoint_1_1dispatch_1_1_in_place_tag.html',1,'checkpoint::dispatch']]],
-  ['instantiateifpossible_43',['InstantiateIfPossible',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible.html',1,'checkpoint::dispatch::vrt']]],
-  ['instantiatetuplehelper_44',['InstantiateTupleHelper',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_tuple_helper.html',1,'checkpoint::dispatch::vrt']]],
-  ['instantiatetuplehelper_3c_20objt_20_3e_45',['InstantiateTupleHelper&lt; ObjT &gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_tuple_helper_3_01_obj_t_01_4.html',1,'checkpoint::dispatch::vrt']]],
-  ['instantiatetuplehelper_3c_20objt_2c_20t_2c_20ts_2e_2e_2e_20_3e_46',['InstantiateTupleHelper&lt; ObjT, T, Ts... &gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_tuple_helper_3_01_obj_t_00_01_t_00_01_ts_8_8_8_01_4.html',1,'checkpoint::dispatch::vrt']]],
-  ['iobuffer_47',['IOBuffer',['../structcheckpoint_1_1buffer_1_1_i_o_buffer.html',1,'checkpoint::buffer']]],
-  ['is_5fbytecopyable_20_3e_3e_48',['is_bytecopyable &gt;&gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_001f08bb798ccb49f9c53f303cf6b979fb.html',1,'checkpoint::dispatch::vrt']]],
-  ['is_5fbytecopyable_29_20_3e_3e_49',['is_bytecopyable) &gt;&gt;',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_004e0f4f52ca81416658a563b81b03387d.html',1,'checkpoint::dispatch::vrt']]],
-  ['is_5fserializable_50',['is_serializable',['../structcheckpoint_1_1_serializable_traits.html#a53aa8e541439d66d9c42ca4f31f6e9f7',1,'checkpoint::SerializableTraits']]],
-  ['isbytecopyable_51',['isByteCopyable',['../structcheckpoint_1_1is_byte_copyable.html',1,'checkpoint']]],
-  ['isbytecopyableimpl_52',['isByteCopyableImpl',['../structcheckpoint_1_1detail_1_1is_byte_copyable_impl.html',1,'checkpoint::detail']]],
-  ['isfootprinting_53',['isFootprinting',['../structcheckpoint_1_1_serializer.html#a01f395bfaa39a8311925c71537877378',1,'checkpoint::Serializer']]],
-  ['ispacking_54',['isPacking',['../structcheckpoint_1_1_serializer.html#aee9d2701f508fff94bad836576443cd9',1,'checkpoint::Serializer']]],
-  ['issizing_55',['isSizing',['../structcheckpoint_1_1_serializer.html#a27e3304ca8c9de113675b7692e5aa65f',1,'checkpoint::Serializer']]],
-  ['isunpacking_56',['isUnpacking',['../structcheckpoint_1_1_serializer.html#a3a09ea026ff2c6ddf863f9c1a6463466',1,'checkpoint::Serializer']]],
-  ['isvirtualdisabled_57',['isVirtualDisabled',['../structcheckpoint_1_1_serializer.html#af45e225cdb3a750a06de80a8cd5c6c37',1,'checkpoint::Serializer']]]
+  ['how_20to_20build_42',['How to Build',['../ckpt_learn_build.html',1,'ckpt_learn']]],
+  ['how_20to_20serialize_20data_43',['How to Serialize Data',['../ckpt_learn_serialize.html',1,'ckpt_learn']]],
+  ['has_5fbase_5ftypedef_5ft_44',['has_base_typedef_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a900e9fcb655c36ab48fd6db0f0258b75',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
+  ['has_5fbytecopytraittrue_45',['has_byteCopyTraitTrue',['../structcheckpoint_1_1_serializable_traits.html#a8e42305be1264b105f525ae7dff36c15',1,'checkpoint::SerializableTraits']]],
+  ['has_5fdynamic_5fserialize_5ft_46',['has_dynamic_serialize_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a5b78afee2cf468bf3fedddb017c9aad0',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
+  ['has_5fdynamic_5ftype_5findex_5ft_47',['has_dynamic_type_index_t',['../structcheckpoint_1_1dispatch_1_1vrt_1_1_virtual_serialize_traits.html#a6a4e72c1d80374001f122c17ac1cc0e8',1,'checkpoint::dispatch::vrt::VirtualSerializeTraits']]],
+  ['has_5fnot_5fvirtual_5fserialize_20_3e_3e_48',['has_not_virtual_serialize &gt;&gt;',['../structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_01169395079d468e6ff618832a51e34843.html',1,'checkpoint']]],
+  ['has_5fvirtual_5fserialize_20_3e_3e_49',['has_virtual_serialize &gt;&gt;',['../structcheckpoint_1_1_serialize_virtual_type_if_needed_3_01_t_00_01_serializer_t_00_01typename_019c8f7fc8348eb3352805b18f8a3adb0b.html',1,'checkpoint::has_virtual_serialize &gt;&gt;&lt; T, SerializerT &gt;'],['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01ab92c606a95e76aaa723ec61628f6529.html',1,'checkpoint::has_virtual_serialize &gt;&gt;&lt; T, SerializerT &gt;']]]
 ];

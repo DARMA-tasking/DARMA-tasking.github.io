@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['unpack_100',['unpack',['../structcheckpoint_1_1dispatch_1_1_standard.html#a2115701d48c24ab6cbc0d811ef8840e3',1,'checkpoint::dispatch::Standard']]],
-  ['unpackerbuffer_101',['UnpackerBuffer',['../structcheckpoint_1_1_unpacker_buffer.html',1,'checkpoint']]],
-  ['usedbuffersize_102',['usedBufferSize',['../structcheckpoint_1_1_serializer.html#a9193aca9404eadbb6617273d0fb1343b',1,'checkpoint::Serializer']]],
-  ['userbuffer_103',['UserBuffer',['../structcheckpoint_1_1buffer_1_1_user_buffer.html',1,'checkpoint::buffer']]]
+  ['this_5fidx_5f_120',['this_idx_',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_serializer_entry.html#a0fc5b0685579bc7a19343c03c4062e77',1,'checkpoint::dispatch::vrt::serializer_registry::SerializerEntry']]],
+  ['traverse_121',['Traverse',['../structcheckpoint_1_1dispatch_1_1_traverse.html',1,'checkpoint::dispatch']]],
+  ['type_122',['Type',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type.html',1,'checkpoint::dispatch::vrt::serializer_registry::Type&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type.html',1,'checkpoint::dispatch::typeregistry::Type&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type.html',1,'checkpoint::dispatch::vrt::objregistry::Type&lt; ObjT &gt;']]]
 ];
