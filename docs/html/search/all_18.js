@@ -40,7 +40,7 @@ var searchData=
   ['work_5f',['work_',['../structvt_1_1sched_1_1_base_unit.html#ab425435c3b6c1cdf2fc208f1e50ea84c',1,'vt::sched::BaseUnit']]],
   ['work_5fqueue_5f',['work_queue_',['../structvt_1_1sched_1_1_scheduler.html#a8176bae441897c36b86e3fb917496a7a',1,'vt::sched::Scheduler']]],
   ['work_5funit_2eh',['work_unit.h',['../work__unit_8h.html',1,'']]],
-  ['worker',['worker',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()'],['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()']]],
+  ['worker',['Worker',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12a62efb9ec331e364b96efe68c8b03ca20',1,'vt::error::Worker()'],['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689a24771d4179e70d6e207872dbca07e2ef',1,'vt::config::worker()']]],
   ['workload_5freplay_2ecc',['workload_replay.cc',['../workload__replay_8cc.html',1,'']]],
   ['workload_5freplay_2eh',['workload_replay.h',['../workload__replay_8h.html',1,'']]],
   ['workloaddatamigrator',['WorkloadDataMigrator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1replay_1_1_workload_data_migrator.html',1,'vt::vrt::collection::balance::replay::WorkloadDataMigrator'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1replay_1_1_workload_data_migrator.html#a3bdffb57d5d79e7346117b92e4b01bee',1,'vt::vrt::collection::balance::replay::WorkloadDataMigrator::WorkloadDataMigrator()']]],
