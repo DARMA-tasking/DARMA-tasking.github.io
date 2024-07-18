@@ -103,17 +103,64 @@
           Node LB Data
         </h1>
 <p>Manager object profiling data</p><p>The node LB data manager component <code><a href="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html" class="m-doc">vt::<wbr />vrt::<wbr />collection::<wbr />balance::<wbr />NodeLBData</a></code>, accessed via <code><a href="namespacevt.html#af2ddfbdc455e98a0d46732522d8cf589" class="m-doc">vt::<wbr />theNodeLBData()</a></code> manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.</p><p>When LB is invoked in <strong><em>vt</em></strong>, the <a href="lb-manager.html" class="m-doc">LB Manager</a> passes the node LB data to the various LB strategies to run the load balancer. The node LB data component can also dump the LB data it holds to files, which can be read externally. The LBAF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.</p><section id="export-lb-data-file"><h2><a href="#export-lb-data-file">Exporting LB Data Files (VOM)</a></h2><p>The <code>NodeLBData</code> component, after collecting LB data from the running program, can dump these to files in a VOM file (Virtual Object Map). As indicated by the name, the VOM file specifies the mapping of object to node for each phase along with LB data for each object (computation time and communication load).</p><p>To output VOM files, pass <code>--vt_lb_data</code> to enable output along with <code>--vt_lb_data_dir=&lt;my-directory&gt;</code> and <code>--vt_lb_data_file=&lt;my-base-name&gt;</code> to control the directory the files are generated along with the base file name. With this enabled, <strong><em>vt</em></strong> will generate a file for each node that contains the LB data and mapping.</p><section id="lb-data-file-format"><h3><a href="#lb-data-file-format">File Format</a></h3><p>The VOM files are output in JSON format, either compressed with brotli compression (default on) or pure JSON if the argument <code>--vt_lb_data_compress</code> is set to <code>false</code>.</p><p>The JSON files contain an array of <code>phases</code> that have been captured by <strong><em>vt</em></strong> and output to the file. Each phase has an <code>id</code> indicating which phase it was while the application was running. Each phase also has an array of <code>tasks</code> that represent work that was done during that phase. Each task has a <code>time</code>, <code>resource</code>, <code>node</code>, <code>entity</code>, and optionally a list of <code>subphases</code>. The <code>entity</code> contains information about the task that performed this work. If that <code>entity</code> is a virtual collection object, it will specify the unique <code>id</code> for the object, and optionally the <code>index</code>, <code>home</code>, and <code>collection_id</code> for that object.</p><pre class="m-code"><span class="p">{</span>
+    <span class="s">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s">&quot;phases&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;identical_to_previous&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s">&quot;list&quot;</span><span class="o">:</span> <span class="p">[],</span>
+                <span class="s">&quot;range&quot;</span><span class="o">:</span> <span class="p">[]</span>
+            <span class="p">},</span>
+            <span class="s">&quot;skipped&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s">&quot;list&quot;</span><span class="o">:</span> <span class="p">[],</span>
+                <span class="s">&quot;range&quot;</span><span class="o">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&quot;rank&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s">&quot;shared_node&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;num_nodes&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">&quot;rank&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;size&quot;</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;LBDatafile&quot;</span>
+    <span class="p">},</span>
     <span class="s">&quot;phases&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
+            <span class="s">&quot;communications&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s">&quot;bytes&quot;</span><span class="o">:</span> <span class="mf">152.0</span><span class="p">,</span>
+                    <span class="s">&quot;from&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+                        <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">262147</span><span class="p">,</span>
+                        <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
+                            <span class="mi">0</span>
+                        <span class="p">],</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s">&quot;messages&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s">&quot;to&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+                        <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">262147</span><span class="p">,</span>
+                        <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
+                            <span class="mi">0</span>
+                        <span class="p">],</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;SendRecv&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
             <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
             <span class="s">&quot;tasks&quot;</span><span class="o">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                     <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
                         <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
                         <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3407875</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">262147</span><span class="p">,</span>
                         <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
-                            <span class="mi">12</span>
+                            <span class="mi">0</span>
                         <span class="p">],</span>
                         <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
                         <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
@@ -123,79 +170,40 @@
                     <span class="s">&quot;subphases&quot;</span><span class="o">:</span> <span class="p">[</span>
                         <span class="p">{</span>
                             <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1263000033068238e-05</span>
-                        <span class="p">},</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1333999964335817e-05</span>
+                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">0.0003119999999999999</span>
                         <span class="p">}</span>
                     <span class="p">],</span>
-                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">3.379300005690311e-05</span>
+                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">0.0003119999999999999</span>
                 <span class="p">},</span>
                 <span class="p">{</span>
                     <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
                         <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3145731</span><span class="p">,</span>
-                        <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
-                            <span class="mi">11</span>
-                        <span class="p">],</span>
-                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3145740</span><span class="p">,</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">false</span><span class="p">,</span>
+                        <span class="s">&quot;objgroup_id&quot;</span><span class="o">:</span> <span class="mi">786435</span><span class="p">,</span>
                         <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
                     <span class="p">},</span>
                     <span class="s">&quot;node&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
                     <span class="s">&quot;resource&quot;</span><span class="o">:</span> <span class="s">&quot;cpu&quot;</span><span class="p">,</span>
-                    <span class="s">&quot;subphases&quot;</span><span class="o">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1653000001388136e-05</span>
-                        <span class="p">},</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1435000033088727e-05</span>
-                        <span class="p">}</span>
-                    <span class="p">],</span>
-                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">3.452300006756559e-05</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s">&quot;tasks&quot;</span><span class="o">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
-                        <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3407875</span><span class="p">,</span>
-                        <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
-                            <span class="mi">12</span>
-                        <span class="p">],</span>
-                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
-                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
-                    <span class="p">},</span>
-                    <span class="s">&quot;node&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s">&quot;resource&quot;</span><span class="o">:</span> <span class="s">&quot;cpu&quot;</span><span class="p">,</span>
-                    <span class="s">&quot;subphases&quot;</span><span class="o">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">3.207300005669822e-05</span>
-                        <span class="p">},</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1347999816280208e-05</span>
-                        <span class="p">}</span>
-                    <span class="p">],</span>
-                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">5.658399982166884e-05</span>
+                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">0.0</span>
                 <span class="p">},</span>
                 <span class="p">{</span>
                     <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s">&quot;collection_id&quot;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
                         <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3145731</span><span class="p">,</span>
-                        <span class="s">&quot;index&quot;</span><span class="o">:</span> <span class="p">[</span>
-                            <span class="mi">11</span>
-                        <span class="p">],</span>
-                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">4194316</span><span class="p">,</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">false</span><span class="p">,</span>
+                        <span class="s">&quot;objgroup_id&quot;</span><span class="o">:</span> <span class="mi">1048579</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s">&quot;node&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s">&quot;resource&quot;</span><span class="o">:</span> <span class="s">&quot;cpu&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">0.0</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">false</span><span class="p">,</span>
                         <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
                     <span class="p">},</span>
                     <span class="s">&quot;node&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -203,14 +211,21 @@
                     <span class="s">&quot;subphases&quot;</span><span class="o">:</span> <span class="p">[</span>
                         <span class="p">{</span>
                             <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.3647000059791026e-05</span>
-                        <span class="p">},</span>
-                        <span class="p">{</span>
-                            <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">1.1320000112391426e-05</span>
+                            <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">9.000000000000002e-06</span>
                         <span class="p">}</span>
                     <span class="p">],</span>
-                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">3.787500008911593e-05</span>
+                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">9.000000000000002e-06</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s">&quot;entity&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s">&quot;home&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s">&quot;migratable&quot;</span><span class="o">:</span> <span class="nb">false</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;object&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s">&quot;node&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s">&quot;resource&quot;</span><span class="o">:</span> <span class="s">&quot;cpu&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;time&quot;</span><span class="o">:</span> <span class="mf">0.0</span>
                 <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">}</span>
@@ -256,7 +271,90 @@
             <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
-<span class="p">}</span></pre><p>The type of communication lines up with the enum <code>vt::vrt::collection::balance::CommCategory</code> in the code.</p><table class="m-table"><thead><tr><th>Value</th><th>Enum entry</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td><code>CommCategory::SendRecv</code></td><td>A send-receive edge between two collection elements</td></tr><tr><td>2</td><td><code>CommCategory::CollectionToNode</code></td><td>A send from a collection element to a node</td></tr><tr><td>3</td><td><code>CommCategory::NodeToCollection</code></td><td>A send from a node to a collection element</td></tr><tr><td>4</td><td><code>CommCategory::Broadcast</code></td><td>A broadcast from a collection element to a whole collection (receive-side)</td></tr><tr><td>5</td><td><code>CommCategory::CollectionToNodeBcast</code></td><td>A broadcast from a collection element to all nodes (receive-side)</td></tr><tr><td>6</td><td><code>CommCategory::NodeToCollectionBcast</code></td><td>A broadcast from a node to a whole collection (receive-side)</td></tr><tr><td>7</td><td><code>CommCategory::CollectiveToCollectionBcast</code></td><td>Collective &#x27;broadcast&#x27; from every node to the local collection elements (receive-side)</td></tr></tbody></table><p>For all the broadcast-like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).</p></section></section>
+<span class="p">}</span></pre><p>The type of communication lines up with the enum <code>vt::vrt::collection::balance::CommCategory</code> in the code.</p><table class="m-table"><thead><tr><th>Value</th><th>Enum entry</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td><code>CommCategory::SendRecv</code></td><td>A send-receive edge between two collection elements</td></tr><tr><td>2</td><td><code>CommCategory::CollectionToNode</code></td><td>A send from a collection element to a node</td></tr><tr><td>3</td><td><code>CommCategory::NodeToCollection</code></td><td>A send from a node to a collection element</td></tr><tr><td>4</td><td><code>CommCategory::Broadcast</code></td><td>A broadcast from a collection element to a whole collection (receive-side)</td></tr><tr><td>5</td><td><code>CommCategory::CollectionToNodeBcast</code></td><td>A broadcast from a collection element to all nodes (receive-side)</td></tr><tr><td>6</td><td><code>CommCategory::NodeToCollectionBcast</code></td><td>A broadcast from a node to a whole collection (receive-side)</td></tr><tr><td>7</td><td><code>CommCategory::CollectiveToCollectionBcast</code></td><td>Collective &#x27;broadcast&#x27; from every node to the local collection elements (receive-side)</td></tr></tbody></table><p>For all the broadcast-like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).</p></section></section><section id="lb-data-file-validator"><h2><a href="#lb-data-file-validator">LB Data File Validator</a></h2><p>All input JSON files will be validated using the <code>JSON_data_files_validator.py</code> found in the <code>scripts</code> directory, which ensures that a given JSON adheres to the following schema:</p><pre class="m-code"><span class="n">from</span> <span class="n">schema</span> <span class="n">import</span> <span class="n">And</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Schema</span>
+
+<span class="n">LBDatafile_schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">And</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;LBDatafile&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="s">&quot;&#39;LBDatafile&#39; must be chosen.&quot;</span><span class="p">),</span>
+        <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">metadata</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">{</span>
+            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">And</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&quot;LBDatafile&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="s">&quot;&#39;LBDatafile&#39; must be chosen.&quot;</span><span class="p">),</span>
+            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">rank</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">shared_node</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">{</span>
+                <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                <span class="err">&#39;</span><span class="n">size</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                <span class="err">&#39;</span><span class="n">rank</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                <span class="err">&#39;</span><span class="n">num_nodes</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">phases</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">{</span>
+                <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">count</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                <span class="err">&#39;</span><span class="n">skipped</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="err">&#39;</span><span class="n">list</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[</span><span class="kt">int</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">range</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[[</span><span class="kt">int</span><span class="p">]],</span>
+                <span class="p">},</span>
+                <span class="err">&#39;</span><span class="n">identical_to_previous</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="err">&#39;</span><span class="n">list</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[</span><span class="kt">int</span><span class="p">],</span>
+                    <span class="err">&#39;</span><span class="n">range</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[[</span><span class="kt">int</span><span class="p">]],</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">attributes</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">dict</span>
+        <span class="p">},</span>
+        <span class="err">&#39;</span><span class="n">phases</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                <span class="err">&#39;</span><span class="n">tasks</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="err">&#39;</span><span class="n">entity</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">collection_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="err">&#39;</span><span class="n">home</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">index</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="kt">int</span><span class="p">],</span>
+                            <span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+                            <span class="err">&#39;</span><span class="n">migratable</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">bool</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">objgroup_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span>
+                        <span class="p">},</span>
+                        <span class="err">&#39;</span><span class="n">node</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                        <span class="err">&#39;</span><span class="n">resource</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+                        <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">subphases</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span>
+                            <span class="p">{</span>
+                                <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                                <span class="err">&#39;</span><span class="n">time</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+                            <span class="p">}</span>
+                        <span class="p">],</span>
+                        <span class="err">&#39;</span><span class="n">time</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+                        <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">user_defined</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">dict</span><span class="p">,</span>
+                        <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">attributes</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">dict</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">communications</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+                        <span class="err">&#39;</span><span class="n">to</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+                            <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">home</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">collection_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">migratable</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">bool</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">index</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="kt">int</span><span class="p">],</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">objgroup_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                        <span class="p">},</span>
+                        <span class="err">&#39;</span><span class="n">messages</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                        <span class="err">&#39;</span><span class="n">from</span><span class="err">&#39;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+                            <span class="err">&#39;</span><span class="n">id</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">home</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">collection_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">migratable</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">bool</span><span class="p">,</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">index</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="kt">int</span><span class="p">],</span>
+                            <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">objgroup_id</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+                        <span class="p">},</span>
+                        <span class="err">&#39;</span><span class="n">bytes</span><span class="err">&#39;</span><span class="o">:</span> <span class="kt">float</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="n">Optional</span><span class="p">(</span><span class="err">&#39;</span><span class="n">user_defined</span><span class="err">&#39;</span><span class="p">)</span><span class="o">:</span> <span class="n">dict</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span></pre></section><section id="lb-spec-file"><h2><a href="#lb-spec-file">LB Specification File</a></h2><p>In order to customize when LB output is enabled and disabled, a LB specification file can be passed to <strong><em>vt</em></strong> via a command-line flag: <code>--vt_lb_spec --vt_lb_spec_file=filename.spec</code>.</p><p>For details about vt&#x27;s Specification File see <a href="spec-file.html" class="m-doc">Spec File</a></p></section>
       </div>
     </div>
   </div>
