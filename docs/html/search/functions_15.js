@@ -22,6 +22,7 @@ var searchData=
   ['updatelocation',['updateLocation',['../structvt_1_1location_1_1_entity_location_coord.html#a6102920cd3ab80156a77e5f15d92ffcf',1,'vt::location::EntityLocationCoord']]],
   ['updatemsg',['UpdateMsg',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg.html#a464255a6854dd3ed4053bffc35182ea0',1,'vt::vrt::collection::balance::LBDataRestartReader::UpdateMsg']]],
   ['updatenode',['updateNode',['../structvt_1_1location_1_1_loc_record.html#aa66e4f13e89526636b87b3c950bdd91c',1,'vt::location::LocRecord']]],
+  ['updatenoteendtime',['updateNoteEndTime',['../structvt_1_1trace_1_1_trace_lite.html#afbe52188ff86e719baf520c0c68a8ee7',1,'vt::trace::TraceLite']]],
   ['updatependingrequest',['updatePendingRequest',['../structvt_1_1location_1_1_entity_location_coord.html#a96e4c5c2a943450554b17c34f05995d0',1,'vt::location::EntityLocationCoord']]],
   ['updatephase',['updatePhase',['../structvt_1_1elm_1_1_element_l_b_data.html#acb64ab9bcd98f12bd5cae08ebbefd943',1,'vt::elm::ElementLBData']]],
   ['updateresolvedepochs',['updateResolvedEpochs',['../structvt_1_1term_1_1_termination_detector.html#a7637035e3f3c0f898d8dc79bbc2d8bf4',1,'vt::term::TerminationDetector']]],
