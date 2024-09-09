@@ -1189,6 +1189,12 @@ All input J\+S\+ON files will be validated using the {\ttfamily J\+S\+O\+N\+\_\+
 \begin{DoxyCodeInclude}
 \textcolor{keyword}{from} schema \textcolor{keyword}{import} And, Optional, Schema
 
+\textcolor{keyword}{def }validate\_id\_and\_seq\_id(field):
+    \textcolor{stringliteral}{"""Ensure that either seq\_id or id is provided."""}
+    \textcolor{keywordflow}{if} \textcolor{stringliteral}{'seq\_id'} \textcolor{keywordflow}{not} \textcolor{keywordflow}{in} field \textcolor{keywordflow}{and} \textcolor{stringliteral}{'id'} \textcolor{keywordflow}{not} \textcolor{keywordflow}{in} field:
+        \textcolor{keywordflow}{raise} ValueError(\textcolor{stringliteral}{'Either id (bit-encoded) or seq\_id must be provided.'})
+    \textcolor{keywordflow}{return} field
+
 LBDatafile\_schema = Schema(
     \{
         Optional(\textcolor{stringliteral}{'type'}): And(str, \textcolor{stringliteral}{"LBDatafile"}, error=\textcolor{stringliteral}{"'LBDatafile' must be chosen."}),
@@ -1219,15 +1225,16 @@ LBDatafile\_schema = Schema(
                 \textcolor{stringliteral}{'id'}: int,
                 \textcolor{stringliteral}{'tasks'}: [
                     \{
-                        \textcolor{stringliteral}{'entity'}: \{
+                        \textcolor{stringliteral}{'entity'}: And(\{
                             Optional(\textcolor{stringliteral}{'collection\_id'}): int,
                             \textcolor{stringliteral}{'home'}: int,
-                            \textcolor{stringliteral}{'id'}: int,
+                            Optional(\textcolor{stringliteral}{'id'}): int,
+                            Optional(\textcolor{stringliteral}{'seq\_id'}): int,
                             Optional(\textcolor{stringliteral}{'index'}): [int],
                             \textcolor{stringliteral}{'type'}: str,
                             \textcolor{stringliteral}{'migratable'}: bool,
                             Optional(\textcolor{stringliteral}{'objgroup\_id'}): int
-                        \},
+                        \}, validate\_id\_and\_seq\_id),
                         \textcolor{stringliteral}{'node'}: int,
                         \textcolor{stringliteral}{'resource'}: str,
                         Optional(\textcolor{stringliteral}{'subphases'}): [
@@ -1244,25 +1251,27 @@ LBDatafile\_schema = Schema(
                 Optional(\textcolor{stringliteral}{'communications'}): [
                     \{
                         \textcolor{stringliteral}{'type'}: str,
-                        \textcolor{stringliteral}{'to'}: \{
+                        \textcolor{stringliteral}{'to'}: And(\{
                             \textcolor{stringliteral}{'type'}: str,
-                            \textcolor{stringliteral}{'id'}: int,
+                            Optional(\textcolor{stringliteral}{'id'}): int,
+                            Optional(\textcolor{stringliteral}{'seq\_id'}): int,
                             Optional(\textcolor{stringliteral}{'home'}): int,
                             Optional(\textcolor{stringliteral}{'collection\_id'}): int,
                             Optional(\textcolor{stringliteral}{'migratable'}): bool,
                             Optional(\textcolor{stringliteral}{'index'}): [int],
                             Optional(\textcolor{stringliteral}{'objgroup\_id'}): int,
-                        \},
+                        \}, validate\_id\_and\_seq\_id),
                         \textcolor{stringliteral}{'messages'}: int,
-                        \textcolor{stringliteral}{'from'}: \{
+                        \textcolor{stringliteral}{'from'}: And(\{
                             \textcolor{stringliteral}{'type'}: str,
-                            \textcolor{stringliteral}{'id'}: int,
+                            Optional(\textcolor{stringliteral}{'id'}): int,
+                            Optional(\textcolor{stringliteral}{'seq\_id'}): int,
                             Optional(\textcolor{stringliteral}{'home'}): int,
                             Optional(\textcolor{stringliteral}{'collection\_id'}): int,
                             Optional(\textcolor{stringliteral}{'migratable'}): bool,
                             Optional(\textcolor{stringliteral}{'index'}): [int],
                             Optional(\textcolor{stringliteral}{'objgroup\_id'}): int,
-                        \},
+                        \}, validate\_id\_and\_seq\_id),
                         \textcolor{stringliteral}{'bytes'}: float
                     \}
                 ],
