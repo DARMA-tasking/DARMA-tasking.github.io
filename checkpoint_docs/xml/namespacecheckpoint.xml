@@ -24,8 +24,8 @@
     <innerclass refid="structcheckpoint_1_1_stream_packer" prot="public">checkpoint::StreamPacker</innerclass>
     <innerclass refid="structcheckpoint_1_1_stream_unpacker" prot="public">checkpoint::StreamUnpacker</innerclass>
     <innerclass refid="structcheckpoint_1_1_unpacker_buffer" prot="public">checkpoint::UnpackerBuffer</innerclass>
-    <innerclass refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732" prot="public">checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and not std::is_same&lt; SerializerT, checkpoint::Footprinter &gt;::value &gt;&gt;</innerclass>
     <innerclass refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0185cb3961b0806c240679cf17dd651016" prot="public">checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and std::is_same&lt; SerializerT, checkpoint::Footprinter &gt;::value &gt;&gt;</innerclass>
+    <innerclass refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01bd353309780a1641c6b4da6107e9b732" prot="public">checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and not std::is_same&lt; SerializerT, checkpoint::Footprinter &gt;::value &gt;&gt;</innerclass>
     <innernamespace refid="namespacecheckpoint_1_1buffer">checkpoint::buffer</innernamespace>
     <innernamespace refid="namespacecheckpoint_1_1debug">checkpoint::debug</innernamespace>
     <innernamespace refid="namespacecheckpoint_1_1detail">checkpoint::detail</innernamespace>
@@ -210,6 +210,24 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/checkpoint/dispatch/vrt/derived.h" line="135" column="1" bodyfile="src/checkpoint/dispatch/vrt/derived.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="footprinter_8h_1abcdaf901017985f79a8d64ef81236505" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type>is_footprinter_impl&lt; std::decay_t&lt; U &gt; &gt;</type>
+        <definition>using checkpoint::is_footprinter = typedef is_footprinter_impl&lt;std::decay_t&lt;U&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>is_footprinter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/checkpoint/serializers/footprinter.h" line="84" column="1" bodyfile="src/checkpoint/serializers/footprinter.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="packer_8h_1ad744c208c7b1da6ee19c10d071e74f7d" prot="public" static="no">
         <type><ref refid="structcheckpoint_1_1_packer_buffer" kindref="compound">PackerBuffer</ref>&lt; <ref refid="structcheckpoint_1_1buffer_1_1_managed_buffer" kindref="compound">buffer::ManagedBuffer</ref> &gt;</type>
@@ -491,6 +509,27 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/checkpoint/traits/reconstructor_traits.h" line="98" column="1" bodyfile="src/checkpoint/traits/reconstructor_traits.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="footprinter_8h_1ab4c61ab7eebe5df5a3d6b6059d484efb" prot="public" static="yes" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr const bool</type>
+        <definition>constexpr const bool checkpoint::is_footprinter_v</definition>
+        <argsstring></argsstring>
+        <name>is_footprinter_v</name>
+        <initializer>= is_footprinter&lt;U&gt;::value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/checkpoint/serializers/footprinter.h" line="87" column="29" bodyfile="src/checkpoint/serializers/footprinter.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1101,7 +1140,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same&lt;SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>&gt;::value  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -1345,7 +1384,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same&lt;      SerializerT,      <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>    &gt;::value  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -1366,9 +1405,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/container/function_serialize.h" line="77" column="6" bodyfile="src/checkpoint/container/function_serialize.h" bodystart="77" bodyend="79"/>
+        <location file="src/checkpoint/container/function_serialize.h" line="74" column="6" bodyfile="src/checkpoint/container/function_serialize.h" bodystart="74" bodyend="76"/>
       </memberdef>
-      <memberdef kind="function" id="list__serialize_8h_1af1b8445cbd2caf9c35727de1cf63c2d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="list__serialize_8h_1a3356935103b7cc954120d9e74c7048e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1380,8 +1419,8 @@
             <type>typename ElmT</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeOrderedElems</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; Serializer &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;Serializer&gt;, void&gt; checkpoint::deserializeOrderedElems</definition>
         <argsstring>(Serializer &amp;s, ContainerT &amp;cont, typename ContainerT::size_type size, isCopyConstructible&lt; ElmT &gt; *=nullptr)</argsstring>
         <name>deserializeOrderedElems</name>
         <param>
@@ -1408,7 +1447,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/list_serialize.h" line="61" column="1" bodyfile="src/checkpoint/container/list_serialize.h" bodystart="61" bodyend="75"/>
       </memberdef>
-      <memberdef kind="function" id="list__serialize_8h_1abec445c1387cfe9c00c3c328b403378b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="list__serialize_8h_1a37a76d21eb620487dd1d160f81e390f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1420,8 +1459,8 @@
             <type>typename ElmT</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeOrderedElems</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; Serializer &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;Serializer&gt;, void&gt; checkpoint::deserializeOrderedElems</definition>
         <argsstring>(Serializer &amp;s, ContainerT &amp;cont, typename ContainerT::size_type size, isNotCopyConstructible&lt; ElmT &gt; *=nullptr)</argsstring>
         <name>deserializeOrderedElems</name>
         <param>
@@ -1448,7 +1487,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/list_serialize.h" line="81" column="1" bodyfile="src/checkpoint/container/list_serialize.h" bodystart="81" bodyend="95"/>
       </memberdef>
-      <memberdef kind="function" id="list__serialize_8h_1a1022e2741b325048a74569a985eb7711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="list__serialize_8h_1a2d6f2e39e995be4e04b2c47cafb40856" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1460,8 +1499,8 @@
             <type>typename ElmT</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeOrderedElems</definition>
+        <type>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt; Serializer &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt;Serializer&gt;, void&gt; checkpoint::deserializeOrderedElems</definition>
         <argsstring>(Serializer &amp;, ContainerT &amp;, typename ContainerT::size_type)</argsstring>
         <name>deserializeOrderedElems</name>
         <param>
@@ -1568,7 +1607,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/list_serialize.h" line="124" column="13" bodyfile="src/checkpoint/container/list_serialize.h" bodystart="124" bodyend="126"/>
       </memberdef>
-      <memberdef kind="function" id="map__serialize_8h_1a9016e0756f91e6e982b3c824c007c251" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="map__serialize_8h_1a819a45fac91f44b95c78a9207e79f2bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1580,8 +1619,8 @@
             <type>typename ElmT</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeEmplaceElems</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; Serializer &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;Serializer&gt;, void&gt; checkpoint::deserializeEmplaceElems</definition>
         <argsstring>(Serializer &amp;s, ContainerT &amp;cont, typename ContainerT::size_type size)</argsstring>
         <name>deserializeEmplaceElems</name>
         <param>
@@ -1604,7 +1643,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/map_serialize.h" line="63" column="2" bodyfile="src/checkpoint/container/map_serialize.h" bodystart="63" bodyend="76"/>
       </memberdef>
-      <memberdef kind="function" id="map__serialize_8h_1ac1dd08a1833499b9b6a302934c0b4603" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="map__serialize_8h_1a235ca5167510894dbf615b120f12cd4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename Serializer</type>
@@ -1616,8 +1655,8 @@
             <type>typename ElmT</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; std::is_same&lt; Serializer, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; std::is_same&lt;Serializer, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::deserializeEmplaceElems</definition>
+        <type>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt; Serializer &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt;Serializer&gt;, void&gt; checkpoint::deserializeEmplaceElems</definition>
         <argsstring>(Serializer &amp;, ContainerT &amp;, typename ContainerT::size_type)</argsstring>
         <name>deserializeEmplaceElems</name>
         <param>
@@ -2196,7 +2235,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same_v&lt;SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>&gt;  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -2229,7 +2268,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same&lt;      SerializerT,      <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>    &gt;::value  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -2270,7 +2309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="70" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="70" bodyend="72"/>
+        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="67" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="67" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="raw__ptr__serialize_8h_1a6113644a35f5023a57e2ed3ca4814490" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -2299,7 +2338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="78" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="78" bodyend="83"/>
+        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="75" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="75" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="raw__ptr__serialize_8h_1aaadeb0ab61d069afc8a97ec6b6dc630c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -2326,7 +2365,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="91" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="91" bodyend="93"/>
+        <location file="src/checkpoint/container/raw_ptr_serialize.h" line="88" column="6" bodyfile="src/checkpoint/container/raw_ptr_serialize.h" bodystart="88" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="shared__ptr__serialize_8h_1aff1bebba5ce7fda79f83d2af8c859254" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -2338,7 +2377,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same&lt;      SerializerT,      <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>    &gt;::value  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -2359,7 +2398,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/checkpoint/container/shared_ptr_serialize.h" line="61" column="6" bodyfile="src/checkpoint/container/shared_ptr_serialize.h" bodystart="61" bodyend="71"/>
+        <location file="src/checkpoint/container/shared_ptr_serialize.h" line="58" column="6" bodyfile="src/checkpoint/container/shared_ptr_serialize.h" bodystart="58" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="string__serialize_8h_1a1ea8e1ef9d0a10d26df77cb5309435aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -2440,7 +2479,7 @@
           </param>
           <param>
             <type>typename</type>
-            <defval>std::enable_if_t&lt;    std::is_same&lt;SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref>&gt;::value  &gt;</defval>
+            <defval>std::enable_if_t&lt;    checkpoint::is_footprinter_v&lt;SerializerT&gt;  &gt;</defval>
           </param>
         </templateparamlist>
         <type>void</type>
@@ -2660,7 +2699,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/variant_serialize.h" line="119" column="6" bodyfile="src/checkpoint/container/variant_serialize.h" bodystart="119" bodyend="123"/>
       </memberdef>
-      <memberdef kind="function" id="vector__serialize_8h_1a1f197f1929607e9e28b3d33993196729" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="vector__serialize_8h_1aa02fa281d8944edbdb855e6ec4f2bf18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename SerializerT</type>
@@ -2672,8 +2711,8 @@
             <type>typename VectorAllocator</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, SerialSizeType &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value, SerialSizeType&gt; checkpoint::serializeVectorMeta</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; SerializerT &gt;, SerialSizeType &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;SerializerT&gt;, SerialSizeType&gt; checkpoint::serializeVectorMeta</definition>
         <argsstring>(SerializerT &amp;s, std::vector&lt; T, VectorAllocator &gt; &amp;vec)</argsstring>
         <name>serializeVectorMeta</name>
         <param>
@@ -2799,7 +2838,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/vector_serialize.h" line="94" column="6" bodyfile="src/checkpoint/container/vector_serialize.h" bodystart="94" bodyend="107"/>
       </memberdef>
-      <memberdef kind="function" id="vector__serialize_8h_1ae9a809c203a65d06dbd99acc82be4844" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="vector__serialize_8h_1a685b12335c55096bba140df9f32c1487" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename SerializerT</type>
@@ -2811,8 +2850,8 @@
             <type>typename VectorAllocator</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::serialize</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; SerializerT &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;SerializerT&gt;, void&gt; checkpoint::serialize</definition>
         <argsstring>(SerializerT &amp;s, std::vector&lt; T, VectorAllocator &gt; &amp;vec)</argsstring>
         <name>serialize</name>
         <param>
@@ -2831,7 +2870,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/vector_serialize.h" line="113" column="1" bodyfile="src/checkpoint/container/vector_serialize.h" bodystart="113" bodyend="121"/>
       </memberdef>
-      <memberdef kind="function" id="vector__serialize_8h_1a4dbdef848c92782b54888f6247f8e8ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="vector__serialize_8h_1acf5faec157913ecd8c40d608f7352e16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename SerializerT</type>
@@ -2840,8 +2879,8 @@
             <type>typename VectorAllocator</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; not std::is_same&lt; SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; not std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::serialize</definition>
+        <type>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt; SerializerT &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; not checkpoint::is_footprinter_v&lt;SerializerT&gt;, void&gt; checkpoint::serialize</definition>
         <argsstring>(SerializerT &amp;s, std::vector&lt; bool, VectorAllocator &gt; &amp;vec)</argsstring>
         <name>serialize</name>
         <param>
@@ -2860,7 +2899,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/vector_serialize.h" line="127" column="1" bodyfile="src/checkpoint/container/vector_serialize.h" bodystart="127" bodyend="145"/>
       </memberdef>
-      <memberdef kind="function" id="vector__serialize_8h_1a3f43839a02cd77538b0d2f4192e926be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="vector__serialize_8h_1aecdfde89bd357e1a552a977941e801ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename SerializerT</type>
@@ -2872,8 +2911,8 @@
             <type>typename VectorAllocator</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; std::is_same&lt; SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::serialize</definition>
+        <type>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt; SerializerT &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt;SerializerT&gt;, void&gt; checkpoint::serialize</definition>
         <argsstring>(SerializerT &amp;s, std::vector&lt; T, VectorAllocator &gt; &amp;vec)</argsstring>
         <name>serialize</name>
         <param>
@@ -2892,7 +2931,7 @@
         </inbodydescription>
         <location file="src/checkpoint/container/vector_serialize.h" line="151" column="1" bodyfile="src/checkpoint/container/vector_serialize.h" bodystart="151" bodyend="155"/>
       </memberdef>
-      <memberdef kind="function" id="vector__serialize_8h_1af95ab4d3ad37bb33b284e3a51047d685" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="vector__serialize_8h_1af9928cf99ef5f884210166a0608581d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename SerializerT</type>
@@ -2901,8 +2940,8 @@
             <type>typename VectorAllocator</type>
           </param>
         </templateparamlist>
-        <type>std::enable_if_t&lt; std::is_same&lt; SerializerT, <ref refid="structcheckpoint_1_1_footprinter" kindref="compound">checkpoint::Footprinter</ref> &gt;::value, void &gt;</type>
-        <definition>std::enable_if_t&lt; std::is_same&lt;SerializerT, checkpoint::Footprinter&gt;::value, void&gt; checkpoint::serialize</definition>
+        <type>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt; SerializerT &gt;, void &gt;</type>
+        <definition>std::enable_if_t&lt; checkpoint::is_footprinter_v&lt;SerializerT&gt;, void&gt; checkpoint::serialize</definition>
         <argsstring>(SerializerT &amp;s, std::vector&lt; bool, VectorAllocator &gt; &amp;vec)</argsstring>
         <name>serialize</name>
         <param>
