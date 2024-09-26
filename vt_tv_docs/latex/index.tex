@@ -1,0 +1,329 @@
+\hypertarget{index_vttv_what_is}{}\doxysection{What is VT TV?}\label{index_vttv_what_is}
+{\ttfamily vt-\/tv} provides visualizations of the work-\/to-\/rank mappings, communications, and memory usage of an application.
+
+Specifically, the task visualizer takes in JSON files that describe work as a series of phases and subphases that contain 1) tasks for each rank, 2) communications, and 3) other user-\/defined fields (such as memory usage).
+
+Using such input data, the task visualizer produces Exodus meshes to describe the ranks and objects over time, which can be visualized using Paraview. Additionally, the task visualizer can produce PNGs directly using a VTK workflow to render a visualization of ranks and tasks over phases.
+
+\DoxyHorRuler{0}
+\hypertarget{index_vttv_getting_started}{}\doxysection{Getting Started}\label{index_vttv_getting_started}
+You need the following dependencies\+:
+
+
+\begin{DoxyEnumerate}
+\item A C++ compiler that supports C++17
+\item \href{https://cmake.org/cmake/help/latest/}{\texttt{ {\ttfamily cmake}}} $>$= 3.\+17
+\item \href{https://docs.vtk.org/en/latest/index.html}{\texttt{ {\ttfamily VTK}}} (build instructions \href{https://gitlab.kitware.com/vtk/vtk/-/blob/master/Documentation/docs/build_instructions/build.md}{\texttt{ here}})
+\end{DoxyEnumerate}
+
+Begin by cloning {\ttfamily vt-\/tv}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone https://github.com/DARMA-\/tasking/vt-\/tv.git}
+
+\end{DoxyCode}
+
+
+{\itshape From now on, we will assume that the {\ttfamily vt-\/tv} source is located in {\ttfamily \$\{VTTV\+\_\+\+SOURCE\+\_\+\+DIR\}}.}
+
+\DoxyHorRuler{0}
+\hypertarget{index_vttv_installation_and_usage}{}\doxysection{Installation and Usage}\label{index_vttv_installation_and_usage}
+{\ttfamily vt-\/tv} can be installed as either a standalone C++ app or as a Python module.\hypertarget{index_vttv_standalone}{}\doxysubsection{Standalone}\label{index_vttv_standalone}
+\hypertarget{index_vttv_standaone_build}{}\doxysubsubsection{1. Build}\label{index_vttv_standaone_build}
+For the simplest build, run from {\ttfamily \$\{VTTV\+\_\+\+SOURCE\+\_\+\+DIR\}}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{VTK\_DIR=/path/to/vtk/build ./build.sh}
+
+\end{DoxyCode}
+
+
+To build and run tests, add the {\ttfamily -\/-\/tests-\/run} flag\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{VTK\_DIR=/path/to/vtk/build ./build.sh -\/-\/tests-\/run}
+
+\end{DoxyCode}
+
+
+(More documentation for {\ttfamily build.\+sh} can be found within the script itself, including examples.)
+
+Alternatively, for an interactive build process, run\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./interactive\_build.sh}
+
+\end{DoxyCode}
+
+
+{\itshape From now on, we will assume that the {\ttfamily vt-\/tv} build is in {\ttfamily \$\{VTTV\+\_\+\+BUILD\+\_\+\+DIR\}}.}\hypertarget{index_vttv_standalone_usage}{}\doxysubsubsection{2. Usage}\label{index_vttv_standalone_usage}
+{\ttfamily vt-\/tv} requires two inputs\+:
+
+
+\begin{DoxyEnumerate}
+\item One or more JSON data files
+\item A YAML configuration file (which contains the path to the JSON data files)
+\end{DoxyEnumerate}
+
+The basic call to {\ttfamily vt-\/tv} is\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\{VTTV\_BUILD\_DIR\}/apps/vt\_standalone -\/c path/to/config}
+
+\end{DoxyCode}
+
+
+{\itshape Note\+: The} {\ttfamily path/to/config} {\itshape argument should be relative to} {\ttfamily \$\{VTTV\+\_\+\+SOURCE\+\_\+\+DIR\}} \+\_\+(see example below).\+\_\+
+
+\doxyparagraph*{YAML Input}
+
+A YAML configuration exemplar can be found in {\ttfamily \$\{VTTV\+\_\+\+SOURCE\+\_\+\+DIR\}/config/conf.yaml}. To use it, run
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\{VTTV\_BUILD\_DIR\}/apps/vt\_standalone -\/c config/conf.yaml}
+
+\end{DoxyCode}
+
+
+\doxyparagraph*{JSON Data Files}
+
+Sample JSON data files are provided in {\ttfamily \$\{VTTV\+\_\+\+SOURCE\+\_\+\+DIR\}/tests/unit/lb\+\_\+test\+\_\+data}.
+
+Information regarding the JSON format can be found in vt\textquotesingle{}s \href{https://darma-tasking.github.io/docs/html/node-lb-data.html}{\texttt{ documentation}}; the JSON schema validator is located in the vt \href{https://github.com/DARMA-tasking/vt/blob/develop/scripts/JSON_data_files_validator.py}{\texttt{ repo}}.
+
+Additionally, DARMA-\/tasking\textquotesingle{}s Load Balancing Analysis Framework (LBAF) provides a Python script (\href{https://github.com/DARMA-tasking/LB-analysis-framework/blob/develop/src/lbaf/Utils/lbsJSONDataFilesMaker.py}{\texttt{ lbs\+JSONData\+Files\+Maker.\+py}}) that may be used to generate JSON data files.\hypertarget{index_vttv_python_module}{}\doxysubsection{Python Module}\label{index_vttv_python_module}
+\hypertarget{index_vttv_python_module_deps}{}\doxysubsubsection{Dependencies}\label{index_vttv_python_module_deps}
+In addition to the basic {\ttfamily vt-\/tv} dependencies listed above, you also need\+:
+
+
+\begin{DoxyEnumerate}
+\item A Python version between 3.\+8 -\/ 3.\+11
+\item \href{https://nanobind.readthedocs.io/en/latest/}{\texttt{ {\ttfamily nanobind}}}, which can be installed with\+:
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip install nanobind}
+
+\end{DoxyCode}
+\hypertarget{index_vttv_python_module_install}{}\doxysubsubsection{1. Install}\label{index_vttv_python_module_install}
+First, specify the location of your {\ttfamily VTK} build (see above) with\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export VTK\_DIR=/path/to/vtk/build}
+
+\end{DoxyCode}
+
+
+Optional\+: To specify the number of parallel jobs to use during the build, you can set the {\ttfamily VT\+\_\+\+TV\+\_\+\+CMAKE\+\_\+\+JOBS} environment variable\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export VT\_TV\_CMAKE\_JOBS=8}
+
+\end{DoxyCode}
+
+
+Then install the binded {\ttfamily vt-\/tv} Python module with\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip install \$\{VTTV\_SOURCE\_DIR\}}
+
+\end{DoxyCode}
+
+
+{\itshape Note\+: Behind the scenes, the usual {\ttfamily cmake} and {\ttfamily make} commands are run. Depending on your system, this can cause the install process to be lengthy as it will be compiling the entire {\ttfamily vt-\/tv} library.}\hypertarget{index_vttv_python_module_usage}{}\doxysubsubsection{2. Usage}\label{index_vttv_python_module_usage}
+Import the {\ttfamily vt-\/tv} module into your project using\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import vttv}
+
+\end{DoxyCode}
+
+
+The only function you need is {\ttfamily vttv.\+tv\+From\+Json}, which has the following (C++) function signature\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} tvFromJson(}
+\DoxyCodeLine{    \textcolor{keyword}{const} std::vector<std::string>\& input\_json\_per\_rank\_list,}
+\DoxyCodeLine{    \textcolor{keyword}{const} std::string\& input\_yaml\_params\_str,}
+\DoxyCodeLine{    uint64\_t num\_ranks}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+The parameters are\+:
+\begin{DoxyItemize}
+\item {\ttfamily input\+\_\+json\+\_\+per\+\_\+rank\+\_\+list}\+: A list of the input JSON data strings (one string per rank). In the C++ standalone app, this equates to the input JSON data files.
+\item {\ttfamily input\+\_\+yaml\+\_\+params\+\_\+str}\+: The visualization and output configuration data, formatted as a dictionary but exported as a string (see example below). This equates to the standalone app\textquotesingle{}s input YAML configuration file.
+\item {\ttfamily num\+\_\+ranks}\+: The number of ranks to be visualized by {\ttfamily vt-\/tv}.
+\end{DoxyItemize}
+
+As an example, here is the (emptied) code used by the \href{https://github.com/DARMA-tasking/LB-analysis-framework}{\texttt{ {\ttfamily Load Balancing Analysis Framework}}} to call {\ttfamily vt-\/tv}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import vttv}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Populate with the JSON data from each rank}
+\DoxyCodeLine{ranks\_json\_str = []}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Populate with the desired configuration parameters}
+\DoxyCodeLine{vttv\_params = \{}
+\DoxyCodeLine{    "{}x\_ranks"{}: ,}
+\DoxyCodeLine{    "{}y\_ranks"{}: ,}
+\DoxyCodeLine{    "{}z\_ranks"{}: ,}
+\DoxyCodeLine{    "{}object\_jitter"{}: ,}
+\DoxyCodeLine{    "{}rank\_qoi"{}: ,}
+\DoxyCodeLine{    "{}object\_qoi"{}: ,}
+\DoxyCodeLine{    "{}save\_meshes"{}: ,}
+\DoxyCodeLine{    "{}force\_continuous\_object\_qoi"{}: ,}
+\DoxyCodeLine{    "{}output\_visualization\_dir"{}: ,}
+\DoxyCodeLine{    "{}output\_visualization\_file\_stem"{}:}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Populate with number of ranks used in the current problem}
+\DoxyCodeLine{num\_ranks =}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Call vt-\/tv}
+\DoxyCodeLine{vttv.tvFromJson(ranks\_json\_str, str(vttv\_params), num\_ranks)}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{index_vttv_design}{}\doxysection{Design Information}\label{index_vttv_design}
+\hypertarget{index_vttv_qoi}{}\doxysubsection{1. Quantities of Interest}\label{index_vttv_qoi}
+{\ttfamily vt-\/tv} visualizes various Quantities of Interest (QOI) as requested by the user in the YAML configuration file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{visualization:}
+\DoxyCodeLine{    \# Other parameters...}
+\DoxyCodeLine{    rank\_qoi:}
+\DoxyCodeLine{    object\_qoi:}
+
+\end{DoxyCode}
+
+
+While {\ttfamily vt-\/tv} natively supports a variety of QOI, such as the {\ttfamily load}, {\ttfamily id}, or {\ttfamily volume} of ranks and objects\mbox{[}$^\wedge$1\mbox{]}, we also support user-\/defined QOI, called {\ttfamily attributes}.\hypertarget{index_vttv_rank_attributes}{}\doxysubsubsection{Rank Attributes}\label{index_vttv_rank_attributes}
+Rank {\ttfamily attributes} are defined in the {\ttfamily metadata} field of the JSON data files. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    "{}metadata"{}: \{}
+\DoxyCodeLine{        "{}rank"{}: 0,}
+\DoxyCodeLine{        "{}attributes"{}: \{}
+\DoxyCodeLine{            "{}max\_memory\_usage"{}: 8.0e+9}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ In this example, the user defines {\ttfamily max\+\_\+memory\+\_\+usage} as a rank attribute. This can then be specified as a {\ttfamily rank\+\_\+qoi} in the YAML configuration file.\hypertarget{index_vttv_obj_attributes}{}\doxysubsubsection{Object Attributes}\label{index_vttv_obj_attributes}
+Object {\ttfamily attributes} are defined in the {\ttfamily tasks} field of the JSON data files. For example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    "{}phases"{}: [}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            "{}id"{}: 0,}
+\DoxyCodeLine{            "{}tasks"{}: [}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    "{}entity"{}: \{}
+\DoxyCodeLine{                        "{}home"{}: 0,}
+\DoxyCodeLine{                        "{}id"{}: 0,}
+\DoxyCodeLine{                        "{}migratable"{}: true,}
+\DoxyCodeLine{                        "{}type"{}: "{}object"{}}
+\DoxyCodeLine{                    \},}
+\DoxyCodeLine{                    "{}node"{}: 0,}
+\DoxyCodeLine{                    "{}resource"{}: "{}cpu"{},}
+\DoxyCodeLine{                    "{}time"{}: 2.0,}
+\DoxyCodeLine{                    "{}attributes"{}: \{}
+\DoxyCodeLine{                        "{}shared\_bytes"{}: 10000.0,}
+\DoxyCodeLine{                        "{}shared\_id"{}: 0}
+\DoxyCodeLine{                    \}}
+\DoxyCodeLine{                \},}
+\DoxyCodeLine{            ]}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+In this case, the user has defined {\ttfamily shared\+\_\+bytes} and {\ttfamily shared\+\_\+id} as potential QOI.
+
+In the YAML configuration file passed to {\ttfamily vt-\/tv}, they may specify either of these as their {\ttfamily object\+\_\+qoi}.\hypertarget{index_vttv_structure}{}\doxysubsection{2. General Structure}\label{index_vttv_structure}
+{\ttfamily vt-\/tv} is designed according to the following hierarchy\+:
+
+
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{dot_inline_dotgraph_1}}
+\end{DoxyImageNoCaption}
+
+
+{\itshape Further information on each class, including methods and member variables, can be found in the documentation.}
+
+\doxyparagraph*{Navigating the Hierarchy}
+
+Users should interact mainly with the overarching {\ttfamily Info} class, which contains functions that drill down the hierarchy to get the desired information.
+
+For example, an instance of {\ttfamily Info} holds getters to all object and rank QOI (including user\+\_\+defined attributes)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} rank\_qoi = info.getRankQOIAtPhase(rank\_id, phase\_id, qoi\_string);}
+\DoxyCodeLine{\textcolor{keyword}{auto} obj\_qoi = info.getObjectQOIAtPhase(obj\_id, phase\_id, qoi\_string);}
+
+\end{DoxyCode}
+ where the {\ttfamily qoi\+\_\+string} is the name of the desired QOI, like \char`\"{}load\char`\"{} or \char`\"{}id\char`\"{}. This string can also be a user-\/defined attribute, as described above.
+
+\doxyparagraph*{Object\+Info vs. Object\+Work}
+
+There are two classes that hold object data\+: {\ttfamily Object\+Info} and {\ttfamily Object\+Work}.
+
+{\ttfamily Object\+Info} holds information about a given object across all ranks and phases. This includes\+:
+\begin{DoxyItemize}
+\item the ID
+\item the home rank (where the object originated)
+\item whether the object is migratable or sentinel (stays on the same rank)
+\end{DoxyItemize}
+
+{\ttfamily Object\+Work} holds information about an object that may vary as it changes rank or phase, such as\+:
+\begin{DoxyItemize}
+\item the attributes
+\item the communications
+\end{DoxyItemize}
+
+{\itshape Tip\+: As discussed above, users should utilize the getters present in {\ttfamily Info} rather than directly calling these classes.}
+
+\DoxyHorRuler{0}
+\hypertarget{index_License}{}\doxysection{License}\label{index_License}
+@m\+\_\+class\{m-\/note m-\/dim\}
+
+Copyright 2021-\/2024 National Technology \& Engineering Solutions of Sandia, LLC (NTESS). Under the terms of Contract DE-\/\+NA0003525 with NTESS, the U.\+S. Government retains certain rights in this software.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyItemize}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyItemize}
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \char`\"{}\+AS IS\char`\"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
