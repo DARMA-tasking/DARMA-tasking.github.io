@@ -1,42 +1,83 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="ckpt_learn_serialize" kind="page">
     <compoundname>ckpt_learn_serialize</compoundname>
     <title>How to Serialize Data</title>
+    <briefdescription>
+    </briefdescription>
     <detaileddescription>
-<para><emphasis>Serialization</emphasis> is the process of recursively traversing C++ objects into a simple format that can be stored or transmitted and reconstructed later. <emphasis>checkpoint</emphasis> translates the object into a set of contiguous bits and provides the steps to reverse the process, i.e. to reconstitute the object from the set of bits.</para><para>The extraction of the data from a set of bytes is called <emphasis>deserialization</emphasis>.</para><sect1 id="ckpt_learn_serialize_1serialize_builtin">
+<para><emphasis>Serialization</emphasis> is the process of recursively traversing C++ objects into a simple format that can be stored or transmitted and reconstructed later. <emphasis>checkpoint</emphasis> translates the object into a set of contiguous bits and provides the steps to reverse the process, i.e. to reconstitute the object from the set of bits.</para>
+<para>The extraction of the data from a set of bytes is called <emphasis>deserialization</emphasis>.</para>
+<sect1 id="ckpt_learn_serialize_1serialize_builtin">
 <title>Serialization of built-in types</title>
-<para>This action is straightforward with the <computeroutput>|</computeroutput> operator.</para><para>When the variable <computeroutput>a</computeroutput> has a built-in type and it needs to be serialized into the serializer object <computeroutput>s</computeroutput>, we simply write</para><para><programlisting><codeline><highlight class="normal">s<sp/>|<sp/>a;</highlight></codeline>
-</programlisting></para></sect1>
+<para>This action is straightforward with the <computeroutput>|</computeroutput> operator.</para>
+<para>When the variable <computeroutput>a</computeroutput> has a built-in type and it needs to be serialized into the serializer object <computeroutput>s</computeroutput>, we simply write</para>
+<para><programlisting filename=".cpp"><codeline><highlight class="normal">s<sp/>|<sp/>a;</highlight></codeline>
+</programlisting></para>
+</sect1>
 <sect1 id="ckpt_learn_serialize_1serialize_stl">
 <title>Serialization of C++ standard library</title>
 <para>The <computeroutput>|</computeroutput> operator has been overloaded for many of the C++ STL data structures:<itemizedlist>
-<listitem><para><computeroutput>std::array</computeroutput></para></listitem><listitem><para><computeroutput>std::deque</computeroutput></para></listitem><listitem><para><computeroutput>std::list</computeroutput></para></listitem><listitem><para><computeroutput>std::map</computeroutput></para></listitem><listitem><para><computeroutput>std::multimap</computeroutput></para></listitem><listitem><para><computeroutput>std::multiset</computeroutput></para></listitem><listitem><para><computeroutput>std::queue</computeroutput></para></listitem><listitem><para><computeroutput>std::set</computeroutput></para></listitem><listitem><para><computeroutput>std::string</computeroutput></para></listitem><listitem><para><computeroutput>std::unordered_map</computeroutput></para></listitem><listitem><para><computeroutput>std::unordered_multimap</computeroutput></para></listitem><listitem><para><computeroutput>std::unordered_multiset</computeroutput></para></listitem><listitem><para><computeroutput>std::unordered_set</computeroutput></para></listitem><listitem><para><computeroutput>std::vector</computeroutput></para></listitem><listitem><para><computeroutput>std::tuple</computeroutput></para></listitem><listitem><para><computeroutput>std::pair</computeroutput></para></listitem><listitem><para><computeroutput>std::unique_ptr</computeroutput></para></listitem></itemizedlist>
-</para><para>When the variable <computeroutput>c</computeroutput> is such an STL object, whose template parameter(s) can be directly serialized into a serializer object <computeroutput>s</computeroutput>, we write</para><para><programlisting><codeline><highlight class="normal">s<sp/>|<sp/>c;</highlight></codeline>
-</programlisting></para></sect1>
+<listitem><para><computeroutput>std::array</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::deque</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::list</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::map</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::multimap</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::multiset</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::queue</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::set</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::string</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::unordered_map</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::unordered_multimap</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::unordered_multiset</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::unordered_set</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::vector</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::tuple</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::pair</computeroutput></para>
+</listitem><listitem><para><computeroutput>std::unique_ptr</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>When the variable <computeroutput>c</computeroutput> is such an STL object, whose template parameter(s) can be directly serialized into a serializer object <computeroutput>s</computeroutput>, we write</para>
+<para><programlisting filename=".cpp"><codeline><highlight class="normal">s<sp/>|<sp/>c;</highlight></codeline>
+</programlisting></para>
+</sect1>
 <sect1 id="ckpt_learn_serialize_1serialize_class">
 <title>Serialization of classes</title>
-<para>When a class (or structure) has to be serialized, the user must provide a reconstruction method for the class and a serialization method or free function to actually perform the serialization.</para><sect2 id="ckpt_learn_serialize_1reconstruct_class">
+<para>When a class (or structure) has to be serialized, the user must provide a reconstruction method for the class and a serialization method or free function to actually perform the serialization.</para>
+<sect2 id="ckpt_learn_serialize_1reconstruct_class">
 <title>Class reconstruction</title>
 <para>There are several ways to allow <emphasis>checkpoint</emphasis> to reconstruct a class. <emphasis>checkpoint</emphasis> will try to detect a reconstruction strategy in the following resolution order:<orderedlist>
-<listitem><para>Tagged constructor: <computeroutput>MyClass(checkpoint::SERIALIZE_CONSTRUCT_TAG) {}</computeroutput></para></listitem></orderedlist>
+<listitem><para>Tagged constructor: <computeroutput>MyClass(checkpoint::SERIALIZE_CONSTRUCT_TAG) {}</computeroutput></para>
+</listitem></orderedlist>
 <orderedlist>
-<listitem><para>Reconstruction <computeroutput>MyClass::reconstruct(buf)</computeroutput> or <computeroutput>reconstruct(MyClass, buf)</computeroutput></para></listitem></orderedlist>
+<listitem><para>Reconstruction <computeroutput>MyClass::reconstruct(buf)</computeroutput> or <computeroutput>reconstruct(MyClass, buf)</computeroutput></para>
+</listitem></orderedlist>
 <orderedlist>
-<listitem><para>Default constructor: <computeroutput>MyClass()</computeroutput></para></listitem></orderedlist>
-</para><para>If no reconstruct strategy is detected with type traits, <emphasis>checkpoint</emphasis> will fail at compile-time with a static assertion indicating that <emphasis>checkpoint</emphasis> can&apos;t reconstruct the class.</para><para>The example in <ref refid="ckpt_learn_ex1" kindref="compound">Program Example 1</ref> illustrates the reconstruct method.</para></sect2>
+<listitem><para>Default constructor: <computeroutput>MyClass()</computeroutput></para>
+</listitem></orderedlist>
+</para>
+<para>If no reconstruct strategy is detected with type traits, <emphasis>checkpoint</emphasis> will fail at compile-time with a static assertion indicating that <emphasis>checkpoint</emphasis> can&apos;t reconstruct the class.</para>
+<para>The example in <ref refid="ckpt_learn_ex1" kindref="compound">Program Example 1</ref> illustrates the reconstruct method.</para>
+</sect2>
 <sect2 id="ckpt_learn_serialize_1serialize_class">
 <title>Serialization of classes</title>
-<para>Users may provide a serializer for a class in one of two forms: a <computeroutput>serialize</computeroutput> method on the class (intrusive) or a free function <computeroutput>serialize</computeroutput> that takes a reference to the class as an argument (non-intrusive). Note that if a free-function serialization strategy is employed, one may be required to friend the serialize function so it can access private/protected data inside the class, depending on what data members the function needs to access for correct serialization of the class state.</para></sect2>
+<para>Users may provide a serializer for a class in one of two forms: a <computeroutput>serialize</computeroutput> method on the class (intrusive) or a free function <computeroutput>serialize</computeroutput> that takes a reference to the class as an argument (non-intrusive). Note that if a free-function serialization strategy is employed, one may be required to friend the serialize function so it can access private/protected data inside the class, depending on what data members the function needs to access for correct serialization of the class state.</para>
+</sect2>
 </sect1>
 <sect1 id="ckpt_learn_serialize_1serialize_polymorphic">
 <title>Serialization of polymorphic classes</title>
-<para>To serialize polymorphic class hierarchies, one must write serializers for each class in the hierarchy. Then, the user should either insert macros <computeroutput><ref refid="lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h_1aa6062a11e9781a28fe043f10338238df" kindref="member">checkpoint_virtual_serialize_root()</ref></computeroutput> and <computeroutput><ref refid="derived_8h_1acc015406441054fae32d63af2b86ca0d" kindref="member">checkpoint_virtual_serialize_derived_from(T)</ref></computeroutput> to inform <emphasis>checkpoint</emphasis> of the hierarchy so it can automatically traverse the hierarchy. Alternatively, the user may use the inheritance wrappers <computeroutput><ref refid="namespacecheckpoint_1ae8adefa66d7575697f8e465bed48e3cc" kindref="member">checkpoint::SerializableBase</ref>&lt;T&gt;</computeroutput> and <computeroutput><ref refid="namespacecheckpoint_1a9c4afb2c8d1bc1f58b9e158d64331d65" kindref="member">checkpoint::SerializableDerived</ref>&lt;T, U&gt;</computeroutput> to achieve the same effect.</para><para>The example in <ref refid="ckpt_learn_ex6_polymorphic_macro" kindref="compound">Polymorphic Serialization Example w/Macros</ref> illustrates the approach uses the macros. The example in ckpt_learn_example_polymorphic illustrates this approach.</para><sect2 id="ckpt_learn_serialize_1serialize_polymorphic_step">
+<para>To serialize polymorphic class hierarchies, one must write serializers for each class in the hierarchy. Then, the user should either insert macros <computeroutput><ref refid="lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h_1aa6062a11e9781a28fe043f10338238df" kindref="member">checkpoint_virtual_serialize_root()</ref></computeroutput> and <computeroutput><ref refid="derived_8h_1acc015406441054fae32d63af2b86ca0d" kindref="member">checkpoint_virtual_serialize_derived_from(T)</ref></computeroutput> to inform <emphasis>checkpoint</emphasis> of the hierarchy so it can automatically traverse the hierarchy. Alternatively, the user may use the inheritance wrappers <computeroutput><ref refid="namespacecheckpoint_1ae8adefa66d7575697f8e465bed48e3cc" kindref="member">checkpoint::SerializableBase</ref>&lt;T&gt;</computeroutput> and <computeroutput><ref refid="namespacecheckpoint_1a9c4afb2c8d1bc1f58b9e158d64331d65" kindref="member">checkpoint::SerializableDerived</ref>&lt;T, U&gt;</computeroutput> to achieve the same effect.</para>
+<para>The example in <ref refid="ckpt_learn_ex6_polymorphic_macro" kindref="compound">Polymorphic Serialization Example w/Macros</ref> illustrates the approach uses the macros. The example in ckpt_learn_example_polymorphic illustrates this approach.</para>
+<sect2 id="ckpt_learn_serialize_1serialize_polymorphic_step">
 <title>Allocation and reconstruction</title>
 <para><itemizedlist>
-<listitem><para>If one has a <computeroutput>std::unique_ptr&lt;T&gt; x</computeroutput>, where <computeroutput>T</computeroutput> is polymorphic serializable <computeroutput>s | x</computeroutput> will correctly serialize and reconstruct <computeroutput>x</computeroutput> based on the concrete type.</para></listitem><listitem><para>If one has a raw pointer, <computeroutput>Teuchos::RCP&lt;T&gt;</computeroutput>, or <computeroutput>std::shared_ptr&lt;T&gt;</computeroutput>, <computeroutput>checkpoint::allocateConstructForPointer&lt;SerializerT,T&gt;(s, ptr)</computeroutput> can be invoked to properly allocate and construct the concrete class depending on runtime type. </para></listitem></itemizedlist>
-</para></sect2>
+<listitem><para>If one has a <computeroutput>std::unique_ptr&lt;T&gt; x</computeroutput>, where <computeroutput>T</computeroutput> is polymorphic serializable <computeroutput>s | x</computeroutput> will correctly serialize and reconstruct <computeroutput>x</computeroutput> based on the concrete type.</para>
+</listitem><listitem><para>If one has a raw pointer, <computeroutput>Teuchos::RCP&lt;T&gt;</computeroutput>, or <computeroutput>std::shared_ptr&lt;T&gt;</computeroutput>, <computeroutput>checkpoint::allocateConstructForPointer&lt;SerializerT,T&gt;(s, ptr)</computeroutput> can be invoked to properly allocate and construct the concrete class depending on runtime type. </para>
+</listitem></itemizedlist>
+</para>
+</sect2>
 </sect1>
     </detaileddescription>
+    <location file="lib/checkpoint/docs/shared/checkpoint_learn_serialize.md"/>
   </compounddef>
 </doxygen>

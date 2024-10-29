@@ -1,141 +1,141 @@
 The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+polymorphic\+\_\+macro.\+cc}
 
 
-\begin{DoxyCodeInclude}
-
-\textcolor{preprocessor}{#include <\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}>}
-\textcolor{preprocessor}{#include "\hyperlink{dispatch__virtual_8h}{checkpoint/dispatch/dispatch\_virtual.h}"}
-
-\textcolor{keyword}{namespace }\hyperlink{namespacecheckpoint}{checkpoint} \{ \textcolor{keyword}{namespace }intrusive \{ \textcolor{keyword}{namespace }examples \{
-
-\textcolor{comment}{// \(\backslash\)struct Abstract base class}
-\textcolor{keyword}{struct }MyBase \{
-
-  MyBase() \{ printf(\textcolor{stringliteral}{"MyBase cons\(\backslash\)n"}); \}
-  \textcolor{keyword}{explicit} MyBase(::\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}) \{ printf(\textcolor{stringliteral}{"
-      MyBase recons\(\backslash\)n"}); \}
-
-  \textcolor{keyword}{virtual} ~MyBase() = \textcolor{keywordflow}{default};
-
-  \textcolor{comment}{// Add serializing macro}
-  \hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h_aa6062a11e9781a28fe043f10338238df}{checkpoint\_virtual\_serialize\_root}()
-
-  int val\_ = 0;
-
-  template <typename S>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(S& s) \{
-    s | val\_;
-    printf(\textcolor{stringliteral}{"MyBase: serialize val %d\(\backslash\)n"}, val\_);
-  \}
-
-  \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} test() = 0;
-\};
-
-\textcolor{keyword}{struct }MyObj : \textcolor{keyword}{public} MyBase \{
-
-  \textcolor{keyword}{explicit} MyObj(\textcolor{keywordtype}{int} val) : MyBase() \{ printf(\textcolor{stringliteral}{"MyObj cons\(\backslash\)n"}); val\_ = val;\}
-  \textcolor{keyword}{explicit} MyObj(::\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}) \{\}
-
-  \textcolor{comment}{// Add macro for serialization}
-  \hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}(MyBase)
-
-  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT&) \{
-    printf(\textcolor{stringliteral}{"MyObj: serialize\(\backslash\)n"});
-  \}
-
-  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{
-    printf(\textcolor{stringliteral}{"test MyObj 10 == %d ?\(\backslash\)n"}, val\_);
-    assert(val\_ == 10);
-  \}
-\};
-
-\textcolor{keyword}{struct }MyObj2 : \textcolor{keyword}{public} MyBase \{
-  \textcolor{keyword}{explicit} MyObj2(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj2 cons\(\backslash\)n"}); val\_=val; \}
-  \textcolor{keyword}{explicit} MyObj2(::\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}) \{\}
-
-  \textcolor{comment}{// Add macro for serialization}
-  \hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}(MyBase)
-
-  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT&) \{
-    printf(\textcolor{stringliteral}{"MyObj2: serialize\(\backslash\)n"});
-  \}
-  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{
-    printf(\textcolor{stringliteral}{"test MyObj2 20 == %d ?\(\backslash\)n"}, val\_);
-    assert(val\_ == 20);
-  \}
-\};
-
-\textcolor{keyword}{struct }MyObj3 : \textcolor{keyword}{public} MyBase \{
-
-  \textcolor{keywordtype}{int} a=0, b=0, c=0;
-
-  \textcolor{keyword}{explicit} MyObj3(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"MyObj3 cons\(\backslash\)n"}); a= 10; b=20; c=100; val\_=val;\}
-  \textcolor{keyword}{explicit} MyObj3(::\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}) \{\}
-
-  \textcolor{comment}{// Add macro for serialization}
-  \hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}(MyBase)
-
-  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT& s) \{
-    s|a|b|c;
-    printf(\textcolor{stringliteral}{"MyObj3: serialize a b c %d %d %d\(\backslash\)n"}, a, b, c);
-  \}
-  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{
-    printf(\textcolor{stringliteral}{"val\_ 30  a 10 b 20 c 100 = %d %d %d %d\(\backslash\)n"}, val\_, a, b, c);
-    assert(val\_ == 30);
-    assert(a==10);
-    assert(b==20);
-    assert(c==100);
-  \}
-\};
-
-\textcolor{comment}{/*}
-\textcolor{comment}{ * Example vector that holds a vector of unique\_ptr to MyBase}
-\textcolor{comment}{ */}
-
-\textcolor{keyword}{struct }ExampleVector \{
-
-  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(SerializerT& s) \{
-    s | vec;
-  \}
-
-  std::vector<std::unique\_ptr<MyBase>> vec;
-\};
-
-\textcolor{keywordtype}{void} test() \{
-
-  ExampleVector v;
-  v.vec.push\_back(std::make\_unique<MyObj3>(30));
-  v.vec.push\_back(std::make\_unique<MyObj2>(20));
-  v.vec.push\_back(std::make\_unique<MyObj>(10));
-
-  \textcolor{keyword}{auto} ret = \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{magistrate::serialize}(v);
-
-  \{
-    \textcolor{comment}{// Display information about serialization result}
-    \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf = ret->getBuffer();
-    \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf\_size = ret->getSize();
-    printf(\textcolor{stringliteral}{"ptr=%p, size=%ld\(\backslash\)n*****\(\backslash\)n\(\backslash\)n"}, static\_cast<void*>(buf), buf\_size);
-  \}
-
-  \textcolor{keyword}{auto} t = magistrate::deserialize<ExampleVector>(ret->getBuffer());
-
-  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}&& elm : t->vec) \{
-    elm->test();
-  \}
-\}
-
-\}\}\} \textcolor{comment}{// end namespace checkpoint::intrusive::examples}
-
-\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{
-  \textcolor{keyword}{using namespace }magistrate::intrusive::examples;
-
-  test();
-
-  \textcolor{keywordflow}{return} 0;
-\}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}}>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{dispatch__virtual_8h}{checkpoint/dispatch/dispatch\_virtual.h}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }\mbox{\hyperlink{namespacecheckpoint}{checkpoint}} \{ \textcolor{keyword}{namespace }intrusive \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct Abstract base class}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  MyBase() \{ printf(\textcolor{stringliteral}{"{}MyBase cons\(\backslash\)n"{}}); \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyBase(::\mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}}) \{ printf(\textcolor{stringliteral}{"{}MyBase recons\(\backslash\)n"{}}); \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \string~MyBase() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add serializing macro}}
+\DoxyCodeLine{  \mbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2vrt_2base_8h_aa6062a11e9781a28fe043f10338238df}{checkpoint\_virtual\_serialize\_root}}()}
+\DoxyCodeLine{}
+\DoxyCodeLine{  int val\_ = 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  template <typename S>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(S\& s) \{}
+\DoxyCodeLine{    s | val\_;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyBase: serialize val \%d\(\backslash\)n"{}}, val\_);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} test() = 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(\textcolor{keywordtype}{int} val) : MyBase() \{ printf(\textcolor{stringliteral}{"{}MyObj cons\(\backslash\)n"{}}); val\_ = val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj(::\mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}}) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  \mbox{\hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}}(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(SerializerT\&) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyObj: serialize\(\backslash\)n"{}});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}test MyObj 10 == \%d ?\(\backslash\)n"{}}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 10);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj2 : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"{}MyObj2 cons\(\backslash\)n"{}}); val\_=val; \}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj2(::\mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}}) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  \mbox{\hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}}(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(SerializerT\&) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyObj2: serialize\(\backslash\)n"{}});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}test MyObj2 20 == \%d ?\(\backslash\)n"{}}, val\_);}
+\DoxyCodeLine{    assert(val\_ == 20);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyObj3 : \textcolor{keyword}{public} MyBase \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a=0, b=0, c=0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(\textcolor{keywordtype}{int} val) \{ printf(\textcolor{stringliteral}{"{}MyObj3 cons\(\backslash\)n"{}}); a= 10; b=20; c=100; val\_=val;\}}
+\DoxyCodeLine{  \textcolor{keyword}{explicit} MyObj3(::\mbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{magistrate::SERIALIZE\_CONSTRUCT\_TAG}}) \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Add macro for serialization}}
+\DoxyCodeLine{  \mbox{\hyperlink{derived_8h_acc015406441054fae32d63af2b86ca0d}{checkpoint\_virtual\_serialize\_derived\_from}}(MyBase)}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(SerializerT\& s) \{}
+\DoxyCodeLine{    s|a|b|c;}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyObj3: serialize a b c \%d \%d \%d\(\backslash\)n"{}}, a, b, c);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} test()\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}val\_ 30  a 10 b 20 c 100 = \%d \%d \%d \%d\(\backslash\)n"{}}, val\_, a, b, c);}
+\DoxyCodeLine{    assert(val\_ == 30);}
+\DoxyCodeLine{    assert(a==10);}
+\DoxyCodeLine{    assert(b==20);}
+\DoxyCodeLine{    assert(c==100);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{ * Example vector that holds a vector of unique\_ptr to MyBase}}
+\DoxyCodeLine{\textcolor{comment}{ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }ExampleVector \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} SerializerT>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(SerializerT\& s) \{}
+\DoxyCodeLine{    s | vec;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  std::vector<std::unique\_ptr<MyBase>> vec;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void} test() \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  ExampleVector v;}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj3>(30));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj2>(20));}
+\DoxyCodeLine{  v.vec.push\_back(std::make\_unique<MyObj>(10));}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{magistrate::serialize}}(v);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    \textcolor{comment}{// Display information about serialization result}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}ptr=\%p, size=\%ld\(\backslash\)n*****\(\backslash\)n\(\backslash\)n"{}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = magistrate::deserialize<ExampleVector>(ret-\/>getBuffer());}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\&\& elm : t-\/>vec) \{}
+\DoxyCodeLine{    elm-\/>test();}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\}\} \textcolor{comment}{// end namespace checkpoint::intrusive::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }magistrate::intrusive::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  test();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
 
 \end{DoxyCodeInclude}

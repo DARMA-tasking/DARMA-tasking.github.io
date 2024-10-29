@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="introduction" kind="page">
     <compoundname>introduction</compoundname>
     <title>Introduction</title>
@@ -26,73 +26,219 @@
     <innerpage refid="time-trigger">Time Triggers</innerpage>
     <innerpage refid="trace">Tracing</innerpage>
     <innerpage refid="lb-data-reader">LB Restart Reader</innerpage>
+    <tableofcontents>
+      <tocsect>
+        <name>What is vt?</name>
+        <reference>introduction_1what-is</reference>
+    </tocsect>
+      <tocsect>
+        <name>Features in vt</name>
+        <reference>introduction_1vt-features</reference>
+    </tocsect>
+      <tocsect>
+        <name>Components in vt</name>
+        <reference>introduction_1vt-components</reference>
+    </tocsect>
+      <tocsect>
+        <name>How to build</name>
+        <reference>introduction_1how-to-build-intro</reference>
+    </tocsect>
+      <tocsect>
+        <name>Hello World Example</name>
+        <reference>introduction_1vt-hello-world</reference>
+    </tocsect>
+      <tocsect>
+        <name>License</name>
+        <reference>introduction_1License</reference>
+    </tocsect>
+    </tableofcontents>
+    <briefdescription>
+<para>Overview of functionality in <bold><emphasis>vt</emphasis></bold> </para>
+    </briefdescription>
     <detaileddescription>
-<para>Overview of functionality in <bold><emphasis>vt</emphasis></bold></para><sect1 id="introduction_1what-is">
+<para>Overview of functionality in <bold><emphasis>vt</emphasis></bold></para>
+<sect1 id="introduction_1what-is">
 <title>What is vt?</title>
-<para><bold><emphasis>vt</emphasis></bold> is an active messaging layer that utilizes C++ object virtualization to manage virtual endpoints with automatic location management. <bold><emphasis>vt</emphasis></bold> is directly built on top of MPI to provide efficient portability across different machine architectures. Empowered with virtualization, <bold><emphasis>vt</emphasis></bold> can automatically perform dynamic load balancing to schedule scientific applications across diverse platforms with minimal user input.</para><para><bold><emphasis>vt</emphasis></bold> abstracts the concept of a <computeroutput>node</computeroutput>/<computeroutput>rank</computeroutput>/<computeroutput>worker</computeroutput>/<computeroutput>thread</computeroutput> so a program can be written in terms of virtual entities that are location independent. Thus, they can be automatically migrated and thereby executed on varying hardware resources without explicit programmer mapping, location, and communication management.</para></sect1>
+<para><bold><emphasis>vt</emphasis></bold> is an active messaging layer that utilizes C++ object virtualization to manage virtual endpoints with automatic location management. <bold><emphasis>vt</emphasis></bold> is directly built on top of MPI to provide efficient portability across different machine architectures. Empowered with virtualization, <bold><emphasis>vt</emphasis></bold> can automatically perform dynamic load balancing to schedule scientific applications across diverse platforms with minimal user input.</para>
+<para><bold><emphasis>vt</emphasis></bold> abstracts the concept of a <computeroutput>node</computeroutput>/<computeroutput>rank</computeroutput>/<computeroutput>worker</computeroutput>/<computeroutput>thread</computeroutput> so a program can be written in terms of virtual entities that are location independent. Thus, they can be automatically migrated and thereby executed on varying hardware resources without explicit programmer mapping, location, and communication management.</para>
+</sect1>
 <sect1 id="introduction_1vt-features">
 <title>Features in vt</title>
 <para><itemizedlist>
-<listitem><para>Active messaging to type-safe handlers across nodes</para></listitem><listitem><para>Groups for scalable construction of node subsets</para></listitem><listitem><para>Optional serialization of messages</para></listitem><listitem><para>Termination detection across all work or subsets of work with <emphasis>epochs</emphasis> </para></listitem><listitem><para>Opaque callbacks/pipes to generalized endpoints</para></listitem><listitem><para>Efficient memory pooling for message allocation</para></listitem><listitem><para>RDMA using MPI one-sided for data transfer</para></listitem><listitem><para>Asynchronous Collectives across nodes/groups (scatter, async barrier, reduce, ...)</para></listitem><listitem><para>General scheduler with prioritization</para></listitem><listitem><para>Built-in interoperability with MPI and threading libraries (e.g. Kokkos, fcontext)</para></listitem><listitem><para>Object groups for node-level encapsulation</para></listitem><listitem><para>Virtual contexts for migratable virtualization and dispatch</para></listitem><listitem><para>Abstractions for multi-dimensional indices, mapping, and linearization</para></listitem><listitem><para>Virtual collections (dense, sparse, dynamic insertable) for decomposing domains</para></listitem><listitem><para>Fully distributed load balancer for virtual entities</para></listitem></itemizedlist>
-</para></sect1>
+<listitem><para>Active messaging to type-safe handlers across nodes</para>
+</listitem><listitem><para>Groups for scalable construction of node subsets</para>
+</listitem><listitem><para>Optional serialization of messages</para>
+</listitem><listitem><para>Termination detection across all work or subsets of work with <emphasis>epochs</emphasis> </para>
+</listitem><listitem><para>Opaque callbacks/pipes to generalized endpoints</para>
+</listitem><listitem><para>Efficient memory pooling for message allocation</para>
+</listitem><listitem><para>RDMA using MPI one-sided for data transfer</para>
+</listitem><listitem><para>Asynchronous Collectives across nodes/groups (scatter, async barrier, reduce, ...)</para>
+</listitem><listitem><para>General scheduler with prioritization</para>
+</listitem><listitem><para>Built-in interoperability with MPI and threading libraries (e.g. Kokkos, fcontext)</para>
+</listitem><listitem><para>Object groups for node-level encapsulation</para>
+</listitem><listitem><para>Virtual contexts for migratable virtualization and dispatch</para>
+</listitem><listitem><para>Abstractions for multi-dimensional indices, mapping, and linearization</para>
+</listitem><listitem><para>Virtual collections (dense, sparse, dynamic insertable) for decomposing domains</para>
+</listitem><listitem><para>Fully distributed load balancer for virtual entities</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
 <sect1 id="introduction_1vt-components">
 <title>Components in vt</title>
 <para><table rows="24" cols="4"><row>
-<entry thead="yes"><para>Component </para></entry><entry thead="yes"><para>Singleton </para></entry><entry thead="yes"><para>Details </para></entry><entry thead="yes"><para>Type  </para></entry></row>
+<entry thead="yes"><para>Component   </para>
+</entry><entry thead="yes"><para>Singleton   </para>
+</entry><entry thead="yes"><para>Details   </para>
+</entry><entry thead="yes"><para>Type    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="context" kindref="compound">Context</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext()</ref></computeroutput> </para></entry><entry thead="no"><para>Node-aware context. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="context" kindref="compound">Context</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a26551fe0e6e6a1371111df5b12c7e92c" kindref="member">vt::theContext()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Node-aware context.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="active-messenger" kindref="compound">Active Messenger</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg()</ref></computeroutput> </para></entry><entry thead="no"><para>Asynchronous send/receive of messages. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="active-messenger" kindref="compound">Active Messenger</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aeafd31f866aeb4dc6fc2f6ee97136350" kindref="member">vt::theMsg()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Asynchronous send/receive of messages.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="collection" kindref="compound">Virtual Context Collection</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection()</ref></computeroutput> </para></entry><entry thead="no"><para>Collection of tasks. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="collection" kindref="compound">Virtual Context Collection</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a1c45ce63bfd2c327ff7d76a319a371d8" kindref="member">vt::theCollection()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Collection of tasks.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="collective" kindref="compound">Collectives</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">vt::theCollective()</ref></computeroutput> </para></entry><entry thead="no"><para>Collective operations. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="collective" kindref="compound">Collectives</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aa8e0c0ab253e7ad1acd5d09e36fea769" kindref="member">vt::theCollective()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Collective operations.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="event" kindref="compound">Event Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aa297fcaadc8a330890eb90c5b0081ec5" kindref="member">vt::theEvent()</ref></computeroutput> </para></entry><entry thead="no"><para>Manage asynchronous events. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="event" kindref="compound">Event Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aa297fcaadc8a330890eb90c5b0081ec5" kindref="member">vt::theEvent()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Manage asynchronous events.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="group" kindref="compound">Group Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup()</ref></computeroutput> </para></entry><entry thead="no"><para>Create a grouping of nodes. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="group" kindref="compound">Group Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a4548473dce44fb654400009e2b2fe64e" kindref="member">vt::theGroup()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Create a grouping of nodes.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="lb-manager" kindref="compound">LB Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a05187076eac8c66c9951b062b0955520" kindref="member">vt::theLBManager()</ref></computeroutput> </para></entry><entry thead="no"><para>Manage load balancers. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="lb-manager" kindref="compound">LB Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a05187076eac8c66c9951b062b0955520" kindref="member">vt::theLBManager()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Manage load balancers.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="location" kindref="compound">Location Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1ace1c9d64e09732e3b7414d02517ecfdb" kindref="member">vt::theLocMan()</ref></computeroutput> </para></entry><entry thead="no"><para>Virtual entity location management. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="location" kindref="compound">Location Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1ace1c9d64e09732e3b7414d02517ecfdb" kindref="member">vt::theLocMan()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Virtual entity location management.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="mem-usage" kindref="compound">Memory Usage Tracker</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a38d485d3cf840b9a623e47e7754ef72e" kindref="member">vt::theMemUsage()</ref></computeroutput> </para></entry><entry thead="no"><para>Track memory usage. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="mem-usage" kindref="compound">Memory Usage Tracker</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a38d485d3cf840b9a623e47e7754ef72e" kindref="member">vt::theMemUsage()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Track memory usage.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="objgroup" kindref="compound">Object Group Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup()</ref></computeroutput> </para></entry><entry thead="no"><para>Create object instances across nodes. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="objgroup" kindref="compound">Object Group Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a833f0115b692f578167cbd88e30d39c5" kindref="member">vt::theObjGroup()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Create object instances across nodes.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="pipe" kindref="compound">Pipe Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB()</ref></computeroutput> </para></entry><entry thead="no"><para>Create opaque callback endpoints. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="pipe" kindref="compound">Pipe Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a673b109e94c7bca58313504c83e1da94" kindref="member">vt::theCB()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Create opaque callback endpoints.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="node-lb-data" kindref="compound">Node LB Data</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">vt::theNodeLBData()</ref></computeroutput> </para></entry><entry thead="no"><para>Manager object profiling data. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="node-lb-data" kindref="compound">Node LB Data</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">vt::theNodeLBData()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Manager object profiling data.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="phase" kindref="compound">Phase Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a3799d6b51fb71d7b6505760aad457e61" kindref="member">vt::thePhase()</ref></computeroutput> </para></entry><entry thead="no"><para>Manage phases of time. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="phase" kindref="compound">Phase Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a3799d6b51fb71d7b6505760aad457e61" kindref="member">vt::thePhase()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Manage phases of time.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="pool" kindref="compound">Memory Pool</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aab3530d89a64e5ea903b0ccf303ecbb7" kindref="member">vt::thePool()</ref></computeroutput> </para></entry><entry thead="no"><para>Memory pool for efficient allocation. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="pool" kindref="compound">Memory Pool</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aab3530d89a64e5ea903b0ccf303ecbb7" kindref="member">vt::thePool()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Memory pool for efficient allocation.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="rdma" kindref="compound">RDMA Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a68b8410bc2b86d3b5228d7dbb6b40bac" kindref="member">vt::theRDMA()</ref></computeroutput> </para></entry><entry thead="no"><para>Node-level RDMA. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-danger" /> <bold>Experimental</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="rdma" kindref="compound">RDMA Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a68b8410bc2b86d3b5228d7dbb6b40bac" kindref="member">vt::theRDMA()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Node-level RDMA.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-danger" /> <bold>Experimental</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="rdmahandle" kindref="compound">RDMA Handle Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aecb87ec2c40b5b7fc57ba4cf8ea838b0" kindref="member">vt::theHandleRDMA()</ref></computeroutput> </para></entry><entry thead="no"><para>RDMA handles backed by MPI. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="rdmahandle" kindref="compound">RDMA Handle Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1aecb87ec2c40b5b7fc57ba4cf8ea838b0" kindref="member">vt::theHandleRDMA()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>RDMA handles backed by MPI.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="registry" kindref="compound">Registry</ref> </para></entry><entry thead="no"><para><computeroutput>vt::theRegistry()</computeroutput> </para></entry><entry thead="no"><para>Registered handlers. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="registry" kindref="compound">Registry</ref>   </para>
+</entry><entry thead="no"><para><computeroutput>vt::theRegistry()</computeroutput>   </para>
+</entry><entry thead="no"><para>Registered handlers.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="scheduler" kindref="compound">Scheduler</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched()</ref></computeroutput> </para></entry><entry thead="no"><para>General scheduling of work. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="scheduler" kindref="compound">Scheduler</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">vt::theSched()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>General scheduling of work.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="term" kindref="compound">Termination Detector</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm()</ref></computeroutput> </para></entry><entry thead="no"><para>Detect termination of work. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="term" kindref="compound">Termination Detector</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">vt::theTerm()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Detect termination of work.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="epoch" kindref="compound">Epoch Manager</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1ad246530e523687095c567ccab203556a" kindref="member">vt::theEpoch()</ref></computeroutput> </para></entry><entry thead="no"><para>Manage TD epochs. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="epoch" kindref="compound">Epoch Manager</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1ad246530e523687095c567ccab203556a" kindref="member">vt::theEpoch()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Manage TD epochs.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-success" /> <bold>Core</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="time-trigger" kindref="compound">Time Triggers</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a1e1a39cdf2a3fc1adefcdfcca4716bf2" kindref="member">vt::theTimeTrigger()</ref></computeroutput> </para></entry><entry thead="no"><para>Time-based progress actions. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="time-trigger" kindref="compound">Time Triggers</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a1e1a39cdf2a3fc1adefcdfcca4716bf2" kindref="member">vt::theTimeTrigger()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Time-based progress actions.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="trace" kindref="compound">Tracing</ref> </para></entry><entry thead="no"><para><computeroutput>vt::theTrace()</computeroutput> </para></entry><entry thead="no"><para>Trace distributed events. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="trace" kindref="compound">Tracing</ref>   </para>
+</entry><entry thead="no"><para><computeroutput>vt::theTrace()</computeroutput>   </para>
+</entry><entry thead="no"><para>Trace distributed events.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>    </para>
+</entry></row>
 <row>
-<entry thead="no"><para><ref refid="lb-data-reader" kindref="compound">LB Restart Reader</ref> </para></entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a6dc000b04e41df77184588b50280b312" kindref="member">vt::theLBDataReader()</ref></computeroutput> </para></entry><entry thead="no"><para>Follow input LB distribution. </para></entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold> </para></entry></row>
+<entry thead="no"><para><ref refid="lb-data-reader" kindref="compound">LB Restart Reader</ref>   </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="namespacevt_1a6dc000b04e41df77184588b50280b312" kindref="member">vt::theLBDataReader()</ref></computeroutput>   </para>
+</entry><entry thead="no"><para>Follow input LB distribution.   </para>
+</entry><entry thead="no"><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-label m-warning" /> <bold>Optional</bold>   </para>
+</entry></row>
 </table>
-</para></sect1>
+</para>
+</sect1>
 <sect1 id="introduction_1how-to-build-intro">
 <title>How to build</title>
-<para><bold><emphasis>vt</emphasis></bold> can be built with cmake or inside a docker container. Learn <ref refid="vt-build" kindref="compound">How to Build</ref></para></sect1>
+<para><bold><emphasis>vt</emphasis></bold> can be built with cmake or inside a docker container. Learn <ref refid="vt-build" kindref="compound">How to Build</ref></para>
+</sect1>
 <sect1 id="introduction_1vt-hello-world">
 <title>Hello World Example</title>
-<para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-block m-success" /> <parblock><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-code-figure" /> <parblock><para><programlisting><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>done<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-block m-success" /> <parblock><para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-code-figure" /> <parblock><para><programlisting filename=".cpp"><codeline><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>done<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HelloMsg<sp/>:<sp/><ref refid="structvt_1_1messaging_1_1_active_msg" kindref="compound">vt::Message</ref><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>HelloMsg(<ref refid="namespacevt_1a866da9d0efc19c0a1ce79e9e492f47e2" kindref="member">vt::NodeType</ref><sp/>in_from)<sp/>:<sp/>from(in_from)<sp/>{<sp/>}</highlight></codeline>
@@ -123,17 +269,35 @@
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" kindref="member">vt::finalize</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para><para>Running:</para><para><programlisting><codeline><highlight class="normal">$<sp/>mpirun<sp/>-n<sp/>4<sp/>./hello_world</highlight></codeline>
-</programlisting></para><para>Output: <programlisting><codeline><highlight class="normal">3:<sp/>Hello<sp/>from<sp/>node<sp/>0</highlight></codeline>
+</programlisting></para>
+<para>Running:</para>
+<para><programlisting filename=".shell-session"><codeline><highlight class="normal">$<sp/>mpirun<sp/>-n<sp/>4<sp/>./hello_world</highlight></codeline>
+</programlisting></para>
+<para>Output: <programlisting filename=".shell-session"><codeline><highlight class="normal">3:<sp/>Hello<sp/>from<sp/>node<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">1:<sp/>Hello<sp/>from<sp/>node<sp/>0</highlight></codeline>
 <codeline><highlight class="normal">2:<sp/>Hello<sp/>from<sp/>node<sp/>0</highlight></codeline>
-</programlisting></para><para><simplesect kind="note"><para>An active message broadcast sends to all nodes except for the sender (root of the broadcast). </para></simplesect>
-</para></parblock></para></parblock></para></sect1>
+</programlisting></para>
+<para><simplesect kind="note"><para>An active message broadcast sends to all nodes except for the sender (root of the broadcast). </para>
+</simplesect>
+</para>
+</parblock></para>
+</parblock></para>
+</sect1>
 <sect1 id="introduction_1License">
 <title>License</title>
-<para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-note m-dim" /></para><para><parblock><para>Copyright 2019-2021 National Technology &amp; Engineering Solutions of Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S. Government retains certain rights in this software.</para><para>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</para><para><itemizedlist>
-<listitem><para>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</para></listitem><listitem><para>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</para></listitem><listitem><para>Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</para></listitem></itemizedlist>
-</para><para>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </para></parblock></para></sect1>
+<para> <mcss:class xmlns:mcss="http://mcss.mosra.cz/doxygen/" mcss:class="m-note m-dim" /></para>
+<para><parblock><para>Copyright 2019-2021 National Technology &amp; Engineering Solutions of Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S. Government retains certain rights in this software.</para>
+<para>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</para>
+<para><itemizedlist>
+<listitem><para>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</para>
+</listitem><listitem><para>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</para>
+</listitem><listitem><para>Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</para>
+</listitem></itemizedlist>
+</para>
+<para>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </para>
+</parblock></para>
+</sect1>
     </detaileddescription>
+    <location file="docs/md/vt.md"/>
   </compounddef>
 </doxygen>

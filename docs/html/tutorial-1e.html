@@ -105,17 +105,17 @@
 <pre class="m-code"><span class="c1">//                  VT Base Message</span>
 <span class="c1">//                 \----------------/</span>
 <span class="c1">//                  \              /</span>
-<span class="k">struct</span> <span class="nl">MySimpleMsg</span> <span class="p">:</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Message</span> <span class="p">{</span> <span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MySimpleMsg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">Message</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
 
 <span class="c1">// Forward declaration for the active message handler</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">msgHandlerGroupA</span><span class="p">(</span><span class="n">MySimpleMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">msgHandlerGroupA</span><span class="p">(</span><span class="n">MySimpleMsg</span><span class="o">*</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span>
 
 <span class="c1">// Tutorial code to demonstrate rooted group creation and broadcast to that group</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">activeMessageGroupRoot</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">NodeType</span> <span class="k">const</span> <span class="n">this_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-  <span class="n">NodeType</span> <span class="k">const</span> <span class="n">num_nodes</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">activeMessageGroupRoot</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">NodeType</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">this_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
+<span class="w">  </span><span class="n">NodeType</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
 
-  <span class="cm">/*</span>
+<span class="w">  </span><span class="cm">/*</span>
 <span class="cm">   * This is an example of the rooted group creation and broadcast to that</span>
 <span class="cm">   * group. A group allows the user to create a subset of nodes. A broadcast by</span>
 <span class="cm">   * default sends the message to every node in the default group (which</span>
@@ -123,31 +123,31 @@
 <span class="cm">   * broadcast will only arrive on the nodes in that group.</span>
 <span class="cm">   */</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Create range for the group [1,num_nodes);</span>
-    <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;::</span><span class="n">vt</span><span class="o">::</span><span class="n">group</span><span class="o">::</span><span class="n">region</span><span class="o">::</span><span class="n">Range</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">);</span>
-    <span class="c1">// The non-collective group is created by a single node based on a range or</span>
-    <span class="c1">// list of nodes. The lambda is executed once the group is created. By</span>
-    <span class="c1">// setting the group in the envelope of the message and broadcasting the</span>
-    <span class="c1">// message will arrive on the set of nodes included in the group</span>
-    <span class="k">auto</span> <span class="n">id</span> <span class="o">=</span> <span class="n">theGroup</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">newGroup</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">range</span><span class="p">),</span> <span class="p">[](</span><span class="n">GroupType</span> <span class="n">group_id</span><span class="p">){</span>
-      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Group is created: id={:x}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">group_id</span><span class="p">);</span>
-      <span class="k">auto</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MySimpleMsg</span><span class="o">&gt;</span><span class="p">();</span>
-      <span class="n">envelopeSetGroup</span><span class="p">(</span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">env</span><span class="p">,</span> <span class="n">group_id</span><span class="p">);</span>
-      <span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">broadcastMsg</span><span class="o">&lt;</span><span class="n">msgHandlerGroupA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="c1">// The `id&#39; that is returned from the newGroup invocation, can be used</span>
-    <span class="c1">// anywhere in the system to broadcast (multicast) to this group.</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">id</span><span class="p">;</span>  <span class="c1">// don&#39;t warn about unused variable</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">this_node</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create range for the group [1,num_nodes);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;::</span><span class="n">vt</span><span class="o">::</span><span class="n">group</span><span class="o">::</span><span class="n">region</span><span class="o">::</span><span class="n">Range</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">num_nodes</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// The non-collective group is created by a single node based on a range or</span>
+<span class="w">    </span><span class="c1">// list of nodes. The lambda is executed once the group is created. By</span>
+<span class="w">    </span><span class="c1">// setting the group in the envelope of the message and broadcasting the</span>
+<span class="w">    </span><span class="c1">// message will arrive on the set of nodes included in the group</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theGroup</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">newGroup</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">range</span><span class="p">),</span><span class="w"> </span><span class="p">[](</span><span class="n">GroupType</span><span class="w"> </span><span class="n">group_id</span><span class="p">){</span>
+<span class="w">      </span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Group is created: id={:x}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">group_id</span><span class="p">);</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">makeMessage</span><span class="o">&lt;</span><span class="n">MySimpleMsg</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">      </span><span class="n">envelopeSetGroup</span><span class="p">(</span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">group_id</span><span class="p">);</span>
+<span class="w">      </span><span class="n">theMsg</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">broadcastMsg</span><span class="o">&lt;</span><span class="n">msgHandlerGroupA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="c1">// The `id&#39; that is returned from the newGroup invocation, can be used</span>
+<span class="w">    </span><span class="c1">// anywhere in the system to broadcast (multicast) to this group.</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">id</span><span class="p">;</span><span class="w">  </span><span class="c1">// don&#39;t warn about unused variable</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// Message handler</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">msgHandlerGroupA</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="n">MySimpleMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">auto</span> <span class="k">const</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-  <span class="n">vtAssert</span><span class="p">(</span><span class="n">cur_node</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;This handler should only execute on nodes &gt;= 1&quot;</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">msgHandlerGroupA</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">MySimpleMsg</span><span class="o">*</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">cur_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
+<span class="w">  </span><span class="n">vtAssert</span><span class="p">(</span><span class="n">cur_node</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This handler should only execute on nodes &gt;= 1&quot;</span><span class="p">);</span>
 
-  <span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;msgHandlerGroupA: triggered on node={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">);</span>
+<span class="w">  </span><span class="o">::</span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;msgHandlerGroupA: triggered on node={}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cur_node</span><span class="p">);</span>
 <span class="p">}</span></pre>
       </div>
     </div>
@@ -193,7 +193,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>vt (Virtual Transport). Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.13 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+        <p>vt (Virtual Transport). Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
       </div>
     </div>
   </div>

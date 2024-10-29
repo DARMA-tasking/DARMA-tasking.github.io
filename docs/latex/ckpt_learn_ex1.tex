@@ -1,98 +1,99 @@
 The full code for this {\itshape checkpoint} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+1.\+cc}
 
 
-\begin{DoxyCodeInclude}
-
-\textcolor{preprocessor}{#include <\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}>}
-
-\textcolor{preprocessor}{#include <cstdio>}
-
-\textcolor{keyword}{namespace }\hyperlink{namespacecheckpoint}{checkpoint} \{ \textcolor{keyword}{namespace }intrusive \{ \textcolor{keyword}{namespace }examples \{
-
-\textcolor{comment}{// \(\backslash\)struct MyTest}
-\textcolor{comment}{// \(\backslash\)brief Simple structure with two variables of built-in types}
-\textcolor{keyword}{struct }MyTest \{
-  \textcolor{keywordtype}{int} a = 29, b = 31;
-
-  \textcolor{comment}{// \(\backslash\)brief Default constructor}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// The reconstruction strategy is required for deserialization. A default}
-  \textcolor{comment}{// constructor is one of the reconstruction strategies that checkpoint will}
-  \textcolor{comment}{// look for.}
-  MyTest() = \textcolor{keywordflow}{default};
-
-  \textcolor{comment}{// \(\backslash\)brief Constructor with two parameters}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `a`}
-  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `b`}
-  \textcolor{comment}{//}
-  MyTest(\textcolor{keywordtype}{int} ai, \textcolor{keywordtype}{int} bi) : a(ai), b(bi) \{ \};
-
-  \textcolor{comment}{// \(\backslash\)brief Printing function unto the standard display}
-  \textcolor{keywordtype}{void} print() \{
-    printf(\textcolor{stringliteral}{"MyTest: a=%d, b=%d\(\backslash\)n"}, a, b);
-  \}
-
-  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}
-  \textcolor{comment}{// a variable of type `MyTest`}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// \(\backslash\)tparam <Serializer> The type of serializer depending on the pass}
-  \textcolor{comment}{// \(\backslash\)param[in,out] s the serializer for traversing this class}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// \(\backslash\)note The serialize method is typically called three times when}
-  \textcolor{comment}{// (de-)serializing to a byte buffer:}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// 1) Sizing: The first time its called, it sizes all the data it recursively}
-  \textcolor{comment}{// traverses to generate a final size for the buffer.}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// 2) Packing: As the traversal occurs, it copies the data traversed to the}
-  \textcolor{comment}{// byte buffer in the appropriate location.}
-  \textcolor{comment}{//}
-  \textcolor{comment}{// 3) Unpacking: As the byte buffer is traversed, it extracts the bytes from}
-  \textcolor{comment}{// the buffer to recursively reconstruct the types and setup the class members.}
-  \textcolor{comment}{//}
-  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>
-  \textcolor{keywordtype}{void} \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}(Serializer& s) \{
-    printf(\textcolor{stringliteral}{"MyTest serialize\(\backslash\)n"});
-    \textcolor{comment}{//}
-    \textcolor{comment}{// a = variable of type `int` (built-in type)}
-    \textcolor{comment}{//}
-    s | a;
-    \textcolor{comment}{//}
-    \textcolor{comment}{// b = variable of type `int` (built-in type)}
-    \textcolor{comment}{//}
-    s | b;
-  \}
-\};
-
-\}\}\} \textcolor{comment}{// end namespace checkpoint::intrusive::examples}
-
-\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{
-  \textcolor{keyword}{using namespace }magistrate::intrusive::examples;
-
-  \textcolor{comment}{// Define a variable of custom type `MyTest`}
-  MyTest my\_test\_inst(11, 12);
-  my\_test\_inst.print();
-
-  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}
-  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}
-  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}
-  \textcolor{keyword}{auto} ret = \hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{checkpoint::serialize}(my\_test\_inst);
-
-  \{
-    \textcolor{comment}{// Display information about the serialization "message"}
-    \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf = ret->getBuffer();
-    \textcolor{keyword}{auto} \textcolor{keyword}{const}& buf\_size = ret->getSize();
-    printf(\textcolor{stringliteral}{"ptr=%p, size=%ld\(\backslash\)n"}, static\_cast<void*>(buf), buf\_size);
-  \}
-
-  \textcolor{comment}{// De-serialization call to create a new unique pointer to `MyTest`}
-  \textcolor{keyword}{auto} t = checkpoint::deserialize<MyTest>(ret->getBuffer());
-
-  \textcolor{comment}{// Display the result}
-  t->print();
-
-  \textcolor{keywordflow}{return} 0;
-\}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}}>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }\mbox{\hyperlink{namespacecheckpoint}{checkpoint}} \{ \textcolor{keyword}{namespace }intrusive \{ \textcolor{keyword}{namespace }examples \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)struct MyTest}}
+\DoxyCodeLine{\textcolor{comment}{// \(\backslash\)brief Simple structure with two variables of built-\/in types}}
+\DoxyCodeLine{\textcolor{keyword}{struct }MyTest \{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} a = 29, b = 31;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Default constructor}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// The reconstruction strategy is required for deserialization. A default}}
+\DoxyCodeLine{  \textcolor{comment}{// constructor is one of the reconstruction strategies that checkpoint will}}
+\DoxyCodeLine{  \textcolor{comment}{// look for.}}
+\DoxyCodeLine{  MyTest() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Constructor with two parameters}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `a`}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in] Initial value for `b`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  MyTest(\textcolor{keywordtype}{int} ai, \textcolor{keywordtype}{int} bi) : a(ai), b(bi) \{ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Printing function unto the standard display}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} print() \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyTest: a=\%d, b=\%d\(\backslash\)n"{}}, a, b);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)brief Templated function for serializing/deserializing}}
+\DoxyCodeLine{  \textcolor{comment}{// a variable of type `MyTest`}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)tparam <Serializer> The type of serializer depending on the pass}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)param[in,out] s the serializer for traversing this class}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// \(\backslash\)note The serialize method is typically called three times when}}
+\DoxyCodeLine{  \textcolor{comment}{// (de-\/)serializing to a byte buffer:}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 1) Sizing: The first time its called, it sizes all the data it recursively}}
+\DoxyCodeLine{  \textcolor{comment}{// traverses to generate a final size for the buffer.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 2) Packing: As the traversal occurs, it copies the data traversed to the}}
+\DoxyCodeLine{  \textcolor{comment}{// byte buffer in the appropriate location.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{comment}{// 3) Unpacking: As the byte buffer is traversed, it extracts the bytes from}}
+\DoxyCodeLine{  \textcolor{comment}{// the buffer to recursively reconstruct the types and setup the class members.}}
+\DoxyCodeLine{  \textcolor{comment}{//}}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename} Serializer>}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{serialize}}(Serializer\& s) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}MyTest serialize\(\backslash\)n"{}});}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    \textcolor{comment}{// a = variable of type `int` (built-\/in type)}}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    s | a;}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    \textcolor{comment}{// b = variable of type `int` (built-\/in type)}}
+\DoxyCodeLine{    \textcolor{comment}{//}}
+\DoxyCodeLine{    s | b;}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}\}\} \textcolor{comment}{// end namespace checkpoint::intrusive::examples}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**) \{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }magistrate::intrusive::examples;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Define a variable of custom type `MyTest`}}
+\DoxyCodeLine{  MyTest my\_test\_inst(11, 12);}
+\DoxyCodeLine{  my\_test\_inst.print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}}
+\DoxyCodeLine{  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}}
+\DoxyCodeLine{  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} ret = \mbox{\hyperlink{namespacecheckpoint_a075da4e7344cf037943362517e606c3a}{checkpoint::serialize}}(my\_test\_inst);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{}
+\DoxyCodeLine{    \textcolor{comment}{// Display information about the serialization "{}message"{}}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf = ret-\/>getBuffer();}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const}\& buf\_size = ret-\/>getSize();}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}ptr=\%p, size=\%ld\(\backslash\)n"{}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buf), buf\_size);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// De-\/serialization call to create a new unique pointer to `MyTest`}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} t = checkpoint::deserialize<MyTest>(ret-\/>getBuffer());}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Display the result}}
+\DoxyCodeLine{  t-\/>print();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
 
 \end{DoxyCodeInclude}

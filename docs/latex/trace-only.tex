@@ -1,94 +1,99 @@
-Using vt in trace-\/only mode\hypertarget{trace-only_what-is-vt-trace}{}\section{What is trace-\/only mode}\label{trace-only_what-is-vt-trace}
-Trace-\/only mode is lightweight library which includes the subset of V\+T-\/runtime that allows to generate trace files for an application that uses M\+PI calls. The following examples will show how to generate vt-\/trace target and then how to use it.\hypertarget{trace-only_build}{}\section{Build vt with trace-\/only target\+:}\label{trace-only_build}
-Depending on how you build VT, you can either set environment variable {\ttfamily V\+T\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+R\+A\+C\+E\+\_\+\+O\+N\+LY}\+: 
-\begin{DoxyCode}
-export VT\_BUILD\_TRACE\_ONLY=1
-/vt/ci/build\_cpp.sh /vt /build
+Using vt in trace-\/only mode\hypertarget{trace-only_what-is-vt-trace}{}\doxysection{What is trace-\/only mode}\label{trace-only_what-is-vt-trace}
+Trace-\/only mode is lightweight library which includes the subset of VT-\/runtime that allows to generate trace files for an application that uses MPI calls. The following examples will show how to generate vt-\/trace target and then how to use it.\hypertarget{trace-only_build}{}\doxysection{Build vt with trace-\/only target\+:}\label{trace-only_build}
+Depending on how you build VT, you can either set environment variable {\ttfamily VT\+\_\+\+BUILD\+\_\+\+TRACE\+\_\+\+ONLY}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export VT\_BUILD\_TRACE\_ONLY=1}
+\DoxyCodeLine{/vt/ci/build\_cpp.sh /vt /build}
+
 \end{DoxyCode}
 
 
-or add C\+Make flag {\ttfamily vt\+\_\+trace\+\_\+only}\+:
+or add CMake flag {\ttfamily vt\+\_\+trace\+\_\+only}\+:
 
 
-\begin{DoxyCode}
-cmake -Dvt\_trace\_only=1
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake -\/Dvt\_trace\_only=1}
+
 \end{DoxyCode}
 
 
-This will generate vt-\/trace target alongside the regular vt-\/runtime C\+Make target.
+This will generate vt-\/trace target alongside the regular vt-\/runtime CMake target.
+
+\DoxyHorRuler{0}
+\hypertarget{trace-only_usage}{}\doxysection{Example usage\+:}\label{trace-only_usage}
+\doxysubsection*{CMake}
+
+Next step is to setup CMake. Find the {\ttfamily vt} project and load its settings\+:
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{find\_package(vt REQUIRED)}
 
-\hypertarget{trace-only_usage}{}\section{Example usage\+:}\label{trace-only_usage}
-\subsection*{C\+Make}
-
-Next step is to setup C\+Make. Find the {\ttfamily vt} project and load its settings\+:
-
-
-\begin{DoxyCode}
-find\_package(vt REQUIRED)
 \end{DoxyCode}
 
 
 Then link {\ttfamily vt-\/trace} library with your target\+:
 
 
-\begin{DoxyCode}
-target\_link\_libraries($\{target\_name\} PUBLIC vt::vt-trace)
+\begin{DoxyCode}{0}
+\DoxyCodeLine{target\_link\_libraries(\$\{target\_name\} PUBLIC vt::vt-\/trace)}
+
 \end{DoxyCode}
 
 
-Example C\+Make\+: 
-\begin{DoxyCode}
-cmake\_minimum\_required(VERSION 3.17 FATAL\_ERROR)
+Example CMake\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\_minimum\_required(VERSION 3.17 FATAL\_ERROR)}
+\DoxyCodeLine{}
+\DoxyCodeLine{project(my\_target)}
+\DoxyCodeLine{}
+\DoxyCodeLine{find\_package(vt REQUIRED)}
+\DoxyCodeLine{}
+\DoxyCodeLine{add\_executable(}
+\DoxyCodeLine{  my\_target}
+\DoxyCodeLine{  \$\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.h}
+\DoxyCodeLine{  \$\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.cc}
+\DoxyCodeLine{)}
+\DoxyCodeLine{}
+\DoxyCodeLine{target\_link\_libraries(my\_target PUBLIC vt::vt-\/trace)}
 
-project(my\_target)
-
-find\_package(vt REQUIRED)
-
-add\_executable(
-  my\_target
-  $\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.h
-  $\{CMAKE\_CURRENT\_SOURCE\_DIR\}/src/sample.cc
-)
-
-target\_link\_libraries(my\_target PUBLIC vt::vt-trace)
 \end{DoxyCode}
 
 
-\subsection*{Source code}
+\doxysubsection*{Source code}
 
-The following code snippet shows the example use of vt-\/trace library (See {\ttfamily \hyperlink{structvt_1_1trace_1_1_trace_lite}{vt\+::trace\+::\+Trace\+Lite}} for more information)\+:
-
-
-\begin{DoxyCode}
-\textcolor{preprocessor}{#include <mpi.h>}
-\textcolor{preprocessor}{#include "\hyperlink{trace__lite_8h}{vt/trace/trace\_lite.h}"}
-
-\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{
-  MPI\_Init(&argc, &argv);
-
-  \textcolor{comment}{// Create vt::trace::TraceLite object after MPI has been initialized}
-  \textcolor{comment}{// The constructor takes one argument - your application's name}
-  \hyperlink{structvt_1_1trace_1_1_trace_lite}{::vt::trace::TraceLite} myTrace(\textcolor{stringliteral}{"MyApp"});
+The following code snippet shows the example use of vt-\/trace library (See {\ttfamily \mbox{\hyperlink{structvt_1_1trace_1_1_trace_lite}{vt\+::trace\+::\+Trace\+Lite}}} for more information)\+:
 
 
-  \textcolor{comment}{// Call initializeStandalone once to initialize all internal data needed for tracing}
-  \textcolor{comment}{// This function takes single argument - MPI communicator}
-  myTrace.initializeStandalone(MPI\_COMM\_WORLD);
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <mpi.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{trace__lite_8h}{vt/trace/trace\_lite.h}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{}
+\DoxyCodeLine{  MPI\_Init(\&argc, \&argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Create vt::trace::TraceLite object after MPI has been initialized}}
+\DoxyCodeLine{  \textcolor{comment}{// The constructor takes one argument -\/ your application's name}}
+\DoxyCodeLine{  \mbox{\hyperlink{structvt_1_1trace_1_1_trace_lite}{::vt::trace::TraceLite}} myTrace(\textcolor{stringliteral}{"{}MyApp"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Call initializeStandalone once to initialize all internal data needed for tracing}}
+\DoxyCodeLine{  \textcolor{comment}{// This function takes single argument -\/ MPI communicator}}
+\DoxyCodeLine{  myTrace.initializeStandalone(MPI\_COMM\_WORLD);}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{     DO MPI RELATED WORK HERE}}
+\DoxyCodeLine{\textcolor{comment}{  */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// Use this function to flush traces to file}}
+\DoxyCodeLine{  myTrace.flushTracesFile();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{// After all work is done, call this function to cleanup all data}}
+\DoxyCodeLine{  \textcolor{comment}{// This should be called before calling 'MPI\_Finalize'}}
+\DoxyCodeLine{  myTrace.finalizeStandalone();}
+\DoxyCodeLine{}
+\DoxyCodeLine{  MPI\_Finalize();}
+\DoxyCodeLine{\}}
 
-  \textcolor{comment}{/*}
-\textcolor{comment}{     DO MPI RELATED WORK HERE}
-\textcolor{comment}{  */}
-
-  \textcolor{comment}{// Use this function to flush traces to file}
-  myTrace.flushTracesFile();
-
-  \textcolor{comment}{// After all work is done, call this function to cleanup all data}
-  \textcolor{comment}{// This should be called before calling 'MPI\_Finalize'}
-  myTrace.finalizeStandalone();
-
-  MPI\_Finalize();
-\}
 \end{DoxyCode}
  

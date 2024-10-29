@@ -1,14 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="node-lb-data" kind="page">
     <compoundname>node-lb-data</compoundname>
     <title>Node LB Data</title>
+    <briefdescription>
+<para>Manager object profiling data. </para>
+    </briefdescription>
     <detaileddescription>
-<para>Manager object profiling data</para><para>The node LB data manager component <computeroutput><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data" kindref="compound">vt::vrt::collection::balance::NodeLBData</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">vt::theNodeLBData()</ref></computeroutput> manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.</para><para>When LB is invoked in <bold><emphasis>vt</emphasis></bold>, the <ref refid="lb-manager" kindref="compound">LB Manager</ref> passes the node LB data to the various LB strategies to run the load balancer. The node LB data component can also dump the LB data it holds to files, which can be read externally. The LBAF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.</para><sect1 id="node-lb-data_1export-lb-data-file">
+<para>Manager object profiling data</para>
+<para>The node LB data manager component <computeroutput><ref refid="structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data" kindref="compound">vt::vrt::collection::balance::NodeLBData</ref></computeroutput>, accessed via <computeroutput><ref refid="namespacevt_1af2ddfbdc455e98a0d46732522d8cf589" kindref="member">vt::theNodeLBData()</ref></computeroutput> manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.</para>
+<para>When LB is invoked in <bold><emphasis>vt</emphasis></bold>, the <ref refid="lb-manager" kindref="compound">LB Manager</ref> passes the node LB data to the various LB strategies to run the load balancer. The node LB data component can also dump the LB data it holds to files, which can be read externally. The LBAF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.</para>
+<sect1 id="node-lb-data_1export-lb-data-file">
 <title>Exporting LB Data Files (VOM)</title>
-<para>The <computeroutput>NodeLBData</computeroutput> component, after collecting LB data from the running program, can dump these to files in a VOM file (Virtual Object Map). As indicated by the name, the VOM file specifies the mapping of object to node for each phase along with LB data for each object (computation time and communication load).</para><para>To output VOM files, pass <computeroutput>--vt_lb_data</computeroutput> to enable output along with <computeroutput>--vt_lb_data_dir=&lt;my-directory&gt;</computeroutput> and <computeroutput>--vt_lb_data_file=&lt;my-base-name&gt;</computeroutput> to control the directory the files are generated along with the base file name. With this enabled, <bold><emphasis>vt</emphasis></bold> will generate a file for each node that contains the LB data and mapping.</para><sect2 id="node-lb-data_1lb-data-file-format">
+<para>The <computeroutput>NodeLBData</computeroutput> component, after collecting LB data from the running program, can dump these to files in a VOM file (Virtual Object Map). As indicated by the name, the VOM file specifies the mapping of object to node for each phase along with LB data for each object (computation time and communication load).</para>
+<para>To output VOM files, pass <computeroutput>--vt_lb_data</computeroutput> to enable output along with <computeroutput>--vt_lb_data_dir=&lt;my-directory&gt;</computeroutput> and <computeroutput>--vt_lb_data_file=&lt;my-base-name&gt;</computeroutput> to control the directory the files are generated along with the base file name. With this enabled, <bold><emphasis>vt</emphasis></bold> will generate a file for each node that contains the LB data and mapping.</para>
+<sect2 id="node-lb-data_1lb-data-file-format">
 <title>File Format</title>
-<para>The VOM files are output in JSON format, either compressed with brotli compression (default on) or pure JSON if the argument <computeroutput>--vt_lb_data_compress</computeroutput> is set to <computeroutput>false</computeroutput>.</para><para>The JSON files contain an array of <computeroutput>phases</computeroutput> that have been captured by <bold><emphasis>vt</emphasis></bold> and output to the file. Each phase has an <computeroutput>id</computeroutput> indicating which phase it was while the application was running. Each phase also has an array of <computeroutput>tasks</computeroutput> that represent work that was done during that phase. Each task has a <computeroutput>time</computeroutput>, <computeroutput>resource</computeroutput>, <computeroutput>node</computeroutput>, <computeroutput>entity</computeroutput>, and optionally a list of <computeroutput>subphases</computeroutput>. The <computeroutput>entity</computeroutput> contains information about the task that performed this work. If that <computeroutput>entity</computeroutput> is a virtual collection object, it will specify the unique <computeroutput>id</computeroutput> for the object, and optionally the <computeroutput>index</computeroutput>, <computeroutput>home</computeroutput>, and <computeroutput>collection_id</computeroutput> for that object.</para><para><programlisting><codeline><highlight class="normal">{</highlight></codeline>
+<para>The VOM files are output in JSON format, either compressed with brotli compression (default on) or pure JSON if the argument <computeroutput>--vt_lb_data_compress</computeroutput> is set to <computeroutput>false</computeroutput>.</para>
+<para>The JSON files contain an array of <computeroutput>phases</computeroutput> that have been captured by <bold><emphasis>vt</emphasis></bold> and output to the file. Each phase has an <computeroutput>id</computeroutput> indicating which phase it was while the application was running. Each phase also has an array of <computeroutput>tasks</computeroutput> that represent work that was done during that phase. Each task has a <computeroutput>time</computeroutput>, <computeroutput>resource</computeroutput>, <computeroutput>node</computeroutput>, <computeroutput>entity</computeroutput>, and optionally a list of <computeroutput>subphases</computeroutput>. The <computeroutput>entity</computeroutput> contains information about the task that performed this work. If that <computeroutput>entity</computeroutput> is a virtual collection object, it will specify the unique <computeroutput>id</computeroutput> for the object, and optionally the <computeroutput>index</computeroutput>, <computeroutput>home</computeroutput>, and <computeroutput>collection_id</computeroutput> for that object.</para>
+<para><programlisting filename="examples/lb_data/lb_data_file_example.json"><codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;metadata&quot;:<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;phases&quot;:<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;identical_to_previous&quot;:<sp/>{</highlight></codeline>
@@ -137,7 +147,9 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>]</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para><para>Each phase in the file may also have a <computeroutput>communications</computeroutput> array that specify any communication between tasks that occurred during the phase. Each communication has <computeroutput>type</computeroutput>, which is described below in the following table. Additionally, it specifies the <computeroutput>bytes</computeroutput>, number of <computeroutput>messages</computeroutput>, and the two entities that were involved in the operator as <computeroutput>to</computeroutput> and <computeroutput>from</computeroutput>. The entities may be of different types, like an <computeroutput>object</computeroutput> or <computeroutput>node</computeroutput> depending on the type of communication.</para><para><programlisting><codeline><highlight class="normal">{</highlight></codeline>
+</programlisting></para>
+<para>Each phase in the file may also have a <computeroutput>communications</computeroutput> array that specify any communication between tasks that occurred during the phase. Each communication has <computeroutput>type</computeroutput>, which is described below in the following table. Additionally, it specifies the <computeroutput>bytes</computeroutput>, number of <computeroutput>messages</computeroutput>, and the two entities that were involved in the operator as <computeroutput>to</computeroutput> and <computeroutput>from</computeroutput>. The entities may be of different types, like an <computeroutput>object</computeroutput> or <computeroutput>node</computeroutput> depending on the type of communication.</para>
+<para><programlisting filename=".json"><codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;phases&quot;:<sp/>[</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;communications&quot;:<sp/>[</highlight></codeline>
@@ -179,33 +191,69 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>]</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para><para>The type of communication lines up with the enum <computeroutput>vt::vrt::collection::balance::CommCategory</computeroutput> in the code.</para><para><table rows="8" cols="3"><row>
-<entry thead="yes"><para>Value </para></entry><entry thead="yes"><para>Enum entry </para></entry><entry thead="yes"><para>Description  </para></entry></row>
+</programlisting></para>
+<para>The type of communication lines up with the enum <computeroutput>vt::vrt::collection::balance::CommCategory</computeroutput> in the code.</para>
+<para><table rows="8" cols="3"><row>
+<entry thead="yes"><para>Value   </para>
+</entry><entry thead="yes"><para>Enum entry   </para>
+</entry><entry thead="yes"><para>Description    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>1 </para></entry><entry thead="no"><para><computeroutput>CommCategory::SendRecv</computeroutput> </para></entry><entry thead="no"><para>A send-receive edge between two collection elements </para></entry></row>
+<entry thead="no"><para>1   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::SendRecv</computeroutput>   </para>
+</entry><entry thead="no"><para>A send-receive edge between two collection elements    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>2 </para></entry><entry thead="no"><para><computeroutput>CommCategory::CollectionToNode</computeroutput> </para></entry><entry thead="no"><para>A send from a collection element to a node </para></entry></row>
+<entry thead="no"><para>2   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::CollectionToNode</computeroutput>   </para>
+</entry><entry thead="no"><para>A send from a collection element to a node    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>3 </para></entry><entry thead="no"><para><computeroutput>CommCategory::NodeToCollection</computeroutput> </para></entry><entry thead="no"><para>A send from a node to a collection element </para></entry></row>
+<entry thead="no"><para>3   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::NodeToCollection</computeroutput>   </para>
+</entry><entry thead="no"><para>A send from a node to a collection element    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>4 </para></entry><entry thead="no"><para><computeroutput>CommCategory::Broadcast</computeroutput> </para></entry><entry thead="no"><para>A broadcast from a collection element to a whole collection (receive-side) </para></entry></row>
+<entry thead="no"><para>4   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::Broadcast</computeroutput>   </para>
+</entry><entry thead="no"><para>A broadcast from a collection element to a whole collection (receive-side)    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>5 </para></entry><entry thead="no"><para><computeroutput>CommCategory::CollectionToNodeBcast</computeroutput> </para></entry><entry thead="no"><para>A broadcast from a collection element to all nodes (receive-side) </para></entry></row>
+<entry thead="no"><para>5   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::CollectionToNodeBcast</computeroutput>   </para>
+</entry><entry thead="no"><para>A broadcast from a collection element to all nodes (receive-side)    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>6 </para></entry><entry thead="no"><para><computeroutput>CommCategory::NodeToCollectionBcast</computeroutput> </para></entry><entry thead="no"><para>A broadcast from a node to a whole collection (receive-side) </para></entry></row>
+<entry thead="no"><para>6   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::NodeToCollectionBcast</computeroutput>   </para>
+</entry><entry thead="no"><para>A broadcast from a node to a whole collection (receive-side)    </para>
+</entry></row>
 <row>
-<entry thead="no"><para>7 </para></entry><entry thead="no"><para><computeroutput>CommCategory::CollectiveToCollectionBcast</computeroutput> </para></entry><entry thead="no"><para>Collective &apos;broadcast&apos; from every node to the local collection elements (receive-side) </para></entry></row>
+<entry thead="no"><para>7   </para>
+</entry><entry thead="no"><para><computeroutput>CommCategory::CollectiveToCollectionBcast</computeroutput>   </para>
+</entry><entry thead="no"><para>Collective &apos;broadcast&apos; from every node to the local collection elements (receive-side)   </para>
+</entry></row>
 </table>
-For all the broadcast-like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).</para></sect2>
+</para>
+<para>For all the broadcast-like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).</para>
+</sect2>
 </sect1>
 <sect1 id="node-lb-data_1lb-data-file-validator">
 <title>LB Data File Validator</title>
-<para>All input JSON files will be validated using the <computeroutput>JSON_data_files_validator.py</computeroutput> found in the <computeroutput>scripts</computeroutput> directory, which ensures that a given JSON adheres to the following schema:</para><para><programlisting><codeline><highlight class="keyword">from</highlight><highlight class="normal"><sp/>schema<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>And,<sp/>Optional,<sp/>Schema</highlight></codeline>
+<para>All input JSON files will be validated using the <computeroutput>JSON_data_files_validator.py</computeroutput> found in the <computeroutput>scripts</computeroutput> directory, which ensures that a given JSON adheres to the following schema:</para>
+<para><programlisting filename="scripts/LBDatafile_schema.py"><codeline><highlight class="keyword">from</highlight><highlight class="normal"><sp/>schema<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>And,<sp/>Optional,<sp/>Schema</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">validate_id_and_seq_id(field):</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Ensure<sp/>that<sp/>either<sp/>seq_id<sp/>or<sp/>id<sp/>is<sp/>provided.&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">validate_ids(field):</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Ensure<sp/>that<sp/>1)<sp/>either<sp/>seq_id<sp/>or<sp/>id<sp/>is<sp/>provided,</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>and<sp/>2)<sp/>if<sp/>an<sp/>object<sp/>is<sp/>migratable,<sp/>collection_id<sp/>has<sp/>been<sp/>set.</highlight></codeline>
+<codeline><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;seq_id&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>field<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;id&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>field:</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>ValueError(</highlight><highlight class="stringliteral">&apos;Either<sp/>id<sp/>(bit-encoded)<sp/>or<sp/>seq_id<sp/>must<sp/>be<sp/>provided.&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>field.get(</highlight><highlight class="stringliteral">&quot;migratable&quot;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;seq_id&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>field<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;collection_id&apos;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>field:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>ValueError(</highlight><highlight class="stringliteral">&apos;If<sp/>an<sp/>entity<sp/>is<sp/>migratable,<sp/>it<sp/>must<sp/>have<sp/>a<sp/>collection_id&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>field</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal">LBDatafile_schema<sp/>=<sp/>Schema(</highlight></codeline>
@@ -247,7 +295,7 @@ For all the broadcast-like edges, the communication logging will occur on the re
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;type&apos;</highlight><highlight class="normal">:<sp/>str,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;migratable&apos;</highlight><highlight class="normal">:<sp/>bool,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;objgroup_id&apos;</highlight><highlight class="normal">):<sp/>int</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_id_and_seq_id),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_ids),</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;node&apos;</highlight><highlight class="normal">:<sp/>int,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;resource&apos;</highlight><highlight class="normal">:<sp/>str,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;subphases&apos;</highlight><highlight class="normal">):<sp/>[</highlight></codeline>
@@ -273,7 +321,7 @@ For all the broadcast-like edges, the communication logging will occur on the re
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;migratable&apos;</highlight><highlight class="normal">):<sp/>bool,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;index&apos;</highlight><highlight class="normal">):<sp/>[int],</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;objgroup_id&apos;</highlight><highlight class="normal">):<sp/>int,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_id_and_seq_id),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_ids),</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;messages&apos;</highlight><highlight class="normal">:<sp/>int,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;from&apos;</highlight><highlight class="normal">:<sp/>And({</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;type&apos;</highlight><highlight class="normal">:<sp/>str,</highlight></codeline>
@@ -284,7 +332,7 @@ For all the broadcast-like edges, the communication logging will occur on the re
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;migratable&apos;</highlight><highlight class="normal">):<sp/>bool,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;index&apos;</highlight><highlight class="normal">):<sp/>[int],</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Optional(</highlight><highlight class="stringliteral">&apos;objgroup_id&apos;</highlight><highlight class="normal">):<sp/>int,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_id_and_seq_id),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>validate_ids),</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;bytes&apos;</highlight><highlight class="normal">:<sp/>float</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>],</highlight></codeline>
@@ -293,10 +341,14 @@ For all the broadcast-like edges, the communication logging will occur on the re
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>]</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal">)</highlight></codeline>
-</programlisting></para></sect1>
+</programlisting></para>
+</sect1>
 <sect1 id="node-lb-data_1lb-spec-file">
 <title>LB Specification File</title>
-<para>In order to customize when LB output is enabled and disabled, a LB specification file can be passed to <bold><emphasis>vt</emphasis></bold> via a command-line flag: <computeroutput>--vt_lb_spec --vt_lb_spec_file=filename.spec</computeroutput>.</para><para>For details about vt&apos;s Specification File see <ref refid="spec-file" kindref="compound">Spec File</ref> </para></sect1>
+<para>In order to customize when LB output is enabled and disabled, a LB specification file can be passed to <bold><emphasis>vt</emphasis></bold> via a command-line flag: <computeroutput>--vt_lb_spec --vt_lb_spec_file=filename.spec</computeroutput>.</para>
+<para>For details about vt&apos;s Specification File see <ref refid="spec-file" kindref="compound">Spec File</ref> </para>
+</sect1>
     </detaileddescription>
+    <location file="docs/md/node-lb-data.md"/>
   </compounddef>
 </doxygen>
