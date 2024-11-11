@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bits_14002',['Bits',['../namespacevt_1_1rdma.html#a91e7211515508952960ca446ea609f65',1,'vt::rdma']]]
+  ['bits_13848',['Bits',['../namespacevt_1_1rdma.html#a91e7211515508952960ca446ea609f65',1,'vt::rdma']]]
 ];

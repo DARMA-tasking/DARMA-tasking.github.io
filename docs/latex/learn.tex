@@ -12,23 +12,22 @@ To learn how to use {\bfseries{{\itshape vt}}}, there are several resources that
 \item Read about the different \mbox{\hyperlink{introduction_vt-components}{Components in vt}}
 \item Messaging relies on serializing data with the {\itshape checkpoint} library. Learn \mbox{\hyperlink{ckpt_learn_serialize}{How to Serialize Data}} 
 \end{DoxyItemize}\hypertarget{vt-build}{}\doxysection{How to Build}\label{vt-build}
-Building DARMA/vt with cmake
+Building D\+A\+R\+M\+A/vt with cmake
 
 {\bfseries{{\itshape vt}}} can be built with {\ttfamily cmake} or built inside a {\ttfamily docker} container. Most of the external dependencies come bundled with {\bfseries{{\itshape vt}}} for ease of compiling.\hypertarget{vt-build_how-to-build}{}\doxysubsection{Building}\label{vt-build_how-to-build}
 To build {\bfseries{{\itshape vt}}}, one must obtain the following dependencies\+:\hypertarget{vt-build_required-deps}{}\doxysubsubsection{Required}\label{vt-build_required-deps}
 
 \begin{DoxyItemize}
 \item checkpoint, ({\itshape vt} ecosystem)
-\item MPI (mpich/openmpi/mvapich/\+IBM Spectrum MPI/\+Cray MPICH/etc.)
+\item M\+PI (mpich/openmpi/mvapich/\+I\+BM Spectrum M\+P\+I/\+Cray M\+P\+I\+C\+H/etc.)
 \end{DoxyItemize}\hypertarget{vt-build_automatic-build-deps}{}\doxysubsubsection{Automatically build dependencies}\label{vt-build_automatic-build-deps}
-Assuming MPI is installed and accessible via CC/\+CXX, the only other dependency that is required is checkpoint. The easiest way to get these built are to clone it inside {\ttfamily vt/lib}\+:
+Assuming M\+PI is installed and accessible via C\+C/\+C\+XX, the only other dependency that is required is checkpoint. The easiest way to get these built are to clone it inside {\ttfamily vt/lib}\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ git clone git@github.com:DARMA-\/tasking/vt}
 \DoxyCodeLine{\$ cd vt/lib}
 \DoxyCodeLine{\$ git clone git@github.com:DARMA-\/tasking/checkpoint}
-
 \end{DoxyCode}
 
 
@@ -38,77 +37,77 @@ One may use {\ttfamily cmake} as normal on {\itshape vt}, with checkpoint cloned
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CMake Variable   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C\+Make Variable  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }\\\cline{1-3}
 \endfirsthead
 \hline
 \endfoot
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ CMake Variable   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ C\+Make Variable  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }\\\cline{1-3}
 \endhead
-{\ttfamily vt\+\_\+lb\+\_\+enabled}   &1   &Compile with support for runtime load balancing    \\\cline{1-3}
-{\ttfamily vt\+\_\+trace\+\_\+enabled}   &0   &Compile with support for runtime tracing (Projections-\/format)    \\\cline{1-3}
-{\ttfamily vt\+\_\+trace\+\_\+only}   &0   &Compile vt in trace-\/only mode (stripped down version for tracing MPI calls)    \\\cline{1-3}
-{\ttfamily vt\+\_\+test\+\_\+trace\+\_\+runtime\+\_\+enabled}   &0   &Force tracing on at runtime for VT tests    \\\cline{1-3}
-{\ttfamily vt\+\_\+doxygen\+\_\+enabled}   &0   &Enable doxygen generation    \\\cline{1-3}
-{\ttfamily vt\+\_\+mimalloc\+\_\+enabled}   &0   &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption    \\\cline{1-3}
-{\ttfamily vt\+\_\+asan\+\_\+enabled}   &0   &Enable building with address sanitizer    \\\cline{1-3}
-{\ttfamily vt\+\_\+ubsan\+\_\+enabled}   &0   &Enable building with undefined behavior sanitizer    \\\cline{1-3}
-{\ttfamily vt\+\_\+werror\+\_\+enabled}   &0   &Treat all warnings as errors    \\\cline{1-3}
-{\ttfamily vt\+\_\+pool\+\_\+enabled}   &1   &Use memory pool in {\itshape vt} for message allocation    \\\cline{1-3}
-{\ttfamily vt\+\_\+zoltan\+\_\+enabled}   &0   &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support    \\\cline{1-3}
-{\ttfamily vt\+\_\+mpi\+\_\+guards}   &0   &Guards against mis-\/use of MPI calls in code using {\itshape vt}    \\\cline{1-3}
-{\ttfamily vt\+\_\+priorities\+\_\+enabled}   &1   &Enable prioritization of work (adds bits in envelope)    \\\cline{1-3}
-{\ttfamily vt\+\_\+diagnostics\+\_\+enabled}   &1   &Enable VT component diagnostics for performance analysis    \\\cline{1-3}
-{\ttfamily vt\+\_\+diagnostics\+\_\+runtime\+\_\+enabled}   &0   &Enable VT component diagnostics at runtime by default    \\\cline{1-3}
-{\ttfamily vt\+\_\+priority\+\_\+bits\+\_\+per\+\_\+level}   &3   &Number of bits per level of priority in envelope    \\\cline{1-3}
-{\ttfamily vt\+\_\+build\+\_\+extended\+\_\+tests}   &1   &Build with full, extended testing    \\\cline{1-3}
-{\ttfamily vt\+\_\+production\+\_\+build\+\_\+enabled}   &0   &Disable assertions and debug prints at compile time    \\\cline{1-3}
-{\ttfamily vt\+\_\+unity\+\_\+build\+\_\+enabled}   &0   &Build with Unity/\+Jumbo mode enabled (requires CMake $>$= 3.\+16)    \\\cline{1-3}
-{\ttfamily vt\+\_\+fcontext\+\_\+enabled}   &0   &Force use of fcontext for threading    \\\cline{1-3}
-{\ttfamily vt\+\_\+tests\+\_\+num\+\_\+nodes}   &-\/   &Maximum number of nodes used for tests. If empty, then the default value detected by CMake is used    \\\cline{1-3}
-{\ttfamily vt\+\_\+code\+\_\+coverage}   &0   &Enable code coverage for VT examples/tests    \\\cline{1-3}
-{\ttfamily vt\+\_\+build\+\_\+tests}   &1   &Build all VT tests    \\\cline{1-3}
-{\ttfamily vt\+\_\+build\+\_\+examples}   &1   &Build all VT examples    \\\cline{1-3}
-{\ttfamily vt\+\_\+debug\+\_\+verbose}   &1 (not Release)   &Enable VT verbose debug prints at compile-\/time    \\\cline{1-3}
-{\ttfamily vt\+\_\+no\+\_\+color\+\_\+enabled}   &0   &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default    \\\cline{1-3}
-{\ttfamily BUILD\+\_\+\+SHARED\+\_\+\+LIBS}   &0   &Build VT as shared library   \\\cline{1-3}
+{\ttfamily vt\+\_\+lb\+\_\+enabled}  &1  &Compile with support for runtime load balancing   \\\cline{1-3}
+{\ttfamily vt\+\_\+trace\+\_\+enabled}  &0  &Compile with support for runtime tracing (Projections-\/format)   \\\cline{1-3}
+{\ttfamily vt\+\_\+trace\+\_\+only}  &0  &Compile vt in trace-\/only mode (stripped down version for tracing M\+PI calls)   \\\cline{1-3}
+{\ttfamily vt\+\_\+test\+\_\+trace\+\_\+runtime\+\_\+enabled}  &0  &Force tracing on at runtime for VT tests   \\\cline{1-3}
+{\ttfamily vt\+\_\+doxygen\+\_\+enabled}  &0  &Enable doxygen generation   \\\cline{1-3}
+{\ttfamily vt\+\_\+mimalloc\+\_\+enabled}  &0  &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption   \\\cline{1-3}
+{\ttfamily vt\+\_\+asan\+\_\+enabled}  &0  &Enable building with address sanitizer   \\\cline{1-3}
+{\ttfamily vt\+\_\+ubsan\+\_\+enabled}  &0  &Enable building with undefined behavior sanitizer   \\\cline{1-3}
+{\ttfamily vt\+\_\+werror\+\_\+enabled}  &0  &Treat all warnings as errors   \\\cline{1-3}
+{\ttfamily vt\+\_\+pool\+\_\+enabled}  &1  &Use memory pool in {\itshape vt} for message allocation   \\\cline{1-3}
+{\ttfamily vt\+\_\+zoltan\+\_\+enabled}  &0  &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support   \\\cline{1-3}
+{\ttfamily vt\+\_\+mpi\+\_\+guards}  &0  &Guards against mis-\/use of M\+PI calls in code using {\itshape vt}   \\\cline{1-3}
+{\ttfamily vt\+\_\+priorities\+\_\+enabled}  &1  &Enable prioritization of work (adds bits in envelope)   \\\cline{1-3}
+{\ttfamily vt\+\_\+diagnostics\+\_\+enabled}  &1  &Enable VT component diagnostics for performance analysis   \\\cline{1-3}
+{\ttfamily vt\+\_\+diagnostics\+\_\+runtime\+\_\+enabled}  &0  &Enable VT component diagnostics at runtime by default   \\\cline{1-3}
+{\ttfamily vt\+\_\+priority\+\_\+bits\+\_\+per\+\_\+level}  &3  &Number of bits per level of priority in envelope   \\\cline{1-3}
+{\ttfamily vt\+\_\+build\+\_\+extended\+\_\+tests}  &1  &Build with full, extended testing   \\\cline{1-3}
+{\ttfamily vt\+\_\+production\+\_\+build\+\_\+enabled}  &0  &Disable assertions and debug prints at compile time   \\\cline{1-3}
+{\ttfamily vt\+\_\+unity\+\_\+build\+\_\+enabled}  &0  &Build with Unity/\+Jumbo mode enabled (requires C\+Make $>$= 3.\+16)   \\\cline{1-3}
+{\ttfamily vt\+\_\+fcontext\+\_\+enabled}  &0  &Force use of fcontext for threading   \\\cline{1-3}
+{\ttfamily vt\+\_\+tests\+\_\+num\+\_\+nodes}  &-\/  &Maximum number of nodes used for tests. If empty, then the default value detected by C\+Make is used   \\\cline{1-3}
+{\ttfamily vt\+\_\+code\+\_\+coverage}  &0  &Enable code coverage for VT examples/tests   \\\cline{1-3}
+{\ttfamily vt\+\_\+build\+\_\+tests}  &1  &Build all VT tests   \\\cline{1-3}
+{\ttfamily vt\+\_\+build\+\_\+examples}  &1  &Build all VT examples   \\\cline{1-3}
+{\ttfamily vt\+\_\+debug\+\_\+verbose}  &1 (not Release)  &Enable VT verbose debug prints at compile-\/time   \\\cline{1-3}
+{\ttfamily vt\+\_\+no\+\_\+color\+\_\+enabled}  &0  &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default   \\\cline{1-3}
+{\ttfamily B\+U\+I\+L\+D\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+L\+I\+BS}  &0  &Build VT as shared library   \\\cline{1-3}
 \end{longtabu}
 \hypertarget{vt-build_using-the-build-script}{}\doxysubsubsection{Using the Build Script}\label{vt-build_using-the-build-script}
 Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily vt/ci/build\+\_\+cpp.\+sh} script which will run {\ttfamily cmake} for {\itshape vt} with environment variables for most configuration parameters.\hypertarget{vt-build_building-environment-variables}{}\doxyparagraph{Build Script Environment Variables}\label{vt-build_building-environment-variables}
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }\\\cline{1-3}
 \endfirsthead
 \hline
 \endfoot
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Variable  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default Value  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }\\\cline{1-3}
 \endhead
-{\ttfamily CMAKE\+\_\+\+BUILD\+\_\+\+TYPE}   &Release   &The {\ttfamily cmake} build type    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+LB\+\_\+\+ENABLED}   &1   &Compile with support for runtime load balancing    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+TRACE\+\_\+\+ENABLED}   &0   &Compile with support for runtime tracing (Projections-\/format)    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+TRACE\+\_\+\+ONLY}   &0   &Compile vt in trace-\/only mode (stripped down version for tracing MPI calls)    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+TRACE\+\_\+\+RUNTIME\+\_\+\+ENABLED}   &0   &Force tracing on at runtime (used in CI for automatically testing tracing on all tests/examples)    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+DOXYGEN\+\_\+\+ENABLED}   &0   &Enable doxygen generation    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+MIMALLOC\+\_\+\+ENABLED}   &0   &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+ASAN\+\_\+\+ENABLED}   &0   &Enable building with address sanitizer    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+UBSAN\+\_\+\+ENABLED}   &0   &Enable building with undefined behavior sanitizer    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+WERROR\+\_\+\+ENABLED}   &0   &Treat all warnings as errors    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+POOL\+\_\+\+ENABLED}   &1   &Use memory pool in {\itshape vt} for message allocation    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+FCONTEXT\+\_\+\+ENABLED}   &0   &Force use of fcontext for threading    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+ZOLTAN\+\_\+\+ENABLED}   &0   &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support    \\\cline{1-3}
-{\ttfamily ZOLTAN\+\_\+\+DIR}   &$<$empty$>$   &Directory pointing to Zoltan installation    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+MPI\+\_\+\+GUARD\+\_\+\+ENABLED}   &0   &Guards against mis-\/use of MPI calls in code using {\itshape vt}    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+EXTENDED\+\_\+\+TESTS\+\_\+\+ENABLED}   &1   &Build with full, extended testing    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+UNITY\+\_\+\+BUILD\+\_\+\+ENABLED}   &0   &Build with Unity/\+Jumbo mode enabled (requires CMake $>$= 3.\+16)    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+PRODUCTION\+\_\+\+BUILD\+\_\+\+ENABLED}   &0   &Disable assertions and debug prints at compile time    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+DIAGNOSTICS\+\_\+\+ENABLED}   &1   &Enable VT component diagnostics for performance analysis    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+DIAGNOSTICS\+\_\+\+RUNTIME\+\_\+\+ENABLED}   &0   &Enable VT component diagnostics at runtime by default    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+DEBUG\+\_\+\+VERBOSE}   &$<$empty$>$   &Enable VT verbose debug prints at compile-\/time    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+TESTS\+\_\+\+NUM\+\_\+\+NODES}   &$<$empty$>$   &Maximum number of nodes used for tests. If empty, then the default value detected by CMake is used    \\\cline{1-3}
-{\ttfamily VT\+\_\+\+NO\+\_\+\+COLOR\+\_\+\+ENABLED}   &0   &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default    \\\cline{1-3}
-{\ttfamily BUILD\+\_\+\+SHARED\+\_\+\+LIBS}   &0   &Build VT as shared library   \\\cline{1-3}
+{\ttfamily C\+M\+A\+K\+E\+\_\+\+B\+U\+I\+L\+D\+\_\+\+T\+Y\+PE}  &Release  &The {\ttfamily cmake} build type   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+L\+B\+\_\+\+E\+N\+A\+B\+L\+ED}  &1  &Compile with support for runtime load balancing   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+R\+A\+C\+E\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Compile with support for runtime tracing (Projections-\/format)   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+R\+A\+C\+E\+\_\+\+O\+N\+LY}  &0  &Compile vt in trace-\/only mode (stripped down version for tracing M\+PI calls)   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+R\+A\+C\+E\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Force tracing on at runtime (used in CI for automatically testing tracing on all tests/examples)   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+D\+O\+X\+Y\+G\+E\+N\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Enable doxygen generation   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+M\+I\+M\+A\+L\+L\+O\+C\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/frees/corruption   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+A\+S\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Enable building with address sanitizer   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+U\+B\+S\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Enable building with undefined behavior sanitizer   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+W\+E\+R\+R\+O\+R\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Treat all warnings as errors   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+P\+O\+O\+L\+\_\+\+E\+N\+A\+B\+L\+ED}  &1  &Use memory pool in {\itshape vt} for message allocation   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+F\+C\+O\+N\+T\+E\+X\+T\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Force use of fcontext for threading   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+Z\+O\+L\+T\+A\+N\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support   \\\cline{1-3}
+{\ttfamily Z\+O\+L\+T\+A\+N\+\_\+\+D\+IR}  &$<$empty$>$  &Directory pointing to Zoltan installation   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+M\+P\+I\+\_\+\+G\+U\+A\+R\+D\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Guards against mis-\/use of M\+PI calls in code using {\itshape vt}   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+E\+X\+T\+E\+N\+D\+E\+D\+\_\+\+T\+E\+S\+T\+S\+\_\+\+E\+N\+A\+B\+L\+ED}  &1  &Build with full, extended testing   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+U\+N\+I\+T\+Y\+\_\+\+B\+U\+I\+L\+D\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Build with Unity/\+Jumbo mode enabled (requires C\+Make $>$= 3.\+16)   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+P\+R\+O\+D\+U\+C\+T\+I\+O\+N\+\_\+\+B\+U\+I\+L\+D\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Disable assertions and debug prints at compile time   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+D\+I\+A\+G\+N\+O\+S\+T\+I\+C\+S\+\_\+\+E\+N\+A\+B\+L\+ED}  &1  &Enable VT component diagnostics for performance analysis   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+D\+I\+A\+G\+N\+O\+S\+T\+I\+C\+S\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Enable VT component diagnostics at runtime by default   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+B\+O\+SE}  &$<$empty$>$  &Enable VT verbose debug prints at compile-\/time   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+T\+E\+S\+T\+S\+\_\+\+N\+U\+M\+\_\+\+N\+O\+D\+ES}  &$<$empty$>$  &Maximum number of nodes used for tests. If empty, then the default value detected by C\+Make is used   \\\cline{1-3}
+{\ttfamily V\+T\+\_\+\+N\+O\+\_\+\+C\+O\+L\+O\+R\+\_\+\+E\+N\+A\+B\+L\+ED}  &0  &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default   \\\cline{1-3}
+{\ttfamily B\+U\+I\+L\+D\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+L\+I\+BS}  &0  &Build VT as shared library   \\\cline{1-3}
 \end{longtabu}
 
 
@@ -119,7 +118,6 @@ With these set, invoke the script with two arguments\+: the path to the {\itshap
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ vt/ci/build\_cpp.sh <full-\/path-\/to-\/vt-\/source> <full-\/path-\/to-\/build-\/dir>}
-
 \end{DoxyCode}
 
 
@@ -130,14 +128,13 @@ With these set, invoke the script with two arguments\+: the path to the {\itshap
 \DoxyCodeLine{\$ cd /usr/src}
 \DoxyCodeLine{\$ git clone git@github.com:DARMA-\/tasking/vt}
 \DoxyCodeLine{\$ VT\_TRACE\_ENABLED=1 CMAKE\_BUILD\_TYPE=Debug /usr/src/vt/ci/build\_cpp.sh /usr/src/vt /usr/build/vt}
-
 \end{DoxyCode}
 \hypertarget{vt-build_docker-build}{}\doxysubsubsection{Building with $<$tt$>$docker$<$/tt$>$ containerization}\label{vt-build_docker-build}
-The easiest way to build {\itshape vt} is by using {\ttfamily docker} with the available containers that contain the proper compilers, MPI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker compose} might also need to be installed.
+The easiest way to build {\itshape vt} is by using {\ttfamily docker} with the available containers that contain the proper compilers, M\+PI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker compose} might also need to be installed.
 
 The {\ttfamily docker} builds are configured through {\ttfamily docker compose} to use a shared, cached filesystem mount with the host for {\ttfamily ccache} to enable fast re-\/builds.
 
-For {\ttfamily docker compose}, the following variables can be set to configure the build. One may configure the architecture, compiler type (GNU, Clang, Intel, Nvidia) and compiler version, Linux distro (ubuntu or alpine), and distro version.
+For {\ttfamily docker compose}, the following variables can be set to configure the build. One may configure the architecture, compiler type (G\+NU, Clang, Intel, Nvidia) and compiler version, Linux distro (ubuntu or alpine), and distro version.
 
 The default set of the docker configuration options is located in {\ttfamily vt/.env}, which {\ttfamily docker compose} will read.
 
@@ -174,7 +171,6 @@ The default set of the docker configuration options is located in {\ttfamily vt/
 \DoxyCodeLine{\#   VT\_DEBUG\_VERBOSE          \# Enable verbose debug prints at compile-\/time}
 \DoxyCodeLine{\#   VT\_NO\_COLOR\_ENABLED=0     \# Set -\/-\/vt\_no\_color flag to true by default}
 \DoxyCodeLine{\#   VT\_BUILD\_SHARED\_LIBS=0    \# Build VT as shared library}
-
 \end{DoxyCode}
 
 
@@ -184,7 +180,6 @@ With these set, one may run the following for a non-\/interactive build with ubu
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ cd vt}
 \DoxyCodeLine{\$ docker compose run -\/e BUILD\_TYPE=debug -\/e VT\_TRACE=1 ubuntu-\/cpp}
-
 \end{DoxyCode}
 
 
@@ -194,7 +189,6 @@ Or, alternatively, run a non-\/interactive build with alpine\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ cd vt}
 \DoxyCodeLine{\$ docker compose run -\/e BUILD\_TYPE=debug -\/e VT\_TRACE=1 alpine-\/cpp}
-
 \end{DoxyCode}
 
 
@@ -207,7 +201,6 @@ For an interactive build with ubuntu, where one can build, debug, and run {\ttfa
 \DoxyCodeLine{\# /vt/ci/build\_cpp.sh /vt /build}
 \DoxyCodeLine{\# /vt/ci/test\_cpp.sh /vt /build}
 \DoxyCodeLine{\# /vt/ci/build\_vt\_sample.sh /vt /build}
-
 \end{DoxyCode}
 
 
@@ -219,7 +212,6 @@ After {\itshape vt} is built successfully, one may invoke the tests several ways
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\$ vt/ci/test\_cpp.sh <full-\/path-\/to-\/vt-\/source> <full-\/path-\/to-\/build-\/dir>}
-
 \end{DoxyCode}
  \hypertarget{tutorial}{}\doxysection{Tutorial}\label{tutorial}
 Tutorial of how to use {\bfseries{{\itshape vt}}}\hypertarget{tutorial_tutorial-init-finalize-vt}{}\doxysubsection{Initializing/\+Finalizing}\label{tutorial_tutorial-init-finalize-vt}
@@ -232,11 +224,10 @@ To initialize {\bfseries{{\itshape vt}}} all you must do is invoke the {\ttfamil
 \DoxyCodeLine{   \textcolor{comment}{// program here}}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}}();}
 \DoxyCodeLine{\}}
-
 \end{DoxyCode}
 
 
-If you are already using MPI in your program already, you don\textquotesingle{}t want to call initialize like this because {\bfseries{{\itshape vt}}} will initialize MPI itself. Instead, you should pass a pointer to the live MPI communicator to {\bfseries{{\itshape vt}}} for it to clone, as so\+:
+If you are already using M\+PI in your program already, you don\textquotesingle{}t want to call initialize like this because {\bfseries{{\itshape vt}}} will initialize M\+PI itself. Instead, you should pass a pointer to the live M\+PI communicator to {\bfseries{{\itshape vt}}} for it to clone, as so\+:
 
 
 \begin{DoxyCode}{0}
@@ -247,7 +238,6 @@ If you are already using MPI in your program already, you don\textquotesingle{}t
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}}();}
 \DoxyCodeLine{  MPI\_Finalize();}
 \DoxyCodeLine{\}}
-
 \end{DoxyCode}
 
 
@@ -257,18 +247,17 @@ If, for any reason, you want to predefine configuration, you can do it by creati
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv) \{}
 \DoxyCodeLine{  arguments::AppConfig appConfig\{\};}
-\DoxyCodeLine{  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"{}RotateLB"{}};}
+\DoxyCodeLine{  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"RotateLB"};}
 \DoxyCodeLine{  appConfig.vt\_lb\_data = \textcolor{keyword}{true};}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{vt::initialize}}(argc, argv, \&appConfig);}
 \DoxyCodeLine{   \textcolor{comment}{// program here}}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}}();}
 \DoxyCodeLine{\}}
-
 \end{DoxyCode}
 
 
-You can do also do it if you initialized MPI on your own\+:
+You can do also do it if you initialized M\+PI on your own\+:
 
 
 \begin{DoxyCode}{0}
@@ -276,7 +265,7 @@ You can do also do it if you initialized MPI on your own\+:
 \DoxyCodeLine{  MPI\_Init(\&argc, \&argv);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  arguments::AppConfig appConfig\{\};}
-\DoxyCodeLine{  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"{}RotateLB"{}};}
+\DoxyCodeLine{  appConfig.vt\_lb\_name = \textcolor{stringliteral}{"RotateLB"};}
 \DoxyCodeLine{  appConfig.vt\_lb\_data = \textcolor{keyword}{true};}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{vt::initialize}}(argc, argv, \&MPI\_COMM\_WORLD, \&appConfig);}
@@ -284,13 +273,12 @@ You can do also do it if you initialized MPI on your own\+:
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a540d90dbd6e97b69f1dcbc9ee9314cff}{vt::finalize}}();}
 \DoxyCodeLine{  MPI\_Finalize();}
 \DoxyCodeLine{\}}
-
 \end{DoxyCode}
 
 
-It is worth noting that if you run your application with any of vt\textquotesingle{}s command-\/line arguments and at the same time you define and pass {\ttfamily App\+Config} to {\ttfamily \mbox{\hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{vt\+::initialize}}}, CLI arguments have a higher priority. In other words, if you predefine in source code and give from the command line the same vt\textquotesingle{}s argument, but with a different value, the program will use the CLI one.
+It is worth noting that if you run your application with any of vt\textquotesingle{}s command-\/line arguments and at the same time you define and pass {\ttfamily App\+Config} to {\ttfamily \mbox{\hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{vt\+::initialize}}}, C\+LI arguments have a higher priority. In other words, if you predefine in source code and give from the command line the same vt\textquotesingle{}s argument, but with a different value, the program will use the C\+LI one.
 
-There is also an option to use configuration file. Refer to CLI11 documentation for details \href{https://cliutils.github.io/CLI11/book/chapters/config.html}{\texttt{ https\+://cliutils.\+github.\+io/\+CLI11/book/chapters/config.\+html}}. Important thing to remember -\/ CLI11 processes configuration file before command line arguments, so in the end command line arguments might overwrite values defined in configuration file.\hypertarget{tutorial_tutorial-walkthrough}{}\doxysubsection{Tutorial Code Snippets}\label{tutorial_tutorial-walkthrough}
+There is also an option to use configuration file. Refer to C\+L\+I11 documentation for details \href{https://cliutils.github.io/CLI11/book/chapters/config.html}{\texttt{ https\+://cliutils.\+github.\+io/\+C\+L\+I11/book/chapters/config.\+html}}. Important thing to remember -\/ C\+L\+I11 processes configuration file before command line arguments, so in the end command line arguments might overwrite values defined in configuration file.\hypertarget{tutorial_tutorial-walkthrough}{}\doxysubsection{Tutorial Code Snippets}\label{tutorial_tutorial-walkthrough}
 This page walks through the tutorial that exists in the source code. See {\ttfamily vt/tutorial/$\ast$.h} for the tutorial pieces in the repository. The main tutorial example code that stitches the pieces together is located in example\+: {\ttfamily vt/tutorial/tutorial\+\_\+main.\+h}. The actual code that compiles into an example is in {\ttfamily vt/examples/tutorial.\+cc}.
 
 
@@ -337,9 +325,8 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// The header-\/only library fmt is used for printing throughout VT. You can use}}
 \DoxyCodeLine{  \textcolor{comment}{// it because the headers are included by default}}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}this\_node=\{\}, num\_nodes=\{\}\(\backslash\)n"{}}, this\_node, num\_nodes);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"this\_node=\{\}, num\_nodes=\{\}\(\backslash\)n"}, this\_node, num\_nodes);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1b}{}\doxysubsection{Learning about active handlers}\label{tutorial-1b}
 
@@ -424,16 +411,16 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{comment}{   * VT provides vtAssert (and a half-\/dozen variants) that replace the simple}}
 \DoxyCodeLine{\textcolor{comment}{   * the assert call found in cassert.}}
 \DoxyCodeLine{\textcolor{comment}{   */}}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA() == 29, \textcolor{stringliteral}{"{}Value a incorrect"{}});}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB() == 32, \textcolor{stringliteral}{"{}Value b incorrect"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA() == 29, \textcolor{stringliteral}{"Value a incorrect"});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB() == 32, \textcolor{stringliteral}{"Value b incorrect"});}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
 \DoxyCodeLine{}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerA: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgHandlerA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{/* Node 0 sends MyMsg to node 1 in the above code so this should execute on}}
 \DoxyCodeLine{\textcolor{comment}{   * node 1 */}}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 1, \textcolor{stringliteral}{"{}This handler should execute on node 1"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 1, \textcolor{stringliteral}{"This handler should execute on node 1"});}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{/*}}
 \DoxyCodeLine{\textcolor{comment}{   * In response to this message, node 1 sends a message back to node 0. This}}
@@ -463,12 +450,11 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{void} MsgHandlerB::operator()(MyMsg* msg) \{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA() == 10, \textcolor{stringliteral}{"{}Value a incorrect"{}});}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB() == 20, \textcolor{stringliteral}{"{}Value b incorrect"{}});}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 0, \textcolor{stringliteral}{"{}This handler should execute on node 0"{}});}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerB: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA() == 10, \textcolor{stringliteral}{"Value a incorrect"});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB() == 20, \textcolor{stringliteral}{"Value b incorrect"});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 0, \textcolor{stringliteral}{"This handler should execute on node 0"});}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgHandlerB: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1c}{}\doxysubsection{Learning about serialization}\label{tutorial-1c}
 
@@ -568,18 +554,17 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// Message handler}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgSerialA(ParticleMsg* msg) \{}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>particles.size() == 2, \textcolor{stringliteral}{"{}Should be two particles"{}});}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>x == 1 \&\& msg-\/>y == 2 \&\& msg-\/>z == 3, \textcolor{stringliteral}{"{}Values x,y,z incorrect"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>particles.size() == 2, \textcolor{stringliteral}{"Should be two particles"});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>x == 1 \&\& msg-\/>y == 2 \&\& msg-\/>z == 3, \textcolor{stringliteral}{"Values x,y,z incorrect"});}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{/* Node 0 sends MyMsg to node 1 in the above code so this should execute on}}
 \DoxyCodeLine{\textcolor{comment}{   * node 1 */}}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 1, \textcolor{stringliteral}{"{}This handler should execute on node 1"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node == 1, \textcolor{stringliteral}{"This handler should execute on node 1"});}
 \DoxyCodeLine{}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgSerialA: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgSerialA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1d}{}\doxysubsection{Learning about broadcasts}\label{tutorial-1d}
 
@@ -638,13 +623,12 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerX(MyDataMsg* msg) \{}
 \DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
 \DoxyCodeLine{    msg-\/>getX() == 1.0 \&\& msg-\/>getY() == 2.0 \&\& msg-\/>getZ() == 3.0,}
-\DoxyCodeLine{    \textcolor{stringliteral}{"{}Values x,y,z incorrect"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"Values x,y,z incorrect"}}
 \DoxyCodeLine{  );}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerX: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgHandlerX: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1e}{}\doxysubsection{Learning about rooted groups}\label{tutorial-1e}
 
@@ -678,7 +662,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{    \textcolor{comment}{// setting the group in the envelope of the message and broadcasting the}}
 \DoxyCodeLine{    \textcolor{comment}{// message will arrive on the set of nodes included in the group}}
 \DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keywordtype}{id} = \mbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}}()-\/>\mbox{\hyperlink{structvt_1_1group_1_1_group_manager_a076330445139abce77e1f6ab6e4358c5}{newGroup}}(std::move(range), [](\mbox{\hyperlink{namespacevt_a27b5e4411c9b6140c49100e050e2f743}{GroupType}} group\_id)\{}
-\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"{}Group is created: id=\{:x\}\(\backslash\)n"{}}, group\_id);}
+\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"Group is created: id=\{:x\}\(\backslash\)n"}, group\_id);}
 \DoxyCodeLine{      \textcolor{keyword}{auto} msg = makeMessage<MySimpleMsg>();}
 \DoxyCodeLine{      \mbox{\hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}}(msg-\/>env, group\_id);}
 \DoxyCodeLine{      \mbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\mbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<msgHandlerGroupA>(msg);}
@@ -692,11 +676,10 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{comment}{// Message handler}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupA([[maybe\_unused]] MySimpleMsg* msg) \{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node >= 1, \textcolor{stringliteral}{"{}This handler should only execute on nodes >= 1"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node >= 1, \textcolor{stringliteral}{"This handler should only execute on nodes >= 1"});}
 \DoxyCodeLine{}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerGroupA: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgHandlerGroupA: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1f}{}\doxysubsection{Learning about collective groups}\label{tutorial-1f}
 
@@ -732,7 +715,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \mbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a132506d2b8e888d0a91ae4470d4197c1}{group}} = \mbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}}()-\/>\mbox{\hyperlink{structvt_1_1group_1_1_group_manager_a92b301d6cf77af7d57ed822c6f044d58}{newGroupCollective}}(}
 \DoxyCodeLine{    is\_even\_node, [](\mbox{\hyperlink{namespacevt_a27b5e4411c9b6140c49100e050e2f743}{GroupType}} group\_id)\{}
-\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"{}Group is created: id=\{:x\}\(\backslash\)n"{}}, group\_id);}
+\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"Group is created: id=\{:x\}\(\backslash\)n"}, group\_id);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      \textcolor{comment}{// In this example, node 1 broadcasts to the group of even nodes}}
 \DoxyCodeLine{      \textcolor{keyword}{auto} \textcolor{keyword}{const} my\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
@@ -749,11 +732,10 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{comment}{// Message handler}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} msgHandlerGroupB([[maybe\_unused]] MySimpleMsg2* msg) \{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node \% 2 == 0, \textcolor{stringliteral}{"{}This handler should only execute on even nodes"{}});}
+\DoxyCodeLine{  \mbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node \% 2 == 0, \textcolor{stringliteral}{"This handler should only execute on even nodes"});}
 \DoxyCodeLine{}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerGroupB: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"msgHandlerGroupB: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1g}{}\doxysubsection{Learning about callbacks}\label{tutorial-1g}
 
@@ -765,14 +747,14 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{comment}{// An active message handler used as the target for a callback}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackHandler(\textcolor{keywordtype}{int} data) \{}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType}} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}\{\}: triggering active message callback: \{\}\(\backslash\)n"{}}, cur\_node, data);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"\{\}: triggering active message callback: \{\}\(\backslash\)n"}, cur\_node, data);}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// An active message handler used as the target for a callback}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} callbackBcastHandler(\textcolor{keywordtype}{int} data) \{}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType}} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
 \DoxyCodeLine{  ::fmt::print(}
-\DoxyCodeLine{    \textcolor{stringliteral}{"{}\{\}: triggering active message callback bcast: \{\}\(\backslash\)n"{}}, cur\_node, data}
+\DoxyCodeLine{    \textcolor{stringliteral}{"\{\}: triggering active message callback bcast: \{\}\(\backslash\)n"}, cur\_node, data}
 \DoxyCodeLine{  );}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
@@ -812,12 +794,11 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{comment}{// Message handler for to receive callback and invoke it}}
 \DoxyCodeLine{\textcolor{keyword}{static} \textcolor{keywordtype}{void} getCallbackHandler(Callback<int> cb) \{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} \textcolor{keyword}{const} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}getCallbackHandler: triggered on node=\{\}\(\backslash\)n"{}}, cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"getCallbackHandler: triggered on node=\{\}\(\backslash\)n"}, cur\_node);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Send the callback a message}}
 \DoxyCodeLine{  cb.send(29 + cur\_node);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-1h}{}\doxysubsection{Learning about reductions}\label{tutorial-1h}
 
@@ -825,7 +806,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{keywordtype}{void} reduceResult(\textcolor{keywordtype}{int} result) \{}
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType}} \textcolor{keyword}{const} num\_nodes = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
 \DoxyCodeLine{  (void)num\_nodes;  \textcolor{comment}{// don't warn about possibly unused variable}}
-\DoxyCodeLine{  fmt::print(\textcolor{stringliteral}{"{}reduction value=\{\}\(\backslash\)n"{}}, result);}
+\DoxyCodeLine{  fmt::print(\textcolor{stringliteral}{"reduction value=\{\}\(\backslash\)n"}, result);}
 \DoxyCodeLine{  assert(num\_nodes * 50 == result);}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
@@ -844,7 +825,6 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \textcolor{keyword}{auto} r = \mbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{vt::theCollective}}()-\/>\mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afa3c814ff0e1c7ef1a9f76ed4036512b}{global}}();}
 \DoxyCodeLine{  r-\/>\mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce}}<reduceResult, \mbox{\hyperlink{namespacevt_1_1collective_a7a695a8e6ed8247f643918113b7bf881}{collective::PlusOp}}>(\mbox{\hyperlink{structvt_1_1util_1_1strong_1_1detail_1_1_strong}{vt::Node}}\{root\_reduce\_node\}, 50);}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-2a}{}\doxysubsection{Learning about collections}\label{tutorial-2a}
 
@@ -872,7 +852,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{\textcolor{keywordtype}{void} MyCol::msgHandler([[maybe\_unused]] MyCollMsg* msg) \{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} cur\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
 \DoxyCodeLine{  \textcolor{keyword}{auto} idx = this-\/>\mbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}();}
-\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"{}MyCol::msgHandler index=\{\}, node=\{\}\(\backslash\)n"{}}, idx.x(), cur\_node);}
+\DoxyCodeLine{  ::fmt::print(\textcolor{stringliteral}{"MyCol::msgHandler index=\{\}, node=\{\}\(\backslash\)n"}, idx.x(), cur\_node);}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{// Tutorial code to demonstrate creating a collection}}
@@ -891,7 +871,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Construct the collection (collective variant): invoked by all nodes. By}}
 \DoxyCodeLine{  \textcolor{comment}{// default, the elements will be block mapped to the nodes}}
-\DoxyCodeLine{  \textcolor{keyword}{auto} proxy = vt::makeCollection<MyCol>(\textcolor{stringliteral}{"{}tutorial\_collection"{}})}
+\DoxyCodeLine{  \textcolor{keyword}{auto} proxy = vt::makeCollection<MyCol>(\textcolor{stringliteral}{"tutorial\_collection"})}
 \DoxyCodeLine{    .bounds(range)    \textcolor{comment}{// Set the bounds for the collection}}
 \DoxyCodeLine{    .bulkInsert()     \textcolor{comment}{// Bulk insert all the elements within the bounds}}
 \DoxyCodeLine{    .wait();          \textcolor{comment}{// Wait for construction and get the proxy back}}
@@ -899,7 +879,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (this\_node == 0) \{}
 \DoxyCodeLine{    \textcolor{comment}{// Broadcast a message to the entire collection. The msgHandler will be}}
 \DoxyCodeLine{    \textcolor{comment}{// invoked on every element to the collection}}
-\DoxyCodeLine{    proxy.broadcast<MyCollMsg,\&MyCol::msgHandler>();}
+\DoxyCodeLine{    proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}}<MyCollMsg,\&MyCol::msgHandler>();}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// Send a message to the 5th element of the collection}}
 \DoxyCodeLine{    proxy[5].send<MyCollMsg,\&MyCol::msgHandler>();}
@@ -909,7 +889,6 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \textcolor{comment}{// single broadcast)}}
 \DoxyCodeLine{  proxy.broadcastCollective<MyCollMsg,\&MyCol::msgHandler>();}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-2b}{}\doxysubsection{Learning about collection reductions}\label{tutorial-2b}
 
@@ -941,19 +920,19 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \textcolor{keyword}{auto} idx = this-\/>\mbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}();}
 \DoxyCodeLine{  (void)idx;  \textcolor{comment}{// don't warn about unused variable}}
 \DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{comment}{//::fmt::print("{}MyCol::reduceHandler index=\{\}, node=\{\}\(\backslash\)n"{}, idx.x(), cur\_node);}}
+\DoxyCodeLine{  \textcolor{comment}{//::fmt::print("MyCol::reduceHandler index=\{\}, node=\{\}\(\backslash\)n", idx.x(), cur\_node);}}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keyword}{auto} proxy = getCollectionProxy();}
 \DoxyCodeLine{  \textcolor{keywordtype}{int} val = 100;}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Invoke the reduce!}}
-\DoxyCodeLine{  proxy.allreduce<\&ReduceCol::reduceTarget, \mbox{\hyperlink{namespacevt_1_1collective_a7a695a8e6ed8247f643918113b7bf881}{collective::PlusOp}}>(val);}
+\DoxyCodeLine{  proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_ab8d4b9337c19d4ff0e758d03f3941b98}{allreduce}}<\&ReduceCol::reduceTarget, \mbox{\hyperlink{namespacevt_1_1collective_a7a695a8e6ed8247f643918113b7bf881}{collective::PlusOp}}>(val);}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int} number\_of\_elements = 32;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{void} ReduceCol::reduceTarget(\textcolor{keywordtype}{int} value) \{}
-\DoxyCodeLine{  fmt::print(\textcolor{stringliteral}{"{}collection reduce value=\{\}\(\backslash\)n"{}}, value);}
+\DoxyCodeLine{  fmt::print(\textcolor{stringliteral}{"collection reduce value=\{\}\(\backslash\)n"}, value);}
 \DoxyCodeLine{  assert(number\_of\_elements * 100 == value);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
@@ -974,17 +953,16 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// Construct the collection in a rooted manner. By default, the elements}}
 \DoxyCodeLine{    \textcolor{comment}{// will be block mapped to the nodes}}
-\DoxyCodeLine{    \textcolor{keyword}{auto} proxy = vt::makeCollectionRooted<ReduceCol>(\textcolor{stringliteral}{"{}tutorial\_collection\_reduce"{}})}
+\DoxyCodeLine{    \textcolor{keyword}{auto} proxy = vt::makeCollectionRooted<ReduceCol>(\textcolor{stringliteral}{"tutorial\_collection\_reduce"})}
 \DoxyCodeLine{      .bounds(range)     \textcolor{comment}{// Set the bounds for the collection}}
 \DoxyCodeLine{      .bulkInsert()      \textcolor{comment}{// Bulk insert all the elements within the bounds}}
 \DoxyCodeLine{      .wait();           \textcolor{comment}{// Wait for construction and get the proxy back}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{// Broadcast a message to the entire collection. The reduceHandler will be}}
 \DoxyCodeLine{    \textcolor{comment}{// invoked on every element to the collection}}
-\DoxyCodeLine{    proxy.broadcast<\&ReduceCol::reduceHandler>();}
+\DoxyCodeLine{    proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a0b716ca776b1f06e0d7d45afbe9e5274}{broadcast}}<\&ReduceCol::reduceHandler>();}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{tutorial-3a}{}\doxysubsection{Learning about collective epochs}\label{tutorial-3a}
 
@@ -1029,7 +1007,7 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\mbox{\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}}(}
 \DoxyCodeLine{    new\_epoch, []\{}
 \DoxyCodeLine{      \textcolor{keyword}{auto} \textcolor{keyword}{const} \mbox{\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}} = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
-\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"{}\{\}: recurHandler terminated\(\backslash\)n"{}}, \mbox{\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}});}
+\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"\{\}: recurHandler terminated\(\backslash\)n"}, \mbox{\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}});}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{  );}
 \DoxyCodeLine{}
@@ -1045,16 +1023,16 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{  \mbox{\hyperlink{namespacevt_a866da9d0efc19c0a1ce79e9e492f47e2}{NodeType}} \textcolor{keyword}{const} this\_node = \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\mbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{  ::fmt::print(}
-\DoxyCodeLine{    \textcolor{stringliteral}{"{}\{\}: recurHandler: ttl=\{\}, triggered\(\backslash\)n"{}}, this\_node, msg-\/>ttl}
+\DoxyCodeLine{    \textcolor{stringliteral}{"\{\}: recurHandler: ttl=\{\}, triggered\(\backslash\)n"}, this\_node, msg-\/>ttl}
 \DoxyCodeLine{  );}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (msg-\/>ttl > 0) \{}
-\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const} num\_send = \textcolor{keyword}{static\_cast<}int32\_t\textcolor{keyword}{>}(drand48() * 3);}
+\DoxyCodeLine{    \textcolor{keyword}{auto} \textcolor{keyword}{const} num\_send = static\_cast<int32\_t>(drand48() * 3);}
 \DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0; i < num\_send; i++) \{}
 \DoxyCodeLine{      \textcolor{keyword}{auto} next\_node = (this\_node + 1 > num\_nodes -\/ 1) ? 0 : (this\_node + 1);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      ::fmt::print(}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{}\{\}: recurHandler: i=\{\}, next\_node=\{\}, num\_send=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{        \textcolor{stringliteral}{"\{\}: recurHandler: i=\{\}, next\_node=\{\}, num\_send=\{\}\(\backslash\)n"},}
 \DoxyCodeLine{        this\_node, i, next\_node, num\_send}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{}
@@ -1063,7 +1041,6 @@ This page walks through the tutorial that exists in the source code. See {\ttfam
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{examples}{}\doxysection{Examples}\label{examples}
 Small example programs to learn {\bfseries{{\itshape vt}}}
@@ -1071,16 +1048,16 @@ Small example programs to learn {\bfseries{{\itshape vt}}}
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Example   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Example  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link   }\\\cline{1-3}
 \endfirsthead
 \hline
 \endfoot
 \hline
-\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Example   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link    }\\\cline{1-3}
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Example  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Link   }\\\cline{1-3}
 \endhead
-Jacobi1D   &1-\/D Jacobi linear system solver with homogeneous Dirichlet condition   &\mbox{\hyperlink{jacobi1d-example}{Example Jacobi 1D Program}}    \\\cline{1-3}
-Jacobi2D   &2-\/D Jacobi linear system solver with homogeneous Dirichlet condition   &\mbox{\hyperlink{jacobi2d-example}{Example Jacobi 2D Program}}    \\\cline{1-3}
-Reduce\+Integral   &Composite trapezoidal rule for the integral {\ttfamily \textbackslash{}int\+\_\+\{0\}$^\wedge$\{1\} f(x) dx}   &\mbox{\hyperlink{reduce-integral-example}{Example Integral Reduction Program}}   \\\cline{1-3}
+Jacobi1D  &1-\/D Jacobi linear system solver with homogeneous Dirichlet condition  &\mbox{\hyperlink{jacobi1d-example}{Example Jacobi 1D Program}}   \\\cline{1-3}
+Jacobi2D  &2-\/D Jacobi linear system solver with homogeneous Dirichlet condition  &\mbox{\hyperlink{jacobi2d-example}{Example Jacobi 2D Program}}   \\\cline{1-3}
+Reduce\+Integral  &Composite trapezoidal rule for the integral {\ttfamily \textbackslash{}int\+\_\+\{0\}$^\wedge$\{1\} f(x) dx}  &\mbox{\hyperlink{reduce-integral-example}{Example Integral Reduction Program}}   \\\cline{1-3}
 \end{longtabu}
 \hypertarget{jacobi1d-example}{}\doxysubsection{Example Jacobi 1D Program}\label{jacobi1d-example}
 The full code for this example can be found here\+: {\ttfamily examples/collection/jacobi1d\+\_\+vt.\+cc}.
@@ -1170,15 +1147,15 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (iter\_max\_reached or norm\_res\_done) \{}
 \DoxyCodeLine{      \textcolor{keyword}{auto} \textcolor{keyword}{const} to\_print = iter\_max\_reached ?}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{}\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"{}} :}
-\DoxyCodeLine{        fmt::format(\textcolor{stringliteral}{"{}\(\backslash\)n Max-\/Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"{}}, default\_tol);}
+\DoxyCodeLine{        \textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"} :}
+\DoxyCodeLine{        fmt::format(\textcolor{stringliteral}{"\(\backslash\)n Max-\/Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      fmt::print(to\_print);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      \textcolor{comment}{// Notify all nodes that computation is finished}}
 \DoxyCodeLine{      objProxy\_.broadcast<\&NodeObj::workFinishedHandler>();}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"{} \#\# ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"{}}, iter\_, normRes);}
+\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{" \#\# ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{}
@@ -1194,7 +1171,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{    \textcolor{comment}{//-\/-\/-\/-\/ Jacobi iteration step}}
-\DoxyCodeLine{    \textcolor{comment}{//-\/-\/-\/-\/ A tridiagonal matrix = "{}tridiag"{} ( [-\/1.0  2.0  -\/1.0] )}}
+\DoxyCodeLine{    \textcolor{comment}{//-\/-\/-\/-\/ A tridiagonal matrix = "tridiag" ( [-\/1.0  2.0  -\/1.0] )}}
 \DoxyCodeLine{    \textcolor{comment}{//-\/-\/-\/-\/ rhs\_ right hand side vector}}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 1; ii <= numRowsPerObject\_; ++ii) \{}
@@ -1205,8 +1182,8 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{    \textcolor{comment}{// Compute the maximum entries among the rows on this object}}
-\DoxyCodeLine{    \textcolor{comment}{// We do not take into account the "{}ghost"{} entries}}
-\DoxyCodeLine{    \textcolor{comment}{// as they may be "{}out of date"{}.}}
+\DoxyCodeLine{    \textcolor{comment}{// We do not take into account the "ghost" entries}}
+\DoxyCodeLine{    \textcolor{comment}{// as they may be "out of date".}}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordtype}{double} maxNorm = 0.0;}
@@ -1217,7 +1194,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keyword}{auto} proxy = this-\/>\mbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
-\DoxyCodeLine{    proxy.reduce<\&LinearPb1DJacobi::checkCompleteCB, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}}>(}
+\DoxyCodeLine{    proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}}<\&LinearPb1DJacobi::checkCompleteCB, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}}>(}
 \DoxyCodeLine{      proxy[0], maxNorm}
 \DoxyCodeLine{    );}
 \DoxyCodeLine{}
@@ -1372,25 +1349,25 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (argc == 1) \{}
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (this\_node == 0) \{}
 \DoxyCodeLine{      fmt::print(}
-\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"{}\{\}: using default arguments since none provided\(\backslash\)n"{}}, name}
+\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{    num\_objs = default\_num\_objs * num\_nodes;}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 2) \{}
-\DoxyCodeLine{    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    num\_objs = static\_cast<size\_t>(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{  \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 3) \{}
-\DoxyCodeLine{    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
-\DoxyCodeLine{    numRowsPerObject = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    num\_objs = static\_cast<size\_t>(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    numRowsPerObject = static\_cast<size\_t>(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{  \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc == 4) \{}
-\DoxyCodeLine{    num\_objs = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
-\DoxyCodeLine{    numRowsPerObject = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));}
-\DoxyCodeLine{    maxIter = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[3], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    num\_objs = static\_cast<size\_t>(strtol(argv[1], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    numRowsPerObject = static\_cast<size\_t>(strtol(argv[2], \textcolor{keyword}{nullptr}, 10));}
+\DoxyCodeLine{    maxIter = static\_cast<size\_t>(strtol(argv[3], \textcolor{keyword}{nullptr}, 10));}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{  \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{    fmt::print(}
-\DoxyCodeLine{      stderr, \textcolor{stringliteral}{"{}usage: \{\} <num-\/objects> <num-\/rows-\/per-\/object> <maxiter>\(\backslash\)n"{}},}
+\DoxyCodeLine{      stderr, \textcolor{stringliteral}{"usage: \{\} <num-\/objects> <num-\/rows-\/per-\/object> <maxiter>\(\backslash\)n"},}
 \DoxyCodeLine{      name}
 \DoxyCodeLine{    );}
 \DoxyCodeLine{    \textcolor{keywordflow}{return} 1;}
@@ -1398,13 +1375,13 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Object group of all nodes that take part in computation}}
 \DoxyCodeLine{  \textcolor{comment}{// Used to determine whether the computation is finished}}
-\DoxyCodeLine{  \textcolor{keyword}{auto} grp\_proxy = \mbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\mbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<NodeObj>(\textcolor{stringliteral}{"{}examples\_jacobi1d"{}});}
+\DoxyCodeLine{  \textcolor{keyword}{auto} grp\_proxy = \mbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\mbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<NodeObj>(\textcolor{stringliteral}{"examples\_jacobi1d"});}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Create the decomposition into objects}}
 \DoxyCodeLine{  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \mbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType}};}
-\DoxyCodeLine{  \textcolor{keyword}{auto} range = \mbox{\hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}}(\textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(num\_objs));}
+\DoxyCodeLine{  \textcolor{keyword}{auto} range = \mbox{\hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}}(static\_cast<BaseIndexType>(num\_objs));}
 \DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb1DJacobi>(\textcolor{stringliteral}{"{}examples\_jacobi1d"{}})}
+\DoxyCodeLine{  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb1DJacobi>(\textcolor{stringliteral}{"examples\_jacobi1d"})}
 \DoxyCodeLine{    .bounds(range)}
 \DoxyCodeLine{    .bulkInsert()}
 \DoxyCodeLine{    .wait();}
@@ -1430,7 +1407,6 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
-
 \end{DoxyCodeInclude}
 \hypertarget{jacobi2d-example}{}\doxysubsection{Example Jacobi 2D Program}\label{jacobi2d-example}
 The full code for this example can be found here\+: {\ttfamily examples/collection/jacobi2d\+\_\+vt.\+cc}.
@@ -1527,15 +1503,15 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (iter\_max\_reached or norm\_res\_done) \{}
 \DoxyCodeLine{      \textcolor{keyword}{auto} \textcolor{keyword}{const} to\_print = iter\_max\_reached ?}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{}\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"{}} :}
-\DoxyCodeLine{        fmt::format(\textcolor{stringliteral}{"{}\(\backslash\)n Max-\/Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"{}}, default\_tol);}
+\DoxyCodeLine{        \textcolor{stringliteral}{"\(\backslash\)n Maximum Number of Iterations Reached. \(\backslash\)n\(\backslash\)n"} :}
+\DoxyCodeLine{        fmt::format(\textcolor{stringliteral}{"\(\backslash\)n Max-\/Norm Residual Reduced by \{\} \(\backslash\)n\(\backslash\)n"}, default\_tol);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      fmt::print(to\_print);}
 \DoxyCodeLine{}
 \DoxyCodeLine{      \textcolor{comment}{// Notify all nodes that computation is finished}}
 \DoxyCodeLine{      objProxy\_.broadcast<\&NodeObj::workFinishedHandler>();}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{"{} \#\# ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"{}}, iter\_, normRes);}
+\DoxyCodeLine{      fmt::print(\textcolor{stringliteral}{" \#\# ITER \{\} >> Residual Norm = \{\} \(\backslash\)n"}, iter\_, normRes);}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{}
@@ -1587,8 +1563,8 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{    \textcolor{comment}{// Compute the maximum entries among the rows on this object}}
-\DoxyCodeLine{    \textcolor{comment}{// We do not take into account the "{}ghost"{} entries}}
-\DoxyCodeLine{    \textcolor{comment}{// as they may be "{}out of date"{}.}}
+\DoxyCodeLine{    \textcolor{comment}{// We do not take into account the "ghost" entries}}
+\DoxyCodeLine{    \textcolor{comment}{// as they may be "out of date".}}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordtype}{double} maxNorm = 0.0;}
@@ -1602,7 +1578,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keyword}{auto} proxy = this-\/>\mbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
-\DoxyCodeLine{    proxy.reduce<\&LinearPb2DJacobi::checkCompleteCB, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}}>(}
+\DoxyCodeLine{    proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}}<\&LinearPb2DJacobi::checkCompleteCB, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_max_op}{vt::collective::MaxOp}}>(}
 \DoxyCodeLine{      proxy(0,0), maxNorm}
 \DoxyCodeLine{    );}
 \DoxyCodeLine{  \}}
@@ -1731,7 +1707,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{    \textcolor{comment}{// Set the initial vector to the values of}}
-\DoxyCodeLine{    \textcolor{comment}{// a "{}high-\/frequency"{} function}}
+\DoxyCodeLine{    \textcolor{comment}{// a "high-\/frequency" function}}
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keywordtype}{double} hx = 1.0 / (numRowsPerObject\_ * numObjsX\_ + 1.0);}
@@ -1823,7 +1799,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (argc == 1) \{}
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (this\_node == 0) \{}
 \DoxyCodeLine{      fmt::print(}
-\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"{}\{\}: using default arguments since none provided\(\backslash\)n"{}}, name}
+\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{else} \{}
@@ -1838,7 +1814,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{    \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{      fmt::print(}
-\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"{}usage: \{\} <num-\/objects-\/X-\/direction> <num-\/objects-\/Y-\/direction> <maxiter>\(\backslash\)n"{}},}
+\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"usage: \{\} <num-\/objects-\/X-\/direction> <num-\/objects-\/Y-\/direction> <maxiter>\(\backslash\)n"},}
 \DoxyCodeLine{        name}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{      \textcolor{keywordflow}{return} 1;}
@@ -1849,33 +1825,33 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (this\_node == 0) \{}
 \DoxyCodeLine{    fmt::print(}
-\DoxyCodeLine{      stdout, \textcolor{stringliteral}{"{}\(\backslash\)n -\/ Solve the linear system for the Laplacian with homogeneous Dirichlet"{}}}
-\DoxyCodeLine{      \textcolor{stringliteral}{"{} on [0, 1] x [0, 1]\(\backslash\)n"{}}}
+\DoxyCodeLine{      stdout, \textcolor{stringliteral}{"\(\backslash\)n -\/ Solve the linear system for the Laplacian with homogeneous Dirichlet"}}
+\DoxyCodeLine{      \textcolor{stringliteral}{" on [0, 1] x [0, 1]\(\backslash\)n"}}
 \DoxyCodeLine{    );}
-\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{"{} -\/ Second-\/order centered finite difference\(\backslash\)n"{}});}
+\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{" -\/ Second-\/order centered finite difference\(\backslash\)n"});}
 \DoxyCodeLine{    fmt::print(}
-\DoxyCodeLine{      stdout, \textcolor{stringliteral}{"{} -\/ Uniform grid with (\{\} x \{\} = \{\}) points in the x-\/direction and "{}}}
-\DoxyCodeLine{      \textcolor{stringliteral}{"{} (\{\} x \{\} = \{\}) points in the y-\/direction\(\backslash\)n"{}},}
+\DoxyCodeLine{      stdout, \textcolor{stringliteral}{" -\/ Uniform grid with (\{\} x \{\} = \{\}) points in the x-\/direction and "}}
+\DoxyCodeLine{      \textcolor{stringliteral}{" (\{\} x \{\} = \{\}) points in the y-\/direction\(\backslash\)n"},}
 \DoxyCodeLine{      numX\_objs, default\_nrow\_object, numX\_objs * default\_nrow\_object,}
 \DoxyCodeLine{      numY\_objs, default\_nrow\_object, numY\_objs * default\_nrow\_object}
 \DoxyCodeLine{    );}
-\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{"{} -\/ Maximum number of iterations \{\}\(\backslash\)n"{}}, maxIter);}
-\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{"{} -\/ Convergence tolerance \{\}\(\backslash\)n"{}}, default\_tol);}
-\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{" -\/ Maximum number of iterations \{\}\(\backslash\)n"}, maxIter);}
+\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{" -\/ Convergence tolerance \{\}\(\backslash\)n"}, default\_tol);}
+\DoxyCodeLine{    fmt::print(stdout, \textcolor{stringliteral}{"\(\backslash\)n"});}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Object group of all nodes that take part in computation}}
 \DoxyCodeLine{  \textcolor{comment}{// Used to determine whether the computation is finished}}
-\DoxyCodeLine{  \textcolor{keyword}{auto} grp\_proxy = \mbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\mbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<NodeObj>(\textcolor{stringliteral}{"{}examples\_jacobi2d"{}});}
+\DoxyCodeLine{  \textcolor{keyword}{auto} grp\_proxy = \mbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\mbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<NodeObj>(\textcolor{stringliteral}{"examples\_jacobi2d"});}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{// Create the decomposition into objects}}
 \DoxyCodeLine{  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \mbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index2D::DenseIndexType}};}
 \DoxyCodeLine{  \textcolor{keyword}{auto} range = \mbox{\hyperlink{namespacevt_a3bab786053b74a3d856fff1412ffa73a}{vt::Index2D}}(}
-\DoxyCodeLine{    \textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(numX\_objs),}
-\DoxyCodeLine{    \textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(numY\_objs)}
+\DoxyCodeLine{    static\_cast<BaseIndexType>(numX\_objs),}
+\DoxyCodeLine{    static\_cast<BaseIndexType>(numY\_objs)}
 \DoxyCodeLine{  );}
 \DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb2DJacobi>(\textcolor{stringliteral}{"{}examples\_jacobi2d"{}})}
+\DoxyCodeLine{  \textcolor{keyword}{auto} col\_proxy = vt::makeCollection<LinearPb2DJacobi>(\textcolor{stringliteral}{"examples\_jacobi2d"})}
 \DoxyCodeLine{    .bounds(range)}
 \DoxyCodeLine{    .bulkInsert()}
 \DoxyCodeLine{    .wait();}
@@ -1900,7 +1876,6 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
 \hypertarget{reduce-integral-example}{}\doxysubsection{Example Integral Reduction Program}\label{reduce-integral-example}
 The full code for this example can be found here\+: {\ttfamily examples/collection/reduce\+\_\+integral.\+cc}.
@@ -1967,9 +1942,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \{ \}}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keywordtype}{void} checkIntegral(\textcolor{keywordtype}{double} val) \{}
-\DoxyCodeLine{    fmt::print(\textcolor{stringliteral}{"{} >> The integral over [0, 1] is \{\}\(\backslash\)n"{}}, val);}
+\DoxyCodeLine{    fmt::print(\textcolor{stringliteral}{" >> The integral over [0, 1] is \{\}\(\backslash\)n"}, val);}
 \DoxyCodeLine{    fmt::print(}
-\DoxyCodeLine{      \textcolor{stringliteral}{"{} >> The absolute error is \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{      \textcolor{stringliteral}{" >> The absolute error is \{\}\(\backslash\)n"},}
 \DoxyCodeLine{      std::fabs(val -\/ exactIntegral)}
 \DoxyCodeLine{    );}
 \DoxyCodeLine{    \textcolor{comment}{//}}
@@ -2027,8 +2002,8 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacevt_1_1config_a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27}{verbose}} > 0) \{}
 \DoxyCodeLine{      \textcolor{keywordtype}{double} b = a + numPartsPerObject\_ * h;}
 \DoxyCodeLine{      fmt::print(}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{} Interval [\{\}, \{\}], on node \{\} \& object \{\}, "{}}}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{}has integral \{\}.\(\backslash\)n"{}}, a, b, \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode(),}
+\DoxyCodeLine{        \textcolor{stringliteral}{" Interval [\{\}, \{\}], on node \{\} \& object \{\}, "}}
+\DoxyCodeLine{        \textcolor{stringliteral}{"has integral \{\}.\(\backslash\)n"}, a, b, \mbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode(),}
 \DoxyCodeLine{        \mbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(), quadsum}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{    \}}
@@ -2038,7 +2013,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \textcolor{comment}{//}}
 \DoxyCodeLine{}
 \DoxyCodeLine{    \textcolor{keyword}{auto} proxy = this-\/>\mbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
-\DoxyCodeLine{    proxy.reduce<\&Integration1D::checkIntegral, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp}}>(}
+\DoxyCodeLine{    proxy.\mbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a10836524197347f63d5507f08d871e4f}{reduce}}<\&Integration1D::checkIntegral, \mbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_plus_op}{vt::collective::PlusOp}}>(}
 \DoxyCodeLine{      proxy[0], quadsum}
 \DoxyCodeLine{    );}
 \DoxyCodeLine{  \}}
@@ -2061,7 +2036,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (argc == 1) \{}
 \DoxyCodeLine{    \textcolor{keywordflow}{if} (this\_node == 0) \{}
 \DoxyCodeLine{      fmt::print(}
-\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"{}\{\}: using default arguments since none provided\(\backslash\)n"{}}, name}
+\DoxyCodeLine{        stderr, \textcolor{stringliteral}{"\{\}: using default arguments since none provided\(\backslash\)n"}, name}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{    \}}
 \DoxyCodeLine{    num\_objs = default\_num\_objs * num\_nodes;}
@@ -2076,7 +2051,7 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{    \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{      fmt::print(}
 \DoxyCodeLine{        stderr,}
-\DoxyCodeLine{        \textcolor{stringliteral}{"{}usage: \{\} <num-\/objects> <num-\/interval-\/per-\/object>\(\backslash\)n"{}}, name}
+\DoxyCodeLine{        \textcolor{stringliteral}{"usage: \{\} <num-\/objects> <num-\/interval-\/per-\/object>\(\backslash\)n"}, name}
 \DoxyCodeLine{      );}
 \DoxyCodeLine{      \textcolor{keywordflow}{return} 1;}
 \DoxyCodeLine{    \}}
@@ -2086,9 +2061,9 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{comment}{// Create the interval decomposition into objects}}
 \DoxyCodeLine{  \textcolor{comment}{//}}
 \DoxyCodeLine{  \textcolor{keyword}{using} BaseIndexType = \textcolor{keyword}{typename} \mbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType}};}
-\DoxyCodeLine{  \textcolor{keyword}{auto} range = \mbox{\hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}}(\textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(num\_objs));}
+\DoxyCodeLine{  \textcolor{keyword}{auto} range = \mbox{\hyperlink{namespacevt_a5540efc78234273e1796fb003fe4d234}{vt::Index1D}}(static\_cast<BaseIndexType>(num\_objs));}
 \DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{auto} proxy = vt::makeCollection<Integration1D>(\textcolor{stringliteral}{"{}examples\_reduce\_integral"{}})}
+\DoxyCodeLine{  \textcolor{keyword}{auto} proxy = vt::makeCollection<Integration1D>(\textcolor{stringliteral}{"examples\_reduce\_integral"})}
 \DoxyCodeLine{    .bounds(range)}
 \DoxyCodeLine{    .bulkInsert()}
 \DoxyCodeLine{    .wait();}
@@ -2111,5 +2086,4 @@ The full code for this example can be found here\+: {\ttfamily examples/collecti
 \DoxyCodeLine{  \textcolor{keywordflow}{return} 0;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
-
 \end{DoxyCodeInclude}
