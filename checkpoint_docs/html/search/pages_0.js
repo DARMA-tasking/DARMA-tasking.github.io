@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['examples_247',['Examples',['../ckpt_learn_examples.html',1,'ckpt_learn']]]
+  ['darma_2fmagistrate_20_3d_3e_20serialization_20and_20checkpointing_20library_247',['DARMA/magistrate =&gt; serialization and checkpointing library',['../index.html',1,'']]]
 ];
