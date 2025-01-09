@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['group_20manager_14530',['Group Manager',['../group.html',1,'introduction']]]
+  ['group_20manager_14532',['Group Manager',['../group.html',1,'introduction']]]
 ];
