@@ -9227,108 +9227,110 @@
 <codeline lineno="303"><highlight class="normal"></highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><ref refid="structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard_1ae27a3a8d8d60384f8d94475926bbd19e" kindref="member">Scheduler::SchedulerLoopGuard::SchedulerLoopGuard</ref>(Scheduler*<sp/>scheduler)</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/>:<sp/>scheduler_{scheduler}<sp/>{</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/>scheduler_-&gt;triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616aef46509b0036c1d7ed074229a9d44fdf" kindref="member">SchedulerEventType::BeginSchedulerLoop</ref>);</highlight></codeline>
-<codeline lineno="307"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal">Scheduler::SchedulerLoopGuard::~SchedulerLoopGuard()<sp/>{</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/>scheduler_-&gt;triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616ac5e4d564fc096f6e9e7a4e43347dc98c" kindref="member">SchedulerEventType::EndSchedulerLoop</ref>);</highlight></codeline>
-<codeline lineno="311"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="313"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::runSchedulerWhile(<ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a479a398ca7c07756b7f07ee19cb9b183" kindref="member">std::function</ref>&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">()&gt;<sp/>cond)<sp/>{</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>loop<sp/>construct<sp/>can<sp/>run<sp/>either<sp/>in<sp/>a<sp/>top-level<sp/>or<sp/>nested<sp/>context.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>In<sp/>a<sp/>top-level<sp/>context<sp/>the<sp/>idle<sp/>time<sp/>will<sp/>encompass<sp/>the<sp/>time<sp/>not</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>processing<sp/>any<sp/>actions<sp/>when<sp/>the<sp/>work<sp/>queue<sp/>is<sp/>empty.<sp/>Leaving<sp/>starts</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>a<sp/>&apos;between<sp/>scheduler&apos;<sp/>event<sp/>which<sp/>will<sp/>only<sp/>complete<sp/>on<sp/>the<sp/>next<sp/>call.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>In<sp/>a<sp/>nested<sp/>context,<sp/>idle<sp/>is<sp/>always<sp/>exited<sp/>at<sp/>the<sp/>end</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>as<sp/>the<sp/>parent<sp/>context<sp/>is<sp/>&quot;not<sp/>idle&quot;.<sp/>Likewise,<sp/>no<sp/>&apos;between<sp/>scheduler&apos;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>event<sp/>is<sp/>started.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="321"><highlight class="normal"></highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/>SchedulerLoopGuard<sp/>loopGuard{</highlight><highlight class="keyword">this</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/>scheduler_-&gt;in_sched_depth_++;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/>scheduler_-&gt;triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616aef46509b0036c1d7ed074229a9d44fdf" kindref="member">SchedulerEventType::BeginSchedulerLoop</ref>);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal">Scheduler::SchedulerLoopGuard::~SchedulerLoopGuard()<sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/>scheduler_-&gt;triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616ac5e4d564fc096f6e9e7a4e43347dc98c" kindref="member">SchedulerEventType::EndSchedulerLoop</ref>);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>scheduler_-&gt;in_sched_depth_--;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::runSchedulerWhile(<ref refid="namespacevt_1_1config_1a724e99568632cc0fe9c456c2230270d0a479a398ca7c07756b7f07ee19cb9b183" kindref="member">std::function</ref>&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">()&gt;<sp/>cond)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>loop<sp/>construct<sp/>can<sp/>run<sp/>either<sp/>in<sp/>a<sp/>top-level<sp/>or<sp/>nested<sp/>context.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>In<sp/>a<sp/>top-level<sp/>context<sp/>the<sp/>idle<sp/>time<sp/>will<sp/>encompass<sp/>the<sp/>time<sp/>not</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>processing<sp/>any<sp/>actions<sp/>when<sp/>the<sp/>work<sp/>queue<sp/>is<sp/>empty.<sp/>Leaving<sp/>starts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>a<sp/>&apos;between<sp/>scheduler&apos;<sp/>event<sp/>which<sp/>will<sp/>only<sp/>complete<sp/>on<sp/>the<sp/>next<sp/>call.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>In<sp/>a<sp/>nested<sp/>context,<sp/>idle<sp/>is<sp/>always<sp/>exited<sp/>at<sp/>the<sp/>end</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>as<sp/>the<sp/>parent<sp/>context<sp/>is<sp/>&quot;not<sp/>idle&quot;.<sp/>Likewise,<sp/>no<sp/>&apos;between<sp/>scheduler&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>event<sp/>is<sp/>started.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="323"><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Ensure<sp/>to<sp/>immediately<sp/>enter<sp/>an<sp/>idle<sp/>state<sp/>if<sp/>such<sp/>applies.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>scheduler<sp/>call<sp/>ends<sp/>idle<sp/>as<sp/>picking<sp/>up<sp/>work.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>is_idle<sp/>and<sp/>work_queue_.empty())<sp/>{</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>is_idle<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616a8bbf26915a1dd443fc831173eef2a5c2" kindref="member">SchedulerEventType::BeginIdle</ref>);</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="330"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(cond())<sp/>{</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/>runSchedulerOnceImpl();</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"></highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>After<sp/>running<sp/>the<sp/>scheduler<sp/>ensure<sp/>to<sp/>exit<sp/>idle<sp/>state.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>nested<sp/>schedulers<sp/>the<sp/>outside<sp/>scheduler<sp/>has<sp/>work<sp/>to<sp/>do.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="337"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Between<sp/>top-level<sp/>schedulers,<sp/>non-idle<sp/>indicates<sp/>lack<sp/>of<sp/>scheduling.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_idle)<sp/>{</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>is_idle<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616a18303c08c4ee52b363809a1b302fd807" kindref="member">SchedulerEventType::EndIdle</ref>);</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="342"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"></highlight></codeline>
-<codeline lineno="344"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::triggerEvent(SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
-<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="348"><highlight class="normal"></highlight></codeline>
-<codeline lineno="349"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t<sp/>:<sp/>event_triggers[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>])<sp/>{</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>t();</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"></highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t<sp/>:<sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>])<sp/>{</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>t();</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="356"><highlight class="normal"><sp/><sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].clear();</highlight></codeline>
-<codeline lineno="357"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="358"><highlight class="normal"></highlight></codeline>
-<codeline lineno="359"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::registerTrigger(</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"><sp/><sp/>SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>,<sp/>TriggerType<sp/>trigger</highlight></codeline>
-<codeline lineno="361"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="362"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
-<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="364"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/>event_triggers[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].push_back(trigger);</highlight></codeline>
-<codeline lineno="366"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="367"><highlight class="normal"></highlight></codeline>
-<codeline lineno="368"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::registerTriggerOnce(</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"><sp/><sp/>SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>,<sp/>TriggerType<sp/>trigger</highlight></codeline>
-<codeline lineno="370"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="371"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
-<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="373"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
-<codeline lineno="374"><highlight class="normal"><sp/><sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].push_back(trigger);</highlight></codeline>
-<codeline lineno="375"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="376"><highlight class="normal"></highlight></codeline>
-<codeline lineno="377"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::suspend(</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid,<sp/>RunnablePtrType<sp/>runnable,<sp/><ref refid="namespacevt_1a86bff9f556eb761b27fc8600d006ac04" kindref="member">PriorityType</ref><sp/>p</highlight></codeline>
-<codeline lineno="379"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/>suspended_.addSuspended(tid,<sp/>std::move(runnable),<sp/>p);</highlight></codeline>
-<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="382"><highlight class="normal"></highlight></codeline>
-<codeline lineno="383"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::resume(<ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid)<sp/>{</highlight></codeline>
-<codeline lineno="384"><highlight class="normal"><sp/><sp/>suspended_.resumeRunnable(tid);</highlight></codeline>
-<codeline lineno="385"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="386"><highlight class="normal"></highlight></codeline>
-<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="388"><highlight class="normal">ThreadManager*<sp/>Scheduler::getThreadManager()<sp/>{</highlight></codeline>
-<codeline lineno="389"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>thread_manager_.get();</highlight></codeline>
-<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="391"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="392"><highlight class="normal"></highlight></codeline>
-<codeline lineno="393"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt::sched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/>SchedulerLoopGuard<sp/>loopGuard{</highlight><highlight class="keyword">this</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Ensure<sp/>to<sp/>immediately<sp/>enter<sp/>an<sp/>idle<sp/>state<sp/>if<sp/>such<sp/>applies.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>scheduler<sp/>call<sp/>ends<sp/>idle<sp/>as<sp/>picking<sp/>up<sp/>work.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>is_idle<sp/>and<sp/>work_queue_.empty())<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>is_idle<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/>triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616a8bbf26915a1dd443fc831173eef2a5c2" kindref="member">SchedulerEventType::BeginIdle</ref>);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(cond())<sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>runSchedulerOnceImpl();</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>After<sp/>running<sp/>the<sp/>scheduler<sp/>ensure<sp/>to<sp/>exit<sp/>idle<sp/>state.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>nested<sp/>schedulers<sp/>the<sp/>outside<sp/>scheduler<sp/>has<sp/>work<sp/>to<sp/>do.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Between<sp/>top-level<sp/>schedulers,<sp/>non-idle<sp/>indicates<sp/>lack<sp/>of<sp/>scheduling.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_idle)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>is_idle<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/>triggerEvent(<ref refid="namespacevt_1_1sched_1a54756ec39b60951d6765fcfa692d1616a18303c08c4ee52b363809a1b302fd807" kindref="member">SchedulerEventType::EndIdle</ref>);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::triggerEvent(SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t<sp/>:<sp/>event_triggers[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>])<sp/>{</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>t();</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t<sp/>:<sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>])<sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/>t();</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].clear();</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::registerTrigger(</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/>SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>,<sp/>TriggerType<sp/>trigger</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/>event_triggers[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].push_back(trigger);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::registerTriggerOnce(</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/>SchedulerEventType<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>,<sp/>TriggerType<sp/>trigger</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><ref refid="config__assert_8h_1aeddd4990a496e91a0ca5d6c16437359b" kindref="member">vtAssert</ref>(</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/>event_triggers.size()<sp/>&gt;=<sp/>static_cast&lt;size_t&gt;(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Must<sp/>be<sp/>large<sp/>enough<sp/>to<sp/>hold<sp/>this<sp/>event&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/>event_triggers_once[<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a9e0b3f734ed730f6f3117f0687eda7df" kindref="member">event</ref>].push_back(trigger);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::suspend(</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid,<sp/>RunnablePtrType<sp/>runnable,<sp/><ref refid="namespacevt_1a86bff9f556eb761b27fc8600d006ac04" kindref="member">PriorityType</ref><sp/>p</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/>suspended_.addSuspended(tid,<sp/>std::move(runnable),<sp/>p);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Scheduler::resume(<ref refid="namespacevt_1a9b887d814dd25ff495a0c8270304ac02" kindref="member">ThreadIDType</ref><sp/>tid)<sp/>{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/>suspended_.resumeRunnable(tid);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>vt_check_enabled(fcontext)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal">ThreadManager*<sp/>Scheduler::getThreadManager()<sp/>{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>thread_manager_.get();</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="394"><highlight class="normal"></highlight></codeline>
-<codeline lineno="395"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt::sched</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="396"><highlight class="normal"></highlight></codeline>
-<codeline lineno="397"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aa550774c1c9c668176ce535fd7d58fb0" kindref="member">runSchedulerThrough</ref>(<ref refid="namespacevt_1a81d11b28122d43bf9834577e4a06440f" kindref="member">EpochType</ref><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19" kindref="member">epoch</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="398"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>WARNING:<sp/>This<sp/>is<sp/>to<sp/>prevent<sp/>global<sp/>termination<sp/>from<sp/>spuriously</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="399"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thinking<sp/>that<sp/>the<sp/>work<sp/>done<sp/>in<sp/>this<sp/>loop<sp/>over<sp/>the<sp/>scheduler</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>represents<sp/>the<sp/>entire<sp/>work<sp/>of<sp/>the<sp/>program,<sp/>and<sp/>thus<sp/>leading<sp/>to</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>stuff<sp/>being<sp/>torn<sp/>down</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="402"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a3c31a1c36b5d55e9d28b5b26b2436573" kindref="member">produce</ref>();</highlight></codeline>
-<codeline lineno="403"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([=]{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!<ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a2c85d1d5316235e068433f4a3984a67e" kindref="member">isEpochTerminated</ref>(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19" kindref="member">epoch</ref>);<sp/>});</highlight></codeline>
-<codeline lineno="404"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>();</highlight></codeline>
-<codeline lineno="405"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="406"><highlight class="normal"></highlight></codeline>
-<codeline lineno="407"><highlight class="normal">}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacevt" kindref="compound">vt</ref><sp/>{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacevt_1aa550774c1c9c668176ce535fd7d58fb0" kindref="member">runSchedulerThrough</ref>(<ref refid="namespacevt_1a81d11b28122d43bf9834577e4a06440f" kindref="member">EpochType</ref><sp/><ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19" kindref="member">epoch</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>WARNING:<sp/>This<sp/>is<sp/>to<sp/>prevent<sp/>global<sp/>termination<sp/>from<sp/>spuriously</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thinking<sp/>that<sp/>the<sp/>work<sp/>done<sp/>in<sp/>this<sp/>loop<sp/>over<sp/>the<sp/>scheduler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>represents<sp/>the<sp/>entire<sp/>work<sp/>of<sp/>the<sp/>program,<sp/>and<sp/>thus<sp/>leading<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>stuff<sp/>being<sp/>torn<sp/>down</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a3c31a1c36b5d55e9d28b5b26b2436573" kindref="member">produce</ref>();</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a4508b38e6ab664b64f1415aecbb83571" kindref="member">theSched</ref>()-&gt;<ref refid="structvt_1_1sched_1_1_scheduler_1a9c130fc0ccbf237633420a7aa35069a4" kindref="member">runSchedulerWhile</ref>([=]{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!<ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a2c85d1d5316235e068433f4a3984a67e" kindref="member">isEpochTerminated</ref>(<ref refid="namespacevt_1_1config_1a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19" kindref="member">epoch</ref>);<sp/>});</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><ref refid="namespacevt_1a127580fdfcaba0b4171e5c48c5676733" kindref="member">theTerm</ref>()-&gt;<ref refid="structvt_1_1term_1_1_termination_detector_1a950215186c7303d99316ece6ea31c4cd" kindref="member">consume</ref>();</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}<sp/></highlight><highlight class="comment">//end<sp/>namespace<sp/>vt</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/vt/scheduler/scheduler.cc"/>
   </compounddef>
