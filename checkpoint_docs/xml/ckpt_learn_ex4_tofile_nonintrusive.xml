@@ -110,18 +110,19 @@ One potential application for this approach is to generate a restart file for a 
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Call<sp/>the<sp/>serialization<sp/>routine<sp/>for<sp/>the<sp/>variable<sp/>`my_test_inst`</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>output<sp/>is<sp/>a<sp/>unique<sp/>pointer:<sp/>`std::unique_ptr&lt;SerializedInfo&gt;`</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>(defined<sp/>in<sp/>`src/checkpoint_api.h`)</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>magistrate::serializeToFile(my_test_inst,<sp/></highlight><highlight class="stringliteral">&quot;hello.txt&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::string<sp/>my_filename<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;CheckpointExampleToFileNoninstrusive.txt&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>magistrate::serializeToFile(my_test_inst,<sp/>my_filename);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>De-serializes<sp/>from<sp/>the<sp/>file<sp/>an<sp/>object<sp/>of<sp/>type<sp/>&apos;MyTestType&apos;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>out<sp/>will<sp/>be<sp/>an<sp/>object<sp/>of<sp/>type<sp/>&apos;std::unique_ptr&lt;MyTestType&gt;&apos;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>out<sp/>=<sp/>magistrate::deserializeFromFile&lt;MyTestType&gt;(</highlight><highlight class="stringliteral">&quot;hello.txt&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>out<sp/>=<sp/>magistrate::deserializeFromFile&lt;MyTestType&gt;(my_filename);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(my_test_inst<sp/>==<sp/>*out)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Serialization<sp/>/<sp/>Deserialization<sp/>from<sp/>file<sp/>worked.<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Serialization<sp/>/<sp/>Deserialization<sp/>from<sp/>file<sp/>failed.<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Serialization<sp/>/<sp/>Deserialization<sp/>from<sp/>file<sp/>failed.<sp/>\n&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::flush;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -134,7 +135,7 @@ One potential application for this approach is to generate a restart file for a 
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Here<sp/>&apos;out_2&apos;<sp/>will<sp/>contain<sp/>an<sp/>empty<sp/>vector<sp/>and<sp/>an<sp/>integer<sp/>&apos;len_&apos;<sp/>set<sp/>to<sp/>0.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>magistrate::deserializeInPlaceFromFile&lt;MyTestType&gt;(</highlight><highlight class="stringliteral">&quot;hello.txt&quot;</highlight><highlight class="normal">,<sp/>&amp;out_2);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>magistrate::deserializeInPlaceFromFile&lt;MyTestType&gt;(my_filename,<sp/>&amp;out_2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>&apos;out_2&apos;<sp/>will<sp/>contain:</highlight><highlight class="normal"></highlight></codeline>
@@ -145,7 +146,7 @@ One potential application for this approach is to generate a restart file for a 
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(my_test_inst<sp/>==<sp/>out_2)<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Deserialization<sp/>in-place<sp/>from<sp/>file<sp/>worked.<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Deserialization<sp/>in-place<sp/>from<sp/>file<sp/>failed.<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Deserialization<sp/>in-place<sp/>from<sp/>file<sp/>failed.<sp/>\n&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::flush;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>assert(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>

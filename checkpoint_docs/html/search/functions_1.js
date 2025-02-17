@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['baseserializer_203',['BaseSerializer',['../structcheckpoint_1_1_base_serializer.html#a54ef6d9ab0a03d637822dcdacd146763',1,'checkpoint::BaseSerializer']]]
+  ['baseserializer_240',['BaseSerializer',['../structcheckpoint_1_1_base_serializer.html#a54ef6d9ab0a03d637822dcdacd146763',1,'checkpoint::BaseSerializer']]]
 ];

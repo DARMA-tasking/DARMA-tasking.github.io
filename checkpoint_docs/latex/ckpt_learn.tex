@@ -163,6 +163,7 @@ checkpoint\+\_\+example\+\_\+4\+\_\+to\+\_\+file  &Serialize / deserialize struc
 checkpoint\+\_\+example\+\_\+5\+\_\+polymorphic  &Serialization of polymorphic class hierarchy  &\mbox{\hyperlink{ckpt_learn_ex5_polymorphic}{Polymorphic Serialization Example}}   \\\cline{1-3}
 checkpoint\+\_\+example\+\_\+6\+\_\+polymorphic\+\_\+macro  &Serialization of polymorphic class hierarchy with macros  &\mbox{\hyperlink{ckpt_learn_ex6_polymorphic_macro}{Polymorphic Serialization Example w/\+Macros}}   \\\cline{1-3}
 checkpoint\+\_\+example\+\_\+7\+\_\+traversal  &Serialization with custom traverser  &\mbox{\hyperlink{ckpt_learn_ex7_traversal}{Program Example Traversal}}   \\\cline{1-3}
+checkpoint\+\_\+example\+\_\+user\+\_\+traits  &Serialization with user traits  &\mbox{\hyperlink{cpkt_learn_user_traits}{Program Example User Traits}}   \\\cline{1-3}
 \end{longtabu}
 
 
@@ -1035,6 +1036,14 @@ The full code for this {\itshape magistrate} example can be found here\+: {\ttfa
 \DoxyCodeLine{\}}
 \DoxyCodeLine{}
 \end{DoxyCodeInclude}
+\hypertarget{cpkt_learn_user_traits}{}\doxysubsection{Program Example User Traits}\label{cpkt_learn_user_traits}
+The full code for this {\itshape magistrate} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+user\+\_\+traits.\+cc}\hypertarget{cpkt_learn_user_traits_user_traits}{}\doxysubparagraph{Example source code\+:}\label{cpkt_learn_user_traits_user_traits}
+
+\begin{DoxyCodeInclude}{0}
+\end{DoxyCodeInclude}
+
+\begin{DoxyCodeInclude}{0}
+\end{DoxyCodeInclude}
 \hypertarget{ckpt_learn_ex1_nonintrusive}{}\doxysubsection{Non-\/\+Intrusive Program Example 1}\label{ckpt_learn_ex1_nonintrusive}
 \begin{DoxyAttention}{Attention}
 All Non-\/\+Intrusive serialize methods {\bfseries{M\+U\+ST}} be placed in the namespace of type which they serialize.
@@ -1488,18 +1497,19 @@ The full code for this example can be found here\+: {\ttfamily examples/checkpoi
 \DoxyCodeLine{  \textcolor{comment}{// Call the serialization routine for the variable `my\_test\_inst`}}
 \DoxyCodeLine{  \textcolor{comment}{// The output is a unique pointer: `std::unique\_ptr<SerializedInfo>`}}
 \DoxyCodeLine{  \textcolor{comment}{// (defined in `src/checkpoint\_api.h`)}}
-\DoxyCodeLine{  magistrate::serializeToFile(my\_test\_inst, \textcolor{stringliteral}{"hello.txt"});}
+\DoxyCodeLine{  std::string my\_filename = \textcolor{stringliteral}{"CheckpointExampleToFileNoninstrusive.txt"};}
+\DoxyCodeLine{  magistrate::serializeToFile(my\_test\_inst, my\_filename);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{//}}
 \DoxyCodeLine{  \textcolor{comment}{// De-\/serializes from the file an object of type 'MyTestType'}}
 \DoxyCodeLine{  \textcolor{comment}{// out will be an object of type 'std::unique\_ptr<MyTestType>'}}
 \DoxyCodeLine{  \textcolor{comment}{//}}
-\DoxyCodeLine{  \textcolor{keyword}{auto} out = magistrate::deserializeFromFile<MyTestType>(\textcolor{stringliteral}{"hello.txt"});}
+\DoxyCodeLine{  \textcolor{keyword}{auto} out = magistrate::deserializeFromFile<MyTestType>(my\_filename);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (my\_test\_inst == *out) \{}
 \DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Serialization / Deserialization from file worked. \(\backslash\)n"};}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Serialization / Deserialization from file failed. \(\backslash\)n"};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Serialization / Deserialization from file failed. \(\backslash\)n"} << std::flush;}
 \DoxyCodeLine{    assert(\textcolor{keyword}{false});}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{}
@@ -1512,7 +1522,7 @@ The full code for this example can be found here\+: {\ttfamily examples/checkpoi
 \DoxyCodeLine{  \textcolor{comment}{// Here 'out\_2' will contain an empty vector and an integer 'len\_' set to 0.}}
 \DoxyCodeLine{  \textcolor{comment}{//}}
 \DoxyCodeLine{}
-\DoxyCodeLine{  magistrate::deserializeInPlaceFromFile<MyTestType>(\textcolor{stringliteral}{"hello.txt"}, \&out\_2);}
+\DoxyCodeLine{  magistrate::deserializeInPlaceFromFile<MyTestType>(my\_filename, \&out\_2);}
 \DoxyCodeLine{}
 \DoxyCodeLine{  \textcolor{comment}{//}}
 \DoxyCodeLine{  \textcolor{comment}{// Now 'out\_2' will contain:}}
@@ -1523,7 +1533,7 @@ The full code for this example can be found here\+: {\ttfamily examples/checkpoi
 \DoxyCodeLine{  \textcolor{keywordflow}{if} (my\_test\_inst == out\_2) \{}
 \DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Deserialization in-\/place from file worked. \(\backslash\)n"};}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Deserialization in-\/place from file failed. \(\backslash\)n"};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{" Deserialization in-\/place from file failed. \(\backslash\)n"} << std::flush;}
 \DoxyCodeLine{    assert(\textcolor{keyword}{false});}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{}

@@ -159,18 +159,19 @@
   <span class="c1">// Call the serialization routine for the variable `my_test_inst`</span>
   <span class="c1">// The output is a unique pointer: `std::unique_ptr&lt;SerializedInfo&gt;`</span>
   <span class="c1">// (defined in `src/checkpoint_api.h`)</span>
-  <span class="n">magistrate</span><span class="o">::</span><span class="n">serializeToFile</span><span class="p">(</span><span class="n">my_test_inst</span><span class="p">,</span> <span class="s">&quot;hello.txt&quot;</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">my_filename</span> <span class="o">=</span> <span class="s">&quot;CheckpointExampleToFileNoninstrusive.txt&quot;</span><span class="p">;</span>
+  <span class="n">magistrate</span><span class="o">::</span><span class="n">serializeToFile</span><span class="p">(</span><span class="n">my_test_inst</span><span class="p">,</span> <span class="n">my_filename</span><span class="p">);</span>
 
   <span class="c1">//</span>
   <span class="c1">// De-serializes from the file an object of type &#39;MyTestType&#39;</span>
   <span class="c1">// out will be an object of type &#39;std::unique_ptr&lt;MyTestType&gt;&#39;</span>
   <span class="c1">//</span>
-  <span class="k">auto</span> <span class="n">out</span> <span class="o">=</span> <span class="n">magistrate</span><span class="o">::</span><span class="n">deserializeFromFile</span><span class="o">&lt;</span><span class="n">MyTestType</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">out</span> <span class="o">=</span> <span class="n">magistrate</span><span class="o">::</span><span class="n">deserializeFromFile</span><span class="o">&lt;</span><span class="n">MyTestType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">my_filename</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">my_test_inst</span> <span class="o">==</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Serialization / Deserialization from file worked. </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Serialization / Deserialization from file failed. </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Serialization / Deserialization from file failed. </span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">flush</span><span class="p">;</span>
     <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
   <span class="p">}</span>
 
@@ -183,7 +184,7 @@
   <span class="c1">// Here &#39;out_2&#39; will contain an empty vector and an integer &#39;len_&#39; set to 0.</span>
   <span class="c1">//</span>
 
-  <span class="n">magistrate</span><span class="o">::</span><span class="n">deserializeInPlaceFromFile</span><span class="o">&lt;</span><span class="n">MyTestType</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">out_2</span><span class="p">);</span>
+  <span class="n">magistrate</span><span class="o">::</span><span class="n">deserializeInPlaceFromFile</span><span class="o">&lt;</span><span class="n">MyTestType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">my_filename</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">out_2</span><span class="p">);</span>
 
   <span class="c1">//</span>
   <span class="c1">// Now &#39;out_2&#39; will contain:</span>
@@ -194,7 +195,7 @@
   <span class="k">if</span> <span class="p">(</span><span class="n">my_test_inst</span> <span class="o">==</span> <span class="n">out_2</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Deserialization in-place from file worked. </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Deserialization in-place from file failed. </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; Deserialization in-place from file failed. </span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">flush</span><span class="p">;</span>
     <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
   <span class="p">}</span>
 
