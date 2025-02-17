@@ -1040,9 +1040,141 @@ The full code for this {\itshape magistrate} example can be found here\+: {\ttfa
 The full code for this {\itshape magistrate} example can be found here\+: {\ttfamily examples/checkpoint\+\_\+example\+\_\+user\+\_\+traits.\+cc}\hypertarget{cpkt_learn_user_traits_user_traits}{}\doxysubparagraph{Example source code\+:}\label{cpkt_learn_user_traits_user_traits}
 
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }checkpoint\_trait \{\} CheckpointTrait;}
+\DoxyCodeLine{\textcolor{keyword}{struct }shallow\_trait \{\} ShallowTrait;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using} checkpoint::has\_user\_traits\_v;}
+\DoxyCodeLine{\textcolor{keyword}{using} checkpoint::has\_any\_user\_traits\_v;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }test \{}
+\DoxyCodeLine{  \textcolor{keyword}{struct }random\_trait \{\} RandomTrait;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{struct }TestObj \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} a = 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    TestObj() \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{template}<}
+\DoxyCodeLine{      \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{      \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{        not has\_user\_traits\_v<SerT, shallow\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{      > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{    >}
+\DoxyCodeLine{    \textcolor{keywordtype}{void} serialize(SerT\& s)\{}
+\DoxyCodeLine{      \textcolor{keywordflow}{if} constexpr(has\_user\_traits\_v<SerT, checkpoint\_trait>)\{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(s.isSizing()) printf(\textcolor{stringliteral}{"Customizing serialization for checkpoint\(\backslash\)n"});}
+\DoxyCodeLine{        s | a;}
+\DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if}(s.isSizing()) printf(\textcolor{stringliteral}{"Default serializing testObj\(\backslash\)n"});}
+\DoxyCodeLine{      \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{      static\_assert(not has\_user\_traits\_v<SerT, shallow\_trait>,}
+\DoxyCodeLine{          \textcolor{stringliteral}{"ShallowTrait should have been removed!\(\backslash\)n"});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{  \};}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }test \{}
+\DoxyCodeLine{  \textcolor{keyword}{template}<}
+\DoxyCodeLine{    \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{      has\_user\_traits\_v<SerT, random\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{    > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{  >}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerT\& s, TestObj\& myObj)\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(s.isSizing())\{}
+\DoxyCodeLine{      printf(\textcolor{stringliteral}{"Inserting random extra object serialization step! "});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    myObj.serialize(s);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{template}<}
+\DoxyCodeLine{    \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{      has\_user\_traits\_v<SerT, shallow\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{    > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{  >}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerT\& s, TestObj\& myObj)\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(s.isSizing()) printf(\textcolor{stringliteral}{"Removing shallow trait before passing along!\(\backslash\)n"});}
+\DoxyCodeLine{    \textcolor{keyword}{auto} newS = s.template withoutTraits<shallow\_trait>();}
+\DoxyCodeLine{    myObj.serialize(newS);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{namespace }misc \{}
+\DoxyCodeLine{  \textcolor{keyword}{template}<}
+\DoxyCodeLine{    \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{      has\_user\_traits\_v<SerT, test::random\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{    > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{  >}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerT\& s, test::TestObj\& myObj)\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(s.isSizing())\{}
+\DoxyCodeLine{      printf(\textcolor{stringliteral}{"Serializers in other namespaces don't usually get found "});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    myObj.serialize(s);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{const} \textcolor{keyword}{struct }namespace\_trait \{\} NamespaceTrait;}
+\DoxyCodeLine{  \textcolor{keyword}{template}<}
+\DoxyCodeLine{    \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{      has\_user\_traits\_v<SerT, namespace\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{    > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{  >}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerT\& s, test::TestObj\& myObj)\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(s.isSizing())\{}
+\DoxyCodeLine{      printf(\textcolor{stringliteral}{"A misc:: trait means we can serialize from misc:: too: "});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    myObj.serialize(s);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{const} \textcolor{keyword}{struct }hook\_all\_trait \{\} HookAllTrait;}
+\DoxyCodeLine{  \textcolor{keyword}{template}<}
+\DoxyCodeLine{    \textcolor{keyword}{typename} SerT,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} T,}
+\DoxyCodeLine{    \textcolor{keyword}{typename} std::enable\_if\_t<}
+\DoxyCodeLine{      has\_user\_traits\_v<SerT, hook\_all\_trait>, \textcolor{keywordtype}{void}*}
+\DoxyCodeLine{    > = \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{  >}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} serialize(SerT\& s, T\& myObj)\{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if}(s.isSizing())\{}
+\DoxyCodeLine{      printf(\textcolor{stringliteral}{"We can even add on a generic pre-\/serialize hook: "});}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keyword}{auto} newS = s.template withoutTraits<hook\_all\_trait>();}
+\DoxyCodeLine{    myObj.serialize(newS);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
 \end{DoxyCodeInclude}
 
 \begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "checkpoint/checkpoint.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "checkpoint\_example\_user\_traits.h"}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char}**)\{}
+\DoxyCodeLine{  \textcolor{keyword}{using namespace }test;}
+\DoxyCodeLine{  TestObj obj;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{comment}{//Each invocation will be handled based on the traits attached}}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_a = checkpoint::serialize(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_b = checkpoint::serialize<TestObj, checkpoint\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_c = checkpoint::serialize<TestObj, checkpoint\_trait, checkpoint\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_d = checkpoint::serialize<TestObj, random\_trait, checkpoint\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_e = checkpoint::serialize<TestObj, checkpoint\_trait, random\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_f = checkpoint::serialize<TestObj, random\_trait, random\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_g = checkpoint::serialize<TestObj, shallow\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_h = checkpoint::serialize<TestObj, misc::namespace\_trait>(obj);}
+\DoxyCodeLine{  \textcolor{keyword}{auto} s\_info\_i = checkpoint::serialize<TestObj, misc::hook\_all\_trait>(obj);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
 \end{DoxyCodeInclude}
 \hypertarget{ckpt_learn_ex1_nonintrusive}{}\doxysubsection{Non-\/\+Intrusive Program Example 1}\label{ckpt_learn_ex1_nonintrusive}
 \begin{DoxyAttention}{Attention}
