@@ -19,8 +19,8 @@ using \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_aa438
 \item 
 \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a113f2da49d2033f09831b6807c92d330}{Component\+Pack}} ()=default
 \item 
-{\footnotesize template$<$typename T , typename... Deps, typename... Cons$>$ }\\\mbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a9b86518797c7bb91babf0ca8ee7d06e6}{registry\+::\+Auto\+Handler\+Type}} \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a956437fba91b2b90576df33276858df5}{register\+Component}} (T $\ast$$\ast$ref, typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_deps_pack}{Base\+Component\+::\+Deps\+Pack}}$<$ Deps... $>$, Cons \&\&... cons)
-\begin{DoxyCompactList}\small\item\em Idempotent registration of a component into this runtime pack. \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{Component}} dependencies specified with variadic template parameters in {\ttfamily Deps\+Pack}. Registration does not imply the component will be created; it must be added subsequently to be enabled. It simply declares its existence and connectivity with other components. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename... Startup\+Deps, typename... Runtime\+Deps, typename... Cons$>$ }\\\mbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a9b86518797c7bb91babf0ca8ee7d06e6}{registry\+::\+Auto\+Handler\+Type}} \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a278c0c795dd8b71d8b95e12fc174e78b}{register\+Component}} (T $\ast$$\ast$ref, typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_startup_deps_pack}{Base\+Component\+::\+Startup\+Deps\+Pack}}$<$ Startup\+Deps... $>$, typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_runtime_deps_pack}{Base\+Component\+::\+Runtime\+Deps\+Pack}}$<$ Runtime\+Deps... $>$, Cons \&\&... cons)
+\begin{DoxyCompactList}\small\item\em Idempotent registration of a component into this runtime pack. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a2be733d29f56456f71352569a898dee5}{add}} ()
 \begin{DoxyCompactList}\small\item\em Add a component to the pack. It will be constructed along with all its dependencies. It must be registered via {\ttfamily register\+Component} before adding. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_ab5f7966f4de3f81643d9945302de7cfa}{construct}} ()
@@ -46,10 +46,8 @@ std\+::list$<$ int $>$ \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_com
 \begin{DoxyCompactList}\small\item\em Topologically sort all the registered components to find a valid activation order based on registered dependencies. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a0efe8b6da71418c62d181513d717fa1f}{topo\+Sort\+Impl}} (int v, std\+::list$<$ int $>$ \&order, bool $\ast$visited, bool $\ast$visiting)
 \begin{DoxyCompactList}\small\item\em Topologically sort all the registered components to find a valid activation order based on registered dependencies. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a8e76881b315cccf8171f177a84d66f83}{detect\+Cycles}} (int root)
-\begin{DoxyCompactList}\small\item\em Detect cycles in the dependence graph. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_acbe1421990318c9c43d5a83add91fa31}{detect\+Cycles\+Impl}} (std\+::list$<$ int $>$ \&stack, int dep)
-\begin{DoxyCompactList}\small\item\em Detect cycles in the dependence graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_pack_a2eb238b5115ed159d1e3fce69c32da69}{add\+All\+Required\+Components}} ()
+\begin{DoxyCompactList}\small\item\em Based on the components that have been added along with their startup and runtime dependencies, add any additional components that are required for a complete VT runtime. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -110,6 +108,16 @@ void vt\+::runtime\+::component\+::\+Component\+Pack\+::add (\begin{DoxyParamCap
 
 Add a component to the pack. It will be constructed along with all its dependencies. It must be registered via {\ttfamily register\+Component} before adding. 
 
+\mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_a2eb238b5115ed159d1e3fce69c32da69}\label{structvt_1_1runtime_1_1component_1_1_component_pack_a2eb238b5115ed159d1e3fce69c32da69}} 
+\index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!addAllRequiredComponents@{addAllRequiredComponents}}
+\index{addAllRequiredComponents@{addAllRequiredComponents}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
+\doxysubsubsection{\texorpdfstring{addAllRequiredComponents()}{addAllRequiredComponents()}}
+{\footnotesize\ttfamily void vt\+::runtime\+::component\+::\+Component\+Pack\+::add\+All\+Required\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Based on the components that have been added along with their startup and runtime dependencies, add any additional components that are required for a complete VT runtime. 
+
 \mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_ab5f7966f4de3f81643d9945302de7cfa}\label{structvt_1_1runtime_1_1component_1_1_component_pack_ab5f7966f4de3f81643d9945302de7cfa}} 
 \index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!construct@{construct}}
 \index{construct@{construct}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
@@ -130,38 +138,6 @@ Construct all added components along with dependencies transitively.
 
 Destruct all live components. Can be re-\/constructed by invoking {\ttfamily construct}. 
 
-\mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_a8e76881b315cccf8171f177a84d66f83}\label{structvt_1_1runtime_1_1component_1_1_component_pack_a8e76881b315cccf8171f177a84d66f83}} 
-\index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!detectCycles@{detectCycles}}
-\index{detectCycles@{detectCycles}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
-\doxysubsubsection{\texorpdfstring{detectCycles()}{detectCycles()}}
-{\footnotesize\ttfamily void vt\+::runtime\+::component\+::\+Component\+Pack\+::detect\+Cycles (\begin{DoxyParamCaption}\item[{int}]{root }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Detect cycles in the dependence graph. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em root} & starting vertex \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_acbe1421990318c9c43d5a83add91fa31}\label{structvt_1_1runtime_1_1component_1_1_component_pack_acbe1421990318c9c43d5a83add91fa31}} 
-\index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!detectCyclesImpl@{detectCyclesImpl}}
-\index{detectCyclesImpl@{detectCyclesImpl}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
-\doxysubsubsection{\texorpdfstring{detectCyclesImpl()}{detectCyclesImpl()}}
-{\footnotesize\ttfamily void vt\+::runtime\+::component\+::\+Component\+Pack\+::detect\+Cycles\+Impl (\begin{DoxyParamCaption}\item[{std\+::list$<$ int $>$ \&}]{stack,  }\item[{int}]{dep }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Detect cycles in the dependence graph. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em stack} & current stack of traversed vertices \\
-\hline
-\mbox{\texttt{ in}}  & {\em dep} & next vertex to consider \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_a16a4af73385ca87a40805143b70f4d28}\label{structvt_1_1runtime_1_1component_1_1_component_pack_a16a4af73385ca87a40805143b70f4d28}} 
 \index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!extractComponent@{extractComponent}}
 \index{extractComponent@{extractComponent}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
@@ -242,16 +218,20 @@ Invoke the progress function on all pollable components.
 \begin{DoxyReturn}{Returns}
 the number of work units processed 
 \end{DoxyReturn}
-\mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_a956437fba91b2b90576df33276858df5}\label{structvt_1_1runtime_1_1component_1_1_component_pack_a956437fba91b2b90576df33276858df5}} 
+\mbox{\Hypertarget{structvt_1_1runtime_1_1component_1_1_component_pack_a278c0c795dd8b71d8b95e12fc174e78b}\label{structvt_1_1runtime_1_1component_1_1_component_pack_a278c0c795dd8b71d8b95e12fc174e78b}} 
 \index{vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}!registerComponent@{registerComponent}}
 \index{registerComponent@{registerComponent}!vt::runtime::component::ComponentPack@{vt::runtime::component::ComponentPack}}
 \doxysubsubsection{\texorpdfstring{registerComponent()}{registerComponent()}}
-{\footnotesize\ttfamily template$<$typename T , typename... Deps, typename... Cons$>$ \\
-\mbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a9b86518797c7bb91babf0ca8ee7d06e6}{registry\+::\+Auto\+Handler\+Type}} vt\+::runtime\+::component\+::\+Component\+Pack\+::register\+Component (\begin{DoxyParamCaption}\item[{T $\ast$$\ast$}]{ref,  }\item[{typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_deps_pack}{Base\+Component\+::\+Deps\+Pack}}$<$ Deps... $>$}]{,  }\item[{Cons \&\&...}]{cons }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$typename T , typename... Startup\+Deps, typename... Runtime\+Deps, typename... Cons$>$ \\
+\mbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a9b86518797c7bb91babf0ca8ee7d06e6}{registry\+::\+Auto\+Handler\+Type}} vt\+::runtime\+::component\+::\+Component\+Pack\+::register\+Component (\begin{DoxyParamCaption}\item[{T $\ast$$\ast$}]{ref,  }\item[{typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_startup_deps_pack}{Base\+Component\+::\+Startup\+Deps\+Pack}}$<$ Startup\+Deps... $>$}]{,  }\item[{typename \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_base_component_1_1_runtime_deps_pack}{Base\+Component\+::\+Runtime\+Deps\+Pack}}$<$ Runtime\+Deps... $>$}]{,  }\item[{Cons \&\&...}]{cons }\end{DoxyParamCaption})}
 
 
 
-Idempotent registration of a component into this runtime pack. \mbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{Component}} dependencies specified with variadic template parameters in {\ttfamily Deps\+Pack}. Registration does not imply the component will be created; it must be added subsequently to be enabled. It simply declares its existence and connectivity with other components. 
+Idempotent registration of a component into this runtime pack. 
+
+\textbackslash{}internal\+Component dependencies are specified with variadic template parameters in {\ttfamily Startup\+Deps\+Pack} and {\ttfamily Runtime\+Deps\+Pack}. Registration does not imply the component will be created; it must be added subsequently to be enabled. It simply declares its existence and connectivity with other components.
+
+Startup dependencies are ones that are required for the component to be constructed and fire the initialize method. Additionally, and importantly, they determine the order (reverse topological) in which components are torn down or finalized. Both orders are sensitive as components require other components to be live during construction/initialization and during finalization. \mbox{\hyperlink{structvt_1_1runtime_1_1_runtime}{Runtime}} dependencies indicate that a component requires another component to function and thus needs them to be loaded. Thus, for instance, if a VT runtime is created with just an {\ttfamily Active\+Messenger}, the runtime will add all the startup dependencies and runtime dependencies to create a runtime with a working {\ttfamily Active\+Messenger} that is able to function.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -294,7 +274,7 @@ Topologically sort all the registered components to find a valid activation orde
 \hline
 \mbox{\texttt{ in}}  & {\em visited} & array of visited vertices \\
 \hline
-\mbox{\texttt{ in}}  & {\em visiting} & array of currently visiting vertices \\
+\mbox{\texttt{ in}}  & {\em visiting} & array of vertices currently being visited \\
 \hline
 \end{DoxyParams}
 
