@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_5f_13102',['y_',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#acf0f3fc5c18fae9943d03c3f507f8acb',1,'vt::util::stats::LinearRegression']]]
+  ['y_5f_13057',['y_',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#acf0f3fc5c18fae9943d03c3f507f8acb',1,'vt::util::stats::LinearRegression']]]
 ];

@@ -1565,6 +1565,8 @@
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a6604b40c9e592d0bf0ff94ccfe156911" kind="variable"><name>next_rooted_id_</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a25a7c464bb729079cc0a33cbe4bc4f15" kind="variable"><name>typeless_holder_</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a482e89c4b14bc1acfab1f23e3dfafbf2" kind="variable"><name>reduce_stamp_</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1ab3015928aa546ffec44e57f92bd36593" kind="variable"><name>has_pending_construction_</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a3f4973e786eb1736984e5e183809832e" kind="variable"><name>pending_rooted_constructions_</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1ad6c6c75f1f54ae5470847311256ae8c3" kind="function"><name>CollectionManager</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1aea0c10371b37041bcc855eef0c767b85" kind="function"><name>~CollectionManager</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1ac71095016a20dd9607f2f937bf35305e" kind="function"><name>startup</name></member>
@@ -1692,7 +1694,8 @@
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a0af41830e89efe84a071d3dcb1296b1b" kind="function"><name>elementMappedHere</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a899158015e2abd7d39eda2c7715e2632" kind="function"><name>getElementMapping</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a0fec20114761687630f2a90fce374bc2" kind="function"><name>insertCollectionInfo</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1ab3dfa8b7bac9f519538d4ce97bb99695" kind="function"><name>makeCollectionHandler</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1aeca421961a2c5593aeccefdd4fd96132" kind="function"><name>makeCollectionHandler</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_collection_manager_1a98bb52726ab8c021da421802de6bedf5" kind="function"><name>finishedRootedConstruction</name></member>
   </compound>
   <compound refid="structvt_1_1vrt_1_1collection_1_1_collection_message" kind="struct"><name>vt::vrt::collection::CollectionMessage</name>
     <member refid="structvt_1_1vrt_1_1collection_1_1_collection_message_1ab20243365b318ce3149cd7f0110f8d7b" kind="typedef"><name>MessageParentType</name></member>
@@ -2078,14 +2081,6 @@
   <compound refid="structvt_1_1rdma_1_1impl_1_1_construct_msg" kind="struct"><name>vt::rdma::impl::ConstructMsg</name>
     <member refid="structvt_1_1rdma_1_1impl_1_1_construct_msg_1a3189d5abbc7385a586cab39d291370a6" kind="function"><name>ConstructMsg</name></member>
     <member refid="structvt_1_1rdma_1_1impl_1_1_construct_msg_1ad09c61f7e1cb33be9631a2e4885f9cfa" kind="function"><name>ConstructMsg</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg" kind="struct"><name>vt::vrt::collection::param::ConstructParamMsg</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1aa9be274634c6c40cf8011b01ca6a8f47" kind="typedef"><name>MessageParentType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1a92fade35515ef7d83149ed86eae5de48" kind="variable"><name>po</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1a9be1c6d113987cf9f9663ca96714c29f" kind="function"><name>vt_msg_serialize_required</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1a1415970af3227cd834a309f96ad89c38" kind="function"><name>ConstructParamMsg</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1a3ed6dbf0fe1829c038c37bafbf9709c7" kind="function"><name>ConstructParamMsg</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_param_msg_1ae8be6d0a948ed0baa5debedb036b47fe" kind="function"><name>serialize</name></member>
   </compound>
   <compound refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params" kind="struct"><name>vt::vrt::collection::param::ConstructParams</name>
     <member refid="structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_1a13d4910c0f6825c7b0ddfebce5288bea" kind="typedef"><name>ThisType</name></member>
@@ -2741,29 +2736,27 @@
     <member refid="structvt_1_1vrt_1_1collection_1_1_entire_holder_1ad505d79024df92c9dc36a5debd3875ec" kind="function"><name>remove</name></member>
   </compound>
   <compound refid="structvt_1_1location_1_1_entity_location_coord" kind="struct"><name>vt::location::EntityLocationCoord</name>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1a610a93a11a166da3e7114c9fc179504e" kind="typedef"><name>ThisType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a685f9eee868b7b9e01072a5b303548bc" kind="typedef"><name>LocRecType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a8824e120b11c3234534a6dce11fe0c69" kind="typedef"><name>LocCacheType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1ab0db07ed0b9f75712922733dd467b100" kind="typedef"><name>LocEntityMsg</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a90aee70e2e80fe4c1abf1d0616113708" kind="typedef"><name>LocalRegisteredContType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a0c6d24fed6c690ac6d044b11d884df65" kind="typedef"><name>LocalRegisteredMsgContType</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a093712fbaa7584cb35db2b33514a719a" kind="typedef"><name>ActionListType</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1a5b37e5d3bd2956c3e6737ea087ea2618" kind="typedef"><name>ActionListType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a41b5c3792967e089c7e592b705c266c3" kind="typedef"><name>PendingType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a495c5dfc3aa444524af9aede4b20cfdc" kind="typedef"><name>PendingLocLookupsType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1afeaaebfc1d7cbdd20cccbd348d96748a" kind="typedef"><name>ActionContainerType</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a8799cbd5fb0fb04cfdd1012fe1d5908f" kind="typedef"><name>LocMsgType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a492ca5404229c05923f69bae396f2ac4" kind="typedef"><name>LocAsksType</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a69e037fef241a04659b4068c8ae1513f" kind="typedef"><name>EntityMsgType</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1ade191f7cf6aba682f960abef1ddab9fc" kind="variable"><name>this_inst</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a48417f0a02356ec97b97250b18ba43f2" kind="variable"><name>local_registered_msg_han_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a17f116f6581c4f67c2c5450db40f70a6" kind="variable"><name>local_registered_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a4822f7d8be8fd72319ad7a1823cf5fc9" kind="variable"><name>recs_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1aa62ca806fbfc08f754e7e72dd9e91a7a" kind="variable"><name>pending_actions_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a321719e0c1c938ef5dc8134ac92849fd" kind="variable"><name>pending_lookups_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a52abbeb79fc2d24889a05ac87ad6e7f5" kind="variable"><name>loc_asks_</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1a0c97f9b8fc4cd4b04c76a592a959953b" kind="variable"><name>proxy_</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a84d2166e5a2c192b081c222e15e93882" kind="function"><name>EntityLocationCoord</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a0a25560f861221daafca33ce2657f04b" kind="function"><name>EntityLocationCoord</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a5dcddcc605ab3cd16d94161e895b88e3" kind="function"><name>EntityLocationCoord</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1af68fd9bb9fcbf02f693ba2af503ed409" kind="function"><name>~EntityLocationCoord</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1ab0889dd0a0bfd73e7cccc1a20934c604" kind="function"><name>~EntityLocationCoord</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a3d7f6c252ad5cb8d1084620946245970" kind="function"><name>registerEntity</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a0d3a9a66cddeb6929ed8452a02ba7681" kind="function"><name>registerEntityRemote</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a076ec3a6b06e74567e7281adb0645cd7" kind="function"><name>unregisterEntity</name></member>
@@ -2777,18 +2770,17 @@
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a67ece532f25a055200383a3a2730085a" kind="function"><name>routeMsgHandlerLocal</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1ab7b80f1093a4360a1920fc21bc32c76a" kind="function"><name>routeMsg</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1ae7c1ec3412f2a16ea3f40d6bb39f23ca" kind="function"><name>routeNonEagerAction</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a96e4c5c2a943450554b17c34f05995d0" kind="function"><name>updatePendingRequest</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1ade9118aef1a21a90bf9d7ef5725c5281" kind="function"><name>updatePendingRequest</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a33f2bf9523cfc89fae0f1151fa2d87db" kind="function"><name>printCurrentCache</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a9e6d5b9783f617f4e036ad9f7ba19953" kind="function"><name>isCached</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1ac20c510b73a5f6f753269b6d05b389aa" kind="function"><name>clearCache</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a9903f0c4581b9d8a231293e98cf9a11c" kind="function"><name>sendEagerUpdate</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a02337c5b5c23bf81b540568107103ef4" kind="function"><name>handleEagerUpdate</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a482a031eb17aba77a9efd946fe3f033c" kind="function"><name>useEagerProtocol</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1abff79ccad9dcd168217f99ee97048beb" kind="function"><name>getInst</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1acd4c70ec03c1b0eedf8f060174a64c69" kind="function"><name>setProxy</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a1a6da8e3885d431284325e2959c48f8e" kind="function"><name>routedHandler</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a42978b37cb0a0847f929f49e6286e5bc" kind="function"><name>getLocationHandler</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a6102920cd3ab80156a77e5f15d92ffcf" kind="function"><name>updateLocation</name></member>
-    <member refid="structvt_1_1location_1_1_entity_location_coord_1a98ffa928c0a52ed5d6852200db31ade6" kind="function"><name>recvEagerUpdate</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1a16a6f8bbdc3aaaa963e382cb6b1045ce" kind="function"><name>getLocationRequest</name></member>
+    <member refid="structvt_1_1location_1_1_entity_location_coord_1ae21aaf0da019247790f09edebd23f662" kind="function"><name>updateLocation</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1ae44975ca70e81c8aa658fbbc9a3c619d" kind="function"><name>routeMsgEager</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a1fb91682d1695a98eed3375db9fa738e" kind="function"><name>routeMsgNode</name></member>
     <member refid="structvt_1_1location_1_1_entity_location_coord_1a2b2c69634e3ef42e2625541cd234b350" kind="function"><name>insertPendingEntityAction</name></member>
@@ -2798,7 +2790,6 @@
     <member refid="structvt_1_1location_1_1_entity_msg_1a7c50fcdb28e43633811173c6850380f2" kind="variable"><name>entity_id_</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a013a64971bd245f15f12aed3609d27e9" kind="variable"><name>home_node_</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a4e1bc853e380b513f04eddb25f6e0cd7" kind="variable"><name>loc_from_node_</name></member>
-    <member refid="structvt_1_1location_1_1_entity_msg_1a6a4e4b87147e3ce6b2c48c21e51d9995" kind="variable"><name>loc_man_inst_</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a13540b561e587b92c4ff43656e022bb0" kind="variable"><name>handler_</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a7703bd3911f04d9c0eff0eab58bf677c" kind="variable"><name>hops_</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1ae1cae8c818d70070238c0f5b975e2a80" kind="variable"><name>ask_node_</name></member>
@@ -2811,8 +2802,6 @@
     <member refid="structvt_1_1location_1_1_entity_msg_1a5f0675e4fca11168fee86e8af122e289" kind="function"><name>getHomeNode</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1afd28b1e836177cb58d112b25edce1210" kind="function"><name>setLocFromNode</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a38c36e0dd8a9207defaf44458a151d61" kind="function"><name>getLocFromNode</name></member>
-    <member refid="structvt_1_1location_1_1_entity_msg_1a7bbd80a3e29d729cd7be84acb167ff90" kind="function"><name>setLocInst</name></member>
-    <member refid="structvt_1_1location_1_1_entity_msg_1a9393448a6cadfde96c2eab29d28b3e5b" kind="function"><name>getLocInst</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1a0796bd63248dae2b457aa2eedc345743" kind="function"><name>hasHandler</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1af3c49e5e6d894d29984bf9ebf3983717" kind="function"><name>setHandler</name></member>
     <member refid="structvt_1_1location_1_1_entity_msg_1ab373f1520ac7374900bbea1026372b8e" kind="function"><name>getHandler</name></member>
@@ -3616,9 +3605,9 @@
   <compound refid="structvt_1_1group_1_1global_1_1_group_sync_msg" kind="struct"><name>vt::group::global::GroupSyncMsg</name>
     <member refid="structvt_1_1group_1_1global_1_1_group_sync_msg_1a2ec5190af929cf9e0f8bc5f0564c28a0" kind="function"><name>GroupSyncMsg</name></member>
   </compound>
-  <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag" kind="struct"><name>vt::collective::reduce::detail::tags::GroupTag</name>
-  </compound>
   <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag" kind="struct"><name>vt::collective::reduce::detail::ReduceScopeHolder::GroupTag</name>
+  </compound>
+  <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag" kind="struct"><name>vt::collective::reduce::detail::tags::GroupTag</name>
   </compound>
   <compound refid="structvt_1_1rdma_1_1_handle" kind="struct"><name>vt::rdma::Handle</name>
   </compound>
@@ -4453,11 +4442,11 @@
   <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_004e0f4f52ca81416658a563b81b03387d" kind="struct"><name>checkpoint::dispatch::vrt::InstantiateIfPossible&lt; ObjT, SerializerT, typename std::enable_if_t&lt; not(SerializableTraits&lt; ObjT, SerializerT &gt;::has_serialize_function or SerializableTraits&lt; ObjT, SerializerT &gt;::is_bytecopyable) &gt;&gt;</name>
     <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1_instantiate_if_possible_3_01_obj_t_00_01_serializer_t_004e0f4f52ca81416658a563b81b03387d_1aef14f57ac268c88be99ba09c1926e497" kind="function"><name>registerIt</name></member>
   </compound>
-  <compound refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01186a642c3b85e81a700d4f1199db8155" kind="struct"><name>checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and not checkpoint::is_footprinter_v&lt; SerializerT &gt; &gt;&gt;</name>
-    <member refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01186a642c3b85e81a700d4f1199db8155_1a1e7b58a19884ed7d44d1edff95a0224a" kind="function"><name>apply</name></member>
-  </compound>
   <compound refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0186cc50b3bcf1cccfb04acc078827c3de" kind="struct"><name>checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and checkpoint::is_footprinter_v&lt; SerializerT &gt; &gt;&gt;</name>
     <member refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_0186cc50b3bcf1cccfb04acc078827c3de_1a1e7b58a19884ed7d44d1edff95a0224a" kind="function"><name>apply</name></member>
+  </compound>
+  <compound refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01186a642c3b85e81a700d4f1199db8155" kind="struct"><name>checkpoint::ReconstructAsVirtualIfNeeded&lt; T, SerializerT, typename std::enable_if_t&lt; dispatch::vrt::VirtualSerializeTraits&lt; T &gt;::has_not_virtual_serialize and not checkpoint::is_footprinter_v&lt; SerializerT &gt; &gt;&gt;</name>
+    <member refid="structcheckpoint_1_1_reconstruct_as_virtual_if_needed_3_01_t_00_01_serializer_t_00_01typename_01186a642c3b85e81a700d4f1199db8155_1a1e7b58a19884ed7d44d1edff95a0224a" kind="function"><name>apply</name></member>
   </compound>
   <compound refid="structvt_1_1phase_1_1_phase_manager_1_1is__jsonable" kind="struct"><name>vt::phase::PhaseManager::is_jsonable</name>
   </compound>
@@ -4865,46 +4854,25 @@
     <member refid="structvt_1_1location_1_1_location_coord_1a753861168e43ce015323fba60f45faf7" kind="function"><name>serialize</name></member>
   </compound>
   <compound refid="structvt_1_1location_1_1_location_manager" kind="struct"><name>vt::location::LocationManager</name>
-    <member refid="structvt_1_1location_1_1_location_manager_1a32d8bca6ed6909a2190286408335d3b4" kind="typedef"><name>PtrType</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1ac10f5140f2ee09fc708ea488b3592d42" kind="typedef"><name>PtrType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a98ed824c058080e538546fc731cb8f4c" kind="typedef"><name>LocCoordPtrType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1adf4df6480ad89271a802d6d59bcf424e" kind="typedef"><name>LocInstContainerType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a06ec1698d93780afdf7873eeaa3a77b6" kind="typedef"><name>VrtLocType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a3e410c85f5790a526a4eda22a9cc7881" kind="typedef"><name>VrtLocProxyType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a9241475655a978ac717ffe5791ad7d15" kind="typedef"><name>IndexedElmType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a64dfcff13e5cebcdfb31998bef4b8d58" kind="typedef"><name>CollectionLocType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a0c153c55a8938e99fad5386699653220" kind="typedef"><name>LocErasureType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1ab0ce8907fcf9b36cf884af08c744ddb1" kind="typedef"><name>LocDeleterType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a590e246bdfa380ef31e7aee4f4d51442" kind="typedef"><name>CollectionLocErasedType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a03472723aecf57cd99cd221ef2164edb" kind="typedef"><name>CollectionContainerType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a6de3841092c537efc5fb8376128bfe18" kind="typedef"><name>ActionLocInstType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1aad005a828c535232cd6b63859b25b171" kind="typedef"><name>PendingContainerType</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a644b4b030fd616375728316281295250" kind="variable"><name>cur_loc_inst</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1ac81ec1fd09c5d97ed9a5e1384c143268" kind="typedef"><name>CollectionContainerType</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1af8cbcba6c30a17a56d69fcf48007cdad" kind="variable"><name>virtual_loc</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1aec12685db3f4c7c9fec6348496689174" kind="variable"><name>vrtContextLoc</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a748aa3659f6aee39fb0936e694aa74ac" kind="variable"><name>collectionLoc</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1ae1f3b1c4bf75a14fce51a284bd692fe3" kind="variable"><name>loc_insts</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1a326d1ff86aa33a7373313043629ed548" kind="variable"><name>collection_lms</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1af5cf57c9ef31ccf5b207394cbd9363ee" kind="function"><name>LocationManager</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1abdcd3feb1f6e7c22f88582ad87799de1" kind="function"><name>~LocationManager</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1afdb88906b8c4b5535f239d6581f840e0" kind="function"><name>name</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a63d16a4f6955fae01b62ed6993e21015" kind="function"><name>getCollectionLM</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a07688f13ca31cb8d3081b70481a228b1" kind="function"><name>insertCollectionLM</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1a608969263e145c8c073a4a206e1f1c97" kind="function"><name>initialize</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1abc70b8e9b35ae5c4db5ef05c8e071970" kind="function"><name>makeCollectionLM</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1a0b649379bb1a535e651bb493e5094a0b" kind="function"><name>getCollectionLM</name></member>
+    <member refid="structvt_1_1location_1_1_location_manager_1a873445e0cb487635061ac1731d56185c" kind="function"><name>destroyCollectionLM</name></member>
     <member refid="structvt_1_1location_1_1_location_manager_1a3f0b20c13abb9fcaf610fb3c62b324d5" kind="function"><name>serialize</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a61767ba0d9bd9029686c136cdb8eaece" kind="function"><name>insertInstance</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1a1533939b198e3d7a2d5298995b87ab21" kind="function"><name>getInstance</name></member>
-    <member refid="structvt_1_1location_1_1_location_manager_1ae87fb969a0c0e2a45ca3ff15a0f01c00" kind="function"><name>applyInstance</name></member>
-  </compound>
-  <compound refid="structvt_1_1location_1_1_location_msg" kind="struct"><name>vt::location::LocationMsg</name>
-    <member refid="structvt_1_1location_1_1_location_msg_1a025bf9f7e29a87fbe01735e2a5db0857" kind="typedef"><name>MessageParentType</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1ad685e327f058d12836ed9743d44b14b7" kind="variable"><name>loc_man_inst</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1ab87a163a9f9f15780898870e0cba9b0e" kind="variable"><name>entity</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a9550d842c2e1dcd3a5c48675c6b5c080" kind="variable"><name>loc_event</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1ab99a70172011e251d4abec4f2110fc08" kind="variable"><name>ask_node</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a66a5eb7dc3383f583b04d2ecf66c7222" kind="variable"><name>home_node</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a4c047bbd95901a1543e17e7924e1d2d3" kind="variable"><name>resolved_node</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a772844def532d4cbe03f197d621d501e" kind="function"><name>vt_msg_serialize_prohibited</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1af1b76aa81c81ed8ed2a9c9db4e5cff45" kind="function"><name>LocationMsg</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a1b7a6d54ba2fe0018480ca50475e8a66" kind="function"><name>LocationMsg</name></member>
-    <member refid="structvt_1_1location_1_1_location_msg_1a98f01158208640bb88e0d4583694f9bb" kind="function"><name>setResolvedNode</name></member>
   </compound>
   <compound refid="structvt_1_1location_1_1_loc_entity" kind="struct"><name>vt::location::LocEntity</name>
     <member refid="structvt_1_1location_1_1_loc_entity_1abf8115ee4795af8b482a657aa6195a6a" kind="friend"><name>EntityLocationCoord&lt; EntityID &gt;</name></member>
@@ -5650,9 +5618,9 @@
   </compound>
   <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag" kind="struct"><name>vt::collective::reduce::detail::ReduceScopeHolder::ObjGroupTag</name>
   </compound>
-  <compound refid="structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag" kind="struct"><name>vt::rdma::HandleKey::ObjGroupTag</name>
-  </compound>
   <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_obj_group_tag" kind="struct"><name>vt::collective::reduce::detail::tags::ObjGroupTag</name>
+  </compound>
+  <compound refid="structvt_1_1rdma_1_1_handle_key_1_1_obj_group_tag" kind="struct"><name>vt::rdma::HandleKey::ObjGroupTag</name>
   </compound>
   <compound refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_obj_load" kind="struct"><name>vt::vrt::collection::lb::TemperedLB::ObjLoad</name>
     <member refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_obj_load_1ac2e383cb58203e4cdc505d630d16059d" kind="variable"><name>obj_id</name></member>
@@ -5752,9 +5720,6 @@
     <member refid="structvt_1_1messaging_1_1_pending_closure_1a3e703c1f2ff98d8e1a04ad4306a1f011" kind="function"><name>PendingClosure</name></member>
     <member refid="structvt_1_1messaging_1_1_pending_closure_1aa0e2748116e95dd60b31ebfc6a5334c3" kind="function"><name>PendingClosure</name></member>
     <member refid="structvt_1_1messaging_1_1_pending_closure_1a484d65eb7d32fde14253976927e37fd9" kind="function"><name>operator()</name></member>
-  </compound>
-  <compound refid="structvt_1_1location_1_1details_1_1_pending_inst" kind="struct"><name>vt::location::details::PendingInst</name>
-    <member refid="structvt_1_1location_1_1details_1_1_pending_inst_1ada747cad12a1705e6a7759d0e2b08476" kind="variable"><name>pending_inst_</name></member>
   </compound>
   <compound refid="structvt_1_1location_1_1_pending_location_lookup" kind="struct"><name>vt::location::PendingLocationLookup</name>
     <member refid="structvt_1_1location_1_1_pending_location_lookup_1abf8115ee4795af8b482a657aa6195a6a" kind="friend"><name>EntityLocationCoord&lt; EntityID &gt;</name></member>
@@ -6841,6 +6806,10 @@
     <member refid="structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_1a7dfbeea6d73d4baed5c94abfdd172cc6" kind="variable"><name>index</name></member>
     <member refid="structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_1a6cc2c9515c686dab9ac32c091854ef12" kind="function"><name>Registrar</name></member>
   </compound>
+  <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar" kind="struct"><name>checkpoint::dispatch::vrt::serializer_registry::Registrar</name>
+    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar_1a1bd917516ca1cdcc553dd17bdf3c894f" kind="variable"><name>index</name></member>
+    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar_1a56408855337dab32444d81a928f7fa51" kind="function"><name>Registrar</name></member>
+  </compound>
   <compound refid="structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar" kind="struct"><name>checkpoint::dispatch::typeregistry::Registrar</name>
     <member refid="structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_1ad2efba9399224c4fe27f1afdd89ecf0a" kind="variable"><name>index</name></member>
     <member refid="structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_1a8eddeda9b18c2667b032d25a2b5bbceb" kind="function"><name>Registrar</name></member>
@@ -6848,10 +6817,6 @@
   <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar" kind="struct"><name>checkpoint::dispatch::vrt::objregistry::Registrar</name>
     <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar_1a21eae921e8f1dbfe2ecf085912db5507" kind="variable"><name>index</name></member>
     <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar_1a657fb517d93e28627c16a38ee44cd298" kind="function"><name>Registrar</name></member>
-  </compound>
-  <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar" kind="struct"><name>checkpoint::dispatch::vrt::serializer_registry::Registrar</name>
-    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar_1a1bd917516ca1cdcc553dd17bdf3c894f" kind="variable"><name>index</name></member>
-    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar_1a56408855337dab32444d81a928f7fa51" kind="function"><name>Registrar</name></member>
   </compound>
   <compound refid="structvt_1_1objgroup_1_1registry_1_1_registrar" kind="struct"><name>vt::objgroup::registry::Registrar</name>
     <member refid="structvt_1_1objgroup_1_1registry_1_1_registrar_1abd3c1a64c0c977d13878cfd389f73f0c" kind="variable"><name>index</name></member>
@@ -8478,9 +8443,6 @@
   <compound refid="structvt_1_1to__s" kind="struct"><name>vt::to_s</name>
     <member refid="structvt_1_1to__s_1a35a7058e7f8354c4e59e79acf4ec6a91" kind="function"><name>operator=</name></member>
   </compound>
-  <compound refid="structvt_1_1ctx_1_1_trace" kind="struct"><name>vt::ctx::Trace</name>
-    <member refid="structvt_1_1ctx_1_1_trace_1ac499ebe5e3f5cd8622fee973ad48cbdf" kind="function"><name>Trace</name></member>
-  </compound>
   <compound refid="structvt_1_1trace_1_1_trace" kind="struct"><name>vt::trace::Trace</name>
     <member refid="structvt_1_1trace_1_1_trace_1add132ae9df1b7ef820c8082c32b0f839" kind="friend"><name>Log</name></member>
     <member refid="structvt_1_1trace_1_1_trace_1a17caa1eeb27fd6a4af8786a7f0679d77" kind="friend"><name>insertNewUserEvent</name></member>
@@ -8527,6 +8489,9 @@
     <member refid="structvt_1_1trace_1_1_trace_1af31f68cf27ee5959f6e3e9e9b5d57787" kind="function"><name>inInvokeContext</name></member>
     <member refid="structvt_1_1trace_1_1_trace_1a737d62cb21f0b634ca5a45e0221f7ee9" kind="function"><name>serialize</name></member>
     <member refid="structvt_1_1trace_1_1_trace_1ac9ab437e4bdbd179cdc4a90e26bff34d" kind="function"><name>construct</name></member>
+  </compound>
+  <compound refid="structvt_1_1ctx_1_1_trace" kind="struct"><name>vt::ctx::Trace</name>
+    <member refid="structvt_1_1ctx_1_1_trace_1ac499ebe5e3f5cd8622fee973ad48cbdf" kind="function"><name>Trace</name></member>
   </compound>
   <compound refid="classvt_1_1trace_1_1_trace_containers" kind="class"><name>vt::trace::TraceContainers</name>
     <member refid="classvt_1_1trace_1_1_trace_containers_1aa7c9e38e33ed891e369d1ac959ce17fb" kind="function"><name>getEventTypeContainer</name></member>
@@ -8699,20 +8664,20 @@
     <member refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_try_lock_1a3ad4c14eb8481e90fc88394cd3c5267b" kind="function"><name>TryLock</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_try_lock_1a57815a921a2e50af6a1f54fb5ca3c6bd" kind="function"><name>operator&lt;</name></member>
   </compound>
-  <compound refid="structvt_1_1objgroup_1_1registry_1_1_type" kind="struct"><name>vt::objgroup::registry::Type</name>
-    <member refid="structvt_1_1objgroup_1_1registry_1_1_type_1acb6474adc0116aa7e058a2b2ba10ca89" kind="variable"><name>idx</name></member>
+  <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type" kind="struct"><name>checkpoint::dispatch::vrt::objregistry::Type</name>
+    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type_1aebf955b1c0557c68c47ce43de9373793" kind="variable"><name>idx</name></member>
   </compound>
   <compound refid="structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type" kind="struct"><name>checkpoint::dispatch::typeregistry::Type</name>
     <member refid="structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type_1a868a1fe04a69378b7177b130a6df4bd1" kind="variable"><name>idx</name></member>
   </compound>
+  <compound refid="structvt_1_1runtime_1_1component_1_1registry_1_1_type" kind="struct"><name>vt::runtime::component::registry::Type</name>
+    <member refid="structvt_1_1runtime_1_1component_1_1registry_1_1_type_1a483556d97e990a49f2c808946ef8e95c" kind="variable"><name>idx</name></member>
+  </compound>
   <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type" kind="struct"><name>checkpoint::dispatch::vrt::serializer_registry::Type</name>
     <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_type_1a5541aec55511cb64d98eefb77b7cf8ed" kind="variable"><name>idx</name></member>
   </compound>
-  <compound refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type" kind="struct"><name>checkpoint::dispatch::vrt::objregistry::Type</name>
-    <member refid="structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_type_1aebf955b1c0557c68c47ce43de9373793" kind="variable"><name>idx</name></member>
-  </compound>
-  <compound refid="structvt_1_1runtime_1_1component_1_1registry_1_1_type" kind="struct"><name>vt::runtime::component::registry::Type</name>
-    <member refid="structvt_1_1runtime_1_1component_1_1registry_1_1_type_1a483556d97e990a49f2c808946ef8e95c" kind="variable"><name>idx</name></member>
+  <compound refid="structvt_1_1objgroup_1_1registry_1_1_type" kind="struct"><name>vt::objgroup::registry::Type</name>
+    <member refid="structvt_1_1objgroup_1_1registry_1_1_type_1acb6474adc0116aa7e058a2b2ba10ca89" kind="variable"><name>idx</name></member>
   </compound>
   <compound refid="structvt_1_1vrt_1_1collection_1_1_typeless_holder" kind="struct"><name>vt::vrt::collection::TypelessHolder</name>
     <member refid="structvt_1_1vrt_1_1collection_1_1_typeless_holder_1a4bd5437b31c3717f2d18bd50f1398c68" kind="variable"><name>live_</name></member>
@@ -8867,9 +8832,123 @@
     <member refid="structvt_1_1trace_1_1_user_event_registry_1ae3e2193c40fd3ff7de9367a02f9e457d" kind="function"><name>newEventImpl</name></member>
     <member refid="structvt_1_1trace_1_1_user_event_registry_1a5322490b81bb736a4649e23d47fd374b" kind="function"><name>insertEvent</name></member>
   </compound>
+  <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag" kind="struct"><name>vt::collective::reduce::detail::tags::UserIDTag</name>
+  </compound>
   <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag" kind="struct"><name>vt::collective::reduce::detail::ReduceScopeHolder::UserIDTag</name>
   </compound>
-  <compound refid="structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_user_i_d_tag" kind="struct"><name>vt::collective::reduce::detail::tags::UserIDTag</name>
+  <compound refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a" kind="struct"><name>vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; not std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a7b884d1c3b2be49b47899ad24757710a" kind="typedef"><name>RequestType</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a1fd6b9bc3f72bb2b64e602de3982929d" kind="friend"><name>Manager</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa597d7381f8793417b0656cbaf1625f0" kind="friend"><name>SubHandle&lt; T, E, IndexT &gt;</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a22334887cacdf3256127600c50c9d2b1" kind="variable"><name>index_</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a050f5dac1123979f6286ca6f99bfbe21" kind="variable"><name>proxy_</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1abdfe9dcf8a155c7e2bd91dabf6472702" kind="function"><name>Handle</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a9362a80316cbbc4527bc1b93f24a5a0b" kind="function"><name>Handle</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a730e0d6dab39e85472500ad7e04add58" kind="function"><name>Handle</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a9ebc139217531d3fe1d6d1cc1b824daf" kind="function"><name>operator=</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a29355ec3a0a21b03da7b2b2098b5ad88" kind="function"><name>operator=</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa7de4d0e334b4c69c316f57d003d2429" kind="function"><name>Handle</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a8757ffe8f60317fccb422db99ee048e5" kind="function"><name>isInit</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a37e164e4eb34320551c7641c5e2f123b" kind="function"><name>getIndex</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a860f35e2562f8ab0e5606281315d2e17" kind="function"><name>ready</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1adc7b1058678ece326e044eac9d4c83cf" kind="function"><name>readExclusive</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a20ad220782a771d3b4b1a63b963f7adf" kind="function"><name>readShared</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a193a769321ba99cb7c999118d195d158" kind="function"><name>modifyExclusive</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a1e54b62400f4e12e2e7e4862851352c9" kind="function"><name>modifyShared</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a700818b012865e7c8523abe143dc37e5" kind="function"><name>get</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ac1f836e8530774b590430504e747c901" kind="function"><name>get</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a7b6743e3f3bace08a1c6fce3b19f27c6" kind="function"><name>put</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a8182aefb99d33b103c671addb6bb28c2" kind="function"><name>accum</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ae48628cffbfa47fe7cd171426e1a76b6" kind="function"><name>rget</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa944bb8230caf7e0852c21099f5d8cab" kind="function"><name>rget</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a71ab9bf9b26aa1db0d6d5cc7a712f3ce" kind="function"><name>rput</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a14e800f21489334ed91f3ad40412565d" kind="function"><name>raccum</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1add9aa1811c10aa54376a682f6c7be847" kind="function"><name>fetchOp</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ad2cc71ceb8a965a56a6cd16181b00071" kind="function"><name>getCount</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a417746a96f30d65dc941ba3904a612cd" kind="function"><name>lock</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aeb8b31602a46bc22042360280ef88b01" kind="function"><name>unlock</name></member>
+    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a861a97549fb4aaa9880401dbdf2e0a23" kind="function"><name>serialize</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f99b40767eb3aff35ccfdc592721ff945" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseHandlersDispatcherPtr &gt; &gt;::value and not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseMapsDispatcherPtr &gt; &gt;::value and not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseScatterDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f99b40767eb3aff35ccfdc592721ff945_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29" kind="struct"><name>vt::auto_registry::RegistrarFunctor&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; AutoActiveType &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29_1ab57e90a096ad7a4800ab26e5da4249bb" kind="variable"><name>index</name></member>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29_1acb5b94751607c69f2a8a9eecf1c1706c" kind="function"><name>RegistrarFunctor</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e" kind="struct"><name>vt::vrt::collection::ParamColMsg&lt; Tuple, ColT, std::enable_if_t&lt; not messaging::is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a31b328a8e2c5e1801564baf8d3e8bf04" kind="typedef"><name>MessageParentType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a86867847002b70c52126323faa830dd6" kind="typedef"><name>TupleType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a726c277943c0e2067383c9091c1a7f85" kind="variable"><name>params</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a70d6345f2e6c9fab0c48b03bc87b3281" kind="function"><name>vt_msg_serialize_if_needed_by_parent_or_type1</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a3f158d2bce6804dae653475e383347e8" kind="function"><name>ParamColMsg</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1ae637b0bbec304ac77b345779f9e55c44" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a5742af55a6e36a8a2db14b2812878fe2" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1afc5714cc55c3b21fb9f1093863ad29b6" kind="function"><name>getTuple</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1ad9bdee8e5da604f69a69c09ba016e266" kind="function"><name>serialize</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st21bfbb9f37f35dd344d97132b3f17280" kind="struct"><name>vt::vrt::collection::detail::InsertMsgDispatcher&lt; MsgT, ColT, std::enable_if_t&lt; std::is_same&lt; MsgT, InsertNullMsg &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st21bfbb9f37f35dd344d97132b3f17280_1a56b771d6ce66b4fb63a3a588aaf7b34f" kind="function"><name>makeCons</name></member>
+  </compound>
+  <compound refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0c9abbc05a2cb3e61ce5908f9ea9ba841" kind="struct"><name>vt::runtime::component::detail::DiagnosticValueFormatter&lt; T, typename std::enable_if_t&lt; std::is_same&lt; T, double &gt;::value or std::is_same&lt; T, float &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0c9abbc05a2cb3e61ce5908f9ea9ba841_1aee01e661e17fbc4bdec8444ff72a5585" kind="variable"><name>format</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371" kind="struct"><name>vt::vrt::collection::DefaultMap&lt; CollectionT, typename std::enable_if_t&lt; std::is_same&lt; typename CollectionT::IndexType, typename ::vt::index::Index2D&lt; typename CollectionT::IndexType::DenseIndexType &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a823a301643de798d93aa67c92cbf4774" kind="typedef"><name>BaseType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a25cf02d8b5c04bf66ef67778fe5df36a" kind="typedef"><name>BlockMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a9b859aa3295c0d5671285bcab51c631e" kind="typedef"><name>RRMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a50c6a33addd3d46918506ac19974c1e4" kind="typedef"><name>DefaultMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a64cdf608ef447db92da972f6153ca785" kind="typedef"><name>MapType</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st63328b77cb25348343d0eb4c4a2955e0" kind="struct"><name>vt::vrt::collection::detail::InsertMsgDispatcher&lt; MsgT, ColT, std::enable_if_t&lt; not std::is_same&lt; MsgT, InsertNullMsg &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st63328b77cb25348343d0eb4c4a2955e0_1a9a3fead2e25e2b6be20c8875fbb0026f" kind="function"><name>makeCons</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4" kind="struct"><name>vt::vrt::collection::DefaultMap&lt; CollectionT, typename std::enable_if_t&lt; std::is_same&lt; typename CollectionT::IndexType, typename ::vt::index::Index3D&lt; typename CollectionT::IndexType::DenseIndexType &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a823a301643de798d93aa67c92cbf4774" kind="typedef"><name>BaseType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1ab057a004cf95904add5dfbcc354a177b" kind="typedef"><name>BlockMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a086a12298ecde3f55db5d9b93ad89211" kind="typedef"><name>RRMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a2fe7723e7789c9dfab06a2881faa8482" kind="typedef"><name>DefaultMapType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a64cdf608ef447db92da972f6153ca785" kind="typedef"><name>MapType</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f217d2e10f45b17517a6a17cd37637802" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseHandlersDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f217d2e10f45b17517a6a17cd37637802_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
+  </compound>
+  <compound refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add" kind="struct"><name>vt::vrt::collection::ParamColMsg&lt; Tuple, ColT, std::enable_if_t&lt; messaging::is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a86867847002b70c52126323faa830dd6" kind="typedef"><name>TupleType</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a47ee6987900090d312f2f23b9d4e10f2" kind="variable"><name>params</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a3f158d2bce6804dae653475e383347e8" kind="function"><name>ParamColMsg</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1ae637b0bbec304ac77b345779f9e55c44" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a5742af55a6e36a8a2db14b2812878fe2" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1afc5714cc55c3b21fb9f1093863ad29b6" kind="function"><name>getTuple</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f088bfe4085ec4873f9421256b755c7cc" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseScatterDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f088bfe4085ec4873f9421256b755c7cc_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07" kind="struct"><name>vt::auto_registry::RegistrarFunctor&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; AutoActiveMapType &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07_1ab57e90a096ad7a4800ab26e5da4249bb" kind="variable"><name>index</name></member>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07_1acb5b94751607c69f2a8a9eecf1c1706c" kind="function"><name>RegistrarFunctor</name></member>
+  </compound>
+  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f89013229108d15297d7bd1027e58f098" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseMapsDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f89013229108d15297d7bd1027e58f098_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
+  </compound>
+  <compound refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774" kind="struct"><name>vt::messaging::ParamMsg&lt; Tuple, std::enable_if_t&lt; not is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a1df6cf9b9df170d14173533ead85534d" kind="typedef"><name>MessageParentType</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a63c0c672da0bf7b284da9647aad497f8" kind="typedef"><name>TupleType</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a0bed46ca731b6d0b81abee26ae3f73a0" kind="variable"><name>params</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1af6a20d70b8e4a2fbc8b0de42612dd8d6" kind="function"><name>vt_msg_serialize_if_needed_by_parent_or_type1</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ab09a04140f07bf5b72c6f82cbcae8f9b" kind="function"><name>ParamMsg</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ac94c24c043d69101319252235d7eafb9" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ac874cc2847c71bffec650269e248b45b" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1acc98e81baad8e288db26a6bdb944a4e7" kind="function"><name>getTuple</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a29827e82e34aa1666e2bb5a70076c40b" kind="function"><name>serialize</name></member>
+  </compound>
+  <compound refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59" kind="struct"><name>vt::messaging::ParamMsg&lt; Tuple, std::enable_if_t&lt; is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1a63c0c672da0bf7b284da9647aad497f8" kind="typedef"><name>TupleType</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1a69170a79900e7a5b7d4a02e05aff9b2d" kind="variable"><name>params</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ab09a04140f07bf5b72c6f82cbcae8f9b" kind="function"><name>ParamMsg</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ac94c24c043d69101319252235d7eafb9" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ac874cc2847c71bffec650269e248b45b" kind="function"><name>setParams</name></member>
+    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1acc98e81baad8e288db26a6bdb944a4e7" kind="function"><name>getTuple</name></member>
   </compound>
   <compound refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456" kind="struct"><name>vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;</name>
     <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456_1a94cb0db8d9b038fb504cb01b1d1d37a9" kind="typedef"><name>RequestType</name></member>
@@ -8909,126 +8988,12 @@
     <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456_1a861a97549fb4aaa9880401dbdf2e0a23" kind="function"><name>serialize</name></member>
     <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_d15dac1b5db6e2bc0fb0b8aca42b1456_1a3d322fbc0fd7b9c8283b6fc5fed21a5d" kind="function"><name>Handle</name></member>
   </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07" kind="struct"><name>vt::auto_registry::RegistrarFunctor&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; AutoActiveMapType &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07_1ab57e90a096ad7a4800ab26e5da4249bb" kind="variable"><name>index</name></member>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_4e1b66c1fb5f9a7f528e44d26c164c07_1acb5b94751607c69f2a8a9eecf1c1706c" kind="function"><name>RegistrarFunctor</name></member>
-  </compound>
-  <compound refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0c9abbc05a2cb3e61ce5908f9ea9ba841" kind="struct"><name>vt::runtime::component::detail::DiagnosticValueFormatter&lt; T, typename std::enable_if_t&lt; std::is_same&lt; T, double &gt;::value or std::is_same&lt; T, float &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0c9abbc05a2cb3e61ce5908f9ea9ba841_1aee01e661e17fbc4bdec8444ff72a5585" kind="variable"><name>format</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4" kind="struct"><name>vt::vrt::collection::DefaultMap&lt; CollectionT, typename std::enable_if_t&lt; std::is_same&lt; typename CollectionT::IndexType, typename ::vt::index::Index3D&lt; typename CollectionT::IndexType::DenseIndexType &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a823a301643de798d93aa67c92cbf4774" kind="typedef"><name>BaseType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1ab057a004cf95904add5dfbcc354a177b" kind="typedef"><name>BlockMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a086a12298ecde3f55db5d9b93ad89211" kind="typedef"><name>RRMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a2fe7723e7789c9dfab06a2881faa8482" kind="typedef"><name>DefaultMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__id31d055881d6867942086ee5834ad7b4_1a64cdf608ef447db92da972f6153ca785" kind="typedef"><name>MapType</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add" kind="struct"><name>vt::vrt::collection::ParamColMsg&lt; Tuple, ColT, std::enable_if_t&lt; messaging::is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a86867847002b70c52126323faa830dd6" kind="typedef"><name>TupleType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a47ee6987900090d312f2f23b9d4e10f2" kind="variable"><name>params</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a3f158d2bce6804dae653475e383347e8" kind="function"><name>ParamColMsg</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1ae637b0bbec304ac77b345779f9e55c44" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1a5742af55a6e36a8a2db14b2812878fe2" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__tcc6a1858ebbc12bbfd81f56748245add_1afc5714cc55c3b21fb9f1093863ad29b6" kind="function"><name>getTuple</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st63328b77cb25348343d0eb4c4a2955e0" kind="struct"><name>vt::vrt::collection::detail::InsertMsgDispatcher&lt; MsgT, ColT, std::enable_if_t&lt; not std::is_same&lt; MsgT, InsertNullMsg &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st63328b77cb25348343d0eb4c4a2955e0_1a9a3fead2e25e2b6be20c8875fbb0026f" kind="function"><name>makeCons</name></member>
-  </compound>
-  <compound refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a" kind="struct"><name>vt::rdma::Handle&lt; T, E, IndexT, typename std::enable_if_t&lt; not std::is_same&lt; IndexT, vt::NodeType &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a7b884d1c3b2be49b47899ad24757710a" kind="typedef"><name>RequestType</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a1fd6b9bc3f72bb2b64e602de3982929d" kind="friend"><name>Manager</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa597d7381f8793417b0656cbaf1625f0" kind="friend"><name>SubHandle&lt; T, E, IndexT &gt;</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a22334887cacdf3256127600c50c9d2b1" kind="variable"><name>index_</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a050f5dac1123979f6286ca6f99bfbe21" kind="variable"><name>proxy_</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1abdfe9dcf8a155c7e2bd91dabf6472702" kind="function"><name>Handle</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a9362a80316cbbc4527bc1b93f24a5a0b" kind="function"><name>Handle</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a730e0d6dab39e85472500ad7e04add58" kind="function"><name>Handle</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a9ebc139217531d3fe1d6d1cc1b824daf" kind="function"><name>operator=</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a29355ec3a0a21b03da7b2b2098b5ad88" kind="function"><name>operator=</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa7de4d0e334b4c69c316f57d003d2429" kind="function"><name>Handle</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a8757ffe8f60317fccb422db99ee048e5" kind="function"><name>isInit</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a37e164e4eb34320551c7641c5e2f123b" kind="function"><name>getIndex</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a860f35e2562f8ab0e5606281315d2e17" kind="function"><name>ready</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1adc7b1058678ece326e044eac9d4c83cf" kind="function"><name>readExclusive</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a20ad220782a771d3b4b1a63b963f7adf" kind="function"><name>readShared</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a193a769321ba99cb7c999118d195d158" kind="function"><name>modifyExclusive</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a1e54b62400f4e12e2e7e4862851352c9" kind="function"><name>modifyShared</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a700818b012865e7c8523abe143dc37e5" kind="function"><name>get</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ac1f836e8530774b590430504e747c901" kind="function"><name>get</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a7b6743e3f3bace08a1c6fce3b19f27c6" kind="function"><name>put</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a8182aefb99d33b103c671addb6bb28c2" kind="function"><name>accum</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ae48628cffbfa47fe7cd171426e1a76b6" kind="function"><name>rget</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aa944bb8230caf7e0852c21099f5d8cab" kind="function"><name>rget</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a71ab9bf9b26aa1db0d6d5cc7a712f3ce" kind="function"><name>rput</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a14e800f21489334ed91f3ad40412565d" kind="function"><name>raccum</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1add9aa1811c10aa54376a682f6c7be847" kind="function"><name>fetchOp</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1ad2cc71ceb8a965a56a6cd16181b00071" kind="function"><name>getCount</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a417746a96f30d65dc941ba3904a612cd" kind="function"><name>lock</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1aeb8b31602a46bc22042360280ef88b01" kind="function"><name>unlock</name></member>
-    <member refid="structvt_1_1rdma_1_1_handle_3_01_t_00_01_e_00_01_index_t_00_01typename_01std_1_1enable__if__t_3_f66c3940d9f3649c3a5c3e77d63c658a_1a861a97549fb4aaa9880401dbdf2e0a23" kind="function"><name>serialize</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e" kind="struct"><name>vt::vrt::collection::ParamColMsg&lt; Tuple, ColT, std::enable_if_t&lt; not messaging::is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a31b328a8e2c5e1801564baf8d3e8bf04" kind="typedef"><name>MessageParentType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a86867847002b70c52126323faa830dd6" kind="typedef"><name>TupleType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a726c277943c0e2067383c9091c1a7f85" kind="variable"><name>params</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a70d6345f2e6c9fab0c48b03bc87b3281" kind="function"><name>vt_msg_serialize_if_needed_by_parent_or_type1</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a3f158d2bce6804dae653475e383347e8" kind="function"><name>ParamColMsg</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1ae637b0bbec304ac77b345779f9e55c44" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1a5742af55a6e36a8a2db14b2812878fe2" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1afc5714cc55c3b21fb9f1093863ad29b6" kind="function"><name>getTuple</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_param_col_msg_3_01_tuple_00_01_col_t_00_01std_1_1enable__if__te13868956e9675e27cec8f332bda9d5e_1ad9bdee8e5da604f69a69c09ba016e266" kind="function"><name>serialize</name></member>
-  </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29" kind="struct"><name>vt::auto_registry::RegistrarFunctor&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; AutoActiveType &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29_1ab57e90a096ad7a4800ab26e5da4249bb" kind="variable"><name>index</name></member>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_functor_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_ec57e5bbdf77219785996b8aa3819a29_1acb5b94751607c69f2a8a9eecf1c1706c" kind="function"><name>RegistrarFunctor</name></member>
-  </compound>
-  <compound refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59" kind="struct"><name>vt::messaging::ParamMsg&lt; Tuple, std::enable_if_t&lt; is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1a63c0c672da0bf7b284da9647aad497f8" kind="typedef"><name>TupleType</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1a69170a79900e7a5b7d4a02e05aff9b2d" kind="variable"><name>params</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ab09a04140f07bf5b72c6f82cbcae8f9b" kind="function"><name>ParamMsg</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ac94c24c043d69101319252235d7eafb9" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1ac874cc2847c71bffec650269e248b45b" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01is__byte__copyable_50e4a53750896883a846627550850f59_1acc98e81baad8e288db26a6bdb944a4e7" kind="function"><name>getTuple</name></member>
-  </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f217d2e10f45b17517a6a17cd37637802" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseHandlersDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f217d2e10f45b17517a6a17cd37637802_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
-  </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f99b40767eb3aff35ccfdc592721ff945" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseHandlersDispatcherPtr &gt; &gt;::value and not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseMapsDispatcherPtr &gt; &gt;::value and not std::is_same&lt; InfoT, AutoRegInfo&lt; BaseScatterDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f99b40767eb3aff35ccfdc592721ff945_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
-  </compound>
-  <compound refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774" kind="struct"><name>vt::messaging::ParamMsg&lt; Tuple, std::enable_if_t&lt; not is_byte_copyable_t&lt; Tuple &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a1df6cf9b9df170d14173533ead85534d" kind="typedef"><name>MessageParentType</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a63c0c672da0bf7b284da9647aad497f8" kind="typedef"><name>TupleType</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a0bed46ca731b6d0b81abee26ae3f73a0" kind="variable"><name>params</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1af6a20d70b8e4a2fbc8b0de42612dd8d6" kind="function"><name>vt_msg_serialize_if_needed_by_parent_or_type1</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ab09a04140f07bf5b72c6f82cbcae8f9b" kind="function"><name>ParamMsg</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ac94c24c043d69101319252235d7eafb9" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1ac874cc2847c71bffec650269e248b45b" kind="function"><name>setParams</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1acc98e81baad8e288db26a6bdb944a4e7" kind="function"><name>getTuple</name></member>
-    <member refid="structvt_1_1messaging_1_1_param_msg_3_01_tuple_00_01std_1_1enable__if__t_3_01not_01is__byte__copae27aaaf2bf1aaed1864cee3aebbc774_1a29827e82e34aa1666e2bb5a70076c40b" kind="function"><name>serialize</name></member>
-  </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f89013229108d15297d7bd1027e58f098" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseMapsDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f89013229108d15297d7bd1027e58f098_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st21bfbb9f37f35dd344d97132b3f17280" kind="struct"><name>vt::vrt::collection::detail::InsertMsgDispatcher&lt; MsgT, ColT, std::enable_if_t&lt; std::is_same&lt; MsgT, InsertNullMsg &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1detail_1_1_insert_msg_dispatcher_3_01_msg_t_00_01_col_t_00_01st21bfbb9f37f35dd344d97132b3f17280_1a56b771d6ce66b4fb63a3a588aaf7b34f" kind="function"><name>makeCons</name></member>
-  </compound>
   <compound refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804" kind="struct"><name>vt::vrt::collection::DefaultMap&lt; CollectionT, typename std::enable_if_t&lt; std::is_same&lt; typename CollectionT::IndexType, typename ::vt::index::Index1D&lt; typename CollectionT::IndexType::DenseIndexType &gt; &gt;::value &gt;&gt;</name>
     <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804_1a823a301643de798d93aa67c92cbf4774" kind="typedef"><name>BaseType</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804_1a279e6bcca5709c1376785e6b36b5bce3" kind="typedef"><name>BlockMapType</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804_1a337368032c20ce595d55d653a6781f0a" kind="typedef"><name>RRMapType</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804_1ade68a8c13ae3e0fae3b3d96d230aa4fe" kind="typedef"><name>DefaultMapType</name></member>
     <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__i0c13cd14d7af17b34311bb8ce93d9804_1a64cdf608ef447db92da972f6153ca785" kind="typedef"><name>MapType</name></member>
-  </compound>
-  <compound refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371" kind="struct"><name>vt::vrt::collection::DefaultMap&lt; CollectionT, typename std::enable_if_t&lt; std::is_same&lt; typename CollectionT::IndexType, typename ::vt::index::Index2D&lt; typename CollectionT::IndexType::DenseIndexType &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a823a301643de798d93aa67c92cbf4774" kind="typedef"><name>BaseType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a25cf02d8b5c04bf66ef67778fe5df36a" kind="typedef"><name>BlockMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a9b859aa3295c0d5671285bcab51c631e" kind="typedef"><name>RRMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a50c6a33addd3d46918506ac19974c1e4" kind="typedef"><name>DefaultMapType</name></member>
-    <member refid="structvt_1_1vrt_1_1collection_1_1_default_map_3_01_collection_t_00_01typename_01std_1_1enable__ib7e55b659c64f165e6a671fb7294e371_1a64cdf608ef447db92da972f6153ca785" kind="typedef"><name>MapType</name></member>
-  </compound>
-  <compound refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f088bfe4085ec4873f9421256b755c7cc" kind="struct"><name>vt::auto_registry::RegistrarHelper&lt; RunnableT, RegT, InfoT, FnT, std::enable_if_t&lt; std::is_same&lt; InfoT, AutoRegInfo&lt; BaseScatterDispatcherPtr &gt; &gt;::value &gt;&gt;</name>
-    <member refid="structvt_1_1auto__registry_1_1_registrar_helper_3_01_runnable_t_00_01_reg_t_00_01_info_t_00_01_f088bfe4085ec4873f9421256b755c7cc_1a42052bf466ae03218ee03de42dc0887e" kind="function"><name>registerHandler</name></member>
   </compound>
   <compound refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0591af1544272b2addbb347536de876db" kind="struct"><name>vt::runtime::component::detail::DiagnosticValueFormatter&lt; T, typename std::enable_if_t&lt; not(std::is_same&lt; T, double &gt;::value or std::is_same&lt; T, float &gt;::value) &gt;&gt;</name>
     <member refid="structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0591af1544272b2addbb347536de876db_1afc345a5383190494c5e495d787152feb" kind="variable"><name>format</name></member>
@@ -9406,7 +9371,7 @@
     <member refid="namespacecheckpoint_1a9ffb72abb4d8c3fe031626dbf526d70c" kind="function"><name>reconstructPointedToObjectIfNeeded</name></member>
     <member refid="namespacecheckpoint_1a6254f2e220f905a2b0c797c08092a7a1" kind="function"><name>reconstruct</name></member>
   </compound>
-  <compound refid="namespacecheckpoint_1_1_0d937" kind="namespace"><name>checkpoint::@937</name>
+  <compound refid="namespacecheckpoint_1_1_0d936" kind="namespace"><name>checkpoint::@936</name>
   </compound>
   <compound refid="namespacecheckpoint_1_1buffer" kind="namespace"><name>checkpoint::buffer</name>
     <member refid="namespacecheckpoint_1_1buffer_1a7c7e5ecf5f571c68818f608989764ab7" kind="typedef"><name>SerializedInfo</name></member>
@@ -10344,8 +10309,6 @@
     <member refid="namespacevt_1_1location_1ae2016d077f335128b8f35b0b2c547c9e" kind="function"><name>operator&lt;&lt;</name></member>
   </compound>
   <compound refid="namespacevt_1_1location_1_1detail" kind="namespace"><name>vt::location::detail</name>
-  </compound>
-  <compound refid="namespacevt_1_1location_1_1details" kind="namespace"><name>vt::location::details</name>
   </compound>
   <compound refid="namespacevt_1_1mapping" kind="namespace"><name>vt::mapping</name>
     <member refid="namespacevt_1_1mapping_1a41b113c28bb6430fbcb5be66e08ccf9f" kind="typedef"><name>MapAdapter</name></member>
@@ -13273,8 +13236,6 @@
   <compound refid="construct__params_8h" kind="file"><name>construct_params.h</name>
   </compound>
   <compound refid="construct__params_8impl_8h" kind="file"><name>construct_params.impl.h</name>
-  </compound>
-  <compound refid="construct__params__msg_8h" kind="file"><name>construct_params_msg.h</name>
   </compound>
   <compound refid="proxy_8h" kind="file"><name>proxy.h</name>
   </compound>
