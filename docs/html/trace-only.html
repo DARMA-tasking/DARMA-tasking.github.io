@@ -101,46 +101,46 @@
           Trace-only
         </h1>
         <p>Using vt in trace-only mode.</p>
-<section id="what-is-vt-trace"><h2><a href="#what-is-vt-trace">What is trace-only mode</a></h2><p>Trace-only mode is lightweight library which includes the subset of VT-runtime that allows to generate trace files for an application that uses MPI calls. The following examples will show how to generate vt-trace target and then how to use it.</p></section><section id="build"><h2><a href="#build">Build vt with trace-only target:</a></h2><p>Depending on how you build VT, you can either set environment variable <code>VT_BUILD_TRACE_ONLY</code>:</p><pre class="m-code"><span class="err">export</span><span class="w"> </span><span class="err">VT_BUILD_TRACE_ONLY=1</span>
-<span class="err">/vt/ci/build_cpp.sh</span><span class="w"> </span><span class="err">/vt</span><span class="w"> </span><span class="err">/build</span></pre><p>or add CMake flag <code>vt_trace_only</code>:</p><pre class="m-code"><span class="err">cmake</span><span class="w"> </span><span class="err">-Dvt_trace_only=1</span></pre><p>This will generate vt-trace target alongside the regular vt-runtime CMake target.</p><hr/></section><section id="usage"><h2><a href="#usage">Example usage:</a></h2><h3>CMake</h3><p>Next step is to setup CMake. Find the <code>vt</code> project and load its settings:</p><pre class="m-code"><span class="nb">find_package</span><span class="p">(</span><span class="s">vt</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span></pre><p>Then link <code>vt-trace</code> library with your target:</p><pre class="m-code"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">target_name</span><span class="o">}</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">vt::vt-trace</span><span class="p">)</span></pre><p>Example CMake:</p><pre class="m-code"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.17</span><span class="w"> </span><span class="s">FATAL_ERROR</span><span class="p">)</span>
+<section id="what-is-vt-trace"><h2><a href="#what-is-vt-trace">What is trace-only mode</a></h2><p>Trace-only mode is lightweight library which includes the subset of VT-runtime that allows to generate trace files for an application that uses MPI calls. The following examples will show how to generate vt-trace target and then how to use it.</p></section><section id="build"><h2><a href="#build">Build vt with trace-only target:</a></h2><p>Depending on how you build VT, you can either set environment variable <code>VT_BUILD_TRACE_ONLY</code>:</p><pre class="m-code"><span class="err">export</span> <span class="err">VT_BUILD_TRACE_ONLY=1</span>
+<span class="err">/vt/ci/build_cpp.sh</span> <span class="err">/vt</span> <span class="err">/build</span></pre><p>or add CMake flag <code>vt_trace_only</code>:</p><pre class="m-code"><span class="err">cmake</span> <span class="err">-Dvt_trace_only=1</span></pre><p>This will generate vt-trace target alongside the regular vt-runtime CMake target.</p><hr/></section><section id="usage"><h2><a href="#usage">Example usage:</a></h2><h3>CMake</h3><p>Next step is to setup CMake. Find the <code>vt</code> project and load its settings:</p><pre class="m-code"><span class="nb">find_package</span><span class="p">(</span><span class="s">vt</span> <span class="s">REQUIRED</span><span class="p">)</span></pre><p>Then link <code>vt-trace</code> library with your target:</p><pre class="m-code"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">target_name</span><span class="o">}</span> <span class="s">PUBLIC</span> <span class="s">vt::vt-trace</span><span class="p">)</span></pre><p>Example CMake:</p><pre class="m-code"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.17</span> <span class="s">FATAL_ERROR</span><span class="p">)</span>
 
 <span class="nb">project</span><span class="p">(</span><span class="s">my_target</span><span class="p">)</span>
 
-<span class="nb">find_package</span><span class="p">(</span><span class="s">vt</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">vt</span> <span class="s">REQUIRED</span><span class="p">)</span>
 
 <span class="nb">add_executable</span><span class="p">(</span>
-<span class="w">  </span><span class="s">my_target</span>
-<span class="w">  </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/sample.h</span>
-<span class="w">  </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/sample.cc</span>
+  <span class="s">my_target</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/sample.h</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/sample.cc</span>
 <span class="p">)</span>
 
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_target</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">vt::vt-trace</span><span class="p">)</span></pre><h3>Source code</h3><p>The following code snippet shows the example use of vt-trace library (See <code><a href="structvt_1_1trace_1_1_trace_lite.html" class="m-doc">vt::<wbr />trace::<wbr />TraceLite</a></code> for more information):</p><pre class="m-code"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpi.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vt/trace/trace_lite.h&quot;</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_target</span> <span class="s">PUBLIC</span> <span class="s">vt::vt-trace</span><span class="p">)</span></pre><h3>Source code</h3><p>The following code snippet shows the example use of vt-trace library (See <code><a href="structvt_1_1trace_1_1_trace_lite.html" class="m-doc">vt::<wbr />trace::<wbr />TraceLite</a></code> for more information):</p><pre class="m-code"><span class="cp">#include</span> <span class="cpf">&lt;mpi.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&quot;vt/trace/trace_lite.h&quot;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">MPI_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">MPI_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// Create vt::trace::TraceLite object after MPI has been initialized</span>
-<span class="w">  </span><span class="c1">// The constructor takes one argument - your application&#39;s name</span>
-<span class="w">  </span><span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">trace</span><span class="o">::</span><span class="n">TraceLite</span><span class="w"> </span><span class="n">myTrace</span><span class="p">(</span><span class="s">&quot;MyApp&quot;</span><span class="p">);</span>
+  <span class="c1">// Create vt::trace::TraceLite object after MPI has been initialized</span>
+  <span class="c1">// The constructor takes one argument - your application&#39;s name</span>
+  <span class="o">::</span><span class="n">vt</span><span class="o">::</span><span class="n">trace</span><span class="o">::</span><span class="n">TraceLite</span> <span class="n">myTrace</span><span class="p">(</span><span class="s">&quot;MyApp&quot;</span><span class="p">);</span>
 
 
-<span class="w">  </span><span class="c1">// Call initializeStandalone once to initialize all internal data needed for tracing</span>
-<span class="w">  </span><span class="c1">// This function takes single argument - MPI communicator</span>
-<span class="w">  </span><span class="n">myTrace</span><span class="p">.</span><span class="n">initializeStandalone</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">);</span>
+  <span class="c1">// Call initializeStandalone once to initialize all internal data needed for tracing</span>
+  <span class="c1">// This function takes single argument - MPI communicator</span>
+  <span class="n">myTrace</span><span class="p">.</span><span class="n">initializeStandalone</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">);</span>
 
-<span class="w">  </span><span class="cm">/*</span>
+  <span class="cm">/*</span>
 <span class="cm">     DO MPI RELATED WORK HERE</span>
 <span class="cm">  */</span>
 
-<span class="w">  </span><span class="c1">// Use this function to flush traces to file</span>
-<span class="w">  </span><span class="n">myTrace</span><span class="p">.</span><span class="n">flushTracesFile</span><span class="p">();</span>
+  <span class="c1">// Use this function to flush traces to file</span>
+  <span class="n">myTrace</span><span class="p">.</span><span class="n">flushTracesFile</span><span class="p">();</span>
 
-<span class="w">  </span><span class="c1">// After all work is done, call this function to cleanup all data</span>
-<span class="w">  </span><span class="c1">// This should be called before calling &#39;MPI_Finalize&#39;</span>
-<span class="w">  </span><span class="n">myTrace</span><span class="p">.</span><span class="n">finalizeStandalone</span><span class="p">();</span>
+  <span class="c1">// After all work is done, call this function to cleanup all data</span>
+  <span class="c1">// This should be called before calling &#39;MPI_Finalize&#39;</span>
+  <span class="n">myTrace</span><span class="p">.</span><span class="n">finalizeStandalone</span><span class="p">();</span>
 
-<span class="w">  </span><span class="n">MPI_Finalize</span><span class="p">();</span>
+  <span class="n">MPI_Finalize</span><span class="p">();</span>
 <span class="p">}</span></pre></section>
       </div>
     </div>

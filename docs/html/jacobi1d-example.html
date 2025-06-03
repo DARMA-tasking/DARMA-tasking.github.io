@@ -119,329 +119,329 @@
 <span class="c1">//</span>
 
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vt/transport.h&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vt/transport.h&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span>
 
-<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">default_nrow_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
-<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">default_num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">default_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0e-02</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">default_nrow_object</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">default_num_objs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">double</span> <span class="k">const</span> <span class="n">default_tol</span> <span class="o">=</span> <span class="mf">1.0e-02</span><span class="p">;</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">NodeObj</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_finished_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">workFinishedHandler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_finished_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isWorkFinished</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">is_finished_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">struct</span> <span class="n">NodeObj</span> <span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">is_finished_</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">workFinishedHandler</span><span class="p">()</span> <span class="p">{</span> <span class="n">is_finished_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">bool</span> <span class="nf">isWorkFinished</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">is_finished_</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">};</span>
-<span class="k">using</span><span class="w"> </span><span class="n">NodeObjProxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">objgroup</span><span class="o">::</span><span class="n">proxy</span><span class="o">::</span><span class="n">Proxy</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">NodeObjProxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">objgroup</span><span class="o">::</span><span class="n">proxy</span><span class="o">::</span><span class="n">Proxy</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="p">;</span>
 
-<span class="k">struct</span><span class="w"> </span><span class="nc">LinearPb1DJacobi</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="p">,</span><span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">struct</span> <span class="nl">LinearPb1DJacobi</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="p">,</span><span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">&gt;</span> <span class="p">{</span>
 
 <span class="k">private</span><span class="o">:</span>
 
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tcur_</span><span class="p">,</span><span class="w"> </span><span class="n">told_</span><span class="p">;</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rhs_</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">iter_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">msgReceived_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">totalReceive_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxIter_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
-<span class="w">  </span><span class="n">NodeObjProxy</span><span class="w"> </span><span class="n">objProxy_</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">tcur_</span><span class="p">,</span> <span class="n">told_</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">rhs_</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">iter_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">msgReceived_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">totalReceive_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">numObjs_</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">numRowsPerObject_</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">maxIter_</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="n">NodeObjProxy</span> <span class="n">objProxy_</span><span class="p">;</span>
 
 <span class="k">public</span><span class="o">:</span>
 
-<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">LinearPb1DJacobi</span><span class="p">()</span><span class="w"> </span><span class="o">:</span>
-<span class="w">    </span><span class="n">tcur_</span><span class="p">(),</span><span class="w"> </span><span class="n">told_</span><span class="p">(),</span><span class="w"> </span><span class="n">rhs_</span><span class="p">(),</span><span class="w"> </span><span class="n">iter_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-<span class="w">    </span><span class="n">msgReceived_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">totalReceive_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-<span class="w">    </span><span class="n">numObjs_</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">numRowsPerObject_</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">maxIter_</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+  <span class="k">explicit</span> <span class="n">LinearPb1DJacobi</span><span class="p">()</span> <span class="o">:</span>
+    <span class="n">tcur_</span><span class="p">(),</span> <span class="n">told_</span><span class="p">(),</span> <span class="n">rhs_</span><span class="p">(),</span> <span class="n">iter_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">msgReceived_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">totalReceive_</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">numObjs_</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">numRowsPerObject_</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">maxIter_</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+  <span class="p">{</span> <span class="p">}</span>
 
 
-<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">BlankMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="k">using</span> <span class="n">BlankMsg</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">;</span>
 
-<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">LPMsg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nl">LPMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span> <span class="p">{</span>
 
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numObjects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nRowPerObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">iterMax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">NodeObjProxy</span><span class="w"> </span><span class="n">objProxy</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">numObjects</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">nRowPerObject</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">iterMax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">NodeObjProxy</span> <span class="n">objProxy</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">LPMsg</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+    <span class="n">LPMsg</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">LPMsg</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nobjs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nrow</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">itMax</span><span class="p">,</span><span class="w"> </span><span class="n">NodeObjProxy</span><span class="w"> </span><span class="n">proxy</span><span class="p">)</span><span class="w"> </span><span class="o">:</span>
-<span class="w">      </span><span class="n">numObjects</span><span class="p">(</span><span class="n">nobjs</span><span class="p">),</span><span class="w"> </span><span class="n">nRowPerObject</span><span class="p">(</span><span class="n">nrow</span><span class="p">),</span><span class="w"> </span><span class="n">iterMax</span><span class="p">(</span><span class="n">itMax</span><span class="p">),</span><span class="w"> </span><span class="n">objProxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+    <span class="n">LPMsg</span><span class="p">(</span><span class="k">const</span> <span class="kt">size_t</span> <span class="n">nobjs</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span> <span class="n">nrow</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span> <span class="n">itMax</span><span class="p">,</span> <span class="n">NodeObjProxy</span> <span class="n">proxy</span><span class="p">)</span> <span class="o">:</span>
+      <span class="n">numObjects</span><span class="p">(</span><span class="n">nobjs</span><span class="p">),</span> <span class="n">nRowPerObject</span><span class="p">(</span><span class="n">nrow</span><span class="p">),</span> <span class="n">iterMax</span><span class="p">(</span><span class="n">itMax</span><span class="p">),</span> <span class="n">objProxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+    <span class="p">{</span> <span class="p">}</span>
 
-<span class="w">  </span><span class="p">};</span>
+  <span class="p">};</span>
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">checkCompleteCB</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">normRes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Only one object for the reduction will visit</span>
-<span class="w">    </span><span class="c1">// this function</span>
-<span class="w">    </span><span class="c1">//</span>
+  <span class="kt">void</span> <span class="nf">checkCompleteCB</span><span class="p">(</span><span class="kt">double</span> <span class="n">normRes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//</span>
+    <span class="c1">// Only one object for the reduction will visit</span>
+    <span class="c1">// this function</span>
+    <span class="c1">//</span>
 
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">iter_max_reached</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter_</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">maxIter_</span><span class="p">;</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">norm_res_done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">normRes</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">default_tol</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="k">const</span> <span class="n">iter_max_reached</span> <span class="o">=</span> <span class="n">iter_</span> <span class="o">&gt;</span> <span class="n">maxIter_</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="k">const</span> <span class="n">norm_res_done</span> <span class="o">=</span> <span class="n">normRes</span> <span class="o">&lt;</span> <span class="n">default_tol</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iter_max_reached</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">norm_res_done</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">to_print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter_max_reached</span><span class="w"> </span><span class="o">?</span>
-<span class="w">        </span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Maximum Number of Iterations Reached. </span><span class="se">\n\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span>
-<span class="w">        </span><span class="n">fmt</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Max-Norm Residual Reduced by {} </span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">default_tol</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">iter_max_reached</span> <span class="n">or</span> <span class="n">norm_res_done</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">auto</span> <span class="k">const</span> <span class="n">to_print</span> <span class="o">=</span> <span class="n">iter_max_reached</span> <span class="o">?</span>
+        <span class="s">&quot;</span><span class="se">\n</span><span class="s"> Maximum Number of Iterations Reached. </span><span class="se">\n\n</span><span class="s">&quot;</span> <span class="o">:</span>
+        <span class="n">fmt</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s"> Max-Norm Residual Reduced by {} </span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">default_tol</span><span class="p">);</span>
 
-<span class="w">      </span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="n">to_print</span><span class="p">);</span>
+      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="n">to_print</span><span class="p">);</span>
 
-<span class="w">      </span><span class="c1">// Notify all nodes that computation is finished</span>
-<span class="w">      </span><span class="n">objProxy_</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">workFinishedHandler</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; ## ITER {} &gt;&gt; Residual Norm = {} </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iter_</span><span class="p">,</span><span class="w"> </span><span class="n">normRes</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
+      <span class="c1">// Notify all nodes that computation is finished</span>
+      <span class="n">objProxy_</span><span class="p">.</span><span class="n">broadcast</span><span class="o">&lt;&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">workFinishedHandler</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="s">&quot; ## ITER {} &gt;&gt; Residual Norm = {} </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">iter_</span><span class="p">,</span> <span class="n">normRes</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">doIteration</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">doIteration</span><span class="p">()</span> <span class="p">{</span>
 
-<span class="w">    </span><span class="n">iter_</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">iter_</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">//--- Copy extremal values</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="n">tcur_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="w">    </span><span class="n">tcur_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="c1">//</span>
+    <span class="c1">//--- Copy extremal values</span>
+    <span class="c1">//</span>
+    <span class="n">tcur_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">told_</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">tcur_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
 
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">//---- Jacobi iteration step</span>
-<span class="w">    </span><span class="c1">//---- A tridiagonal matrix = &quot;tridiag&quot; ( [-1.0  2.0  -1.0] )</span>
-<span class="w">    </span><span class="c1">//---- rhs_ right hand side vector</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">numRowsPerObject_</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">ii</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">rhs_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="n">ii</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
-<span class="w">    </span><span class="p">}</span>
+    <span class="c1">//</span>
+    <span class="c1">//---- Jacobi iteration step</span>
+    <span class="c1">//---- A tridiagonal matrix = &quot;tridiag&quot; ( [-1.0  2.0  -1.0] )</span>
+    <span class="c1">//---- rhs_ right hand side vector</span>
+    <span class="c1">//</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;=</span> <span class="n">numRowsPerObject_</span><span class="p">;</span> <span class="o">++</span><span class="n">ii</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">rhs_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">+</span> <span class="n">told_</span><span class="p">[</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">told_</span><span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">tcur_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">tcur_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">told_</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">tcur_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">tcur_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">told_</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
 
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Compute the maximum entries among the rows on this object</span>
-<span class="w">    </span><span class="c1">// We do not take into account the &quot;ghost&quot; entries</span>
-<span class="w">    </span><span class="c1">// as they may be &quot;out of date&quot;.</span>
-<span class="w">    </span><span class="c1">//</span>
+    <span class="c1">//</span>
+    <span class="c1">// Compute the maximum entries among the rows on this object</span>
+    <span class="c1">// We do not take into account the &quot;ghost&quot; entries</span>
+    <span class="c1">// as they may be &quot;out of date&quot;.</span>
+    <span class="c1">//</span>
 
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">maxNorm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">maxNorm</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tcur_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">ii</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="kt">double</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">];</span>
-<span class="w">      </span><span class="n">maxNorm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">maxNorm</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">val</span><span class="p">))</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">maxNorm</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">tcur_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">ii</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">];</span>
+      <span class="n">maxNorm</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxNorm</span> <span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="o">?</span> <span class="nl">maxNorm</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">fabs</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
-<span class="w">    </span><span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">checkCompleteCB</span><span class="p">,</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">MaxOp</span><span class="o">&gt;</span><span class="p">(</span>
-<span class="w">      </span><span class="n">proxy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">maxNorm</span>
-<span class="w">    </span><span class="p">);</span>
+    <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
+    <span class="n">proxy</span><span class="p">.</span><span class="n">reduce</span><span class="o">&lt;&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">checkCompleteCB</span><span class="p">,</span> <span class="n">vt</span><span class="o">::</span><span class="n">collective</span><span class="o">::</span><span class="n">MaxOp</span><span class="o">&gt;</span><span class="p">(</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">maxNorm</span>
+    <span class="p">);</span>
 
-<span class="w">  </span><span class="p">}</span>
-
-
-<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">VecMsg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">MessageParentType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="w">    </span><span class="n">vt_msg_serialize_if_needed_by_parent_or_type1</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="p">);</span>
-
-<span class="w">    </span><span class="n">VecMsg</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">VecMsg</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">in_index</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">)</span><span class="w"> </span><span class="o">:</span>
-<span class="w">      </span><span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">(),</span>
-<span class="w">      </span><span class="n">from_index</span><span class="p">(</span><span class="n">in_index</span><span class="p">),</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Serializer</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">serialize</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">MessageParentType</span><span class="o">::</span><span class="n">serialize</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-<span class="w">      </span><span class="n">s</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">from_index</span><span class="p">;</span>
-<span class="w">      </span><span class="n">s</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="w"> </span><span class="n">from_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">  </span><span class="p">};</span>
-
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">exchange</span><span class="p">(</span><span class="n">VecMsg</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Receive and treat the message from a neighboring object.</span>
-
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="w"> </span><span class="n">myIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myIdx</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">from_index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">told_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
-<span class="w">      </span><span class="n">msgReceived_</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myIdx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">from_index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
-<span class="w">      </span><span class="n">msgReceived_</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// Check whether this &#39;object&#39; has received all the expected messages.</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">msgReceived_</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">totalReceive_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">msgReceived_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">      </span><span class="n">doIteration</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">doIter</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">BlankMsg</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Treat the particular case of 1 object</span>
-<span class="w">    </span><span class="c1">// where no communication is needed.</span>
-<span class="w">    </span><span class="c1">// Without this treatment, the code would not iterate.</span>
-<span class="w">    </span><span class="c1">//</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">numObjs_</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">doIteration</span><span class="p">();</span>
-<span class="w">      </span><span class="k">return</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">//---------------------------------------</span>
-
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Routine to send information to a different object</span>
-<span class="w">    </span><span class="c1">//</span>
-
-<span class="w">    </span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">myIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
-
-<span class="w">    </span><span class="c1">//--- Send the values to the left</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myIdx</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
-<span class="w">        </span><span class="n">myIdx</span><span class="p">,</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="w">      </span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">//--- Send values to the right</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">(</span><span class="n">myIdx</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
-<span class="w">        </span><span class="n">myIdx</span><span class="p">,</span><span class="w"> </span><span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="p">]</span>
-<span class="w">      </span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
+  <span class="p">}</span>
 
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+  <span class="k">struct</span> <span class="nl">VecMsg</span> <span class="p">:</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">MessageParentType</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">vt_msg_serialize_if_needed_by_parent_or_type1</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">tcur_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
-<span class="w">    </span><span class="n">told_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
-<span class="w">    </span><span class="n">rhs_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
+    <span class="n">VecMsg</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+    <span class="n">VecMsg</span><span class="p">(</span><span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">in_index</span><span class="p">,</span> <span class="kt">double</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="o">:</span>
+      <span class="n">vt</span><span class="o">::</span><span class="n">CollectionMessage</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">(),</span>
+      <span class="n">from_index</span><span class="p">(</span><span class="n">in_index</span><span class="p">),</span> <span class="n">val</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+    <span class="p">{</span> <span class="p">}</span>
 
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">myIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Serializer</span><span class="o">&gt;</span>
+    <span class="kt">void</span> <span class="n">serialize</span><span class="p">(</span><span class="n">Serializer</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">MessageParentType</span><span class="o">::</span><span class="n">serialize</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+      <span class="n">s</span> <span class="o">|</span> <span class="n">from_index</span><span class="p">;</span>
+      <span class="n">s</span> <span class="o">|</span> <span class="n">val</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tcur_</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">ii</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="kt">double</span><span class="w"> </span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">myIdx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ii</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
-<span class="w">      </span><span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="n">nf</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M_PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x0</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    <span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span> <span class="n">from_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">val</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+  <span class="p">};</span>
 
-<span class="w">    </span><span class="n">totalReceive_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">exchange</span><span class="p">(</span><span class="n">VecMsg</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Receive and treat the message from a neighboring object.</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myIdx</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">tcur_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">      </span><span class="n">totalReceive_</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    <span class="k">const</span> <span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span> <span class="n">myIdx</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">myIdx</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">tcur_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">      </span><span class="n">totalReceive_</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">&gt;</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">from_index</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">told_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+      <span class="n">msgReceived_</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">tcur_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">tcur_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">told_</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">&lt;</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">from_index</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="o">-&gt;</span><span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+      <span class="n">msgReceived_</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<span class="w">  </span><span class="p">}</span>
+    <span class="c1">// Check whether this &#39;object&#39; has received all the expected messages.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">msgReceived_</span> <span class="o">==</span> <span class="n">totalReceive_</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">msgReceived_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">doIteration</span><span class="p">();</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="nf">doIter</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span> <span class="n">BlankMsg</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// Treat the particular case of 1 object</span>
+    <span class="c1">// where no communication is needed.</span>
+    <span class="c1">// Without this treatment, the code would not iterate.</span>
+    <span class="c1">//</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">numObjs_</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">doIteration</span><span class="p">();</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//---------------------------------------</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// Routine to send information to a different object</span>
+    <span class="c1">//</span>
+
+    <span class="n">vt</span><span class="o">::</span><span class="n">IdxBase</span> <span class="k">const</span> <span class="n">myIdx</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
+
+    <span class="c1">//--- Send the values to the left</span>
+    <span class="k">auto</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getCollectionProxy</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//--- Send values to the right</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">(</span><span class="n">myIdx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">numObjs_</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">proxy</span><span class="p">[</span><span class="n">myIdx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="n">send</span><span class="o">&lt;</span><span class="n">VecMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">exchange</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">myIdx</span><span class="p">,</span> <span class="n">told_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="p">]</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="n">LPMsg</span><span class="o">*</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">numObjs_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">numObjects</span><span class="p">;</span>
-<span class="w">    </span><span class="n">numRowsPerObject_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">nRowPerObject</span><span class="p">;</span>
-<span class="w">    </span><span class="n">maxIter_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">iterMax</span><span class="p">;</span>
-<span class="w">    </span><span class="n">objProxy_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">objProxy</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// Initialize the starting vector</span>
-<span class="w">    </span><span class="n">init</span><span class="p">();</span>
-<span class="w">  </span><span class="p">}</span>
+    <span class="n">tcur_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+    <span class="n">told_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+    <span class="n">rhs_</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">numRowsPerObject_</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+
+    <span class="kt">double</span> <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">numRowsPerObject_</span> <span class="o">*</span> <span class="n">numObjs_</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">nf</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="kt">int</span><span class="p">(</span><span class="n">numRowsPerObject_</span> <span class="o">*</span> <span class="n">numObjs_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">;</span>
+
+    <span class="kt">size_t</span> <span class="k">const</span> <span class="n">myIdx</span> <span class="o">=</span> <span class="n">getIndex</span><span class="p">().</span><span class="n">x</span><span class="p">();</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">tcur_</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">ii</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">x0</span> <span class="o">=</span> <span class="p">(</span> <span class="n">numRowsPerObject_</span> <span class="o">*</span> <span class="n">myIdx</span> <span class="o">+</span> <span class="n">ii</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span><span class="p">;</span>
+      <span class="n">tcur_</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">nf</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">x0</span> <span class="o">*</span> <span class="n">x0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">totalReceive_</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tcur_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">totalReceive_</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">myIdx</span> <span class="o">==</span> <span class="n">numObjs_</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tcur_</span><span class="p">[</span><span class="n">numRowsPerObject_</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">totalReceive_</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">tcur_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">tcur_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">told_</span><span class="p">.</span><span class="n">begin</span><span class="p">());</span>
+
+  <span class="p">}</span>
+
+
+  <span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">LPMsg</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">numObjs_</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">numObjects</span><span class="p">;</span>
+    <span class="n">numRowsPerObject_</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">nRowPerObject</span><span class="p">;</span>
+    <span class="n">maxIter_</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">iterMax</span><span class="p">;</span>
+    <span class="n">objProxy_</span> <span class="o">=</span> <span class="n">msg</span><span class="o">-&gt;</span><span class="n">objProxy</span><span class="p">;</span>
+
+    <span class="c1">// Initialize the starting vector</span>
+    <span class="n">init</span><span class="p">();</span>
+  <span class="p">}</span>
 
 <span class="p">};</span>
 
-<span class="kt">bool</span><span class="w"> </span><span class="nf">isWorkDone</span><span class="p">(</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">objgroup</span><span class="o">::</span><span class="n">proxy</span><span class="o">::</span><span class="n">Proxy</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">proxy</span><span class="p">){</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">this_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">proxy</span><span class="p">[</span><span class="n">this_node</span><span class="p">].</span><span class="n">invoke</span><span class="o">&lt;&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">isWorkFinished</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="kt">bool</span> <span class="nf">isWorkDone</span><span class="p">(</span> <span class="n">vt</span><span class="o">::</span><span class="n">objgroup</span><span class="o">::</span><span class="n">proxy</span><span class="o">::</span><span class="n">Proxy</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">proxy</span><span class="p">){</span>
+  <span class="k">auto</span> <span class="k">const</span> <span class="n">this_node</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">proxy</span><span class="p">[</span><span class="n">this_node</span><span class="p">].</span><span class="n">invoke</span><span class="o">&lt;&amp;</span><span class="n">NodeObj</span><span class="o">::</span><span class="n">isWorkFinished</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
 
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_num_objs</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numRowsPerObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_nrow_object</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">maxIter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">num_objs</span> <span class="o">=</span> <span class="n">default_num_objs</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">numRowsPerObject</span> <span class="o">=</span> <span class="n">default_nrow_object</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">maxIter</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 
-<span class="w">  </span><span class="n">vt</span><span class="o">::</span><span class="n">initialize</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">initialize</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 
-<span class="w">  </span><span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span><span class="w"> </span><span class="n">this_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
-<span class="w">  </span><span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span><span class="w"> </span><span class="n">num_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">this_node</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">();</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">NodeType</span> <span class="n">num_nodes</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNumNodes</span><span class="p">();</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">this_node</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
-<span class="w">        </span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;{}: using default arguments since none provided</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
-<span class="w">      </span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_num_objs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_nodes</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">    </span><span class="n">numRowsPerObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">num_objs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">    </span><span class="n">numRowsPerObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">    </span><span class="n">maxIter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">));</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
-<span class="w">      </span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: {} &lt;num-objects&gt; &lt;num-rows-per-object&gt; &lt;maxiter&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="n">name</span>
-<span class="w">    </span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">this_node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
+        <span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;{}: using default arguments since none provided</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">name</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">num_objs</span> <span class="o">=</span> <span class="n">default_num_objs</span> <span class="o">*</span> <span class="n">num_nodes</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num_objs</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num_objs</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+    <span class="n">numRowsPerObject</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num_objs</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+    <span class="n">numRowsPerObject</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+    <span class="n">maxIter</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">strtol</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">::</span><span class="n">print</span><span class="p">(</span>
+      <span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;usage: {} &lt;num-objects&gt; &lt;num-rows-per-object&gt; &lt;maxiter&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+      <span class="n">name</span>
+    <span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// Object group of all nodes that take part in computation</span>
-<span class="w">  </span><span class="c1">// Used to determine whether the computation is finished</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">grp_proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">theObjGroup</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeCollective</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;examples_jacobi1d&quot;</span><span class="p">);</span>
+  <span class="c1">// Object group of all nodes that take part in computation</span>
+  <span class="c1">// Used to determine whether the computation is finished</span>
+  <span class="k">auto</span> <span class="n">grp_proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">theObjGroup</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">makeCollective</span><span class="o">&lt;</span><span class="n">NodeObj</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;examples_jacobi1d&quot;</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// Create the decomposition into objects</span>
-<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">BaseIndexType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">::</span><span class="n">DenseIndexType</span><span class="p">;</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">BaseIndexType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_objs</span><span class="p">));</span>
+  <span class="c1">// Create the decomposition into objects</span>
+  <span class="k">using</span> <span class="n">BaseIndexType</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="o">::</span><span class="n">DenseIndexType</span><span class="p">;</span>
+  <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">Index1D</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">BaseIndexType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_objs</span><span class="p">));</span>
 
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">col_proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vt</span><span class="o">::</span><span class="n">makeCollection</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;examples_jacobi1d&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="n">bulkInsert</span><span class="p">()</span>
-<span class="w">    </span><span class="p">.</span><span class="n">wait</span><span class="p">();</span>
+  <span class="k">auto</span> <span class="n">col_proxy</span> <span class="o">=</span> <span class="n">vt</span><span class="o">::</span><span class="n">makeCollection</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;examples_jacobi1d&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">bulkInsert</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">wait</span><span class="p">();</span>
 
-<span class="w">  </span><span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="n">col_proxy</span><span class="p">,</span><span class="w"> </span><span class="n">grp_proxy</span><span class="p">,</span><span class="w"> </span><span class="n">num_objs</span><span class="p">,</span><span class="w"> </span><span class="n">numRowsPerObject</span><span class="p">,</span><span class="w"> </span><span class="n">maxIter</span><span class="p">]{</span>
-<span class="w">    </span><span class="n">col_proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">LPMsg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">init</span><span class="o">&gt;</span><span class="p">(</span>
-<span class="w">      </span><span class="n">num_objs</span><span class="p">,</span><span class="w"> </span><span class="n">numRowsPerObject</span><span class="p">,</span><span class="w"> </span><span class="n">maxIter</span><span class="p">,</span><span class="w"> </span><span class="n">grp_proxy</span>
-<span class="w">    </span><span class="p">);</span>
-<span class="w">  </span><span class="p">});</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="n">col_proxy</span><span class="p">,</span> <span class="n">grp_proxy</span><span class="p">,</span> <span class="n">num_objs</span><span class="p">,</span> <span class="n">numRowsPerObject</span><span class="p">,</span> <span class="n">maxIter</span><span class="p">]{</span>
+    <span class="n">col_proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">LPMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">init</span><span class="o">&gt;</span><span class="p">(</span>
+      <span class="n">num_objs</span><span class="p">,</span> <span class="n">numRowsPerObject</span><span class="p">,</span> <span class="n">maxIter</span><span class="p">,</span> <span class="n">grp_proxy</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
 
-<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">isWorkDone</span><span class="p">(</span><span class="n">grp_proxy</span><span class="p">)){</span>
-<span class="w">    </span><span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="n">col_proxy</span><span class="p">]{</span>
-<span class="w">      </span><span class="n">col_proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span>
-<span class="w">        </span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">BlankMsg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">doIter</span>
-<span class="w">      </span><span class="o">&gt;</span><span class="p">();</span>
-<span class="w">    </span><span class="p">});</span>
+  <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">isWorkDone</span><span class="p">(</span><span class="n">grp_proxy</span><span class="p">)){</span>
+    <span class="n">vt</span><span class="o">::</span><span class="n">runInEpochCollective</span><span class="p">([</span><span class="n">col_proxy</span><span class="p">]{</span>
+      <span class="n">col_proxy</span><span class="p">.</span><span class="n">broadcastCollective</span><span class="o">&lt;</span>
+        <span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">BlankMsg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">LinearPb1DJacobi</span><span class="o">::</span><span class="n">doIter</span>
+      <span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">});</span>
 
-<span class="w">    </span><span class="n">vt</span><span class="o">::</span><span class="n">thePhase</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">nextPhaseCollective</span><span class="p">();</span>
-<span class="w">  </span><span class="p">}</span>
+    <span class="n">vt</span><span class="o">::</span><span class="n">thePhase</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">nextPhaseCollective</span><span class="p">();</span>
+  <span class="p">}</span>
 
-<span class="w">  </span><span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>
+  <span class="n">vt</span><span class="o">::</span><span class="n">finalize</span><span class="p">();</span>
 
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span></pre>
       </div>
     </div>
