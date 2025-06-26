@@ -205,7 +205,7 @@ var searchData=
   ['runhooks_10982',['runHooks',['../structvt_1_1phase_1_1_phase_manager.html#aeeb5b14ac179b2400a52914208bbd922',1,'vt::phase::PhaseManager']]],
   ['runhooksmanual_10983',['runHooksManual',['../structvt_1_1phase_1_1_phase_manager.html#ae436f95e5eb570b17c71a48d96675f69',1,'vt::phase::PhaseManager']]],
   ['runhookstogether_10984',['runHooksTogether',['../structvt_1_1phase_1_1_phase_manager.html#aa61710b25b47f56713d3eec68e7ce6f6',1,'vt::phase::PhaseManager']]],
-  ['runinepoch_10985',['runInEpoch',['../namespacevt.html#ab95230c4145a8f4fb6874188eda37991',1,'vt']]],
+  ['runinepoch_10985',['runInEpoch',['../namespacevt.html#addba232b8371a1a4f269f6603d878dc4',1,'vt']]],
   ['runinepochcollective_10986',['runInEpochCollective',['../namespacevt.html#a2fc4ef34f30b49a1781d765804bfadbb',1,'vt::runInEpochCollective(Callable &amp;&amp;fn)'],['../namespacevt.html#aa6f98f3a207d6d329cf36cbd6d523626',1,'vt::runInEpochCollective(std::string const &amp;label, Callable &amp;&amp;fn)']]],
   ['runinepochrooted_10987',['runInEpochRooted',['../namespacevt.html#a9f5cbbc484d7f14f2ad0ee46d62dfb6e',1,'vt::runInEpochRooted(Callable &amp;&amp;fn)'],['../namespacevt.html#af80867582a504d0f3cf4e2d95596645b',1,'vt::runInEpochRooted(std::string const &amp;label, Callable &amp;&amp;fn)']]],
   ['runlambda_10988',['runLambda',['../structvt_1_1runnable_1_1_runnable_maker.html#a7f36cd1bb5c957840dfbe108fc1983f6',1,'vt::runnable::RunnableMaker::runLambda()'],['../structvt_1_1runnable_1_1_runnable_new.html#a9bc943e7d924be528d2a0c02af3850c8',1,'vt::runnable::RunnableNew::runLambda()']]],
