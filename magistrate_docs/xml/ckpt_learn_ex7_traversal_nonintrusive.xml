@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="ckpt_learn_ex7_traversal_nonintrusive" kind="page">
+    <compoundname>ckpt_learn_ex7_traversal_nonintrusive</compoundname>
+    <title>Non-Intrusive Program Example Traversal</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="attention"><para>All Non-Intrusive serialize methods <bold>MUST</bold> be placed in the namespace of type which they serialize.</para>
+</simplesect>
+The full code for this <emphasis>magistrate</emphasis> example can be found here: <computeroutput>examples/checkpoint_example_traversal_nonintrusive.cc</computeroutput></para>
+<sect3 id="ckpt_learn_ex7_traversal_nonintrusive_1ex7">
+<title>Example source code:</title>
+<para><programlisting filename="examples/checkpoint_example_traversal_nonintrusive.cc"><codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;checkpoint/checkpoint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdio&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>Namespace<sp/>containing<sp/>type<sp/>which<sp/>will<sp/>be<sp/>serialized</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">checkpoint<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nonintrusive<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">examples<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TestObject<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestObject()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MakeTag<sp/>{<sp/>};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>TestObject(MakeTag)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec1.push_back(i);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec2.push_back(i<sp/>*<sp/>29.34);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>vec3.push_back(</highlight><highlight class="stringliteral">&quot;hello:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::to_string(vec2.back()));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Serializer&amp;<sp/>s,<sp/>TestObject&amp;<sp/>obj);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a<sp/>=<sp/>29;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>b<sp/>=<sp/>36;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/>vec1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>vec2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>vec3;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>checkpoint::nonintrusive::examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>\brief<sp/>In<sp/>Non-Intrusive<sp/>way,<sp/>serialize<sp/>functionality<sp/>needs<sp/>to<sp/>be<sp/>placed<sp/>in<sp/>the<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>of<sp/>the<sp/>type<sp/>which<sp/>will<sp/>be<sp/>serialized.</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">checkpoint<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">nonintrusive<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">examples<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Serializer&amp;<sp/>s,<sp/>TestObject&amp;<sp/>obj)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>s<sp/>|<sp/>obj.a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>s<sp/>|<sp/>obj.b;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>s<sp/>|<sp/>obj.vec1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>s<sp/>|<sp/>obj.vec2;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>s<sp/>|<sp/>obj.vec3;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PrintBytesTraverse<sp/>:<sp/><ref refid="structcheckpoint_1_1_base_serializer" kindref="compound">magistrate::BaseSerializer</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>PrintBytesTraverse()<sp/>:<sp/>magistrate::BaseSerializer(magistrate::eSerializationMode::None)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>contiguousBytes(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*,<sp/>std::size_t<sp/>size,<sp/>std::size_t<sp/>num_elms)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;PrintBytesTraverse:<sp/>size=%zu,<sp/>num_elms=%zu\n&quot;</highlight><highlight class="normal">,<sp/>size,<sp/>num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ToString<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/>apply(U&amp;<sp/>u)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::to_string(u);<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ToString&lt;std::string&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/>apply(std::string&amp;<sp/>u)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>u;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CustomDispatch<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serializeIntrusive(SerializerT&amp;<sp/>s,<sp/>T&amp;<sp/>t)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>t.serialize(s);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serializeNonIntrusive(SerializerT&amp;<sp/>s,<sp/>T&amp;<sp/>t)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>serialize(s,<sp/>t);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>std::vector<sp/>specialization<sp/>for<sp/>dispatcher,<sp/>vector<sp/>is<sp/>always<sp/>non-intrusive<sp/>so</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>skip<sp/>that<sp/>overload</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CustomDispatch&lt;SerializerT,<sp/>std::vector&lt;U&gt;&gt;<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serializeNonIntrusive(SerializerT&amp;,<sp/>std::vector&lt;U&gt;&amp;<sp/>t)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Do<sp/>something<sp/>special<sp/>here:<sp/>e.g.,<sp/>an<sp/>RDMA<sp/>for<sp/>the<sp/>vector<sp/>during<sp/>packing</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Traversing<sp/>vector:<sp/>size=%zu\n&quot;</highlight><highlight class="normal">,<sp/>t.size());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::size_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>t.size();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\t<sp/>vector[%zu]=%s&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>ToString&lt;U&gt;::apply(t[i]).c_str());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TypedTraverse<sp/>:<sp/><ref refid="structcheckpoint_1_1_base_serializer" kindref="compound">magistrate::BaseSerializer</ref><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>U,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>V&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>DispatcherType<sp/>=<sp/>CustomDispatch&lt;U,<sp/>V&gt;;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TypedTraverse()<sp/>:<sp/>magistrate::BaseSerializer(magistrate::eSerializationMode::None)<sp/>{<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>contiguousTyped(SerializerT&amp;,<sp/>T*,<sp/>std::size_t<sp/>num_elms)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;TypedTraverse:<sp/>type<sp/>is<sp/>%s,<sp/>num=%zu\n&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(T).name(),<sp/>num_elms);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">}}}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>checkpoint::nonintrusive::examples</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">magistrate::nonintrusive::examples;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>TestObject<sp/>my_obj(TestObject::MakeTag{});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Traverse<sp/>my_obj<sp/>with<sp/>a<sp/>custom<sp/>traverser<sp/>that<sp/>prints<sp/>the<sp/>bytes</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>magistrate::dispatch::Traverse::with&lt;TestObject,<sp/>PrintBytesTraverse&gt;(my_obj);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Traverse<sp/>my_obj<sp/>with<sp/>a<sp/>custom<sp/>traverser<sp/>and<sp/>dispatcher<sp/>that<sp/>prints<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>types<sp/>and<sp/>lens</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>magistrate::dispatch::Traverse::with&lt;TestObject,<sp/>TypedTraverse&gt;(my_obj);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+</programlisting></para>
+</sect3>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

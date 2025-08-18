@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Learn &raquo; How to Serialize Data | magistrate</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">magistrate</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="ckpt_learn.html">Learn</a>
+              <ol>
+                <li><a href="ckpt_learn_build.html">How to Build</a></li>
+                <li><a href="ckpt_learn_examples.html">Examples</a></li>
+                <li><a href="ckpt_learn_serialize.html" id="m-navbar-current">How to Serialize Data</a></li>
+              </ol>
+            </li>
+            <li><a href="pages.html">Pages</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li>
+              <a href="https://github.com/">GitHub</a>
+              <ol>
+                <li><a href="https://github.com/DARMA-tasking/magistrate">magistrate</a></li>
+                <li><a href="https://github.com/DARMA-tasking/checkpoint-member-analyzer">Serialization Sanitizer</a></li>
+              </ol>
+            </li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="ckpt_learn.html">Learn</a> &raquo;</span>
+          How to Serialize Data
+        </h1>
+<p><em>Serialization</em> is the process of recursively traversing C++ objects into a simple format that can be stored or transmitted and reconstructed later. <em>magistrate</em> translates the object into a set of contiguous bits and provides the steps to reverse the process, i.e. to reconstitute the object from the set of bits.</p><p>The extraction of the data from a set of bytes is called <em>deserialization</em>.</p><section id="serialize_builtin"><h2><a href="#serialize_builtin">Serialization of built-in types</a></h2><p>This action is straightforward with the <code>|</code> operator.</p><p>When the variable <code>a</code> has a built-in type and it needs to be serialized into the serializer object <code>s</code>, we simply write</p><pre class="m-code"><span class="n">s</span> <span class="o">|</span> <span class="n">a</span><span class="p">;</span></pre></section><section id="serialize_stl"><h2><a href="#serialize_stl">Serialization of C++ standard library</a></h2><p>The <code>|</code> operator has been overloaded for many of the C++ STL data structures:</p><ul><li><code>std::array</code></li><li><code>std::deque</code></li><li><code>std::list</code></li><li><code>std::map</code></li><li><code>std::multimap</code></li><li><code>std::multiset</code></li><li><code>std::queue</code></li><li><code>std::set</code></li><li><code>std::string</code></li><li><code>std::unordered_map</code></li><li><code>std::unordered_multimap</code></li><li><code>std::unordered_multiset</code></li><li><code>std::unordered_set</code></li><li><code>std::vector</code></li><li><code>std::tuple</code></li><li><code>std::pair</code></li><li><code>std::unique_ptr</code></li></ul><p>When the variable <code>c</code> is such an STL object, whose template parameter(s) can be directly serialized into a serializer object <code>s</code>, we write</p><pre class="m-code"><span class="n">s</span> <span class="o">|</span> <span class="n">c</span><span class="p">;</span></pre></section><section id="serialize_class"><h2><a href="#serialize_class">Serialization of classes</a></h2><p>When a class (or structure) has to be serialized, the user must provide a reconstruction method for the class and a serialization method or free function to actually perform the serialization.</p><section id="reconstruct_class"><h3><a href="#reconstruct_class">Class reconstruction</a></h3><p>There are several ways to allow <em>magistrate</em> to reconstruct a class. <em>magistrate</em> will try to detect a reconstruction strategy in the following resolution order:</p><ol><li>Tagged constructor: <code>MyClass(magistrate::SERIALIZE_CONSTRUCT_TAG) {}</code></li></ol><ol><li>Reconstruction <code>MyClass::reconstruct(buf)</code> or <code>reconstruct(MyClass, buf)</code></li></ol><ol><li>Default constructor: <code>MyClass()</code></li></ol><p>If no reconstruct strategy is detected with type traits, <em>magistrate</em> will fail at compile-time with a static assertion indicating that <em>magistrate</em> can&#x27;t reconstruct the class.</p><p>The example in <a href="ckpt_learn_ex1.html" class="m-doc">Program Example 1</a> illustrates the reconstruct method.</p></section><section id="serialize_class"><h3><a href="#serialize_class">Serialization of classes</a></h3><p>Users may provide a serializer for a class in one of two forms: a <code>serialize</code> method on the class (intrusive) or a free function <code>serialize</code> that takes a reference to the class as an argument (non-intrusive). Note that if a free-function serialization strategy is employed, one may be required to friend the serialize function so it can access private/protected data inside the class, depending on what data members the function needs to access for correct serialization of the class state.</p></section></section><section id="serialize_polymorphic"><h2><a href="#serialize_polymorphic">Serialization of polymorphic classes</a></h2><p>To serialize polymorphic class hierarchies, one must write serializers for each class in the hierarchy. Then, the user should either insert macros <code>magistrate_virtual_serialize_root()</code> and <code>magistrate_virtual_serialize_derived_from(T)</code> to inform <em>magistrate</em> of the hierarchy so it can automatically traverse the hierarchy. Alternatively, the user may use the inheritance wrappers <code>magistrate::SerializableBase&lt;T&gt;</code> and <code>magistrate::SerializableDerived&lt;T, U&gt;</code> to achieve the same effect.</p><p>The example in <a href="ckpt_learn_ex6_polymorphic_macro.html" class="m-doc">Polymorphic Serialization Example w/Macros</a> illustrates the approach uses the macros. The example in ckpt_learn_example_polymorphic illustrates this approach.</p><section id="serialize_polymorphic_step"><h3><a href="#serialize_polymorphic_step">Allocation and reconstruction</a></h3><ul><li>If one has a <code>std::unique_ptr&lt;T&gt; x</code>, where <code>T</code> is polymorphic serializable <code>s | x</code> will correctly serialize and reconstruct <code>x</code> based on the concrete type.</li><li>If one has a raw pointer, <code>Teuchos::RCP&lt;T&gt;</code>, or <code>std::shared_ptr&lt;T&gt;</code>, <code>magistrate::allocateConstructForPointer&lt;SerializerT,T&gt;(s, ptr)</code> can be invoked to properly allocate and construct the concrete class depending on runtime type.</li></ul></section></section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>magistrate. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.16 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

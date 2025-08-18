@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+  <compounddef id="ckpt_learn_build" kind="page">
+    <compoundname>ckpt_learn_build</compoundname>
+    <title>How to Build</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>magistrate can be built with <computeroutput>cmake</computeroutput>.</para>
+<sect1 id="ckpt_learn_build_1ckpt_how-to-build">
+<title>Building</title>
+<para>To build <emphasis>magistrate</emphasis>, one must obtain the following dependencies:</para>
+<sect2 id="ckpt_learn_build_1ckpt_optional-deps">
+<title>Optional</title>
+<para><itemizedlist>
+<listitem><para>gtest, (if testing <emphasis>magistrate</emphasis> is enabled)</para>
+</listitem><listitem><para>MPI, (if MPI tests are enabled)</para>
+</listitem><listitem><para><ulink url="https://github.com/kokkos/kokkos">Kokkos</ulink>, (if Kokkos views need to be serialized)</para>
+</listitem><listitem><para><ulink url="https://github.com/kokkos/kokkos-kernels">KokkosKernels</ulink>, (if Kokkos kernel data structures need to be serialized)</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="ckpt_learn_build_1ckpt_use-cmake-directly-vars">
+<title>Using cmake directly</title>
+<para>One may use <computeroutput>cmake</computeroutput> to build <emphasis>magistrate</emphasis> once the dependencies are installed. The following are some options that can be provided to <computeroutput>cmake</computeroutput> to change the build configuration:</para>
+<para><table rows="13" cols="3"><row>
+<entry thead="yes"><para>CMake Variable  </para>
+</entry><entry thead="yes"><para>Default Value  </para>
+</entry><entry thead="yes"><para>Description   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>gtest_DIR</computeroutput>  </para>
+</entry><entry thead="no"><para></para>
+</entry><entry thead="no"><para>Install directory for googletest   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>Kokkos_DIR</computeroutput>  </para>
+</entry><entry thead="no"><para></para>
+</entry><entry thead="no"><para>Install directory for kokkos   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>KokkosKernels_DIR</computeroutput>  </para>
+</entry><entry thead="no"><para></para>
+</entry><entry thead="no"><para>Install directory for kokkoskernels   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_tests_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Build <emphasis>magistrate</emphasis> tests   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_mpi_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Build <emphasis>magistrate</emphasis> with MPI for tests   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_examples_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Build <emphasis>magistrate</emphasis> examples   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_warnings_as_errors</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Make all warnings errors during build   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_doxygen_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable doxygen generation   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_asan_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable address sanitizer   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_ubsan_enabled</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable undefined behavior sanitizer   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>magistrate_serialization_error_checking_enabled(*)</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable extensive serialization error checking   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>CODE_COVERAGE</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Generate code coverage report   </para>
+</entry></row>
+</table>
+</para>
+<para><itemizedlist>
+<listitem><para>note that if <computeroutput>magistrate_serialization_error_checking_enabled</computeroutput> is not explicitly enabled or disabled, it will be <bold>enabled</bold> for <computeroutput>Debug</computeroutput> and <computeroutput>RelWithDebInfo</computeroutput> builds and disabled for others.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="ckpt_learn_build_1using-the-build-script">
+<title>Using the Build Script</title>
+<para>Instead of running <computeroutput>cmake</computeroutput>, one may invoke the <computeroutput>magistrate/ci/build_cpp.sh</computeroutput> script which will run <computeroutput>cmake</computeroutput> for <emphasis>magistrate</emphasis> with environment variables for most configuration parameters.</para>
+<sect3 id="ckpt_learn_build_1building-environment-variables">
+<title>Build Script Environment Variables</title>
+<para><table rows="14" cols="3"><row>
+<entry thead="yes"><para>Variable  </para>
+</entry><entry thead="yes"><para>Default Value  </para>
+</entry><entry thead="yes"><para>Description   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>CMAKE_BUILD_TYPE</computeroutput>  </para>
+</entry><entry thead="no"><para>Release  </para>
+</entry><entry thead="no"><para>The <computeroutput>cmake</computeroutput> build type   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>CODE_COVERAGE</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable code coverage reporting   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>GTEST_ROOT</computeroutput>  </para>
+</entry><entry thead="no"><para>&lt;empty&gt;  </para>
+</entry><entry thead="no"><para>Install directory for googletest   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>KOKKOS_ROOT</computeroutput>  </para>
+</entry><entry thead="no"><para>&lt;empty&gt;  </para>
+</entry><entry thead="no"><para>Install directory for kokkos   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>KOKKOS_KERNELS_ROOT</computeroutput>  </para>
+</entry><entry thead="no"><para>&lt;empty&gt;  </para>
+</entry><entry thead="no"><para>Install directory for kokkos-kernels   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_DOXYGEN_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable doxygen generation   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_ASAN_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable building with address sanitizer   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_UBSAN_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable building with undefined behavior sanitizer   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_TESTS_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para>Enable magistrate tests   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_EXAMPLES_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para>Enable magistrate examples   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_WARNINGS_AS_ERRORS</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Make all warnings errors during build   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_SERIALIZATION_ERROR_CHECKING_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>0  </para>
+</entry><entry thead="no"><para>Enable extensive error checking of serialization   </para>
+</entry></row>
+<row>
+<entry thead="no"><para><computeroutput>MAGISTRATE_MPI_ENABLED</computeroutput>  </para>
+</entry><entry thead="no"><para>1  </para>
+</entry><entry thead="no"><para>Enable magistrate MPI for testing   </para>
+</entry></row>
+</table>
+</para>
+<para><itemizedlist>
+<listitem><para>note that if <computeroutput>MAGISTRATE_SERIALIZATION_ERROR_CHECKING_ENABLED</computeroutput> is not explicitly enabled or disabled, it will be <bold>enabled</bold> for <computeroutput>Debug</computeroutput> and <computeroutput>RelWithDebInfo</computeroutput> builds and disabled for others.</para>
+</listitem></itemizedlist>
+</para>
+<para>With these set, invoke the script with two arguments: the path to the <emphasis>magistrate</emphasis> root directory and the build path. Here&apos;s an example assuming that <emphasis>magistrate</emphasis> is cloned into <computeroutput>/usr/src/magistrate</computeroutput> with trace enabled in debug mode.</para>
+<para><bold>Usage for building:</bold></para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">$<sp/>magistrate/ci/build_cpp.sh<sp/>&lt;full-path-to-magistrate-source&gt;<sp/>&lt;full-path-to-build-dir&gt;</highlight></codeline>
+</programlisting></para>
+</sect3>
+</sect2>
+<sect2 id="ckpt_learn_build_1docker-build">
+<title>Building with docker containerization</title>
+<para>The easiest way to build <emphasis>magistrate</emphasis> is by using <computeroutput>docker</computeroutput> with the available containers that contain the proper compilers, MPI, and all other dependencies. First, install <computeroutput>docker</computeroutput> on the system. On some systems, <computeroutput>docker-compose</computeroutput> might also need to be installed.</para>
+<para>The <computeroutput>docker</computeroutput> builds are configured through <computeroutput>docker-compose</computeroutput> to use a shared, cached filesystem mount with the host for <computeroutput>ccache</computeroutput> to enable fast re-builds.</para>
+<para>For <computeroutput>docker-compose</computeroutput>, the following variables can be set to configure the build. One may configure the architecture, compiler type (GNU, Clang, Intel, Nvidia) and compiler version, Linux distro (ubuntu or alpine), and distro version.</para>
+<para>The default set of the docker configuration options is located in <computeroutput>magistrate/.env</computeroutput>, which <computeroutput>docker-compose</computeroutput> will read.</para>
+<para><programlisting><codeline><highlight class="normal">#<sp/>Variables:</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>ARCH={amd64,<sp/>arm64v8,<sp/>...}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>COMPILER_TYPE={gnu,<sp/>clang,<sp/>intel,<sp/>nvidia}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>COMPILER={gcc-8,<sp/>gcc-9,<sp/>gcc-10,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clang-5.0,<sp/>clang-6.0,<sp/>clang-7,<sp/>clang-8,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>clang-9,<sp/>clang-10,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>icc-18,<sp/>icc-19,</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nvcc-10,<sp/>nvcc-11}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>REPO=lifflander1/checkpoint</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>UBUNTU={18.04,<sp/>20.04}</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>ULIMIT_CORE=0</highlight></codeline>
+<codeline><highlight class="normal">#</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>DARMA/magistrate<sp/>Configuration<sp/>Variables:</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_TESTS=1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>magistrate<sp/>tests</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_EXAMPLES=1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>magistrate<sp/>examples</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_MPI=1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>magistrate<sp/>MPI<sp/>tests</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_WARNINGS_AS_ERRORS=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Treat<sp/>warnings<sp/>as<sp/>errors<sp/>in<sp/>compilation</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_ASAN=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>address<sp/>sanitizer<sp/>in<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_UBSAN=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>undefined<sp/>behavior<sp/>sanitizer<sp/>in<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_SERIALIZATION_ERROR_CHECKING=0<sp/>#<sp/>Enable<sp/>extensive<sp/>serialization<sp/>error<sp/>checking</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>MAGISTRATE_DOCS=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>doxygen<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>BUILD_TYPE=release<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>CMake<sp/>build<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">#<sp/><sp/><sp/>CODE_COVERAGE=0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Enable<sp/>generation<sp/>of<sp/>code<sp/>coverage<sp/>reports</highlight></codeline>
+</programlisting></para>
+<para>With these set, one may run the following for a non-interactive build with ubuntu. Or, to speed up the build process, the base container can be pulled for many of the common configurations: <computeroutput>docker-compose pull ubuntu-cpp</computeroutput>.</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">$<sp/>cd<sp/>magistrate</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>docker-compose<sp/>run<sp/>-e<sp/>BUILD_TYPE=debug<sp/>ubuntu-cpp</highlight></codeline>
+</programlisting></para>
+<para>For an interactive build with ubuntu, where one can build, debug, and run <computeroutput>valgrind</computeroutput>, etc:</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">$<sp/>cd<sp/>magistrate</highlight></codeline>
+<codeline><highlight class="normal">$<sp/>docker-compose<sp/>run<sp/>-e<sp/>BUILD_TYPE=debug<sp/>ubuntu-cpp-interactive</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>/magistrate/ci/build_cpp.sh<sp/>/magistrate<sp/>/build</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>/magistrate/ci/test_cpp.sh<sp/>/magistrate<sp/>/build</highlight></codeline>
+</programlisting> </para>
+</sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
