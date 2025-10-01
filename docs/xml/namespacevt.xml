@@ -14,6 +14,7 @@
     <innerclass refid="structvt_1_1_msg_props" prot="public">vt::MsgProps</innerclass>
     <innerclass refid="structvt_1_1_obj_func_traits" prot="public">vt::ObjFuncTraits</innerclass>
     <innerclass refid="structvt_1_1_put_envelope" prot="public">vt::PutEnvelope</innerclass>
+    <innerclass refid="structvt_1_1_startup_config" prot="public">vt::StartupConfig</innerclass>
     <innerclass refid="structvt_1_1_strong_node_type" prot="public">vt::StrongNodeType</innerclass>
     <innerclass refid="structvt_1_1_time_type_wrapper" prot="public">vt::TimeTypeWrapper</innerclass>
     <innerclass refid="structvt_1_1to__s" prot="public">vt::to_s</innerclass>
@@ -295,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/collective_ops.h" line="86" column="1" bodyfile="src/vt/collective/collective_ops.h" bodystart="86" bodyend="-1"/>
+        <location file="src/vt/collective/collective_ops.h" line="120" column="1" bodyfile="src/vt/collective/collective_ops.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespacevt_1aab05b4a584f7ee835a6d0f66915cf59b" prot="public" static="no">
         <type>std::byte *</type>
@@ -3257,9 +3258,9 @@
         </inbodydescription>
         <location file="src/vt/runtime/runtime_get.cc" line="101" column="28" bodyfile="src/vt/runtime/runtime_get.cc" bodystart="101" bodyend="101" declfile="src/vt/collective/collective_alg.h" declline="169" declcolumn="34"/>
       </memberdef>
-      <memberdef kind="function" id="namespacevt_1a92861d98501258a2800b90420bb116ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::unique_ptr&lt; <ref refid="structvt_1_1arguments_1_1_argv_container" kindref="compound">arguments::ArgvContainer</ref> &gt;</type>
-        <definition>std::unique_ptr&lt; arguments::ArgvContainer &gt; vt::preconfigure</definition>
+      <memberdef kind="function" id="namespacevt_1a43e732a913e6062ff88012f15816526d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="structvt_1_1_startup_config" kindref="compound">StartupConfig</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; StartupConfig &gt; vt::preconfigure</definition>
         <argsstring>(int &amp;argc, char **&amp;argv)</argsstring>
         <name>preconfigure</name>
         <param>
@@ -3271,42 +3272,109 @@
           <declname>argv</declname>
         </param>
         <briefdescription>
+<para>Preconfigure VT with argc/argv. This will remove all VT arguments and create a <computeroutput><ref refid="structvt_1_1_startup_config" kindref="compound">StartupConfig</ref></computeroutput> for VT that should be passed to <computeroutput>initializePreconfigured</computeroutput>. Optionally, one may specify an MPI communicator to use (otherwise, it defaults to <computeroutput>MPI_COMM_WORLD</computeroutput>). </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="note"><para>MPI must be initialized to call this function because if an error occurs it uses MPI rank to limit how many times the error text gets printed.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>argc (modifies it to remove VT arguments) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>argv (modifies it to remove VT arguments)</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the <computeroutput><ref refid="structvt_1_1_startup_config" kindref="compound">StartupConfig</ref></computeroutput> to pass to VT </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="53" column="1" bodyfile="src/vt/collective/startup.cc" bodystart="53" bodyend="55" declfile="src/vt/collective/startup.h" declline="55" declcolumn="1"/>
+        <location file="src/vt/collective/startup.cc" line="53" column="17" bodyfile="src/vt/collective/startup.cc" bodystart="53" bodyend="61" declfile="src/vt/collective/startup_config.h" declline="67" declcolumn="17"/>
       </memberdef>
-      <memberdef kind="function" id="namespacevt_1a30208aeb42d41dc7534b32bf07ee7985" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacevt_1a5969d5fb91ff831b16c12a80c2f472f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref></type>
         <definition>RuntimePtrType vt::initializePreconfigured</definition>
-        <argsstring>(MPI_Comm *comm, arguments::AppConfig const *appConfig, arguments::ArgvContainer const *preconfigure_args)</argsstring>
+        <argsstring>(std::unique_ptr&lt; StartupConfig &gt; startup_config, MPI_Comm *comm=nullptr, arguments::AppConfig const  *app_config=nullptr, bool print_startup_banner=true)</argsstring>
         <name>initializePreconfigured</name>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="structvt_1_1_startup_config" kindref="compound">StartupConfig</ref> &gt;</type>
+          <declname>startup_config</declname>
+        </param>
         <param>
           <type>MPI_Comm *</type>
           <declname>comm</declname>
+          <defval>nullptr</defval>
         </param>
         <param>
           <type><ref refid="structvt_1_1arguments_1_1_app_config" kindref="compound">arguments::AppConfig</ref> const *</type>
-          <declname>appConfig</declname>
+          <declname>app_config</declname>
+          <defval>nullptr</defval>
         </param>
         <param>
-          <type><ref refid="structvt_1_1arguments_1_1_argv_container" kindref="compound">arguments::ArgvContainer</ref> const *</type>
-          <declname>preconfigure_args</declname>
+          <type>bool</type>
+          <declname>print_startup_banner</declname>
+          <defval>true</defval>
         </param>
         <briefdescription>
+<para>Initialize VT after it has been preconfigured. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">startup_config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the arg config </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">comm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>optional communicator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">app_config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional) base VT configuration to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">print_startup_banner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional) whether to print startup banner</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the runtime pointer </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="57" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="57" bodyend="71" declfile="src/vt/collective/startup.h" declline="56" declcolumn="16"/>
+        <location file="src/vt/collective/startup.cc" line="63" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="63" bodyend="72" declfile="src/vt/collective/startup.h" declline="84" declcolumn="16"/>
       </memberdef>
-      <memberdef kind="function" id="namespacevt_1a580ef23e9a224fc0907da1a6db308b5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacevt_1a0b9d4884da642e4231dc1a27d14dff72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref></type>
         <definition>RuntimePtrType vt::initialize</definition>
-        <argsstring>(int &amp;argc, char **&amp;argv, MPI_Comm *comm, arguments::AppConfig const *appConfig)</argsstring>
+        <argsstring>(int &amp;argc, char **&amp;argv, MPI_Comm *comm=nullptr, arguments::AppConfig const  *appConfig=nullptr, bool print_startup_banner=true)</argsstring>
         <name>initialize</name>
         <param>
           <type>int &amp;</type>
@@ -3319,18 +3387,70 @@
         <param>
           <type>MPI_Comm *</type>
           <declname>comm</declname>
+          <defval>nullptr</defval>
         </param>
         <param>
           <type><ref refid="structvt_1_1arguments_1_1_app_config" kindref="compound">arguments::AppConfig</ref> const *</type>
           <declname>appConfig</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>print_startup_banner</declname>
+          <defval>true</defval>
         </param>
         <briefdescription>
+<para>Initialize VT. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(to modify) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(to modify) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">comm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>optional communicator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">app_config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional) base VT configuration to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">print_startup_banner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional) whether to print startup banner</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the runtime pointer </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="74" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="74" bodyend="81" declfile="src/vt/collective/startup.h" declline="61" declcolumn="16"/>
+        <location file="src/vt/collective/startup.cc" line="75" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="75" bodyend="83" declfile="src/vt/collective/startup.h" declline="102" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1a9e13ed8a04b3395bbff2f035cae656af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref></type>
@@ -3347,7 +3467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="83" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="83" bodyend="88" declfile="src/vt/collective/startup.h" declline="65" declcolumn="16"/>
+        <location file="src/vt/collective/startup.cc" line="85" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="85" bodyend="90" declfile="src/vt/collective/startup.h" declline="108" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1abc3ee2a9bd23da2ae2ffc703d1779b0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref></type>
@@ -3372,7 +3492,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="90" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="90" bodyend="94" declfile="src/vt/collective/startup.h" declline="66" declcolumn="16"/>
+        <location file="src/vt/collective/startup.cc" line="92" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="92" bodyend="96" declfile="src/vt/collective/startup.h" declline="110" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1a9aa3720155b98fe5d498469cd43ba7b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="namespacevt_1a0ce60e0299d8fa32223b3b9ffa0af466" kindref="member">RuntimePtrType</ref></type>
@@ -3389,7 +3509,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="96" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="96" bodyend="100"/>
+        <location file="src/vt/collective/startup.cc" line="98" column="16" bodyfile="src/vt/collective/startup.cc" bodystart="98" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1a540d90dbd6e97b69f1dcbc9ee9314cff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3406,7 +3526,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="102" column="6" bodyfile="src/vt/collective/startup.cc" bodystart="102" bodyend="108" declfile="src/vt/collective/startup.h" declline="70" declcolumn="6"/>
+        <location file="src/vt/collective/startup.cc" line="104" column="6" bodyfile="src/vt/collective/startup.cc" bodystart="104" bodyend="110" declfile="src/vt/collective/startup.h" declline="114" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1ae8e663109f635cbeca94c39b89b4683c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -3419,7 +3539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/collective/startup.cc" line="110" column="6" bodyfile="src/vt/collective/startup.cc" bodystart="110" bodyend="112" declfile="src/vt/collective/startup.h" declline="71" declcolumn="6"/>
+        <location file="src/vt/collective/startup.cc" line="112" column="6" bodyfile="src/vt/collective/startup.cc" bodystart="112" bodyend="114" declfile="src/vt/collective/startup.h" declline="116" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacevt_1aa17c6eae35e7e41a8b11d4047b7c0839" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structvt_1_1arguments_1_1_app_config" kindref="compound">arguments::AppConfig</ref> *</type>

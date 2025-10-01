@@ -136,44 +136,46 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>... T, <span class="keywordtype">size_t</span>... Idxs&gt;</div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="namespacecheckpoint.html#a8370a2284f01f2fada353a096ab95f4d">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacecheckpoint.html#a8370a2284f01f2fada353a096ab95f4d">tuple_helper_reconstruct</a>(std::tuple&lt;T...&gt;*&amp; tup, std::index_sequence&lt;Idxs...&gt;) {</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  std::forward_as_tuple(</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    (<a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">dispatch::Reconstructor&lt;T&gt;::construct</a>(&amp;std::get&lt;Idxs&gt;(*tup)))...</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  );</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Serializer, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="namespacecheckpoint.html#a7ac21fa6ad08fd64a47c789c32966019">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacecheckpoint.html#a3ae835131252c03a5e8eddde3bbc0f12">serialize</a>(Serializer&amp; s, std::tuple&lt;Args...&gt;&amp; tuple) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="namespacecheckpoint.html#ab763d3ca9396ff9a1896f5da6c2b3c54">tuple_helper</a>(s, tuple, std::index_sequence_for&lt;Args...&gt;());</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Serializer, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="namespacecheckpoint.html#a7b5c3ff67d3f7b65cfb46da7617e87ad">   76</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacecheckpoint.html#a3ae835131252c03a5e8eddde3bbc0f12">serialize</a>(Serializer&amp; s, std::pair&lt;T, U&gt;&amp; pair) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  s.countBytes(pair);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  s | pair.first;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  s | pair.second;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html">   83</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structcheckpoint_1_1_checkpoint_reconstructor.html">CheckpointReconstructor</a>&lt;<a class="code" href="namespacestd.html">std</a>::tuple&lt;Args...&gt;&gt; {</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">   84</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">reconstruct</a>(std::tuple&lt;Args...&gt;*&amp; tuple, <span class="keywordtype">void</span>* buf) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">using</span> TupleType = std::decay_t&lt;decltype(*tuple)&gt;;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    tuple = std::launder&lt;TupleType&gt;(reinterpret_cast&lt;TupleType*&gt;(buf));</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="namespacecheckpoint.html#a8370a2284f01f2fada353a096ab95f4d">tuple_helper_reconstruct</a>(tuple, std::index_sequence_for&lt;Args...&gt;());</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">/* end namespace checkpoint */</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    (<a class="code" href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">dispatch::Reconstructor&lt;T&gt;::construct</a>(</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      &amp;std::get&lt;Idxs&gt;(*tup)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    ).transferOwnership())...</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Serializer, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="namespacecheckpoint.html#a7ac21fa6ad08fd64a47c789c32966019">   73</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacecheckpoint.html#a3ae835131252c03a5e8eddde3bbc0f12">serialize</a>(Serializer&amp; s, std::tuple&lt;Args...&gt;&amp; tuple) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="namespacecheckpoint.html#ab763d3ca9396ff9a1896f5da6c2b3c54">tuple_helper</a>(s, tuple, std::index_sequence_for&lt;Args...&gt;());</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Serializer, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="namespacecheckpoint.html#a7b5c3ff67d3f7b65cfb46da7617e87ad">   78</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacecheckpoint.html#a3ae835131252c03a5e8eddde3bbc0f12">serialize</a>(Serializer&amp; s, std::pair&lt;T, U&gt;&amp; pair) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  s.countBytes(pair);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  s | pair.first;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  s | pair.second;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html">   85</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structcheckpoint_1_1_checkpoint_reconstructor.html">CheckpointReconstructor</a>&lt;<a class="code" href="namespacestd.html">std</a>::tuple&lt;Args...&gt;&gt; {</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">   86</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">reconstruct</a>(std::tuple&lt;Args...&gt;*&amp; tuple, <span class="keywordtype">void</span>* buf) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">using</span> TupleType = std::decay_t&lt;decltype(*tuple)&gt;;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    tuple = std::launder&lt;TupleType&gt;(reinterpret_cast&lt;TupleType*&gt;(buf));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="namespacecheckpoint.html#a8370a2284f01f2fada353a096ab95f4d">tuple_helper_reconstruct</a>(tuple, std::index_sequence_for&lt;Args...&gt;());</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_TUPLE_SERIALIZE_H*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">/* end namespace checkpoint */</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_TUPLE_SERIALIZE_H*/</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespacecheckpoint_html_a3ae835131252c03a5e8eddde3bbc0f12"><div class="ttname"><a href="namespacecheckpoint.html#a3ae835131252c03a5e8eddde3bbc0f12">checkpoint::serialize</a></div><div class="ttdeci">SerializedReturnType serialize(T &amp;target, BufferCallbackType fn=nullptr)</div><div class="ttdoc">Serialize T into a byte buffer.</div><div class="ttdef"><b>Definition:</b> checkpoint_api.impl.h:57</div></div>
 <div class="ttc" id="astructcheckpoint_1_1_checkpoint_reconstructor_html"><div class="ttname"><a href="structcheckpoint_1_1_checkpoint_reconstructor.html">checkpoint::CheckpointReconstructor</a></div><div class="ttdef"><b>Definition:</b> serializable_traits.h:66</div></div>
 <div class="ttc" id="aserializers__headers_8h_html"><div class="ttname"><a href="serializers__headers_8h.html">serializers_headers.h</a></div></div>
 <div class="ttc" id="anamespacecheckpoint_html_ab763d3ca9396ff9a1896f5da6c2b3c54"><div class="ttname"><a href="namespacecheckpoint.html#ab763d3ca9396ff9a1896f5da6c2b3c54">checkpoint::tuple_helper</a></div><div class="ttdeci">void tuple_helper(Serializer &amp;s, std::tuple&lt; T... &gt; &amp;tup, std::index_sequence&lt; Idxs... &gt;)</div><div class="ttdef"><b>Definition:</b> tuple_serialize.h:57</div></div>
-<div class="ttc" id="astructcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4_html_a352018c0950a259b480efbea4188d37f"><div class="ttname"><a href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">checkpoint::CheckpointReconstructor&lt; std::tuple&lt; Args... &gt; &gt;::reconstruct</a></div><div class="ttdeci">static void reconstruct(std::tuple&lt; Args... &gt; *&amp;tuple, void *buf)</div><div class="ttdef"><b>Definition:</b> tuple_serialize.h:84</div></div>
+<div class="ttc" id="astructcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4_html_a352018c0950a259b480efbea4188d37f"><div class="ttname"><a href="structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4.html#a352018c0950a259b480efbea4188d37f">checkpoint::CheckpointReconstructor&lt; std::tuple&lt; Args... &gt; &gt;::reconstruct</a></div><div class="ttdeci">static void reconstruct(std::tuple&lt; Args... &gt; *&amp;tuple, void *buf)</div><div class="ttdef"><b>Definition:</b> tuple_serialize.h:86</div></div>
 <div class="ttc" id="alib_2checkpoint_2src_2checkpoint_2common_8h_html"><div class="ttname"><a href="lib_2checkpoint_2src_2checkpoint_2common_8h.html">common.h</a></div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> reduce_scope.h:265</div></div>
 <div class="ttc" id="anamespacecheckpoint_html_a8370a2284f01f2fada353a096ab95f4d"><div class="ttname"><a href="namespacecheckpoint.html#a8370a2284f01f2fada353a096ab95f4d">checkpoint::tuple_helper_reconstruct</a></div><div class="ttdeci">void tuple_helper_reconstruct(std::tuple&lt; T... &gt; *&amp;tup, std::index_sequence&lt; Idxs... &gt;)</div><div class="ttdef"><b>Definition:</b> tuple_serialize.h:64</div></div>
-<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">checkpoint::dispatch::Reconstructor</a></div><div class="ttdef"><b>Definition:</b> reconstructor.h:57</div></div>
+<div class="ttc" id="astructcheckpoint_1_1dispatch_1_1_reconstructor_html"><div class="ttname"><a href="structcheckpoint_1_1dispatch_1_1_reconstructor.html">checkpoint::dispatch::Reconstructor</a></div><div class="ttdef"><b>Definition:</b> reconstructor.h:133</div></div>
 <div class="ttc" id="anamespacecheckpoint_html"><div class="ttname"><a href="namespacecheckpoint.html">checkpoint</a></div><div class="ttdef"><b>Definition:</b> buffer.h:52</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

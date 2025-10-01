@@ -108,6 +108,8 @@ struct \mbox{\hyperlink{structvt_1_1_obj_func_traits}{Obj\+Func\+Traits}}
 \item 
 struct \mbox{\hyperlink{structvt_1_1_put_envelope}{Put\+Envelope}}
 \begin{DoxyCompactList}\small\item\em Extended envelope for holding control bits for a message packed with a put payload. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}} for preconfiguring VT before starting up the runtime. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structvt_1_1_strong_node_type}{Strong\+Node\+Type}}
 \item 
 struct \mbox{\hyperlink{structvt_1_1_time_type_wrapper}{Time\+Type\+Wrapper}}
@@ -418,12 +420,12 @@ int \mbox{\hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{rerror}} (ch
 \item 
 \mbox{\hyperlink{structvt_1_1collective_1_1_collective_alg}{collective\+::\+Collective\+Alg}} $\ast$ \mbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{the\+Collective}} ()
 \item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1arguments_1_1_argv_container}{arguments\+::\+Argv\+Container}} $>$ \mbox{\hyperlink{namespacevt_a92861d98501258a2800b90420bb116ff}{preconfigure}} (int \&argc, char $\ast$$\ast$\&argv)
-\item 
-\mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_a30208aeb42d41dc7534b32bf07ee7985}{initialize\+Preconfigured}} (M\+P\+I\+\_\+\+Comm $\ast$comm, \mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$app\+Config, \mbox{\hyperlink{structvt_1_1arguments_1_1_argv_container}{arguments\+::\+Argv\+Container}} const $\ast$preconfigure\+\_\+args)
-\item 
-\mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}{initialize}} (int \&argc, char $\ast$$\ast$\&argv, M\+P\+I\+\_\+\+Comm $\ast$comm, \mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$app\+Config)
-\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}} $>$ \mbox{\hyperlink{namespacevt_a43e732a913e6062ff88012f15816526d}{preconfigure}} (int \&argc, char $\ast$$\ast$\&argv)
+\begin{DoxyCompactList}\small\item\em Preconfigure VT with argc/argv. This will remove all VT arguments and create a {\ttfamily \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}}} for VT that should be passed to {\ttfamily initialize\+Preconfigured}. Optionally, one may specify an M\+PI communicator to use (otherwise, it defaults to {\ttfamily M\+P\+I\+\_\+\+C\+O\+M\+M\+\_\+\+W\+O\+R\+LD}). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_a5969d5fb91ff831b16c12a80c2f472f7}{initialize\+Preconfigured}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}} $>$ startup\+\_\+config, M\+P\+I\+\_\+\+Comm $\ast$comm=nullptr, \mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const  $\ast$app\+\_\+config=nullptr, bool print\+\_\+startup\+\_\+banner=true)
+\begin{DoxyCompactList}\small\item\em Initialize VT after it has been preconfigured. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{initialize}} (int \&argc, char $\ast$$\ast$\&argv, M\+P\+I\+\_\+\+Comm $\ast$comm=nullptr, \mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const  $\ast$app\+Config=nullptr, bool print\+\_\+startup\+\_\+banner=true)
+\begin{DoxyCompactList}\small\item\em Initialize VT. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_a9e13ed8a04b3395bbff2f035cae656af}{initialize}} (M\+P\+I\+\_\+\+Comm $\ast$comm)
 \item 
 \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} \mbox{\hyperlink{namespacevt_abc3ee2a9bd23da2ae2ffc703d1779b0b}{initialize}} (int \&argc, char $\ast$$\ast$\&argv, \mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$app\+Config)
@@ -2473,24 +2475,62 @@ This is equivalent to calling {\ttfamily envelope\+Set\+Is\+Locked} with false a
 \doxysubsubsection{\texorpdfstring{initialize()}{initialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv,  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$}]{app\+Config }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}\label{namespacevt_a580ef23e9a224fc0907da1a6db308b5b}} 
+\mbox{\Hypertarget{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}\label{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}} 
 \index{vt@{vt}!initialize@{initialize}}
 \index{initialize@{initialize}!vt@{vt}}
 \doxysubsubsection{\texorpdfstring{initialize()}{initialize()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv,  }\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{comm,  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$}]{app\+Config }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv,  }\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{comm = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$}]{app\+Config = {\ttfamily nullptr},  }\item[{bool}]{print\+\_\+startup\+\_\+banner = {\ttfamily true} }\end{DoxyParamCaption})}
 
+
+
+Initialize VT. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em argc} & (to modify) \\
+\hline
+\mbox{\texttt{ in}}  & {\em argv} & (to modify) \\
+\hline
+\mbox{\texttt{ in}}  & {\em comm} & optional communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em app\+\_\+config} & (optional) base VT configuration to use \\
+\hline
+\mbox{\texttt{ in}}  & {\em print\+\_\+startup\+\_\+banner} & (optional) whether to print startup banner\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the runtime pointer 
+\end{DoxyReturn}
 \mbox{\Hypertarget{namespacevt_a9e13ed8a04b3395bbff2f035cae656af}\label{namespacevt_a9e13ed8a04b3395bbff2f035cae656af}} 
 \index{vt@{vt}!initialize@{initialize}}
 \index{initialize@{initialize}!vt@{vt}}
 \doxysubsubsection{\texorpdfstring{initialize()}{initialize()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{comm }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacevt_a30208aeb42d41dc7534b32bf07ee7985}\label{namespacevt_a30208aeb42d41dc7534b32bf07ee7985}} 
+\mbox{\Hypertarget{namespacevt_a5969d5fb91ff831b16c12a80c2f472f7}\label{namespacevt_a5969d5fb91ff831b16c12a80c2f472f7}} 
 \index{vt@{vt}!initializePreconfigured@{initializePreconfigured}}
 \index{initializePreconfigured@{initializePreconfigured}!vt@{vt}}
 \doxysubsubsection{\texorpdfstring{initializePreconfigured()}{initializePreconfigured()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize\+Preconfigured (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{comm,  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$}]{app\+Config,  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_argv_container}{arguments\+::\+Argv\+Container}} const $\ast$}]{preconfigure\+\_\+args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacevt_a0ce60e0299d8fa32223b3b9ffa0af466}{Runtime\+Ptr\+Type}} vt\+::initialize\+Preconfigured (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}} $>$}]{startup\+\_\+config,  }\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{comm = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{structvt_1_1arguments_1_1_app_config}{arguments\+::\+App\+Config}} const $\ast$}]{app\+\_\+config = {\ttfamily nullptr},  }\item[{bool}]{print\+\_\+startup\+\_\+banner = {\ttfamily true} }\end{DoxyParamCaption})}
 
+
+
+Initialize VT after it has been preconfigured. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em startup\+\_\+config} & the arg config \\
+\hline
+\mbox{\texttt{ in}}  & {\em comm} & optional communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em app\+\_\+config} & (optional) base VT configuration to use \\
+\hline
+\mbox{\texttt{ in}}  & {\em print\+\_\+startup\+\_\+banner} & (optional) whether to print startup banner\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the runtime pointer 
+\end{DoxyReturn}
 \mbox{\Hypertarget{namespacevt_a19a89f0706559e09bbe84eec1ff9f1e7}\label{namespacevt_a19a89f0706559e09bbe84eec1ff9f1e7}} 
 \index{vt@{vt}!makeCollection@{makeCollection}}
 \index{makeCollection@{makeCollection}!vt@{vt}}
@@ -2651,12 +2691,29 @@ void vt\+::message\+Ref (\begin{DoxyParamCaption}\item[{MsgT $\ast$}]{msg }\end{
 \doxysubsubsection{\texorpdfstring{output()}{output()}}
 {\footnotesize\ttfamily void vt\+::output (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{str,  }\item[{int32\+\_\+t const}]{code,  }\item[{bool}]{error,  }\item[{bool}]{formatted,  }\item[{bool}]{decorate,  }\item[{bool}]{abort\+\_\+out }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{namespacevt_a92861d98501258a2800b90420bb116ff}\label{namespacevt_a92861d98501258a2800b90420bb116ff}} 
+\mbox{\Hypertarget{namespacevt_a43e732a913e6062ff88012f15816526d}\label{namespacevt_a43e732a913e6062ff88012f15816526d}} 
 \index{vt@{vt}!preconfigure@{preconfigure}}
 \index{preconfigure@{preconfigure}!vt@{vt}}
 \doxysubsubsection{\texorpdfstring{preconfigure()}{preconfigure()}}
-{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1arguments_1_1_argv_container}{arguments\+::\+Argv\+Container}} $>$ vt\+::preconfigure (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}} $>$ vt\+::preconfigure (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$\&}]{argv }\end{DoxyParamCaption})}
 
+
+
+Preconfigure VT with argc/argv. This will remove all VT arguments and create a {\ttfamily \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}}} for VT that should be passed to {\ttfamily initialize\+Preconfigured}. Optionally, one may specify an M\+PI communicator to use (otherwise, it defaults to {\ttfamily M\+P\+I\+\_\+\+C\+O\+M\+M\+\_\+\+W\+O\+R\+LD}). 
+
+\begin{DoxyNote}{Note}
+M\+PI must be initialized to call this function because if an error occurs it uses M\+PI rank to limit how many times the error text gets printed.
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em argc} & argc (modifies it to remove VT arguments) \\
+\hline
+\mbox{\texttt{ in}}  & {\em argv} & argv (modifies it to remove VT arguments)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the {\ttfamily \mbox{\hyperlink{structvt_1_1_startup_config}{Startup\+Config}}} to pass to VT 
+\end{DoxyReturn}
 \mbox{\Hypertarget{namespacevt_af00ebdeb74801e5658cf5726193d5753}\label{namespacevt_af00ebdeb74801e5658cf5726193d5753}} 
 \index{vt@{vt}!promoteMsg@{promoteMsg}}
 \index{promoteMsg@{promoteMsg}!vt@{vt}}
