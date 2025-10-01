@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['objectentry_193',['ObjectEntry',['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_object_entry.html',1,'checkpoint::dispatch::vrt::objregistry']]]
+  ['nestedtraitholder_186',['NestedTraitHolder',['../structcheckpoint_1_1serializer_user_traits_1_1_nested_trait_holder.html',1,'checkpoint::serializerUserTraits']]],
+  ['nonesuch_187',['NoneSuch',['../structdetection_1_1_none_such.html',1,'detection']]]
 ];

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['readfromfiletag_197',['ReadFromFileTag',['../structcheckpoint_1_1buffer_1_1_i_o_buffer_1_1_read_from_file_tag.html',1,'checkpoint::buffer::IOBuffer']]],
-  ['reconstructasvirtualifneeded_198',['ReconstructAsVirtualIfNeeded',['../structcheckpoint_1_1_reconstruct_as_virtual_if_needed.html',1,'checkpoint']]],
-  ['reconstructor_199',['Reconstructor',['../structcheckpoint_1_1dispatch_1_1_reconstructor.html',1,'checkpoint::dispatch']]],
-  ['registrar_200',['Registrar',['../structcheckpoint_1_1dispatch_1_1vrt_1_1serializer__registry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::serializer_registry::Registrar&lt; ObjT, SerializerT &gt;'],['../structcheckpoint_1_1dispatch_1_1vrt_1_1objregistry_1_1_registrar.html',1,'checkpoint::dispatch::vrt::objregistry::Registrar&lt; ObjT &gt;'],['../structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar.html',1,'checkpoint::dispatch::typeregistry::Registrar&lt; ObjT &gt;']]]
+  ['packerbuffer_189',['PackerBuffer',['../structcheckpoint_1_1_packer_buffer.html',1,'checkpoint']]],
+  ['poptraitimpl_190',['PopTraitImpl',['../structcheckpoint_1_1serializer_user_traits_1_1_pop_trait_impl.html',1,'checkpoint::serializerUserTraits']]],
+  ['poptraitimpl_3c_20traitholder_3c_20trait_2c_20traits_2e_2e_2e_20_3e_20_3e_191',['PopTraitImpl&lt; TraitHolder&lt; Trait, Traits... &gt; &gt;',['../structcheckpoint_1_1serializer_user_traits_1_1_pop_trait_impl_3_01_trait_holder_3_01_trait_00_01_traits_8_8_8_01_4_01_4.html',1,'checkpoint::serializerUserTraits']]]
 ];

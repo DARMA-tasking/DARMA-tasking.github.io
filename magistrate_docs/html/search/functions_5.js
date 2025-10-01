@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['isfootprinting_253',['isFootprinting',['../structcheckpoint_1_1_base_serializer.html#a76960f01f04457bca6a40d91d2c4b486',1,'checkpoint::BaseSerializer']]],
-  ['ispacking_254',['isPacking',['../structcheckpoint_1_1_base_serializer.html#a1a91b7c0fc85cbd31356791bbf288b0e',1,'checkpoint::BaseSerializer']]],
-  ['issizing_255',['isSizing',['../structcheckpoint_1_1_base_serializer.html#a2d28600a09495b5b9d9b90ae27caa708',1,'checkpoint::BaseSerializer']]],
-  ['isunpacking_256',['isUnpacking',['../structcheckpoint_1_1_base_serializer.html#a36efbc9aa78bd2d4b017ac40dacfe9b7',1,'checkpoint::BaseSerializer']]],
-  ['isvirtualdisabled_257',['isVirtualDisabled',['../structcheckpoint_1_1_base_serializer.html#a5325585631201d413d7992e8916d6f57',1,'checkpoint::BaseSerializer']]]
+  ['setvirtualdisabled_248',['setVirtualDisabled',['../structcheckpoint_1_1_base_serializer.html#ab16e2ffa62f03f8410b116c637bd4adc',1,'checkpoint::BaseSerializer']]],
+  ['sizer_249',['Sizer',['../structcheckpoint_1_1_sizer.html#a17995329af9eec00859e86c6fabf4890',1,'checkpoint::Sizer']]],
+  ['skip_250',['skip',['../structcheckpoint_1_1_base_serializer.html#a7e3575fbbd4bf5bc39d8efb67c014e07',1,'checkpoint::BaseSerializer']]]
 ];

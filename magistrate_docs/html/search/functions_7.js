@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reconstruct_259',['reconstruct',['../structcheckpoint_1_1dispatch_1_1_traverse.html#ad043c9e132aeb99049d0d3ff8df6b876',1,'checkpoint::dispatch::Traverse']]]
+  ['usedbuffersize_252',['usedBufferSize',['../structcheckpoint_1_1_base_serializer.html#a6ccb8bb1430ac5665aac995b6330bc8a',1,'checkpoint::BaseSerializer']]]
 ];
