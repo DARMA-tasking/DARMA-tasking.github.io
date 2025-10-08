@@ -27,7 +27,7 @@ var searchData=
   ['phasedone_10764',['phaseDone',['../classvt_1_1messaging_1_1_collection_chain_set.html#afcb749b22063068d060f35fdcd2320b3',1,'vt::messaging::CollectionChainSet']]],
   ['phasehookid_10765',['PhaseHookID',['../structvt_1_1phase_1_1_phase_hook_i_d.html#a2671882c570d309ddfb2301bdc773f26',1,'vt::phase::PhaseHookID']]],
   ['phasemanager_10766',['PhaseManager',['../structvt_1_1phase_1_1_phase_manager.html#a981990f9f44c00334f80be2e4eb604f5',1,'vt::phase::PhaseManager']]],
-  ['phaseoffset_10767',['PhaseOffset',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a3a8f4f20292bf178c5d5902f405f88d6',1,'vt::vrt::collection::balance::PhaseOffset']]],
+  ['phaseoffset_10767',['PhaseOffset',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a3a8f4f20292bf178c5d5902f405f88d6',1,'vt::vrt::collection::balance::PhaseOffset::PhaseOffset()=delete'],['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#ad754b2d2d4d4d1812f0c3836be6b569f',1,'vt::vrt::collection::balance::PhaseOffset::PhaseOffset(int in_phases, unsigned int in_subphase)']]],
   ['pinghomehandler_10768',['pingHomeHandler',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#af5d0c9d39e7d86dc7a2afb7b294e5fe1',1,'vt::vrt::collection::CollectionManager']]],
   ['pipemanager_10769',['PipeManager',['../structvt_1_1pipe_1_1_pipe_manager.html#aa2cf0e54dc146056c077aba1aa2ae42b',1,'vt::pipe::PipeManager']]],
   ['pipemanagerbase_10770',['PipeManagerBase',['../structvt_1_1pipe_1_1_pipe_manager_base.html#a6b3b1e6d6bfe21308090d2dc62743961',1,'vt::pipe::PipeManagerBase']]],
