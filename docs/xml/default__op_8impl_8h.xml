@@ -5989,7 +5989,7 @@
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>to<sp/>force<sp/>the<sp/>type<sp/>to<sp/>the<sp/>more<sp/>specific<sp/>one<sp/>here</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>cb<sp/>=<sp/>msg-&gt;getMsgCallback();</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>typed_cb<sp/>=<sp/></highlight><highlight class="keyword">reinterpret_cast&lt;</highlight><highlight class="normal"><ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed" kindref="compound">Callback&lt;MsgT&gt;</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;cb);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typed_cb-&gt;<ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed_1a9dc1f441d1444b9b3404509cc2afe768" kindref="member">sendMsg</ref>(msg);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typed_cb-&gt;<ref refid="structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_raw_base_single_1a6c2172d17e709df20b797dabcd339785" kindref="member">sendMsg</ref>(msg);</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(msg-&gt;root_handler_<sp/>!=<sp/>uninitialized_handler)<sp/>{</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacevt_1_1auto__registry_1a94926420bd6db07e6c1ae51ab0b06227" kindref="member">auto_registry::getAutoHandler</ref>(msg-&gt;root_handler_)-&gt;dispatch(msg,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
@@ -6007,14 +6007,21 @@
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(cur_msg<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_combine" kindref="compound">ReduceCombine&lt;&gt;::combine&lt;MsgT,Op,ActOp&gt;</ref>(fst_msg,<sp/>cur_msg);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cur_msg<sp/>=<sp/>cur_msg-&gt;template<sp/>getNext&lt;MsgT&gt;();</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal">}}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::collective::reduce::operators<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_VT_COLLECTIVE_REDUCE_OPERATORS_DEFAULT_OP_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!fst_msg-&gt;hasValidCallback()<sp/>&amp;&amp;<sp/>cur_msg-&gt;hasValidCallback())<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur_msg-&gt;isParamCallback())<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fst_msg-&gt;setCallback(cur_msg-&gt;getParamCallback());</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fst_msg-&gt;setCallback(cur_msg-&gt;getMsgCallback());</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cur_msg<sp/>=<sp/>cur_msg-&gt;template<sp/>getNext&lt;MsgT&gt;();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}}}}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>vt::collective::reduce::operators<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_VT_COLLECTIVE_REDUCE_OPERATORS_DEFAULT_OP_IMPL_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="src/vt/collective/reduce/operators/default_op.impl.h"/>
   </compounddef>
