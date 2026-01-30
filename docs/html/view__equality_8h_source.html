@@ -386,7 +386,7 @@ $(function() {
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> compareData(ViewT <span class="keyword">const</span>&amp; v1, ViewU <span class="keyword">const</span>&amp; v2, EqT eq) {</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keyword">using</span> checkpoint::TraverseRecursive;</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">using</span> TupleType     = std::tuple&lt;ViewT,ViewT&gt;;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">using</span> TupleType     = std::tuple&lt;typename ViewT::host_mirror_type,typename ViewT::host_mirror_type&gt;;</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    constexpr <span class="keyword">auto</span> dims = CountDimType::dynamic;</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
@@ -405,21 +405,23 @@ $(function() {
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    };</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">// Returns the number of comparisons in the inner data that returned false</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keyword">using</span> FnT = decltype(fn);</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> neq = TraverseRecursive&lt;TupleType,DataType,dims,FnT&gt;::apply(</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;      std::make_tuple(v1,v2),fn</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    );</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keywordflow">return</span> neq == 0;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;};</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keyword">auto</span> host_v1 = Kokkos::create_mirror_view_and_copy(Kokkos::HostSpace(),v1);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">auto</span> host_v2 = Kokkos::create_mirror_view_and_copy(Kokkos::HostSpace(),v2);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keyword">using</span> FnT = decltype(fn);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> neq = TraverseRecursive&lt;TupleType,DataType,dims,FnT&gt;::apply(</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      std::make_tuple(host_v1,host_v2),fn</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    );</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">return</span> neq == 0;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;  }</div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;} <span class="comment">/* end namespace checkpoint */</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;};</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;} <span class="comment">/* end namespace checkpoint */</span></div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_VIEW_EQUALITY_H*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_VIEW_EQUALITY_H*/</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aserializers__headers_8h_html"><div class="ttname"><a href="serializers__headers_8h.html">serializers_headers.h</a></div></div>
 <div class="ttc" id="aview__traverse__manual_8h_html"><div class="ttname"><a href="view__traverse__manual_8h.html">view_traverse_manual.h</a></div></div>

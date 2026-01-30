@@ -616,7 +616,7 @@
 <codeline lineno="313"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>compareData(ViewT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>v1,<sp/>ViewU<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>v2,<sp/>EqT<sp/>eq)<sp/>{</highlight></codeline>
 <codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>checkpoint::TraverseRecursive;</highlight></codeline>
 <codeline lineno="315"><highlight class="normal"></highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TupleType<sp/><sp/><sp/><sp/><sp/>=<sp/>std::tuple&lt;ViewT,ViewT&gt;;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TupleType<sp/><sp/><sp/><sp/><sp/>=<sp/>std::tuple&lt;typename<sp/>ViewT::host_mirror_type,typename<sp/>ViewT::host_mirror_type&gt;;</highlight></codeline>
 <codeline lineno="317"><highlight class="normal"></highlight></codeline>
 <codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>dims<sp/>=<sp/>CountDimType::dynamic;</highlight></codeline>
 <codeline lineno="319"><highlight class="normal"></highlight></codeline>
@@ -635,21 +635,23 @@
 <codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="333"><highlight class="normal"></highlight></codeline>
 <codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>number<sp/>of<sp/>comparisons<sp/>in<sp/>the<sp/>inner<sp/>data<sp/>that<sp/>returned<sp/>false</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>FnT<sp/>=<sp/>decltype(fn);</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>neq<sp/>=<sp/>TraverseRecursive&lt;TupleType,DataType,dims,FnT&gt;::apply(</highlight></codeline>
-<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::make_tuple(v1,v2),fn</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"></highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>neq<sp/>==<sp/>0;</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>host_v1<sp/>=<sp/>Kokkos::create_mirror_view_and_copy(Kokkos::HostSpace(),v1);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>host_v2<sp/>=<sp/>Kokkos::create_mirror_view_and_copy(Kokkos::HostSpace(),v2);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>FnT<sp/>=<sp/>decltype(fn);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>neq<sp/>=<sp/>TraverseRecursive&lt;TupleType,DataType,dims,FnT&gt;::apply(</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::make_tuple(host_v1,host_v2),fn</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>neq<sp/>==<sp/>0;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="344"><highlight class="normal"></highlight></codeline>
-<codeline lineno="345"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>checkpoint<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="346"><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>namespace<sp/>checkpoint<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="348"><highlight class="normal"></highlight></codeline>
-<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_VIEW_EQUALITY_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_VIEW_EQUALITY_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="lib/checkpoint/src/checkpoint/container/view_equality.h"/>
   </compounddef>

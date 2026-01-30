@@ -6139,98 +6139,105 @@
 <codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>mapSizeType<sp/>=</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;::size_type;</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(mapSizeType<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>map.capacity();<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>Key<sp/>keyAtI<sp/>=<sp/>map.key_at(i);</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(map.exists(keyAtI))<sp/>{</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>val<sp/>=<sp/>map.value_at(map.find(keyAtI));</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s<sp/>|<sp/>keyAtI;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
-<codeline lineno="84"><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deserializeInsertElems(</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/>Serializer&amp;<sp/>s,<sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map,</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;::size_type</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>map_size,</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;::size_type</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>map_capacity</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>KeyAlloc<sp/>=<sp/>dispatch::Allocator&lt;Key&gt;;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ValueAlloc<sp/>=<sp/>dispatch::Allocator&lt;Value&gt;;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>KeyReconstructor<sp/>=</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>dispatch::Reconstructor&lt;typename<sp/>dispatch::CleanType&lt;Key&gt;::CleanT&gt;;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ValReconstructor<sp/>=</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>dispatch::Reconstructor&lt;typename<sp/>dispatch::CleanType&lt;Value&gt;::CleanT&gt;;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>resize<sp/>unordered<sp/>map</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/>map.rehash(map_capacity);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>host_map<sp/>=<sp/>Kokkos::create_mirror(map);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>Kokkos::deep_copy(host_map,map);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(mapSizeType<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>map.capacity();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>Key<sp/>keyAtI<sp/>=<sp/>host_map.key_at(i);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(host_map.exists(keyAtI))<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>val<sp/>=<sp/>host_map.value_at(host_map.find(keyAtI));</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s<sp/>|<sp/>keyAtI;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s<sp/>|<sp/>val;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Serializer,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deserializeInsertElems(</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>Serializer&amp;<sp/>s,<sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;::size_type</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>map_size,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;::size_type</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>map_capacity</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>KeyAlloc<sp/>=<sp/>dispatch::Allocator&lt;Key&gt;;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ValueAlloc<sp/>=<sp/>dispatch::Allocator&lt;Value&gt;;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>KeyReconstructor<sp/>=</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>dispatch::Reconstructor&lt;typename<sp/>dispatch::CleanType&lt;Key&gt;::CleanT&gt;;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>ValReconstructor<sp/>=</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>dispatch::Reconstructor&lt;typename<sp/>dispatch::CleanType&lt;Value&gt;::CleanT&gt;;</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/>KeyAlloc<sp/>keyAllocated;</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/>ValueAlloc<sp/>valAllocated;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="namespacecheckpoint_1a083f6674da3f94c2901b18c6d238217c" kindref="member">SerialSizeType</ref><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>map_size;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">*<sp/>key<sp/>=<sp/>KeyReconstructor::construct(keyAllocated.buf);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">*<sp/>val<sp/>=<sp/>ValReconstructor::construct(valAllocated.buf);</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>*key;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>*val;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>map.insert(std::move(*key),<sp/>std::move(*val));</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
-<codeline lineno="118"><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>std::enable_if_t&lt;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/>not<sp/>checkpoint::is_footprinter_v&lt;SerializerT&gt;,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal">&gt;<sp/><ref refid="namespacecheckpoint_1a3ae835131252c03a5e8eddde3bbc0f12" kindref="member">serialize</ref>(</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/>SerializerT&amp;<sp/>s,</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map</highlight></codeline>
-<codeline lineno="124"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnorderedMapType<sp/>=</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;;</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>size<sp/>=<sp/><ref refid="namespacecheckpoint_1a3359595d5a4c6fcf5fc95069c71f869b" kindref="member">serializeContainerSize</ref>(s,<sp/>map);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>capacity<sp/>=<sp/><ref refid="namespacecheckpoint_1abb25020fd55429c701342e79205a8d9a" kindref="member">serializeContainerCapacity</ref>(s,<sp/>map);</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(s.isUnpacking())<sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>deserializeInsertElems(s,<sp/>map,<sp/>size,<sp/>capacity);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>serializeKokkosUnorderedMapElems(s,<sp/>map);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>resize<sp/>unordered<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>map.rehash(map_capacity);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>host_map<sp/>=<sp/>Kokkos::create_mirror(map);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>host_map.rehash(map_capacity);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>KeyAlloc<sp/>keyAllocated;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>ValueAlloc<sp/>valAllocated;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="namespacecheckpoint_1a083f6674da3f94c2901b18c6d238217c" kindref="member">SerialSizeType</ref><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>map_size;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>key<sp/>=<sp/>KeyReconstructor::construct(keyAllocated.buf);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>ValReconstructor::construct(valAllocated.buf);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>*key;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>|<sp/>*val;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>host_map.insert(std::move(*key),<sp/>std::move(*val));</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>Kokkos::deep_copy(map,host_map);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>std::enable_if_t&lt;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>not<sp/>checkpoint::is_footprinter_v&lt;SerializerT&gt;,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">&gt;<sp/><ref refid="namespacecheckpoint_1a3ae835131252c03a5e8eddde3bbc0f12" kindref="member">serialize</ref>(</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/>SerializerT&amp;<sp/>s,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnorderedMapType<sp/>=</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>size<sp/>=<sp/><ref refid="namespacecheckpoint_1a3359595d5a4c6fcf5fc95069c71f869b" kindref="member">serializeContainerSize</ref>(s,<sp/>map);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>capacity<sp/>=<sp/><ref refid="namespacecheckpoint_1abb25020fd55429c701342e79205a8d9a" kindref="member">serializeContainerCapacity</ref>(s,<sp/>map);</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
-<codeline lineno="141"><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>std::enable_if_t&lt;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/>checkpoint::is_footprinter_v&lt;SerializerT&gt;,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal">&gt;<sp/><ref refid="namespacecheckpoint_1a3ae835131252c03a5e8eddde3bbc0f12" kindref="member">serialize</ref>(</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/>SerializerT&amp;<sp/>s,</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map</highlight></codeline>
-<codeline lineno="147"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnorderedMapType<sp/>=</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>size<sp/>=<sp/><ref refid="namespacecheckpoint_1a3359595d5a4c6fcf5fc95069c71f869b" kindref="member">serializeContainerSize</ref>(s,<sp/>map);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>capacity<sp/>=<sp/><ref refid="namespacecheckpoint_1abb25020fd55429c701342e79205a8d9a" kindref="member">serializeContainerCapacity</ref>(s,<sp/>map);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/>s.addBytes(capacity<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Key)<sp/>+<sp/>size<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Value));</highlight></codeline>
-<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>checkpoint</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(s.isUnpacking())<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>deserializeInsertElems(s,<sp/>map,<sp/>size,<sp/>capacity);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>serializeKokkosUnorderedMapElems(s,<sp/>map);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>SerializerT,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Key,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Value,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Device,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Hasher,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EqualTo</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>std::enable_if_t&lt;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>checkpoint::is_footprinter_v&lt;SerializerT&gt;,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">&gt;<sp/><ref refid="namespacecheckpoint_1a3ae835131252c03a5e8eddde3bbc0f12" kindref="member">serialize</ref>(</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>SerializerT&amp;<sp/>s,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;&amp;<sp/>map</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>UnorderedMapType<sp/>=</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>Kokkos::UnorderedMap&lt;Key,<sp/>Value,<sp/>Device,<sp/>Hasher,<sp/>EqualTo&gt;;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>size<sp/>=<sp/><ref refid="namespacecheckpoint_1a3359595d5a4c6fcf5fc95069c71f869b" kindref="member">serializeContainerSize</ref>(s,<sp/>map);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>UnorderedMapType::size_type<sp/>capacity<sp/>=<sp/><ref refid="namespacecheckpoint_1abb25020fd55429c701342e79205a8d9a" kindref="member">serializeContainerCapacity</ref>(s,<sp/>map);</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_KOKKOS_UNORDERED_MAP_SERIALIZE_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>s.addBytes(capacity<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Key)<sp/>+<sp/>size<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Value));</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>checkpoint</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*MAGISTRATE_KOKKOS_ENABLED*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*INCLUDED_SRC_CHECKPOINT_CONTAINER_KOKKOS_UNORDERED_MAP_SERIALIZE_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="lib/checkpoint/src/checkpoint/container/kokkos_unordered_map_serialize.h"/>
   </compounddef>
