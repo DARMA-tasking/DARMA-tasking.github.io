@@ -4,10 +4,12 @@
     <compoundname>vt::metrics::PerfData</compoundname>
     <basecompoundref refid="structvt_1_1runtime_1_1component_1_1_component" prot="public" virt="non-virtual">vt::runtime::component::Component&lt; PerfData &gt;</basecompoundref>
     <includes refid="perf__data_8h" local="no">vt/metrics/perf_data.h</includes>
+    <innerclass refid="structvt_1_1metrics_1_1_perf_data_1_1_group_state" prot="private">vt::metrics::PerfData::GroupState</innerclass>
+    <innerclass refid="structvt_1_1metrics_1_1_perf_data_1_1_task_group_measurements" prot="public">vt::metrics::PerfData::TaskGroupMeasurements</innerclass>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1a935d0c4d777fdee5aed397eaa62fc919" prot="private" static="no" mutable="no">
-        <type>std::unordered_map&lt; std::string, std::pair&lt; uint64_t, uint64_t &gt; &gt;</type>
-        <definition>std::unordered_map&lt;std::string, std::pair&lt;uint64_t,uint64_t&gt; &gt; vt::metrics::PerfData::event_map_</definition>
+      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1a0e205e3c890f4bfb6049b604079589b0" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacevt_1_1metrics_1a1507fe649e9024cf01a73cefdaea9899" kindref="member">PerfEventDescriptorMap</ref></type>
+        <definition>PerfEventDescriptorMap vt::metrics::PerfData::event_map_</definition>
         <argsstring></argsstring>
         <name>event_map_</name>
         <briefdescription>
@@ -17,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="156" column="22" bodyfile="src/vt/metrics/perf_data.h" bodystart="156" bodyend="-1"/>
+        <location file="src/vt/metrics/perf_data.h" line="208" column="26" bodyfile="src/vt/metrics/perf_data.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1a29bdd0701ff8a06864ef2a762554748b" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::string &gt;</type>
@@ -31,21 +33,49 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="161" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="161" bodyend="-1"/>
+        <location file="src/vt/metrics/perf_data.h" line="213" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="213" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1aef2376ecc129b5d8c02249327c8f9248" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; int &gt;</type>
-        <definition>std::vector&lt;int&gt; vt::metrics::PerfData::event_fds_</definition>
+      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1a35fc36b942a345a77523e7cade72cff4" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structvt_1_1metrics_1_1_perf_event_group_info" kindref="compound">PerfEventGroupInfo</ref> &gt;</type>
+        <definition>std::vector&lt;PerfEventGroupInfo&gt; vt::metrics::PerfData::event_groups_</definition>
         <argsstring></argsstring>
-        <name>event_fds_</name>
+        <name>event_groups_</name>
         <briefdescription>
-<para>List of file descriptors associated with performance counters. </para>
+<para>Resolved event groups after explicit and automatic grouping. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="166" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="166" bodyend="-1"/>
+        <location file="src/vt/metrics/perf_data.h" line="218" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1ab89d770c74ac12a91d893897d15f832d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structvt_1_1metrics_1_1_perf_data_1_1_group_state" kindref="compound">GroupState</ref> &gt;</type>
+        <definition>std::vector&lt;GroupState&gt; vt::metrics::PerfData::group_states_</definition>
+        <argsstring></argsstring>
+        <name>group_states_</name>
+        <briefdescription>
+<para>Runtime state for each opened event group. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="223" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvt_1_1metrics_1_1_perf_data_1adeb7bbaa79513615e47afef6e95b25a6" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; vt::metrics::PerfData::open_fds_</definition>
+        <argsstring></argsstring>
+        <name>open_fds_</name>
+        <briefdescription>
+<para>Flat list of open file descriptors to simplify cleanup. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="228" column="15" bodyfile="src/vt/metrics/perf_data.h" bodystart="228" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -58,11 +88,11 @@
 <para>Constructor for <ref refid="structvt_1_1metrics_1_1_perf_data" kindref="compound">PerfData</ref>. </para>
         </briefdescription>
         <detaileddescription>
-<para>Initializes performance counters based on the <computeroutput>VT_EVENTS</computeroutput> environment variable, which is a comma seperated list of events available in the events header (<ref refid="example__events_8h" kindref="compound">example_events.h</ref> by default). For example: <computeroutput>VT_EVENTS=&quot;cache-misses,instructions&quot;</computeroutput>. If <computeroutput>VT_EVENTS</computeroutput> isn&apos;t set, will default to measuring instructions. Ensures only valid events are configured. </para>
+<para>Initializes performance counters based on the <computeroutput>VT_EVENTS</computeroutput> environment variable, which is a comma separated list of events available in the events header (<ref refid="example__events_8h" kindref="compound">example_events.h</ref> by default). Explicit groups may be provided with braces, such as <computeroutput>VT_EVENTS=&quot;{instructions,cycles},cache_misses&quot;</computeroutput>. Append <computeroutput>!</computeroutput> to an event or explicit group to pin that group, such as <computeroutput>VT_EVENTS=&quot;instructions!,{cycles,cache_misses}!&quot;</computeroutput>. If <computeroutput>VT_PERF_AUTO_GROUP</computeroutput> is enabled, ungrouped events are bucketed using the descriptors from <ref refid="example__events_8h" kindref="compound">example_events.h</ref>. If <computeroutput>VT_EVENTS</computeroutput> isn&apos;t set, will default to measuring instructions. Ensures only valid events are configured. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="86" column="3" bodyfile="src/vt/metrics/perf_data.cc" bodystart="48" bodyend="97"/>
+        <location file="src/vt/metrics/perf_data.h" line="116" column="3" bodyfile="src/vt/metrics/perf_data.cc" bodystart="142" bodyend="205"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a8e24902dee849236473c59ac3ba78296" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -77,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="94" column="11" bodyfile="src/vt/metrics/perf_data.cc" bodystart="99" bodyend="105"/>
+        <location file="src/vt/metrics/perf_data.h" line="124" column="11" bodyfile="src/vt/metrics/perf_data.cc" bodystart="207" bodyend="213"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1aa49c7f8b14a01ec2b8785f2847fd5250" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -92,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="101" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="107" bodyend="114"/>
+        <location file="src/vt/metrics/perf_data.h" line="131" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="215" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1ad139793f88ea855b955a6da281984445" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -107,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="108" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="116" bodyend="122"/>
+        <location file="src/vt/metrics/perf_data.h" line="138" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="224" bodyend="230"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a42e4c61d442e27c425a20ac2b2edb367" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::unordered_map&lt; std::string, uint64_t &gt;</type>
@@ -134,11 +164,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="119" column="22" bodyfile="src/vt/metrics/perf_data.cc" bodystart="124" bodyend="164"/>
+        <location file="src/vt/metrics/perf_data.h" line="149" column="22" bodyfile="src/vt/metrics/perf_data.cc" bodystart="300" bodyend="315"/>
       </memberdef>
-      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a76911046a98371fdd153d9f4a4c1dc4b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>std::unordered_map&lt; std::string, std::pair&lt; uint64_t, uint64_t &gt; &gt;</type>
-        <definition>std::unordered_map&lt; std::string, std::pair&lt; uint64_t, uint64_t &gt; &gt; vt::metrics::PerfData::getEventMap</definition>
+      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1ace701d4ce507f72a4f21179d73eb6aaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structvt_1_1metrics_1_1_perf_data_1_1_task_group_measurements" kindref="compound">TaskGroupMeasurements</ref> &gt;</type>
+        <definition>std::vector&lt; PerfData::TaskGroupMeasurements &gt; vt::metrics::PerfData::getTaskGroupMeasurements</definition>
+        <argsstring>()</argsstring>
+        <name>getTaskGroupMeasurements</name>
+        <briefdescription>
+<para>Get grouped task measurements and raw perf multiplexing metadata. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Reads grouped counter values along with the raw <computeroutput>time_enabled</computeroutput> and <computeroutput>time_running</computeroutput> values returned by the perf subsystem. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="157" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="317" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1abc48199e688783b348d8001318a269fb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unordered_map&lt; std::string, <ref refid="structvt_1_1metrics_1_1_perf_event_descriptor" kindref="compound">PerfEventDescriptor</ref> &gt;</type>
+        <definition>std::unordered_map&lt; std::string, PerfEventDescriptor &gt; vt::metrics::PerfData::getEventMap</definition>
         <argsstring>() const</argsstring>
         <name>getEventMap</name>
         <briefdescription>
@@ -146,13 +191,28 @@
         </briefdescription>
         <detaileddescription>
 <para>Returns the mapping of event names to their type and configuration values.</para>
-<para><simplesect kind="return"><para>A map of event names to pairs of event type and configuration values. </para>
+<para><simplesect kind="return"><para>A map of event names to their performance event descriptors. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="128" column="22" bodyfile="src/vt/metrics/perf_data.cc" bodystart="166" bodyend="166"/>
+        <location file="src/vt/metrics/perf_data.h" line="166" column="22" bodyfile="src/vt/metrics/perf_data.cc" bodystart="321" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1adcd6e7b8efb5542576d98dc4f84cb4cd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structvt_1_1metrics_1_1_perf_event_group_info" kindref="compound">PerfEventGroupInfo</ref> &gt;</type>
+        <definition>std::vector&lt; PerfEventGroupInfo &gt; vt::metrics::PerfData::getEventGroups</definition>
+        <argsstring>() const</argsstring>
+        <name>getEventGroups</name>
+        <briefdescription>
+<para>Retrieve resolved event grouping metadata. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the final event groups after explicit parsing and optional auto-group resolution. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="174" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="325" bodyend="327"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a04c99cc878e634975deffc9a4cef1a23" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -167,7 +227,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="133" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="168" bodyend="168"/>
+        <location file="src/vt/metrics/perf_data.h" line="179" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="329" bodyend="332"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a2812909c74a5c410af0bca6227180aa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -185,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="140" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="170" bodyend="170"/>
+        <location file="src/vt/metrics/perf_data.h" line="186" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="334" bodyend="334"/>
       </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a4ead0387e9151e7bd82dffd39d28435a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -208,10 +268,38 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="146" column="8" bodyfile="src/vt/metrics/perf_data.h" bodystart="146" bodyend="150"/>
+        <location file="src/vt/metrics/perf_data.h" line="192" column="8" bodyfile="src/vt/metrics/perf_data.h" bodystart="192" bodyend="196"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
+      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a439409dea20468fd352fad06e2b008e7" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="structvt_1_1metrics_1_1_perf_data_1_1_task_group_measurements" kindref="compound">TaskGroupMeasurements</ref> &gt;</type>
+        <definition>std::vector&lt; PerfData::TaskGroupMeasurements &gt; vt::metrics::PerfData::readTaskGroupMeasurements</definition>
+        <argsstring>() const</argsstring>
+        <name>readTaskGroupMeasurements</name>
+        <briefdescription>
+<para>Common implementation for grouped perf reads. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="233" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="232" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a6b8a969d2bffee152def596d619116a4" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vt::metrics::PerfData::maybePrintEventGroups</definition>
+        <argsstring>() const</argsstring>
+        <name>maybePrintEventGroups</name>
+        <briefdescription>
+<para>Print resolved perf event groups when requested by the environment. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/vt/metrics/perf_data.h" line="238" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="121" bodyend="140"/>
+      </memberdef>
       <memberdef kind="function" id="structvt_1_1metrics_1_1_perf_data_1a9a0a867740195b1cf5fd16642c4df5ae" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void vt::metrics::PerfData::cleanupBeforeAbort</definition>
@@ -225,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="173" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="172" bodyend="179"/>
+        <location file="src/vt/metrics/perf_data.h" line="245" column="8" bodyfile="src/vt/metrics/perf_data.cc" bodystart="336" bodyend="344"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -306,7 +394,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/vt/metrics/perf_data.h" line="188" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="181" bodyend="183"/>
+        <location file="src/vt/metrics/perf_data.h" line="260" column="15" bodyfile="src/vt/metrics/perf_data.cc" bodystart="346" bodyend="348"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -411,32 +499,38 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/vt/metrics/perf_data.h" line="75" column="1" bodyfile="src/vt/metrics/perf_data.h" bodystart="74" bodyend="189"/>
+    <location file="src/vt/metrics/perf_data.h" line="76" column="1" bodyfile="src/vt/metrics/perf_data.h" bodystart="75" bodyend="261"/>
     <listofallmembers>
       <member refid="structvt_1_1metrics_1_1_perf_data_1a9a0a867740195b1cf5fd16642c4df5ae" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>cleanupBeforeAbort</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1ab954824329584814bb652ea810cd62e3" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>Component</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_reducer_1ac9c39c6eafc72a1a240ed67ea12b3e66" prot="protected" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>component_id_</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1ad95ea698535524d0f82c5da9beaaaf37" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>DiagnosticBasePtrType</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1adaf8bd995d4c91702e2ff7806ad9e695" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>dumpState</name></member>
-      <member refid="structvt_1_1metrics_1_1_perf_data_1aef2376ecc129b5d8c02249327c8f9248" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>event_fds_</name></member>
-      <member refid="structvt_1_1metrics_1_1_perf_data_1a935d0c4d777fdee5aed397eaa62fc919" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>event_map_</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1a35fc36b942a345a77523e7cade72cff4" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>event_groups_</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1a0e205e3c890f4bfb6049b604079589b0" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>event_map_</name></member>
       <member refid="structvt_1_1metrics_1_1_perf_data_1a29bdd0701ff8a06864ef2a762554748b" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>event_names_</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_base_component_1a43eeed44aa64c77f5491abb4f5a39e9a" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>fatalError</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1a098e362de01af6054e5491fba671a959" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>finalize</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1a1d6951af40ad0b4020860c0b21b1a85c" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>foreachDiagnostic</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_reducer_1a45ab90398777ffdbb2ad5b62fe183d99" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getComponentID</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1a9c1f4174ac87bb6ae0ec186a08adbbbb" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getDiagnosticsFootprint</name></member>
-      <member refid="structvt_1_1metrics_1_1_perf_data_1a76911046a98371fdd153d9f4a4c1dc4b" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getEventMap</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1adcd6e7b8efb5542576d98dc4f84cb4cd" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getEventGroups</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1abc48199e688783b348d8001318a269fb" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getEventMap</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1ace701d4ce507f72a4f21179d73eb6aaa" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getTaskGroupMeasurements</name></member>
       <member refid="structvt_1_1metrics_1_1_perf_data_1a42e4c61d442e27c425a20ac2b2edb367" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>getTaskMeasurements</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1ab89d770c74ac12a91d893897d15f832d" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>group_states_</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1a7f07384d294e59796add9ce6be2d6410" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>initialize</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1a6b8a969d2bffee152def596d619116a4" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>maybePrintEventGroups</name></member>
       <member refid="structvt_1_1metrics_1_1_perf_data_1a2812909c74a5c410af0bca6227180aa8" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>name</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_progressable_1a86dd4c58e43f7dbf6bd67f7a8e6df088" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>needsCurrentTime</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1adeb7bbaa79513615e47afef6e95b25a6" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>open_fds_</name></member>
       <member refid="structvt_1_1metrics_1_1_perf_data_1ac85dd22635b503e3d7ba446541ff0131" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>PerfData</name></member>
       <member refid="structvt_1_1metrics_1_1_perf_data_1a2f4be8557a029b1aea061ed10915707e" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>perfEventOpen</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1a5a15bd0369a9d3765a6c70249bada96f" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>pollable</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1a4e64b5a12ffc1874065aa8b09e6309a9" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>preDiagnostic</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_1a1d9147ecabbb0ebc43be3517d9e500c4" prot="public" virt="virtual"><scope>vt::metrics::PerfData</scope><name>progress</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_progressable_1a75f1e623643f2273835fdf047d3d0cd3" prot="public" virt="pure-virtual" ambiguityscope="vt::runtime::component::BaseComponent::"><scope>vt::metrics::PerfData</scope><name>progress</name></member>
+      <member refid="structvt_1_1metrics_1_1_perf_data_1a439409dea20468fd352fad06e2b008e7" prot="private" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>readTaskGroupMeasurements</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_component_reducer_1af9d694f9d62d973a2cde6e52c55bef14" prot="public" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>reducer</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1aa2cd54632710e7cdf1b20dfb676c752c" prot="protected" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>registerCounter</name></member>
       <member refid="structvt_1_1runtime_1_1component_1_1_diagnostic_1abb1ee7f09f05c143dbdfd3346f6cdcba" prot="protected" virt="non-virtual"><scope>vt::metrics::PerfData</scope><name>registerCounterT</name></member>
