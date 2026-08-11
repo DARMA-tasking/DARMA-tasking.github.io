@@ -1,0 +1,108 @@
+\doxysection{linear\+\_\+regression.\+h}
+\hypertarget{linear__regression_8h_source}{}\label{linear__regression_8h_source}\index{src/vt/utils/stats/linear\_regression.h@{src/vt/utils/stats/linear\_regression.h}}
+\doxymbox{\hyperlink{linear__regression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ linear\_regression.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_STATS\_LINEAR\_REGRESSION\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_STATS\_LINEAR\_REGRESSION\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util}{util}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1stats}{stats}}\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a5ee7e2cca72dbd2d06acbd86529e40b4}{LinearRegression}}\ \{}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a5ee7e2cca72dbd2d06acbd86529e40b4}{LinearRegression}}(std::vector<double>\ \textcolor{keyword}{const}\&\ in\_x,\ std::vector<double>\ \textcolor{keyword}{const}\&\ in\_y)}
+\DoxyCodeLine{00069\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}(in\_x),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}}(in\_y)}
+\DoxyCodeLine{00071\ \ \ \{\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a6922dca6390a6285d68952debccd4c26}{compute}}()\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.size()\ ==\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}}.size(),\ \textcolor{stringliteral}{"{}Sizes\ must\ be\ the\ same"{}});}
+\DoxyCodeLine{00078\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.size()\ !=\ 0,\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Sizes\ must\ not\ be\ zero"{}});}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ n\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.size();}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ sum\_x\ =\ std::accumulate(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.end(),\ 0.0);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ sum\_y\ =\ std::accumulate(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}}.end(),\ 0.0);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ p\_xx\ =\ std::inner\_product(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.end(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.begin(),\ 0.0);}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ p\_xy\ =\ std::inner\_product(\doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}}.end(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}}.begin(),\ 0.0);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ numerator:\ \ \ sum\ over\ i\ of\ (x[i]\ -\/\ X\_mean)\ *\ (y[i]\ -\/\ Y\_mean)}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ denominator:\ sum\ over\ i\ of\ (x[i]\ -\/\ X\_mean)\ *\ (x[i]\ -\/\ X\_mean)}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ numerator\ \ \ =\ p\_xy\ *\ n\ -\/\ sum\_x\ *\ sum\_y;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ denominator\ =\ p\_xx\ *\ n\ -\/\ sum\_x\ *\ sum\_x;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(denominator\ !=\ 0,\ \textcolor{stringliteral}{"{}Denominator\ must\ not\ be\ zero"{}});}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a855d9e0f0470f875387f8490428e9acd}{slope\_}}\ =\ numerator\ /\ denominator;}
+\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a1228e3f973040a4b30a015c50cc6481b}{intercept\_}}\ =\ (sum\_y\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a855d9e0f0470f875387f8490428e9acd}{slope\_}}\ *\ sum\_x)\ /\ n;}
+\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a4c87edbed1fca305b729e037c3c760f3}{computed\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_ad367d0b3bbcd51aed5513c0918b7fc9f}{getSlope}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a855d9e0f0470f875387f8490428e9acd}{slope\_}};\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a23b4e2e170789dc9632ad780fe4a4290}{getIntercept}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a1228e3f973040a4b30a015c50cc6481b}{intercept\_}};\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a102993019adc0717da79336f8b631170}{predict}}(\textcolor{keywordtype}{double}\ in\_x)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a4c87edbed1fca305b729e037c3c760f3}{computed\_}})\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a6922dca6390a6285d68952debccd4c26}{compute}}();}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a1228e3f973040a4b30a015c50cc6481b}{intercept\_}}\ +\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a855d9e0f0470f875387f8490428e9acd}{slope\_}}\ *\ in\_x;}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00125\ \ \ std::vector<double>\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a46208bdabbdb35abead50111765242df}{x\_}};}
+\DoxyCodeLine{00126\ \ \ std::vector<double>\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_acf0f3fc5c18fae9943d03c3f507f8acb}{y\_}};}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a855d9e0f0470f875387f8490428e9acd}{slope\_}}\ =\ 0.;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a1228e3f973040a4b30a015c50cc6481b}{intercept\_}}\ =\ 0.;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1stats_1_1_linear_regression_a4c87edbed1fca305b729e037c3c760f3}{computed\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::util::stats\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_STATS\_LINEAR\_REGRESSION\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

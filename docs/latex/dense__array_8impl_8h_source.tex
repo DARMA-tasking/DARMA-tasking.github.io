@@ -1,0 +1,311 @@
+\doxysection{dense\+\_\+array.\+impl.\+h}
+\hypertarget{dense__array_8impl_8h_source}{}\label{dense__array_8impl_8h_source}\index{src/vt/topos/index/dense/dense\_array.impl.h@{src/vt/topos/index/dense/dense\_array.impl.h}}
+\doxymbox{\hyperlink{dense__array_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dense\_array.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_TOPOS\_INDEX\_DENSE\_DENSE\_ARRAY\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_TOPOS\_INDEX\_DENSE\_DENSE\_ARRAY\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{dense__array_8h}{vt/topos/index/dense/dense\_array.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{base__index_8h}{vt/topos/index/base\_index.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context_8h}{vt/context/context.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{bits__packer_8h}{vt/utils/bits/bits\_packer.h}}"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1index}{index}}\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00062\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_afcd3d27f0c86b6c37540ae78f9afc2d1}{DenseIndexArray<IndexType,\ ndim>::DenseIndexArray}}(}
+\DoxyCodeLine{00063\ \ \ std::array<IndexType,\ ndim>\ in\_array}
+\DoxyCodeLine{00064\ )\ :\ \doxymbox{\hyperlink{structvt_1_1index_1_1_base_index}{BaseIndex}}(),\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}(in\_array)}
+\DoxyCodeLine{00065\ \{\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Idxs,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00069\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_afcd3d27f0c86b6c37540ae78f9afc2d1}{DenseIndexArray<IndexType,\ ndim>::DenseIndexArray}}(Idxs\&\&...\ init)}
+\DoxyCodeLine{00070\ \ \ :\ \doxymbox{\hyperlink{structvt_1_1index_1_1_base_index}{BaseIndex}}(),\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}(\{\{init...\}\})}
+\DoxyCodeLine{00071\ \{\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00074\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_afcd3d27f0c86b6c37540ae78f9afc2d1}{DenseIndexArray<IndexType,\ ndim>::DenseIndexArray}}(}
+\DoxyCodeLine{00075\ \ \ DenseIndexArraySingleInitTag,\ IndexType\ \textcolor{keyword}{const}\&\ init\_value}
+\DoxyCodeLine{00076\ )\ :\ \doxymbox{\hyperlink{structvt_1_1index_1_1_base_index}{BaseIndex}}()}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ =\ init\_value;}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00084\ IndexType\&\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ab157c3c1d228b385f2c7be5f78634d93}{DenseIndexArray<IndexType,\ ndim>::operator[]}}(IndexType\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}})\ \{}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[\doxymbox{\hyperlink{namespacevt_1_1index}{index}}];}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00089\ IndexType\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ab157c3c1d228b385f2c7be5f78634d93}{DenseIndexArray<IndexType,\ ndim>::operator[]}}(}
+\DoxyCodeLine{00090\ \ \ IndexType\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}}}
+\DoxyCodeLine{00091\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[\doxymbox{\hyperlink{namespacevt_1_1index}{index}}];}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00096\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aab1b5d089af92c070f2327bc15006251}{DenseIndexArray<IndexType,\ ndim>::get}}(IndexType\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[\doxymbox{\hyperlink{namespacevt_1_1index}{index}}];}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00101\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ae2999552165f16fc69a2940e0589819f}{DenseIndexArray<IndexType,\ ndim>::IndexSizeType}}}
+\DoxyCodeLine{00102\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aaf03d65faf2c1916de7309f2602ee13a}{DenseIndexArray<IndexType,\ ndim>::packedSize}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{return}\ ndim\ *\ \textcolor{keyword}{sizeof}(IndexType);}
+\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a2c47c2a4cb636879e03281d185e19fad}{DenseIndexArray<IndexType,\ ndim>::indexIsByteCopyable}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_abe8fc4be882d51e37404e44e87da5caa}{DenseIndexArray<IndexType,\ ndim>::foreach}}(\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ab44b9e5a65d28520268523fbe99f6a9d}{ApplyType}}\ fn)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ idx\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordflow}{foreach}(idx,\ fn);}
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_abe8fc4be882d51e37404e44e87da5caa}{DenseIndexArray<IndexType,\ ndim>::foreach}}(}
+\DoxyCodeLine{00119\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a6915511f6a82dff2522d6e8c2be20f2a}{ThisIndexType}}\ in\_max,\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ab44b9e5a65d28520268523fbe99f6a9d}{ApplyType}}\ fn}
+\DoxyCodeLine{00120\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00121\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a6915511f6a82dff2522d6e8c2be20f2a}{ThisIndexType}}\ max\ =\ in\_max;}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{auto}\ size\ =\ max.getSize();}
+\DoxyCodeLine{00123\ \ \ std::array<IndexType,\ ndim>\ vec\ =\ \{\{0\}\};}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{decltype}(size)\ sz\ =\ 0;\ sz\ <\ size;\ sz++)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ fn(\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a6915511f6a82dff2522d6e8c2be20f2a}{ThisIndexType}}(vec));}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vec[i]\ +\ 1\ <\ max[i])\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ vec[i]++;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ j\ =\ 0;\ j\ <\ i;\ j++)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ vec[j]\ =\ 0;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \}}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00139\ \doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a41531f28f011127ee1714452dd4debef}{DenseIndexArray<IndexType,\ ndim>::uniqueBits}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}}\ bits\{\};}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ nbits\ =\ (\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}})\ *\ 8)\ /\ ndim;}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a9d000b5dcc34456e43cbff50fafa3fb9}{vt::utils::BitPacker::setFieldDynamic}}(i*nbits,\ nbits,\ bits,\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]);}
+\DoxyCodeLine{00144\ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{return}\ bits;}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00149\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a6915511f6a82dff2522d6e8c2be20f2a}{DenseIndexArray<IndexType,\ ndim>::ThisIndexType}}}
+\DoxyCodeLine{00150\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ad9f18d4b0c0b5082c533286288c42529}{DenseIndexArray<IndexType,\ ndim>::uniqueBitsToIndex}}(\doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}}\ \textcolor{keyword}{const}\&\ bits)\ \{}
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{using\ }BitType\ =\ \doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a6915511f6a82dff2522d6e8c2be20f2a}{ThisIndexType}}\ idx\{\};}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ nbits\ =\ (\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{namespacevt_ab90f8a54e7d891ae93b9ee730526a1af}{UniqueIndexBitType}})\ *\ 8)\ /\ ndim;}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a0f6dd347c6375101ff5f4c9dd4e8413d}{vt::utils::BitPacker::getFieldDynamic<BitType>}}(i*nbits,\ nbits,\ bits);}
+\DoxyCodeLine{00157\ \ \ \ \ idx[i]\ =\ val;}
+\DoxyCodeLine{00158\ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ idx;}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00163\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a7a66b5cd270377310119da3d0c884224}{DenseIndexArray<IndexType,\ ndim>::DenseArraySizeType}}}
+\DoxyCodeLine{00164\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a96f8e639c73347b326a31a750a0f9e2d}{DenseIndexArray<IndexType,\ ndim>::getSize}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00165\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a7a66b5cd270377310119da3d0c884224}{DenseArraySizeType}}\ sz\ =\ 1;}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ sz\ *=\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i];}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordflow}{return}\ sz;}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00173\ std::string\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a102b9fa9d7a34a9a6630ab89eb9d8a7f}{DenseIndexArray<IndexType,\ ndim>::toString}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00174\ \ \ std::stringstream\ stream;}
+\DoxyCodeLine{00175\ \ \ stream\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ stream\ <<\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ <<\ (i\ !=\ ndim\ -\/\ 1\ ?\ \textcolor{stringliteral}{"{},"{}}\ :\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00178\ \ \ \}}
+\DoxyCodeLine{00179\ \ \ stream\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordflow}{return}\ stream.str();}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00184\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aa407d7e96709099c4a7ee179c65c627f}{DenseIndexArray<IndexType,\ ndim>::operator==}}(}
+\DoxyCodeLine{00185\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ \textcolor{keyword}{const}\&\ other}
+\DoxyCodeLine{00186\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ ndim\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ !=\ other.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i])\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00193\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00196\ IndexType\ \textcolor{keyword}{const}*\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a2bde995d206bb72e0f5973a78e100eea}{DenseIndexArray<IndexType,\ ndim>::raw}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}.data();}
+\DoxyCodeLine{00198\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a7d1d02c9c0a50822d63afeb3358a7a0f}{DenseIndexArray<IndexType,\ ndim>::operator<}}(}
+\DoxyCodeLine{00202\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ \textcolor{keyword}{const}\&\ other}
+\DoxyCodeLine{00203\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ ndim\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ <\ other.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i])\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00207\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ >\ other.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i])\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00212\ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00215\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArray<IndexType,\ ndim>::DenseIndexArrayType}}}
+\DoxyCodeLine{00216\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a2f63f2603e58cf017c07f11f9e233409}{DenseIndexArray<IndexType,\ ndim>::operator+}}(\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ \textcolor{keyword}{const}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00217\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ val;}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ val.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ =\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ +\ other.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i];}
+\DoxyCodeLine{00220\ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00225\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArray<IndexType,\ ndim>::DenseIndexArrayType}}}
+\DoxyCodeLine{00226\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a828670d9617980741517481c39b8212f}{DenseIndexArray<IndexType,\ ndim>::operator-\/}}(\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ \textcolor{keyword}{const}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00227\ \ \ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aec95c4ed1b4071d31d24142f02429dbd}{DenseIndexArrayType}}\ val;}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ val.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ =\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i]\ -\/\ other.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i];}
+\DoxyCodeLine{00230\ \ \ \}}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00232\ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{comment}{//\ special\ accessors\ (x,y,z,u,v,w)\ enabled\ depending\ on\ the\ number\ of\ dimensions}}
+\DoxyCodeLine{00235\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00236\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00237\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_afb97e872285111d25c53c14271482337}{DenseIndexArray<IndexType,\ ndim>::x}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[0];}
+\DoxyCodeLine{00239\ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00242\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00243\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_adb618b7b3c73964049ca1cf52769aaba}{DenseIndexArray<IndexType,\ ndim>::y}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[1];}
+\DoxyCodeLine{00245\ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00248\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00249\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_adae2902862a1b0f8ce9233509ee88f14}{DenseIndexArray<IndexType,\ ndim>::z}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[2];}
+\DoxyCodeLine{00251\ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00254\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00255\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a32e32ef9af6230368455466f85511280}{DenseIndexArray<IndexType,\ ndim>::u}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[3];}
+\DoxyCodeLine{00257\ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00260\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00261\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_aa10ffe2fbcfd5fd53102bde2e09349e3}{DenseIndexArray<IndexType,\ ndim>::v}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[4];}
+\DoxyCodeLine{00263\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ NumDimensionsType\ ndim>}
+\DoxyCodeLine{00266\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}>}
+\DoxyCodeLine{00267\ IndexType\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_ad3d9d8cd3b47b660cfb3f8e639d656d3}{DenseIndexArray<IndexType,\ ndim>::w}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[5];}
+\DoxyCodeLine{00269\ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexT,\ NumDimensionsType\ nd>}
+\DoxyCodeLine{00272\ std::ostream\&\ \doxymbox{\hyperlink{namespacevt_1_1index_ac2ff26e8cc95aa2c2a9843500d3173f9}{operator<<}}(}
+\DoxyCodeLine{00273\ \ \ std::ostream\&\ os,\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array}{::vt::index::DenseIndexArray<IndexT,nd>}}\ \textcolor{keyword}{const}\&\ idx}
+\DoxyCodeLine{00274\ )\ \{}
+\DoxyCodeLine{00275\ \ \ os\ <<\ \textcolor{stringliteral}{"{}idx("{}};}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nd;\ i++)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ os\ <<\ idx.\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a85e08cf36301f829ba9a15257c65f39c}{dims}}[i];}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ nd-\/1)\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00283\ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \}\}\ \ \textcolor{comment}{//\ end\ namespace\ vt::index}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacestd}{std}}\ \{}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IndexType,\ vt::index::NumDimensionsType\ ndim>}
+\DoxyCodeLine{00291\ \textcolor{keyword}{struct\ }hash<\doxymbox{\hyperlink{namespacevt}{vt}}::index::DenseIndexArray<IndexType,\ ndim>>\ \{}
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00293\ \ \ \doxymbox{\hyperlink{structstd_1_1hash_3_01vt_1_1index_1_1_dense_index_array_3_01_index_type_00_01ndim_01_4_01_4_a798deae86f6226a6cef0576171a7e07a}{operator()}}(\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array}{vt::index::DenseIndexArray<IndexType,\ ndim>}}\ \textcolor{keyword}{const}\&\ in)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ std::hash<IndexType>()(in[0]);}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 1;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ val\ +=\ std::hash<IndexType>()(in[i]);}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ \};}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_TOPOS\_INDEX\_DENSE\_DENSE\_ARRAY\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

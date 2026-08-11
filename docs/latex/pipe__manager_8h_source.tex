@@ -1,0 +1,168 @@
+\doxysection{pipe\+\_\+manager.\+h}
+\hypertarget{pipe__manager_8h_source}{}\label{pipe__manager_8h_source}\index{src/vt/pipe/pipe\_manager.h@{src/vt/pipe/pipe\_manager.h}}
+\doxymbox{\hyperlink{pipe__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pipe\_manager.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_PIPE\_PIPE\_MANAGER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_PIPE\_PIPE\_MANAGER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__common_8h}{vt/pipe/pipe\_common.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__state_8h}{vt/pipe/state/pipe\_state.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager_8fwd_8h}{vt/pipe/pipe\_manager.fwd.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager__tl_8h}{vt/pipe/pipe\_manager\_tl.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager__typed_8h}{vt/pipe/pipe\_manager\_typed.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{callback_8h}{vt/pipe/msg/callback.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{signal__holder_8h}{vt/pipe/signal/signal\_holder.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{callback__anon_8fwd_8h}{vt/pipe/callback/anon/callback\_anon.fwd.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{cb__raw__base_8h}{vt/pipe/callback/cb\_union/cb\_raw\_base.h}}"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__lifetime_8h}{vt/pipe/pipe\_lifetime.h}}"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{activefn_8h}{vt/activefn/activefn.h}}"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{proxy__objgroup_8h}{vt/objgroup/proxy/proxy\_objgroup.h}}"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{proxy__objgroup__elm_8h}{vt/objgroup/proxy/proxy\_objgroup\_elm.h}}"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}}\ \{}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_aa2cf0e54dc146056c077aba1aa2ae42b}{PipeManager}}}
+\DoxyCodeLine{00078\ \ \ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<PipeManager>,}
+\DoxyCodeLine{00079\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_t_l}{PipeManagerTL}},\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_typed}{PipeManagerTyped}}}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a221ce8bc0fc6639f43dad1e53a08c0d2}{GetMsgType}}\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}};}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_ab720c2580ecfd3ab36e49aeaaff64cc6}{Void}}\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_t_l_a8d394521df58abfd90c1d81c998f22e3}{V}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_aa2cf0e54dc146056c077aba1aa2ae42b}{PipeManager}}();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_aad60c922d604dd1b9ff47e428d265eed}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}PipeManager"{}};\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{template}\ <auto\ f,\ \textcolor{keyword}{typename}\ Target>}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}(Target\ target);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{template}\ <auto\ f>}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}();}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{template}\ <auto\ f,\ \textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}(ProxyT\ proxy);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ ContextT>}
+\DoxyCodeLine{00169\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adf5be37244448de106d6860fb61353e1}{makeFunc}}(}
+\DoxyCodeLine{00170\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58}{LifetimeEnum}}\ life,\ ContextT*\ \doxymbox{\hyperlink{namespacevt_1_1ctx}{ctx}},\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_base_a73fdf82ece0411b3dc644c99b763f7a9}{FuncMsgCtxType<MsgT,\ ContextT>}}\ fn}
+\DoxyCodeLine{00171\ \ \ );}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ContextT>}
+\DoxyCodeLine{00203\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a91ec013efbf41b818a2665436d5f0c4b}{makeFunc}}(}
+\DoxyCodeLine{00204\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58}{LifetimeEnum}}\ life,\ ContextT*\ \doxymbox{\hyperlink{namespacevt_1_1ctx}{ctx}},\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_base_ad8463823b6b4cfdb67c119d6d22e3bac}{FuncCtxType<ContextT>}}\ fn}
+\DoxyCodeLine{00205\ \ \ );}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00231\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adf5be37244448de106d6860fb61353e1}{makeFunc}}(\doxymbox{\hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58}{LifetimeEnum}}\ life,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_base_aa54eee64ab32a27777a672d49eb861f4}{FuncMsgType<MsgT>}}\ fn);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00252\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_adf5be37244448de106d6860fb61353e1}{makeFunc}}(\doxymbox{\hyperlink{namespacevt_1_1pipe_acb42b284378c0fdac1d7c6335dc26f58}{LifetimeEnum}}\ life,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_base_acd6f0c71f38f08d53f85e83b65406d77}{FuncVoidType}}\ fn);}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00262\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00263\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeSend<auto\ f>"{}})]]}
+\DoxyCodeLine{00264\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00274\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT,\ \textcolor{keyword}{typename}\ MsgT,\ ColHanType<ColT,MsgT>*\ f>}
+\DoxyCodeLine{00275\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeSend<auto\ f>"{}})]]}
+\DoxyCodeLine{00276\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}(\textcolor{keyword}{typename}\ ColT::ProxyType\ proxy);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT,\ \textcolor{keyword}{typename}\ MsgT,\ ColMemType<ColT,MsgT>\ f>}
+\DoxyCodeLine{00287\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeSend<auto\ f>"{}})]]}
+\DoxyCodeLine{00288\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a612b59953b949edc575577e313e3b187}{makeSend}}(\textcolor{keyword}{typename}\ ColT::ProxyType\ proxy);}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ObjMemType<ObjT,MsgT>\ f>}
+\DoxyCodeLine{00299\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeSend<auto\ f>"{}})]]}
+\DoxyCodeLine{00300\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_elm}{objgroup::proxy::ProxyElm<ObjT>}}\ proxy);}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00308\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00309\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeBcast<auto\ f>"{}})]]}
+\DoxyCodeLine{00310\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}();}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT,\ \textcolor{keyword}{typename}\ MsgT,\ ColHanType<ColT,MsgT>*\ f>}
+\DoxyCodeLine{00321\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeBcast<auto\ f>"{}})]]}
+\DoxyCodeLine{00322\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}(\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_t_l_af56c58cad882496e35f01227d4da3898}{ColProxyType<ColT>}}\ proxy);}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT,\ \textcolor{keyword}{typename}\ MsgT,\ ColMemType<ColT,MsgT>\ f>}
+\DoxyCodeLine{00333\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeBcast<auto\ f>"{}})]]}
+\DoxyCodeLine{00334\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a1fefc503b58bbdf791e76a6c8f339df6}{makeBcast}}(\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_t_l_af56c58cad882496e35f01227d4da3898}{ColProxyType<ColT>}}\ proxy);}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00344\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ObjMemType<ObjT,MsgT>\ f>}
+\DoxyCodeLine{00345\ \ \ [[deprecated(\textcolor{stringliteral}{"{}Replace\ with\ call\ to\ makeBcast<auto\ f>"{}})]]}
+\DoxyCodeLine{00346\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{objgroup::proxy::Proxy<ObjT>}}\ proxy);}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00356\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00357\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_aaddd05d4eec8fbcbe8134f9c907a7306}{triggerSendBack}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}},\ MsgT*\ data);}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_ae7b6be748d81eeeddb0cf84133bb8a7c}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a55c4e1e68f74a2a0796a24ea06711563}{group\_id\_}};}
+\DoxyCodeLine{00362\ \ \ \}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00366\ \ \ \doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{GroupType}}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a55c4e1e68f74a2a0796a24ea06711563}{group\_id\_}}\ =\ no\_group;}
+\DoxyCodeLine{00367\ \};}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::pipe\ */}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager__base_8impl_8h}{vt/pipe/pipe\_manager\_base.impl.h}}"{}}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager__tl_8impl_8h}{vt/pipe/pipe\_manager\_tl.impl.h}}"{}}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager__typed_8impl_8h}{vt/pipe/pipe\_manager\_typed.impl.h}}"{}}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager_8impl_8h}{vt/pipe/pipe\_manager.impl.h}}"{}}}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_PIPE\_PIPE\_MANAGER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

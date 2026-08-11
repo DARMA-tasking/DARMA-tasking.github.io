@@ -1,0 +1,157 @@
+\doxysection{bits\+\_\+packer.\+impl.\+h}
+\hypertarget{bits__packer_8impl_8h_source}{}\label{bits__packer_8impl_8h_source}\index{src/vt/utils/bits/bits\_packer.impl.h@{src/vt/utils/bits/bits\_packer.impl.h}}
+\doxymbox{\hyperlink{bits__packer_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bits\_packer.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_BITS\_BITS\_PACKER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_BITS\_BITS\_PACKER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1utils}{utils}}\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ gen\_bit\_mask(len)\ ((static\_cast<uint64\_t>(1)\ <<\ (len))\ -\/\ 1)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1utils_a1ec7e8145b223cf02146864880cc7fad}{FieldType}}\ =\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a23024285425933c1f10c8fc3942f9beb}{BitPacker::FieldType}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00058\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a0bbc37c21a19e6c5311c6e9282a1e6f8}{BitPacker::FieldUnsignedType}}}
+\DoxyCodeLine{00059\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a6806b7d631e1fbcd44e50b02df8f93d6}{BitPacker::getMsbBit}}(BitField\ \textcolor{keyword}{const}\&\ field)\ \{}
+\DoxyCodeLine{00060\ \ \ uint64\_t\ field\_copy\ =\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(field);}
+\DoxyCodeLine{00061\ \ \ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a0bbc37c21a19e6c5311c6e9282a1e6f8}{FieldUnsignedType}}\ r\ =\ 0;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordflow}{while}\ (field\_copy\ >>=\ 1)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ r++;}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}\ <FieldType\ start,\ FieldType\ len,\ \textcolor{keyword}{typename}\ BitType,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00069\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00070\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a21b7e6fed5cddc8c74ac1de98fe1de3e}{BitPacker::bitorSetField}}(BitField\&\ field,\ BitType\ \textcolor{keyword}{const}\&\ segment)\ \{}
+\DoxyCodeLine{00071\ \ \ field\ |=\ segment\ <<\ start;}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <FieldType\ start,\ FieldType\ len,\ \textcolor{keyword}{typename}\ BitType,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00075\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ BitType}
+\DoxyCodeLine{00076\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_afe31d75cc9a9198eb732b759424a0535}{BitPacker::getField}}(BitField\ \textcolor{keyword}{const}\&\ field)\ \{}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a0f6dd347c6375101ff5f4c9dd4e8413d}{getFieldDynamic<BitType,\ BitField>}}(start,\ len,\ field);}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BitType,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00081\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ BitType\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a0f6dd347c6375101ff5f4c9dd4e8413d}{BitPacker::getFieldDynamic}}(}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a23024285425933c1f10c8fc3942f9beb}{FieldType}}\ start,\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a23024285425933c1f10c8fc3942f9beb}{FieldType}}\ len,\ BitField\ \textcolor{keyword}{const}\&\ field}
+\DoxyCodeLine{00083\ )\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ comp\ =\ field\ >>\ start;}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ ::fmt::print(}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ \ \ "{}start=\{\},\ len=\{\},\ field=\{\},\ comp=\{\},\ sizeof(BitField)=\{\},\ masked=\{\},"{}}}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ \ \ "{}mask=\{\}\(\backslash\)n"{},}}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ \ \ start,\ len,\ field,\ comp,\ sizeof(BitField),\ comp\ \&\ gen\_bit\_mask(len),}}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ \ \ gen\_bit\_mask(len)}}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(len)\ <\ \textcolor{keyword}{sizeof}(BitField)\ *\ 8\ ?}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{static\_cast<}BitType\textcolor{keyword}{>}(comp\ \&\ \doxymbox{\hyperlink{bits__packer_8impl_8h_a63bfbc9fd2b85de0d18e4a8d4739be50}{gen\_bit\_mask}}(len))\ :}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{static\_cast<}BitType\textcolor{keyword}{>}(comp);}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{template}\ <FieldType\ start,\ FieldType\ len,\ \textcolor{keyword}{typename}\ BitType,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00097\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00098\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a4bffe5bd05d11955016e5f8f9161893b}{BitPacker::setField}}(BitField\&\ field,\ BitType\ \textcolor{keyword}{const}\&\ segment)\ \{}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \#if\ vt\_check\_enabled(bit\_check\_overflow)}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ seg\_msb\_bit\ =\ get\_msb\_bit(segment);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//fmt::print("{}size=\{\},\ high\ bit=\{\}\(\backslash\)n"{},\ sizeof(BitType)*8,\ seg\_msb\_bit);}}
+\DoxyCodeLine{00102\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ seg\_msb\_bit\ <=\ len,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}bit\_check\_overflow:\ value\ in\ segment\ overflows\ specified\ bit\ length"{}}}
+\DoxyCodeLine{00105\ \ \ \ \ );}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a9d000b5dcc34456e43cbff50fafa3fb9}{BitPacker::setFieldDynamic<BitType,\ BitField>}}(}
+\DoxyCodeLine{00109\ \ \ \ \ start,\ len,\ field,\ segment}
+\DoxyCodeLine{00110\ \ \ );}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ BitType,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00114\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00115\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a9d000b5dcc34456e43cbff50fafa3fb9}{BitPacker::setFieldDynamic}}(}
+\DoxyCodeLine{00116\ \ \ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a23024285425933c1f10c8fc3942f9beb}{FieldType}}\ start,\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_a23024285425933c1f10c8fc3942f9beb}{FieldType}}\ len,\ BitField\&\ field,\ BitType\ \textcolor{keyword}{const}\&\ segment}
+\DoxyCodeLine{00117\ )\ \{}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ make\_unsigned\ UB\ before\ C++20\ for\ non-\/integral\ or\ bool\ types\ (ill-\/formed\ after\ C++20)}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{static\_assert}(std::is\_integral<BitField>::value\ \&\&\ !std::is\_same<BitField,\ bool>::value,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BitField\ must\ be\ non-\/bool\ integral\ type"{}});}
+\DoxyCodeLine{00121\ \ \ \textcolor{comment}{//\ sizeof(UnsignedBitField)\ is\ guaranteed\ to\ be\ the\ same\ as\ sizeof(BitField)}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{using\ }UnsignedBitField\ =\ std::make\_unsigned\_t<BitField>;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ nbits\ =\ (\textcolor{keyword}{sizeof}(BitField)\ *\ 8)\ -\/\ len;}
+\DoxyCodeLine{00124\ \ \ field\ =\ field\ \&\ \string~(\doxymbox{\hyperlink{bits__packer_8impl_8h_a63bfbc9fd2b85de0d18e4a8d4739be50}{gen\_bit\_mask}}(len)\ <<\ start);}
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{auto}\ seg\ =\ \doxymbox{\hyperlink{namespacevt_1_1utils_a560037eb9ecba6bc9997b33226b5460e}{bit\_cast<UnsignedBitField>}}(\textcolor{keyword}{static\_cast<}BitField\textcolor{keyword}{>}(segment));}
+\DoxyCodeLine{00126\ \ \ UnsignedBitField\ bits\ =\ ((seg\ <<\ nbits)\ >>\ nbits)\ <<\ start;}
+\DoxyCodeLine{00127\ \ \ field\ =\ field\ |\ \doxymbox{\hyperlink{namespacevt_1_1utils_a560037eb9ecba6bc9997b33226b5460e}{bit\_cast<BitField>}}(\ bits\ );}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}\ <FieldType\ start,\ FieldType\ len,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00131\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00132\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_ab5881dc40c79ea4043121a2394e603bc}{BitPacker::boolSetField}}(BitField\&\ field,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ set\_value)\ \{}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordflow}{if}\ (set\_value)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ field\ |=\ 1UL\ <<\ start;}
+\DoxyCodeLine{00135\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ field\ \&=\ \string~(1UL\ <<\ start);}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{template}\ <FieldType\ start,\ FieldType\ len,\ \textcolor{keyword}{typename}\ BitField>}
+\DoxyCodeLine{00141\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00142\ \doxymbox{\hyperlink{structvt_1_1utils_1_1_bit_packer_ad913a3121b60959166b1fba7de596cff}{BitPacker::boolGetField}}(BitField\ \textcolor{keyword}{const}\&\ field)\ \{}
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{//\ return\ field\ \&\ (1\ <<\ start);}}
+\DoxyCodeLine{00144\ \ \ BitField\ field\_copy\ =\ field;}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_set\ =\ field\_copy\ \&\ (1UL\ <<\ start);}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordflow}{return}\ is\_set;}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::utils\ */}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_BITS\_BITS\_PACKER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

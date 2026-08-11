@@ -1,0 +1,174 @@
+\doxysection{kokkos\+\_\+unordered\+\_\+map\+\_\+serialize.\+h}
+\hypertarget{kokkos__unordered__map__serialize_8h_source}{}\label{kokkos__unordered__map__serialize_8h_source}\index{lib/checkpoint/src/checkpoint/container/kokkos\_unordered\_map\_serialize.h@{lib/checkpoint/src/checkpoint/container/kokkos\_unordered\_map\_serialize.h}}
+\doxymbox{\hyperlink{kokkos__unordered__map__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kokkos\_unordered\_map\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_KOKKOS\_UNORDERED\_MAP\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_KOKKOS\_UNORDERED\_MAP\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{allocator_8h}{checkpoint/dispatch/allocator.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2dispatch_8h}{checkpoint/dispatch/dispatch.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{reconstructor_8h}{checkpoint/dispatch/reconstructor.h}}"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_ENABLED}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <Kokkos\_UnorderedMap.hpp>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value,\ \textcolor{keyword}{typename}\ Device,}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{typename}\ Hasher,\ \textcolor{keyword}{typename}\ EqualTo}
+\DoxyCodeLine{00062\ >}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ serializeKokkosUnorderedMapElems(}
+\DoxyCodeLine{00064\ \ \ Serializer\&\ s,}
+\DoxyCodeLine{00065\ \ \ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>\&\ map}
+\DoxyCodeLine{00066\ )\ \{}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{using\ }mapSizeType\ =}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{typename}\ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>::size\_type;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ host\_map\ =\ Kokkos::create\_mirror(map);}
+\DoxyCodeLine{00071\ \ \ Kokkos::deep\_copy(host\_map,map);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordflow}{for}\ (mapSizeType\ i\ =\ 0;\ i\ <\ map.capacity();\ i++)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ Key\ keyAtI\ =\ host\_map.key\_at(i);}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{if}\ (host\_map.exists(keyAtI))\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ Value\ val\ =\ host\_map.value\_at(host\_map.find(keyAtI));}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ s\ |\ keyAtI;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value,\ \textcolor{keyword}{typename}\ Device,}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{typename}\ Hasher,\ \textcolor{keyword}{typename}\ EqualTo}
+\DoxyCodeLine{00087\ >}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ deserializeInsertElems(}
+\DoxyCodeLine{00089\ \ \ Serializer\&\ s,\ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>\&\ map,}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{typename}\ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>::size\_type}
+\DoxyCodeLine{00091\ \ \ \ \ map\_size,}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{typename}\ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>::size\_type}
+\DoxyCodeLine{00093\ \ \ \ \ map\_capacity}
+\DoxyCodeLine{00094\ )\ \{}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{using\ }KeyAlloc\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_allocator}{dispatch::Allocator<Key>}};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{using\ }ValueAlloc\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_allocator}{dispatch::Allocator<Value>}};}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{using\ }KeyReconstructor\ =}
+\DoxyCodeLine{00098\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{dispatch::Reconstructor<typename\ dispatch::CleanType<Key>::CleanT}}>;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{using\ }ValReconstructor\ =}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{dispatch::Reconstructor<typename\ dispatch::CleanType<Value>::CleanT}}>;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ resize\ unordered\ map}}
+\DoxyCodeLine{00103\ \ \ map.rehash(map\_capacity);}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{auto}\ host\_map\ =\ Kokkos::create\_mirror(map);}
+\DoxyCodeLine{00105\ \ \ host\_map.rehash(map\_capacity);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ KeyAlloc\ keyAllocated;}
+\DoxyCodeLine{00108\ \ \ ValueAlloc\ valAllocated;}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{for}\ (\doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ i\ =\ 0;\ i\ <\ map\_size;\ i++)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ KeyReconstructor::construct(keyAllocated.buf);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ ValReconstructor::construct(valAllocated.buf);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ s\ |\ *key;}
+\DoxyCodeLine{00114\ \ \ \ \ s\ |\ *val;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ host\_map.insert(std::move(*key),\ std::move(*val));}
+\DoxyCodeLine{00117\ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ Kokkos::deep\_copy(map,host\_map);}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value,\ \textcolor{keyword}{typename}\ Device,}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{typename}\ Hasher,\ \textcolor{keyword}{typename}\ EqualTo}
+\DoxyCodeLine{00125\ >}
+\DoxyCodeLine{00126\ \textcolor{keyword}{typename}\ std::enable\_if\_t<}
+\DoxyCodeLine{00127\ \ \ not\ checkpoint::is\_footprinter\_v<SerializerT>,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00128\ >\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(}
+\DoxyCodeLine{00129\ \ \ SerializerT\&\ s,}
+\DoxyCodeLine{00130\ \ \ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>\&\ map}
+\DoxyCodeLine{00131\ )\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{using\ }UnorderedMapType\ =}
+\DoxyCodeLine{00133\ \ \ \ \ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{typename}\ UnorderedMapType::size\_type\ size\ =\ \doxymbox{\hyperlink{namespacecheckpoint_a3359595d5a4c6fcf5fc95069c71f869b}{serializeContainerSize}}(s,\ map);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{typename}\ UnorderedMapType::size\_type\ capacity\ =\ \doxymbox{\hyperlink{namespacecheckpoint_abb25020fd55429c701342e79205a8d9a}{serializeContainerCapacity}}(s,\ map);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ deserializeInsertElems(s,\ map,\ size,\ capacity);}
+\DoxyCodeLine{00140\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ serializeKokkosUnorderedMapElems(s,\ map);}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value,\ \textcolor{keyword}{typename}\ Device,}
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{typename}\ Hasher,\ \textcolor{keyword}{typename}\ EqualTo}
+\DoxyCodeLine{00148\ >}
+\DoxyCodeLine{00149\ \textcolor{keyword}{typename}\ std::enable\_if\_t<}
+\DoxyCodeLine{00150\ \ \ checkpoint::is\_footprinter\_v<SerializerT>,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00151\ >\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(}
+\DoxyCodeLine{00152\ \ \ SerializerT\&\ s,}
+\DoxyCodeLine{00153\ \ \ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>\&\ map}
+\DoxyCodeLine{00154\ )\ \{}
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{using\ }UnorderedMapType\ =}
+\DoxyCodeLine{00156\ \ \ \ \ Kokkos::UnorderedMap<Key,\ Value,\ Device,\ Hasher,\ EqualTo>;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{typename}\ UnorderedMapType::size\_type\ size\ =\ \doxymbox{\hyperlink{namespacecheckpoint_a3359595d5a4c6fcf5fc95069c71f869b}{serializeContainerSize}}(s,\ map);}
+\DoxyCodeLine{00159\ \ \ \textcolor{keyword}{typename}\ UnorderedMapType::size\_type\ capacity\ =\ \doxymbox{\hyperlink{namespacecheckpoint_abb25020fd55429c701342e79205a8d9a}{serializeContainerCapacity}}(s,\ map);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ s.addBytes(capacity\ *\ \textcolor{keyword}{sizeof}(Key)\ +\ size\ *\ \textcolor{keyword}{sizeof}(Value));}
+\DoxyCodeLine{00162\ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \}\ \textcolor{comment}{//\ namespace\ checkpoint}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*MAGISTRATE\_KOKKOS\_ENABLED*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_KOKKOS\_UNORDERED\_MAP\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,357 @@
+\doxysection{view\+\_\+equality.\+h}
+\hypertarget{view__equality_8h_source}{}\label{view__equality_8h_source}\index{lib/checkpoint/src/checkpoint/container/view\_equality.h@{lib/checkpoint/src/checkpoint/container/view\_equality.h}}
+\doxymbox{\hyperlink{view__equality_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ view\_equality.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_EQUALITY\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_EQUALITY\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traits__extract_8h}{checkpoint/container/view\_traits\_extract.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traverse__manual_8h}{checkpoint/container/view\_traverse\_manual.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traverse__ndim_8h}{checkpoint/container/view\_traverse\_ndim.h}}"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_ENABLED}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <Kokkos\_Core.hpp>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynamicView.hpp>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynRankView.hpp>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Macro\ used\ for\ convenience\ to\ apply\ eq\ operator,\ obtain\ return\ result,\ and}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ then\ return\ false\ if\ the\ eq\ operator\ returns\ false.\ This\ enables\ ViewEquality}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ to\ terminate\ when\ it\ find\ inequality\ deep\ in\ the\ stack.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ CHECKPOINT\_APPLY\_OP(eq,\ opA,\ opB,\ reveal)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ if\ (!eq(opA,opB))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ std::cout\ <<\ "{}Failure\ on\ equal\ op:\ "{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{}\(\backslash\)n\(\backslash\)t\ info=("{}\ <<\ \#reveal\ <<\ "{},\ "{}\ <<\ reveal\ <<\ "{})"{}\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{}\(\backslash\)n\(\backslash\)t\ opA=("{}\ \ <<\ \#opA\ \ \ \ <<\ "{},\ "{}\ <<\ opA\ \ \ \ <<\ "{})"{}\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{}\(\backslash\)n\(\backslash\)t\ !="{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{}\(\backslash\)n\(\backslash\)t\ opB=("{}\ \ <<\ \#opB\ \ \ \ <<\ "{},\ "{}\ <<\ opB\ \ \ \ <<\ "{})\(\backslash\)n"{};\ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ false;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \}\ while\ (0);}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ Implement\ a\ super\ simple\ std::tuple<...>\ printer\ for\ the\ above\ overload}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ when\ the\ index\ as\ a\ std::tuple<...>\ is\ passed\ to\ reveal.\ This\ allows\ the}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ above\ function\ to\ print\ out\ the\ index\ that\ fails\ the\ quality\ test:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacestd}{std}}\ \{}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Ch,\ \textcolor{keyword}{typename}\ Tr,\ \textcolor{keyword}{typename}\ Tuple,\ std::size\_t...\ Is>}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ printTuple(}
+\DoxyCodeLine{00096\ \ \ std::basic\_ostream<Ch,Tr>\&\ os,\ Tuple\ \textcolor{keyword}{const}\&\ t,\ std::index\_sequence<Is...>}
+\DoxyCodeLine{00097\ )\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{using\ }UnFoldType\ =\ \textcolor{keywordtype}{int}[];}
+\DoxyCodeLine{00099\ \ \ (void)UnFoldType\{((os\ <<\ (Is\ ==\ 0\ ?\ \textcolor{stringliteral}{"{}"{}}\ :\ \textcolor{stringliteral}{"{},\ "{}})\ <<\ std::get<Is>(t)),\ 0)...\};}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Ch,\ \textcolor{keyword}{typename}\ Tr,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00103\ std::basic\_ostream<Ch,\ Tr>\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch_aae058a2a3e25f1fabb15d7915495c880}{operator<<}}(}
+\DoxyCodeLine{00104\ \ \ std::basic\_ostream<Ch,\ Tr>\&\ os,\ std::tuple<Args...>\ \textcolor{keyword}{const}\&\ t}
+\DoxyCodeLine{00105\ )\ \{}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ size\ =\ std::tuple\_size<std::tuple<Args...>>::value;}
+\DoxyCodeLine{00107\ \ \ os\ <<\ \textcolor{stringliteral}{"{}("{}};}
+\DoxyCodeLine{00108\ \ \ printTuple(os,\ t,\ std::make\_index\_sequence<size>\{\});}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{return}\ os\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \}\ \textcolor{comment}{/*\ end\ namespace\ std\ */}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ Impl\ class\ in\ detail\ for\ comparing\ static\ to\ dynamic\ extents\ on\ a\ single\ view}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00119\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00120\ \textcolor{keyword}{struct\ }ViewEqualityStatic\ \{}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ Compare\ the\ static\ dimension\ to\ the\ dynamic\ extent:\ it\ must\ always\ be}}
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ equal\ for\ correctness}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keywordtype}{unsigned}\ M,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<T*[N][M],Args...>\ \textcolor{keyword}{const}\&\ v,\ Callable\ eq)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{using\ }ExtentType\ =\ \textcolor{keyword}{decltype}(v.extent(1));}
+\DoxyCodeLine{00127\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(1),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(N),\ N);}
+\DoxyCodeLine{00128\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(2),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(M),\ M);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keywordtype}{unsigned}\ M,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<T[N][M],Args...>\ \textcolor{keyword}{const}\&\ v,\ Callable\ eq)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{using\ }ExtentType\ =\ \textcolor{keyword}{decltype}(v.extent(1));}
+\DoxyCodeLine{00135\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(0),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(N),\ N);}
+\DoxyCodeLine{00136\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(1),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(M),\ M);}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<T**[N],Args...>\ \textcolor{keyword}{const}\&\ v,\ Callable\ eq)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{using\ }ExtentType\ =\ \textcolor{keyword}{decltype}(v.extent(1));}
+\DoxyCodeLine{00143\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(2),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(N),\ N);}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<T*[N],Args...>\ \textcolor{keyword}{const}\&\ v,\ Callable\ eq)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{using\ }ExtentType\ =\ \textcolor{keyword}{decltype}(v.extent(1));}
+\DoxyCodeLine{00150\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(1),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(N),\ N);}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<T[N],Args...>\ \textcolor{keyword}{const}\&\ v,\ Callable\ eq)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{using\ }ExtentType\ =\ \textcolor{keyword}{decltype}(v.extent(1));}
+\DoxyCodeLine{00157\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v.extent(0),\ \textcolor{keyword}{static\_cast<}ExtentType\textcolor{keyword}{>}(N),\ N);}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ AnyT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::View<AnyT,Args...>\ \textcolor{keyword}{const}\&,\ Callable)\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ No\ static\ dimension\ to\ check\ against\ dynamic\ dimension,\ return\ true}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00165\ \ \ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ AnyT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ operator()(}
+\DoxyCodeLine{00169\ \ \ \ \ Kokkos::Experimental::DynamicView<AnyT,Args...>\ \textcolor{keyword}{const}\&,\ Callable}
+\DoxyCodeLine{00170\ \ \ )\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{comment}{//\ No\ static\ dimension\ to\ check\ against\ dynamic\ dimension,\ return\ true}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ AnyT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{bool}\ operator()(Kokkos::DynRankView<AnyT,Args...>\ \textcolor{keyword}{const}\&,\ Callable)\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ No\ static\ dimension\ to\ check\ against\ dynamic\ dimension,\ return\ true}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00179\ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{struct\ }DefaultEQ\ \{}
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{bool}\ operator()(T\&\&\ a,\ T\&\&\ b)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ ==\ b;}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ \};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint::detail\ */}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *==============================================================================}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ Check\ equality\ of\ two\ views:\ meta-\/data,\ internal\ data,\ etc.}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ *\ \ \ ==========\ Example\ w/default\ equality\ operator:\ =================}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ \ \ \ \ checkpoint::ViewEquality<ViewT>::compare(view1,view2);}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ *\ \ \ ==========\ Example\ w/user-\/specified\ equality\ operator:\ ==========}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ *\ \ \ \ \ struct\ EqFunctor\ \{}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ *\ \ \ \ \ \ \ template\ <typename\ T>}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ *\ \ \ \ \ \ \ bool\ operator()(T\&\&\ a,\ T\&\&\ b)\ const\ \{}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ return\ a\ ==\ b;}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *\ \ \ \ \ \};}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *\ \ \ \ \ checkpoint::ViewEquality<ViewT>::template\ compare<EqFunctor>(view1,view2);}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ *\ \ Note:\ if\ you\ specify\ your\ own\ equality\ functor,\ it\ needs\ to\ handle\ l-\/values}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ *\ \ and\ r-\/values\ based\ on\ how\ ViewEquality\ uses\ it\ (so\ use\ a\ universal\ reference}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ *\ \ as\ above\ or\ one\ may\ write\ multiple\ overloads\ for\ each\ type\ of}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ *\ \ reference).\ You\ can\ also\ specify\ a\ lambda\ or\ even\ two\ lambdas,\ one\ typed}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *\ \ with\ the\ underlying\ data\ type\ of\ the\ view.}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ \ Depending\ on\ what\ your\ equality\ functor\ does,\ the\ comparison\ code\ will\ not}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ *\ \ stop\ when\ (in)equality\ is\ determined\ unless\ the\ functor\ returns\ false.}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ *==============================================================================}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ ViewU\ =\ ViewT>}
+\DoxyCodeLine{00228\ \textcolor{keyword}{struct\ }ViewEquality\ \{}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{using\ }DataType\ \ \ \ \ =\ \textcolor{keyword}{typename}\ checkpoint::ViewGetType<ViewT>::DataType;}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{using\ }CountDimType\ =\ checkpoint::CountDims<ViewT>;}
+\DoxyCodeLine{00231\ \ \ \textcolor{keyword}{using\ }BaseType\ \ \ \ \ =\ \textcolor{keyword}{typename}\ CountDimType::BaseT;}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ \ \ *\ Static\ check\ on\ the\ layout\ of\ the\ two\ views\ in\ question}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keyword}{using\ }LayoutT\ =\ \textcolor{keyword}{typename}\ ViewT::array\_layout;}
+\DoxyCodeLine{00237\ \ \ \textcolor{keyword}{using\ }LayoutU\ =\ \textcolor{keyword}{typename}\ ViewU::array\_layout;}
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{//\ Do\ the\ static\ check\ right\ here:\ should\ break\ in\ instantiation\ if\ ViewT\ and}}
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{//\ ViewU\ do\ not\ have\ the\ same\ layout}}
+\DoxyCodeLine{00240\ \ \ \textcolor{keyword}{static\_assert}(std::is\_same<LayoutT,\ LayoutU>::value,\ \textcolor{stringliteral}{"{}Must\ be\ same\ layout"{}});}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ \ \ *\ This\ is\ the\ main\ compare\ call:\ it\ compares\ between\ two\ views\ the\ statically}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ \ \ *\ specified\ extents\ in\ the\ type\ wrt\ to\ the\ dyanmic\ extents,\ extent\ equality}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ \ \ *\ across\ two\ views,\ the\ meta-\/data\ in\ the\ view\ (label,span,etc.),\ and\ the}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ \ \ *\ actual\ internal\ data\ inside\ the\ views\ by\ invoking\ the\ quality\ functor}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DataEq\ =\ detail::DefaultEQ,\ \textcolor{keyword}{typename}\ MetaEq\ =\ DataEq>}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compare(}
+\DoxyCodeLine{00250\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ v1,\ ViewU\ \textcolor{keyword}{const}\&\ v2,\ DataEq\ eqd\ =\ \{\},\ MetaEq\ eqm\ =\ \{\}}
+\DoxyCodeLine{00251\ \ \ )\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ Check\ static\ dimension\ wrt\ to\ dynamic\ extents\ for\ both\ views}}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ static\_v1\_ret\ \ \ =\ compareStaticDim(v1,\ eqm);}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{if}\ (!static\_v1\_ret)\ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ static\_v2\_ret\ \ \ =\ compareStaticDim(v2,\ eqm);}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{if}\ (!static\_v2\_ret)\ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ Compare\ the\ extents\ of\ v1\ and\ v2}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ extent\_test\_ret\ =\ compareExtents(v1,\ v2,\ eqm);}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{if}\ (!extent\_test\_ret)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{comment}{//\ Compare\ the\ meta-\/data\ for\ v1\ and\ v2}}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ meta\_test\_ret\ \ \ =\ compareMeta(v1,\ v2,\ eqm);}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (!meta\_test\_ret)\ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{comment}{//\ Compare\ the\ actual\ data\ in\ v1\ and\ v2}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ data\_test\_ret\ \ \ =\ compareData(v1,\ v2,\ eqd);}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordflow}{if}\ (!data\_test\_ret)\ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00267\ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ *\ This\ compares\ the\ equality\ for\ a\ single\ view\ of\ the\ static\ type-\/specified}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ \ \ *\ extents\ to\ the\ dynamic\ extents\ to\ ensure\ equality}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EqT\ =\ detail::DefaultEQ>}
+\DoxyCodeLine{00274\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compareStaticDim(ViewT\ \textcolor{keyword}{const}\&\ v1,\ EqT\ c\ =\ \{\})\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ detail::ViewEqualityStatic<ViewT,EqT>\ static\_eq;}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{return}\ static\_eq.operator()(v1,c);}
+\DoxyCodeLine{00277\ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ \ \ *\ This\ compares\ the\ extents\ of\ two\ views,\ including\ the\ static\ and\ dynamic}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ \ \ *\ extents}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00283\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EqT\ =\ detail::DefaultEQ>}
+\DoxyCodeLine{00284\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compareExtents(ViewT\ \textcolor{keyword}{const}\&\ v1,\ ViewU\ \textcolor{keyword}{const}\&\ v2,\ EqT\ eq\ =\ \{\})\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ndims\_v1\ =\ CountDims<ViewT>::numDims(v1);}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ndims\_v2\ =\ CountDims<ViewU>::numDims(v2);}
+\DoxyCodeLine{00287\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ ndims\_v1,\ ndims\_v2,\ \textcolor{stringliteral}{"{}num\ dims\ equal"{}});}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ ndims\_v1;\ i++)\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v1.extent(i),\ v2.extent(i),\ i);}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00292\ \ \ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ \ \ *\ This\ compares\ the\ view\ meta-\/data:\ size,\ label,\ contig,\ span}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00297\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EqT\ =\ detail::DefaultEQ>}
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compareMeta(ViewT\ \textcolor{keyword}{const}\&\ v1,\ ViewU\ \textcolor{keyword}{const}\&\ v2,\ EqT\ eq\ =\ \{\})\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v1.label(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ v2.label(),\ \textcolor{stringliteral}{"{}label"{}});}
+\DoxyCodeLine{00300\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v1.size(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2.size(),\ \textcolor{stringliteral}{"{}size"{}});}
+\DoxyCodeLine{00301\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v1.span\_is\_contiguous(),\ v2.span\_is\_contiguous(),\ \textcolor{stringliteral}{"{}contig"{}});}
+\DoxyCodeLine{00302\ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ v1.span(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2.span(),\ \textcolor{stringliteral}{"{}span"{}});}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00304\ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ \ \ *\ This\ compares\ the\ N-\/D\ internal\ data\ between\ two\ inputs\ that\ may\ be\ a}}
+\DoxyCodeLine{00308\ \textcolor{comment}{\ \ \ *\ Kokkos::View<T>\ or\ Kokkos::DynamicView<T>\ (or\ conform\ to\ the\ interface).\ It}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ \ \ *\ recursively\ traverses\ both\ of\ them\ and\ applies\ a\ supplied\ operator\ by}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ \ \ *\ essentially\ zipping\ the\ elements}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00312\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EqT\ =\ detail::DefaultEQ>}
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ compareData(ViewT\ \textcolor{keyword}{const}\&\ v1,\ ViewU\ \textcolor{keyword}{const}\&\ v2,\ EqT\ eq)\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keyword}{using\ }checkpoint::TraverseRecursive;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keyword}{using\ }TupleType\ \ \ \ \ =\ std::tuple<typename\ ViewT::host\_mirror\_type,typename\ ViewT::host\_mirror\_type>;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ dims\ =\ CountDimType::dynamic;}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{using\ }RecurType\ \ \ \ \ =\ TraverseRecursive<TupleType,DataType,dims>;}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keyword}{using\ }IndexType\ \ \ \ \ =\ \textcolor{keyword}{typename}\ RecurType::IndexType;}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{comment}{//\ Extract\ the\ index\ type\ above\ with\ the\ default\ (phony)\ op\ to\ extract\ the}}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{//\ IndexType,\ which\ is\ needed\ below\ without\ using\ "{}auto"{}\ for\ lambda}}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{comment}{//\ parameters,\ which\ I\ am\ trying\ to\ avoid.}}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{auto}\ fn\ =\ [eq](IndexType\ index,\ BaseType\&\ elm1,\ BaseType\&\ elm2)\{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_equal\ =\ eq(elm1,elm2);}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!is\_equal)\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ CHECKPOINT\_APPLY\_OP(eq,\ elm1,\ elm2,\ index);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is\_equal;}
+\DoxyCodeLine{00332\ \ \ \ \ \};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{comment}{//\ Returns\ the\ number\ of\ comparisons\ in\ the\ inner\ data\ that\ returned\ false}}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keyword}{auto}\ host\_v1\ =\ Kokkos::create\_mirror\_view\_and\_copy(Kokkos::HostSpace(),v1);}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keyword}{auto}\ host\_v2\ =\ Kokkos::create\_mirror\_view\_and\_copy(Kokkos::HostSpace(),v2);}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{using\ }FnT\ =\ \textcolor{keyword}{decltype}(fn);}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ neq\ =\ TraverseRecursive<TupleType,DataType,dims,FnT>::apply(}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ std::make\_tuple(host\_v1,host\_v2),fn}
+\DoxyCodeLine{00340\ \ \ \ \ );}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{return}\ neq\ ==\ 0;}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \};}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*MAGISTRATE\_KOKKOS\_ENABLED*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_EQUALITY\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

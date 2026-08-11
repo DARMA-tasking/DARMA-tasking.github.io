@@ -1,0 +1,177 @@
+\doxysection{phase\+\_\+manager.\+h}
+\hypertarget{phase__manager_8h_source}{}\label{phase__manager_8h_source}\index{src/vt/phase/phase\_manager.h@{src/vt/phase/phase\_manager.h}}
+\doxymbox{\hyperlink{phase__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ phase\_manager.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_PHASE\_PHASE\_MANAGER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_PHASE\_PHASE\_MANAGER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{types__type_8h}{vt/configs/types/types\_type.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{phase__hook__enum_8h}{vt/phase/phase\_hook\_enum.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{phase__hook__id_8h}{vt/phase/phase\_hook\_id.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{phase__info_8h}{vt/vrt/collection/balance/lb\_invoke/phase\_info.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{node__lb__data_8h}{vt/vrt/collection/balance/node\_lb\_data.h}}"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ VT\_PHASE\_MANAGER\ 20201023}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }phase\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a981990f9f44c00334f80be2e4eb604f5}{PhaseManager}}\ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<PhaseManager>\ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a552ed398953e67cd97c440a7f39a8a6c}{HookIDType}}\ =\ \textcolor{keyword}{typename}\ std::underlying\_type<PhaseHook>::type;}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aa8583887716955f4bd4f438bc26141e9}{HookMapType}}\ =\ std::map<std::size\_t,\ ActionType>;}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a7f9784fa7550beaa1e7d59e639169a8b}{HookIDMapType}}\ =\ std::unordered\_map<HookIDType,\ HookMapType>;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a981990f9f44c00334f80be2e4eb604f5}{PhaseManager}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a159d95eca1eedeef33f245a3c232037d}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}PhaseManager"{}};\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a541d1f6c7a350fad979911ac60f38025}{startup}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<PhaseManager>\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a6d864be02daa1cc0ec0b336aa1ebc31e}{construct}}();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a217ff68fb553eedf12c9f4947a977ebd}{getCurrentPhase}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a481f6b2da9da107b31d6ce8d970c7aff}{cur\_phase\_}};\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00121\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_hook_i_d}{PhaseHookID}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a31f6a6f91315fb68826ee073a7cb0a14}{registerHookCollective}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ trigger);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00134\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_hook_i_d}{PhaseHookID}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a61a1797497a522f9352fe64abf3753be}{registerHookRooted}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ trigger);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_hook_i_d}{PhaseHookID}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a76cf36135d228374c5ce1f6da5ea10b1}{registerHookUnsynchronized}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ trigger);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a78334fd49c35f694f1e5fe5c560dc211}{unregisterHook}}(\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_hook_i_d}{PhaseHookID}}\ hook);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_ac94bfde4a103cbdec426542191c41092}{nextPhaseCollective}}();}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a7844c9468a45c9e49d94436f3f565a1f}{setStartTime}}();}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00175\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_1_1is__jsonable}{is\_jsonable}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00178\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_1_1is__jsonable}{is\_jsonable}}<T,\ \doxymbox{\hyperlink{namespacestd}{std}}::void\_t<decltype(nlohmann::json(std::declval<T>()))>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ KeyT,\ \textcolor{keyword}{typename}\ ValueT>}
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a2c34b408870bca0fc4b1dedcfc01d60c}{addUserDefinedData}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}},\ \textcolor{keyword}{const}\ KeyT\&\ key,\ \textcolor{keyword}{const}\ ValueT\&\ value)\ \{}
+\DoxyCodeLine{00182\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00183\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_1_1is__jsonable}{is\_jsonable<KeyT>::value}},}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{stringliteral}{"{}PhaseManager::addUserDefinedData:\ KeyT\ type\ is\ not\ jsonable"{}}}
+\DoxyCodeLine{00185\ \ \ );}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_1_1is__jsonable}{is\_jsonable<ValueT>::value}},}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{stringliteral}{"{}PhaseManager::addUserDefinedData:\ ValueT\ type\ is\ not\ jsonable"{}}}
+\DoxyCodeLine{00189\ \ \ );}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{auto}\ perPhase\ =\ \doxymbox{\hyperlink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{theNodeLBData}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data_adad9dee5971bd9840721473c702b6f2f}{getLBData}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder_aa4b11a094d2f858d29e4a91d61942ddf}{user\_per\_phase\_json\_}};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{if}\ (perPhase.find(\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}})\ ==\ perPhase.end())\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{auto}\ j\ =\ std::make\_shared<nlohmann::json>();}
+\DoxyCodeLine{00195\ \ \ \ \ j-\/>emplace(key,\ value);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{theNodeLBData}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data_adad9dee5971bd9840721473c702b6f2f}{getLBData}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder_aa4b11a094d2f858d29e4a91d61942ddf}{user\_per\_phase\_json\_}}[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]\ =\ j;}
+\DoxyCodeLine{00198\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ perPhase[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]-\/>emplace(key,\ value);}
+\DoxyCodeLine{00200\ \ \ \}}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a789e81d0a1ae09f1aeac4e72fd884584}{printSummary}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1lb_1_1_phase_info}{vrt::collection::lb::PhaseInfo}}*\ last\_phase\_info);}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a034d6606c9778e399bab887203307d57}{nextPhaseReduce}}();}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a3a389361a80bff52e2226b480773a479}{nextPhaseDone}}();}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aeeb5b14ac179b2400a52914208bbd922}{runHooks}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aa61710b25b47f56713d3eec68e7ce6f6}{runHooksTogether}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_ae436f95e5eb570b17c71a48d96675f69}{runHooksManual}}(\doxymbox{\hyperlink{namespacevt_1_1phase_aec9a63fdd99680d7a7fe99d321193811}{PhaseHook}}\ type);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a9cc247a2194bc858fa043a5fe5c9fb76}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a481f6b2da9da107b31d6ce8d970c7aff}{cur\_phase\_}}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a119ac185c79c50761d7e8c3f68b751e7}{proxy\_}}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aafc873771fb849243f082cba71f36672}{collective\_hooks\_}}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a6a2b1be3c11f4fc91bfb84cc2c47c545}{rooted\_hooks\_}}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aab9b9b691a5e2cd7100c484dcf6f5e59}{unsync\_hooks\_}}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a4270d82b84c02d60c16521d4c5972657}{next\_collective\_hook\_id\_}}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a22a3945b22c96b581a1aa1cdadd149e4}{next\_rooted\_hook\_id\_}}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_abb2e9aeb7dba41c6e33322ccfc04de3b}{next\_unsync\_hook\_id\_}}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_ac57c867b3d30923a0241ef462a275f5c}{in\_next\_phase\_collective\_}}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}{reduce\_next\_phase\_done\_}}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a2d4f894445c848ea2ead4a4fe0919eb0}{reduce\_finished\_}}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a77b80e03b225c32acd50ed727fe4aafd}{start\_time\_}};}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00269\ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a481f6b2da9da107b31d6ce8d970c7aff}{cur\_phase\_}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00270\ \ \ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a119ac185c79c50761d7e8c3f68b751e7}{proxy\_}}\ =\ no\_obj\_group;\ \ }
+\DoxyCodeLine{00271\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a7f9784fa7550beaa1e7d59e639169a8b}{HookIDMapType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aafc873771fb849243f082cba71f36672}{collective\_hooks\_}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00272\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a7f9784fa7550beaa1e7d59e639169a8b}{HookIDMapType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a6a2b1be3c11f4fc91bfb84cc2c47c545}{rooted\_hooks\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00273\ \ \ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a7f9784fa7550beaa1e7d59e639169a8b}{HookIDMapType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_aab9b9b691a5e2cd7100c484dcf6f5e59}{unsync\_hooks\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00274\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a4270d82b84c02d60c16521d4c5972657}{next\_collective\_hook\_id\_}}\ =\ 1;\ }
+\DoxyCodeLine{00275\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a22a3945b22c96b581a1aa1cdadd149e4}{next\_rooted\_hook\_id\_}}\ =\ 1;\ \ \ \ \ }
+\DoxyCodeLine{00276\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_abb2e9aeb7dba41c6e33322ccfc04de3b}{next\_unsync\_hook\_id\_}}\ =\ 1;\ \ \ \ \ }
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_ac57c867b3d30923a0241ef462a275f5c}{in\_next\_phase\_collective\_}}\ =\ \textcolor{keyword}{false};\ \ \ }
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a28428326d10fe9485d3da07e8650d352}{reduce\_next\_phase\_done\_}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ }
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a2d4f894445c848ea2ead4a4fe0919eb0}{reduce\_finished\_}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00280\ \ \ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ \doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_a77b80e03b225c32acd50ed727fe4aafd}{start\_time\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00281\ \};}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::phase\ */}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{keyword}{extern}\ phase::PhaseManager*\ \doxymbox{\hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{thePhase}}();}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \}\ \ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_PHASE\_PHASE\_MANAGER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

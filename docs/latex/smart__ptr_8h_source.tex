@@ -1,0 +1,321 @@
+\doxysection{smart\+\_\+ptr.\+h}
+\hypertarget{smart__ptr_8h_source}{}\label{smart__ptr_8h_source}\index{src/vt/messaging/message/smart\_ptr.h@{src/vt/messaging/message/smart\_ptr.h}}
+\doxymbox{\hyperlink{smart__ptr_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ smart\_ptr.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_SMART\_PTR\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_SMART\_PTR\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{message_2message_8h}{vt/messaging/message/message.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{refs_8h}{vt/messaging/message/refs.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{src_2vt_2serialization_2sizer_8h}{vt/serialization/sizer.h}}"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <iosfwd>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ Fwd\ decl\ for\ statics.}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed}{MsgPtrImplTyped}};}
+\DoxyCodeLine{00059\ \}\}\ \textcolor{comment}{//\ end\ namespace\ vt::messaging}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging_1_1statics}{statics}}\ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder}{Holder}}\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed}{MsgPtrImplTyped<T>}}*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder_afbf1e8087e60cce3c4553d407e029352}{getImpl}}()\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&\doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder_aa2947eaef3eac9d1ad3e25cdf5e75b5b}{TypedMsgPtrImpls<T>}};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed}{MsgPtrImplTyped<T>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder_aa2947eaef3eac9d1ad3e25cdf5e75b5b}{TypedMsgPtrImpls}};}
+\DoxyCodeLine{00072\ \ \ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{/*static*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed}{MsgPtrImplTyped<T>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder_aa2947eaef3eac9d1ad3e25cdf5e75b5b}{Holder::TypedMsgPtrImpls}};}
+\DoxyCodeLine{00076\ \}\}\}\ \textcolor{comment}{//\ end\ namespace\ vt::messaging::statics}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }messaging\ \{}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base}{MsgPtrImplBase}}\ \{}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base_a1fcd13da7faa98a9d4681e572d4b494b}{messageDeref}}(std::byte*\ msg\_ptr)\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base_afcf8208d8636a3793ccdf4bc7d4ee12a}{\string~MsgPtrImplBase}}()\ \{\}}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00090\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed}{MsgPtrImplTyped}}\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base}{MsgPtrImplBase}}\ \{}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_typed_a3aa429eed4e71205e675d8b9417daf92}{messageDeref}}(std::byte*\ msg\_ptr)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ N.B.\ messageDeref<T>\ invokes\ delete-\/expr\ T.}}
+\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a85f2aa61b92eeeedc61654cd4865b2a9}{vt::messageDeref}}(\textcolor{keyword}{reinterpret\_cast<}MsgT*\textcolor{keyword}{>}(msg\_ptr));}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00099\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr}}\ final\ \{}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a714463f633ada883b4fbdfd3541d30a7}{MsgType}}\ \ \ \ \ \ \ \ =\ T;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a778cb9ec8919e4a309d28ed345ac318d}{BaseMsgType}}\ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_aa0b9fcb450f32d62033f239a97fb5687}{BaseMessage}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr}}(std::nullptr\_t)\ \{\}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a26e2fce2835b47a4035450b0f415db87}{MsgSharedPtr}}(T*\ in)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7117c1a8364c3267d4694b79a2f5cc6b}{init}}(in,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1statics_1_1_holder_afbf1e8087e60cce3c4553d407e029352}{statics::Holder::getImpl<T>}}());}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ Overload\ to\ retain\ ORIGINAL\ type-\/erased\ implementation.}}
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_acb1c93e303f1abe4c241afe04b012b88}{MsgSharedPtr}}(T*\ in,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base}{MsgPtrImplBase}}*\ impl)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7117c1a8364c3267d4694b79a2f5cc6b}{init}}(in,\ impl);}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a9a10d5bd3b45b0c2e1805951b3a29664}{MsgSharedPtr}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\ \textcolor{keyword}{const}\&\ in)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{if}\ (in\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7117c1a8364c3267d4694b79a2f5cc6b}{init}}(in.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}(),\ in.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}});}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_af08de8fd20fe431e551273451123b334}{MsgSharedPtr}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\&\ in)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a351f61999bc2f15ec3027fcb76c9a942}{moveFrom}}(std::move(in));}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a5a49b25fe676c61fdbc4cb049a403215}{operator=}}(std::nullptr\_t)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ace4439c8585f3d3c50b861570db07d99}{clear}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a221bd2e67f761933f03e4d125c9460fe}{operator=}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\ \textcolor{keyword}{const}\&\ in)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ace4439c8585f3d3c50b861570db07d99}{clear}}();}
+\DoxyCodeLine{00131\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7117c1a8364c3267d4694b79a2f5cc6b}{init}}(in.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}(),\ in.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}});}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0988f71b87e372c7fbcba24f1297b3a}{operator=}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\&\ in)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ace4439c8585f3d3c50b861570db07d99}{clear}}();}
+\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a351f61999bc2f15ec3027fcb76c9a942}{moveFrom}}(std::move(in));}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a41b62019acea0627ce3297d31257524c}{\string~MsgSharedPtr}}()\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ace4439c8585f3d3c50b861570db07d99}{clear}}();}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<U>}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a5076f9f1120f3f35bd2ffe3727351691}{to<U>}}();\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{explicit}\ \textcolor{keyword}{operator}\ T*()\ \textcolor{keyword}{const}\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<U>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a5076f9f1120f3f35bd2ffe3727351691}{to}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<U>}}(}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}U*\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}),}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{comment}{/*N.B.\ retain\ ORIGINAL-\/type\ implementation*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}});}
+\DoxyCodeLine{00156\ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00161\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<U>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ade0ec43ddd15dda301a58913985de42f}{toVirtual}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a5076f9f1120f3f35bd2ffe3727351691}{to<U>}}();}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7f385be5d82602555a25a6737c779962}{operator==}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\ \textcolor{keyword}{const}\&\ n)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ ==\ n.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}};\ \}}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a1a37a82a49f68a91ef92ec675d2a324e}{operator!=}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\ \textcolor{keyword}{const}\&\ n)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ !=\ n.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}};\ \}}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7da24c983c0b606a570138d928148298}{operator==}}(std::nullptr\_t)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ ==\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a3d21051f673b7370ac6dcdaeac110e84}{operator!=}}(std::nullptr\_t)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ !=\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{keyword}{inline}\ T*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a34ceb3b53aed872ba34cb5d19cb84195}{operator-\/>}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();\ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{inline}\ T\&\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ad9a2f4b4baed7f7d031891fb3cca32cb}{operator*}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ *\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}};\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{inline}\ T*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00196\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}},\ \textcolor{stringliteral}{"{}Access\ attempted\ of\ invalid\ MsgPtr."{}}}
+\DoxyCodeLine{00198\ \ \ \ \ );}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}T*\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}});}
+\DoxyCodeLine{00200\ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a2ed79c214e294d8a15c930ee573f13b9}{size}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00208\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}},\ \textcolor{stringliteral}{"{}Access\ attempted\ of\ invalid\ MsgPtr."{}}}
+\DoxyCodeLine{00210\ \ \ \ \ );}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{comment}{//\ Obtain\ the\ size\ of\ the\ message\ from\ the\ block\ allocated\ by\ the}}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{comment}{//\ memory\ pool\ allocator}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{thePool}}()-\/>\doxymbox{\hyperlink{structvt_1_1pool_1_1_pool_a63f58f48115ea54006b33fff98bb0888}{allocatedSize}}(\textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}));}
+\DoxyCodeLine{00215\ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aea0124e8c6c53e91f3239a8ecf3cdca8}{ownsMessage}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ not\_eq\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00225\ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a4a4f2cd3bf883b72011c61d9d74fd9a3}{operator<<}}(std::ostream\&os,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\ \textcolor{keyword}{const}\&\ m)\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{auto}\ nrefs\ =\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(m.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}()-\/>env);}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{return}\ os\ <<\ \textcolor{stringliteral}{"{}MsgSharedPtr("{}}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \ \ \ \ \ \ \ \ \ \ \ \ \ m.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ \ \ \ <<\ \textcolor{stringliteral}{"{},"{}}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}size="{}}\ <<\ m.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a2ed79c214e294d8a15c930ee573f13b9}{size}}()\ <<\ \textcolor{stringliteral}{"{},"{}}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}ref="{}}\ \ \ \ <<\ nrefs}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00234\ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{typename}\ SerializerT,}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ checkpoint::is\_footprinter\_v<SerializerT>}
+\DoxyCodeLine{00240\ \ \ \ \ >}
+\DoxyCodeLine{00241\ \ \ >}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a604694c988590bdb3a35e403c677cba2}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aea0124e8c6c53e91f3239a8ecf3cdca8}{ownsMessage}}())\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ msg\_size\ =\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_msg_sizer_a22f440a462f8874a6661cb900d8d1d38}{vt::serialization::MsgSizer<MsgType>::get}}(ptr);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ s.addBytes(msg\_size);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{comment}{//\ skip\ footprinting\ of\ members,\ we\ rely\ on\ message\ size\ estimate\ instead}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ s.skip(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}});}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ s.skip(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}});}
+\DoxyCodeLine{00251\ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a7117c1a8364c3267d4694b79a2f5cc6b}{init}}(T*\ msgPtr,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base}{MsgPtrImplBase}}*\ impl)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ msgPtr,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MsgPtr\ cannot\ wrap\ 'null'\ messages."{}}}
+\DoxyCodeLine{00263\ \ \ \ \ );}
+\DoxyCodeLine{00264\ \ \ \ \ assert(\textcolor{stringliteral}{"{}not\ initialized"{}}\ \&\&\ not\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}});}
+\DoxyCodeLine{00265\ \ \ \ \ assert(\textcolor{stringliteral}{"{}given\ impl"{}}\ \&\&\ impl);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ =\ msgPtr;}
+\DoxyCodeLine{00268\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}}\ =\ impl;}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{comment}{//\ Could\ be\ moved\ to\ type-\/erased\ impl..}}
+\DoxyCodeLine{00271\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa4a692a62fffd91e7e708d8047897a60}{messageRef}}(msgPtr);}
+\DoxyCodeLine{00272\ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ace4439c8585f3d3c50b861570db07d99}{clear}}()\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}})\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00279\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ T*\ msgPtr\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}}-\/>messageDeref(\textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(msgPtr));}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00286\ \ \ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a351f61999bc2f15ec3027fcb76c9a942}{moveFrom}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a560ea1c81555ee5ea06efaa86445ba1b}{MsgSharedPtr<T>}}\&\&\ in)\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ =\ in.ptr\_;}
+\DoxyCodeLine{00291\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}}\ =\ in.impl\_;}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{comment}{//\ clean\ take\ -\/\ nullify/prevent\ other\ cleanup}}
+\DoxyCodeLine{00293\ \ \ \ \ in.ptr\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00294\ \ \ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00297\ \ \ \textcolor{comment}{//\ Underlying\ raw\ message\ -\/\ access\ as\ correct\ type\ via\ get()}}
+\DoxyCodeLine{00298\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a778cb9ec8919e4a309d28ed345ac318d}{BaseMsgType}}*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aac5218a8b39004946a523ac4a729a3da}{ptr\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00299\ \ \ \textcolor{comment}{//\ Type-\/erased\ implementation\ support.}}
+\DoxyCodeLine{00300\ \ \ \textcolor{comment}{//\ Object\ has\ a\ STATIC\ LIFETIME\ /\ is\ not\ owned\ /\ should\ not\ be\ deleted.}}
+\DoxyCodeLine{00301\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_impl_base}{MsgPtrImplBase}}*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_aa0cf96203c13d77d691888c852bc333e}{impl\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00302\ \};}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00312\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00313\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_a2055f2033d36e710bbb5247f76520d5a}{MsgPtrThief}}\ \{}
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{//\ If\ this\ method\ is\ removed\ then\ this\ type\ will\ no\ longer\ able\ to\ work\ in}}
+\DoxyCodeLine{00322\ \ \ \textcolor{comment}{//\ a\ transitory\ nature,\ which\ is\ very\ handy\ when\ converting\ some\ API.}}
+\DoxyCodeLine{00323\ \ \ \textcolor{comment}{//\ [[deprecated]]}}
+\DoxyCodeLine{00324\ \ \ \textcolor{comment}{/*implicit*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_a2055f2033d36e710bbb5247f76520d5a}{MsgPtrThief}}(MsgT\ \textcolor{keyword}{const}*\ msgPtr)\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr}}<MsgT>\{\textcolor{keyword}{const\_cast<}MsgT*\textcolor{keyword}{>}(msgPtr)\})\ \{}
+\DoxyCodeLine{00325\ \ \ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00332\ \ \ \textcolor{comment}{/*implicit*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_a6f24dfa36e04c82511704c05d0904de1}{MsgPtrThief}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg)\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(msg))\ \{}
+\DoxyCodeLine{00333\ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{comment}{/*implicit*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_aed4e66a07cc56e9db883a66270682d02}{MsgPtrThief}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\&\ msg)\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(msg))\ \{}
+\DoxyCodeLine{00341\ \ \ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00344\ \};}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{comment}{//\ Expose\ public/common\ types\ in\ vt::\ namespace.}}
+\DoxyCodeLine{00350\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00356\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00357\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_ad3aff7259088b0f93506cc769d7d6521}{MsgVirtualPtr}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<T>}};}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00363\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_af446116f2f45ae60230af3f0daabbd30}{MsgVirtualPtrAny}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<ShortMessage>}};}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00370\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<T>}};}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00379\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00380\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<T>}};}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00384\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00385\ [[deprecated(\textcolor{stringliteral}{"{}Do\ not\ use:\ no\ direct\ replacement"{}})]]}
+\DoxyCodeLine{00386\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\ \doxymbox{\hyperlink{namespacevt_aa007f7ca7da0ec47b5d4ae7f03537fe3}{promoteMsgOwner}}(T*\ \textcolor{keyword}{const}\ msg)\ \{}
+\DoxyCodeLine{00387\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\{msg\};}
+\DoxyCodeLine{00388\ \}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00393\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00394\ [[deprecated(\textcolor{stringliteral}{"{}Do\ not\ use:\ no\ direct\ replacement"{}})]]}
+\DoxyCodeLine{00395\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(\doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\ msg)\ \{}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\{msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}(),\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_a2ed79c214e294d8a15c930ee573f13b9}{size}}()\};}
+\DoxyCodeLine{00397\ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00407\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00408\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(T*\ msg)\ \{}
+\DoxyCodeLine{00409\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<T>}}\{msg\};}
+\DoxyCodeLine{00410\ \}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00413\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr}}\ =\ messaging::MsgSharedPtr<T>;}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_MESSAGE\_SMART\_PTR\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

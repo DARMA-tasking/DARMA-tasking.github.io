@@ -1,0 +1,47 @@
+\doxysubsection{Scheduler }
+\hypertarget{scheduler}{}\label{scheduler}\index{Scheduler@{Scheduler}}
+General scheduling of work.
+
+The scheduler component {\ttfamily \doxylink{structvt_1_1sched_1_1_scheduler}{vt::\+sched::\+\+Scheduler}}, accessed via {\ttfamily \doxylink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{vt::\+the\+Sched()}}, holds pieces of work to execute later that may be prioritized. The scheduler polls the {\bfseries{{\itshape vt}}} components to make progress and collect new pieces of work. The scheduler allows registration of callbacks when the system is idle.\hypertarget{scheduler_calls-to-the-scheduler}{}\doxysubsubsection{\texorpdfstring{Calls to the scheduler}{Calls to the scheduler}}\label{scheduler_calls-to-the-scheduler}
+To advance the scheduler, one should use:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{vt::theSched}}()-\/>\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}{runSchedulerWhile}}(\textcolor{comment}{/*std::function<bool()>\ cond*/});}
+
+\end{DoxyCode}
+
+
+This function polls (while {\ttfamily cond} is true) every component that might generate or complete work, and potentially runs one piece of available work, while also ensuring proper event unwinding and idle time tracking.\hypertarget{scheduler_higher-level-calls}{}\doxysubsubsection{\texorpdfstring{Higher-\/level Calls to Wait for Completion}{Higher-\/level Calls to Wait for Completion}}\label{scheduler_higher-level-calls}
+If work is enclosed in an "{}epoch"{}, the \doxylink{term}{Termination Detector} can be used to track its distributed completion. In this case, instead of calling the scheduler directly, built-\/in higher-\/level functions can be used to advance the scheduler until this work is complete/\+terminated.
+
+To run the scheduler until an epoch terminates, call the following function:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_aa550774c1c9c668176ce535fd7d58fb0}{vt::runSchedulerThrough}}(my\_epoch);}
+
+\end{DoxyCode}
+
+
+Or, to combine the actual enclosed work with the call to wait for its termination, use the following function:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}}([]\{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ work\ to\ do\ on\ a\ single\ node}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+If the work should be executed by all nodes, use a collective epoch:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}}([]\{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ work\ to\ do\ on\ all\ nodes}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+ 

@@ -1,0 +1,58 @@
+\doxysubsection{Collectives }
+\hypertarget{collective}{}\label{collective}\index{Collectives@{Collectives}}
+Collective operations.
+
+The collective component {\ttfamily \doxylink{structvt_1_1collective_1_1_collective_alg}{vt::\+collective::\+\+Collective\+Alg}}, accessed via {\ttfamily \doxylink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{vt::\+the\+Collective()}} implements active-\/message-\/based distributed collectives over the {\bfseries{{\itshape vt}}} runtime. It performs asynchronous reductions, scatters, barriers, and allows one to safely use MPI interspersed through {\bfseries{{\itshape vt}}} code, while running in a handler.\hypertarget{collective_collective-reductions}{}\doxysubsubsection{\texorpdfstring{Reductions}{Reductions}}\label{collective_collective-reductions}
+{\bfseries{{\itshape vt}}} comes with several reduction operators built in that can operate over types where the operator already applies (like integers, doubles, etc.) or user-\/defined overloaded operators. These operators also have specializations for {\ttfamily std::\+vector\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} and {\ttfamily std::\+array\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}}.
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Operator  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Reference  \\
+operator\&\&  &{\ttfamily \doxylink{namespacevt_1_1collective_a6844f056beac2eecfbd75773fd2ceb59}{vt::\+collective::\+\+And\+Op}}  \\
+operator$|$$|$  &{\ttfamily \doxylink{namespacevt_1_1collective_a0a83c3c5165d1779af6c500f595e25f6}{vt::\+collective::\+\+Or\+Op}}  \\
+operator+  &{\ttfamily \doxylink{namespacevt_1_1collective_acf919add3eb5ac632b1cbade9bf9f407}{vt::\+collective::\+\+Plus\+Op}}  \\
+std::\+min  &{\ttfamily \doxylink{namespacevt_1_1collective_a133752ee98666e1c40b83e2870fbfd9b}{vt::\+collective::\+\+Min\+Op}}  \\
+std::\+max  &{\ttfamily \doxylink{namespacevt_1_1collective_a5168eb4858d89b629e98868b2a8a3525}{vt::\+collective::\+\+Max\+Op}}  \\
+operator\&  &{\ttfamily \doxylink{namespacevt_1_1collective_a8a923591c22ebb0015f47588617b86e6}{vt::\+collective::\+\+Bit\+And\+Op}}  \\
+operator$|$  &{\ttfamily \doxylink{namespacevt_1_1collective_ab8a1222a61a22cb6422205a84b44f42a}{vt::\+collective::\+\+Bit\+Or\+Op}}  \\
+operator\texorpdfstring{$^\wedge$}{\string^}  &{\ttfamily \doxylink{namespacevt_1_1collective_afea5a0caf28608a9721b9d5f49683945}{vt::\+collective::\+\+Bit\+Xor\+Op}}  \\
+\texorpdfstring{$<$}{<}no-\/operator\texorpdfstring{$>$}{>}  &{\ttfamily \doxylink{namespacevt_1_1collective_ad09fef13d2b4a11975af3623347e3204}{vt::\+collective::\+\+None\+Op}}  \\
+\end{DoxyTable}
+\hypertarget{collective_collective-reduce-example}{}\doxysubsubsubsection{\texorpdfstring{A Simple Reduction}{A Simple Reduction}}\label{collective_collective-reduce-example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{transport_8h}{vt/transport.h}}>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Reduce\ ints}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ReduceDataMsg\ :\ \doxymbox{\hyperlink{namespacevt_1_1collective_aac13e647936677f13e31763da479a99c}{vt::collective::ReduceTMsg}}<int>\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg_ab5f090157aff94fa6b1c233ccc5e0e04}{ReduceDataMsg}}(\textcolor{keywordtype}{int}\ val)}
+\DoxyCodeLine{\ \ \ \ :\ vt::collective::\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1operators_ada411c421be77606f8093362ee96149b}{ReduceTMsg}}<int>(val)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Handler\ to\ target\ for\ reduction}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ReduceResult\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(ReduceDataMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_a3435f69ba053685a43d1d49317d635de}{output}}\ =\ msg-\/>getConstVal();}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}reduction\ value=\{\}\(\backslash\)n"{}},\ output);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(num\_nodes\ *\ 50\ ==\ output,\ \textcolor{stringliteral}{"{}Must\ be\ equal);}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \}}}
+\DoxyCodeLine{\textcolor{stringliteral}{\};}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{int\ main(int\ argc,\ char**\ argv)\ \{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ vt::initialize(argc,\ argv);}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ auto\ reduce\_msg\ =\ vt::makeMessage<ReduceDataMsg>(50);}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ NodeType\ const\ root\_reduce\_node\ =\ 0;}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ vt::theCollective()-\/>global()-\/>reduce<vt::collective::PlusOp<int>,ReduceResult>(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ root\_reduce\_node,\ reduce\_msg.get()}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ );}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ vt::finalize();\ //\ spins\ in\ scheduler\ until\ termination}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ return\ 0;}}
+\DoxyCodeLine{\textcolor{stringliteral}{\}}}
+
+\end{DoxyCode}
+ 

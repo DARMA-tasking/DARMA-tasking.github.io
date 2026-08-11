@@ -1,0 +1,121 @@
+\doxysection{callback\+\_\+bcast.\+impl.\+h}
+\hypertarget{callback__bcast_8impl_8h_source}{}\label{callback__bcast_8impl_8h_source}\index{src/vt/pipe/callback/handler\_bcast/callback\_bcast.impl.h@{src/vt/pipe/callback/handler\_bcast/callback\_bcast.impl.h}}
+\doxymbox{\hyperlink{callback__bcast_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ callback\_bcast.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_PIPE\_CALLBACK\_HANDLER\_BCAST\_CALLBACK\_BCAST\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_PIPE\_CALLBACK\_HANDLER\_BCAST\_CALLBACK\_BCAST\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__common_8h}{vt/pipe/pipe\_common.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{callback__bcast_8h}{vt/pipe/callback/handler\_bcast/callback\_bcast.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__manager_8fwd_8h}{vt/pipe/pipe\_manager.fwd.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context_8h}{vt/context/context.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8h}{vt/messaging/active.h}}"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pipe_1_1callback}{callback}}\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00059\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_adbfcc31e986a2aed709b8517e0e978ae}{CallbackBcast<MsgT>::CallbackBcast}}(}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ \textcolor{keyword}{const}\ in\_handler,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ in\_include}
+\DoxyCodeLine{00061\ )\ :\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a3ea3dbcdb923e07ef664094954313eb1}{handler\_}}(in\_handler),\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a143859ea6a28eec100d0e2b19d13b004}{include\_sender\_}}(in\_include)}
+\DoxyCodeLine{00062\ \{\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a2337a0d2bda968f7ab1e4c85c3dbe67a}{CallbackBcast<MsgT>::serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00067\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_base_aed02135f19f5d5ca4899d488ce402b64}{CallbackBase<SignalBaseType>::serializer}}(s);}
+\DoxyCodeLine{00068\ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a143859ea6a28eec100d0e2b19d13b004}{include\_sender\_}};}
+\DoxyCodeLine{00069\ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a3ea3dbcdb923e07ef664094954313eb1}{handler\_}};}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a839f195f5e4dae3251d67163016ae703}{CallbackBcast<MsgT>::trigger\_}}(\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_aaf994b71056001334d30d74fa9c958f9}{SignalDataType}}*\ data,\ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid)\ \{}
+\DoxyCodeLine{00074\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_abd6f33e3e10f83908293a9bcea6cc6fc}{triggerDispatch<MsgT>}}(data,pid);}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a839f195f5e4dae3251d67163016ae703}{CallbackBcast<MsgT>::trigger\_}}([[maybe\_unused]]\ SignalDataType*\ data)\ \{}
+\DoxyCodeLine{00079\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(0,\ \textcolor{stringliteral}{"{}Should\ not\ be\ reachable\ in\ this\ derived\ class"{}});}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00084\ \textcolor{keyword}{typename}\ CallbackBcast<MsgT>::template\ IsVoidType<T>}
+\DoxyCodeLine{00085\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_abd6f33e3e10f83908293a9bcea6cc6fc}{CallbackBcast<MsgT>::triggerDispatch}}(}
+\DoxyCodeLine{00086\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_aaf994b71056001334d30d74fa9c958f9}{SignalDataType}}*\ data,\ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid}
+\DoxyCodeLine{00087\ )\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00089\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00090\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}},}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{stringliteral}{"{}CallbackBcast:\ (void)\ trigger\_:\ this\_node=\{\},\ include\_sender\_=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00092\ \ \ \ \ this\_node,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a143859ea6a28eec100d0e2b19d13b004}{include\_sender\_}}}
+\DoxyCodeLine{00093\ \ \ );}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{makeMessage<CallbackMsg>}}(pid);}
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<\doxymbox{\hyperlink{structvt_1_1pipe_1_1_callback_msg}{CallbackMsg}}>(\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a3ea3dbcdb923e07ef664094954313eb1}{handler\_}},\ msg);}
+\DoxyCodeLine{00096\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00100\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast}{CallbackBcast<MsgT>::template}}\ IsNotVoidType<T>}
+\DoxyCodeLine{00101\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_abd6f33e3e10f83908293a9bcea6cc6fc}{CallbackBcast<MsgT>::triggerDispatch}}(}
+\DoxyCodeLine{00102\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_aaf994b71056001334d30d74fa9c958f9}{SignalDataType}}*\ data,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid}
+\DoxyCodeLine{00103\ )\ \{}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00106\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}},}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{stringliteral}{"{}CallbackBcast:\ trigger\_:\ this\_node=\{\},\ include\_sender\_=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00108\ \ \ \ \ this\_node,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a143859ea6a28eec100d0e2b19d13b004}{include\_sender\_}}}
+\DoxyCodeLine{00109\ \ \ );}
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_aaf994b71056001334d30d74fa9c958f9}{SignalDataType}}>(\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_bcast_a3ea3dbcdb923e07ef664094954313eb1}{handler\_}},\ data);}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::pipe::callback\ */}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_PIPE\_CALLBACK\_HANDLER\_BCAST\_CALLBACK\_BCAST\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

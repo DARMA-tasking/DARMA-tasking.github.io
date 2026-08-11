@@ -1,0 +1,168 @@
+\doxysection{invoke.\+h}
+\hypertarget{invoke_8h_source}{}\label{invoke_8h_source}\index{src/vt/runnable/invoke.h@{src/vt/runnable/invoke.h}}
+\doxymbox{\hyperlink{invoke_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ invoke.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RUNNABLE\_INVOKE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RUNNABLE\_INVOKE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{demangle_8h}{vt/utils/demangle/demangle.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{function__ret__check_8h}{vt/utils/static\_checks/function\_ret\_check.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{trace__registry_8h}{vt/trace/trace\_registry.h}}"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runnable}{runnable}}\ \{}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctionType,\ FunctionType\ f>}
+\DoxyCodeLine{00065\ \textcolor{keyword}{static}\ std::string\ CreateEventTypeCStyleFunc()\ \{}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{using\ }TE\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract}{vt::util::demangle::TemplateExtract}};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{using\ }DU\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils}{vt::util::demangle::DemanglerUtils}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{auto}\ ns\ =\ TE::getNamespace(TE::getValueName<std::decay\_t<FunctionType>,\ f>());}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordflow}{if}\ (ns.empty())}
+\DoxyCodeLine{00071\ \ \ \ \ ns\ =\ \textcolor{stringliteral}{"{}(none)"{}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordflow}{return}\ DU::removeSpaces(ns);}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Class>}
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ std::string\ CreateEventTypeMemberFunc()\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{using\ }TE\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract}{vt::util::demangle::TemplateExtract}};}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{using\ }DU\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils}{vt::util::demangle::DemanglerUtils}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{auto}\ typeName\ =\ TE::getTypeName<std::decay\_t<Class>>();}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{if}\ (typeName.empty())}
+\DoxyCodeLine{00083\ \ \ \ \ typeName\ =\ \textcolor{stringliteral}{"{}(none)"{}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordflow}{return}\ DU::removeSpaces(typeName);}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctionType,\ FunctionType\ f,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00089\ \textcolor{keyword}{static}\ std::string\ CreateEventName()\ \{}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{using\ }TE\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract}{vt::util::demangle::TemplateExtract}};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{using\ }DU\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils}{vt::util::demangle::DemanglerUtils}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ std::vector<std::string>\ arg\_types\ =\ \{TE::getTypeName<Args>()...\};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{auto}\ argsV\ =\ DU::join(\textcolor{stringliteral}{"{},"{}},\ arg\_types);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{auto}\ valueName\ =\ TE::getValueName<FunctionType,\ f>();}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{auto}\ barename\ =\ TE::getBarename(valueName);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordflow}{return}\ DU::removeSpaces(barename\ +\ \textcolor{stringliteral}{"{}("{}}\ +\ argsV\ +\ \textcolor{stringliteral}{"{})"{}});}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}\ <auto\ f>}
+\DoxyCodeLine{00102\ \textcolor{keyword}{struct\ }CallableWrapper\ \{}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{using\ }Type\ =\ \textcolor{keyword}{decltype}(f);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{static}\ std::string\ GetEventTypeName()\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_member\_function\_pointer\_v<Type>)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CreateEventTypeMemberFunc<util::FunctionWrapper<Type>>();}
+\DoxyCodeLine{00108\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CreateEventTypeCStyleFunc<Type,\ f>();}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{static}\ std::string\ GetEventName()\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ CreateEventName<Type,\ f>();}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_1_1trace_a621343644b656545a9c3fcbaa9806556}{trace::TraceEntryIDType}}\ GetTraceID()\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1trace_1_1_trace_registry_a557118b7661378a6c74ed693b87c3d83}{trace::TraceRegistry::registerEventHashed}}(}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ GetEventTypeName(),\ GetEventName());}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ f,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00124\ \textcolor{keyword}{struct\ }ScopedInvokeEvent\ \{}
+\DoxyCodeLine{00125\ \ \ ScopedInvokeEvent()\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ trace\_id\ =\ CallableWrapper<f>::GetTraceID();}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ trace\_event\ =\ theTrace()-\/>messageCreation(trace\_id,\ 0);}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ from\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>getNode();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ tag\_\ =\ theTrace()-\/>beginProcessing(}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ trace\_id,\ 0,\ trace\_event,\ from\_node,\ \doxymbox{\hyperlink{namespacevt_1_1timing_adb71f74fee337dab5a317e58e7d35b1d}{timing::getCurrentTime}}()}
+\DoxyCodeLine{00132\ \ \ \ \ );}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \string~ScopedInvokeEvent()\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ theTrace()-\/>endProcessing(tag\_,\ \doxymbox{\hyperlink{namespacevt_1_1timing_adb71f74fee337dab5a317e58e7d35b1d}{timing::getCurrentTime}}());}
+\DoxyCodeLine{00137\ \ \ \ \ theTrace()-\/>messageCreation(CallableWrapper<f>::GetTraceID(),\ 0);}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00141\ \ \ \doxymbox{\hyperlink{structvt_1_1trace_1_1_trace_processing_tag}{trace::TraceProcessingTag}}\ tag\_\ =\ \{\};}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ f,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00147\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1runnable_a004d4b72c158a64f01404ac5dac24ec6}{invoke}}(Args\&\&...\ args)\{}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00149\ \ \ \ \ ScopedInvokeEvent<f>\ e;}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordflow}{return}\ std::invoke(std::forward<\textcolor{keyword}{decltype}(f)>(f),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable,\ Callable\ f,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00156\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1runnable_a004d4b72c158a64f01404ac5dac24ec6}{invoke}}(Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runnable_a004d4b72c158a64f01404ac5dac24ec6}{invoke<f>}}(std::forward<Args>(args)...);}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \}\}\ \textcolor{comment}{//\ namespace\ vt::runnable}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RUNNABLE\_INVOKE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

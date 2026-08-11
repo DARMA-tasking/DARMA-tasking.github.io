@@ -1,0 +1,949 @@
+\doxysection{location.\+impl.\+h}
+\hypertarget{location_8impl_8h_source}{}\label{location_8impl_8h_source}\index{src/vt/topos/location/location.impl.h@{src/vt/topos/location/location.impl.h}}
+\doxymbox{\hyperlink{location_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ location.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_TOPOS\_LOCATION\_LOCATION\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_TOPOS\_LOCATION\_LOCATION\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{location__common_8h}{vt/topos/location/location\_common.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{location_8h}{vt/topos/location/location.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{topos_2location_2manager_8h}{vt/topos/location/manager.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{topos_2location_2manager_8fwd_8h}{vt/topos/location/manager.fwd.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{entity_8h}{vt/topos/location/utility/entity.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context_8h}{vt/context/context.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8h}{vt/messaging/active.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{make__runnable_8h}{vt/runnable/make\_runnable.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{term__common_8h}{vt/termination/term\_common.h}}"{}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1location}{location}}\ \{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a3d7f6c252ad5cb8d1084620946245970}{EntityLocationCoord<EntityID>::registerEntity}}(}
+\DoxyCodeLine{00066\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home,\ \doxymbox{\hyperlink{namespacevt_1_1location_af675dd0f0f701168d79d16be7d2eaf51}{LocMsgActionType}}\ msg\_action,}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ migrated}
+\DoxyCodeLine{00068\ )\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00073\ \ \ \ \ reg\_iter\ ==\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end(),}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord\ entity\ should\ not\ already\ be\ registered"{}}}
+\DoxyCodeLine{00075\ \ \ );}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00078\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ registerEntity:\ home=\{\},\ migrated=\{\},\ "{}}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{stringliteral}{"{}id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00081\ \ \ \ \ home,\ migrated,\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00082\ \ \ );}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.insert(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4}{eLocState::Local}},\ this\_node\});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (msg\_action\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ vtAssert(}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ \ \ local\_registered\_msg\_han\_.find(id)\ ==\ local\_registered\_msg\_han\_.end(),}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ \ \ "{}Entity\ should\ not\ exist\ in\ local\ registered\ msg\ handler"{}}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.emplace(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab0db07ed0b9f75712922733dd467b100}{LocEntityMsg}}\{id,\ msg\_action\});}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00097\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ registerEntity:\ pending\ lookups\ size=\{\},\ this=\{\},\ "{}}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{stringliteral}{"{}id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a321719e0c1c938ef5dc8134ac92849fd}{pending\_lookups\_}}.size(),\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(\textcolor{keyword}{this}),\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00101\ \ \ );}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ trigger\ any\ pending\ actions\ upon\ registration}}
+\DoxyCodeLine{00104\ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{int}\ action\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ lookups\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a321719e0c1c938ef5dc8134ac92849fd}{pending\_lookups\_}}.extract(\textcolor{keywordtype}{id});\ lookups)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ pending\_action\ :\ lookups.mapped())\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ registerEntity:\ running\ pending\ action\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ action}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ action++;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ pending\_action(node);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ \ This\ is\ either\ the\ case\ where\ the\ entity\ is\ *not*\ migrated\ here}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ but\ gets\ constructed\ in\ an\ alternative\ non-\/default\ location\ or}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ *\ \ it\ is\ migrated\ here\ and\ it's\ not\ the\ home.\ Thus,\ we\ need\ to}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ *\ \ inform\ the\ home\ so\ that\ messages\ can\ be\ forwarded.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00126\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(home\ !=\ uninitialized\_destination,\ \textcolor{stringliteral}{"{}Must\ have\ home\ node\ info"{}});}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{if}\ (home\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ registerEntity:\ updating\ id=\{\},\ home=\{\},\ "{}}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}migrated=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{keywordtype}{id},\ home,\ migrated}
+\DoxyCodeLine{00133\ \ \ \ \ );}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}[home].template\ send<\&ThisType::updateLocation>(}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1_msg_props}{MsgProps}}().asLocationMsg(),\ \textcolor{keywordtype}{id},\ this\_node,\ home}
+\DoxyCodeLine{00137\ \ \ \ \ );}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0d3a9a66cddeb6929ed8452a02ba7681}{EntityLocationCoord<EntityID>::registerEntityRemote}}(}
+\DoxyCodeLine{00143\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ create\_node,}
+\DoxyCodeLine{00144\ \ \ \doxymbox{\hyperlink{namespacevt_1_1location_af675dd0f0f701168d79d16be7d2eaf51}{LocMsgActionType}}\ msg\_action}
+\DoxyCodeLine{00145\ )\ \{}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00148\ \ \ \ \ reg\_iter\ ==\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end(),}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord\ entity\ should\ not\ already\ be\ registered"{}}}
+\DoxyCodeLine{00150\ \ \ );}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00153\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ registerEntityRemote:\ home=\{\},\ "{}}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{stringliteral}{"{}create\_node=\{\},\ id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00156\ \ \ \ \ home,\ create\_node,\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00157\ \ \ );}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(home\ ==\ this\_node,\ \textcolor{stringliteral}{"{}Must\ be\ registered\ on\ home\ node"{}});}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd}{eLocState::Remote}},\ create\_node\});}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordflow}{if}\ (msg\_action\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.emplace(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab0db07ed0b9f75712922733dd467b100}{LocEntityMsg}}\{id,\ msg\_action\});}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00170\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a076ec3a6b06e74567e7281adb0645cd7}{EntityLocationCoord<EntityID>::unregisterEntity}}(EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00174\ \ \ \ \ reg\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end(),}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord\ entity\ must\ be\ registered"{}}}
+\DoxyCodeLine{00176\ \ \ );}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00179\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ unregisterEntity\(\backslash\)n"{}}}
+\DoxyCodeLine{00181\ \ \ );}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.erase(reg\_iter);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ rec\_exists\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{if}\ (rec\_exists)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.remove(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{auto}\ reg\_msg\_han\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordflow}{if}\ (reg\_msg\_han\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.end())\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.erase(reg\_msg\_han\_iter);}
+\DoxyCodeLine{00193\ \ \ \}}
+\DoxyCodeLine{00194\ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a185a839f315d70eb934367fb82c5aa34}{EntityLocationCoord<EntityID>::startMigrations}}()\ \{}
+\DoxyCodeLine{00198\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_aee098f570c78f5d1eea313d95ed41bc0}{migrations\_ongoing\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00199\ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00202\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab72e679238a1f630af225a3c314aafa3}{EntityLocationCoord<EntityID>::doneMigrations}}()\ \{}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a708ddc918897fbcff821d2da5116b80a}{keep\_cache\_updated\_}})\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ac20c510b73a5f6f753269b6d05b389aa}{clearCache}}();}
+\DoxyCodeLine{00205\ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_aee098f570c78f5d1eea313d95ed41bc0}{migrations\_ongoing\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00210\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_accaddfcabcbd1cda75630712e6ee2983}{EntityLocationCoord<EntityID>::entityExistsLocal}}(EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00212\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id})\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end()\ or}
+\DoxyCodeLine{00213\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.find(\textcolor{keywordtype}{id})\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.end();}
+\DoxyCodeLine{00214\ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c12326d6a28bfa62983a80ddf7f6980}{EntityLocationCoord<EntityID>::entityExists}}(}
+\DoxyCodeLine{00218\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00219\ \ \ \doxymbox{\hyperlink{namespacevt_1_1location_aefac13a42de68d38b279d351013263cc}{ExistsNodeActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00220\ )\ \{}
+\DoxyCodeLine{00221\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_accaddfcabcbd1cda75630712e6ee2983}{entityExistsLocal}}(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{comment}{//\ Update\ cache}}
+\DoxyCodeLine{00224\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home\_node,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4}{eLocState::Local}},\ this\_node\});}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{//\ Trigger\ action\ true\ as\ it\ exists\ here}}
+\DoxyCodeLine{00227\ \ \ \ \ action(\textcolor{keyword}{true},\ this\_node);}
+\DoxyCodeLine{00228\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ rec\_exists\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{if}\ (rec\_exists)\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ rec\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rec.isLocal())\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Should\ be\ registered\ if\ this\ is\ the\ case!"{}});}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (rec.isRemote())\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ action(\textcolor{keyword}{true},\ rec.getRemoteNode());}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Should\ not\ be\ able\ to\ reach\ this\ case"{}});}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (home\_node\ ==\ this\_node)\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ the\ home\ node\ is\ this\ node,\ it\ does\ not\ exist}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ action(\textcolor{keyword}{false},\ -\/1);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Go\ to\ home\ node}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<\&\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a44796b34dcbf79365182e3eef0b93dd4}{ThisType::entityExistsResponse}}>(}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}[this\_node]}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}[home\_node].template\ send<\&ThisType::entityExistsRequest>(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1_msg_props}{MsgProps}}().asLocationMsg(),\ \textcolor{keywordtype}{id},\ home\_node,\ cb}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a2862b95bcec7d11be66a8178df781758}{pending\_exists\_lookups\_}}[id].push\_back(action);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \ \ \}}
+\DoxyCodeLine{00256\ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00259\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a698bd0fb8a5261e53da81f428a3464af}{EntityLocationCoord<EntityID>::entityExistsRequest}}(}
+\DoxyCodeLine{00260\ \ \ EntityID\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node,}
+\DoxyCodeLine{00261\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<EntityID,\ bool,\ NodeType,\ NodeType>}}\ cb}
+\DoxyCodeLine{00262\ )\ \{}
+\DoxyCodeLine{00263\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c12326d6a28bfa62983a80ddf7f6980}{entityExists}}(\textcolor{keywordtype}{id},\ home\_node,\ [=](\textcolor{keywordtype}{bool}\ exists,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node)\ \textcolor{keyword}{mutable}\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{auto}\ props\ =\ \doxymbox{\hyperlink{structvt_1_1_msg_props}{MsgProps}}().\doxymbox{\hyperlink{structvt_1_1_msg_props_a45a3254563f4da0bc7e118a837052ba8}{asLocationMsg}}();}
+\DoxyCodeLine{00265\ \ \ \ \ cb.\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed_a7977d8ee9e8e28158865f0ad72ea91a4}{send}}(props,\ \textcolor{keywordtype}{id},\ exists,\ node,\ home\_node);}
+\DoxyCodeLine{00266\ \ \ \});}
+\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00270\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a770fca228907ff6f818ab184d7580a5e}{EntityLocationCoord<EntityID>::entityEmigrated}}(}
+\DoxyCodeLine{00271\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ new\_node}
+\DoxyCodeLine{00272\ )\ \{}
+\DoxyCodeLine{00273\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ad50943819ba0f1b4487c786dd04cdc77}{anytime\_migration\_}}\ or\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_aee098f570c78f5d1eea313d95ed41bc0}{migrations\_ongoing\_}},\ \textcolor{stringliteral}{"{}Migrations\ must\ be\ allowed"{}}}
+\DoxyCodeLine{00275\ \ \ );}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00278\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ entityEmigrated:\ id=\{\},\ new\_node=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordtype}{id},\ new\_node}
+\DoxyCodeLine{00281\ \ \ );}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordflow}{if}\ (reg\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end())\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.erase(reg\_iter);}
+\DoxyCodeLine{00287\ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.update(\textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd}{eLocState::Remote}},\ new\_node\});}
+\DoxyCodeLine{00290\ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00293\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a67df1eb9ae48ef4b181dafda9ae3ff71}{EntityLocationCoord<EntityID>::entityImmigrated}}(}
+\DoxyCodeLine{00294\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00295\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ from,\ \doxymbox{\hyperlink{namespacevt_1_1location_af675dd0f0f701168d79d16be7d2eaf51}{LocMsgActionType}}\ msg\_action}
+\DoxyCodeLine{00296\ )\ \{}
+\DoxyCodeLine{00297\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00298\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ad50943819ba0f1b4487c786dd04cdc77}{anytime\_migration\_}}\ or\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_aee098f570c78f5d1eea313d95ed41bc0}{migrations\_ongoing\_}},\ \textcolor{stringliteral}{"{}Migrations\ must\ be\ allowed"{}}}
+\DoxyCodeLine{00299\ \ \ );}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \textcolor{comment}{//\ @todo:\ currently\ \`{}from'\ is\ unused,\ but\ is\ passed\ to\ this\ method\ in\ case\ we}}
+\DoxyCodeLine{00302\ \ \ \textcolor{comment}{//\ need\ it\ in\ the\ future}}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a3d7f6c252ad5cb8d1084620946245970}{registerEntity}}(\textcolor{keywordtype}{id},\ home\_node,\ msg\_action,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00304\ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00307\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a9e6d5b9783f617f4e036ad9f7ba19953}{EntityLocationCoord<EntityID>::isCached}}(EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00312\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ac20c510b73a5f6f753269b6d05b389aa}{EntityLocationCoord<EntityID>::clearCache}}()\ \{}
+\DoxyCodeLine{00313\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.clearCache();}
+\DoxyCodeLine{00314\ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1location_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}=\textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00319\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1location_1_1detail_1_1_is_serializable}{IsSerializable}}\ \{}
+\DoxyCodeLine{00320\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1location_1_1detail_1_1_is_serializable_a320f8527dc7cca9d32b7fbc3418c2af7}{is\_ser}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00321\ \};}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00324\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1location_1_1detail_1_1_is_serializable}{IsSerializable}}<}
+\DoxyCodeLine{00325\ \ \ MsgT,}
+\DoxyCodeLine{00326\ \ \ typename\ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if\_t<true}
+\DoxyCodeLine{00327\ \ \ \ \ and\ ::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value}
+\DoxyCodeLine{00328\ \ \ \ \ and\ ::vt::messaging::msg\_serialization\_mode<MsgT>::required}
+\DoxyCodeLine{00329\ \ \ >}
+\DoxyCodeLine{00330\ >}
+\DoxyCodeLine{00331\ \{}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1location_1_1detail_1_1_is_serializable_3_01_msg_t_00_01typename_01std_1_1enable__if_7806188d47b394a302cced157ae7cbab_a8703c085582c5ec1258638fcb98c2c51}{is\_ser}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00333\ \};}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \}\ \textcolor{comment}{/*\ end\ namespace\ detail\ */}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00338\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00339\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a482a031eb17aba77a9efd946fe3f033c}{EntityLocationCoord<EntityID>::useEagerProtocol}}(}
+\DoxyCodeLine{00340\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00341\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00342\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1location_1_1detail_1_1_is_serializable_a320f8527dc7cca9d32b7fbc3418c2af7}{detail::IsSerializable<MessageT>::is\_ser}})\ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00344\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(*msg)\ <\ small\_msg\_max\_size;}
+\DoxyCodeLine{00346\ \ \ \}}
+\DoxyCodeLine{00347\ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00350\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a2b2c69634e3ef42e2625541cd234b350}{EntityLocationCoord<EntityID>::insertPendingEntityAction}}(}
+\DoxyCodeLine{00351\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_1_1location_a804be7bd7f1a880f42e31ab8d1cc9bc6}{NodeActionType}}\ action}
+\DoxyCodeLine{00352\ )\ \{}
+\DoxyCodeLine{00353\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00354\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ insertPendingEntityAction,\ this=\{\},\ id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00356\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(\textcolor{keyword}{this}),\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00357\ \ \ );}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a321719e0c1c938ef5dc8134ac92849fd}{pending\_lookups\_}}[id].push\_back(action);}
+\DoxyCodeLine{00360\ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00363\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00364\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae44975ca70e81c8aa658fbbc9a3c619d}{EntityLocationCoord<EntityID>::routeMsgEager}}(}
+\DoxyCodeLine{00365\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00366\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00367\ )\ \{}
+\DoxyCodeLine{00368\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00369\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ route\_to\_node\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00372\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ found\ =\ reg\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end();}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00375\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgEager:\ found=\{\},\ home\_node=\{\},\ "{}}}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{stringliteral}{"{}route\_to\_node=\{\},\ id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00378\ \ \ \ \ found,\ home\_node,\ route\_to\_node,\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00379\ \ \ );}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \textcolor{keywordflow}{if}\ (found)\ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home\_node,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4}{eLocState::Local}},\ this\_node\});}
+\DoxyCodeLine{00383\ \ \ \ \ route\_to\_node\ =\ this\_node;}
+\DoxyCodeLine{00384\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ rec\_exists\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ rec\_exists)\ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (home\_node\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ route\_to\_node\ =\ home\_node;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ route\_to\_node\ =\ this\_node;}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00393\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ rec\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rec.isLocal())\ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ route\_to\_node\ =\ this\_node;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (rec.isRemote())\ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ route\_to\_node\ =\ rec.getRemoteNode();}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \}}
+\DoxyCodeLine{00402\ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00405\ \ \ \ \ route\_to\_node\ !=\ uninitialized\_destination,}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{stringliteral}{"{}Node\ to\ route\ to\ must\ be\ set\ by\ this\ point"{}}}
+\DoxyCodeLine{00407\ \ \ );}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00410\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgEager:\ home\_node=\{\},\ route\_node=\{\},\ "{}}}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{stringliteral}{"{}id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00413\ \ \ \ \ home\_node,\ route\_to\_node,\ \textcolor{keywordtype}{id}}
+\DoxyCodeLine{00414\ \ \ );}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a1fb91682d1695a98eed3375db9fa738e}{routeMsgNode<MessageT>}}(\textcolor{keywordtype}{id},\ home\_node,\ route\_to\_node,\ msg);}
+\DoxyCodeLine{00417\ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00420\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a16a6f8bbdc3aaaa963e382cb6b1045ce}{EntityLocationCoord<EntityID>::getLocationRequest}}(}
+\DoxyCodeLine{00421\ \ \ EntityID\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node,}
+\DoxyCodeLine{00422\ \ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{Callback<EntityID,\ NodeType,\ NodeType>}}\ cb}
+\DoxyCodeLine{00423\ )\ \{}
+\DoxyCodeLine{00424\ \ \ getLocation(\textcolor{keywordtype}{id},\ home\_node,\ [=](\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ n)\ \textcolor{keyword}{mutable}\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keyword}{auto}\ props\ =\ \doxymbox{\hyperlink{structvt_1_1_msg_props}{MsgProps}}().\doxymbox{\hyperlink{structvt_1_1_msg_props_a45a3254563f4da0bc7e118a837052ba8}{asLocationMsg}}();}
+\DoxyCodeLine{00426\ \ \ \ \ cb.\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1cbunion_1_1_callback_typed_a7977d8ee9e8e28158865f0ad72ea91a4}{send}}(props,\ \textcolor{keywordtype}{id},\ n,\ home\_node);}
+\DoxyCodeLine{00427\ \ \ \});}
+\DoxyCodeLine{00428\ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00431\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae21aaf0da019247790f09edebd23f662}{EntityLocationCoord<EntityID>::updateLocation}}(}
+\DoxyCodeLine{00432\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ answer,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node}
+\DoxyCodeLine{00433\ )\ \{}
+\DoxyCodeLine{00434\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ade9118aef1a21a90bf9d7ef5725c5281}{updatePendingRequest}}(\textcolor{keywordtype}{id},\ answer,\ home\_node);}
+\DoxyCodeLine{00435\ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a44796b34dcbf79365182e3eef0b93dd4}{EntityLocationCoord<EntityID>::entityExistsResponse}}(}
+\DoxyCodeLine{00439\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{bool}\ exists,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ answer,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node}
+\DoxyCodeLine{00440\ )\ \{}
+\DoxyCodeLine{00441\ \ \ \textcolor{comment}{//\ Update\ the\ cache}}
+\DoxyCodeLine{00442\ \ \ \textcolor{keywordflow}{if}\ (exists)\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home\_node,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd}{eLocState::Remote}},\ answer\});}
+\DoxyCodeLine{00444\ \ \ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \textcolor{comment}{//\ trigger\ any\ pending\ actions\ upon\ registration}}
+\DoxyCodeLine{00447\ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ lookups\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a2862b95bcec7d11be66a8178df781758}{pending\_exists\_lookups\_}}.extract(\textcolor{keywordtype}{id});\ lookups)\ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ action\ :\ lookups.mapped())\ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ action(exists,\ answer);}
+\DoxyCodeLine{00450\ \ \ \ \ \}}
+\DoxyCodeLine{00451\ \ \ \}}
+\DoxyCodeLine{00452\ \}}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00455\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord}{EntityLocationCoord<EntityID>::getLocation}}(}
+\DoxyCodeLine{00456\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,\ \doxymbox{\hyperlink{namespacevt_1_1location_a804be7bd7f1a880f42e31ab8d1cc9bc6}{NodeActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00457\ )\ \{}
+\DoxyCodeLine{00458\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ local\_registered\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \textcolor{keywordflow}{if}\ (reg\_iter\ !=\ local\_registered\_.end())\ \{}
+\DoxyCodeLine{00463\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ getLocation:\ entity\ is\ local\(\backslash\)n"{}}}
+\DoxyCodeLine{00466\ \ \ \ \ );}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ recs\_.insert(\textcolor{keywordtype}{id},\ home\_node,\ LocRecType\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4}{eLocState::Local}},\ this\_node\});}
+\DoxyCodeLine{00469\ \ \ \ \ action(this\_node);}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00471\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ rec\_exists\ =\ recs\_.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ normal,\ location,}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ getLocation:\ home\_node=\{\},\ rec\_exists=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ home\_node,\ \doxymbox{\hyperlink{debug__printconst_8h_aac76e066ee747d3089751f067090346b}{print\_bool}}(rec\_exists)}
+\DoxyCodeLine{00478\ \ \ \ \ );}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ rec\_exists)\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (home\_node\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<\&ThisType::updateLocation>(}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ proxy\_[this\_node]}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ proxy\_[home\_node].template\ send<\&ThisType::getLocationRequest>(}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ MsgProps().asLocationMsg(),\ \textcolor{keywordtype}{id},\ home\_node,\ cb}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \ \ pending\_lookups\_[id].push\_back(action);}
+\DoxyCodeLine{00491\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ rec\ =\ recs\_.get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rec.isLocal())\ \{}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Should\ be\ registered\ if\ this\ is\ the\ case!"{}});}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ action(this\_node);}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (rec.isRemote())\ \{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ normal,\ location,}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ getLocation:\ entity\ is\ remote\(\backslash\)n"{}}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ action(rec.getRemoteNode());}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00505\ \ \ \ \ \}}
+\DoxyCodeLine{00506\ \ \ \}}
+\DoxyCodeLine{00507\ \}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00510\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a02337c5b5c23bf81b540568107103ef4}{EntityLocationCoord<EntityID>::handleEagerUpdate}}(}
+\DoxyCodeLine{00511\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ deliver\_node}
+\DoxyCodeLine{00512\ )\ \{}
+\DoxyCodeLine{00513\ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00514\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(this\_node\ !=\ deliver\_node,\ \textcolor{stringliteral}{"{}This\ should\ have\ been\ a\ forwarding\ node"{}});}
+\DoxyCodeLine{00515\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(home\_node\ !=\ uninitialized\_destination,\ \textcolor{stringliteral}{"{}Home\ node\ should\ be\ valid"{}});}
+\DoxyCodeLine{00516\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(home\_node\ <\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>getNumNodes(),\ \textcolor{stringliteral}{"{}Home\ node\ should\ be\ valid"{}});}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00519\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{stringliteral}{"{}handleEagerUpdate:\ id=\{\},\ home\_node=\{\},\ deliver\_node=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00521\ \ \ \ \ \textcolor{keywordtype}{id},\ home\_node,\ deliver\_node}
+\DoxyCodeLine{00522\ \ \ );}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \textcolor{comment}{//\ Insert\ a\ new\ entry\ in\ the\ cache\ for\ the\ updated\ location}}
+\DoxyCodeLine{00525\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home\_node,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd}{eLocState::Remote}},\ deliver\_node\});}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \textcolor{keyword}{auto}\ ask\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a52abbeb79fc2d24889a05ac87ad6e7f5}{loc\_asks\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00528\ \ \ \textcolor{keywordflow}{if}\ (ask\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a52abbeb79fc2d24889a05ac87ad6e7f5}{loc\_asks\_}}.end())\ \{}
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ ask\_node\ :\ ask\_iter-\/>second)\ \{}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a9903f0c4581b9d8a231293e98cf9a11c}{sendEagerUpdate}}(\textcolor{keywordtype}{id},\ ask\_node,\ home\_node,\ deliver\_node);}
+\DoxyCodeLine{00531\ \ \ \ \ \}}
+\DoxyCodeLine{00532\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a52abbeb79fc2d24889a05ac87ad6e7f5}{loc\_asks\_}}.erase(ask\_iter);}
+\DoxyCodeLine{00533\ \ \ \}}
+\DoxyCodeLine{00534\ \}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00537\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a9903f0c4581b9d8a231293e98cf9a11c}{EntityLocationCoord<EntityID>::sendEagerUpdate}}(}
+\DoxyCodeLine{00538\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ ask\_node,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node,}
+\DoxyCodeLine{00539\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ deliver\_node}
+\DoxyCodeLine{00540\ )\ \{}
+\DoxyCodeLine{00541\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00542\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{stringliteral}{"{}sendEagerUpdate:\ id=\{\},\ ask\_node=\{\},\ home\_node=\{\},\ deliver\_node=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordtype}{id},\ ask\_node,\ home\_node,\ deliver\_node}
+\DoxyCodeLine{00545\ \ \ );}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00548\ \ \ \textcolor{keywordflow}{if}\ (ask\_node\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(ask\_node\ !=\ uninitialized\_destination,\ \textcolor{stringliteral}{"{}Ask\ node\ must\ be\ valid"{}});}
+\DoxyCodeLine{00550\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}[ask\_node].template\ send<\&ThisType::handleEagerUpdate>(}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1_msg_props}{MsgProps}}().asLocationMsg(),\ \textcolor{keywordtype}{id},\ home\_node,\ deliver\_node}
+\DoxyCodeLine{00552\ \ \ \ \ );}
+\DoxyCodeLine{00553\ \ \ \}}
+\DoxyCodeLine{00554\ \}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00557\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00558\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a1fb91682d1695a98eed3375db9fa738e}{EntityLocationCoord<EntityID>::routeMsgNode}}(}
+\DoxyCodeLine{00559\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ to\_node,}
+\DoxyCodeLine{00560\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00561\ )\ \{}
+\DoxyCodeLine{00562\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00563\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg);}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00566\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ to\_node=\{\},\ this\_node=\{\}:\ "{}}}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{stringliteral}{"{}home\_node=\{\},\ id=\{\},\ ref=\{\},\ from=\{\},\ msg=\{\},\ epoch=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00569\ \ \ \ \ to\_node,\ this\_node,\ home\_node,\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{00570\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env),\ msg-\/>getLocFromNode(),\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}()),}
+\DoxyCodeLine{00571\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00572\ \ \ );}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae813b0555258b09de8fa324ed98dcd02}{markAsLocationMessage}}(msg);}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \textcolor{keywordflow}{if}\ (to\_node\ !=\ this\_node)\ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{comment}{//\ Get\ the\ current\ ask\ node,\ which\ is\ the\ from\ node\ for\ the\ first\ hop}}
+\DoxyCodeLine{00578\ \ \ \ \ \textcolor{keyword}{auto}\ prev\_ask\ =\ msg-\/>getAskNode();}
+\DoxyCodeLine{00579\ \ \ \ \ \textcolor{keywordflow}{if}\ (prev\_ask\ !=\ uninitialized\_destination)\ \{}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \textcolor{comment}{//\ Record\ previous\ asker\ for\ cascaded\ updates}}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a52abbeb79fc2d24889a05ac87ad6e7f5}{loc\_asks\_}}[id].insert(prev\_ask);}
+\DoxyCodeLine{00582\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ initial\ ask\ node\ to\ the\ sender\ for\ direct\ eager\ update\ later}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ msg-\/>setAskNode(this\_node);}
+\DoxyCodeLine{00585\ \ \ \ \ \}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ msg;\ \textcolor{comment}{//copy\ for\ msg\ thief}}
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{comment}{//\ send\ to\ the\ node\ discovered\ by\ the\ location\ manager}}
+\DoxyCodeLine{00589\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}[to\_node].template\ sendMsg<\&ThisType::routedHandler<MessageT>>(m);}
+\DoxyCodeLine{00590\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ to\_node=\{\},\ this\_node=\{\}:\ "{}}}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}home\_node=\{\},\ ref=\{\},\ from=\{\},\ epoch=\{:x\}:\ apply\ here\(\backslash\)n"{}},}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ to\_node,\ this\_node,\ home\_node,\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env),}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ msg-\/>getLocFromNode(),\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00597\ \ \ \ \ );}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keyword}{auto}\ trigger\_msg\_handler\_action\ =\ [\textcolor{keyword}{this},\ msg,\ home\_node](EntityID\ \textcolor{keyword}{const}\&\ hid)\ \{}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ has\_handler\ =\ msg-\/>hasHandler();}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ from\ =\ msg-\/>getLocFromNode();}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_handler)\ \{}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\ =\ msg-\/>getHandler();}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ apply\ direct\ handler\ action:\ "{}}}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}id=\{\},\ from=\{\},\ handler=\{\},\ ref=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ hid,\ from,\ handler,\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env)}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runnable_a60743efdd5f9d278271b4dd97a30f77e}{runnable::makeRunnable}}(msg,\ \textcolor{keyword}{true},\ handler,\ from)}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ .withTDEpochFromMsg()}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ .run();}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ reg\_han\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.find(hid);}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ reg\_han\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}}.end(),}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Message\ handler\ must\ exist\ for\ location\ manager\ routed\ msg"{}}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ no\ direct\ handler:\ id=\{\}\(\backslash\)n"{}},\ hid}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ reg\_han\_iter-\/>second.applyRegisteredActionMsg(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}());}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ask\_node\ =\ msg-\/>getAskNode();}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ route\_epoch\ =\ msg-\/>getRouteEpoch();}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ask\_node\ !=\ uninitialized\_destination)\ \{}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ delivered\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tie\ the\ eager\ update\ to\ the\ same\ epoch\ as\ the\ routed\ message.\ Prefer}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ epoch\ explicitly\ carried\ in\ the\ message\ (set\ at\ origination\ for}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ messages\ that\ cannot\ hold\ an\ epoch\ in\ their\ envelope);\ otherwise\ fall}}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ back\ to\ the\ envelope-\/derived\ epoch\ used\ by\ epoch-\/carrying\ messages.}}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ epoch\_local\ =\ route\_epoch\ !=\ no\_epoch\ ?}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \ \ route\_epoch\ :\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg);}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(epoch\_local);}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a9903f0c4581b9d8a231293e98cf9a11c}{sendEagerUpdate}}(hid,\ ask\_node,\ home\_node,\ delivered\_node);}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(epoch\_local);}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00645\ }
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \textcolor{comment}{//\ Release\ the\ caller's\ epoch\ that\ was\ manually\ held\ at\ origination\ for\ a}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \textcolor{comment}{//\ message\ that\ could\ not\ carry\ it\ in\ its\ envelope.\ The\ eager\ update\ above}}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \textcolor{comment}{//\ is\ produced\ on\ this\ same\ epoch\ before\ the\ consume\ below,\ so\ the\ epoch}}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \textcolor{comment}{//\ stays\ alive\ until\ the\ origin\ processes\ the\ cache\ update.}}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (route\_epoch\ !=\ no\_epoch)\ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{consume}}(route\_epoch);}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00653\ \ \ \ \ \};}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{keyword}{auto}\ reg\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.size()}
+\DoxyCodeLine{00661\ \ \ \ \ );}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordflow}{if}\ (reg\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end())\ \{}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ epoch=\{:x\}\ running\ actions\(\backslash\)n"{}},}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ trigger\_msg\_handler\_action(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{consume}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00674\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ ref=\{\},\ buffering\(\backslash\)n"{}},}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env)}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \ \ EntityID\ id\_\ =\ id;}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \textcolor{comment}{//\ buffer\ the\ message\ here,\ the\ entity\ will\ be\ registered\ in\ the\ future}}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a2b2c69634e3ef42e2625541cd234b350}{insertPendingEntityAction}}(id\_,\ [\textcolor{keyword}{this},\ id\_,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ msg,\ home\_node,\ trigger\_msg\_handler\_action](\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ resolved)\ \{}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ my\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00685\ }
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ routeMsgNode:\ trigger\ action:\ resolved=\{\},\ "{}}}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}this\_node=\{\},\ id=\{\},\ ref=\{\},\ epoch=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ resolved,\ my\_node,\ id\_,\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env),\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (resolved\ ==\ my\_node)\ \{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ trigger\_msg\_handler\_action(id\_);}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00698\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ *\ \ Recurse\ with\ the\ new\ updated\ node\ information.\ This\ occurs}}
+\DoxyCodeLine{00699\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ *\ \ typically\ when\ an\ non-\/migrated\ registration\ occurs\ off\ the\ home}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ *\ \ node\ and\ messages\ are\ buffered,\ awaiting\ forwarding\ information.}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a1fb91682d1695a98eed3375db9fa738e}{routeMsgNode<MessageT>}}(id\_,\ home\_node,\ resolved,msg);}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{consume}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00707\ \ \ \ \ \}}
+\DoxyCodeLine{00708\ \ \ \}}
+\DoxyCodeLine{00709\ \}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00712\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae7c1ec3412f2a16ea3f40d6bb39f23ca}{EntityLocationCoord<EntityID>::routeNonEagerAction}}(}
+\DoxyCodeLine{00713\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,\ \doxymbox{\hyperlink{namespacevt_a6120232f66889de000ccfed71e703ec9}{ActionNodeType}}\ action}
+\DoxyCodeLine{00714\ )\ \{}
+\DoxyCodeLine{00715\ \ \ getLocation(\textcolor{keywordtype}{id},\ home\_node,\ [=](\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node)\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ action(node);}
+\DoxyCodeLine{00717\ \ \ \});}
+\DoxyCodeLine{00718\ \}}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00721\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT,\ ActiveTypedFnType<MessageT>\ *f>}
+\DoxyCodeLine{00722\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_acc6301c0db37a3deaa8f28cc7f7d52bd}{EntityLocationCoord<EntityID>::routeMsgHandler}}(}
+\DoxyCodeLine{00723\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00724\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00725\ )\ \{}
+\DoxyCodeLine{00726\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab0ac67afe38b64ec6c1df9119d49d587}{setupMessageForRouting<MessageT,\ f>}}(\textcolor{keywordtype}{id},\ home\_node,\ msg);}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a110012758ba721c4ecf2816764fc799e}{routePreparedMsgHandler}}(msg);}
+\DoxyCodeLine{00729\ \}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00732\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00733\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a110012758ba721c4ecf2816764fc799e}{EntityLocationCoord<EntityID>::routePreparedMsgHandler}}(}
+\DoxyCodeLine{00734\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00735\ )\ \{}
+\DoxyCodeLine{00736\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.find(msg-\/>getEntity())\ ==\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}}.end())\ \{}
+\DoxyCodeLine{00737\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a6f03e0def3dee2b0e75f7787e0a4c2e9}{routePreparedMsg}}(msg);}
+\DoxyCodeLine{00738\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a67ece532f25a055200383a3a2730085a}{routeMsgHandlerLocal}}(msg);}
+\DoxyCodeLine{00740\ \ \ \}}
+\DoxyCodeLine{00741\ \}}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00744\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT,\ ActiveTypedFnType<MessageT>\ *f>}
+\DoxyCodeLine{00745\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab0ac67afe38b64ec6c1df9119d49d587}{EntityLocationCoord<EntityID>::setupMessageForRouting}}(}
+\DoxyCodeLine{00746\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00747\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00748\ )\ \{}
+\DoxyCodeLine{00749\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1auto__registry_a284638b209a012f3f288d2ee10e8b5b5}{auto\_registry::HandlerManagerType}};}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \textcolor{keyword}{auto}\ handler\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MessageT,f>}}();}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00754\ \ \ HandlerManagerType::setHandlerTrace(}
+\DoxyCodeLine{00755\ \ \ \ \ handler,\ envelopeGetTraceRuntimeEnabled(msg-\/>env)}
+\DoxyCodeLine{00756\ \ \ );}
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ msg-\/>setHandler(handler);}
+\DoxyCodeLine{00760\ \ \ msg-\/>setEntity(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00761\ \ \ msg-\/>setHomeNode(home\_node);}
+\DoxyCodeLine{00762\ \ \ msg-\/>setLocFromNode(\doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>getNode());}
+\DoxyCodeLine{00763\ \}}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00766\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00767\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a67ece532f25a055200383a3a2730085a}{EntityLocationCoord<EntityID>::routeMsgHandlerLocal}}(}
+\DoxyCodeLine{00768\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00769\ )\ \{}
+\DoxyCodeLine{00770\ \ \ \doxymbox{\hyperlink{namespacevt_1_1runnable_a60743efdd5f9d278271b4dd97a30f77e}{runnable::makeRunnable}}(msg,\ \textcolor{keyword}{true},\ msg-\/>getHandler(),\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>getNode())}
+\DoxyCodeLine{00771\ \ \ \ \ .withTDEpochFromMsg()}
+\DoxyCodeLine{00772\ \ \ \ \ .run();}
+\DoxyCodeLine{00773\ \}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00776\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00777\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a6f03e0def3dee2b0e75f7787e0a4c2e9}{EntityLocationCoord<EntityID>::routePreparedMsg}}(}
+\DoxyCodeLine{00778\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00779\ )\ \{}
+\DoxyCodeLine{00780\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ msg\_size\ =\ \textcolor{keyword}{sizeof}(*msg);}
+\DoxyCodeLine{00781\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ use\_eager\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a482a031eb17aba77a9efd946fe3f033c}{useEagerProtocol}}(msg);}
+\DoxyCodeLine{00782\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg);}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00784\ \ \ \textcolor{comment}{//\ Messages\ whose\ envelope\ cannot\ hold\ an\ epoch\ (e.g.\ short\ messages)\ lose\ the}}
+\DoxyCodeLine{00785\ \ \ \textcolor{comment}{//\ caller's\ epoch\ as\ soon\ as\ they\ hop\ to\ another\ node:\ getEpochContextMsg}}
+\DoxyCodeLine{00786\ \ \ \textcolor{comment}{//\ collapses\ to\ the\ "{}any\ epoch"{}\ sentinel\ even\ when\ the\ caller\ is\ inside\ a\ real}}
+\DoxyCodeLine{00787\ \ \ \textcolor{comment}{//\ collective\ epoch.\ Detect\ that\ case\ at\ origination\ and\ manually\ hold\ the}}
+\DoxyCodeLine{00788\ \ \ \textcolor{comment}{//\ caller's\ epoch\ across\ the\ whole\ route\ (including\ the\ eager\ cache\ update\ that}}
+\DoxyCodeLine{00789\ \ \ \textcolor{comment}{//\ comes\ back\ to\ the\ origin),\ releasing\ it\ at\ final\ delivery.\ This\ keeps\ the}}
+\DoxyCodeLine{00790\ \ \ \textcolor{comment}{//\ routed\ message\ and\ its\ cache\ update\ enclosed\ by\ the\ caller's\ epoch,\ exactly}}
+\DoxyCodeLine{00791\ \ \ \textcolor{comment}{//\ as\ an\ epoch-\/carrying\ (long)\ message\ already\ is\ via\ its\ envelope.}}
+\DoxyCodeLine{00792\ \ \ \textcolor{keywordflow}{if}\ (msg-\/>getRouteEpoch()\ ==\ no\_epoch\ and\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ term::any\_epoch\_sentinel)\ \{}
+\DoxyCodeLine{00793\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a627a8b2918ad283edf386038cf5693ca}{getEpoch}}();}
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keywordflow}{if}\ (cur\_epoch\ !=\ term::any\_epoch\_sentinel\ and\ cur\_epoch\ !=\ no\_epoch)\ \{}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ msg-\/>setRouteEpoch(cur\_epoch);}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}(cur\_epoch);}
+\DoxyCodeLine{00797\ \ \ \ \ \}}
+\DoxyCodeLine{00798\ \ \ \}}
+\DoxyCodeLine{00799\ }
+\DoxyCodeLine{00800\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00801\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00802\ \ \ \ \ \textcolor{stringliteral}{"{}routeMsg:\ home=\{\},\ msg\_size=\{\},\ is\_large\_msg=\{\},\ eager=\{\},\ "{}}}
+\DoxyCodeLine{00803\ \ \ \ \ \textcolor{stringliteral}{"{}msg=\{\},\ from=\{\},\ epoch=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00804\ \ \ \ \ msg-\/>getHomeNode(),\ msg\_size,\ msg\_size\ >\ small\_msg\_max\_size,\ use\_eager,}
+\DoxyCodeLine{00805\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}()),\ msg-\/>getLocFromNode(),}
+\DoxyCodeLine{00806\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00807\ \ \ );}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \ \ \textcolor{keywordflow}{if}\ (use\_eager)\ \{}
+\DoxyCodeLine{00810\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00811\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae44975ca70e81c8aa658fbbc9a3c619d}{routeMsgEager<MessageT>}}(msg-\/>getEntity(),\ msg-\/>getHomeNode(),\ msg);}
+\DoxyCodeLine{00812\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00813\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00815\ \ \ \ \ \textcolor{comment}{//\ non-\/eager\ protocol:\ get\ location\ first\ then\ send\ message\ after\ resolution}}
+\DoxyCodeLine{00816\ \ \ \ \ getLocation(msg-\/>getEntity(),\ msg-\/>getHomeNode(),\ [\textcolor{keyword}{this},\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ msg](\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node)\{}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ theMsg()-\/>pushEpoch(epoch);}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ routeMsgNode<MessageT>(}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ msg-\/>getEntity(),\ msg-\/>getHomeNode(),\ node,\ msg}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ theMsg()-\/>popEpoch(epoch);}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ theTerm()-\/>consume(epoch);}
+\DoxyCodeLine{00823\ \ \ \ \ \});}
+\DoxyCodeLine{00824\ \ \ \}}
+\DoxyCodeLine{00825\ \}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00827\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00828\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00829\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab7b80f1093a4360a1920fc21bc32c76a}{EntityLocationCoord<EntityID>::routeMsg}}(}
+\DoxyCodeLine{00830\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node,}
+\DoxyCodeLine{00831\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MessageT>}}\ \textcolor{keyword}{const}\&\ msg,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ from\_node}
+\DoxyCodeLine{00832\ )\ \{}
+\DoxyCodeLine{00833\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ from\ =}
+\DoxyCodeLine{00834\ \ \ \ \ from\_node\ ==\ uninitialized\_destination\ ?\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}()\ :}
+\DoxyCodeLine{00835\ \ \ \ \ from\_node;}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \ \ \textcolor{comment}{//\ set\ field\ for\ location\ routed\ message}}
+\DoxyCodeLine{00838\ \ \ msg-\/>setEntity(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00839\ \ \ msg-\/>setHomeNode(home\_node);}
+\DoxyCodeLine{00840\ \ \ msg-\/>setLocFromNode(from);}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a6f03e0def3dee2b0e75f7787e0a4c2e9}{routePreparedMsg}}(msg);}
+\DoxyCodeLine{00843\ \}}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00846\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ade9118aef1a21a90bf9d7ef5725c5281}{EntityLocationCoord<EntityID>::updatePendingRequest}}(}
+\DoxyCodeLine{00847\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ home\_node}
+\DoxyCodeLine{00848\ )\ \{}
+\DoxyCodeLine{00849\ }
+\DoxyCodeLine{00850\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00851\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00852\ \ \ \ \ \textcolor{stringliteral}{"{}EntityLocationCoord:\ updatePendingRequest:\ node=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00853\ \ \ \ \ node}
+\DoxyCodeLine{00854\ \ \ );}
+\DoxyCodeLine{00855\ }
+\DoxyCodeLine{00856\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.insert(\textcolor{keywordtype}{id},\ home\_node,\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a685f9eee868b7b9e01072a5b303548bc}{LocRecType}}\{id,\ \doxymbox{\hyperlink{namespacevt_1_1location_a7a5c74aad68cf57281515029d8521547af8508f576cd3f742dfc268258dcdf0dd}{eLocState::Remote}},\ node\});}
+\DoxyCodeLine{00857\ }
+\DoxyCodeLine{00858\ \ \ \textcolor{comment}{//\ trigger\ any\ pending\ actions\ upon\ registration}}
+\DoxyCodeLine{00859\ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ lookups\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a321719e0c1c938ef5dc8134ac92849fd}{pending\_lookups\_}}.extract(\textcolor{keywordtype}{id});\ lookups)\ \{}
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ action\ :\ lookups.mapped())\ \{}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ action(node);}
+\DoxyCodeLine{00862\ \ \ \ \ \}}
+\DoxyCodeLine{00863\ \ \ \}}
+\DoxyCodeLine{00864\ \}}
+\DoxyCodeLine{00865\ }
+\DoxyCodeLine{00866\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00867\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a33f2bf9523cfc89fae0f1151fa2d87db}{EntityLocationCoord<EntityID>::printCurrentCache}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00868\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.printCache();}
+\DoxyCodeLine{00869\ \}}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00872\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00873\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a1a6da8e3885d431284325e2959c48f8e}{EntityLocationCoord<EntityID>::routedHandler}}(MessageT\ *raw\_msg)\ \{}
+\DoxyCodeLine{00874\ \ \ \textcolor{comment}{//\ Message\ may\ be\ re-\/routed\ (and\ sent)\ again\ from\ subsequent\ routeMsg.}}
+\DoxyCodeLine{00875\ \ \ \doxymbox{\hyperlink{namespacevt_af3b1b3751353bac014e08070383062e9}{envelopeUnlockForForwarding}}(raw\_msg-\/>env);}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(raw\_msg);}
+\DoxyCodeLine{00878\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ entity\_id\ =\ msg-\/>getEntity();}
+\DoxyCodeLine{00879\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ home\_node\ =\ msg-\/>getHomeNode();}
+\DoxyCodeLine{00880\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ from\_node\ =\ msg-\/>getLocFromNode();}
+\DoxyCodeLine{00881\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg);}
+\DoxyCodeLine{00882\ }
+\DoxyCodeLine{00883\ \ \ msg-\/>incHops();}
+\DoxyCodeLine{00884\ }
+\DoxyCodeLine{00885\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00886\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1location}{location}},}
+\DoxyCodeLine{00887\ \ \ \ \ \textcolor{stringliteral}{"{}routedHandler:\ msg=\{\},\ ref=\{\},\ id=\{\},\ from=\{\},\ "{}}}
+\DoxyCodeLine{00888\ \ \ \ \ \textcolor{stringliteral}{"{}epoch=\{:x\},\ hops=\{\},\ ask=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00889\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(msg.get()),\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(msg-\/>env),\ entity\_id,}
+\DoxyCodeLine{00890\ \ \ \ \ from\_node,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ msg-\/>getHops(),\ msg-\/>getAskNode()}
+\DoxyCodeLine{00891\ \ \ );}
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00893\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ab7b80f1093a4360a1920fc21bc32c76a}{routeMsg}}(entity\_id,\ home\_node,\ msg,\ from\_node);}
+\DoxyCodeLine{00894\ \}}
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00896\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00897\ std::vector<EntityID>\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a23783f81bff7baccf6f845863fd655ee}{EntityLocationCoord<EntityID>::getLocalEntities}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00898\ \ \ std::vector<EntityID>\ local;}
+\DoxyCodeLine{00899\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ :\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a17f116f6581c4f67c2c5450db40f70a6}{local\_registered\_}})\ \{}
+\DoxyCodeLine{00900\ \ \ \ \ local.push\_back(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}});}
+\DoxyCodeLine{00901\ \ \ \}}
+\DoxyCodeLine{00902\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}},\ \_]\ :\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a48417f0a02356ec97b97250b18ba43f2}{local\_registered\_msg\_han\_}})\ \{}
+\DoxyCodeLine{00903\ \ \ \ \ local.push\_back(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}});}
+\DoxyCodeLine{00904\ \ \ \}}
+\DoxyCodeLine{00905\ \ \ \textcolor{keywordflow}{return}\ local;}
+\DoxyCodeLine{00906\ \}}
+\DoxyCodeLine{00907\ }
+\DoxyCodeLine{00908\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00909\ std::unordered\_map<EntityID,\ NodeType>}
+\DoxyCodeLine{00910\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a6b34a7379ebe58a9515fb671d0ee5592}{EntityLocationCoord<EntityID>::buildGlobalMap}}()\ \{}
+\DoxyCodeLine{00911\ \ \ std::unordered\_map<EntityID,\ NodeType>\ local\_map;}
+\DoxyCodeLine{00912\ }
+\DoxyCodeLine{00913\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ dir\ =\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a4822f7d8be8fd72319ad7a1823cf5fc9}{recs\_}}.getDirectory().getMap();}
+\DoxyCodeLine{00914\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [key,\ value]\ :\ dir)\ \{}
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{keywordflow}{if}\ (value.isLocal())\ \{}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ local\_map[key]\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00917\ \ \ \ \ \}}
+\DoxyCodeLine{00918\ \ \ \}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a3cee6dcf23af92b0b09eff2b1997bcb9}{waiting\_global\_map\_handler\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a0c97f9b8fc4cd4b04c76a592a959953b}{proxy\_}}.template\ allreduce<}
+\DoxyCodeLine{00923\ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae80346d06e4c92b4d0dde585a9e300ff}{EntityLocationCoord<EntityID>::globalMapHandler}},\ \doxymbox{\hyperlink{namespacevt_1_1collective_acf919add3eb5ac632b1cbade9bf9f407}{collective::PlusOp}}}
+\DoxyCodeLine{00924\ \ \ >(local\_map);}
+\DoxyCodeLine{00925\ }
+\DoxyCodeLine{00926\ \ \ \doxymbox{\hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{theSched}}()-\/>\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}{runSchedulerWhile}}([\&]\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a3cee6dcf23af92b0b09eff2b1997bcb9}{waiting\_global\_map\_handler\_}};\ \});}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \ \ \textcolor{keyword}{auto}\ global\_map\ =\ std::move(\doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a46d629c36e20e0681a19a444d6044190}{global\_map\_temp\_}});}
+\DoxyCodeLine{00929\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a46d629c36e20e0681a19a444d6044190}{global\_map\_temp\_}}\ =\ \{\};}
+\DoxyCodeLine{00930\ \ \ \textcolor{keywordflow}{return}\ global\_map;}
+\DoxyCodeLine{00931\ \}}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID>}
+\DoxyCodeLine{00934\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_ae80346d06e4c92b4d0dde585a9e300ff}{EntityLocationCoord<EntityID>::globalMapHandler}}(}
+\DoxyCodeLine{00935\ \ \ std::unordered\_map<EntityID,\ NodeType>\ \textcolor{keyword}{const}\&\ global\_map}
+\DoxyCodeLine{00936\ )\ \{}
+\DoxyCodeLine{00937\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a46d629c36e20e0681a19a444d6044190}{global\_map\_temp\_}}\ =\ global\_map;}
+\DoxyCodeLine{00938\ \ \ \doxymbox{\hyperlink{structvt_1_1location_1_1_entity_location_coord_a3cee6dcf23af92b0b09eff2b1997bcb9}{waiting\_global\_map\_handler\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00939\ \}}
+\DoxyCodeLine{00940\ }
+\DoxyCodeLine{00941\ \}\}\ \ \textcolor{comment}{//\ end\ namespace\ vt::location}}
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00943\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_TOPOS\_LOCATION\_LOCATION\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

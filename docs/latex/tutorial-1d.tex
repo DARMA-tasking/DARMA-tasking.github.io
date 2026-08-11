@@ -1,0 +1,67 @@
+\doxysubsection{Learning about broadcasts }
+\hypertarget{tutorial-1d}{}\label{tutorial-1d}\index{Learning about broadcasts@{Learning about broadcasts}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyDataMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{}
+\DoxyCodeLine{\ \ MyDataMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\ \ MyDataMsg(\textcolor{keywordtype}{double}\ in\_x,\ \textcolor{keywordtype}{double}\ in\_y,\ \textcolor{keywordtype}{double}\ in\_z)}
+\DoxyCodeLine{\ \ \ \ :\ x(in\_x),\ y(in\_y),\ z(in\_z)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ getX()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ x;\ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ getY()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ y;\ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ getZ()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ z;\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ x\ =\ 0.0,\ y\ =\ 0.0,\ z\ =\ 0.0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerX(MyDataMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ broadcasting\ a\ message\ to\ the\ entire\ system}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageBroadcast()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ default\_proxy.broadcast(..)\ will\ send\ the\ message\ to\ every\ node\ in\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ system.\ Every\ node\ will\ include\ all\ the\ nodes\ that\ VT\ has\ depending\ on\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ MPI\ communicator\ passed\ in\ or\ the\ size\ attained\ (number\ of\ ranks)\ when}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ executing\ MPI\ init\ directly\ in\ non-\/interoperability\ mode.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ -\/-\/\ Message\ Ownership\ -\/-\/}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ default\_proxy.broadcast(..)\ will\ create\ message\ out\ of\ args\ passed}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ into\ it.\ There's\ an\ alternative\ -\/\ default\_proxy.broadcastMsg(..)\ -\/\ which}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ relinquishes\ ownership\ of\ the\ message\ passed\ to:}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ \ \ auto\ msg\ =\ ::vt::makeMessage<MyDataMsg>(1.0,\ 2.0,\ 3.0);}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ \ \ auto\ const\ default\_proxy\ =\ theObjGroup()-\/>getDefault();}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ \ \ default\_proxy.broadcastMsg<MyDataMsg,\ msgHandlerX>(msg);}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ \ Most\ calls\ to\ VT\ that\ supply\ a\ message\ are\ expected\ to\ relinquish\ ownership.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ default\_proxy\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4447b8f4881710bc7b0b7a37de9d10b9}{getDefault}}();}
+\DoxyCodeLine{\ \ \ \ default\_proxy.\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_3_01void_01_4_a13f8d6751a246a449e7d13ae7eed3541}{broadcast}}<MyDataMsg,\ msgHandlerX>(1.0,\ 2.0,\ 3.0);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerX(MyDataMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{\ \ \ \ msg-\/>getX()\ ==\ 1.0\ \&\&\ msg-\/>getY()\ ==\ 2.0\ \&\&\ msg-\/>getZ()\ ==\ 3.0,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Values\ x,y,z\ incorrect"{}}}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerX:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

@@ -1,0 +1,435 @@
+\doxysection{histogram\+\_\+approx.\+h}
+\hypertarget{histogram__approx_8h_source}{}\label{histogram__approx_8h_source}\index{src/vt/utils/adt/histogram\_approx.h@{src/vt/utils/adt/histogram\_approx.h}}
+\doxymbox{\hyperlink{histogram__approx_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ histogram\_approx.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_ADT\_HISTOGRAM\_APPROX\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_ADT\_HISTOGRAM\_APPROX\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ INCLUDE\_FMT\_FORMAT}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util}{util}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1adt}{adt}}\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1adt_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ CountT>}
+\DoxyCodeLine{00067\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a566041829c6432cb574dec14a7686141}{Centroid}}\ \{}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ =\ CountT;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a566041829c6432cb574dec14a7686141}{Centroid}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00078\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a7950a3f8199b064108e117106014b645}{Centroid}}(T\ in\_value,\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ in\_count)}
+\DoxyCodeLine{00079\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}(in\_value),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}(in\_count)}
+\DoxyCodeLine{00081\ \ \ \{\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00088\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a16f468b91d64cd35579e5ca7785b7ff4}{getValue}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}};\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac8a85e340729654a913668059d34a278}{getCount}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}};\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a3d847e231f7e152242a78be89b41e55b}{setValue}}(T\ in\_value)\ \{\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}\ =\ in\_value;\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a7abe96415d943f38db8381a7be593fde}{setCount}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ in\_count)\ \{\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ =\ in\_count;\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a781bd5bd78c178a2a4ee8c9a0c991d06}{addCount}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ in\_add)\ \{\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ +=\ in\_add;\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_acad584e6798cbc7619d2b09f3f0cc06b}{merge}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a566041829c6432cb574dec14a7686141}{Centroid<T,\ CountT>}}\ \textcolor{keyword}{const}\&\ in)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ in.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ <=\ std::numeric\_limits<CountT>::max()\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Histogram\ count\ will\ overflow\ as\ result\ of\ this\ merge"{}}}
+\DoxyCodeLine{00127\ \ \ \ \ );}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ new\_count\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ +\ in.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ new\_value\ =\ ((\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}*\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}})\ +\ (in.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}*in.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}))/new\_count;}
+\DoxyCodeLine{00131\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ =\ new\_count;}
+\DoxyCodeLine{00132\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}\ =\ new\_value;}
+\DoxyCodeLine{00133\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a8564071b97ee50cf6ee90510d9f90aac}{exact\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a07ab1f2d6f0497b8b98ce27672d9f0b2}{isExact}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a8564071b97ee50cf6ee90510d9f90aac}{exact\_}};\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a6d689befe39b63c2d22558863e56084f}{operator<}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a566041829c6432cb574dec14a7686141}{Centroid<T,\ CountT>}}\ \textcolor{keyword}{const}\&\ c1,\ \textcolor{keywordtype}{double}\ val)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ c1.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}\ <\ val;}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ad681c6c08ec1b8c48895b75ec370fa84}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}};}
+\DoxyCodeLine{00158\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}};}
+\DoxyCodeLine{00159\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a8564071b97ee50cf6ee90510d9f90aac}{exact\_}};}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00163\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a17b351e747aba8aa88699a4d9137a692}{value\_}}\ =\ \{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac3815361e4f13eeb8b2863d2eb8db1dd}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_ac9df992e5ea17280b5d49bd0defa8c28}{count\_}}\ =\ 0;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid_a8564071b97ee50cf6ee90510d9f90aac}{exact\_}}\ =\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \}\ \textcolor{comment}{/*\ end\ namespace\ detail\ */}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ CountT>}
+\DoxyCodeLine{00191\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_accb60fd3c6827b4bc3f8db9d688397b3}{HistogramApprox}}\ \{}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ =\ CountT;}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aabacbad5be3a407cb00938f079177b95}{CentroidType}}\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1detail_1_1_centroid}{detail::Centroid<T,\ CountType>}};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_accb60fd3c6827b4bc3f8db9d688397b3}{HistogramApprox}}()\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ for\ serialization}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a3b78cb4504ac095d913cefe1db3b442a}{HistogramApprox}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ in\_max\_centroids)}
+\DoxyCodeLine{00203\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}}(in\_max\_centroids)}
+\DoxyCodeLine{00204\ \ \ \{\ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00211\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a3beb5b6e74470f8b6bf295217d5ff843}{getMax}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}};\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00218\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_ab024713bdb28ef694096f3865236faa3}{getMin}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}};\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00228\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_af61bc8614a5096610387643fc05bf2e9}{getCount}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}};\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a7d691b9a2139ae2d320a39c1d8fbabab}{add}}(T\ value,\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ num\_times\ =\ 1)\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}})\ \{\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}}\ =\ value;\ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ >\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}})\ \{\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}}\ =\ value;\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ add\ \(\backslash\)c\ num\_times\ to\ total\ count}}
+\DoxyCodeLine{00241\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}}\ +=\ num\_times;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//\ Find\ an\ index\ k\ such\ that\ value\_k\ <=\ value\ <\ value\_\{k+1\}\ using\ a\ O(lg\ n)}}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ search\ on\ the\ underlying\ centroids}}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::lower\_bound(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.end(),\ value);}
+\DoxyCodeLine{00246\ \ \ \ \ std::size\_t\ k\ =\ it\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.begin();}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{comment}{//\ If\ we\ found\ a\ valid\ value\ and\ it's\ exactly\ equal,\ we\ are\ done!}}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ and\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[k].getValue()\ ==\ value)\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[k].addCount(num\_times);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{comment}{//\ insert\ an\ element\ right\ before\ current\ position}}
+\DoxyCodeLine{00255\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.insert(it,\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aabacbad5be3a407cb00938f079177b95}{CentroidType}}\{value,\ num\_times\});}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ check\ if\ we\ are\ at\ capacity;\ otherwise\ nothing\ to\ merge}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ >\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}}))\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ a\ centroid\ by\ merging\ the\ optimal\ pick}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a948e8a7dec4f205fc5bf1d1b896211b1}{removeOneCentroid}}();}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+\DoxyCodeLine{00262\ \ \ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_afbaecd0105590bf33bbf73611fea5a5c}{quantile}}(\textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ p)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(!(p\ <\ 0.0\ ||\ p\ >\ 1.0),\ \textcolor{stringliteral}{"{}percentile\ must\ be\ between\ 0.0\ and\ 1.0"{}});}
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}}\ >=\ 1,\ \textcolor{stringliteral}{"{}Must\ have\ at\ least\ one\ value\ to\ calculate"{}});}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ t\ =\ p\ *\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}};}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{double}\ s\ =\ 0.;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{double}\ pv\ =\ 0.;}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//\ Find\ the\ last\ two\ consecutive\ centroids\ (ci,\ cj)\ such\ that\ the\ sum\ of\ all}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{comment}{//\ centroid\ weights\ up\ to\ ci\ plus\ half\ of\ cj\ is\ at\ most\ t.\ This\ implies\ the}}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{comment}{//\ quantile\ is\ between\ ci\ and\ cj}}
+\DoxyCodeLine{00283\ \ \ \ \ std::size\_t\ i\ =\ 0;}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ ;\ i\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size();\ i++)\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i].getCount()\ /\ 2.;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s\ +\ pv\ +\ v\ >\ t)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ s\ +=\ v\ +\ pv;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ pv\ =\ v;}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{comment}{//\ Border\ centroids\ give\ a\ more\ precise\ approximation\ of\ the\ quantiles}}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{auto}\ centroids\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a2804675764df27bd93ed0c60077dd643}{getBorderCentroids}}(i);}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keyword}{auto}\ ci\ =\ std::get<0>(centroids);}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{auto}\ cj\ =\ std::get<1>(centroids);}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{//\ If\ we\ found\ exact\ centroids,\ return\ the\ value}}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{if}\ (ci.isExact()\ and\ cj.isExact())\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cj.getValue();}
+\DoxyCodeLine{00301\ \ \ \ \ \}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ See\ paper;\ we\ are\ solving\ a\ quadratic.}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ Let\ cx.p\ =\ cx.getValue(),\ cx.m\ =\ cx.getCount()}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ solve\ for\ u\ such\ that\ t-\/s\ =\ (ci.m\ +\ mu)/2\ *\ (u-\/ci.p)/(cj.p\ -\/\ ci.p),}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{comment}{//\ where\ mu\ =\ ci.m\ +\ (u-\/ci.p)*(cj.m\ -\/\ ci.m)/(cj.p\ -\/\ ci.p).}}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mi\ =\ ci.getCount();}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ pi\ =\ ci.getValue();}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mj\ =\ cj.getCount();}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ pj\ =\ cj.getValue();}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ d\ =\ t\ -\/\ s;}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ a\ =\ mj\ -\/\ mi;}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ ==\ 0)\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pi\ +\ (pj\ -\/\ pi)\ *\ (d\ /\ mi);}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ b\ =\ 2.0\ *\ ci.getCount();}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ c\ =\ -\/2.0\ *\ d;}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ z\ =\ (-\/b\ +\ std::sqrt(b\ *\ b\ -\/\ 4\ *\ a\ *\ c))\ /\ (2\ *\ a);}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{return}\ pi\ +\ (pj\ -\/\ pi)\ *\ z;}
+\DoxyCodeLine{00320\ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_adc37c23f9b9d846e4fb0f7b788cb54de}{estimateNumValues}}(\textcolor{keywordtype}{double}\ p)\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ >=\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}})\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}};\ \}}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}})\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{comment}{//\ Find\ an\ index\ k\ such\ that\ p\_k\ <=\ p\ <\ p\_\{k+1\}}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::lower\_bound(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.end(),\ p);}
+\DoxyCodeLine{00338\ \ \ \ \ std::size\_t\ k\ =\ it\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.begin();}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{comment}{//\ \(\backslash\)c\ std::lower\_bound\ doesn't\ quite\ do\ what\ we\ need\ (when\ p\ ==\ p\_k)}}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[k].getValue()\ ==\ p)\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ k++;}
+\DoxyCodeLine{00343\ \ \ \ \ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{comment}{//\ The\ following\ is\ equivalent\ to\ what\ the\ above\ code\ with}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{comment}{//\ \(\backslash\)c\ std::lower\_bound\ does:}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{comment}{//\ std::size\_t\ k\ =\ 0;}}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{comment}{//\ for\ (;\ k\ <\ cs\_.size();\ k++)\ \{}}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{comment}{//\ \ \ if\ (cs\_[k].getValue()\ >\ p)\ \{}}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ break;}}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordtype}{double}\ s\ =\ 0.;}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ >\ 0)\ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ k\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ s\ +=\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i].getCount();}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keyword}{auto}\ centroids\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a2804675764df27bd93ed0c60077dd643}{getBorderCentroids}}(k);}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keyword}{auto}\ ci\ =\ std::get<0>(centroids);}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keyword}{auto}\ cj\ =\ std::get<1>(centroids);}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mi\ =\ ci.getCount();}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ pi\ =\ ci.getValue();}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mj\ =\ cj.getCount();}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ pj\ =\ cj.getValue();}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//\ This\ is\ an\ improvement\ on\ the\ paper\ when\ we\ know\ the\ estimation\ is\ exact}}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{comment}{//\ because\ it\ was\ never\ merged}}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{if}\ (ci.isExact()\ \&\&\ (cj.isExact()\ ||\ pi\ ==\ p))\ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ s\ +\ mi;}
+\DoxyCodeLine{00375\ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ formula\ for\ approximating\ across\ the\ centroids}}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordtype}{double}\ x\ =\ (p\ -\/\ pi)\ /\ (pj\ -\/\ pi);}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ mi\ +\ (mj\ -\/\ mi)\ *\ x;}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordtype}{double}\ est\ =\ s\ +\ mi\ /\ 2.0\ +\ (mi\ +\ b)\ *\ x\ /\ 2.0;}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{keywordflow}{return}\ est;}
+\DoxyCodeLine{00382\ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_af3a3a4065892e90e346fdfbf6060dc9c}{mergeIn}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_accb60fd3c6827b4bc3f8db9d688397b3}{HistogramApprox<T,\ CountType>}}\ \textcolor{keyword}{const}\&\ in\_hist)\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ in\_cs\ =\ in\_hist.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aacece479b31b98b26af08209a72deb22}{getCentroids}}();}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{comment}{//\ Max/used\ centroids\ for\ the\ histogram}}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_max\_centroids\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a5b6af36eb1219d09bf17349731ed66ff}{getMaxCentroids}}();}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_used\_centroids\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_acdc73bd403084f66fc7d6011e4853ff6}{getNumCentroids}}();}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ centroids\ used\ for\ input\ histogram;\ worst\ case\ we\ will\ need}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{comment}{//\ this\ many\ to\ insert\ without\ any\ merges}}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keyword}{auto}\ in\_num\_centroids\ =\ in\_hist.\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_acdc73bd403084f66fc7d6011e4853ff6}{getNumCentroids}}();}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{//\ Resize\ to:\ this-\/>max\ +\ in\_hist.used}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{if}\ (cur\_max\_centroids\ -\/\ cur\_used\_centroids\ <\ in\_num\_centroids)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa23f54efa5c883d2759ceacd3f32279a}{setMaxCentroids}}(cur\_max\_centroids\ +\ in\_num\_centroids);}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{comment}{//\ Add\ in\ all\ the\ centroids\ from\ the\ input\ histogram}}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ c\ :\ in\_cs)\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a7d691b9a2139ae2d320a39c1d8fbabab}{add}}(c.getValue(),\ c.getCount());}
+\DoxyCodeLine{00408\ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{comment}{//\ Pare\ the\ histogram\ down\ to\ the\ allowed\ size}}
+\DoxyCodeLine{00411\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a8827a511e5b810ffca9da33d769bc4b9}{pareToNewMaxCentroids}}(cur\_max\_centroids);}
+\DoxyCodeLine{00412\ \ \ \}}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00428\ \ \ std::vector<CountType>\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a54c41357845b90a2f8c21cb4364a0783}{computeFixedBuckets}}(\textcolor{keywordtype}{int}\ n\_buckets)\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ r\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a3beb5b6e74470f8b6bf295217d5ff843}{getMax}}()\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_ab024713bdb28ef694096f3865236faa3}{getMin}}();}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ bucket\_size\ =\ r\ /\ n\_buckets;}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ std::vector<double>\ buckets;}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ n\_buckets;\ i++)\ \{}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ q\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_ab024713bdb28ef694096f3865236faa3}{getMin}}()\ +\ bucket\_size*(i+1);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ number\ of\ values\ that\ fall\ less\ than\ this\ value}}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_vals\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_adc37c23f9b9d846e4fb0f7b788cb54de}{estimateNumValues}}(q);}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ buckets.push\_back(n\_vals);}
+\DoxyCodeLine{00438\ \ \ \ \ \}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ std::vector<CountType>\ segments;}
+\DoxyCodeLine{00441\ \ \ \ \ segments.resize(n\_buckets);}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ n\_buckets\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 0)\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ segments[i]\ =\ std::round(buckets[i]);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ segments[i]\ =\ std::round(buckets[i]\ -\/\ buckets[i-\/1]);}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00448\ \ \ \ \ \}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ \textcolor{keywordflow}{return}\ segments;}
+\DoxyCodeLine{00451\ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00458\ \ \ std::vector<CentroidType>\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aacece479b31b98b26af08209a72deb22}{getCentroids}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}};\ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a26c7f2922772baf00c50dcf5e88ad023}{dump}}()\ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ad4964b98cfd2a0b5665f3a481a1a61fe}{vt\_print}}(}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ gen,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}dump:\ count=\{\},\ min=\{\},\ max=\{\},\ cs\_.size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()}
+\DoxyCodeLine{00468\ \ \ \ \ );}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size();\ i++)\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ad4964b98cfd2a0b5665f3a481a1a61fe}{vt\_print}}(}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ gen,}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)t\ i=\{\}\ value=\{\},\ count=\{\}\(\backslash\)n"{}},\ i,\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i].getValue(),\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i].\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_af61bc8614a5096610387643fc05bf2e9}{getCount}}()}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00474\ \ \ \ \ \}}
+\DoxyCodeLine{00475\ \ \ \}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00480\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_ada0f64fb2e7d5f1e7827bec2762a1291}{buildContainerString}}()\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{auto}\ container\_info\ =\ fmt::format(\textcolor{stringliteral}{"{}\{\}\ \{\}\ \{\}\ ["{}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}});}
+\DoxyCodeLine{00482\ \ \ \ \ std::size\_t\ i\ =\ 0;}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ c\ :\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}})\ \{}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ container\_info\ +=\ fmt::format(\textcolor{stringliteral}{"{}\{\{\{\}\ \{\}\}\}"{}},\ c.getValue(),\ c.getCount());}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ container\_info\ +=\ i\ !=\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ -\/\ 1\ ?\ \textcolor{stringliteral}{"{}\ "{}}\ :\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00487\ \ \ \ \ \}}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordflow}{return}\ container\_info;}
+\DoxyCodeLine{00489\ \ \ \}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00496\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00497\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aae8a321f42f550b711aeeb50ac8ef913}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00498\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}};}
+\DoxyCodeLine{00499\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}};}
+\DoxyCodeLine{00500\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}};}
+\DoxyCodeLine{00501\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}};}
+\DoxyCodeLine{00502\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}};}
+\DoxyCodeLine{00503\ \ \ \}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00510\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a5b6af36eb1219d09bf17349731ed66ff}{getMaxCentroids}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}};}
+\DoxyCodeLine{00512\ \ \ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00519\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_acdc73bd403084f66fc7d6011e4853ff6}{getNumCentroids}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size();}
+\DoxyCodeLine{00521\ \ \ \}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00533\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa23f54efa5c883d2759ceacd3f32279a}{setMaxCentroids}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ in\_max\_centroids)\ \{}
+\DoxyCodeLine{00534\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}}\ =\ in\_max\_centroids;}
+\DoxyCodeLine{00535\ \ \ \}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00542\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a8827a511e5b810ffca9da33d769bc4b9}{pareToNewMaxCentroids}}(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ in\_max\_centroids)\ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{comment}{//\ Keep\ removing\ the\ best\ centroid\ until\ we\ pare\ down\ to\ the\ new\ max}}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ >\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(in\_max\_centroids))\ \{}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a948e8a7dec4f205fc5bf1d1b896211b1}{removeOneCentroid}}();}
+\DoxyCodeLine{00546\ \ \ \ \ \}}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{comment}{//\ Finally,\ set\ the\ max}}
+\DoxyCodeLine{00549\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa23f54efa5c883d2759ceacd3f32279a}{setMaxCentroids}}(in\_max\_centroids);}
+\DoxyCodeLine{00550\ \ \ \}}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00557\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a948e8a7dec4f205fc5bf1d1b896211b1}{removeOneCentroid}}()\ \{}
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{comment}{//\ find\ the\ best\ candidate\ for\ merging\ two\ centroids\ since\ we\ are\ over\ the}}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{comment}{//\ space\ limit}}
+\DoxyCodeLine{00560\ \ \ \ \ \textcolor{keyword}{auto}\ min\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0bba7a9d03149be996f45bfe245abd03}{findMinimumCentroidPair}}();}
+\DoxyCodeLine{00561\ \ \ \ \ \textcolor{comment}{//\ merge\ them}}
+\DoxyCodeLine{00562\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[min\_idx].merge(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[min\_idx+1]);}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{comment}{//\ shift\ centroids\ in\ place}}
+\DoxyCodeLine{00564\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ j\ =\ min\_idx\ +\ 1;\ j\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ -\/\ 1;\ j++)\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[j]\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[j+1];}
+\DoxyCodeLine{00566\ \ \ \ \ \}}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{comment}{//\ remove\ the\ last\ element,\ now\ dead}}
+\DoxyCodeLine{00568\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.pop\_back();}
+\DoxyCodeLine{00569\ \ \ \}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00577\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0bba7a9d03149be996f45bfe245abd03}{findMinimumCentroidPair}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00578\ \ \ \ \ T\ min\_dist\ =\ std::numeric\_limits<T>::max();}
+\DoxyCodeLine{00579\ \ \ \ \ std::size\_t\ min\_index\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size();}
+\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \textcolor{comment}{//\ Walk\ through\ sorted\ centroids\ calculating\ the\ distance\ between:\ cs\_[i]}}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \textcolor{comment}{//\ and\ cs\_[+1];\ return\ the\ best\ match\ for\ merging\ (min\ distance)}}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dist\ =\ std::fabs(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i+1].getValue()\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i].getValue());}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dist\ <\ min\_dist)\ \{}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ min\_dist\ =\ dist;}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ min\_index\ =\ i;}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00588\ \ \ \ \ \}}
+\DoxyCodeLine{00589\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(min\_index\ !=\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size(),\ \textcolor{stringliteral}{"{}Must\ be\ valid\ index"{}});}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{return}\ min\_index;}
+\DoxyCodeLine{00591\ \ \ \}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00605\ \ \ std::tuple<CentroidType,\ CentroidType>\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a2804675764df27bd93ed0c60077dd643}{getBorderCentroids}}(std::size\_t\ i)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 0)\ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aabacbad5be3a407cb00938f079177b95}{CentroidType}}\{\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}},\ 0\},\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[0]);}
+\DoxyCodeLine{00608\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size())\ \{}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}.size()-\/1],\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aabacbad5be3a407cb00938f079177b95}{CentroidType}}\{max\_,\ 0\});}
+\DoxyCodeLine{00610\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(\doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i-\/1],\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}}[i]);}
+\DoxyCodeLine{00612\ \ \ \ \ \}}
+\DoxyCodeLine{00613\ \ \ \}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00616\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a080a663250287f2c4bb1f2db58d60cf3}{max\_centroids\_}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00617\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aa2fb74665588d311da76dd821f2912c6}{CountType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_aad876385bbf54051a56e736ef403f7a9}{total\_count\_}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00618\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a0cf82abced8b354d01757093e4510d46}{min\_}}\ =\ std::numeric\_limits<T>::max();\ \ \ \ }
+\DoxyCodeLine{00619\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a4bab4f7bffe5cd03a70be4013bd18403}{max\_}}\ =\ std::numeric\_limits<T>::lowest();\ }
+\DoxyCodeLine{00620\ \ \ std::vector<CentroidType>\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx_a777a1384cff8b2bd7e0cd8b8a7c4def4}{cs\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00621\ \};}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::util::adt\ */}}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1adt}{adt}}\ \{}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ CountT>}
+\DoxyCodeLine{00628\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1adt_a8ba5e6bd9c93530ac2b996d55f507b24}{HistogramApprox}}\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1adt_1_1_histogram_approx}{util::adt::HistogramApprox<T,\ CountT>}};}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::adt\ */}}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_ADT\_HISTOGRAM\_APPROX\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

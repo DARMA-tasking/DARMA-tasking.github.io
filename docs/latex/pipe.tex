@@ -1,0 +1,131 @@
+\doxysubsection{Pipe Manager }
+\hypertarget{pipe}{}\label{pipe}\index{Pipe Manager@{Pipe Manager}}
+Create opaque callback endpoints.
+
+The pipe manager component {\ttfamily \doxylink{structvt_1_1pipe_1_1_pipe_manager}{vt::\+pipe::\+\+Pipe\+Manager}}, accessed via {\ttfamily \doxylink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::\+the\+CB()}} allows the creation of general pipes and callbacks between opaque endpoints that are not revealed through the type. Callbacks allow one to supply a general endpoint that accepts a type of data without revealing the actual endpoint instance. For example, one may create a callback that triggers a handler invocation on a certain node, broadcasts to a handler, sends to a collection or objgroup, or broadcasts to a collection or objgroup, etc.
+
+The pipe manager supports more complex use cases of multi-\/listener endpoints if one wants to trigger multiple endpoints on potentially different nodes. The lifetime of a pipe can also be configured---how many invocations are allowed before the callback is invalid. The pipe manager has a reference count for each pipe which gets decremented with each signal arrival. By default, callbacks are infinitely callable and do not expire.
+
+The pipe manager also supports "{}typed"{} callbacks where the callee type is revealed to the caller. Typed callbacks are slightly more efficient because the type is exposed and registered type-\/erasure is not required (using lambdas).\hypertarget{pipe_callback-example}{}\doxysubsubsection{\texorpdfstring{Example callbacks}{Example callbacks}}\label{pipe_callback-example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ sent\ from\ the\ callback\ to\ the\ callback\ endpoint}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }TestMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }MessageParentType\ =\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}};}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{message__serialize_8h_a54128d5338aaa9c918179826085e13d1}{vt\_msg\_serialize\_required}}();\ \textcolor{comment}{//\ for\ string}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ TestMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ TestMsg(\textcolor{keywordtype}{int}\ in\_val,\ std::string\ \textcolor{keyword}{const}\&\ in\_s\ =\ \textcolor{stringliteral}{"{}hello"{}})}
+\DoxyCodeLine{\ \ \ \ :\ val\_(in\_val),}
+\DoxyCodeLine{\ \ \ \ \ \ s\_(in\_s)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_msg_a758f02bef5991c48d6c9a56c30ca7ad9}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ MessageParentType::serialize(s);}
+\DoxyCodeLine{\ \ \ \ s\ |\ val\_;}
+\DoxyCodeLine{\ \ \ \ s\ |\ s\_;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ val\_\ =\ 0;}
+\DoxyCodeLine{\ \ std::string\ s\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ containing\ the\ callback\ to\ invoke}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }HelloMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ HelloMsg(\doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{vt::Callback<TestMsg>}}\ in\_cb)}
+\DoxyCodeLine{\ \ \ \ :\ cb\_(in\_cb)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{vt::Callback<TestMsg>}}\ cb\_;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Handler\ function\ to\ invoke\ the\ callback\ from}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ hello\_world(HelloMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ val\ =\ 1;}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ Sending\ callback\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode());}
+\DoxyCodeLine{\ \ msg-\/>cb\_.send(292\ +\ val++,\ \textcolor{stringliteral}{"{}test\ string"{}});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ printOutput(TestMsg*\ msg,\ std::string\ type)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ cb\ \{\}:\ val=\{\},\ str=\{\}\(\backslash\)n"{}},\ this\_node,\ type,\ msg-\/>val\_,\ msg-\/>s\_);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Functor\ callback\ endpoint}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }CallbackFunctor\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \ \ printOutput(msg,\ \textcolor{stringliteral}{"{}CallbackFunctor"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Function\ callback\ endpoint}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ callbackFunc(TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ printOutput(msg,\ \textcolor{stringliteral}{"{}callbackFunc"{}});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyObj\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Objgroup\ callback\ endpoint}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a82a0081a94d5c5dfd18b0b3f7eca64b7}{handler}}(TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \ \ printOutput(msg,\ \textcolor{stringliteral}{"{}MyObj::handler"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyCol\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<MyCol,\ vt::Index1D>\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Collection\ handler\ callback\ endpoint}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ colHan([[maybe\_unused]]\ MyCol*\ col,\ [[maybe\_unused]]\ TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ printOutput(msg,\ \textcolor{stringliteral}{"{}MyCol\ colHan\ (non-\/intrusive)"{}});}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ bounceCallback(\doxymbox{\hyperlink{namespacevt_a9d5b272c3f8d274a6f64b4a701aa1d90}{vt::Callback<TestMsg>}}\ cb)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<HelloMsg>}}(cb);}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<hello\_world>(1,\ msg);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\_nodes\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}}(\textcolor{stringliteral}{"{}requires\ at\ least\ 2\ nodes"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ obj\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<MyObj>(\textcolor{stringliteral}{"{}examples\_callback"{}});}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ col\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<MyCol>}}(\textcolor{stringliteral}{"{}examples\_callback"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(\doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(8))}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ dest\ =\ num\_nodes\ >\ 2\ ?\ 2\ :\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_functor\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<CallbackFunctor>(dest);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_functor);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_func\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<callbackFunc>(dest);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_func);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_obj\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<\&MyObj::handler>(obj[dest]);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_obj);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_obj\_bcast\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}<\&MyObj::handler>(obj);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_obj\_bcast);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_col\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<colHan>(col[5]);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_col);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ cb\_col\_bcast\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}<colHan>(col);}
+\DoxyCodeLine{\ \ \ \ bounceCallback(cb\_col\_bcast);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

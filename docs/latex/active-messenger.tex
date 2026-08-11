@@ -1,0 +1,86 @@
+\doxysubsection{Active Messenger }
+\hypertarget{active-messenger}{}\label{active-messenger}\index{Active Messenger@{Active Messenger}}
+Asynchronous send/\+receive of messages.
+
+The active messenger {\ttfamily \doxylink{structvt_1_1messaging_1_1_active_messenger}{vt::\+messaging::\+\+Active\+Messenger}}, accessed via {\ttfamily \doxylink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::\+the\+Msg()}}, asynchronously sends and receives messages across nodes using MPI internally. When sending a message, it uses the {\bfseries{{\itshape vt}}} registry to consistently dispatch messages and data to handlers (function pointers, functors, or methods) across nodes.
+
+Each message contains an envelope {\ttfamily \doxylink{namespacevt_a5c3a44320f11a37e50b92c191a9b7891}{vt::\+\+Envelope}} to store meta-\/data associated with the message, such as the destination and handler to trigger when it arrives. Sending a message entails setting up the envelope, optionally serializing the message (depending on whether the serialize overload is present), and then using {\ttfamily MPI\+\_\+\+Isend} to asynchronously transfer the bytes to the destination node. On the receive side, the active messenger is always probing for an incoming message and begins a transfer when it discovers one. The {\bfseries{{\itshape vt}}} \doxylink{scheduler}{Scheduler} polls the active messenger to make progress on any incoming messages.\hypertarget{active-messenger_am-simple-example}{}\doxysubsubsection{\texorpdfstring{Sending a message}{Sending a message}}\label{active-messenger_am-simple-example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{transport_8h}{vt/transport.h}}>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Declare\ a\ serializable\ message}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }MessageParentType\ =\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}};}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{message__serialize_8h_a54128d5338aaa9c918179826085e13d1}{vt\_msg\_serialize\_required}}();\ \textcolor{comment}{//\ for\ vector}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ MyMsg()\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ default\ constructor\ for\ de-\/serialize}}
+\DoxyCodeLine{\ \ MyMsg(\textcolor{keywordtype}{int}\ in\_val,\ std::vector<double>\ \textcolor{keyword}{const}\&\ in\_vec)}
+\DoxyCodeLine{\ \ \ \ :\ val(in\_val),}
+\DoxyCodeLine{\ \ \ \ \ \ my\_vec(in\_vec)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_msg_a758f02bef5991c48d6c9a56c30ca7ad9}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ MessageParentType::serialize(s);}
+\DoxyCodeLine{\ \ \ \ s\ |\ val;}
+\DoxyCodeLine{\ \ \ \ s\ |\ my\_vec;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ val\ =\ 0;}
+\DoxyCodeLine{\ \ std::vector<double>\ my\_vec;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Active\ function\ pointer}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ myHandler(MyMsg*\ m)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ val=\{\},\ vec\ size=\{\}\(\backslash\)n"{}},\ this\_node,\ m-\/>val,\ m-\/>my\_vec.size());}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Active\ functor}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyFunctor\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(MyMsg*\ m)\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ val=\{\},\ vec\ size=\{\}\(\backslash\)n"{}},\ this\_node,\ m-\/>val,\ m-\/>my\_vec.size());}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ spins\ in\ scheduler\ until\ termination\ of\ the\ enclosed\ work}}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}}([=]\{}
+\DoxyCodeLine{\ \ \ \ \ \ std::vector<double>\ vec\_to\_send;}
+\DoxyCodeLine{\ \ \ \ \ \ vec\_to\_send.push\_back(29.);}
+\DoxyCodeLine{\ \ \ \ \ \ vec\_to\_send.push\_back(54.);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<MyMsg>}}(10,\ vec\_to\_send);}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<MyMsg,\ myHandler>(1,\ msg);\ \textcolor{comment}{//\ send\ to\ node\ 1}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ msg2\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<MyMsg>}}(11,\ vec\_to\_send);}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<MyFunctor>(1,\ msg2);\ \ \textcolor{comment}{//\ send\ to\ node\ 1}}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Program output:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{.shell-\/session\}\ }
+\DoxyCodeLine{1:\ val=10,\ vec\ size=2}
+\DoxyCodeLine{1:\ val=11,\ vec\ size=2}
+
+\end{DoxyCode}
+ 

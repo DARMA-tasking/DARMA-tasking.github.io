@@ -1,0 +1,164 @@
+\doxysection{reduce\+\_\+scope.\+impl.\+h}
+\hypertarget{reduce__scope_8impl_8h_source}{}\label{reduce__scope_8impl_8h_source}\index{src/vt/collective/reduce/reduce\_scope.impl.h@{src/vt/collective/reduce/reduce\_scope.impl.h}}
+\doxymbox{\hyperlink{reduce__scope_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_scope.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_SCOPE\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_SCOPE\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective}{collective}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce}{reduce}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00052\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_ac1da975b48590fd29147a12ef1be3e56}{ReduceScope}}\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope}}(Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00053\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_ac1da975b48590fd29147a12ef1be3e56}{ReduceScope}}\ scope;}
+\DoxyCodeLine{00054\ \ \ scope.\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_ab0e1e9603e220a5ad22e2b664ddcf050}{l0\_}}\ =\ T\{std::forward<Args>(args)...\};}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{return}\ scope;}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{inline}\ std::string\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_a8c155fd8428161395debd8dc0710f583}{stringizeStamp}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_abd7289805855d8cb43e8fb8ea1930b59}{ReduceStamp}}\ \textcolor{keyword}{const}\&\ stamp)\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{if}\ (std::holds\_alternative<StrongTag>(stamp))\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}tag[\{\}]"{}},\ std::get<StrongTag>(stamp).get());}
+\DoxyCodeLine{00061\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::holds\_alternative<TagPair>(stamp))\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ fmt::format(}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tagPair[\{\},\{\}]"{}},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ std::get<TagPair>(stamp).first(),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ std::get<TagPair>(stamp).second()}
+\DoxyCodeLine{00066\ \ \ \ \ );}
+\DoxyCodeLine{00067\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::holds\_alternative<StrongSeq>(stamp))\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}seq[\{\}]"{}},\ std::get<StrongSeq>(stamp).get());}
+\DoxyCodeLine{00069\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::holds\_alternative<StrongUserID>(stamp))\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}userID[\{\}]"{}},\ std::get<StrongUserID>(stamp).get());}
+\DoxyCodeLine{00071\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::holds\_alternative<StrongEpoch>(stamp))\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}epoch[\{:x\}]"{}},\ std::get<StrongEpoch>(stamp).get());}
+\DoxyCodeLine{00073\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}<no-\/stamp>"{}};}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00079\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope}{ReduceScope}}\ \textcolor{keyword}{const}\&\ scope)\ \{}
+\DoxyCodeLine{00080\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00081\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce}{reduce}},}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{stringliteral}{"{}ReduceScopeHolder\ get\ scope=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00083\ \ \ \ \ scope.\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_a8fbbaff85c592424bedc8daf5fce7e02}{str}}()}
+\DoxyCodeLine{00084\ \ \ );}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.find(scope);}
+\DoxyCodeLine{00087\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.end(),\ \textcolor{stringliteral}{"{}Scope\ must\ exist"{}});}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00092\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00093\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{ReduceScopeHolder<T>::getOnDemand}}(U\&\&\ scope)\ \{}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.find(scope);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.end())\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ not\ std::holds\_alternative<StrongGroup>(scope.get()),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Group\ reducers\ cannot\ be\ on-\/demand\ created\ -\/-\/\ needs\ spanning\ tree"{}}}
+\DoxyCodeLine{00099\ \ \ \ \ );}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ iter\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.emplace(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ std::forward\_as\_tuple(scope),}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ std::forward\_as\_tuple(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_abd3a6a6a1eda5083b97348c16ef58858}{default\_creator\_}}(scope))}
+\DoxyCodeLine{00105\ \ \ \ \ ).first;}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.end(),\ \textcolor{stringliteral}{"{}Scope\ must\ exist"{}});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00114\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag}{ObjGroupTag}},\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ proxy)\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{getOnDemand}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongObjGroup>}}(proxy));}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00119\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_vrt_proxy_tag}{VrtProxyTag}},\ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ proxy)\ \{}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{getOnDemand}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongVrtProxy>}}(proxy));}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00124\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag}{GroupTag}},\ \doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{GroupType}}\ \doxymbox{\hyperlink{namespacevt_1_1group}{group}})\ \{}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{get}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongGroup>}}(\doxymbox{\hyperlink{namespacevt_1_1group}{group}}));}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00129\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_component_tag}{ComponentTag}},\ \doxymbox{\hyperlink{namespacevt_a3184e94499e9e1085c928c76f8db942e}{ComponentIDType}}\ component\_id)\ \{}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{getOnDemand}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongCom>}}(component\_id));}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00134\ T\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a2cdb8cd71e43cc7a744bdd16d5ed1651}{ReduceScopeHolder<T>::get}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_user_i_d_tag}{UserIDTag}},\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_a693224577ee1b246a4153d138faef551}{UserIDType}}\ user\_id)\ \{}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{getOnDemand}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongUserID>}}(user\_id));}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a0226c973a9bc67754fe5ce3076cb077e}{ReduceScopeHolder<T>::make}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_obj_group_tag}{ObjGroupTag}},\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ proxy)\ \{}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a47aca26691aaff13b240cb2109b189dc}{getOnDemand}}(\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongObjGroup>}}(proxy));}
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a0226c973a9bc67754fe5ce3076cb077e}{ReduceScopeHolder<T>::make}}(}
+\DoxyCodeLine{00145\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag}{GroupTag}},\ \doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{GroupType}}\ \doxymbox{\hyperlink{namespacevt_1_1group}{group}},\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_ac1bca1874a023b11bdc3c26b165c3b20}{DefaultCreateFunction}}\ fn}
+\DoxyCodeLine{00146\ )\ \{}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope}{ReduceScope}}\ scope\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_addecbceb802231d2689ccc0c4fc8980f}{makeScope<StrongGroup>}}(\doxymbox{\hyperlink{namespacevt_1_1group}{group}});}
+\DoxyCodeLine{00148\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_a71e4ba9dc78528dd93e253f4ff24e0e4}{scopes\_}}.emplace(}
+\DoxyCodeLine{00149\ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00150\ \ \ \ \ std::forward\_as\_tuple(scope),}
+\DoxyCodeLine{00151\ \ \ \ \ std::forward\_as\_tuple(fn(scope))}
+\DoxyCodeLine{00152\ \ \ );}
+\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \}\}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::collective::reduce::detail\ */}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_SCOPE\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,241 @@
+\doxysection{reconstructor.\+h}
+\hypertarget{reconstructor_8h_source}{}\label{reconstructor_8h_source}\index{lib/checkpoint/src/checkpoint/dispatch/reconstructor.h@{lib/checkpoint/src/checkpoint/dispatch/reconstructor.h}}
+\doxymbox{\hyperlink{reconstructor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reconstructor.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_RECONSTRUCTOR\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_RECONSTRUCTOR\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{reconstructor__traits_8h}{checkpoint/traits/reconstructor\_traits.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{reconstructor__tag_8h}{checkpoint/dispatch/reconstructor\_tag.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch}{dispatch}}\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00070\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\ \{}
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ Constructor:\ Takes\ ownership\ of\ an\ already\ constructed\ object}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}(T*\ inPlaceObject)\ :\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}}(inPlaceObject)\ \{\}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ Destructor:\ Calls\ the\ destructor\ of\ T}}
+\DoxyCodeLine{00075\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_ac2962b3bf17a818c2a8be10e7e1b20f7}{\string~InPlaceWrapper}}()\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{object})\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \textcolor{keywordtype}{object}-\/>\string~T();\ \textcolor{comment}{//\ Explicitly\ call\ the\ destructor}}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ Delete\ copy\ constructor\ and\ copy\ assignment\ to\ avoid\ accidental\ copying}}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_ad5a25882529f7a14501796a7a3a99d78}{InPlaceWrapper}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_ab90e922e2aa9f572f3c852069e50de04}{operator=}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ Allow\ move\ semantics}}
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abbf51c178c70e5b5d451de2aaa0d2fa7}{InPlaceWrapper}}(\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&\&\ other)\ noexcept\ :\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}}(\textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ std::swap(\textcolor{keywordtype}{object},\ other.object);}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a9ba442a799686f85889445577c6f4746}{operator=}}(\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5495eb156909b1cc53df7e5e28c66979}{InPlaceWrapper}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&other)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{object})\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{object}-\/>\string~T();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keywordtype}{object}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ std::swap(\textcolor{keywordtype}{object},\ other.object);}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00099\ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ Access\ the\ wrapped\ object}}
+\DoxyCodeLine{00102\ \ \ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_ad48435b52d75814b668281636b31a88d}{operator-\/>}}()\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};}
+\DoxyCodeLine{00104\ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{const}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a8f9f60ce4a30f430f12e539062b640ff}{operator-\/>}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ T\&\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a9fc017825f06f59e97a4b415bbd42e0c}{operator*}}()\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{return}\ *\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{const}\ T\&\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5405e198a7f2861f2cc8cc811ca93f81}{operator*}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ *\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};}
+\DoxyCodeLine{00116\ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00122\ \ \ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_a5cad3512d4b733bb87b3a3d78a3f5661}{transferOwnership}}()\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{object}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00129\ \ \ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper_abff558ac2ab475f6de13b254f46eb950}{object}};\ }
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00133\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{Reconstructor}}\ \{}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ Default-\/construct\ as\ lowest\ priority\ in\ reconstruction\ preference}}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a29a58f82db68f6d261993a15b97e1f3e}{constructDefault}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_ad2db55df3f8546ddd9b87930c1e9f8a9}{isDefaultConsType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}DeserializerDispatch:\ default\ constructor:\ buf=\%p\(\backslash\)n"{}},\ buf}
+\DoxyCodeLine{00139\ \ \ \ \ );}
+\DoxyCodeLine{00140\ \ \ \ \ T*\ t\_ptr\ =\ \textcolor{keyword}{new}\ (buf)\ T\{\};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ t\_ptr;}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{comment}{//\ Fail,\ no\ valid\ option\ to\ constructing\ T}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a31f3dff8caa08e32fc4fb81ae2561234}{constructDefault}}(\textcolor{keywordtype}{void}*,\ \doxymbox{\hyperlink{namespacecheckpoint_a3366395b5d687c16575d28e45817828a}{isNotDefaultConsType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1_serializable_traits_aa6618d9f36e37127006112c73755fceb}{SerializableTraits<U,\ void>::is\_tagged\_constructible}}\ or}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1_serializable_traits_a6cc78a7cc9b4645727c92437619fce83}{SerializableTraits<U,\ void>::is\_reconstructible}}\ or}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ std::is\_default\_constructible<U>::value,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Either\ a\ default\ constructor,\ reconstruct()\ function,\ or\ tagged\ "{}}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}constructor\ are\ required\ for\ de-\/serialization"{}}}
+\DoxyCodeLine{00153\ \ \ \ \ );}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00155\ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ *\ Try\ to\ reconstruct\ with\ the\ following\ precedence:}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ Tagged\ constructor:\ T(SERIALIZE\_CONSTRUCT\_TAG\{\})}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ Reconstruct:\ T::reconstruct(buf)\ or\ reconstruct(t,\ buf)}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ Default\ constructor:\ T()}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ *\ If\ none\ of\ these\ options\ work,\ static\ assert\ failure}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{//\ Intrusive\ reconstruct}}
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00169\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_af66455b17b8d870d355e4d86dfb49ea5}{constructReconstruct}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a865381fa43ab96c65fc50bfb0a2b6daf}{isReconstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(\textcolor{stringliteral}{"{}DeserializerDispatch:\ T::reconstruct():\ buf=\%p\(\backslash\)n"{}},\ buf);}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{auto}\&\ t\ =\ T::reconstruct(buf);}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{return}\ \&t;}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_ad623b4f0ba3ead426d88743a99629d5c}{constructReconstruct}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a349ba5a23cb8591bdc7dd8ab21241a6b}{isSpecializedReconstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}DeserializerDispatch:\ CheckpointReconstructor<T>::reconstruct():\ buf=\%p\(\backslash\)n"{}},}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ buf}
+\DoxyCodeLine{00180\ \ \ \ \ );}
+\DoxyCodeLine{00181\ \ \ \ \ T*\ t\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00182\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1_checkpoint_reconstructor}{checkpoint::CheckpointReconstructor<T>::reconstruct}}(t,\ buf);}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00184\ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ Non-\/intrusive\ reconstruct}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00188\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_afe5a25be9ab9279f3e3206e6d49cfbd9}{constructReconstruct}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a4093b28248d9be087be411f434bfbca7}{isNonIntReconstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}DeserializerDispatch:\ non-\/int\ reconstruct():\ buf=\%p\(\backslash\)n"{}},\ buf}
+\DoxyCodeLine{00191\ \ \ \ \ );}
+\DoxyCodeLine{00192\ \ \ \ \ T*\ t\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ Explicitly\ call\ bare\ to\ invoke\ ADL}}
+\DoxyCodeLine{00194\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a6254f2e220f905a2b0c797c08092a7a1}{reconstruct}}(t,\ buf);}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_aa064ecab02cfa05056dc5c59d5f9983e}{constructReconstruct}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a9d9b0c1860810c0299c860869db749c3}{isNotReconstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a29a58f82db68f6d261993a15b97e1f3e}{constructDefault<U>}}(buf);}
+\DoxyCodeLine{00202\ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00206\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_ae5b3efc25cf4b0a0cd8c673edd0614fb}{constructTag}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a450e770b9d77195ba5b87348ac04a7fc}{isTaggedConstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(\textcolor{stringliteral}{"{}DeserializerDispatch:\ tagged\ constructor:\ buf=\%p\(\backslash\)n"{}},\ buf);}
+\DoxyCodeLine{00208\ \ \ \ \ T*\ t\_ptr\ =\ \textcolor{keyword}{new}\ (buf)\ T\{\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_s_e_r_i_a_l_i_z_e___c_o_n_s_t_r_u_c_t___t_a_g}{SERIALIZE\_CONSTRUCT\_TAG}}\{\}\};}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{return}\ t\_ptr;}
+\DoxyCodeLine{00210\ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00214\ \ \ \textcolor{keyword}{static}\ T*\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_aff60c48af8def976b2b6b442aea842d6}{constructTag}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_a3a25602507348f739503008a4adc2fcd}{isNotTaggedConstructibleType<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_af66455b17b8d870d355e4d86dfb49ea5}{constructReconstruct<U>}}(buf);}
+\DoxyCodeLine{00216\ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a7c4eda5f3f32a059f0572d5fc330deca}{construct}}(\textcolor{keywordtype}{void}*\ buf)\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\{\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_ae5b3efc25cf4b0a0cd8c673edd0614fb}{constructTag<U>}}(buf)\};}
+\DoxyCodeLine{00221\ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a6023dc9c4fadad66aa3b97596bcbfed8}{constructAllowFailImpl}}(\textcolor{keywordtype}{void}*\ buf,\ \doxymbox{\hyperlink{namespacecheckpoint_aa608045dbd136348949793f1d42d1089}{isConstructible<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a7c4eda5f3f32a059f0572d5fc330deca}{construct<U>}}(buf);}
+\DoxyCodeLine{00228\ \ \ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00231\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a98465c9378bd1003955a906f88a8dee7}{constructAllowFailImpl}}(\textcolor{keywordtype}{void}*,\ \doxymbox{\hyperlink{namespacecheckpoint_a166b5a798b0f69dfe4e9fb02d8cc4338}{isNotConstructible<U>}}*\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ max\_buffer\_length\ =\ 32768;}
+\DoxyCodeLine{00233\ \ \ \ \ std::unique\_ptr<char[]>\ msg\ =\ std::make\_unique<char[]>(max\_buffer\_length);}
+\DoxyCodeLine{00234\ \ \ \ \ snprintf(}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \&msg[0],}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ max\_buffer\_length,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Checkpoint\ is\ failing\ to\ reconstruct\ a\ class\ \%s,\ due\ to\ it\ being\ "{}}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}abstract\ or\ the\ absence\ of\ a\ suitable\ constructor\ (default\ or\ tagged)\ "{}}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}or\ reconstruct()"{}},}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \textcolor{keyword}{typeid}(T).name()}
+\DoxyCodeLine{00241\ \ \ \ \ );}
+\DoxyCodeLine{00242\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a887a80883ec6eb1798285e7eb5a0fe35}{checkpointAssert}}(\textcolor{keyword}{false},\ msg.get());}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00244\ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \textcolor{comment}{//\ Used\ for\ instantiating\ reconstructor\ on\ abstract\ types\ that\ might\ not\ be}}
+\DoxyCodeLine{00247\ \ \ \textcolor{comment}{//\ reconstructible}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_ac9d14fb3d643929abf4d4b825e6c1678}{constructAllowFail}}(\textcolor{keywordtype}{void}*\ buf)\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a6023dc9c4fadad66aa3b97596bcbfed8}{constructAllowFailImpl<U>}}(buf);}
+\DoxyCodeLine{00251\ \ \ \}}
+\DoxyCodeLine{00252\ \};}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint::dispatch\ */}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_RECONSTRUCTOR\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

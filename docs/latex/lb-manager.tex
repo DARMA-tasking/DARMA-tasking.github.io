@@ -1,0 +1,93 @@
+\doxysubsection{LB Manager }
+\hypertarget{lb-manager}{}\label{lb-manager}\index{LB Manager@{LB Manager}}
+Manage load balancers.
+
+The LB manager component {\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager}{vt::\+vrt::\+collection::\+balance::\+\+LBManager}}, accessed via {\ttfamily \doxylink{namespacevt_a05187076eac8c66c9951b062b0955520}{vt::\+the\+LBManager()}} manages and coordinates instances of load balancers. It will potentially start load balancing after a "{}phase"{} is completed; refer to \doxylink{phase}{Phase Manager} for details about how to delineate phases in an application. The LB manager reads command-\/line arguments or an LB specification file to determine which load balancer to run at a given phase.
+
+To enable load balancing, the cmake flag 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/Dvt\_lb\_enabled=1}
+
+\end{DoxyCode}
+ should be passed during building. This also enables automatic instrumentation of work and communication performed by collection elements.
+
+To run a load balancer at runtime:\+
+
+
+\begin{DoxyItemize}
+\item Pass {\ttfamily -\/-\/vt\+\_\+lb -\/-\/vt\+\_\+lb\+\_\+name=\texorpdfstring{$<$}{<}LB\texorpdfstring{$>$}{>}} as a command line argument
+\item Write a LB config file {\ttfamily -\/-\/vt\+\_\+lb -\/-\/vt\+\_\+lb\+\_\+file\+\_\+name=\texorpdfstring{$<$}{<}FILE\texorpdfstring{$>$}{>}}
+\item One can also pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+self\+\_\+migration} as a command line argument to allow load balancer to migrate objects to the same node
+\end{DoxyItemize}
+
+Note that one should use either {\ttfamily -\/-\/vt\+\_\+lb\+\_\+name} or {\ttfamily -\/-\/vt\+\_\+lb\+\_\+file\+\_\+name} option, not both.\hypertarget{lb-manager_lb-config-file}{}\doxysubsubsection{\texorpdfstring{LB Config File}{LB Config File}}\label{lb-manager_lb-config-file}
+The LB config file allows users to specify which load balancer along with which LB-\/specific configuration parameters are passed to the load balancer instance for any given phase. The order of the LB phase specification lines in the file disambiguates lines---higher precedence for earlier lines.
+
+The format of the LB config file is:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[\%]\ <\$phase>\ <\$lbname>\ [\$LB-\/specific-\/arg-\/1]\ ...\ [\$LB-\/specific-\/arg-\/N]}
+
+\end{DoxyCode}
+
+
+If a {\ttfamily \%} is present, the line matches phases where:\+ {\ttfamily current phase \% \$phase == 0}. Phase-\/specific lines (ones that specify a load balancer without a {\ttfamily \%}) always always have precedence over {\ttfamily \%} lines. The next token after the optional {\ttfamily \%} and {\ttfamily \$phase} is the name of the load balancer to invoke on that phase. After the load balancer name, {\ttfamily N} arguments to the load balancer are allowed to customize how the load balancer is run with the format of {\ttfamily key=value}. These arguments are the equivalent of passing {\ttfamily -\/-\/vt\+\_\+lb\+\_\+args="{}A=test B=test2"{}} on the command line.
+
+The following is an example LB config:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\%10\ TemperedLB\ c=1\ k=5\ f=2\ i=10}
+\DoxyCodeLine{0\ HierarchicalLB\ min=0.9\ max=1.1\ auto=false}
+\DoxyCodeLine{\%\ 5\ GreedyLB\ min=1.0}
+\DoxyCodeLine{120\ GreedyLB\ c=0\ k=2\ f=3\ i=3}
+
+\end{DoxyCode}
+
+
+To print LB config during startup, use {\ttfamily -\/-\/vt\+\_\+lb\+\_\+show\+\_\+config} command line flag.\hypertarget{lb-manager_load-balancers}{}\doxysubsubsection{\texorpdfstring{Load balancers}{Load balancers}}\label{lb-manager_load-balancers}
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Load Balancer  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Type  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Reference  \\
+Rotate\+LB  &Testing  &Rotate objects in a ring  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_rotate_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Rotate\+LB}}  \\
+Random\+LB  &Testing  &Randomly migrate object with seed  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_random_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Random\+LB}}  \\
+Greedy\+LB  &Centralized  &Gather to central node apply min/\+max heap  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_greedy_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Greedy\+LB}}  \\
+Tempered\+LB  &Distributed  &Inspired by epidemic algorithms  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Tempered\+LB}}  \\
+Hierarchical\+LB  &Hierarchical  &Build tree to move objects nodes  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Hierarchical\+LB}}  \\
+Zoltan\+LB  &Hyper-\/graph Partitioner  &Run Zoltan in hyper-\/graph mode to LB  &{\ttfamily vt::\+vrt::\+collection::\+lb::\+\+Zoltan\+LB}  \\
+Offline\+LB  &User-\/specified  &Read file to determine mapping  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_offline_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Offline\+LB}}  \\
+Test\+Serialization\+LB  &Testing  &Migrate objects to the same node, for testing serialization/\+deserialization purpose  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1lb_1_1_test_serialization_l_b}{vt::\+vrt::\+collection::\+lb::\+\+Test\+Serialization\+LB}}  \\
+\end{DoxyTable}
+\hypertarget{lb-manager_load-models}{}\doxysubsubsection{\texorpdfstring{Object Load Models}{Object Load Models}}\label{lb-manager_load-models}
+The performance-\/oriented load balancers described in the preceding section require a prediction of the loads each object will represent during the phases between one load balancing invocation and the next. These predictions are provided by load models, which are implementations of the {\ttfamily vt::\+vrt:\+collection:\+:\+balance::\+\+Load\+Model} interface. There are a number of general-\/purpose load model implementations provided by {\bfseries{{\itshape vt}}}.
+
+By default, {\bfseries{{\itshape vt}}} uses a load model that predicts each object\textquotesingle{}s work load for all future phases will match its workload in the most recent past phase. The system also provides an interface for applications and users to arrange use of a non-\/default load model where that may be desirable for reasons such as performance experimentation, specialization to application details, or execution environment considerations. To install a custom load model, application code should call {\ttfamily \doxylink{namespacevt_a05187076eac8c66c9951b062b0955520}{vt::\+the\+LBManager()}-\/\texorpdfstring{$>$}{>}set\+Load\+Model(user\+\_\+model)}. To simplify implementation of custom load models, and allow them to benefit from future system-\/level improvements, we recommend that custom load models be composed atop the default model, which can be obtained by calling {\ttfamily \doxylink{namespacevt_a05187076eac8c66c9951b062b0955520}{vt::\+the\+LBManager()}-\/\texorpdfstring{$>$}{>}get\+Base\+Load\+Model()}.
+
+Most provided load models are designed as composable filters inherited from the {\ttfamily vt::\+vrt:\+collection:\+:\+balance::\+\+Composed\+Model} class. This allows them to form a \textquotesingle{}model stack\textquotesingle{} in which each class makes a particular adjustment to the predictions generated, and relies on others above and below to refine them further. One exception is the {\ttfamily vt::\+vrt:\+collection:\+:\+balance::\+\+Raw\+Data} model, which directly returns past values recorded in the instrumented statistics structures that {\ttfamily LBManager} provides.
+
+To illustrate the design concept, the default model is implemented as a stack of two other components. At the base of the stack is a {\ttfamily Raw\+Data} model that will refer to the instrumented object load timings recorded by the system during preceding execution. Layered on that is a {\ttfamily vt::\+vrt:\+collection:\+:\+balance::\+\+Naive\+Persistence} model that queries the underlying {\ttfamily Raw\+Data} model for the times taken in the most recent phase, and returns those same times as its prediction of the times those objects will take in all future phases.
+
+The full set of load model classes provided with {\bfseries{{\itshape vt}}} is as follows
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Load Model  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Reference  \\
+{\bfseries{Utilities}}  &&\\
+Load\+Model  &Pure virtual interface class, which the following implement  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_load_model}{vt::\+vrt::\+collection::\+balance::\+\+Load\+Model}}  \\
+Composed\+Model  &A convenience class for most implementations to inherit from, that passes unmodified calls through to an underlying model instance  &{\ttfamily \doxylink{classvt_1_1vrt_1_1collection_1_1balance_1_1_composed_model}{vt::\+vrt::\+collection::\+balance::\+\+Composed\+Model}}  \\
+Raw\+Data  &Returns historical data only, from the measured times  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_raw_data}{vt::\+vrt::\+collection::\+balance::\+\+Raw\+Data}}  \\
+{\bfseries{Transformers}}  &Transforms the values computed by the composed model(s), agnostic to whether a query refers to a past or future phase  &\\
+Norm  &When asked for a {\ttfamily WHOLE\+\_\+\+PHASE} value, computes a specified l-\/norm over all subphases  &{\ttfamily \doxylink{classvt_1_1vrt_1_1collection_1_1balance_1_1_norm}{vt::\+vrt::\+collection::\+balance::\+\+Norm}}  \\
+Select\+Subphases  &Filters and remaps the subphases with data present in the underlying model  &{\ttfamily \doxylink{classvt_1_1vrt_1_1collection_1_1balance_1_1_select_subphases}{vt::\+vrt::\+collection::\+balance::\+\+Select\+Subphases}}  \\
+Comm\+Overhead  &Adds a specified amount of imputed \textquotesingle{}system overhead\textquotesingle{} time to each object\textquotesingle{}s work based on the number of messages received  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_comm_overhead}{vt::\+vrt::\+collection::\+balance::\+\+Comm\+Overhead}}  \\
+Per\+Collection  &Maintains a set of load models associated with different collection instances, and passes queries for an object through to the model corresponding to its collection  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_per_collection}{vt::\+vrt::\+collection::\+balance::\+\+Per\+Collection}}  \\
+{\bfseries{Predictors}}  &Computes values for future phase queries, and passes through past phase queries  &\\
+Naive\+Persistence  &Passes through historical queries, and maps all future queries to the most recent past phase  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_naive_persistence}{vt::\+vrt::\+collection::\+balance::\+\+Naive\+Persistence}}  \\
+Persistence\+Median\+LastN  &Similar to Naive\+Persistence, except that it predicts based on a median over the N most recent phases  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_persistence_median_last_n}{vt::\+vrt::\+collection::\+balance::\+\+Persistence\+Median\+LastN}}  \\
+Linear\+Model  &Computes a linear regression over on object\textquotesingle{}s loads from a number of recent phases  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_linear_model}{vt::\+vrt::\+collection::\+balance::\+\+Linear\+Model}}  \\
+Multiple\+Phases  &Computes values for future phases based on sums of the underlying model\textquotesingle{}s predictions for N corresponding future phases  &{\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_multiple_phases}{vt::\+vrt::\+collection::\+balance::\+\+Multiple\+Phases}}  \\
+\end{DoxyTable}
+
+
+All of the provided load balancers described in the previous section require that the installed load model provide responses to future phase queries for at least {\ttfamily Phase\+Offset::\+\+NEXT\+\_\+\+PHASE} (i.\+e. {\ttfamily 0}), as the {\bfseries{Predictors}} described above do. 

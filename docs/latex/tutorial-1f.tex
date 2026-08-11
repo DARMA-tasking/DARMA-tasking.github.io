@@ -1,0 +1,59 @@
+\doxysubsection{Learning about collective groups }
+\hypertarget{tutorial-1f}{}\label{tutorial-1f}\index{Learning about collective groups@{Learning about collective groups}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MySimpleMsg2\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerGroupB(MySimpleMsg2*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ collective\ group\ creation\ and\ broadcast\ to\ that\ group}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageGroupCollective()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ This\ is\ an\ example\ of\ the\ collective\ group\ creation\ and\ broadcast\ to\ that}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ group.\ A\ group\ allows\ the\ user\ to\ create\ a\ subset\ of\ nodes.\ The\ collective}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ group\ allows\ all\ nodes\ to\ participate\ in\ creating\ the\ group\ by\ passing\ a}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ boolean\ that\ indicates\ if\ they\ are\ apart\ of\ the\ group.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ Unlike\ the\ rooted\ group\ creation\ (which\ requires\ an\ initial\ set\ at\ a\ root}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ node),\ the\ collective\ group\ is\ fully\ distributed:\ its\ creation\ and}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ storage.\ The\ set\ of\ all\ nodes\ included\ is\ never\ stored\ in\ a\ central}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ location.\ This\ is\ managed\ by\ efficient\ distributed\ algorithms\ that\ create\ a}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ spanning\ tree\ based\ on\ the\ filter\ and\ rebalance\ it\ depending\ on\ outcomes.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ is\_even\_node\ =\ this\_node\ \%\ 2\ ==\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a132506d2b8e888d0a91ae4470d4197c1}{group}}\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_a92b301d6cf77af7d57ed822c6f044d58}{newGroupCollective}}(}
+\DoxyCodeLine{\ \ \ \ is\_even\_node,\ [](GroupType\ group\_id)\{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(\textcolor{stringliteral}{"{}Group\ is\ created:\ id=\{:x\}\(\backslash\)n"{}},\ group\_id);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ In\ this\ example,\ node\ 1\ broadcasts\ to\ the\ group\ of\ even\ nodes}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ my\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{if}\ (my\_node\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ makeMessage<MySimpleMsg2>();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}}(msg-\/>env,\ group\_id);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<msgHandlerGroupB>(msg);}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{\ \ (void)group;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerGroupB([[maybe\_unused]]\ MySimpleMsg2*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node\ \%\ 2\ ==\ 0,\ \textcolor{stringliteral}{"{}This\ handler\ should\ only\ execute\ on\ even\ nodes"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerGroupB:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

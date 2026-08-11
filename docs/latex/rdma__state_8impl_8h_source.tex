@@ -1,0 +1,136 @@
+\doxysection{rdma\+\_\+state.\+impl.\+h}
+\hypertarget{rdma__state_8impl_8h_source}{}\label{rdma__state_8impl_8h_source}\index{src/vt/rdma/state/rdma\_state.impl.h@{src/vt/rdma/state/rdma\_state.impl.h}}
+\doxymbox{\hyperlink{rdma__state_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rdma\_state.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RDMA\_STATE\_RDMA\_STATE\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RDMA\_STATE\_RDMA\_STATE\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__state_8h}{vt/rdma/state/rdma\_state.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{message_8h}{vt/messaging/message.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__common_8h}{vt/registry/auto/auto\_registry\_common.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__functor_8h}{vt/registry/auto/functor/auto\_registry\_functor.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__rdma_8h}{vt/registry/auto/rdma/auto\_registry\_rdma.h}}"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ FuncT,\ ActiveTypedRDMAGetFnType<MsgT>*\ f>}
+\DoxyCodeLine{00057\ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ae44026106376eb1542f36c8549f139da}{State::setRDMAGetFn}}(}
+\DoxyCodeLine{00058\ \ \ MsgT*\ msg,\ FuncT\ \textcolor{keyword}{const}\&\ fn,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{00059\ )\ \{}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00061\ \ \ \ \ normal,\ rdma\_state,}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{stringliteral}{"{}setRDMAGetFn:\ GET\ tag=\{\},\ handle=\{\},\ any\_tag=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00063\ \ \ \ \ tag,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ac6ea5c9dffcc795713d1766b1c3e7028}{handle}},\ \doxymbox{\hyperlink{debug__printconst_8h_aac76e066ee747d3089751f067090346b}{print\_bool}}(any\_tag)}
+\DoxyCodeLine{00064\ \ \ );}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \textcolor{keyword}{const}\ handler\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ab82d3a9820bcee1238ab726ae79eb4e0}{makeRdmaHandler}}(RDMA\_TypeType::Get);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ reg\_han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a4ae7737d1cfa28838af83f35778dc46f}{auto\_registry::makeAutoHandlerRDMAGet<MsgT,f>}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordflow}{if}\ (any\_tag)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ tag\ ==\ no\_tag,\ \textcolor{stringliteral}{"{}If\ any\ tag,\ you\ must\ not\ have\ a\ tag\ set"{}}}
+\DoxyCodeLine{00073\ \ \ \ \ );}
+\DoxyCodeLine{00074\ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_aaf5cfa0e6200282d9d3c6e29a0a40849}{this\_get\_handler}}\ =\ reg\_han;}
+\DoxyCodeLine{00077\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ae091709bf3364a91d10cc073c2fe33ab}{this\_rdma\_get\_handler}}\ =\ handler;}
+\DoxyCodeLine{00078\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_af4ac112689f3a20eb497684c9116a291}{user\_state\_get\_msg\_}}\ =\ msg;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ gen\_fn\ =\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_af0baaa6ac5c3b7b256d032f2ee845676}{RDMA\_GetFunctionType}}\textcolor{keyword}{>}(fn);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{if}\ (tag\ ==\ no\_tag)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a5fc424bbd04560454b020ab57409100e}{rdma\_get\_fn}}\ =\ gen\_fn;}
+\DoxyCodeLine{00084\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a63baf560dc97aa97037e6a3301739d00}{get\_any\_tag}}\ =\ any\_tag;}
+\DoxyCodeLine{00085\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a203be63dac93d826d17bcf3264270eb2}{get\_tag\_holder}}[tag]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a83f2ec15812676b9aaf327a7450571a0}{RDMA\_TagGetHolderType}}\{gen\_fn,handler,reg\_han\};}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{return}\ handler;}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ FuncT,\ ActiveTypedRDMAPutFnType<MsgT>*\ f>}
+\DoxyCodeLine{00093\ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a08999d62a472684b1f67a4da6d26fcb4}{State::setRDMAPutFn}}(}
+\DoxyCodeLine{00094\ \ \ MsgT*\ msg,\ FuncT\ \textcolor{keyword}{const}\&\ fn,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{00095\ )\ \{}
+\DoxyCodeLine{00096\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \textcolor{keyword}{const}\ handler\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ab82d3a9820bcee1238ab726ae79eb4e0}{makeRdmaHandler}}(RDMA\_TypeType::Put);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00099\ \ \ \ \ normal,\ rdma\_state,}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{stringliteral}{"{}setRDMAPutFn:\ PUT\ tag=\{\},\ handle=\{\},\ any\_tag=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00101\ \ \ \ \ tag,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_ac6ea5c9dffcc795713d1766b1c3e7028}{handle}},\ \doxymbox{\hyperlink{debug__printconst_8h_aac76e066ee747d3089751f067090346b}{print\_bool}}(any\_tag)}
+\DoxyCodeLine{00102\ \ \ );}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ reg\_han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_ab932bdb453695e6be54e2647dabd8c2a}{auto\_registry::makeAutoHandlerRDMAPut<MsgT,f>}}();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordflow}{if}\ (any\_tag)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ tag\ ==\ no\_tag,\ \textcolor{stringliteral}{"{}If\ any\ tag,\ you\ must\ not\ have\ a\ tag\ set"{}}}
+\DoxyCodeLine{00109\ \ \ \ \ );}
+\DoxyCodeLine{00110\ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_aa0157a4dd90369d4d23e0aa79569d333}{this\_put\_handler}}\ =\ reg\_han;}
+\DoxyCodeLine{00113\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a034ffba15dbf9825d80d15ba569c9b78}{this\_rdma\_put\_handler}}\ =\ handler;}
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a852d64bdbb01a281df8635479bceb460}{user\_state\_put\_msg\_}}\ =\ msg;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ gen\_fn\ =\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_aa43a5d043fe01086818e9c5c364341d4}{RDMA\_PutFunctionType}}\textcolor{keyword}{>}(fn);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordflow}{if}\ (tag\ ==\ no\_tag)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a110a8f6b7d4be259748e173cdb03d341}{rdma\_put\_fn}}\ =\ gen\_fn;}
+\DoxyCodeLine{00120\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a934ef23284043246b24c3f746919bc79}{put\_any\_tag}}\ =\ any\_tag;}
+\DoxyCodeLine{00121\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_aed4540b539aa2d8e86f83f235c0722ad}{put\_tag\_holder}}[tag]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a83c66731e09565d9d22a0cdfaf68fadd}{RDMA\_TagPutHolderType}}\{gen\_fn,handler,reg\_han\};}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{return}\ handler;}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::rdma\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RDMA\_STATE\_RDMA\_STATE\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

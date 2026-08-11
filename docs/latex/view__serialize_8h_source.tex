@@ -1,0 +1,624 @@
+\doxysection{view\+\_\+serialize.\+h}
+\hypertarget{view__serialize_8h_source}{}\label{view__serialize_8h_source}\index{lib/checkpoint/src/checkpoint/container/view\_serialize.h@{lib/checkpoint/src/checkpoint/container/view\_serialize.h}}
+\doxymbox{\hyperlink{view__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ view\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traits__extract_8h}{checkpoint/container/view\_traits\_extract.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traverse__manual_8h}{checkpoint/container/view\_traverse\_manual.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traverse__ndim_8h}{checkpoint/container/view\_traverse\_ndim.h}}"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_ENABLED}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <Kokkos\_Core.hpp>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynamicView.hpp>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynRankView.hpp>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#if\ KOKKOS\_VERSION\ >\ 30699L}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ CHECKPOINT\_KOKKOS\_WITHOUTINIT\ Kokkos::WithoutInitializing,}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ CHECKPOINT\_KOKKOS\_WITHOUTINIT}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_KERNELS\_ENABLED}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ <KokkosSparse\_StaticCrsGraph.hpp>}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ <KokkosSparse\_CrsMatrix.hpp>}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ CHECKPOINT\_DEBUG\_ENABLED\ 0}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ I\ am\ shutting\ the\ n-\/dim\ traversal\ off\ by\ default\ for\ now,\ due\ to\ the\ extra}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ template\ complexity\ that\ needs\ to\ be\ tested\ more\ extensively\ on\ different}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ compiler\ versions}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ CHECKPOINT\_KOKKOS\_NDIM\_TRAVERSE\ 0}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#if\ CHECKPOINT\_DEBUG\_ENABLED}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \#define\ DEBUG\_PRINT\_CHECKPOINT(ser,\ str,\ ...)\ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ auto\ state\ =\ ser.isUnpacking()\ ?\ "{}Unpacking"{}\ :\ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ ser.isSizing()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ "{}Sizing"{}\ \ \ \ :\ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ ser.isPacking()\ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ "{}Packing"{}\ \ \ :\ "{}Invalid"{}));\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ printf("{}mode=\%s:\ "{}\ str,\ state,\ \ \_\_VA\_ARGS\_\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0);}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \#define\ DEBUG\_PRINT\_CHECKPOINT(str,\ ...)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ deepCopyWithLocalFence(T\&\ dst,\ U\&\ src)\ \{}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Create\ and\ use\ an\ execution\ space\ to\ avoid\ a\ global\ Kokkos::fence()}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{auto}\ exec\_space\ =\ Kokkos::HostSpace::execution\_space\{\};}
+\DoxyCodeLine{00105\ \ \ Kokkos::deep\_copy(exec\_space,\ dst,\ src);}
+\DoxyCodeLine{00106\ \ \ exec\_space.fence();}
+\DoxyCodeLine{00107\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ Serialization\ overloads\ for\ Kokkos::LayoutLeft,\ Kokkos::LayoutRight,}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ Kokkos::LayoutStride.\ Serialize\ the\ extents/stride\ in\ the\ Kokkos\ layout,}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ sufficient\ for\ proper\ reconstruction.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00118\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\ \&s,\ Kokkos::LayoutStride\&\ layout)\ \{}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ Kokkos::ARRAY\_LAYOUT\_MAX\_RANK;\ i++)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ s\ |\ layout.dimension[i];}
+\DoxyCodeLine{00121\ \ \ \ \ s\ |\ layout.stride[i];}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00126\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\ \&s,\ Kokkos::LayoutLeft\&\ layout)\ \{}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ Kokkos::ARRAY\_LAYOUT\_MAX\_RANK;\ i++)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ s\ |\ layout.dimension[i];}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00133\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\ \&s,\ Kokkos::LayoutRight\&\ layout)\ \{}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ Kokkos::ARRAY\_LAYOUT\_MAX\_RANK;\ i++)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ s\ |\ layout.dimension[i];}
+\DoxyCodeLine{00136\ \ \ \}}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00140\ \textcolor{keyword}{inline}\ std::string\ serializeViewLabel(SerializerT\&\ s,\ ViewT\&\ view)\ \{}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ Serialize\ the\ label\ of\ the\ view}}
+\DoxyCodeLine{00142\ \ \ std::string\ view\_label\ =\ view.label();}
+\DoxyCodeLine{00143\ \ \ s\ |\ view\_label;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ DEBUG\_PRINT\_CHECKPOINT(s,\ \textcolor{stringliteral}{"{}serializeViewLabel:\ label=\%s\(\backslash\)n"{}},\ view\_label.c\_str());}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{return}\ view\_label;}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00151\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(}
+\DoxyCodeLine{00152\ \ \ SerializerT\&\ s,\ Kokkos::Experimental::DynamicView<T,Args...>\&\ view}
+\DoxyCodeLine{00153\ )\ \{}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::Experimental::DynamicView<T,Args...>;}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \textcolor{comment}{//\ Serialize\ the\ label\ for\ the\ view\ which\ is\ used\ to\ construct\ a\ new\ view\ with}}
+\DoxyCodeLine{00157\ \ \ \textcolor{comment}{//\ the\ same\ label.\ Labels\ may\ not\ be\ unique\ and\ are\ for\ debugging\ Kokkos::View}}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ label\ =\ serializeViewLabel(s,view);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//\ Serialize\ the\ min\ chunk\ size,\ max\ extent,\ and\ view\ size\ which\ is\ used\ to}}
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ reconstruct\ the\ Kokkos::DynamicView}}
+\DoxyCodeLine{00162\ \ \ std::size\_t\ chunk\_size\ =\ 0;}
+\DoxyCodeLine{00163\ \ \ std::size\_t\ max\_extent\ =\ 0;}
+\DoxyCodeLine{00164\ \ \ std::size\_t\ view\_size\ =\ 0;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ chunk\_size\ =\ view.chunk\_size();}
+\DoxyCodeLine{00168\ \ \ \ \ max\_extent\ =\ view.allocation\_extent();}
+\DoxyCodeLine{00169\ \ \ \ \ view\_size\ =\ view.size();}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ s\ |\ chunk\_size;}
+\DoxyCodeLine{00173\ \ \ s\ |\ max\_extent;}
+\DoxyCodeLine{00174\ \ \ s\ |\ view\_size;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ DEBUG\_PRINT\_CHECKPOINT(}
+\DoxyCodeLine{00177\ \ \ \ \ s,\ \textcolor{stringliteral}{"{}label=\%s:\ chunk\_size=\%zu,\ max\_extent=\%zu,\ view\_size=\%zu\(\backslash\)n"{}},}
+\DoxyCodeLine{00178\ \ \ \ \ label.c\_str(),\ chunk\_size,\ max\_extent,\ view\_size}
+\DoxyCodeLine{00179\ \ \ );}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{comment}{//\ Reconstruct\ the\ view\ with\ the\ chunk\ size/extent\ information}}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ min\_chunk\_size\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\textcolor{keyword}{>}(chunk\_size);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ max\_alloc\_extent\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\textcolor{keyword}{>}(max\_extent);}
+\DoxyCodeLine{00185\ \ \ \ \ view\ =\ ViewType(label,\ min\_chunk\_size,\ max\_alloc\_extent);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{comment}{//\ Resize\ the\ view\ to\ the\ size\ that\ was\ packed.\ It\ seems\ this\ is\ necessary.}}
+\DoxyCodeLine{00188\ \ \ \ \ view.resize\_serial(view\_size);}
+\DoxyCodeLine{00189\ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ DEBUG\_PRINT\_CHECKPOINT(s,\ \textcolor{stringliteral}{"{}label=\%s:\ size=\%zu\(\backslash\)n"{}},\ label.c\_str(),\ view.size());}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ Kokkos::deep\_copy\ between\ DynamicView\ instances\ is\ not\ yet\ implemented}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{auto}\ host\_view\ =\ Kokkos::create\_mirror\_view(CHECKPOINT\_KOKKOS\_WITHOUTINIT\ view);}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordflow}{if}\ (s.isPacking())\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ deepCopyWithLocalFence(host\_view,\ view);}
+\DoxyCodeLine{00198\ \ \ \}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{auto}\ host\_view\ =\ view;}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ Serialize\ the\ Kokkos::DynamicView\ data\ manually\ by\ traversing\ with}}
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ DynamicView::operator()(...).}}
+\DoxyCodeLine{00205\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{//\ @todo\ Optimize\ this\ by\ serializing\ by\ chunk}}
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#if\ CHECKPOINT\_KOKKOS\_NDIM\_TRAVERSE}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{using\ }CountDimType\ =\ CountDims<ViewType>;}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDimType::BaseT;}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{auto}\ fn\ =\ [\&s](BaseType\&\ elm)\{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ s\ |\ elm;}
+\DoxyCodeLine{00215\ \ \ \ \ \};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ TraverseRecursive<ViewType,T,1,\textcolor{keyword}{decltype}(fn)>::apply(host\_view,\ fn);}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00219\ \ \ \ \ TraverseManual<SerializerT,ViewType,1>::apply(s,\ host\_view);}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ deepCopyWithLocalFence(view,\ host\_view);}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00227\ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00230\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ serialize\_impl(SerializerT\&\ s,\ Kokkos::DynRankView<T,Args...>\&\ view)\ \{}
+\DoxyCodeLine{00231\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::DynRankView<T,Args...>;}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{using\ }ArrayLayoutType\ =\ \textcolor{keyword}{typename}\ ViewType::traits::array\_layout;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \textcolor{comment}{//\ Serialize\ the\ label\ for\ the\ view\ which\ is\ used\ to\ construct\ a\ new\ view\ with}}
+\DoxyCodeLine{00235\ \ \ \textcolor{comment}{//\ the\ same\ label.\ Labels\ may\ not\ be\ unique\ and\ are\ for\ debugging\ Kokkos::View}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ label\ =\ serializeViewLabel(s,view);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{//\ Serialize\ the\ total\ number\ of\ runtime\ dimensions}}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{unsigned}\ dims\ =\ 0;}
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ dims\ =\ view.rank();}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ \ \ s\ |\ dims;}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \textcolor{comment}{//\ Serialize\ the\ Kokkos\ layout\ data,\ including\ the\ extents,\ strides}}
+\DoxyCodeLine{00246\ \ \ ArrayLayoutType\ layout;}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ layout\ =\ view.layout();}
+\DoxyCodeLine{00249\ \ \ \}}
+\DoxyCodeLine{00250\ \ \ s\ |\ layout;}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{comment}{//\ Serialize\ the\ total\ number\ of\ elements\ in\ the\ Kokkos::View}}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{size\_t}\ num\_elms\ =\ view.size();}
+\DoxyCodeLine{00254\ \ \ s\ |\ num\_elms;}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{bool}\ is\_uninitialized\ =\ dims\ ==\ 0\ and\ num\_elms\ ==\ 0;}
+\DoxyCodeLine{00256\ \ \ \textcolor{comment}{//\ Construct\ a\ view\ with\ the\ layout\ and\ use\ operator=\ to\ propagate\ out}}
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_uninitialized)\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ view\ =\ ViewType\{\};}
+\DoxyCodeLine{00260\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ view\ =\ ViewType(label,\ layout);}
+\DoxyCodeLine{00262\ \ \ \ \ \}}
+\DoxyCodeLine{00263\ \ \ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordflow}{if}\ (is\_uninitialized)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00267\ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{comment}{//\ Serialize\ whether\ the\ view\ is\ contiguous\ or\ not.\ Is\ this\ required?}}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{bool}\ is\_contig\ =\ view.span\_is\_contiguous();}
+\DoxyCodeLine{00271\ \ \ s\ |\ is\_contig;}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ DEBUG\_PRINT\_CHECKPOINT(}
+\DoxyCodeLine{00274\ \ \ \ \ s,\ \textcolor{stringliteral}{"{}label=\%s:\ contig=\%s,\ size=\%zu,\ dims=\%d\(\backslash\)n"{}},}
+\DoxyCodeLine{00275\ \ \ \ \ label.c\_str(),\ is\_contig\ ?\ \textcolor{stringliteral}{"{}true"{}}\ :\ \textcolor{stringliteral}{"{}false"{}},\ num\_elms,\ dims}
+\DoxyCodeLine{00276\ \ \ );}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{bool}\ init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ init\ =\ (view.use\_count()\ >\ 0\ ||\ view.data()\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00281\ \ \ \}}
+\DoxyCodeLine{00282\ \ \ s\ |\ init;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordflow}{if}\ (init)\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{auto}\ host\_view\ =\ Kokkos::create\_mirror\_view(CHECKPOINT\_KOKKOS\_WITHOUTINIT\ view);}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keyword}{using\ }HostViewType\ =\ \textcolor{keyword}{decltype}(host\_view);}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isPacking())\ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ deepCopyWithLocalFence(host\_view,\ view);}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{comment}{//\ Serialize\ the\ actual\ data\ owned\ by\ the\ Kokkos::View}}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_contig)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \textcolor{comment}{//\ Serialize\ the\ data\ directly\ out\ of\ the\ data\ buffer}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a055fa8c0078dbd129325b1038079d87d}{dispatch::serializeArray}}(s,\ host\_view.data(),\ num\_elms);}
+\DoxyCodeLine{00296\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dims\ ==\ 1)\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,1>::apply(s,host\_view);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 2)\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,2>::apply(s,host\_view);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 3)\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,3>::apply(s,host\_view);}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 4)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,4>::apply(s,host\_view);}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 5)\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,5>::apply(s,host\_view);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 6)\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,6>::apply(s,host\_view);}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (dims\ ==\ 7)\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,7>::apply(s,host\_view);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a887a80883ec6eb1798285e7eb5a0fe35}{checkpointAssert}}(}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false},}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Serializing\ Kokkos::DynRankView\ is\ only\ supported\ up\ to\ 7\ dimensions"{}}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ for\ non-\/contiguous\ views"{}}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \ \ \ \ \}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ deepCopyWithLocalFence(view,\ host\_view);}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ \ \ \}}
+\DoxyCodeLine{00324\ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00327\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ serialize\_impl(SerializerT\&\ s,\ Kokkos::View<T,Args...>\&\ view)\ \{}
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::View<T,Args...>;}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{using\ }ArrayLayoutType\ =\ \textcolor{keyword}{typename}\ ViewType::traits::array\_layout;}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ rank\_val\ =\ ViewType::rank;}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a887a80883ec6eb1798285e7eb5a0fe35}{checkpointAssert}}(}
+\DoxyCodeLine{00334\ \ \ \ \ !ViewType::memory\_traits::is\_unmanaged,}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{stringliteral}{"{}Serialization\ not\ implemented\ for\ unmanaged\ views"{}}}
+\DoxyCodeLine{00336\ \ \ );}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \textcolor{keyword}{static\_assert}(!Kokkos::is\_view\_v<typename\ ViewType::value\_type>,\textcolor{stringliteral}{"{}ERROR\ -\/\ view\ of\ views\ serialization\ is\ unsupported!"{}});}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{comment}{//\ Serialize\ the\ label\ for\ the\ view\ which\ is\ used\ to\ construct\ a\ new\ view\ with}}
+\DoxyCodeLine{00341\ \ \ \textcolor{comment}{//\ the\ same\ label.\ Labels\ may\ not\ be\ unique\ and\ are\ for\ debugging\ Kokkos::View}}
+\DoxyCodeLine{00342\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ label\ =\ serializeViewLabel(s,view);}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \textcolor{comment}{//\ Serialize\ the\ total\ number\ of\ dimensions,\ including\ runtime+static\ dims}}
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordtype}{int}\ rt\_dim\ =\ 0;}
+\DoxyCodeLine{00346\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ rt\_dim\ =\ CountDims<ViewType,\ T>::numDims(view);}
+\DoxyCodeLine{00348\ \ \ \}}
+\DoxyCodeLine{00349\ \ \ s\ |\ rt\_dim;}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \textcolor{comment}{//\ Serialize\ the\ Kokkos\ layout\ data,\ including\ the\ extents,\ strides}}
+\DoxyCodeLine{00352\ \ \ ArrayLayoutType\ layout;}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \textcolor{comment}{//\ This\ is\ ordered\ as\ so\ because\ the\ view.layout()\ might\ fail\ before\ proper}}
+\DoxyCodeLine{00355\ \ \ \textcolor{comment}{//\ initialization}}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ layout\ =\ view.layout();}
+\DoxyCodeLine{00358\ \ \ \}}
+\DoxyCodeLine{00359\ \ \ s\ |\ layout;}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \textcolor{comment}{//\ Construct\ a\ view\ with\ the\ layout\ and\ use\ operator=\ to\ propagate\ out}}
+\DoxyCodeLine{00362\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00363\ \ \ \ \ view\ =\ ViewType(label,\ layout);}
+\DoxyCodeLine{00364\ \ \ \}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \textcolor{comment}{//\ Serialize\ the\ total\ number\ of\ elements\ in\ the\ Kokkos::View}}
+\DoxyCodeLine{00367\ \ \ \textcolor{keywordtype}{size\_t}\ num\_elms\ =\ view.size();}
+\DoxyCodeLine{00368\ \ \ s\ |\ num\_elms;}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \textcolor{comment}{//\ Serialize\ whether\ the\ view\ is\ contiguous\ or\ not.\ Is\ this\ required?}}
+\DoxyCodeLine{00371\ \ \ \textcolor{keywordtype}{bool}\ is\_contig\ =\ view.span\_is\_contiguous();}
+\DoxyCodeLine{00372\ \ \ s\ |\ is\_contig;}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ DEBUG\_PRINT\_CHECKPOINT(}
+\DoxyCodeLine{00375\ \ \ \ \ s,\ \textcolor{stringliteral}{"{}label=\%s:\ contig=\%s,\ size=\%zu,\ rt\_dim=\%d\(\backslash\)n"{}},}
+\DoxyCodeLine{00376\ \ \ \ \ label.c\_str(),\ is\_contig\ ?\ \textcolor{stringliteral}{"{}true"{}}\ :\ \textcolor{stringliteral}{"{}false"{}},\ num\_elms,\ rt\_dim}
+\DoxyCodeLine{00377\ \ \ );}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \textcolor{keywordtype}{bool}\ init\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00380\ \ \ \textcolor{keywordflow}{if}\ (!s.isUnpacking())\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ init\ =\ (view.use\_count()\ >\ 0\ ||\ view.data()\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00382\ \ \ \}}
+\DoxyCodeLine{00383\ \ \ s\ |\ init;}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \textcolor{keywordflow}{if}\ (init)\ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keyword}{auto}\ host\_view\ =\ Kokkos::create\_mirror\_view(view);}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keyword}{using\ }HostViewType\ =\ \textcolor{keyword}{decltype}(host\_view);}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isPacking())\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ deepCopyWithLocalFence(host\_view,\ view);}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{//\ Serialize\ the\ actual\ data\ owned\ by\ the\ Kokkos::View}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_contig)\ \{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \textcolor{comment}{//\ Serialize\ the\ data\ directly\ out\ of\ the\ data\ buffer}}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a055fa8c0078dbd129325b1038079d87d}{dispatch::serializeArray}}(s,\ host\_view.data(),\ num\_elms);}
+\DoxyCodeLine{00397\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \textcolor{comment}{//\ Serialize\ manually\ traversing\ the\ data\ with\ Kokkos::View::operator()(...)}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#if\ CHECKPOINT\_KOKKOS\_NDIM\_TRAVERSE}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \textcolor{keyword}{using\ }CountDimType\ =\ CountDims<ViewType>;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDimType::BaseT;}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ dims\ =\ CountDimType::dynamic;}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fn\ =\ [\&s](BaseType\&\ elm)\{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ s\ |\ elm;}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \ \ TraverseRecursive<HostViewType,T,dims,\textcolor{keyword}{decltype}(fn)>::apply(host\_view,fn);}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ TraverseManual<SerializerT,HostViewType,rank\_val>::apply(s,host\_view);}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00413\ \ \ \ \ \}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ deepCopyWithLocalFence(view,\ host\_view);}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ \ \ \}}
+\DoxyCodeLine{00419\ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00422\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ serialize\_const(SerializerT\&\ s,\ Kokkos::View<T,Args...>\&\ view)\ \{}
+\DoxyCodeLine{00423\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::View<T,Args...>;}
+\DoxyCodeLine{00424\ \ \ \textcolor{keyword}{using\ }T\_non\_const\ =\ \textcolor{keyword}{typename}\ ViewType::traits::non\_const\_data\_type;}
+\DoxyCodeLine{00425\ \ \ Kokkos::View<T\_non\_const,Args...>\ tmp\_non\_const(view.label(),\ view.layout());}
+\DoxyCodeLine{00426\ \ \ \textcolor{keywordflow}{if}\ (s.isPacking())\ \{}
+\DoxyCodeLine{00427\ \ \ \ \ deepCopyWithLocalFence(tmp\_non\_const,\ view);}
+\DoxyCodeLine{00428\ \ \ \}}
+\DoxyCodeLine{00429\ \ \ serialize\_impl(s,\ tmp\_non\_const);}
+\DoxyCodeLine{00430\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00431\ \ \ \ \ view\ =\ tmp\_non\_const;}
+\DoxyCodeLine{00432\ \ \ \}}
+\DoxyCodeLine{00433\ \}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00436\ \textcolor{keyword}{using\ }KokkosConstArchetype\ =\ \textcolor{keyword}{typename}\ std::is\_same<}
+\DoxyCodeLine{00437\ \ \ \textcolor{keyword}{typename}\ ViewT::traits::const\_data\_type,\ \textcolor{keyword}{typename}\ ViewT::traits::data\_type}
+\DoxyCodeLine{00438\ >;}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00441\ \textcolor{keyword}{struct\ }SerializeConst;}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00444\ \textcolor{keyword}{struct\ }SerializeConst<}
+\DoxyCodeLine{00445\ \ \ ViewT,}
+\DoxyCodeLine{00446\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::enable\_if\_t<!KokkosConstArchetype<ViewT>::value>}
+\DoxyCodeLine{00447\ >}
+\DoxyCodeLine{00448\ \{}
+\DoxyCodeLine{00449\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00450\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewT\&\ v)\ \{}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordflow}{return}\ serialize\_impl(s,v);}
+\DoxyCodeLine{00452\ \ \ \}}
+\DoxyCodeLine{00453\ \};}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00456\ \textcolor{keyword}{struct\ }SerializeConst<}
+\DoxyCodeLine{00457\ \ \ ViewT,}
+\DoxyCodeLine{00458\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::enable\_if\_t<KokkosConstArchetype<ViewT>::value>}
+\DoxyCodeLine{00459\ >}
+\DoxyCodeLine{00460\ \{}
+\DoxyCodeLine{00461\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00462\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewT\&\ v)\ \{}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordflow}{return}\ serialize\_const(s,\ v);}
+\DoxyCodeLine{00464\ \ \ \}}
+\DoxyCodeLine{00465\ \};}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00468\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\&\ s,\ Kokkos::View<T,Args...>\&\ view)\ \{}
+\DoxyCodeLine{00469\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::View<T,Args...>;}
+\DoxyCodeLine{00470\ \ \ SerializeConst<ViewType>::apply(s,view);}
+\DoxyCodeLine{00471\ \}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00474\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\&\ s,\ Kokkos::DynRankView<T,Args...>\&\ view)\ \{}
+\DoxyCodeLine{00475\ \ \ \textcolor{keyword}{using\ }ViewType\ =\ Kokkos::DynRankView<T,Args...>;}
+\DoxyCodeLine{00476\ \ \ SerializeConst<ViewType>::apply(s,view);}
+\DoxyCodeLine{00477\ \}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00480\ \ \ \textcolor{keyword}{typename}\ ViewType,}
+\DoxyCodeLine{00481\ \ \ \textcolor{keyword}{typename}\ T\ =\ \textcolor{keyword}{typename}\ ViewGetType<ViewType>::DataType}
+\DoxyCodeLine{00482\ >}
+\DoxyCodeLine{00483\ \textcolor{keyword}{struct\ }CountStaticDims\ \{}
+\DoxyCodeLine{00484\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ ndims\ =\ 0;}
+\DoxyCodeLine{00485\ \};}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00488\ \ \ \textcolor{keyword}{typename}\ ViewType,}
+\DoxyCodeLine{00489\ \ \ \textcolor{keyword}{typename}\ T}
+\DoxyCodeLine{00490\ >}
+\DoxyCodeLine{00491\ \textcolor{keyword}{struct\ }CountStaticDims<ViewType,\ T*>\ \{}
+\DoxyCodeLine{00492\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ ndims\ =\ CountStaticDims<ViewType,\ T>::ndims\ +\ 1;}
+\DoxyCodeLine{00493\ \};}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00496\ \ \ \textcolor{keyword}{typename}\ ViewType,}
+\DoxyCodeLine{00497\ \ \ \textcolor{keyword}{typename}\ T,}
+\DoxyCodeLine{00498\ \ \ std::size\_t\ N}
+\DoxyCodeLine{00499\ >}
+\DoxyCodeLine{00500\ \textcolor{keyword}{struct\ }CountStaticDims<ViewType,\ T[N]>\ \{}
+\DoxyCodeLine{00501\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ ndims\ =\ CountStaticDims<ViewType,\ T>::ndims\ +\ 1;}
+\DoxyCodeLine{00502\ \};}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType,\ \textcolor{keywordtype}{int}\ N\_DIMS>}
+\DoxyCodeLine{00505\ \textcolor{keyword}{struct\ }SerializeExtentOnlyImpl;}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00508\ \textcolor{keyword}{struct\ }SerializeExtentOnlyImpl<}
+\DoxyCodeLine{00509\ \ \ SerializerT,}
+\DoxyCodeLine{00510\ \ \ ViewType,}
+\DoxyCodeLine{00511\ \ \ 1}
+\DoxyCodeLine{00512\ >\ \{}
+\DoxyCodeLine{00513\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\&\ v,\ std::string\ label)\ \{}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{comment}{//\ Pass\ label\ explicitly\ to\ reduce\ network\ transfer\ bytes}}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_0\ =\ v.extent(0);}
+\DoxyCodeLine{00516\ \ \ \ \ s\ |\ view\_extent\_0;}
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ v\ =\ ViewType(label,\ view\_extent\_0);}
+\DoxyCodeLine{00519\ \ \ \ \ \}}
+\DoxyCodeLine{00520\ \ \ \}}
+\DoxyCodeLine{00521\ \};}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00524\ \textcolor{keyword}{struct\ }SerializeExtentOnlyImpl<}
+\DoxyCodeLine{00525\ \ \ SerializerT,}
+\DoxyCodeLine{00526\ \ \ ViewType,}
+\DoxyCodeLine{00527\ \ \ 2}
+\DoxyCodeLine{00528\ >\ \{}
+\DoxyCodeLine{00529\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\&\ v,\ std::string\ label)\ \{}
+\DoxyCodeLine{00530\ \ \ \ \ \textcolor{comment}{//\ Pass\ label\ explicitly\ to\ reduce\ network\ transfer\ bytes}}
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_0\ =\ v.extent(0);}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_1\ =\ v.extent(1);}
+\DoxyCodeLine{00533\ \ \ \ \ s\ |\ view\_extent\_0\ |\ view\_extent\_1;}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ v\ =\ ViewType(label,\ view\_extent\_0,\ view\_extent\_1);}
+\DoxyCodeLine{00536\ \ \ \ \ \}}
+\DoxyCodeLine{00537\ \ \ \}}
+\DoxyCodeLine{00538\ \};}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00541\ \textcolor{keyword}{struct\ }SerializeExtentOnlyImpl<}
+\DoxyCodeLine{00542\ \ \ SerializerT,}
+\DoxyCodeLine{00543\ \ \ ViewType,}
+\DoxyCodeLine{00544\ \ \ 3}
+\DoxyCodeLine{00545\ >\ \{}
+\DoxyCodeLine{00546\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\&\ v,\ std::string\ label)\ \{}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{comment}{//\ Pass\ label\ explicitly\ to\ reduce\ network\ transfer\ bytes}}
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_0\ =\ v.extent(0);}
+\DoxyCodeLine{00549\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_1\ =\ v.extent(1);}
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_2\ =\ v.extent(2);}
+\DoxyCodeLine{00551\ \ \ \ \ s\ |\ view\_extent\_0\ |\ view\_extent\_1\ |\ view\_extent\_2;}
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ v\ =\ ViewType(label,\ view\_extent\_0,\ view\_extent\_1,\ view\_extent\_2);}
+\DoxyCodeLine{00554\ \ \ \ \ \}}
+\DoxyCodeLine{00555\ \ \ \}}
+\DoxyCodeLine{00556\ \};}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00559\ \textcolor{keyword}{struct\ }SerializeExtentOnlyImpl<}
+\DoxyCodeLine{00560\ \ \ SerializerT,}
+\DoxyCodeLine{00561\ \ \ ViewType,}
+\DoxyCodeLine{00562\ \ \ 4}
+\DoxyCodeLine{00563\ >\ \{}
+\DoxyCodeLine{00564\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\&\ v,\ std::string\ label)\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{comment}{//\ Pass\ label\ explicitly\ to\ reduce\ network\ transfer\ bytes}}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_0\ =\ v.extent(0);}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_1\ =\ v.extent(1);}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_2\ =\ v.extent(2);}
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{keyword}{auto}\ view\_extent\_3\ =\ v.extent(3);}
+\DoxyCodeLine{00570\ \ \ \ \ s\ |\ view\_extent\_0\ |\ view\_extent\_1\ |\ view\_extent\_2\ |\ view\_extent\_3;}
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ v\ =\ ViewType(}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ label,\ view\_extent\_0,\ view\_extent\_1,\ view\_extent\_2,\ view\_extent\_3}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00575\ \ \ \ \ \}}
+\DoxyCodeLine{00576\ \ \ \}}
+\DoxyCodeLine{00577\ \};}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00580\ \textcolor{keywordtype}{void}\ serializeExtentOnly(SerializerT\&\ s,\ ViewType\&\ v,\ std::string\ label)\ \{}
+\DoxyCodeLine{00581\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ N\_DIMS\ =\ CountStaticDims<ViewType>::ndims;}
+\DoxyCodeLine{00582\ \ \ SerializeExtentOnlyImpl<SerializerT,\ ViewType,\ N\_DIMS>::apply(s,\ v,\ label);}
+\DoxyCodeLine{00583\ \}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \textcolor{keyword}{template}<\ \textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts\ >}
+\DoxyCodeLine{00586\ \textcolor{keywordtype}{void}\ serializeContentsOnly(SerializerT\&\ s,\ Kokkos::View<T,\ Ts...>\&\ v)\ \{}
+\DoxyCodeLine{00587\ \ \ Kokkos::View<T,\ Ts...>\ values\ =\ v;}
+\DoxyCodeLine{00588\ \ \ s\ |\ values;}
+\DoxyCodeLine{00589\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())}
+\DoxyCodeLine{00590\ \ \ \ \ deepCopyWithLocalFence(v,\ values);}
+\DoxyCodeLine{00591\ \}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_KERNELS\_ENABLED}}
+\DoxyCodeLine{00594\ \textcolor{keyword}{template}<\ \textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts\ >}
+\DoxyCodeLine{00595\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(\ Serializer\ \&s,\ KokkosSparse::StaticCrsGraph<T,\ Ts...>\ \&graph\ )\ \{}
+\DoxyCodeLine{00596\ \ \ s\ |\ graph.entries\ |\ graph.row\_map\ |\ graph.row\_block\_offsets;}
+\DoxyCodeLine{00597\ \}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{keyword}{template}<\ \textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts\ >}
+\DoxyCodeLine{00600\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(\ Serializer\ \&s,\ KokkosSparse::CrsMatrix<T,\ Ts...>\ \&matrix\ )\ \{}
+\DoxyCodeLine{00601\ \ \ \textcolor{keyword}{using\ }MatrixType\ =\ std::remove\_reference\_t<\textcolor{keyword}{decltype}(matrix)>;}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \ \ \textcolor{keyword}{auto}\ numCols\ =\ matrix.numCols();}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ s\ |\ numCols;}
+\DoxyCodeLine{00606\ \ \ s\ |\ matrix.graph\ |\ matrix.values;}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00609\ \ \ \ \ matrix\ =\ MatrixType(matrix.graph.entries.label(),\ numCols,\ matrix.values,\ matrix.graph);}
+\DoxyCodeLine{00610\ \ \ \}}
+\DoxyCodeLine{00611\ \}}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00616\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*MAGISTRATE\_KOKKOS\_ENABLED*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,303 @@
+\doxysection{dispatch.\+impl.\+h}
+\hypertarget{lib_2checkpoint_2src_2checkpoint_2dispatch_2dispatch_8impl_8h_source}{}\label{lib_2checkpoint_2src_2checkpoint_2dispatch_2dispatch_8impl_8h_source}\index{lib/checkpoint/src/checkpoint/dispatch/dispatch.impl.h@{lib/checkpoint/src/checkpoint/dispatch/dispatch.impl.h}}
+\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2dispatch_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dispatch.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_DISPATCH\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_DISPATCH\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2dispatch_2dispatch_8h}{checkpoint/dispatch/dispatch.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{type__registry_8h}{checkpoint/dispatch/type\_registry.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00057\ \textcolor{keyword}{inline}\ Serializer\&\ \doxymbox{\hyperlink{namespacecheckpoint_a5c9a1c4d05ec6880270c9a6d0dded825}{operator|}}(Serializer\&\ s,\ T\&\ target)\ \{}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordflow}{return}\ dispatch::Traverse::with(target,\ s);}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch}{dispatch}}\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error_af6aed4ab250143188d06fe2d4d57952f}{serialization\_error}}\ :\ \textcolor{keyword}{public}\ std::runtime\_error\ \{}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error_af6aed4ab250143188d06fe2d4d57952f}{serialization\_error}}(std::string\ \textcolor{keyword}{const}\&\ msg,\ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ depth\ =\ 0)}
+\DoxyCodeLine{00067\ \ \ \ \ :\ \doxymbox{\hyperlink{namespacestd}{std}}::runtime\_error(msg),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error_ada6ac0017a7af74ce56a6bf0f8c78260}{depth\_}}(depth)\ \{\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error_ada6ac0017a7af74ce56a6bf0f8c78260}{depth\_}}\ =\ 0;}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TraverserT>}
+\DoxyCodeLine{00074\ TraverserT\&\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_af33c294b0b8f6f3eea949e91de422d60}{withTypeIdx}}(TraverserT\&\ t)\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{using\ }CleanT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_clean_type_a5ca6cd4c73773e29c340901d3e6864d2}{CleanType<typeregistry::DecodedIndex>::CleanT}};}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{using\ }DispatchType\ =}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{typename}\ TraverserT::template\ DispatcherType<TraverserT,\ CleanT>;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ thisTypeIdx\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa6368a47718fd3d3b14939d5527a784e}{typeregistry::getTypeIdx<T>}}();}
+\DoxyCodeLine{00080\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a8b2275f984b745cb676196f7c5977de6}{SerializerDispatch<TraverserT,\ CleanT,\ DispatchType>}}\ ap;}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ len\ =\ 1;}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{if}\ (t.isPacking()\ ||\ t.isSizing())\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a3b1383faab1a90d687eab554b64b2d09}{cleanType}}(\&thisTypeIdx);}
+\DoxyCodeLine{00084\ \ \ \ \ ap(t,\ val,\ len);}
+\DoxyCodeLine{00085\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (t.isUnpacking())\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{typeregistry::DecodedIndex}}\ serTypeIdx\ =\ 0;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a3b1383faab1a90d687eab554b64b2d09}{cleanType}}(\&serTypeIdx);}
+\DoxyCodeLine{00088\ \ \ \ \ ap(t,\ val,\ len);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{if}\ (}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_ad6c54e529f67d0cb0aca100f1595d002}{typeregistry::validateIndex}}(serTypeIdx)\ ==\ \textcolor{keyword}{false}\ ||}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ thisTypeIdx\ !=\ serTypeIdx}
+\DoxyCodeLine{00093\ \ \ \ \ )\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ err\ =\ std::string(\textcolor{stringliteral}{"{}Unpacking\ wrong\ type,\ got="{}})\ +}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a804216fa8e98ba9f3d044fe4f54df993}{typeregistry::getTypeNameForIdx}}(thisTypeIdx)\ +}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ (idx="{}}\ +\ std::to\_string(thisTypeIdx)\ +}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}),\ expected="{}}\ +\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a804216fa8e98ba9f3d044fe4f54df993}{typeregistry::getTypeNameForIdx}}(serTypeIdx)\ +}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ (idx="{}}\ +\ std::to\_string(serTypeIdx)\ +\ \textcolor{stringliteral}{"{})\(\backslash\)n\#0\ "{}}\ +}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a894198c870f13c0474e4310ffaadb100}{typeregistry::getTypeName<T>}}();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error}{serialization\_error}}(err);}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TraverserT>}
+\DoxyCodeLine{00108\ TraverserT\&\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a1cec05b483250d0b1ea9b2e0ad6a39ed}{withMemUsed}}(TraverserT\&\ t,\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ len)\ \{}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{using\ }DispatchType\ =}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{typename}\ TraverserT::template\ DispatcherType<TraverserT,\ SerialSizeType>;}
+\DoxyCodeLine{00111\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a8b2275f984b745cb676196f7c5977de6}{SerializerDispatch<TraverserT,\ SerialSizeType,\ DispatchType>}}\ ap;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ \textcolor{keyword}{const}\ memUsed\ =\ \textcolor{keyword}{sizeof}(T)\ *\ len;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ memUsedLen\ =\ 1;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{if}\ (t.isPacking()\ ||\ t.isSizing())\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a3b1383faab1a90d687eab554b64b2d09}{cleanType}}(\&memUsed);}
+\DoxyCodeLine{00117\ \ \ \ \ ap(t,\ val,\ memUsedLen);}
+\DoxyCodeLine{00118\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (t.isUnpacking())\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ serMemUsed\ =\ 0;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a3b1383faab1a90d687eab554b64b2d09}{cleanType}}(\&serMemUsed);}
+\DoxyCodeLine{00121\ \ \ \ \ ap(t,\ val,\ memUsedLen);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (memUsed\ !=\ serMemUsed)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{keyword}{using\ }CleanT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_clean_type_a5ca6cd4c73773e29c340901d3e6864d2}{CleanType<T>::CleanT}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ std::string\ msg\ =\ \textcolor{stringliteral}{"{}For\ type\ '"{}}\ +\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a894198c870f13c0474e4310ffaadb100}{typeregistry::getTypeName<CleanT>}}()\ +}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}'\ serialization\ used\ "{}}\ +\ std::to\_string(serMemUsed)\ +}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}B,\ but\ deserialization\ used\ "{}}\ +\ std::to\_string(memUsed)\ +\ \textcolor{stringliteral}{"{}B"{}};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error}{serialization\_error}}(msg);}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TraverserT>}
+\DoxyCodeLine{00137\ TraverserT\&\ Traverse::with(T\&\ target,\ TraverserT\&\ t,\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ len)\ \{}
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{using\ }CleanT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_clean_type_a5ca6cd4c73773e29c340901d3e6864d2}{CleanType<T>::CleanT}};}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{using\ }DispatchType\ =}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{typename}\ TraverserT::template\ DispatcherType<TraverserT,\ CleanT>;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ \#if\ defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00143\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_af33c294b0b8f6f3eea949e91de422d60}{withTypeIdx<CleanT>}}(t);}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a3b1383faab1a90d687eab554b64b2d09}{cleanType}}(\&target);}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a8b2275f984b745cb676196f7c5977de6}{SerializerDispatch<TraverserT,\ CleanT,\ DispatchType>}}\ ap;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ \#if\ defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ ap(t,\ val,\ len);}
+\DoxyCodeLine{00152\ \ \ \}\ \textcolor{keywordflow}{catch}\ (serialization\_error\ \textcolor{keyword}{const}\&\ err)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ depth\ =\ err.depth\_\ +\ 1;}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ what\ =\ std::string(err.what())\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n\#"{}}\ +\ std::to\_string(depth)\ +}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ "{}}\ +\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a894198c870f13c0474e4310ffaadb100}{typeregistry::getTypeName<T>}}();}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{throw}\ serialization\_error(what,\ depth);}
+\DoxyCodeLine{00157\ \ \ \}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ \#else}}
+\DoxyCodeLine{00159\ \ \ ap(t,\ val,\ len);}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \#if\ defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00163\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a1cec05b483250d0b1ea9b2e0ad6a39ed}{withMemUsed<CleanT>}}(t,\ len);}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TraverserT,\ \textcolor{keyword}{typename}\ Traits,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00170\ TraverserT\ Traverse::with(T\&\ target,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \#if\ !defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{using\ }CleanT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_clean_type_a5ca6cd4c73773e29c340901d3e6864d2}{CleanType<T>::CleanT}};}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ TraverserT\ t\_base(std::forward<Args>(args)...);}
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{auto}\ t\ =\ SerializerRef(\&t\_base,\ Traits\{\});}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \#if\ !defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00179\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_af33c294b0b8f6f3eea949e91de422d60}{withTypeIdx<CleanT>}}(t);}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ with(target,\ t);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\ \ \#if\ !defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00185\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a1cec05b483250d0b1ea9b2e0ad6a39ed}{withMemUsed<CleanT>}}(t,\ 1);}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{return}\ t\_base;}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00192\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\ Traverse::reconstruct(\doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ mem)\ \{}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{Reconstructor<typename\ CleanType<T>::CleanT}}>::construct(mem);}
+\DoxyCodeLine{00194\ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ SizerT,\ \textcolor{keyword}{typename}\ Traits,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00197\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ Standard::size(T\&\ target,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{auto}\ sizer\ =\ Traverse::with<T,\ SizerT,\ Traits>(target,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordflow}{return}\ sizer.getSize();}
+\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ FootprinterT,\ \textcolor{keyword}{typename}\ Traits,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00203\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ Standard::footprint(T\&\ target,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00204\ \ \ \textcolor{keyword}{auto}\ footprinter\ =}
+\DoxyCodeLine{00205\ \ \ \ \ Traverse::with<T,\ FootprinterT,\ Traits>(target,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{return}\ footprinter.getMemoryFootprint();}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ PackerT,\ \textcolor{keyword}{typename}\ Traits,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00210\ PackerT\ Standard::pack(T\&\ target,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordflow}{return}\ Traverse::with<T,\ PackerT,\ Traits>(target,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00212\ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00215\ \doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ Standard::allocate()\ \{}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\textcolor{keyword}{>}(std::allocator<T>\{\}.allocate(1));}
+\DoxyCodeLine{00217\ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ UnpackerT,\ \textcolor{keyword}{typename}\ Traits,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00220\ T*\ Standard::unpack(T*\ t\_buf,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00221\ \ \ Traverse::with<T,\ UnpackerT,\ Traits>(*t\_buf,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordflow}{return}\ t\_buf;}
+\DoxyCodeLine{00223\ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00226\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_in_place_wrapper}{InPlaceWrapper<T>}}\ Standard::construct(\doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ mem)\ \{}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordflow}{return}\ Traverse::reconstruct<T>(mem);}
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00231\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a055fa8c0078dbd129325b1038079d87d}{serializeArray}}(Serializer\&\ s,\ T*\ array,\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ \textcolor{keyword}{const}\ len)\ \{}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordflow}{if}\ (len\ >\ 0)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ Traverse::with<T,\ Serializer>(*array,\ s,\ len);}
+\DoxyCodeLine{00234\ \ \ \}}
+\DoxyCodeLine{00235\ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ TargetT,\ \textcolor{keyword}{typename}\ PackerT>}
+\DoxyCodeLine{00238\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00239\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a45cd06e9cac244ce0f5cc265ef52fd4e}{validatePackerBufferSize}}(PackerT\ \textcolor{keyword}{const}\&\ p,\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ bufferSize)\ \{}
+\DoxyCodeLine{00240\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ usedBufferSize\ =\ p.usedBufferSize();}
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordflow}{if}\ (usedBufferSize\ !=\ bufferSize)\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{using\ }CleanT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_clean_type_a5ca6cd4c73773e29c340901d3e6864d2}{CleanType<TargetT>::CleanT}};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ std::string\ msg\ =\ \textcolor{stringliteral}{"{}For\ type\ '"{}}\ +\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a894198c870f13c0474e4310ffaadb100}{typeregistry::getTypeName<CleanT>}}()\ +}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}'\ Sizer\ reported\ "{}}\ +\ std::to\_string(bufferSize)\ +\ \textcolor{stringliteral}{"{}B,\ but\ Packer\ used\ "{}}\ +}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ std::to\_string(usedBufferSize)\ +\ \textcolor{stringliteral}{"{}B"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{throw}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1serialization__error}{serialization\_error}}(msg);}
+\DoxyCodeLine{00248\ \ \ \}}
+\DoxyCodeLine{00249\ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ UserTraits>}
+\DoxyCodeLine{00252\ \doxymbox{\hyperlink{namespacecheckpoint_1_1buffer_a0a44d64369472dbe0d90a404e70c24b8}{buffer::ImplReturnType}}}
+\DoxyCodeLine{00253\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a608c79290eac4fccdc9df77d41988cc8}{packBuffer}}(T\&\ target,\ \doxymbox{\hyperlink{namespacecheckpoint_af3ea28a2d00288e4312d0a1ab2f2424f}{SerialSizeType}}\ size,\ \doxymbox{\hyperlink{namespacecheckpoint_a4bf3ba994f462b93a627f56adaade488}{BufferObtainFnType}}\ fn)\ \{}
+\DoxyCodeLine{00254\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ user\_buf\ =\ fn\ ?\ fn(size)\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordflow}{if}\ (user\_buf\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ Standard::pack<T,\ PackerBuffer<buffer::ManagedBuffer>,\ UserTraits>(target,\ size);}
+\DoxyCodeLine{00258\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a45cd06e9cac244ce0f5cc265ef52fd4e}{validatePackerBufferSize<T>}}(p,\ size);}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(std::move(p.extractPackedBuffer()),\ size);}
+\DoxyCodeLine{00260\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ Standard::pack<T,\ PackerBuffer<buffer::UserBuffer>,\ UserTraits>(}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ target,\ size,\ std::make\_unique<buffer::UserBuffer>(user\_buf,\ size)}
+\DoxyCodeLine{00263\ \ \ \ \ );}
+\DoxyCodeLine{00264\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a45cd06e9cac244ce0f5cc265ef52fd4e}{validatePackerBufferSize<T>}}(p,\ size);}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(std::move(p.extractPackedBuffer()),\ size);}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ UserTraits>}
+\DoxyCodeLine{00270\ \doxymbox{\hyperlink{namespacecheckpoint_1_1buffer_a0a44d64369472dbe0d90a404e70c24b8}{buffer::ImplReturnType}}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_aabe6054099db6f6561c0724115460dc0}{serializeType}}(T\&\ target,\ \doxymbox{\hyperlink{namespacecheckpoint_a4bf3ba994f462b93a627f56adaade488}{BufferObtainFnType}}\ fn)\ \{}
+\DoxyCodeLine{00271\ \ \ \textcolor{keyword}{auto}\ len\ =\ Standard::size<T,\ Sizer,\ UserTraits>(target);}
+\DoxyCodeLine{00272\ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a7c3e2df5c024d2137e920504aa8741f2}{debug\_checkpoint}}(\textcolor{stringliteral}{"{}serializeType:\ len=\%ld\(\backslash\)n"{}},\ len);}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_a608c79290eac4fccdc9df77d41988cc8}{packBuffer<T,\ UserTraits>}}(target,\ len,\ fn);}
+\DoxyCodeLine{00274\ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ UserTraits>}
+\DoxyCodeLine{00277\ T*\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_af53e3da86b448379c2fd8437dfda6a4d}{deserializeType}}(\doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ data,\ \doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ allocBuf)\ \{}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \textcolor{keyword}{auto}\ mem\ =\ allocBuf\ ?\ allocBuf\ :\ Standard::allocate<T>();}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{comment}{//\ Transfer\ ownership\ of\ T*\ to\ the\ unique\_ptr,\ which\ is\ now\ responsible\ for}}
+\DoxyCodeLine{00285\ \ \ \textcolor{comment}{//\ destructing\ it}}
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{auto}\ t\_buf\ =\ std::unique\_ptr<T>(Standard::construct<T>(mem).transferOwnership());}
+\DoxyCodeLine{00287\ \ \ T*\ traverser\ =}
+\DoxyCodeLine{00288\ \ \ \ \ Standard::unpack<T,\ UnpackerBuffer<buffer::UserBuffer>,\ UserTraits>(t\_buf.get(),\ data);}
+\DoxyCodeLine{00289\ \ \ t\_buf.release();}
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordflow}{return}\ traverser;}
+\DoxyCodeLine{00291\ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ UserTraits>}
+\DoxyCodeLine{00294\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_af53e3da86b448379c2fd8437dfda6a4d}{deserializeType}}(InPlaceTag,\ \doxymbox{\hyperlink{namespacecheckpoint_abde9c934d134a37336ab8c13f21baf02}{SerialByteType}}*\ data,\ T*\ t)\ \{}
+\DoxyCodeLine{00295\ \ \ Standard::unpack<T,\ UnpackerBuffer<buffer::UserBuffer>,\ UserTraits>(t,\ data);}
+\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint::dispatch\ */}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_DISPATCH\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

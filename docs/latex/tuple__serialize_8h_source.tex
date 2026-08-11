@@ -1,0 +1,101 @@
+\doxysection{tuple\+\_\+serialize.\+h}
+\hypertarget{tuple__serialize_8h_source}{}\label{tuple__serialize_8h_source}\index{lib/checkpoint/src/checkpoint/container/tuple\_serialize.h@{lib/checkpoint/src/checkpoint/container/tuple\_serialize.h}}
+\doxymbox{\hyperlink{tuple__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tuple\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_TUPLE\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_TUPLE\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <new>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}...\ T,\ \textcolor{keywordtype}{size\_t}...\ Idxs>}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_ab763d3ca9396ff9a1896f5da6c2b3c54}{tuple\_helper}}(Serializer\&\ s,\ std::tuple<T...>\&\ tup,\ std::index\_sequence<Idxs...>)\ \{}
+\DoxyCodeLine{00058\ \ \ std::forward\_as\_tuple(}
+\DoxyCodeLine{00059\ \ \ \ \ ((s\ |\ std::get<Idxs>(tup)),0)...}
+\DoxyCodeLine{00060\ \ \ );}
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T,\ \textcolor{keywordtype}{size\_t}...\ Idxs>}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a8370a2284f01f2fada353a096ab95f4d}{tuple\_helper\_reconstruct}}(std::tuple<T...>*\&\ tup,\ std::index\_sequence<Idxs...>)\ \{}
+\DoxyCodeLine{00065\ \ \ std::forward\_as\_tuple(}
+\DoxyCodeLine{00066\ \ \ \ \ (\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor_a7c4eda5f3f32a059f0572d5fc330deca}{dispatch::Reconstructor<T>::construct}}(}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \&std::get<Idxs>(*tup)}
+\DoxyCodeLine{00068\ \ \ \ \ ).transferOwnership())...}
+\DoxyCodeLine{00069\ \ \ );}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(Serializer\&\ s,\ std::tuple<Args...>\&\ tuple)\ \{}
+\DoxyCodeLine{00074\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_ab763d3ca9396ff9a1896f5da6c2b3c54}{tuple\_helper}}(s,\ tuple,\ std::index\_sequence\_for<Args...>());}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(Serializer\&\ s,\ std::pair<T,\ U>\&\ pair)\ \{}
+\DoxyCodeLine{00079\ \ \ s.countBytes(pair);}
+\DoxyCodeLine{00080\ \ \ s\ |\ pair.first;}
+\DoxyCodeLine{00081\ \ \ s\ |\ pair.second;}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1_checkpoint_reconstructor}{CheckpointReconstructor}}<\doxymbox{\hyperlink{namespacestd}{std}}::tuple<Args...>>\ \{}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcheckpoint_1_1_checkpoint_reconstructor_3_01std_1_1tuple_3_01_args_8_8_8_01_4_01_4_a352018c0950a259b480efbea4188d37f}{reconstruct}}(std::tuple<Args...>*\&\ tuple,\ \textcolor{keywordtype}{void}*\ buf)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{using\ }TupleType\ =\ std::decay\_t<\textcolor{keyword}{decltype}(*tuple)>;}
+\DoxyCodeLine{00088\ \ \ \ \ tuple\ =\ std::launder<TupleType>(\textcolor{keyword}{reinterpret\_cast<}TupleType*\textcolor{keyword}{>}(buf));}
+\DoxyCodeLine{00089\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a8370a2284f01f2fada353a096ab95f4d}{tuple\_helper\_reconstruct}}(tuple,\ std::index\_sequence\_for<Args...>());}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_TUPLE\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

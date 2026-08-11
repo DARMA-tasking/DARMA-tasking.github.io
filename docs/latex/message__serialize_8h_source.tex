@@ -1,0 +1,440 @@
+\doxysection{message\+\_\+serialize.\+h}
+\hypertarget{message__serialize_8h_source}{}\label{message__serialize_8h_source}\index{src/vt/messaging/message/message\_serialize.h@{src/vt/messaging/message/message\_serialize.h}}
+\doxymbox{\hyperlink{message__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ These\ should\ probably\ be\ ..\ elsewhere.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ They\ are\ lifted\ for\ demonstration\ purposes.}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{checkpoint_8h}{checkpoint/checkpoint.h}}>}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ C++17\ port.\ ref.\ https://en.cppreference.com/w/cpp/types/conjunction}}
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}<\textcolor{keyword}{class}...>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__conjunction}{cxx14\_conjunction}}\ :\ std::true\_type\ \{\ \};}
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ B1>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__conjunction}{cxx14\_conjunction<B1>}}\ :\ B1\ \{\ \};}
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}<\textcolor{keyword}{class\ }B1,\ \textcolor{keyword}{class}...\ Bn>}
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__conjunction}{cxx14\_conjunction}}<B1,\ Bn...>}
+\DoxyCodeLine{00060\ \ \ :\ std::conditional\_t<bool(B1::value),\ cxx14\_conjunction<Bn...>,\ B1>\ \{\};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ C++17\ port.\ ref.\ https://en.cppreference.com/w/cpp/types/void\_t}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00064\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__make__void}{cxx14\_make\_void}}\ \{\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__make__void_a7322d20f987efd6028d1d56e579c2783}{type}};\};}
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1messaging_a63177f759016ce1d66f40f01d6187af3}{cxx14\_void\_t}}\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__make__void}{cxx14\_make\_void}}<Ts...>::type;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Only\ some\ compilers\ can\ directly\ check\ for\ a\ serialization\ method}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ because\ to\ do\ so\ requires\ declval\ on\ a\ templated\ member\ WITHOUT}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ causing\ templated\ instantiation\ (which\ will\ fail).}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1messaging_aab0d4ef0cb28ca9ae30d9ee075cae9d9}{SerializeSizerType}}\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1_sizer}{::checkpoint::Sizer}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ Covering\ case\ work-\/about\ for\ NVCC\ (CUDA\ 10.1).\ See\ usage\ site.}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00077\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t}{has\_any\_serialize\_member\_t}}}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t_a8667d5c10f1ca037fa47f524888f4b33}{test}}(U*\ u)\ -\/>\ \textcolor{keyword}{decltype}(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ u-\/>template\ serialize<SerializeSizerType>(std::declval<SerializeSizerType\&>())}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ ,\ char(0))\ \{\ \textcolor{keywordflow}{return}\ char(0);\ \}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t_a1a258eb4994a16e4359a9c1c21d71de7}{test}}(...)\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t_ae0ddceb2b8168f1c6abe7d51c10ac984}{value}}\ =\ (\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t_a8667d5c10f1ca037fa47f524888f4b33}{test}}((T*)0))\ ==\ 1);}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00088\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1has__own__serialize__member__t}{has\_own\_serialize\_member\_t}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1has__own__serialize__member__t}{has\_own\_serialize\_member\_t}}<U,}
+\DoxyCodeLine{00092\ \ \ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if\_t<}
+\DoxyCodeLine{00093\ \ \ \ \ std::is\_same<}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ void\ (U::*)(::checkpoint::Sizer\&),}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ decltype(\&U::template\ serialize<SerializeSizerType>)}
+\DoxyCodeLine{00096\ \ \ \ \ >::value}
+\DoxyCodeLine{00097\ \ \ >>}
+\DoxyCodeLine{00098\ \ \ :\ std::true\_type}
+\DoxyCodeLine{00099\ \{\};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ Either\ declared\ out-\/of-\/line\ (no\ inheritance\ in\ play)}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ or\ a\ serialize\ member\ is\ declared\ on\ the\ precise\ type.}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00104\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ has\_own\_serialize\ =}
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1_serializable_traits_a2b02dea52e9cce1e6ec8e251c414e2e5}{::checkpoint::SerializableTraits<T>::has\_serialize\_noninstrusive}}}
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ NVCC\ (CUDA\ 10.1\ and\ 11)\ has\ SFINAE\ issues\ with\ decltype\ above,}}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ and\ possible\ fallout\ with\ lazy\ evaluation\ of\ 'and'.}}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ While\ this\ compiles,\ NVCC\ incorrectly\ detects\ some\ types}}
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ as\ requiring\ serialization.\ See\ \#949.}}
+\DoxyCodeLine{00110\ \ \ or\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__conjunction}{cxx14\_conjunction}}<}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1has__any__serialize__member__t}{has\_any\_serialize\_member\_t<T>}},}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1has__own__serialize__member__t}{has\_own\_serialize\_member\_t<T>}}}
+\DoxyCodeLine{00113\ \ \ >::value;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \}\}\ \textcolor{comment}{//\ end\ vt::messaging}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ These\ macros\ are\ always\ available,\ regardless\ of\ serialization\ support.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ (Otherwise\ they\ would\ have\ to\ be\ guarded\ in\ non-\/serialization\ builds.)}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_mode\_(MODE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ void\ vt\_serialize\_defined\_on\_type()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ static\ constexpr\ ::vt::messaging::SerializationMode\ vt\_serialize\_mode\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \ \ =\ ::vt::messaging::SerializationMode::MODE}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_required()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ vt\_msg\_serialize\_mode\_(require);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ static\_assert(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ \ \ not\ ::vt::messaging::msg\_serialization\_mode<MessageParentType>::prohibited,\ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ "{}Message\ cannot\ require\ serialization"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ "{}\ because\ serialization\ is\ prohibited\ by\ the\ parent\ type."{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ )}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_supported()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ vt\_msg\_serialize\_mode\_(support);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ static\_assert(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ \ \ not\ ::vt::messaging::msg\_serialization\_mode<MessageParentType>::required,\ \ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ \ \ "{}Message\ must\ require\ serialization"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ \ \ "{}\ because\ serialization\ is\ required\ by\ the\ parent\ type."{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ static\_assert(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ \ \ not\ ::vt::messaging::msg\_serialization\_mode<MessageParentType>::prohibited,\ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ \ \ "{}Message\ must\ prohibit\ serialization"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ "{}\ because\ serialization\ is\ prohibited\ by\ the\ parent\ type."{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ )}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_prohibited()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ vt\_msg\_serialize\_mode\_(prohibit);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ static\_assert(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ not\ ::vt::messaging::msg\_serialization\_mode<MessageParentType>::required,\ \ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ "{}Message\ cannot\ prohibit\ serialization"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ "{}\ because\ serialization\ is\ required\ by\ the\ parent\ type."{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ )}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_if\_needed\_by\_parent()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ void\ vt\_serialize\_defined\_on\_type()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ static\ constexpr\ ::vt::messaging::SerializationMode\ vt\_serialize\_mode\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ =\ (::vt::messaging::msg\_serialization\_mode<MessageParentType>::required\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \ ?\ ::vt::messaging::SerializationMode::require\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \ :\ ::vt::messaging::SerializationMode::support)}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_if\_needed\_by\_parent\_or\_type1(TYPE1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ void\ vt\_serialize\_defined\_on\_type()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ static\ constexpr\ ::vt::messaging::SerializationMode\ vt\_serialize\_mode\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ =\ (::vt::messaging::msg\_serialization\_mode<MessageParentType>::required\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \ or\ not\ (true\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE1>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ ?\ ::vt::messaging::SerializationMode::require\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ :\ ::vt::messaging::SerializationMode::support)}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_if\_needed\_by\_parent\_or\_type2(TYPE1,\ TYPE2)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ void\ vt\_serialize\_defined\_on\_type()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ static\ constexpr\ ::vt::messaging::SerializationMode\ vt\_serialize\_mode\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ =\ (::vt::messaging::msg\_serialization\_mode<MessageParentType>::required\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ \ or\ not\ (true\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE1>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE2>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ \ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \ ?\ ::vt::messaging::SerializationMode::require\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ \ :\ ::vt::messaging::SerializationMode::support)}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ vt\_msg\_serialize\_if\_needed\_by\_parent\_or\_type3(TYPE1,\ TYPE2,\ TYPE3)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ void\ vt\_serialize\_defined\_on\_type()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ static\ constexpr\ ::vt::messaging::SerializationMode\ vt\_serialize\_mode\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ =\ (::vt::messaging::msg\_serialization\_mode<MessageParentType>::required\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ \ \ \ or\ not\ (true\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE1>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE2>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ \ \ \ and\ vt::messaging::is\_byte\_copyable\_t<TYPE3>::value\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ \ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ \ ?\ ::vt::messaging::SerializationMode::require\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ :\ ::vt::messaging::SerializationMode::support)}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }messaging\ \{}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{keyword}{enum\ struct}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8}{SerializationMode}}\ :\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00236\ \{}
+\DoxyCodeLine{00237\ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{support}}\ =\ 1,}
+\DoxyCodeLine{00238\ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{require}}\ =\ 2,}
+\DoxyCodeLine{00239\ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f}{prohibit}}\ =\ 3}
+\DoxyCodeLine{00240\ \};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{//\ Trivial\ test\ to\ ensure\ that\ the\ type\ is\ eligible\ to\ be\ byte-\/copied,}}
+\DoxyCodeLine{00243\ \textcolor{comment}{//\ regardless\ of\ if\ the\ message\ supports\ explicit\ serialization.}}
+\DoxyCodeLine{00244\ \textcolor{comment}{//\ N.B.\ This\ will\ return\ TRUE\ on\ certain\ compilers\ even\ though\ the\ guarantee}}
+\DoxyCodeLine{00245\ \textcolor{comment}{//\ cannot\ be\ validated\ due\ to\ implementation\ quirks\ of\ trivially\ copyable.}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_trivially\_copyable\_on\_msg}}
+\DoxyCodeLine{00247\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00248\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t}{is\_byte\_copyable\_t}}\ \{}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t_ab69321190f297b7962efa8a8b0543c35}{value}}\ =\ std::is\_trivially\_copyable<T>::value\ and\ not\ std::is\_pointer<T>::value;}
+\DoxyCodeLine{00250\ \};}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00252\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00253\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t}{is\_byte\_copyable\_t}}\ \{}
+\DoxyCodeLine{00254\ \ \ \textcolor{comment}{//\ Although\ this\ can\ detect\ some\ cases\ it\ is\ not\ strictly\ true.}}
+\DoxyCodeLine{00255\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t_ab69321190f297b7962efa8a8b0543c35}{value}}\ =\ std::is\_trivially\_destructible<T>::value\ and\ not\ std::is\_pointer<T>::value;}
+\DoxyCodeLine{00256\ \};}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{comment}{//\ Forward-\/declare}}
+\DoxyCodeLine{00260\ \textcolor{keyword}{struct\ }BaseMsg;}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ Allows\ testing\ of\ is\_base\_of<DefinesSerializationMode<Msg>,Msg>\ to\ determine}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\ if\ one\ of\ the\ CRTP\ types\ is\ used,\ as\ the\ templated\ type\ is\ invariant.}}
+\DoxyCodeLine{00264\ \textcolor{comment}{//\ All\ of\ the\ CRTP\ types\ are\ required\ to\ define\ the\ serialize\ mode\ which\ will}}
+\DoxyCodeLine{00265\ \textcolor{comment}{//\ be\ picked\ up\ via\ normal\ inheritance.}}
+\DoxyCodeLine{00266\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00267\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_defines_serialization_mode}{DefinesSerializationMode}}\ \{}
+\DoxyCodeLine{00268\ \};}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00271\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_non_serialized_msg_aaaf8f519b382fdad6f9fab8191a2950f}{NonSerializedMsg}}\ :\ MsgT,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_defines_serialization_mode}{DefinesSerializationMode}}<SelfT>}
+\DoxyCodeLine{00272\ \{}
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00274\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_non_serialized_msg_aaaf8f519b382fdad6f9fab8191a2950f}{NonSerializedMsg}}(Args\&\&...\ args)}
+\DoxyCodeLine{00275\ \ \ \ \ :\ MsgT\{\doxymbox{\hyperlink{namespacestd}{std}}::forward<Args>(args)...\}}
+\DoxyCodeLine{00276\ \ \ \{}
+\DoxyCodeLine{00277\ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \textcolor{keyword}{static}\ constexpr\ ::vt::messaging::SerializationMode\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_non_serialized_msg_a51b31c1f6eab5950f3586559c5d27f8a}{vt\_serialize\_mode}}}
+\DoxyCodeLine{00280\ \ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f}{::vt::messaging::SerializationMode::prohibit}};}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00283\ \ \ \ \ std::is\_base\_of<BaseMsg,\ MsgT>::value,}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ derive\ from\ BaseMsg."{}}}
+\DoxyCodeLine{00285\ \ \ );}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00288\ \ \ \ \ MsgT::vt\_serialize\_mode\ not\_eq\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{vt::messaging::SerializationMode::require}},}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{stringliteral}{"{}Parent\ message\ must\ not\ require\ serialization."{}}}
+\DoxyCodeLine{00290\ \ \ );}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00293\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t_ab69321190f297b7962efa8a8b0543c35}{vt::messaging::is\_byte\_copyable\_t<MsgT>::value}},}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ be\ byte-\/copyable\ because\ serialization\ is\ prohibited."{}}}
+\DoxyCodeLine{00295\ \ \ );}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \textcolor{comment}{//\ Attempts\ to\ call\ serialize(..)\ are\ forbidden\ on\ types\ expressly}}
+\DoxyCodeLine{00298\ \ \ \textcolor{comment}{//\ prohibited\ from\ being\ serialized.\ Assumes\ CRTP\ call\ not\ skipped}}
+\DoxyCodeLine{00299\ \ \ \textcolor{comment}{//\ in\ derived\ type\ to\ be\ an\ effective\ guard.\ Active\ Message\ is\ also}}
+\DoxyCodeLine{00300\ \ \ \textcolor{comment}{//\ expected\ to\ apply\ it's\ own\ static\ assert\ as\ a\ cover.}}
+\DoxyCodeLine{00301\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_non_serialized_msg_a2598724a040d6b6f1a343d4f2def910d}{serialize}}(SerializerT\&\ s)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00303\ \};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00306\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_supported_msg_a38a364cb0fdfb2822d4b65dcba7d05ef}{SerializeSupportedMsg}}\ :\ MsgT,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_defines_serialization_mode}{DefinesSerializationMode}}<SelfT>}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00309\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_supported_msg_a38a364cb0fdfb2822d4b65dcba7d05ef}{SerializeSupportedMsg}}(Args\&\&...\ args)}
+\DoxyCodeLine{00310\ \ \ \ \ :\ MsgT\{\doxymbox{\hyperlink{namespacestd}{std}}::forward<Args>(args)...\}}
+\DoxyCodeLine{00311\ \ \ \{}
+\DoxyCodeLine{00312\ \ \ \}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \textcolor{keyword}{static}\ constexpr\ ::vt::messaging::SerializationMode\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_supported_msg_a4bc4c6e7b2b6201ce8fc47babc34d799}{vt\_serialize\_mode}}}
+\DoxyCodeLine{00315\ \ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{::vt::messaging::SerializationMode::support}};}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00318\ \ \ \ \ std::is\_base\_of<BaseMsg,\ MsgT>::value,}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ derive\ from\ BaseMsg."{}}}
+\DoxyCodeLine{00320\ \ \ );}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00323\ \ \ \ \ MsgT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{vt::messaging::SerializationMode::support}},}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ supporting\ serialization\ must\ derive\ from\ a\ message"{}}}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{stringliteral}{"{}\ that\ also\ supports\ serialization."{}}}
+\DoxyCodeLine{00326\ \ \ );}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00329\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t_ab69321190f297b7962efa8a8b0543c35}{vt::messaging::is\_byte\_copyable\_t<MsgT>::value}},}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ be\ byte-\/copyable\ because\ serialization\ may\ be"{}}}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{stringliteral}{"{}\ prohibited\ in\ a\ derived\ type."{}}}
+\DoxyCodeLine{00332\ \ \ );}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00335\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_supported_msg_a361827e8eb53fbd212b8f702485ff297}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ MsgT::serialize(s);}
+\DoxyCodeLine{00337\ \ \ \}}
+\DoxyCodeLine{00338\ \};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00341\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_required_msg_af50357bbc47bf49c049442b6942a75ad}{SerializeRequiredMsg}}\ :\ MsgT,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_defines_serialization_mode}{DefinesSerializationMode}}<SelfT>}
+\DoxyCodeLine{00342\ \{}
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00344\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_required_msg_af50357bbc47bf49c049442b6942a75ad}{SerializeRequiredMsg}}(Args\&\&...\ args)}
+\DoxyCodeLine{00345\ \ \ \ \ :\ MsgT\{\doxymbox{\hyperlink{namespacestd}{std}}::forward<Args>(args)...\}}
+\DoxyCodeLine{00346\ \ \ \{}
+\DoxyCodeLine{00347\ \ \ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \textcolor{keyword}{static}\ constexpr\ ::vt::messaging::SerializationMode\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_required_msg_ac3c448432ebe8ee3c2d454e2034bdd27}{vt\_serialize\_mode}}}
+\DoxyCodeLine{00350\ \ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{::vt::messaging::SerializationMode::require}};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00353\ \ \ \ \ std::is\_base\_of<BaseMsg,\ MsgT>::value,}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ derive\ from\ BaseMsg."{}}}
+\DoxyCodeLine{00355\ \ \ );}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00358\ \ \ \ \ MsgT::vt\_serialize\_mode\ not\_eq\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f}{vt::messaging::SerializationMode::prohibit}},}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ requiring\ serialization\ cannot\ derive\ from\ a\ message"{}}}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{stringliteral}{"{}\ that\ prohibits\ serialization."{}}}
+\DoxyCodeLine{00361\ \ \ );}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_required_msg_a2e27ae5612c1b78ea9fd982c88f415b0}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00365\ \ \ \ \ MsgT::serialize(s);}
+\DoxyCodeLine{00366\ \ \ \}}
+\DoxyCodeLine{00367\ \};}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT,\ \textcolor{keyword}{typename}\ ...DepTypesT>}
+\DoxyCodeLine{00370\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_aeca13b16b58fca6e1987d5d19d57b3b8}{SerializeIfNeededMsg}}\ :\ MsgT,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_defines_serialization_mode}{DefinesSerializationMode}}<SelfT>}
+\DoxyCodeLine{00371\ \{}
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00373\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_aeca13b16b58fca6e1987d5d19d57b3b8}{SerializeIfNeededMsg}}(Args\&\&...\ args)}
+\DoxyCodeLine{00374\ \ \ \ \ :\ MsgT\{\doxymbox{\hyperlink{namespacestd}{std}}::forward<Args>(args)...\}}
+\DoxyCodeLine{00375\ \ \ \{}
+\DoxyCodeLine{00376\ \ \ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \textcolor{keyword}{static}\ constexpr\ ::vt::messaging::SerializationMode\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_aae6c39c834f1aa059dadd77324ca750b}{vt\_serialize\_mode}}}
+\DoxyCodeLine{00379\ \ \ =\ MsgT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{SerializationMode::require}}}
+\DoxyCodeLine{00380\ \ \ \ \ or\ not\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1cxx14__conjunction}{cxx14\_conjunction<is\_byte\_copyable\_t<DepTypesT>}}...>::value}
+\DoxyCodeLine{00381\ \ \ \ \ ?\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{SerializationMode::require}}}
+\DoxyCodeLine{00382\ \ \ \ \ :\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{SerializationMode::support}};}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00385\ \ \ \ \ std::is\_base\_of<BaseMsg,\ MsgT>::value,}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ must\ derive\ from\ BaseMsg."{}}}
+\DoxyCodeLine{00387\ \ \ );}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{false}}
+\DoxyCodeLine{00390\ \ \ \ \ or\ (\doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_aae6c39c834f1aa059dadd77324ca750b}{vt\_serialize\_mode}}\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{SerializationMode::support}}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ and\ MsgT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{vt::messaging::SerializationMode::support}})}
+\DoxyCodeLine{00392\ \ \ \ \ or\ (\doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_aae6c39c834f1aa059dadd77324ca750b}{vt\_serialize\_mode}}\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{SerializationMode::require}}}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ and\ MsgT::vt\_serialize\_mode\ not\_eq\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f}{vt::messaging::SerializationMode::prohibit}}),}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{stringliteral}{"{}If\ serialization\ is\ not\ required,\ base\ message\ must\ support\ serialization."{}}}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{stringliteral}{"{}\ If\ serialization\ is\ required,\ base\ message\ must\ not\ prohibit\ serialization."{}}}
+\DoxyCodeLine{00396\ \ \ );}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00399\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg_acaf8965385e80bbbaabc8d335fe90eed}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00400\ \ \ \ \ MsgT::serialize(s);}
+\DoxyCodeLine{00401\ \ \ \}}
+\DoxyCodeLine{00402\ \};}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{comment}{//\ Use\ member\ type\ to\ detect\ if\ the\ mode\ is\ directly\ specified.}}
+\DoxyCodeLine{00405\ \textcolor{comment}{//\ (Can't\ figure\ out\ how\ to\ prevent\ detection\ of\ static\ constexpr\ from\ parent.)}}
+\DoxyCodeLine{00406\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00407\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__defines__serialize__mode}{msg\_defines\_serialize\_mode}}}
+\DoxyCodeLine{00408\ \ \ :\ std::false\_type}
+\DoxyCodeLine{00409\ \{\};}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{comment}{//\ For\ messages\ built\ with\ macros}}
+\DoxyCodeLine{00412\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00413\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__defines__serialize__mode}{msg\_defines\_serialize\_mode}}<U,}
+\DoxyCodeLine{00414\ \ \ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if\_t<}
+\DoxyCodeLine{00415\ \ \ \ \ std::is\_same<void\ (U::*)(),\ decltype(\&U::vt\_serialize\_defined\_on\_type)>::value}
+\DoxyCodeLine{00416\ \ \ >>}
+\DoxyCodeLine{00417\ \ \ :\ std::true\_type}
+\DoxyCodeLine{00418\ \{\};}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{comment}{//\ For\ messages\ using\ CRTP\ (inherited\ one\ level\ in\ CRTP-\/derived\ types)}}
+\DoxyCodeLine{00421\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00422\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__defines__serialize__mode}{msg\_defines\_serialize\_mode}}<U,}
+\DoxyCodeLine{00423\ \ \ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if\_t<}
+\DoxyCodeLine{00424\ \ \ \ \ std::is\_base\_of<DefinesSerializationMode<U>,U>::value}
+\DoxyCodeLine{00425\ \ \ >>}
+\DoxyCodeLine{00426\ \ \ :\ std::true\_type}
+\DoxyCodeLine{00427\ \{\};}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00430\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode}{msg\_serialization\_mode}}\ \{}
+\DoxyCodeLine{00431\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_ab0dc8ca8b40b6e796c4d6b3ee63a69e1}{supported}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00432\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_a8f8d90f9eb1935c504685abe11600a57}{required}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00433\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_acbb32d6af6d5ba4be9ca43a202778b7a}{prohibited}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00434\ \};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{comment}{//\ Specialization\ -\/\ applies\ iff\ static\ member\ present}}
+\DoxyCodeLine{00437\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT>}
+\DoxyCodeLine{00438\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode}{msg\_serialization\_mode}}<}
+\DoxyCodeLine{00439\ \ \ MessageT,}
+\DoxyCodeLine{00440\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a63177f759016ce1d66f40f01d6187af3}{cxx14\_void\_t}}<decltype(MessageT::vt\_serialize\_mode)>}
+\DoxyCodeLine{00441\ >\ \{}
+\DoxyCodeLine{00442\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp589296048e7a8d5847df01510a0bdbb4_aa3cf1e6ac7fe4f7ee4d9b5583edbcbb2}{supported}}}
+\DoxyCodeLine{00443\ \ \ \ \ =\ MessageT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8a434990c8a25d2be94863561ae98bd682}{SerializationMode::support}};}
+\DoxyCodeLine{00444\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp589296048e7a8d5847df01510a0bdbb4_ab674b033800b81ed3ea623cd3ecf0277}{required}}}
+\DoxyCodeLine{00445\ \ \ \ \ =\ MessageT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8af0ffd3b7c2574ac324603ed00488c850}{SerializationMode::require}};}
+\DoxyCodeLine{00446\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_3_01_message_t_00_01cxx14__void__t_3_01decltyp589296048e7a8d5847df01510a0bdbb4_aaa78a7cab55df965b886f5aad89c6d0d}{prohibited}}}
+\DoxyCodeLine{00447\ \ \ \ \ =\ MessageT::vt\_serialize\_mode\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a436c5b9fc7f591e5978a136999cb9ef8abc56ee21f7c9d61984fde885e8ce116f}{SerializationMode::prohibit}};}
+\DoxyCodeLine{00448\ \};}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \}\}\ \textcolor{comment}{//end\ namespace\ vt::messaging}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \textcolor{comment}{//\ Export\ CRTP\ types}}
+\DoxyCodeLine{00454\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00457\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a1b3573bab7e5c32ac82c50e5e5629b53}{NonSerialized}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_non_serialized_msg}{vt::messaging::NonSerializedMsg<MsgT,\ SelfT>}};}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00460\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_af0d55be41511a9831bfe4f979dd765cf}{SerializeSupported}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_supported_msg}{vt::messaging::SerializeSupportedMsg<MsgT,\ SelfT>}};}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT>}
+\DoxyCodeLine{00463\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a3717a1382dc15a7a6f3605ec77e72124}{SerializeRequired}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_required_msg}{vt::messaging::SerializeRequiredMsg<MsgT,\ SelfT>}};}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ SelfT,\ \textcolor{keyword}{typename}\ ...DepTypesT>}
+\DoxyCodeLine{00466\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a4d51cadf81dcf69970200476155b3122}{SerializeIfNeeded}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_serialize_if_needed_msg}{vt::messaging::SerializeIfNeededMsg}}<MsgT,\ SelfT,\ DepTypesT...>;}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \}\ \textcolor{comment}{//end\ namespace\ vt}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

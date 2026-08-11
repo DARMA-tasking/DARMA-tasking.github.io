@@ -1,0 +1,281 @@
+\doxysection{handle.\+node.\+impl.\+h}
+\hypertarget{handle_8node_8impl_8h_source}{}\label{handle_8node_8impl_8h_source}\index{src/vt/rdmahandle/handle.node.impl.h@{src/vt/rdmahandle/handle.node.impl.h}}
+\doxymbox{\hyperlink{handle_8node_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handle.node.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RDMAHANDLE\_HANDLE\_NODE\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RDMAHANDLE\_HANDLE\_NODE\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}}\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00053\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00054\ >::ready()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).ready();}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00060\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00061\ >::get(}
+\DoxyCodeLine{00062\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00063\ )\ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).get(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff());}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00068\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00069\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00070\ >::RequestType}
+\DoxyCodeLine{00071\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00072\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00073\ >::rget(}
+\DoxyCodeLine{00074\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00075\ )\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).rget(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff());}
+\DoxyCodeLine{00077\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00081\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00082\ >::get(}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00084\ )\ \{}
+\DoxyCodeLine{00085\ \ \ rget(node,\ len,\ offset);}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00089\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00090\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00091\ >::RequestType}
+\DoxyCodeLine{00092\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00093\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00094\ >::rget(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l)\ \{}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{if}\ (this-\/>getBuffer()\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ std::make\_unique<T[]>(len);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).rget(}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ node,\ l,\ ptr.get(),\ len,\ offset\ +\ this-\/>hoff()}
+\DoxyCodeLine{00099\ \ \ \ \ );}
+\DoxyCodeLine{00100\ \ \ \ \ r.addAction([cptr=std::move(ptr),actions=this-\/>actions\_]\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ action\ :\ actions)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ action(cptr.get());}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \});}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00106\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).rget(}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ node,\ l,\ this-\/>user\_buffer\_,\ len,\ offset\ +\ this-\/>hoff()}
+\DoxyCodeLine{00109\ \ \ \ \ );}
+\DoxyCodeLine{00110\ \ \ \ \ r.addAction([buffer=this-\/>user\_buffer\_,actions=this-\/>actions\_]\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ action\ :\ actions)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ action(buffer);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \});}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00116\ \ \ \}}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00121\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00122\ >::put(}
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00124\ )\ \{}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).put(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff());}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00129\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00130\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00131\ >::RequestType}
+\DoxyCodeLine{00132\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<T,E,I,typename\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value}}>>::rput(}
+\DoxyCodeLine{00133\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00134\ )\ \{}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).rput(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff());}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00140\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00141\ >::accum(}
+\DoxyCodeLine{00142\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ MPI\_Op\ op,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00143\ )\ \{}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).accum(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff(),\ op);}
+\DoxyCodeLine{00145\ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00148\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00149\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00150\ >::RequestType}
+\DoxyCodeLine{00151\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00152\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00153\ >::raccum(}
+\DoxyCodeLine{00154\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,\ MPI\_Op\ op,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00155\ )\ \{}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).raccum(node,\ l,\ ptr,\ len,\ offset\ +\ this-\/>hoff(),\ op);}
+\DoxyCodeLine{00157\ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00160\ T\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00161\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00162\ >::fetchOp(}
+\DoxyCodeLine{00163\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ T\ ptr,\ \textcolor{keywordtype}{int}\ offset,\ MPI\_Op\ op,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l}
+\DoxyCodeLine{00164\ )\ \{}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).fetchOp(node,\ l,\ ptr,\ offset,\ op);}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00169\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00170\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00171\ >::getCount(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>getEntry<T,E>(key\_).isUniform())\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>count();}
+\DoxyCodeLine{00174\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).getCount(node);}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00180\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00181\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00182\ >::readExclusive(}
+\DoxyCodeLine{00183\ \ \ std::function<\textcolor{keywordtype}{void}(T\ \textcolor{keyword}{const}*,\ std::size\_t\ count)>\ fn}
+\DoxyCodeLine{00184\ )\ \{}
+\DoxyCodeLine{00185\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).access(Lock::Exclusive,\ fn,\ this-\/>hoff());}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00189\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00190\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00191\ >::readShared(}
+\DoxyCodeLine{00192\ \ \ std::function<\textcolor{keywordtype}{void}(T\ \textcolor{keyword}{const}*,\ std::size\_t\ count)>\ fn}
+\DoxyCodeLine{00193\ )\ \{}
+\DoxyCodeLine{00194\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).access(Lock::Shared,\ fn,\ this-\/>hoff());}
+\DoxyCodeLine{00195\ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00198\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00199\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00200\ >::modifyExclusive(}
+\DoxyCodeLine{00201\ \ \ std::function<\textcolor{keywordtype}{void}(T*,\ std::size\_t\ count)>\ fn}
+\DoxyCodeLine{00202\ )\ \{}
+\DoxyCodeLine{00203\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).access(Lock::Exclusive,\ fn,\ this-\/>hoff());}
+\DoxyCodeLine{00204\ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00208\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00209\ >::modifyShared(}
+\DoxyCodeLine{00210\ \ \ std::function<\textcolor{keywordtype}{void}(T*,\ std::size\_t\ count)>\ fn}
+\DoxyCodeLine{00211\ )\ \{}
+\DoxyCodeLine{00212\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).access(Lock::Shared,\ fn,\ this-\/>hoff());}
+\DoxyCodeLine{00213\ \}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00217\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00218\ >::access(}
+\DoxyCodeLine{00219\ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ std::function<\textcolor{keywordtype}{void}(T*,\ std::size\_t\ count)>\ fn,\ std::size\_t\ offset}
+\DoxyCodeLine{00220\ )\ \{}
+\DoxyCodeLine{00221\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).access(l,\ fn,\ this-\/>hoff()\ +\ \ offset);}
+\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00226\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00227\ >::fence(\textcolor{keywordtype}{int}\ assert)\ \{}
+\DoxyCodeLine{00228\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).fence(assert);}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00233\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00234\ >::sync()\ \{}
+\DoxyCodeLine{00235\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).sync();}
+\DoxyCodeLine{00236\ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00240\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00241\ >::flush(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00242\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).\doxymbox{\hyperlink{namespacevt_1_1config_a724e99568632cc0fe9c456c2230270d0a5c484f36b0f33ded7e640cc30fe5e725}{flush}}(node);}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00247\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00248\ >::flushLocal(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00249\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).flushLocal(node);}
+\DoxyCodeLine{00250\ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00253\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00254\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00255\ >::flushAll()\ \{}
+\DoxyCodeLine{00256\ \ \ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).flushAll();}
+\DoxyCodeLine{00257\ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00261\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00262\ >::lock(\doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00263\ \ \ this-\/>lock\_\ =\ \doxymbox{\hyperlink{namespacevt_aecb87ec2c40b5b7fc57ba4cf8ea838b0}{vt::theHandleRDMA}}()-\/>\doxymbox{\hyperlink{structvt_1_1rdma_1_1_manager_a60c463246971a6d782e55f13fd60d092}{getEntry}}<T,E>(key\_).lock(l,\ node);}
+\DoxyCodeLine{00264\ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ I>}
+\DoxyCodeLine{00267\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle}}<}
+\DoxyCodeLine{00268\ \ \ T,E,I,\textcolor{keyword}{typename}\ std::enable\_if\_t<std::is\_same<I,vt::NodeType>::value>}
+\DoxyCodeLine{00269\ >::unlock()\ \{}
+\DoxyCodeLine{00270\ \ \ this-\/>lock\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00271\ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::rdma\ */}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RDMAHANDLE\_HANDLE\_NODE\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

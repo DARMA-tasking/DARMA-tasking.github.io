@@ -1,0 +1,309 @@
+\doxysection{collection\+\_\+builder.\+impl.\+h}
+\hypertarget{collection__builder_8impl_8h_source}{}\label{collection__builder_8impl_8h_source}\index{src/vt/vrt/collection/collection\_builder.impl.h@{src/vt/vrt/collection/collection\_builder.impl.h}}
+\doxymbox{\hyperlink{collection__builder_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ collection\_builder.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_VRT\_COLLECTION\_COLLECTION\_BUILDER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_VRT\_COLLECTION\_COLLECTION\_BUILDER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{vrt_2collection_2manager_8h}{vt/vrt/collection/manager.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{construct__params_8h}{vt/vrt/collection/param/construct\_params.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{unbounded__default_8h}{vt/topos/mapping/dense/unbounded\_default.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt}{vrt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection}{collection}}\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT>}
+\DoxyCodeLine{00054\ std::tuple<EpochType,\ VirtualProxyType>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a221921efd4421cb304ca99ebdfdf3117}{CollectionManager::makeCollection}}(}
+\DoxyCodeLine{00055\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params}{param::ConstructParams<ColT>}}\&\ po}
+\DoxyCodeLine{00056\ )\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_migratable\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a811d67f8d46e6b6ad2736bba81201354}{migratable\_}};}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_collective\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_ac642a152bed0d228e9831b4e9b5d3ca4}{collective\_}};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{comment}{//\ Generate\ a\ new\ proxy\ for\ this\ new\ collection}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ac0682938bc90285eb8c476d6898bf280}{makeCollectionProxy}}(is\_collective,\ is\_migratable);}
+\DoxyCodeLine{00062\ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a459e1541fd22e637a616ca1f1f899124}{proxy\_bits\_}}\ =\ proxy\_bits;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{if}\ (not\ is\_collective)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{auto}\ ep\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a232f305124ecd8f4f62e9c8224a74f49}{makeEpochRooted}}(}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}collection\ construction"{}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1_use_d_s}{term::UseDS}}\{\textcolor{keyword}{false}\}}
+\DoxyCodeLine{00067\ \ \ \ \ );}
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(ep);}
+\DoxyCodeLine{00069\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}}<\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aeca421961a2c5593aeccefdd4fd96132}{makeCollectionHandler<ColT>}}>(\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{vt::Node}}(0),\ po,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00070\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(ep);}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(ep);}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(ep,\ proxy\_bits);}
+\DoxyCodeLine{00073\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{auto}\ ep\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_aeba62165ec8dfbc445e3631ff295f159}{makeEpochCollective}}(\textcolor{stringliteral}{"{}collection\ construction"{}});}
+\DoxyCodeLine{00075\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(ep);}
+\DoxyCodeLine{00076\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a900349a13b2e0382b6731215b4324161}{makeCollectionImpl}}(po);}
+\DoxyCodeLine{00077\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(ep);}
+\DoxyCodeLine{00078\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(ep);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(ep,\ proxy\_bits);}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a98bb52726ab8c021da421802de6bedf5}{CollectionManager::finishedRootedConstruction}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a3f4973e786eb1736984e5e183809832e}{pending\_rooted\_constructions\_}}.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{auto}\ action\ =\ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a3f4973e786eb1736984e5e183809832e}{pending\_rooted\_constructions\_}}.back();}
+\DoxyCodeLine{00086\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a3f4973e786eb1736984e5e183809832e}{pending\_rooted\_constructions\_}}.pop\_back();}
+\DoxyCodeLine{00087\ \ \ \ \ action();}
+\DoxyCodeLine{00088\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ab3015928aa546ffec44e57f92bd36593}{has\_pending\_construction\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT>}
+\DoxyCodeLine{00094\ \textcolor{comment}{/*static*/}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aeca421961a2c5593aeccefdd4fd96132}{CollectionManager::makeCollectionHandler}}(}
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params}{param::ConstructParams<ColT>}}\ po,\ \textcolor{keywordtype}{bool}\ is\_root}
+\DoxyCodeLine{00096\ )\ \{}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordflow}{if}\ (is\_root)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ab3015928aa546ffec44e57f92bd36593}{has\_pending\_construction\_}})\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ep\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a627a8b2918ad283edf386038cf5693ca}{getEpoch}}();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}(ep);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a3f4973e786eb1736984e5e183809832e}{pending\_rooted\_constructions\_}}.push\_back([=]\{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a1e93b826e597c203fb220a9dd540bd94}{pushEpoch}}(ep);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aeca421961a2c5593aeccefdd4fd96132}{makeCollectionHandler}}(po,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{consume}}(ep);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a81a7f955e09f59a85303bfcb90414882}{popEpoch}}(ep);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00107\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ab3015928aa546ffec44e57f92bd36593}{has\_pending\_construction\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga058d20ece0e732645bc62d6a448abe76}{broadcast}}<\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aeca421961a2c5593aeccefdd4fd96132}{makeCollectionHandler<ColT>}}>(po,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a900349a13b2e0382b6731215b4324161}{makeCollectionImpl}}(po);}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component_reducer_af9d694f9d62d973a2cde6e52c55bef14}{reducer}}();}
+\DoxyCodeLine{00114\ \ \ \ \ r-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce}}<\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a98bb52726ab8c021da421802de6bedf5}{finishedRootedConstruction}}>(\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{vt::Node}}(0));}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00119\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT>}
+\DoxyCodeLine{00120\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a1a510ac14f89966aef44e5d701eb0957}{ContainableElementFn}}\ \{}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a8b72c632bf735826e02f41f6d89df5d9}{IndexType}}\ =\ \textcolor{keyword}{typename}\ ColT::IndexType;}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a1a510ac14f89966aef44e5d701eb0957}{ContainableElementFn}}(std::unique\_ptr<ColT>\ in\_elm)}
+\DoxyCodeLine{00123\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a7db28b6272022df76cf9eb5dd8a20048}{elm}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(in\_elm))}
+\DoxyCodeLine{00124\ \ \ \{\ \}}
+\DoxyCodeLine{00125\ \ \ std::unique\_ptr<ColT>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a46c50d6428740fff76026f7f91b9ba80}{operator()}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a8b72c632bf735826e02f41f6d89df5d9}{IndexType}})\ \{\ \textcolor{keywordflow}{return}\ std::move(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a7db28b6272022df76cf9eb5dd8a20048}{elm}});\ \}}
+\DoxyCodeLine{00126\ \ \ std::unique\_ptr<ColT>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn_a7db28b6272022df76cf9eb5dd8a20048}{elm}};}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ \}\ \textcolor{comment}{/*\ end\ namespace\ detail\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT>}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a900349a13b2e0382b6731215b4324161}{CollectionManager::makeCollectionImpl}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params}{param::ConstructParams<ColT>}}\&\ po)\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{using\ }IndexType\ =\ \textcolor{keyword}{typename}\ ColT::IndexType;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordflow}{if}\ (not\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa95c1b3041766b6ad0b804abb9a5f356}{has\_bounds\_}}\ and\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}}.size()\ ==\ 1)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a07775dd24ad9720f285dfcdc1cb67183}{bounds\_}}\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}}[0];}
+\DoxyCodeLine{00136\ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa95c1b3041766b6ad0b804abb9a5f356}{has\_bounds\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a459e1541fd22e637a616ca1f1f899124}{proxy\_bits\_}};}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ has\_dynamic\_membership\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_ab032b5a40a6ffdd0b763af5968cec42a}{dynamic\_membership\_}};}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ has\_bounds\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa95c1b3041766b6ad0b804abb9a5f356}{has\_bounds\_}};}
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ bounds\ =\ has\_bounds\ ?\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a07775dd24ad9720f285dfcdc1cb67183}{bounds\_}}\ :\ IndexType\{\};}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ label\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a03e3b8668635821b4d55c7d8eacc8ce8}{label\_}};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ Setup\ a\ proper\ default\ map\ if\ none\ is\ explicitly\ specified\ by\ the\ user}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{if}\ (po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_adfb5a4ecef96e720c6f8d48ac3f52706}{map\_han\_}}\ ==\ uninitialized\_handler\ and\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a91859be49e51c141fd83e27499d5d582}{map\_object\_}}\ ==\ no\_obj\_group)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_bounds)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_adfb5a4ecef96e720c6f8d48ac3f52706}{map\_han\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_aa371f1cdd4eafa9f75b7eb40a6f151e0}{CollectionManager::getDefaultMap<ColT>}}();}
+\DoxyCodeLine{00150\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a91859be49e51c141fd83e27499d5d582}{map\_object\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1mapping_1_1_unbounded_default_map_aeb005e2e45f45fcd17548ee10e66862b}{mapping::UnboundedDefaultMap<IndexType>::construct}}();}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ map\_han\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_adfb5a4ecef96e720c6f8d48ac3f52706}{map\_han\_}};}
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ map\_object\ =\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a91859be49e51c141fd83e27499d5d582}{map\_object\_}};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{//\ makeCollectionLM()\ to\ create\ a\ new\ location\ manager\ instance\ for\ this}}
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ collection}}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{namespacevt_ace1c9d64e09732e3b7414d02517ecfdb}{theLocMan}}()-\/>\doxymbox{\hyperlink{structvt_1_1location_1_1_location_manager_abc70b8e9b35ae5c4db5ef05c8e071970}{makeCollectionLM}}<IndexType>(proxy);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ Insert\ action\ on\ cleanup\ for\ this\ collection}}
+\DoxyCodeLine{00163\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a3ef00b90a3a2d066a7f83b9c32b301d2}{addCleanupFn<ColT>}}(proxy);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//\ Insert\ some\ typeless\ basic\ meta-\/data\ about\ the\ collection}}
+\DoxyCodeLine{00166\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a0fec20114761687630f2a90fce374bc2}{insertCollectionInfo}}(proxy,\ map\_han);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ Insert\ the\ typed\ meta-\/data\ for\ this\ new\ collection,\ along\ with\ creating}}
+\DoxyCodeLine{00169\ \ \ \textcolor{comment}{//\ the\ meta-\/data\ collection\ holder\ for\ elements}}
+\DoxyCodeLine{00170\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ac8c171d221c1c6eafe4efee35775e48b}{insertMetaCollection<ColT>}}(}
+\DoxyCodeLine{00171\ \ \ \ \ label,\ proxy,\ map\_han,\ has\_dynamic\_membership,\ map\_object,\ has\_bounds,\ bounds}
+\DoxyCodeLine{00172\ \ \ );}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordflow}{if}\ (po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa847998b769d10a8badfc95543113f52}{bulk\_insert\_bounds\_}})\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}}.size()\ ==\ 0,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}To\ bulk\ insert\ bounds,\ the\ collection\ must\ have\ no\ other\ bulk\ insertions"{}}}
+\DoxyCodeLine{00178\ \ \ \ \ );}
+\DoxyCodeLine{00179\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a46f83ed1ec69ebea9d27112fc2d90ce6}{list\_inserts\_}}.size()\ ==\ 0,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}To\ bulk\ insert\ bounds,\ the\ collection\ must\ have\ no\ other\ list\ insertions"{}}}
+\DoxyCodeLine{00182\ \ \ \ \ );}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordflow}{if}\ (po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa847998b769d10a8badfc95543113f52}{bulk\_insert\_bounds\_}}\ and\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_aa95c1b3041766b6ad0b804abb9a5f356}{has\_bounds\_}})\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}}.push\_back(po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a07775dd24ad9720f285dfcdc1cb67183}{bounds\_}});}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordflow}{if}\ (!po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}}.empty()\ ||\ !po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a46f83ed1ec69ebea9d27112fc2d90ce6}{list\_inserts\_}}.empty())\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{auto}\ cons\_fn\ =\ po.template\ getConsFn<ColT>();}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//\ Do\ all\ bulk\ insertions}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ range\ :\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a4de8932b1c4f4e4e0998630cbe6ed08f}{bulk\_inserts\_}})\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ range.foreach([\&](IndexType\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}})\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a0af41830e89efe84a071d3dcb1296b1b}{elementMappedHere}}(map\_han,\ map\_object,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ bounds))\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a22caeaf37970241107ac2981126ee6df}{makeCollectionElement<ColT>}}(proxy,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ this\_node,\ cons\_fn);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ Do\ all\ list\ insertions}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ list\_fn\ :\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a46f83ed1ec69ebea9d27112fc2d90ce6}{list\_inserts\_}})\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ list\_fn([\&](IndexType\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}})\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a0af41830e89efe84a071d3dcb1296b1b}{elementMappedHere}}(map\_han,\ map\_object,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ bounds))\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a22caeaf37970241107ac2981126ee6df}{makeCollectionElement<ColT>}}(proxy,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ this\_node,\ cons\_fn);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \textcolor{comment}{//\ Do\ all\ 'here'\ insertions}}
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ :\ po.\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1param_1_1_construct_params_a8ffde01cec988a409f7858f27e0c99a1}{list\_insert\_here\_}})\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}}\ =\ std::get<0>(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}});}
+\DoxyCodeLine{00214\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1detail_1_1_containable_element_fn}{detail::ContainableElementFn<ColT>}}\ c\{std::move(std::get<1>(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}))\};}
+\DoxyCodeLine{00215\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a22caeaf37970241107ac2981126ee6df}{makeCollectionElement<ColT>}}(proxy,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ this\_node,\ std::move(c));}
+\DoxyCodeLine{00216\ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordflow}{if}\ (not\ has\_dynamic\_membership)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ Construct\ a\ underlying\ group\ for\ the\ collection\ unless\ there\ is\ dynamic}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ membership\ and\ we\ need\ to\ finish\ a\ modification\ epoch}}
+\DoxyCodeLine{00221\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a526e4c6aca18333f508e34a24cabc712}{constructGroup<ColT>}}(proxy);}
+\DoxyCodeLine{00222\ \ \ \}}
+\DoxyCodeLine{00223\ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ColT,\ \textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a22caeaf37970241107ac2981126ee6df}{CollectionManager::makeCollectionElement}}(}
+\DoxyCodeLine{00227\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\ proxy,\ \textcolor{keyword}{typename}\ ColT::IndexType\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},}
+\DoxyCodeLine{00228\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ mapped\_node,\ Callable\&\&\ cons\_fn,\ \textcolor{keywordtype}{bool}\ zero\_reduce\_stamp}
+\DoxyCodeLine{00229\ )\ \{}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{using\ }IndexType\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{typename}\ ColT::IndexType;}
+\DoxyCodeLine{00231\ \ \ \textcolor{keyword}{using\ }IdxContextHolder\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_context_holder}{CollectionContextHolder<IndexType>}};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keyword}{auto}\ prev\_index\ =\ IdxContextHolder::index();}
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{auto}\ prev\_proxy\ =\ IdxContextHolder::proxy();}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \textcolor{comment}{//\ Set\ the\ current\ context\ index\ to\ \`{}idx`.\ This\ enables\ the\ user\ to}}
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ query\ the\ index\ of\ their\ collection\ element\ in\ the\ constructor}}
+\DoxyCodeLine{00238\ \ \ IdxContextHolder::set(\&\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ proxy);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \textcolor{comment}{//\ Invoke\ the\ construct\ function\ for\ the\ collection\ element}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ cons\_fn(\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}});}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{comment}{//\ Through\ the\ attorney,\ setup\ all\ the\ properties\ on\ the\ newly\ constructed}}
+\DoxyCodeLine{00244\ \ \ \textcolor{comment}{//\ collection\ element:\ index\ and\ proxy}}
+\DoxyCodeLine{00245\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_type_attorney_aa6bf71b0055c677e8defea7fa71392b9}{CollectionTypeAttorney::setup}}(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}.get(),\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ proxy);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \textcolor{comment}{//\ If\ true,\ set\ the\ reduce\ stamp\ to\ zero\ so\ we\ can\ correctly\ identify\ new}}
+\DoxyCodeLine{00248\ \ \ \textcolor{comment}{//\ collection\ elements\ during\ an\ insertion\ epoch\ to\ compute\ the\ min\ stamp}}
+\DoxyCodeLine{00249\ \ \ \textcolor{comment}{//\ after\ insertions\ complete}}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordflow}{if}\ (zero\_reduce\_stamp)\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}-\/>zeroReduceStamp();}
+\DoxyCodeLine{00252\ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \textcolor{comment}{//\ Insert\ the\ element\ into\ the\ managed\ holder\ for\ elements}}
+\DoxyCodeLine{00255\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a86abf996b403b4e6325e26cf577440ee}{insertCollectionElement<ColT>}}(std::move(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}),\ proxy,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ mapped\_node);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{//\ Clear\ the\ current\ index\ context}}
+\DoxyCodeLine{00258\ \ \ IdxContextHolder::clear();}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \textcolor{comment}{//\ Restore\ back\ the\ previous\ context\ for\ recursive\ constructions}}
+\DoxyCodeLine{00261\ \ \ IdxContextHolder::set(prev\_index,\ prev\_proxy);}
+\DoxyCodeLine{00262\ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IdxT>}
+\DoxyCodeLine{00265\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a0af41830e89efe84a071d3dcb1296b1b}{CollectionManager::elementMappedHere}}(}
+\DoxyCodeLine{00266\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ map\_han,\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ map\_object,\ IdxT\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ IdxT\ bounds}
+\DoxyCodeLine{00267\ )\ \{}
+\DoxyCodeLine{00268\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00269\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mapped\_node\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a899158015e2abd7d39eda2c7715e2632}{getElementMapping}}(map\_han,\ map\_object,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ bounds);}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordflow}{return}\ mapped\_node\ ==\ this\_node;}
+\DoxyCodeLine{00271\ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IdxT>}
+\DoxyCodeLine{00274\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a899158015e2abd7d39eda2c7715e2632}{CollectionManager::getElementMapping}}(}
+\DoxyCodeLine{00275\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ map\_han,\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ map\_object,\ IdxT\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ IdxT\ bounds}
+\DoxyCodeLine{00276\ )\ \{}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordflow}{if}\ (map\_han\ !=\ uninitialized\_handler)\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ Get\ the\ map\ handler\ function}}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_functor\ =}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1_handler_manager_a0d03f576b15390773522317a4086e725}{auto\_registry::HandlerManagerType::isHandlerFunctor}}(map\_han);}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ map\_fn\ =\ is\_functor\ ?}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_ae33262fbb020ed50b79047d4ff7dd9cc}{auto\_registry::getAutoHandlerFunctorMap}}(map\_han)\ :}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a66df7e6d0ce9044414cb82bbfe077e85}{auto\_registry::getAutoHandlerMap}}(map\_han);}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ mapped\_node\ =\ map\_fn-\/>dispatch(\&\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ \&bounds,\ num\_nodes);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{return}\ mapped\_node;}
+\DoxyCodeLine{00288\ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordflow}{if}\ (map\_object\ !=\ no\_obj\_group)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{objgroup::proxy::Proxy<mapping::BaseMapper<IdxT>}}>\ p\{map\_object\};}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keyword}{auto}\ map\_obj\_ptr\ =\ p.\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a62eef779c097c8398e249827e4ad7c6a}{get}}();}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keyword}{auto}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{return}\ map\_obj\_ptr-\/>map(\&\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}},\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_a783a4aab2481012f2b2f063beb983af3}{idx}}.ndims(),\ num\_nodes);}
+\DoxyCodeLine{00295\ \ \ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \doxymbox{\hyperlink{hard__error_8h_afc4cdafa6d3b99f94c26a5d4290999a9}{vtAbort}}(\textcolor{stringliteral}{"{}No\ valid\ map\ fn\ or\ object\ group\ specified\ for\ the\ collection"{}});}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordflow}{return}\ uninitialized\_destination;}
+\DoxyCodeLine{00299\ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::vrt::collection\ */}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_VRT\_COLLECTION\_COLLECTION\_BUILDER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

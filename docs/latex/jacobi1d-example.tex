@@ -1,0 +1,352 @@
+\doxysubsection{Example Jacobi 1D Program }
+\hypertarget{jacobi1d-example}{}\label{jacobi1d-example}\index{Example Jacobi 1D Program@{Example Jacobi 1D Program}}
+The full code for this example can be found here:\+ {\ttfamily examples/\+collection/\+jacobi1d\+\_\+vt.\+cc}.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ This\ code\ applies\ a\ few\ steps\ of\ the\ Jacobi\ iteration\ to}}
+\DoxyCodeLine{\textcolor{comment}{//\ the\ linear\ system\ \ A\ x\ =\ 0}}
+\DoxyCodeLine{\textcolor{comment}{//\ where\ A\ is\ a\ tridiagonal\ matrix\ with\ pattern\ [-\/1\ 2\ -\/1]}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ initial\ guess\ for\ x\ is\ a\ made-\/up\ non-\/zero\ vector.}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ exact\ solution\ is\ the\ vector\ 0.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ matrix\ A\ is\ square\ and\ invertible.}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ number\ of\ rows\ is\ ((number\ of\ objects)\ *\ (number\ of\ rows\ per\ object))}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ Such\ a\ matrix\ A\ is\ obtained\ when\ using\ 2nd-\/order\ finite\ difference}}
+\DoxyCodeLine{\textcolor{comment}{//\ for\ discretizing\ (-\/d\string^2\ u\ /dx\string^2\ =\ f)\ on\ [0,\ 1]\ with\ homogeneous}}
+\DoxyCodeLine{\textcolor{comment}{//\ Dirichlet\ condition\ (u(0)\ =\ u(1)\ =\ 0)\ using\ a\ uniform\ grid}}
+\DoxyCodeLine{\textcolor{comment}{//\ with\ grid\ size\ 1\ /\ ((number\ of\ objects)\ *\ (number\ of\ rows\ per\ object)\ +\ 1)}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{transport_8h}{vt/transport.h}}>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \textcolor{keyword}{const}\ default\_nrow\_object\ =\ 8;}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \textcolor{keyword}{const}\ default\_num\_objs\ =\ 4;}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ default\_tol\ =\ 1.0e-\/02;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }NodeObj\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ is\_finished\_\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ workFinishedHandler()\ \{\ is\_finished\_\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ isWorkFinished()\ \{\ \textcolor{keywordflow}{return}\ is\_finished\_;\ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{\textcolor{keyword}{using\ }NodeObjProxy\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }LinearPb1DJacobi\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<LinearPb1DJacobi,vt::Index1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<double>\ tcur\_,\ told\_;}
+\DoxyCodeLine{\ \ std::vector<double>\ rhs\_;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ iter\_\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ msgReceived\_\ =\ 0,\ totalReceive\_\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numObjs\_\ =\ 1;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numRowsPerObject\_\ =\ 1;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ maxIter\_\ =\ 8;}
+\DoxyCodeLine{\ \ NodeObjProxy\ objProxy\_;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ LinearPb1DJacobi()\ :}
+\DoxyCodeLine{\ \ \ \ tcur\_(),\ told\_(),\ rhs\_(),\ iter\_(0),}
+\DoxyCodeLine{\ \ \ \ msgReceived\_(0),\ totalReceive\_(0),}
+\DoxyCodeLine{\ \ \ \ numObjs\_(1),\ numRowsPerObject\_(1),\ maxIter\_(8)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }BlankMsg\ =\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{vt::CollectionMessage<LinearPb1DJacobi>}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }LPMsg\ :\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{vt::CollectionMessage}}<LinearPb1DJacobi>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ numObjects\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ nRowPerObject\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ iterMax\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ NodeObjProxy\ objProxy;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ LPMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ LPMsg(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nobjs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nrow,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ itMax,\ NodeObjProxy\ proxy)\ :}
+\DoxyCodeLine{\ \ \ \ \ \ numObjects(nobjs),\ nRowPerObject(nrow),\ iterMax(itMax),\ objProxy(proxy)}
+\DoxyCodeLine{\ \ \ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ checkCompleteCB(\textcolor{keywordtype}{double}\ normRes)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Only\ one\ object\ for\ the\ reduction\ will\ visit}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ this\ function}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ iter\_max\_reached\ =\ iter\_\ >\ maxIter\_;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ norm\_res\_done\ =\ normRes\ <\ default\_tol;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (iter\_max\_reached\ or\ norm\_res\_done)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ to\_print\ =\ iter\_max\_reached\ ?}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)n\ Maximum\ Number\ of\ Iterations\ Reached.\ \(\backslash\)n\(\backslash\)n"{}}\ :}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fmt::format(\textcolor{stringliteral}{"{}\(\backslash\)n\ Max-\/Norm\ Residual\ Reduced\ by\ \{\}\ \(\backslash\)n\(\backslash\)n"{}},\ default\_tol);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(fmt::runtime(to\_print));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Notify\ all\ nodes\ that\ computation\ is\ finished}}
+\DoxyCodeLine{\ \ \ \ \ \ objProxy\_.broadcast<\&NodeObj::workFinishedHandler>();}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\ \#\#\ ITER\ \{\}\ >>\ Residual\ Norm\ =\ \{\}\ \(\backslash\)n"{}},\ iter\_,\ normRes);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doIteration()\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ iter\_\ +=\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/\ Copy\ extremal\ values}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ tcur\_[0]\ =\ told\_[0];}
+\DoxyCodeLine{\ \ \ \ tcur\_[numRowsPerObject\_+1]\ =\ told\_[numRowsPerObject\_+1];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/\ Jacobi\ iteration\ step}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/\ A\ tridiagonal\ matrix\ =\ "{}tridiag"{}\ (\ [-\/1.0\ \ 2.0\ \ -\/1.0]\ )}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/\ rhs\_\ right\ hand\ side\ vector}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 1;\ ii\ <=\ numRowsPerObject\_;\ ++ii)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ tcur\_[ii]\ =\ 0.5*(rhs\_[ii]\ +\ told\_[ii-\/1]\ +\ told\_[ii+1]);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::copy(tcur\_.begin(),\ tcur\_.end(),\ told\_.begin());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Compute\ the\ maximum\ entries\ among\ the\ rows\ on\ this\ object}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ We\ do\ not\ take\ into\ account\ the\ "{}ghost"{}\ entries}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ as\ they\ may\ be\ "{}out\ of\ date"{}.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ maxNorm\ =\ 0.0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 1;\ ii\ <\ tcur\_.size()-\/1;\ ++ii)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{double}\ val\ =\ tcur\_[ii];}
+\DoxyCodeLine{\ \ \ \ \ \ maxNorm\ =\ (maxNorm\ >\ std::fabs(val))\ ?\ maxNorm\ :\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::fabs(val);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ this-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
+\DoxyCodeLine{\ \ \ \ proxy.reduce<\&LinearPb1DJacobi::checkCompleteCB,\ \doxymbox{\hyperlink{namespacevt_1_1collective_a5168eb4858d89b629e98868b2a8a3525}{vt::collective::MaxOp}}>(}
+\DoxyCodeLine{\ \ \ \ \ \ proxy[0],\ maxNorm}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }VecMsg\ :\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{vt::CollectionMessage}}<LinearPb1DJacobi>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }MessageParentType\ =\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{vt::CollectionMessage<LinearPb1DJacobi>}};}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{message__serialize_8h_a3452798707ea3a45f9da58f7b4673990}{vt\_msg\_serialize\_if\_needed\_by\_parent\_or\_type1}}(\doxymbox{\hyperlink{namespacevt_a0fcc29c714c8fc59e042b4cee1057d49}{vt::IdxBase}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ VecMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ VecMsg(\doxymbox{\hyperlink{namespacevt_a0fcc29c714c8fc59e042b4cee1057d49}{vt::IdxBase}}\ \textcolor{keyword}{const}\&\ in\_index,\ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\&\ ref)\ :}
+\DoxyCodeLine{\ \ \ \ \ \ vt::\doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{CollectionMessage}}<LinearPb1DJacobi>(),}
+\DoxyCodeLine{\ \ \ \ \ \ from\_index(in\_index),\ val(ref)}
+\DoxyCodeLine{\ \ \ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ MessageParentType::serialize(s);}
+\DoxyCodeLine{\ \ \ \ \ \ s\ |\ from\_index;}
+\DoxyCodeLine{\ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a0fcc29c714c8fc59e042b4cee1057d49}{vt::IdxBase}}\ from\_index\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ val\ =\ 0.0;}
+\DoxyCodeLine{\ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ exchange(VecMsg\ *msg)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Receive\ and\ treat\ the\ message\ from\ a\ neighboring\ object.}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_a0fcc29c714c8fc59e042b4cee1057d49}{vt::IdxBase}}\ myIdx\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}().x();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (myIdx\ >\ msg-\/>from\_index)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ this-\/>told\_[0]\ =\ msg-\/>val;}
+\DoxyCodeLine{\ \ \ \ \ \ msgReceived\_\ +=\ 1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (myIdx\ <\ msg-\/>from\_index)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ this-\/>told\_[numRowsPerObject\_\ +\ 1]\ =\ msg-\/>val;}
+\DoxyCodeLine{\ \ \ \ \ \ msgReceived\_\ +=\ 1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Check\ whether\ this\ 'object'\ has\ received\ all\ the\ expected\ messages.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (msgReceived\_\ ==\ totalReceive\_)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ msgReceived\_\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \ \ doIteration();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doIter([[maybe\_unused]]\ BlankMsg\ *msg)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Treat\ the\ particular\ case\ of\ 1\ object}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ where\ no\ communication\ is\ needed.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Without\ this\ treatment,\ the\ code\ would\ not\ iterate.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (numObjs\_\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ doIteration();}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Routine\ to\ send\ information\ to\ a\ different\ object}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a0fcc29c714c8fc59e042b4cee1057d49}{vt::IdxBase}}\ \textcolor{keyword}{const}\ myIdx\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}().x();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/\ Send\ the\ values\ to\ the\ left}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ this-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (myIdx\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ proxy[myIdx\ -\/\ 1].send<VecMsg,\ \&LinearPb1DJacobi::exchange>(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ myIdx,\ told\_[1]}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//-\/-\/-\/\ Send\ values\ to\ the\ right}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{size\_t}(myIdx)\ <\ numObjs\_\ -\/\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ proxy[myIdx\ +\ 1].send<VecMsg,\ \&LinearPb1DJacobi::exchange>(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ myIdx,\ told\_[numRowsPerObject\_]}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ init()\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ tcur\_.assign(numRowsPerObject\_\ +\ 2,\ 0.0);}
+\DoxyCodeLine{\ \ \ \ told\_.assign(numRowsPerObject\_\ +\ 2,\ 0.0);}
+\DoxyCodeLine{\ \ \ \ rhs\_.assign(numRowsPerObject\_\ +\ 2,\ 0.0);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ h\ =\ 1.0\ /\ (numRowsPerObject\_\ *\ numObjs\_\ +\ 1.0);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ nf\ =\ 3\ *\ int(numRowsPerObject\_\ *\ numObjs\_\ +\ 1)\ /\ 4;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ \textcolor{keyword}{const}\ myIdx\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}().x();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ tcur\_.size();\ ++ii)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{double}\ x0\ =\ (\ numRowsPerObject\_\ *\ myIdx\ +\ ii)\ *\ h;}
+\DoxyCodeLine{\ \ \ \ \ \ tcur\_[ii]\ =\ sin(nf\ *\ M\_PI\ *\ x0\ *\ x0);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ totalReceive\_\ =\ 2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (myIdx\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ tcur\_[0]\ =\ 0.0;}
+\DoxyCodeLine{\ \ \ \ \ \ totalReceive\_\ -\/=\ 1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (myIdx\ ==\ numObjs\_\ -\/\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ tcur\_[numRowsPerObject\_+1]\ =\ 0.0;}
+\DoxyCodeLine{\ \ \ \ \ \ totalReceive\_\ -\/=\ 1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::copy(tcur\_.begin(),\ tcur\_.end(),\ told\_.begin());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ init(LPMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \ \ numObjs\_\ =\ msg-\/>numObjects;}
+\DoxyCodeLine{\ \ \ \ numRowsPerObject\_\ =\ msg-\/>nRowPerObject;}
+\DoxyCodeLine{\ \ \ \ maxIter\_\ =\ msg-\/>iterMax;}
+\DoxyCodeLine{\ \ \ \ objProxy\_\ =\ msg-\/>objProxy;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Initialize\ the\ starting\ vector}}
+\DoxyCodeLine{\ \ \ \ init();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isWorkDone(\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{vt::objgroup::proxy::Proxy<NodeObj>}}\ \textcolor{keyword}{const}\&\ proxy)\{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ proxy[this\_node].invoke<\&NodeObj::isWorkFinished>();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ num\_objs\ =\ default\_num\_objs;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numRowsPerObject\ =\ default\_nrow\_object;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ maxIter\ =\ 8;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::string\ name(argv[0]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stderr,\ \textcolor{stringliteral}{"{}\{\}:\ using\ default\ arguments\ since\ none\ provided\(\backslash\)n"{}},\ name}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ num\_objs\ =\ default\_num\_objs\ *\ num\_nodes;}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (argc\ ==\ 2)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_objs\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (argc\ ==\ 3)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_objs\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \ \ numRowsPerObject\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (argc\ ==\ 4)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_objs\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[1],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \ \ numRowsPerObject\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[2],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \ \ maxIter\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(strtol(argv[3],\ \textcolor{keyword}{nullptr},\ 10));}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ stderr,\ \textcolor{stringliteral}{"{}usage:\ \{\}\ <num-\/objects>\ <num-\/rows-\/per-\/object>\ <maxiter>\(\backslash\)n"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ name}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Object\ group\ of\ all\ nodes\ that\ take\ part\ in\ computation}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Used\ to\ determine\ whether\ the\ computation\ is\ finished}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ grp\_proxy\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<NodeObj>(\textcolor{stringliteral}{"{}examples\_jacobi1d"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Create\ the\ decomposition\ into\ objects}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }BaseIndexType\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType}};}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(\textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(num\_objs));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ col\_proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<LinearPb1DJacobi>}}(\textcolor{stringliteral}{"{}examples\_jacobi1d"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}}([col\_proxy,\ grp\_proxy,\ num\_objs,\ numRowsPerObject,\ maxIter]\{}
+\DoxyCodeLine{\ \ \ \ col\_proxy.broadcastCollective<LinearPb1DJacobi::LPMsg,\ \&LinearPb1DJacobi::init>(}
+\DoxyCodeLine{\ \ \ \ \ \ num\_objs,\ numRowsPerObject,\ maxIter,\ grp\_proxy}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}(!isWorkDone(grp\_proxy))\{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}}([col\_proxy]\{}
+\DoxyCodeLine{\ \ \ \ \ \ col\_proxy.broadcastCollective<}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ LinearPb1DJacobi::BlankMsg,\ \&LinearPb1DJacobi::doIter}
+\DoxyCodeLine{\ \ \ \ \ \ >();}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a3799d6b51fb71d7b6505760aad457e61}{vt::thePhase}}()-\/>\doxymbox{\hyperlink{structvt_1_1phase_1_1_phase_manager_ac94bfde4a103cbdec426542191c41092}{nextPhaseCollective}}();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+
+\end{DoxyCodeInclude}
+ 

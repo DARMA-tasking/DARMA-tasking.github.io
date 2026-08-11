@@ -1,0 +1,285 @@
+\doxysection{view\+\_\+traverse\+\_\+ndim.\+h}
+\hypertarget{view__traverse__ndim_8h_source}{}\label{view__traverse__ndim_8h_source}\index{lib/checkpoint/src/checkpoint/container/view\_traverse\_ndim.h@{lib/checkpoint/src/checkpoint/container/view\_traverse\_ndim.h}}
+\doxymbox{\hyperlink{view__traverse__ndim_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ view\_traverse\_ndim.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_NDIM\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_NDIM\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traits__extract_8h}{checkpoint/container/view\_traits\_extract.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_ENABLED}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <Kokkos\_Core.hpp>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynamicView.hpp>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ Traversal\ of\ data\ backing\ a\ view\ by\ recursively\ traversing\ each\ dimension\ and}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ every\ element\ of\ the\ data\ one-\/by-\/one\ using\ the\ Kokkos::View::operator()(...)}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ or\ Kokkos::DynamicView::operator()(...).\ The\ access\ operator\ is\ guaranteed\ to}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ correctly\ accesses\ the\ data\ regardless\ of\ the\ layout.\ This\ new\ code\ does\ a}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ recursive\ traversal\ so\ it\ works\ for\ n-\/dimensional\ views.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ This\ code\ generally\ allows\ you\ to\ specify\ any\ callable,\ and\ use\ k-\/views\ if}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ you\ want\ to\ operate\ by\ essentially\ zipping\ the\ elements\ and\ passing\ to\ the}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ call\ function.\ You\ can\ compare\ equality,\ apply\ element-\/by-\/element\ equality,}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *\ or\ other\ n-\/dim\ operators\ on\ k-\/views.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ Recursive\ callable\ apply\ for\ n-\/dimension\ automatic\ traversal\ of\ a\ view}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TupleT,\ \textcolor{keywordtype}{unsigned}\ d,\ \textcolor{keyword}{typename}\ Callable}
+\DoxyCodeLine{00081\ >}
+\DoxyCodeLine{00082\ \textcolor{keyword}{struct\ }TraverseRecurImpl;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ Simple\ meta-\/code\ for\ detecting\ a\ tuple\ type}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00088\ \textcolor{keyword}{struct\ }IsTuple\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00089\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ U>}
+\DoxyCodeLine{00090\ \textcolor{keyword}{struct\ }IsTuple<\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::tuple<U...>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ Extract\ the\ size\_type\ from\ the\ View,\ overload\ to\ extract\ from}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ std::tuple<Kokkos::View...>\ of}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00097\ \textcolor{keyword}{struct\ }ViewSizeTraits\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ T::size\_type;}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00102\ \textcolor{keyword}{struct\ }ViewSizeTraits<\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::tuple<T,Args...>>\ \{}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ T::size\_type;}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ General\ code\ for\ traversing\ a\ static\ or\ dynamic\ dimension\ and\ recursively}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ preceding\ pushing\ the\ index\ into\ the\ tuple}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TupleT,\ \textcolor{keywordtype}{unsigned}\ d,\ \textcolor{keyword}{typename}\ Callable}
+\DoxyCodeLine{00112\ >}
+\DoxyCodeLine{00113\ \textcolor{keyword}{struct\ }TraverseRecurImplBase\ \{}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ \ \ \ \ \ \ =\ \textcolor{keyword}{typename}\ ViewSizeTraits<ViewT>::SizeType;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{using\ }ViewIsTuple\ \ \ \ =\ \textcolor{keyword}{typename}\ std::enable\_if<IsTuple<U>::value,ViewT>::type;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{using\ }ViewNotTuple\ \ \ =\ \textcolor{keyword}{typename}\ std::enable\_if<!IsTuple<U>::value,ViewT>::type;}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{using\ }CountType\ \ \ \ \ \ =\ uint64\_t;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{using\ }TupleChildT\ \ \ \ =\ \textcolor{keyword}{decltype}(}
+\DoxyCodeLine{00122\ \ \ \ \ std::tuple\_cat(}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ std::declval<TupleT>(),}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ std::declval<std::tuple<SizeType>>()}
+\DoxyCodeLine{00125\ \ \ \ \ )}
+\DoxyCodeLine{00126\ \ \ );}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{using\ }ChildT\ \ \ \ \ \ \ \ \ =\ TraverseRecurImpl<ViewT,T,TupleChildT,d-\/1,Callable>;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{using\ }IndexTupleType\ =\ \textcolor{keyword}{typename}\ ChildT::IndexTupleType;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ ViewT>}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{static}\ CountType\ applyImpl(}
+\DoxyCodeLine{00133\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ \textcolor{keywordtype}{unsigned}\ nd,\ TupleT\ idx,\ Callable\ call,}
+\DoxyCodeLine{00134\ \ \ \ \ ViewIsTuple<U>*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00135\ \ \ )\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ex1\ =\ std::get<0>(view).extent(nd-\/d);}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ex2\ =\ std::get<1>(view).extent(nd-\/d);}
+\DoxyCodeLine{00138\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a887a80883ec6eb1798285e7eb5a0fe35}{checkpointAssert}}(ex1\ ==\ ex2,\ \textcolor{stringliteral}{"{}Matching\ extents\ must\ be\ equal"{}});}
+\DoxyCodeLine{00139\ \ \ \ \ CountType\ neq\ =\ 0;}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ ex1;\ i++)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ret\ =\ ChildT::apply(}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ view,nd,std::tuple\_cat(idx,std::tuple<SizeType>(i)),call}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ neq\ +=\ !ret;}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ neq;}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ ViewT>}
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{static}\ CountType\ applyImpl(}
+\DoxyCodeLine{00151\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ \textcolor{keywordtype}{unsigned}\ nd,\ TupleT\ idx,\ Callable\ call,}
+\DoxyCodeLine{00152\ \ \ \ \ ViewNotTuple<U>*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00153\ \ \ )\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ CountType\ neq\ =\ 0;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ view.extent(nd-\/d);\ i++)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ret\ =\ ChildT::apply(}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ view,nd,std::tuple\_cat(idx,std::tuple<SizeType>(i)),call}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ neq\ +=\ !ret;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ neq;}
+\DoxyCodeLine{00162\ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{static}\ CountType\ apply(}
+\DoxyCodeLine{00165\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ \textcolor{keywordtype}{unsigned}\ nd,\ TupleT\ idx,\ Callable\ call}
+\DoxyCodeLine{00166\ \ \ )\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ applyImpl<ViewT>(view,nd,idx,call);}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ Overload\ for\ traversing\ a\ static\ T[N]\ dimension}}
+\DoxyCodeLine{00172\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00173\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ N,\ \textcolor{keyword}{typename}\ TupleT,\ \textcolor{keywordtype}{unsigned}\ d,}
+\DoxyCodeLine{00174\ \ \ \textcolor{keyword}{typename}\ Callable}
+\DoxyCodeLine{00175\ >}
+\DoxyCodeLine{00176\ \textcolor{keyword}{struct\ }TraverseRecurImpl<ViewT,\ T[N],\ TupleT,\ d,\ Callable>}
+\DoxyCodeLine{00177\ \ \ :\ TraverseRecurImplBase<ViewT,T,TupleT,d,Callable>}
+\DoxyCodeLine{00178\ \{\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ Overload\ for\ traversing\ a\ dynamic\ (T*)\ dimension}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00182\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TupleT,\ \textcolor{keywordtype}{unsigned}\ d,\ \textcolor{keyword}{typename}\ Callable}
+\DoxyCodeLine{00183\ >}
+\DoxyCodeLine{00184\ \textcolor{keyword}{struct\ }TraverseRecurImpl<ViewT,\ T*,\ TupleT,\ d,\ Callable>}
+\DoxyCodeLine{00185\ \ \ :\ TraverseRecurImplBase<ViewT,T,TupleT,d,Callable>}
+\DoxyCodeLine{00186\ \{\ \};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{//\ Overload\ for\ traversing\ after\ we\ reach\ recursively\ the\ last\ dimension\ and\ now}}
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ will\ dispatch\ the\ View::operator()()}}
+\DoxyCodeLine{00190\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ TupleT,\ \textcolor{keywordtype}{unsigned}\ d,\ \textcolor{keyword}{typename}\ Callable}
+\DoxyCodeLine{00192\ >}
+\DoxyCodeLine{00193\ \textcolor{keyword}{struct\ }TraverseRecurImpl\ \{}
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ \ \ \ \ =\ \textcolor{keyword}{typename}\ ViewSizeTraits<ViewT>::SizeType;}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{using\ }ViewIsTuple\ \ =\ \textcolor{keyword}{typename}\ std::enable\_if<IsTuple<U>::value,ViewT>::type;}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{using\ }ViewNotTuple\ =\ \textcolor{keyword}{typename}\ std::enable\_if<!IsTuple<U>::value,ViewT>::type;}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{using\ }GetBaseType\ \ =\ \textcolor{keyword}{typename}\ CountDims<U>::BaseT;}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{using\ }IndexTupleType\ =\ TupleT;}
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{using\ }CountType\ \ \ \ \ \ =\ uint64\_t;}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ Unwind\ the\ inner\ tuple\ for\ operator()(...)}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewU,\ std::size\_t...\ I>}
+\DoxyCodeLine{00206\ \ \ \textcolor{keyword}{static}\ GetBaseType<ViewU>\&\ expandTupleToOp(}
+\DoxyCodeLine{00207\ \ \ \ \ ViewU\ \textcolor{keyword}{const}\&\ view,\ TupleT\ tup,\ std::index\_sequence<I...>}
+\DoxyCodeLine{00208\ \ \ )\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{return}\ view.operator()(std::get<I>(tup)...);}
+\DoxyCodeLine{00210\ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{//\ Unwind\ the\ inner\ tuple\ for\ operator()(...)}}
+\DoxyCodeLine{00213\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewU>}
+\DoxyCodeLine{00214\ \ \ \textcolor{keyword}{static}\ GetBaseType<ViewU>\&\ expandTupleToOp(ViewU\ \textcolor{keyword}{const}\&\ view,\ TupleT\ tup)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ size\ =\ std::tuple\_size<TupleT>::value;}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ expandTupleToOp(view,tup,std::make\_index\_sequence<size>\{\});}
+\DoxyCodeLine{00217\ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{comment}{//\ If\ it's\ a\ std::tuple<Kokkos::vie<T>...>,\ first\ unwind\ the\ outer\ tuple}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{template}\ <std::size\_t...\ I>}
+\DoxyCodeLine{00221\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ dispatchViewTuple(}
+\DoxyCodeLine{00222\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ Callable\ call,\ TupleT\ tup,\ std::index\_sequence<I...>}
+\DoxyCodeLine{00223\ \ \ )\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ Dispatch\ the\ call\ operator\ on\ the\ view}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{return}\ call(tup,expandTupleToOp(std::get<I>(view),tup)...);}
+\DoxyCodeLine{00226\ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ Test\ whether\ the\ ViewT\ is\ actually\ a\ std::tuple<Kokkos::View<T>...>}}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ ViewT>}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ dispatchViewType(}
+\DoxyCodeLine{00231\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ Callable\ call,\ TupleT\ tup,\ ViewIsTuple<U>*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00232\ \ \ )\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ size\ =\ std::tuple\_size<ViewT>::value;}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{return}\ dispatchViewTuple(view,call,tup,std::make\_index\_sequence<size>\{\});}
+\DoxyCodeLine{00235\ \ \ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ ViewT>}
+\DoxyCodeLine{00238\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ dispatchViewType(}
+\DoxyCodeLine{00239\ \ \ \ \ ViewT\ \textcolor{keyword}{const}\&\ view,\ Callable\ call,\ TupleT\ tup,\ ViewNotTuple<U>*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00240\ \ \ )\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ call(expandTupleToOp(view,tup));}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00243\ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ apply(ViewT\ \textcolor{keyword}{const}\&\ view,\ \textcolor{keywordtype}{unsigned},\ TupleT\ tup,\ Callable\ call)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{return}\ dispatchViewType(view,call,tup);}
+\DoxyCodeLine{00247\ \ \ \}}
+\DoxyCodeLine{00248\ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{struct\ }DefaultRecurOP\ \{}
+\DoxyCodeLine{00251\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{bool}\ operator()(U,\ T,\ T)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00253\ \ \ \ \ \doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h_a887a80883ec6eb1798285e7eb5a0fe35}{checkpointAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Wrong\ overload"{}});}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \textcolor{comment}{/*\ to\ avoid\ warning\ */}}
+\DoxyCodeLine{00255\ \ \ \}}
+\DoxyCodeLine{00256\ \};}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint::detail\ */}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00263\ \ \ \textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{unsigned}\ nd,}
+\DoxyCodeLine{00264\ \ \ \textcolor{keyword}{typename}\ Callable\ =\ detail::DefaultRecurOP}
+\DoxyCodeLine{00265\ >}
+\DoxyCodeLine{00266\ \textcolor{keyword}{struct\ }TraverseRecursive\ \{}
+\DoxyCodeLine{00267\ \ \ \textcolor{keyword}{using\ }RecurT\ \ \ \ =\ detail::TraverseRecurImpl<ViewT,T,std::tuple<>,nd,Callable>;}
+\DoxyCodeLine{00268\ \ \ \textcolor{keyword}{using\ }CountType\ =\ \textcolor{keyword}{typename}\ RecurT::CountType;}
+\DoxyCodeLine{00269\ \ \ \textcolor{keyword}{using\ }IndexType\ =\ \textcolor{keyword}{typename}\ RecurT::IndexTupleType;}
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{static}\ CountType\ apply(ViewT\ \textcolor{keyword}{const}\&\ view,\ Callable\ call)\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{return}\ RecurT::apply(view,nd,std::tuple<>\{\},call);}
+\DoxyCodeLine{00272\ \ \ \}}
+\DoxyCodeLine{00273\ \};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*MAGISTRATE\_KOKKOS\_ENABLED*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_NDIM\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

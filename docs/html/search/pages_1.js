@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['collectives_14897',['Collectives',['../collective.html',1,'introduction']]],
-  ['context_14898',['Context',['../context.html',1,'introduction']]]
+  ['2d_20program_0',['Example Jacobi 2D Program',['../jacobi2d-example.html',1,'examples']]]
 ];

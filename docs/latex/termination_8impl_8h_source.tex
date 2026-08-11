@@ -1,0 +1,192 @@
+\doxysection{termination.\+impl.\+h}
+\hypertarget{termination_8impl_8h_source}{}\label{termination_8impl_8h_source}\index{src/vt/termination/termination.impl.h@{src/vt/termination/termination.impl.h}}
+\doxymbox{\hyperlink{termination_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ termination.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_TERMINATION\_TERMINATION\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_TERMINATION\_TERMINATION\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{termination_8h}{vt/termination/termination.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{term__common_8h}{vt/termination/term\_common.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{epoch__manip_8h}{vt/epoch/epoch\_manip.h}}"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1term}{term}}\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{TerminationDetector::produce}}(}
+\DoxyCodeLine{00055\ \ \ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ \doxymbox{\hyperlink{namespacevt_1_1term_af27068f969c994526bded36eacaa20af}{TermCounterType}}\ num\_units,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node}
+\DoxyCodeLine{00056\ )\ \{}
+\DoxyCodeLine{00057\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(verbose,\ \doxymbox{\hyperlink{namespacevt_1_1term}{term}},\ \textcolor{stringliteral}{"{}produce:\ epoch=\{:x\},\ node=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ node);}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ in\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ no\_epoch\ ?\ any\_epoch\_sentinel\ :\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3e06098a7b54106910ea9000e2571a39}{produceConsume}}(in\_epoch,\ num\_units,\ \textcolor{keyword}{true},\ node);}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{TerminationDetector::consume}}(}
+\DoxyCodeLine{00063\ \ \ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ \doxymbox{\hyperlink{namespacevt_1_1term_af27068f969c994526bded36eacaa20af}{TermCounterType}}\ num\_units,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node}
+\DoxyCodeLine{00064\ )\ \{}
+\DoxyCodeLine{00065\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(verbose,\ \doxymbox{\hyperlink{namespacevt_1_1term}{term}},\ \textcolor{stringliteral}{"{}consume:\ epoch=\{:x\},\ node=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ node);}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ in\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ no\_epoch\ ?\ any\_epoch\_sentinel\ :\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3e06098a7b54106910ea9000e2571a39}{produceConsume}}(in\_epoch,\ num\_units,\ \textcolor{keyword}{false},\ node);}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad95b226357b77e29c415627bbca4e798}{TerminationDetector::isRooted}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_sentinel\ =\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ any\_epoch\_sentinel\ or\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ no\_epoch;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordflow}{return}\ is\_sentinel\ ?\ false\ :\ \doxymbox{\hyperlink{structvt_1_1epoch_1_1_epoch_manip_a00210a34334fb86984cfbd08bae74929}{epoch::EpochManip::isRooted}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3ab6ba4618093384b6ddd6c0607df543}{TerminationDetector::isDS}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad95b226357b77e29c415627bbca4e798}{isRooted}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}))\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ds\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1epoch_a956abe0aceef0d10a988de8acb002c7ca317c96e0b9f3b6871d4832a7f9e31e9f}{epoch::eEpochCategory::DijkstraScholtenEpoch}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ epoch\_category\ =\ \doxymbox{\hyperlink{structvt_1_1epoch_1_1_epoch_manip_aa61d47033545df147c01036211c4cabe}{epoch::EpochManip::category}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_ds\ =\ epoch\_category\ ==\ ds\_epoch;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_ds;}
+\DoxyCodeLine{00081\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a0a9d042e027cef8a173959d424ca300a}{TerminationDetector::produceConsumeState}}(}
+\DoxyCodeLine{00087\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a0a47413bcb7bf5e10ecb31e7871a9268}{TermStateType}}\&\ state,\ \doxymbox{\hyperlink{namespacevt_1_1term_af27068f969c994526bded36eacaa20af}{TermCounterType}}\ \textcolor{keyword}{const}\ num\_units,\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}}
+\DoxyCodeLine{00088\ )\ \{}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{auto}\&\ counter\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}\ ?\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_afec657b7e75164bdc75f464dd4dbe13b}{l\_prod}}\ :\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_a4f44e5ddcb585df5ad215f10bc195d4c}{l\_cons}};}
+\DoxyCodeLine{00090\ \ \ counter\ +=\ num\_units;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00093\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1term}{term}},}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{stringliteral}{"{}produceConsumeState:\ epoch=\{:x\},\ event\_count=\{\},\ l\_prod=\{\},\ l\_cons=\{\},\ "{}}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{stringliteral}{"{}num\_units=\{\},\ produce=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00096\ \ \ \ \ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_a081ea661cb484ab14804dcd027a2d136}{getEpoch}}(),\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_a9d9eb29f1af45d4287b9535f33f14363}{getRecvChildCount}}(),\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_afec657b7e75164bdc75f464dd4dbe13b}{l\_prod}},\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_a4f44e5ddcb585df5ad215f10bc195d4c}{l\_cons}},\ num\_units,}
+\DoxyCodeLine{00097\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_aac76e066ee747d3089751f067090346b}{print\_bool}}(\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}})}
+\DoxyCodeLine{00098\ \ \ );}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordflow}{if}\ (state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_a9fd406188be289ed6722555dffd9fe50}{isActive}}()\ and\ state.\doxymbox{\hyperlink{structvt_1_1term_1_1_term_state_aed97f2a61356cf7230d38e06b999f019}{readySubmitParent}}())\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a8f39f31278d42572260d09fb4c72aceb}{propagateEpoch}}(state);}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3e06098a7b54106910ea9000e2571a39}{TerminationDetector::produceConsume}}(}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ \doxymbox{\hyperlink{namespacevt_1_1term_af27068f969c994526bded36eacaa20af}{TermCounterType}}\ num\_units,\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}},\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node}
+\DoxyCodeLine{00107\ )\ \{}
+\DoxyCodeLine{00108\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00109\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1term}{term}},}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{stringliteral}{"{}produceConsume:\ epoch=\{:x\},\ rooted=\{\},\ ds=\{\},\ count=\{\},\ produce=\{\},\ "{}}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{stringliteral}{"{}node=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad95b226357b77e29c415627bbca4e798}{isRooted}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}),\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3ab6ba4618093384b6ddd6c0607df543}{isDS}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}),\ num\_units,\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}},\ node}
+\DoxyCodeLine{00113\ \ \ );}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a0a9d042e027cef8a173959d424ca300a}{produceConsumeState}}(\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a49337963d174e5be73fcf467304428a6}{any\_epoch\_state\_}},\ num\_units,\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}});}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ !=\ any\_epoch\_sentinel)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3ab6ba4618093384b6ddd6c0607df543}{isDS}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}))\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ds\_term\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a546a48949da827a98dea2cfaffeddb91}{getDSTerm}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ a\ node\ is\ not\ passed,\ use\ the\ current\ node\ (self-\/prod/cons)}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (node\ ==\ uninitialized\_destination)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ node\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_aac5ac209e1e3f7bf088906b3782e1801}{this\_node\_}};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}})\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ ds\_term-\/>msgSent(node,num\_units);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ ds\_term-\/>msgProcessed(node,num\_units);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ state\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a7fae7c4264078f157ceb79df1ee5c458}{findOrCreateState}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a0a9d042e027cef8a173959d424ca300a}{produceConsumeState}}(state,\ num\_units,\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}});}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \}}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a9d5e018c724d65983ceeff5272b2e154}{TerminationDetector::getEpoch}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00139\ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00140\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size()\ >\ 0,\ \textcolor{stringliteral}{"{}Epoch\ stack\ size\ must\ be\ greater\ than\ zero"{}},}
+\DoxyCodeLine{00141\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size()}
+\DoxyCodeLine{00142\ \ \ );}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size()\ ?\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\{\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.top()\}\ :\ term::any\_epoch\_sentinel;}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a1e93b826e597c203fb220a9dd540bd94}{TerminationDetector::pushEpoch}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ *\ pushEpoch(epoch)\ pushes\ any\ epoch\ onto\ the\ local\ stack\ iff\ epoch\ !=}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ *\ no\_epoch;\ the\ epoch\ stack\ includes\ all\ locally\ pushed\ epochs\ and\ the}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ *\ current\ contexts\ pushed,\ transitively\ causally\ related\ active\ message}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ *\ handlers.}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00153\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ !=\ no\_epoch,\ \textcolor{stringliteral}{"{}Do\ not\ push\ no\_epoch\ onto\ the\ epoch\ stack"{}},}
+\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ no\_epoch,\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size(),}
+\DoxyCodeLine{00155\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size()\ >\ 0\ ?\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\{epoch\_stack\_.top()\}\ :\ no\_epoch}
+\DoxyCodeLine{00156\ \ \ );}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ !=\ no\_epoch)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.push(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}.get());}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a81a7f955e09f59a85303bfcb90414882}{TerminationDetector::popEpoch}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ *\ popEpoch(epoch)\ shall\ remove\ the\ top\ entry\ from\ epoch\_size\_,\ iif\ the\ size}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ *\ is\ non-\/zero\ and\ the\ \`{}epoch'\ passed,\ if\ \`{}epoch\ !=\ no\_epoch',\ is\ equal\ to\ the}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ *\ top\ of\ the\ \`{}epoch\_stack\_.top()';\ else,\ it\ shall\ remove\ any\ entry\ from\ the}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ *\ top\ of\ the\ stack.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00169\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ non\_zero\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.size()\ >\ 0;}
+\DoxyCodeLine{00170\ \ \ \doxymbox{\hyperlink{config__assert_8h_ab4ccb17952905ff96211dec8485d59b1}{vtAssertExprInfo}}(}
+\DoxyCodeLine{00171\ \ \ \ \ non\_zero\ and\ (\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.top()\ ==\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}.get()\ or\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ no\_epoch),}
+\DoxyCodeLine{00172\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ non\_zero,\ non\_zero\ ?\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\{epoch\_stack\_.top()\}\ :\ no\_epoch}
+\DoxyCodeLine{00173\ \ \ );}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ no\_epoch)\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ non\_zero\ ?\ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.pop(),\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\{\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.top()\}\ :\ no\_epoch;}
+\DoxyCodeLine{00176\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{return}\ non\_zero\ \&\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ ==\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\{\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.top()\}\ ?}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3a50dbf1d18f2157de76b2c5ee9a44d0}{epoch\_stack\_}}.pop(),\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ :}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ no\_epoch;}
+\DoxyCodeLine{00180\ \ \ \}}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::term\ */}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_TERMINATION\_TERMINATION\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

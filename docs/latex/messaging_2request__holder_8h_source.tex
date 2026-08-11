@@ -1,0 +1,153 @@
+\doxysection{request\+\_\+holder.\+h}
+\hypertarget{messaging_2request__holder_8h_source}{}\label{messaging_2request__holder_8h_source}\index{src/vt/messaging/request\_holder.h@{src/vt/messaging/request\_holder.h}}
+\doxymbox{\hyperlink{messaging_2request__holder_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ request\_holder.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_REQUEST\_HOLDER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_REQUEST\_HOLDER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{app__config_8h}{vt/configs/arguments/app\_config.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Unfortunate\ header\ leak\ for\ VT\_ALLOW\_MPI\_CALLS}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{mpi__access_8h}{vt/runtime/mpi\_access.h}}"{}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \#include\ "{}\doxymbox{\hyperlink{trace__headers_8h}{vt/trace/trace\_headers.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00069\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_abf7510642c71a18bf6b5425e385546f2}{RequestHolder}}\ \{}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_abf7510642c71a18bf6b5425e385546f2}{RequestHolder}}(\doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ in\_trace\_user\_event)}
+\DoxyCodeLine{00073\ \ \ \ \ :\ trace\_user\_event\_(in\_trace\_user\_event)}
+\DoxyCodeLine{00074\ \ \ \{\ \}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_abf7510642c71a18bf6b5425e385546f2}{RequestHolder}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_ae08498f2b80a7fdb486134a670d19307}{emplace}}(U\&\&\ u)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.emplace\_back(std::forward<U>(u));}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af8954465588ec05efb6ccba01041e114}{testAll}}(Callable\ c,\ \textcolor{keywordtype}{int}\&\ num\_mpi\_tests)\ \{}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ \ \ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00100\ \ \ \ \ std::size\_t\ \textcolor{keyword}{const}\ holder\_size\_start\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.size();}
+\DoxyCodeLine{00101\ \ \ \ \ std::unique\_ptr<trace::TraceScopedNote>\ trace\_note;}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>vt\_trace\_irecv\_polling)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ trace\_note\ =\ std::make\_unique<trace::TraceScopedNote>(trace\_user\_event\_);}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ progress\_made\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::size\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.size();\ )\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ e\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}[i];}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(e.valid,\ \textcolor{stringliteral}{"{}Must\ be\ valid"{}});}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ done\ =\ e.test(num\_mpi\_tests);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ done)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ c(\&e);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ progress\_made\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ e.valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.size()\ -\/\ 1)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}[i]\ =\ std::move(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.back());}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.pop\_back();}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ \ \ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>vt\_trace\_irecv\_polling)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (holder\_size\_start\ >\ 0)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tr\_note\ =\ fmt::format(}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}completed\ \{\}\ of\ \{\}"{}},}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ holder\_size\_start\ -\/\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}}.size(),}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ holder\_size\_start}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ trace\_note-\/>setNote(tr\_note);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ trace\_note-\/>end();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{return}\ progress\_made;}
+\DoxyCodeLine{00146\ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_ae28c55a90b59c153d6ba72c875946f75}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}};}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00152\ \ \ \ \ s\ |\ trace\_user\_event\_;}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \#\ endif}}
+\DoxyCodeLine{00154\ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00157\ \ \ std::vector<T>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder_af222a1c32183c0bdb2400d0a41ed30a3}{holder\_}};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_user\_event\_\ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00162\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_REQUEST\_HOLDER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

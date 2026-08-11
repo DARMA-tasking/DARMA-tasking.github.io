@@ -1,0 +1,168 @@
+\doxysection{diagnostic.\+impl.\+h}
+\hypertarget{diagnostic_8impl_8h_source}{}\label{diagnostic_8impl_8h_source}\index{src/vt/runtime/component/diagnostic.impl.h@{src/vt/runtime/component/diagnostic.impl.h}}
+\doxymbox{\hyperlink{diagnostic_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ diagnostic.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RUNTIME\_COMPONENT\_DIAGNOSTIC\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RUNTIME\_COMPONENT\_DIAGNOSTIC\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{diagnostic_8h}{vt/runtime/component/diagnostic.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{diagnostic__value_8h}{vt/runtime/component/diagnostic\_value.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runtime}{runtime}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component}{component}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00057\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_counter}{meter::Counter<T>}}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_abb1ee7f09f05c143dbdfd3346f6cdcba}{Diagnostic::registerCounterT}}(}
+\DoxyCodeLine{00058\ \ \ std::string\ \textcolor{keyword}{const}\&\ key,\ std::string\ \textcolor{keyword}{const}\&\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a99ec18b08862c712176126bb7d0e307a}{DiagnosticUnit}}\ unit}
+\DoxyCodeLine{00059\ )\ \{}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00061\ \ \ \ \ key,\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5}{DiagnosticUpdate::Sum}},\ unit,}
+\DoxyCodeLine{00062\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ 0}
+\DoxyCodeLine{00063\ \ \ );}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_counter}{meter::Counter<T>}}\{val\};}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_gauge}{meter::Gauge<T>}}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_aa220905292aeb726254d3dff2e672b00}{Diagnostic::registerGaugeT}}(}
+\DoxyCodeLine{00069\ \ \ std::string\ \textcolor{keyword}{const}\&\ key,\ std::string\ \textcolor{keyword}{const}\&\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a99ec18b08862c712176126bb7d0e307a}{DiagnosticUnit}}\ unit}
+\DoxyCodeLine{00070\ )\ \{}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{auto}\ sum\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00072\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [sum]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5}{DiagnosticUpdate::Sum}},\ unit,}
+\DoxyCodeLine{00073\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ 0}
+\DoxyCodeLine{00074\ \ \ );}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{auto}\ min\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00076\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [min]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a78d811e98514cd165dda532286610fd2}{DiagnosticUpdate::Min}},\ unit,}
+\DoxyCodeLine{00077\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ std::numeric\_limits<T>::max()}
+\DoxyCodeLine{00078\ \ \ );}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{auto}\ max\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00080\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [max]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233}{DiagnosticUpdate::Max}},\ unit,}
+\DoxyCodeLine{00081\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ 0}
+\DoxyCodeLine{00082\ \ \ );}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{auto}\ avg\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00084\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [avg]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a5c0c148daa2c67922abe6018b87a759f}{DiagnosticUpdate::Avg}},\ unit,}
+\DoxyCodeLine{00085\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ 0}
+\DoxyCodeLine{00086\ \ \ );}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_gauge}{meter::Gauge<T>}}\{sum,\ avg,\ max,\ min\};}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00091\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_timer}{meter::Timer<T>}}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_a328ecca78c6aa309bb764f3dde083c3e}{Diagnostic::registerTimerT}}(}
+\DoxyCodeLine{00092\ \ \ std::string\ \textcolor{keyword}{const}\&\ key,\ std::string\ \textcolor{keyword}{const}\&\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a99ec18b08862c712176126bb7d0e307a}{DiagnosticUnit}}\ unit}
+\DoxyCodeLine{00093\ )\ \{}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{auto}\ sum\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00095\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [sum]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206aa0ec87054b5e5b7847d0d8780a01a3d5}{DiagnosticUpdate::Sum}},\ unit,}
+\DoxyCodeLine{00096\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ T\{0\}}
+\DoxyCodeLine{00097\ \ \ );}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{auto}\ min\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00099\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [min]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a78d811e98514cd165dda532286610fd2}{DiagnosticUpdate::Min}},\ unit,}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ std::numeric\_limits<T>::max()}
+\DoxyCodeLine{00101\ \ \ );}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{auto}\ max\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00103\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [max]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a6a061313d22e51e0f25b7cd4dc065233}{DiagnosticUpdate::Max}},\ unit,}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ std::numeric\_limits<T>::lowest()}
+\DoxyCodeLine{00105\ \ \ );}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{auto}\ avg\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{registerDiagnostic<T>}}(}
+\DoxyCodeLine{00107\ \ \ \ \ key\ +\ \textcolor{stringliteral}{"{}\ [avg]"{}},\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206a5c0c148daa2c67922abe6018b87a759f}{DiagnosticUpdate::Avg}},\ unit,}
+\DoxyCodeLine{00108\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0ab95e46074ff803c7a6f7107c2c1d382c}{DiagnosticTypeEnum::PerformanceDiagnostic}},\ T\{0\}}
+\DoxyCodeLine{00109\ \ \ );}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1meter_1_1_timer}{meter::Timer<T>}}\{sum,\ avg,\ max,\ min\};}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00114\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value}{detail::DiagnosticValue<T>}}*\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab71509224f5716107ef5c781ba5ff487}{Diagnostic::registerDiagnostic}}(}
+\DoxyCodeLine{00115\ \ \ std::string\ \textcolor{keyword}{const}\&\ key,\ std::string\ \textcolor{keyword}{const}\&\ desc,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a896637e6e183a909a17bfd8d3943c206}{DiagnosticUpdate}}\ update,}
+\DoxyCodeLine{00116\ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_a99ec18b08862c712176126bb7d0e307a}{DiagnosticUnit}}\ unit,\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_af0bb99d9a054682217874bdc735ecac0}{DiagnosticTypeEnum}}\ type,\ T\ initial\_value}
+\DoxyCodeLine{00117\ )\ \{}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(diagnostics)}}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ If\ diagnostics\ are\ runtime\ disabled,\ return\ a\ null\ value}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>vt\_diag\_enable)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.find(key)\ ==\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.end(),\ \textcolor{stringliteral}{"{}Key\ must\ not\ exist"{}});}
+\DoxyCodeLine{00125\ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.emplace(}
+\DoxyCodeLine{00126\ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00127\ \ \ \ \ std::forward\_as\_tuple(key),}
+\DoxyCodeLine{00128\ \ \ \ \ std::forward\_as\_tuple(}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ std::make\_unique<\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value}{detail::DiagnosticValue<T>}}>(}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ key,\ desc,\ update,\ unit,\ type,\ initial\_value}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ )}
+\DoxyCodeLine{00132\ \ \ \ \ )}
+\DoxyCodeLine{00133\ \ \ );}
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.find(key);}
+\DoxyCodeLine{00135\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.end(),\ \textcolor{stringliteral}{"{}Diagnostic\ key\ must\ exist"{}});}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value}{detail::DiagnosticValue<T>}}*\textcolor{keyword}{>}(iter-\/>second.get());}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00138\ \ \ \doxymbox{\hyperlink{namespacevt_1_1debug_aeff93f73b5ac173a53dcf778ff771c2e}{debug::useVars}}(key,\ desc,\ update,\ unit,\ type,\ initial\_value);}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_a97b0e8ff394c8aa04035ff15165eb087}{Diagnostic::updateDiagnostic}}(std::string\ \textcolor{keyword}{const}\&\ key,\ T\ value)\ \{}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(diagnostics)}}
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ Skip\ if\ diagnostics\ are\ not\ runtime\ enabled}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>vt\_diag\_enable)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00149\ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.find(key);}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_diagnostic_ab4cb6c67b01b76f91cc806a79169da69}{values\_}}.end(),\ \textcolor{stringliteral}{"{}Diagnostic\ key\ must\ exist"{}});}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value}{detail::DiagnosticValue<T>}}*\textcolor{keyword}{>}(iter-\/>second.get()))-\/>}
+\DoxyCodeLine{00154\ \ \ \ \ update(value);}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00156\ \ \ \doxymbox{\hyperlink{namespacevt_1_1debug_aeff93f73b5ac173a53dcf778ff771c2e}{debug::useVars}}(key,\ value);}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::runtime::component\ */}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RUNTIME\_COMPONENT\_DIAGNOSTIC\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,535 @@
+\doxysection{active.\+impl.\+h}
+\hypertarget{active_8impl_8h_source}{}\label{active_8impl_8h_source}\index{src/vt/messaging/active.impl.h@{src/vt/messaging/active.impl.h}}
+\doxymbox{\hyperlink{active_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ active.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_ACTIVE\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_ACTIVE\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8h}{vt/messaging/active.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{term__headers_8h}{vt/termination/term\_headers.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{message__priority_8impl_8h}{vt/messaging/message/message\_priority.impl.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{priority_8h}{vt/scheduler/priority.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{app__config_8h}{vt/configs/arguments/app\_config.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serialized__messenger_8h}{vt/serialization/messaging/serialized\_messenger.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{thread__action_8h}{vt/scheduler/thread\_action.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{thread__manager_8h}{vt/scheduler/thread\_manager.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{runnable_8h}{vt/runnable/runnable.h}}"{}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ad76f4f0ee9830f4431b57720163f715c}{ActiveMessenger::markAsTermMessage}}(MsgPtrT\ \textcolor{keyword}{const}\ msg)\ \{}
+\DoxyCodeLine{00064\ \ \ \doxymbox{\hyperlink{namespacevt_aa42d7e0adc8b283dd10602ece422699d}{setTermType}}(msg-\/>env);}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00066\ \ \ envelopeSetPriority(msg-\/>env,\ sys\_min\_priority);}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00069\ \ \ envelopeSetTraceRuntimeEnabled(msg-\/>env,\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>traceTerm());}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae813b0555258b09de8fa324ed98dcd02}{ActiveMessenger::markAsLocationMessage}}(}
+\DoxyCodeLine{00075\ \ \ [[maybe\_unused]]\ MsgPtrT\ \textcolor{keyword}{const}\ msg}
+\DoxyCodeLine{00076\ )\ \{}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00078\ \ \ envelopeSetTraceRuntimeEnabled(msg-\/>env,\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>traceLocation());}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{ActiveMessenger::markAsSerialMsgMessage}}(}
+\DoxyCodeLine{00084\ \ \ [[maybe\_unused]]\ MsgPtrT\ \textcolor{keyword}{const}\ msg}
+\DoxyCodeLine{00085\ )\ \{}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00087\ \ \ envelopeSetTraceRuntimeEnabled(msg-\/>env,\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>traceSerialMsg());}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a0587ea992b0f1b06da38d52a3851aae5}{ActiveMessenger::markAsCollectionMessage}}(}
+\DoxyCodeLine{00093\ \ \ [[maybe\_unused]]\ MsgPtrT\ \textcolor{keyword}{const}\ msg}
+\DoxyCodeLine{00094\ )\ \{}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00096\ \ \ envelopeSetTraceRuntimeEnabled(msg-\/>env,\ \doxymbox{\hyperlink{namespacevt_aa17c6eae35e7e41a8b11d4047b7c0839}{theConfig}}()-\/>traceCollection());}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a5fc9cb79e5cbef41007d847964c17113}{ActiveMessenger::setEpochMessage}}(MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00102\ \ \ \doxymbox{\hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{envelopeSetEpoch}}(msg-\/>env,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6d3637cb3c416b3491b748aaf4bab48}{ActiveMessenger::setTagMessage}}(MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag)\ \{}
+\DoxyCodeLine{00107\ \ \ \doxymbox{\hyperlink{namespacevt_a0eb7eef640bbf48bff94e6683be7a3dd}{envelopeSetTag}}(msg-\/>env,\ tag);}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00111\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae3c0b836a082ffb3f39d7610bdbe5b70}{ActiveMessenger::sendMsgSerializableImpl}}(}
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00113\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00115\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00116\ )\ \{}
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ These\ calls\ eventually\ end\ up\ back\ and\ the\ non-\/serialized\ sendMsgImpl,}}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ through\ use\ of\ a\ wrapped\ message\ which\ does\ not\ define\ serialization.}}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ (Although\ such\ probably\ represents\ an\ opportunity\ for\ additional\ cleanup.)}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{static\_assert}(\ \textcolor{comment}{//\ that\ a\ message\ is\ serializable.}}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1_serializable_traits_a3941c4fcb5397fe564a3453857aa9183}{::checkpoint::SerializableTraits<MsgT>::is\_serializable}},}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ going\ through\ serialization\ must\ meet\ all\ requirements."{}}}
+\DoxyCodeLine{00123\ \ \ );}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00126\ \ \ \ \ tag\ ==\ no\_tag,}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{stringliteral}{"{}Tagged\ messages\ serialization\ not\ implemented."{}}}
+\DoxyCodeLine{00128\ \ \ );}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ MsgT*\ rawMsg\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();}
+\DoxyCodeLine{00131\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{setupEpochMsg}}(rawMsg);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ Original\ message\ is\ locked\ even\ though\ it\ is\ not\ the\ actual\ message\ sent.}}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ This\ is\ for\ consistency\ with\ sending\ non-\/serialized\ messages.}}
+\DoxyCodeLine{00135\ \ \ \doxymbox{\hyperlink{namespacevt_aeda768e2b7668340d73e5254a6b2923f}{envelopeSetIsLocked}}(msg-\/>env,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{if}\ (dest\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}})\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_aa72a9a7c6b1ea78eeccb928c68a4c505}{SerializedMessenger::broadcastSerialMsg<MsgT>}}(}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ rawMsg,\ han,\ \doxymbox{\hyperlink{namespacevt_a3f298caa64a97f60a0772b74cad8b620}{envelopeGetDeliverBcast}}(rawMsg-\/>env)}
+\DoxyCodeLine{00140\ \ \ \ \ );}
+\DoxyCodeLine{00141\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_a2e9c1f9f5c6923f8ad3467e62542f5ab}{SerializedMessenger::sendSerialMsg<MsgT>}}(dest,\ rawMsg,\ han);}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00147\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4234a56f6c50c0c0a0eefd3f3f66b58e}{ActiveMessenger::sendMsgCopyableImpl}}(}
+\DoxyCodeLine{00148\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00149\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00150\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00151\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00152\ )\ \{}
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1is__byte__copyable__t_ab69321190f297b7962efa8a8b0543c35}{vt::messaging::is\_byte\_copyable\_t<MsgT>::value}},}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ sent\ without\ serialization\ must\ be\ byte-\/copyable."{}}}
+\DoxyCodeLine{00156\ \ \ );}
+\DoxyCodeLine{00157\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00158\ \ \ \ \ std::is\_trivially\_destructible<MsgT>::value,}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{stringliteral}{"{}Message\ sent\ without\ serialization\ must\ be\ trivially\ destructible."{}}}
+\DoxyCodeLine{00160\ \ \ );}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ MsgT*\ rawMsg\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}();}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{bool}\ is\_term\ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ad1743de9163dc74a43e6a95e28f49462}{envelopeIsTerm}}(rawMsg-\/>env);}
+\DoxyCodeLine{00165\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ is\_bcast\ =\ dest\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordflow}{if}\ (!is\_term\ ||\ \doxymbox{\hyperlink{features__defines_8h_a62fe65c25c90d03bc704afc5d80d7210}{vt\_check\_enabled}}(print\_term\_msgs))\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_bcast)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ verbose,\ active,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}broadcastMsg\ of\ ptr=\{\},\ type=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(rawMsg),\ \textcolor{keyword}{typeid}(MsgT).\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a42112dea411907ca529bd5bc6586249a}{name}}()}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00174\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ verbose,\ active,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sendMsg\ of\ ptr=\{\},\ type=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(rawMsg),\ \textcolor{keyword}{typeid}(MsgT).\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a42112dea411907ca529bd5bc6586249a}{name}}()}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordflow}{if}\ (is\_bcast)\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ dest\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a44428f493f635833b6b8da6a6dfcf08f}{this\_node\_}};}
+\DoxyCodeLine{00185\ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{if}\ (tag\ !=\ no\_tag)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a0eb7eef640bbf48bff94e6683be7a3dd}{envelopeSetTag}}(rawMsg-\/>env,\ tag);}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \doxymbox{\hyperlink{namespacevt_a28259c2647b43612398b9355a3e1916c}{envelopeSetup}}(rawMsg-\/>env,\ dest,\ han);}
+\DoxyCodeLine{00190\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{setupEpochMsg}}(rawMsg);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \doxymbox{\hyperlink{namespacevt_aeda768e2b7668340d73e5254a6b2923f}{envelopeSetIsLocked}}(rawMsg-\/>env,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{auto}\ base\ =\ msg.template\ to<BaseMsgType>();}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}(base);}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00199\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00200\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00201\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00202\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00203\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00204\ )\ \{}
+\DoxyCodeLine{00205\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00210\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0d38199d7351ef980e166d8aaabe1be2}{ActiveMessenger::sendMsgSz}}(}
+\DoxyCodeLine{00211\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00212\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00213\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00214\ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00215\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00216\ )\ \{}
+\DoxyCodeLine{00217\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}},\ msg\_size);\ \textcolor{comment}{//\ Note:\ use\ explicitly\ provided\ message\ size}}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00219\ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00222\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_gad30a4e31445d40f9c3c36521fc04f975}{ActiveMessenger::sendMsgAuto}}(}
+\DoxyCodeLine{00223\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00224\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00225\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00226\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00227\ )\ \{}
+\DoxyCodeLine{00228\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00233\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga9f860f0d5b630840ca164af25f74e9e9}{ActiveMessenger::broadcastMsgSz}}(}
+\DoxyCodeLine{00234\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00235\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00237\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00238\ )\ \{}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00240\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}});}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \doxymbox{\hyperlink{namespacevt_af6e10f3d27abb3321ca34830880c0f7a}{setBroadcastType}}(msgptr-\/>env,\ deliver\_to\_sender);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00245\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00246\ \ \ );}
+\DoxyCodeLine{00247\ \}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00250\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{ActiveMessenger::broadcastMsg}}(}
+\DoxyCodeLine{00251\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00253\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00254\ )\ \{}
+\DoxyCodeLine{00255\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00256\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \doxymbox{\hyperlink{namespacevt_af6e10f3d27abb3321ca34830880c0f7a}{setBroadcastType}}(msgptr-\/>env,\ deliver\_to\_sender);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00261\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00262\ \ \ );}
+\DoxyCodeLine{00263\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00266\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00267\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00268\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00269\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00270\ )\ \{}
+\DoxyCodeLine{00271\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00272\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00274\ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00277\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0d38199d7351ef980e166d8aaabe1be2}{ActiveMessenger::sendMsgSz}}(}
+\DoxyCodeLine{00278\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00279\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00280\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00281\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00282\ )\ \{}
+\DoxyCodeLine{00283\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00284\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}});}
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00286\ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00289\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_gad30a4e31445d40f9c3c36521fc04f975}{ActiveMessenger::sendMsgAuto}}(}
+\DoxyCodeLine{00290\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00291\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00292\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00293\ )\ \{}
+\DoxyCodeLine{00294\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00295\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00297\ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00300\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga7a5d96676fde771a9ce5af119796fb3a}{ActiveMessenger::broadcastMsgAuto}}(}
+\DoxyCodeLine{00301\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00302\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00303\ )\ \{}
+\DoxyCodeLine{00304\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00305\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00307\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00308\ \ \ );}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{keyword}{template}\ <ActiveFnType*\ f,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00312\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{ActiveMessenger::broadcastMsg}}(}
+\DoxyCodeLine{00313\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00315\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00316\ )\ \{}
+\DoxyCodeLine{00317\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00318\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00319\ \ \ \doxymbox{\hyperlink{namespacevt_af6e10f3d27abb3321ca34830880c0f7a}{setBroadcastType}}(msgptr-\/>env,\ deliver\_to\_sender);}
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00321\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00322\ \ \ );}
+\DoxyCodeLine{00323\ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{keyword}{template}\ <ActiveFnType*\ f,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00326\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00327\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00328\ \ \ MsgPtrThief<MsgT>\ msg,}
+\DoxyCodeLine{00329\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00330\ )\ \{}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00332\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.msg\_;}
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00334\ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00337\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{ActiveMessenger::broadcastMsg}}(}
+\DoxyCodeLine{00338\ \ \ MsgPtrThief<MsgT>\ msg,}
+\DoxyCodeLine{00339\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00340\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00341\ )\ \{}
+\DoxyCodeLine{00342\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a473fb7ec675cc28fde0d6b0c5b19ac19}{auto\_registry::makeAutoHandlerFunctor<FunctorT,\ MsgT,\ true>}}();}
+\DoxyCodeLine{00343\ \ \ MsgSharedPtr<MsgT>\ msgptr\ =\ msg.msg\_;}
+\DoxyCodeLine{00344\ \ \ \doxymbox{\hyperlink{namespacevt_af6e10f3d27abb3321ca34830880c0f7a}{setBroadcastType}}(msgptr-\/>env,\ deliver\_to\_sender);}
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00346\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00347\ \ \ );}
+\DoxyCodeLine{00348\ \}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{00351\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{ActiveMessenger::broadcastMsg}}(}
+\DoxyCodeLine{00352\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}>\ msg,}
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00354\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00355\ )\ \{}
+\DoxyCodeLine{00356\ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}};}
+\DoxyCodeLine{00357\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg<FunctorT,\ MsgT>}}(msg,\ deliver\_to\_sender,\ tag);}
+\DoxyCodeLine{00358\ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00361\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00362\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00363\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00364\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00365\ )\ \{}
+\DoxyCodeLine{00366\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a473fb7ec675cc28fde0d6b0c5b19ac19}{auto\_registry::makeAutoHandlerFunctor<FunctorT,\ MsgT,\ true>}}();}
+\DoxyCodeLine{00367\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00368\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00369\ \}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{00372\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00373\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00374\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}>\ msg,}
+\DoxyCodeLine{00375\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00376\ )\ \{}
+\DoxyCodeLine{00377\ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}};}
+\DoxyCodeLine{00378\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg<FunctorT,\ MsgT>}}(dest,\ msg,\ tag);}
+\DoxyCodeLine{00379\ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00382\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga7a5d96676fde771a9ce5af119796fb3a}{ActiveMessenger::broadcastMsgAuto}}(}
+\DoxyCodeLine{00383\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00384\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00385\ )\ \{}
+\DoxyCodeLine{00386\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a473fb7ec675cc28fde0d6b0c5b19ac19}{auto\_registry::makeAutoHandlerFunctor<FunctorT,\ MsgT,\ true>}}();}
+\DoxyCodeLine{00387\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00388\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00389\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00390\ \ \ );}
+\DoxyCodeLine{00391\ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00394\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_gad30a4e31445d40f9c3c36521fc04f975}{ActiveMessenger::sendMsgAuto}}(}
+\DoxyCodeLine{00395\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00396\ \ \ MsgPtrThief<MsgT>\ msg,}
+\DoxyCodeLine{00397\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00398\ )\ \{}
+\DoxyCodeLine{00399\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a473fb7ec675cc28fde0d6b0c5b19ac19}{auto\_registry::makeAutoHandlerFunctor<FunctorT,\ MsgT,\ true>}}();}
+\DoxyCodeLine{00400\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.msg\_;}
+\DoxyCodeLine{00401\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00402\ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00405\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00406\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00407\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00408\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00409\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{UserSendFnType}}\ send\_payload\_fn}
+\DoxyCodeLine{00410\ )\ \{}
+\DoxyCodeLine{00411\ \ \ \textcolor{keyword}{namespace\ }ph\ =\ std::placeholders;}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \textcolor{comment}{//\ must\ send\ first\ so\ action\ payload\ function\ runs\ before\ the\ send}}
+\DoxyCodeLine{00414\ \ \ \textcolor{keyword}{auto}\ f\ =\ std::bind(}
+\DoxyCodeLine{00415\ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a98c8e157b97812c677debc8a25ec392d}{ActiveMessenger::sendData}},\ \textcolor{keyword}{this},\ ph::\_1,\ ph::\_2,\ ph::\_3}
+\DoxyCodeLine{00416\ \ \ );}
+\DoxyCodeLine{00417\ \ \ send\_payload\_fn(f);}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00420\ \ \ \textcolor{keyword}{auto}\ tag\ =\ no\_tag;}
+\DoxyCodeLine{00421\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(dest,\ han,\ msgptr,\ tag);}
+\DoxyCodeLine{00422\ \}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00425\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{ActiveMessenger::sendMsg}}(}
+\DoxyCodeLine{00426\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00427\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00428\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{UserSendFnType}}\ send\_payload\_fn}
+\DoxyCodeLine{00429\ )\ \{}
+\DoxyCodeLine{00430\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a965b4801e4d0aee0e5b86342c92baf68}{auto\_registry::makeAutoHandler<MsgT,f>}}();}
+\DoxyCodeLine{00431\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg<MsgT>}}(dest,\ han,\ msg,\ send\_payload\_fn);}
+\DoxyCodeLine{00432\ \}}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00435\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{ActiveMessenger::broadcastMsg}}(}
+\DoxyCodeLine{00436\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00437\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00438\ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender,}
+\DoxyCodeLine{00439\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00440\ )\ \{}
+\DoxyCodeLine{00441\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00442\ \ \ \doxymbox{\hyperlink{namespacevt_af6e10f3d27abb3321ca34830880c0f7a}{setBroadcastType}}(msgptr-\/>env,\ deliver\_to\_sender);}
+\DoxyCodeLine{00443\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00444\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00445\ \ \ );}
+\DoxyCodeLine{00446\ \}}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00449\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga7a5d96676fde771a9ce5af119796fb3a}{ActiveMessenger::broadcastMsgAuto}}(}
+\DoxyCodeLine{00450\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00451\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00452\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00453\ )\ \{}
+\DoxyCodeLine{00454\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ msgptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00455\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl<MsgT>}}(}
+\DoxyCodeLine{00456\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a11d2b356f56486f2e60f0255cb6b05ff}{broadcast\_dest}},\ han,\ msgptr,\ tag}
+\DoxyCodeLine{00457\ \ \ );}
+\DoxyCodeLine{00458\ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{ActiveMessenger::pushEpoch}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00461\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a1e93b826e597c203fb220a9dd540bd94}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00462\ \}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ ActiveMessenger::popEpoch(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}})\ \{}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a81a7f955e09f59a85303bfcb90414882}{popEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00466\ \}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a627a8b2918ad283edf386038cf5693ca}{ActiveMessenger::getEpoch}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00469\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a9d5e018c724d65983ceeff5272b2e154}{getEpoch}}();}
+\DoxyCodeLine{00470\ \}}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00473\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{ActiveMessenger::getEpochContextMsg}}(MsgT*\ msg)\ \{}
+\DoxyCodeLine{00474\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a35972fd8b7d620e41e94e883e8e0cca4}{envelopeIsEpochType}}(msg-\/>env);}
+\DoxyCodeLine{00475\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ any\_epoch\ =\ term::any\_epoch\_sentinel;}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \ \ \textcolor{keywordflow}{if}\ (is\_epoch)\ \{}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ msg\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(msg-\/>env);}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{comment}{//\ Prefer\ the\ epoch\ on\ the\ msg\ before\ the\ current\ handler\ epoch}}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordflow}{if}\ (msg\_epoch\ !=\ no\_epoch\ and\ msg\_epoch\ !=\ any\_epoch)\ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \textcolor{comment}{//\ It\ has\ a\ valid\ (possibly\ global)\ epoch,\ use\ it}}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ msg\_epoch;}
+\DoxyCodeLine{00484\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \textcolor{comment}{//\ Otherwise,\ use\ the\ active\ messenger's\ current\ epoch\ on\ the\ stack}}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctx\_epoch\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a627a8b2918ad283edf386038cf5693ca}{getEpoch}}();}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ ctx\_epoch\ !=\ no\_epoch,\ \textcolor{stringliteral}{"{}Must\ have\ a\ valid\ epoch\ here"{}},}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ ctx\_epoch,\ msg\_epoch,\ no\_epoch,\ any\_epoch}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ctx\_epoch;}
+\DoxyCodeLine{00492\ \ \ \ \ \}}
+\DoxyCodeLine{00493\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordflow}{return}\ any\_epoch;}
+\DoxyCodeLine{00495\ \ \ \}}
+\DoxyCodeLine{00496\ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00499\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{ActiveMessenger::getEpochContextMsg}}(}
+\DoxyCodeLine{00500\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ \textcolor{keyword}{const}\&\ msg}
+\DoxyCodeLine{00501\ )\ \{}
+\DoxyCodeLine{00502\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}());}
+\DoxyCodeLine{00503\ \}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00506\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{ActiveMessenger::setupEpochMsg}}(MsgT*\ msg)\ \{}
+\DoxyCodeLine{00507\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ is\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a35972fd8b7d620e41e94e883e8e0cca4}{envelopeIsEpochType}}(msg-\/>env);}
+\DoxyCodeLine{00508\ \ \ \textcolor{keywordflow}{if}\ (is\_epoch)\ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(msg);}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ msg\_no\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(msg-\/>env)\ ==\ no\_epoch;}
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{keywordflow}{if}\ (msg\_no\_epoch\ and\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ !=\ term::any\_epoch\_sentinel)\ \{}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a5fc9cb79e5cbef41007d847964c17113}{setEpochMessage}}(msg,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00513\ \ \ \ \ \}}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}};}
+\DoxyCodeLine{00515\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{keywordflow}{return}\ term::any\_epoch\_sentinel;}
+\DoxyCodeLine{00517\ \ \ \}}
+\DoxyCodeLine{00518\ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00521\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{ActiveMessenger::setupEpochMsg}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ \textcolor{keyword}{const}\&\ msg)\ \{}
+\DoxyCodeLine{00522\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{setupEpochMsg}}(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}());}
+\DoxyCodeLine{00523\ \}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \}\}\ \textcolor{comment}{//end\ namespace\ vt::messaging}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{param__msg_8impl_8h}{vt/messaging/param\_msg.impl.h}}"{}}}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_ACTIVE\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

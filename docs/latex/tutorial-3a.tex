@@ -1,0 +1,81 @@
+\doxysubsection{Learning about collective epochs }
+\hypertarget{tutorial-3a}{}\label{tutorial-3a}\index{Learning about collective epochs@{Learning about collective epochs}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ExampleMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{}
+\DoxyCodeLine{\ \ ExampleMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ ExampleMsg(int32\_t\ in\_ttl)\ :\ ttl(in\_ttl-\/1)\ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ int32\_t\ ttl\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ recurHandler(ExampleMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ using\ a\ callback}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageTerm()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ Termination\ will\ allow\ us\ to\ track\ a\ subcomputation\ with\ causality\ to}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ determine\ when\ a\ sub-\/computation\ terminated\ in\ a\ distributed-\/manner.\ The}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ tutorial\ demonstrates\ how\ to\ use\ \`{}collective`\ epochs.\ Rooted\ epoch\ will\ be}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ demonstrated\ in\ a\ follow-\/on\ tutorial.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Create\ a\ new\ epoch:\ this\ is\ a\ collective\ invocation}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ new\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_aeba62165ec8dfbc445e3631ff295f159}{makeEpochCollective}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<ExampleMsg>}}(8);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{envelopeSetEpoch}}(msg-\/>env,\ new\_epoch);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<recurHandler>(this\_node+1,\ msg);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Any\ node\ that\ wishes\ to\ have\ a\ notification\ on\ termination\ for\ a\ given}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ epoch\ can\ add\ actions\ for\ the\ termination\ detector}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}}(}
+\DoxyCodeLine{\ \ \ \ new\_epoch,\ []\{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1config_a46e57c33bee1b9f1fa95455af86d80e0a576033c81e2ddd03d721ecef3b1b3f81}{node}}\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ recurHandler\ terminated\(\backslash\)n"{}},\ node);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ This\ is\ not\ explicitly\ a\ collective,\ but\ all\ nodes\ need\ to\ call}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ \`{}finishedEpoch`\ to\ tell\ the\ system\ they\ are\ finished\ sending\ messages}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ for\ the\ epoch.}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(new\_epoch);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler\ that\ recursively\ sends\ messages}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ recurHandler(ExampleMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ::fmt::print(}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}\{\}:\ recurHandler:\ ttl=\{\},\ triggered\(\backslash\)n"{}},\ this\_node,\ msg-\/>ttl}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (msg-\/>ttl\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_send\ =\ \textcolor{keyword}{static\_cast<}int32\_t\textcolor{keyword}{>}(drand48()\ *\ 3);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ num\_send;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ next\_node\ =\ (this\_node\ +\ 1\ >\ num\_nodes\ -\/\ 1)\ ?\ 0\ :\ (this\_node\ +\ 1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ ::fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\{\}:\ recurHandler:\ i=\{\},\ next\_node=\{\},\ num\_send=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this\_node,\ i,\ next\_node,\ num\_send}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\_send\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<ExampleMsg>}}(msg-\/>ttl);}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<recurHandler>(next\_node,\ msg\_send);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['z_7029',['z',['../structvt_1_1index_1_1_dense_index_array.html#a8de61716f67863e9c1eca84f8c99de22',1,'vt::index::DenseIndexArray::z() const'],['../structvt_1_1index_1_1_dense_index_array.html#a9bd7a86415c7ce861f5cf17dd5a849e0',1,'vt::index::DenseIndexArray::z() const']]],
-  ['zeroreducestamp_7030',['zeroReduceStamp',['../structvt_1_1vrt_1_1collection_1_1_indexable.html#a6779bdff2e752f84eee31eee51858f56',1,'vt::vrt::collection::Indexable']]],
-  ['zettabytes_7031',['Zettabytes',['../namespacevt_1_1util_1_1memory.html#a64df3d84293b34009f78e2a1db2f9bb6ae7d195686624d72a3737ed4d84058f41',1,'vt::util::memory']]],
-  ['zoltanlb_2ecc_7032',['zoltanlb.cc',['../zoltanlb_8cc.html',1,'']]],
-  ['zoltanlb_2eh_7033',['zoltanlb.h',['../zoltanlb_8h.html',1,'']]]
+  ['x_0',['x',['../structvt_1_1index_1_1_dense_index_array.html#afb97e872285111d25c53c14271482337',1,'vt::index::DenseIndexArray::x() const'],['../structvt_1_1index_1_1_dense_index_array.html#af5731c29e392485535d090b57b66a6f5',1,'vt::index::DenseIndexArray::x() const']]],
+  ['x_5f_1',['x_',['../structvt_1_1util_1_1stats_1_1_linear_regression.html#a46208bdabbdb35abead50111765242df',1,'vt::util::stats::LinearRegression']]]
 ];

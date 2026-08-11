@@ -1,0 +1,762 @@
+\doxysection{sub\+\_\+handle.\+impl.\+h}
+\hypertarget{sub__handle_8impl_8h_source}{}\label{sub__handle_8impl_8h_source}\index{src/vt/rdmahandle/sub\_handle.impl.h@{src/vt/rdmahandle/sub\_handle.impl.h}}
+\doxymbox{\hyperlink{sub__handle_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub\_handle.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RDMAHANDLE\_SUB\_HANDLE\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RDMAHANDLE\_SUB\_HANDLE\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2manager_8h}{vt/objgroup/manager.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{default__msg_8h}{vt/collective/reduce/operators/default\_msg.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}}\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aedc4c6df2e9a471ac5d79c390a880757}{SubHandle<T,E,IndexT>::initialize}}(}
+\DoxyCodeLine{00055\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4a1fe11b4ca31316c1a20f8b380012c5}{ProxyType}}\ in\_proxy,\ \textcolor{keywordtype}{bool}\ in\_is\_migratable,\ IndexT\ in\_range,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{vt::HandlerType}}\ map\_han,}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{bool}\ in\_dense\_start\_with\_zero}
+\DoxyCodeLine{00057\ )\ \{}
+\DoxyCodeLine{00058\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5ecf30f3c569bbfe574df42843cf0059}{map\_han\_}}\ =\ map\_han;}
+\DoxyCodeLine{00059\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}\ =\ in\_proxy;}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}}\ =\ in\_is\_migratable;}
+\DoxyCodeLine{00061\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}}\ =\ in\_range;}
+\DoxyCodeLine{00062\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a21a1dd0a0dda531cb1153d58c5bad18b}{dense\_start\_with\_zero\_}}\ =\ in\_dense\_start\_with\_zero;}
+\DoxyCodeLine{00063\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}}\ and\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a21a1dd0a0dda531cb1153d58c5bad18b}{dense\_start\_with\_zero\_}}\ and\ not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}};}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a24d2a25c3d1ed517b3d38fdc23067c14}{SubHandle<T,E,IndexT>::makeSubHandles}}(\textcolor{keywordtype}{bool}\ initial)\ \{}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}})\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{auto}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ map\_fn\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a5969065f9c4ca94b47b3d896859d2cf9}{auto\_registry::getHandlerMap}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5ecf30f3c569bbfe574df42843cf0059}{map\_han\_}});}
+\DoxyCodeLine{00072\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}}.foreach\ ([\&](IndexT\ cur\_idx)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ home\_node\ =\ map\_fn-\/>dispatch(\&cur\_idx,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}},\ num\_nodes);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}.find(cur\_idx);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (home\_node\ ==\ this\_node\ and\ iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}.end())\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a8b51ba1b3d7de1bbe11113e7abfc424c}{stageLocalIndex}}(iter-\/>first,\ iter-\/>second);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \});}
+\DoxyCodeLine{00079\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}})\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a8b51ba1b3d7de1bbe11113e7abfc424c}{stageLocalIndex}}(h.first,\ h.second);}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}.clear();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ total\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ac8c87ae808bf36b1be5235bc17a4e9d4}{totalLocalCount}}();}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_local\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.size();}
+\DoxyCodeLine{00088\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00089\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{stringliteral}{"{}total=\{\},\ num\_local=\{\},\ is\_migratable\_=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00091\ \ \ \ \ total,\ num\_local,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}}}
+\DoxyCodeLine{00092\ \ \ );}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordflow}{for}\ (uint64\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.size();\ i++)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}i=\{\}\ prefix=\{\}\ layout=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ i,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[i],\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[i]}
+\DoxyCodeLine{00098\ \ \ \ \ );}
+\DoxyCodeLine{00099\ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.template\ makeHandleRDMA<T>(total,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a57898faf652b288e75811c7c38e94dc2}{waitForHandleReady}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}});}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{if}\ (initial)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ Handle\ case\ when\ the\ local\ size\ is\ zero}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{auto}\ loc\_len\ =}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ num\_local\ >\ 0\ ?\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}}\ ?\ num\_local\ *\ 4\ :\ (num\_local\ +\ 1)\ *\ 2)\ :\ 0;}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}total=\{\},\ num\_local=\{\},\ is\_migratable\_=\{\},\ loc\_len=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ total,\ num\_local,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}},\ loc\_len}
+\DoxyCodeLine{00110\ \ \ \ \ );}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.template\ makeHandleRDMA<uint64\_t>(loc\_len,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a57898faf652b288e75811c7c38e94dc2}{waitForHandleReady}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}});}
+\DoxyCodeLine{00113\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.size()\ ==\ num\_local);}
+\DoxyCodeLine{00114\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.size()\ ==\ num\_local);}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\_len\ >\ 0)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}})\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.modifyExclusive([\&](uint64\_t*\ t,\ std::size\_t)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ uint64\_t\ i\ =\ 0;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ num\_local\ *\ 2;\ i\ +=\ 2)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+0]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[i/2]);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+1]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[i/2];}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ t[i+0]\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ t[i+1]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.size()-\/1]].count\_\ +\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[(i-\/2)/2];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.modifyExclusive([\&](uint64\_t*\ t,\ std::size\_t)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ uint64\_t\ i\ =\ 0;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ num\_local\ *\ 4;\ i\ +=\ 4)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+0]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[i/4]);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+1]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[i/4];}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+2]\ =\ this\_node;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ t[i+3]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[i/4]].count\_;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a17f367f36559b48d0f18ec869e4ded8c}{ready\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00144\ \textcolor{keyword}{typename}\ IndexT::DenseIndexType}
+\DoxyCodeLine{00145\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{SubHandle<T,E,IndexT>::linearize}}(IndexT\ idx)\ \{}
+\DoxyCodeLine{00146\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00147\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{stringliteral}{"{}linearize:\ idx=\{\},\ range=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00149\ \ \ \ \ idx,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}}}
+\DoxyCodeLine{00150\ \ \ );}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1mapping_abcd5f8f5e5c974ef83eaa87eeeb416a6}{vt::mapping::linearizeDenseIndexRowMajor}}(\&idx,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}});}
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00155\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae94fc60f536d4248f76d86bf60bdc21b}{SubHandle<T,\ E,\ IndexT>::getHomeNode}}(IndexT\ \textcolor{keyword}{const}\&\ idx)\ \{}
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ fn\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a5969065f9c4ca94b47b3d896859d2cf9}{auto\_registry::getHandlerMap}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5ecf30f3c569bbfe574df42843cf0059}{map\_han\_}});}
+\DoxyCodeLine{00157\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{auto}\ idx\_p\ =\ idx;}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ fn-\/>dispatch(\&idx\_p,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}},\ num\_nodes);}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a739742d5f2e5d5efda43eeb57072c031}{SubHandle<T,\ E,\ IndexT>::getOrderedOffset}}(IndexT\ idx,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home\_node)\ \{}
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a384d5a4c7b19a6bfd9546769d7da1e85}{ordered\_local\_offset\_}}.find(idx);}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{int}\ found\_offset\ =\ 0;}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a384d5a4c7b19a6bfd9546769d7da1e85}{ordered\_local\_offset\_}}.end())\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{auto}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ map\_fn\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a5969065f9c4ca94b47b3d896859d2cf9}{auto\_registry::getHandlerMap}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5ecf30f3c569bbfe574df42843cf0059}{map\_han\_}});}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ 0;}
+\DoxyCodeLine{00170\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}}.foreach\ ([\&](IndexT\ cur\_idx)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ map\_node\ =\ map\_fn-\/>dispatch(\&cur\_idx,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}},\ num\_nodes);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (home\_node\ ==\ map\_node)\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cur\_idx\ ==\ idx)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ found\_offset\ =\ offset;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ offset++;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \});}
+\DoxyCodeLine{00179\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a384d5a4c7b19a6bfd9546769d7da1e85}{ordered\_local\_offset\_}}[idx]\ =\ found\_offset;}
+\DoxyCodeLine{00180\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ found\_offset\ =\ iter-\/>second;}
+\DoxyCodeLine{00182\ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordflow}{return}\ found\_offset;}
+\DoxyCodeLine{00184\ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00187\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3bd9d6c4854f47bf9cc6eebfa9c18fca}{SubHandle<T,E,IndexT>::updateInfo}}(}
+\DoxyCodeLine{00188\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}\ info,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home}
+\DoxyCodeLine{00189\ )\ \{}
+\DoxyCodeLine{00190\ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}});}
+\DoxyCodeLine{00191\ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}});}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{auto}\ home\_size\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.getCount(home);}
+\DoxyCodeLine{00194\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00195\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{stringliteral}{"{}updateInfo:\ idx=\{\},\ this\_node=\{\},\ home=\{\},\ home\_size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00197\ \ \ \ \ idx,\ this\_node,\ home,\ home\_size}
+\DoxyCodeLine{00198\ \ \ );}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{auto}\ lin\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(idx);}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{auto}\ ptr\ =\ std::make\_unique<uint64\_t[]>(home\_size);}
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ These\ can\ probably\ be\ relaxed\ to\ Shared\ locks\ because\ lin\_idx\ is\ never}}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ modified}}
+\DoxyCodeLine{00203\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.get(home,\ ptr.get(),\ home\_size,\ 0,\ Lock::Exclusive);}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordflow}{for}\ (uint64\_t\ i\ =\ 0;\ i\ <\ home\_size;\ i\ +=\ 4)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}updateInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ ptr[\{\}]=\{\},\{\},\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ idx,\ this\_node,\ home,\ i,\ ptr[i+0],\ ptr[i+1],\ ptr[i+2],\ ptr[i+3]}
+\DoxyCodeLine{00209\ \ \ \ \ );}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr[i]\ ==\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(lin\_idx))\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}updateInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ "{}}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ptr[\{\}]=\{\},\{\},\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ idx,\ this\_node,\ home,\ i,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ ptr[i+0],\ ptr[i+1],\ ptr[i+2],\ ptr[i+3]}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offset\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(i);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pptr\ =\ std::make\_unique<uint64\_t[]>(2);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ pptr[0]\ =\ info.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info_ad69b51477f01c99fe3b636ba49477138}{getOffset}}();}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ pptr[1]\ =\ info.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info_a94944747d01e14bb229837b048067c4f}{getNode}}();}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.put(home,\ pptr.get(),\ 2,\ offset\ +\ 1,\ Lock::Exclusive);}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \}}
+\DoxyCodeLine{00225\ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00228\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a98a57c00dcd4b2311937a1af439c10b1}{SubHandle<T,E,IndexT>::fetchInfo}}(IndexT\ \textcolor{keyword}{const}\&\ idx)\ \{}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{auto}\ home\_node\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae94fc60f536d4248f76d86bf60bdc21b}{getHomeNode}}(idx);}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}})\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{auto}\ offset\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a739742d5f2e5d5efda43eeb57072c031}{getOrderedOffset}}(idx,\ home\_node);}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}})\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ std::make\_unique<uint64\_t[]>(4);}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.get(home\_node,\ ptr.get(),\ 4,\ offset*2,\ Lock::Exclusive);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lin\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(idx);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ ordered:\ offset=\{\},\ idx=\{\},\ node=\{\},\ home=\{\},\ "{}}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ptr=\{\},\{\},\ \{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ offset,\ idx,\ this\_node,\ home\_node,\ ptr[0],\ ptr[1],\ ptr[2],\ ptr[3]}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(ptr[0]\ ==\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(lin\_idx));}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}(home\_node,\ ptr[1],\ ptr[3]-\/ptr[1]);}
+\DoxyCodeLine{00245\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ std::make\_unique<uint64\_t[]>(4);}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.get(home\_node,\ ptr.get(),\ 4,\ offset*4,\ Lock::Exclusive);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lin\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(idx);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ ordered:\ offset=\{\},\ idx=\{\},\ node=\{\},\ home=\{\},"{}}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ ptr=\{\},\{\},\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ offset,\ idx,\ this\_node,\ home\_node,\ ptr[0],\ ptr[1],\ ptr[2],\ ptr[3]}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(ptr[0]\ ==\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(lin\_idx));}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}(ptr[2],\ ptr[1],\ ptr[3]);}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{auto}\ home\_size\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.getCount(home\_node);}
+\DoxyCodeLine{00260\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ idx=\{\},\ this\_node=\{\},\ home\_node=\{\},\ home\_size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ idx,\ this\_node,\ home\_node,\ home\_size}
+\DoxyCodeLine{00264\ \ \ \ \ );}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keyword}{auto}\ lin\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a35569a5d08c05d25f56136f5924e4315}{linearize}}(idx);}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ std::make\_unique<uint64\_t[]>(home\_size);}
+\DoxyCodeLine{00267\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}}.get(home\_node,\ ptr.get(),\ home\_size,\ 0,\ Lock::Exclusive);}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}})\ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint64\_t\ i\ =\ 0;\ i\ <\ home\_size;\ i\ +=\ 2)\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ ptr[\{\}]=\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ idx,\ this\_node,\ home\_node,\ i,\ ptr[i+0],\ ptr[i+1]}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr[i]\ ==\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(lin\_idx))\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ ptr[\{\}]=\{\},\{\},\ \{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ idx,\ this\_node,\ home\_node,\ i,\ ptr[i+0],\ ptr[i+1],}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ ptr[i+2],\ ptr[i+3]}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}(home\_node,\ ptr[i+1],\ ptr[i+3]-\/ptr[i+1]);}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint64\_t\ i\ =\ 0;\ i\ <\ home\_size;\ i\ +=\ 4)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ ptr[\{\}]=\{\},\{\},\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ idx,\ this\_node,\ home\_node,\ i,\ ptr[i+0],\ ptr[i+1],\ ptr[i+2],\ ptr[i+3]}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr[i]\ ==\ \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(lin\_idx))\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fetchInfo:\ idx=\{\},\ node=\{\},\ home=\{\},\ "{}}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ptr[\{\}]=\{\},\{\},\{\},\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ idx,\ this\_node,\ home\_node,\ i,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ ptr[i+0],\ ptr[i+1],\ ptr[i+2],\ ptr[i+3]}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}(ptr[i+2],\ ptr[i+1],\ ptr[i+3]);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Could\ not\ find\ location\ info"{}});}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}\{\};}
+\DoxyCodeLine{00307\ \}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00310\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{SubHandle<T,E,IndexT>::resolveLocation}}(IndexT\ \textcolor{keyword}{const}\&\ idx)\ \{}
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.find(idx);}
+\DoxyCodeLine{00312\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.end())\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_index_info}{IndexInfo}}(this\_node,\ iter-\/>second.offset\_,\ iter-\/>second.count\_);}
+\DoxyCodeLine{00315\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aa4d5fc9bb2240a72af8af9164e1d8bf3}{cache\_}}.hasIndex(idx))\ \{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aa4d5fc9bb2240a72af8af9164e1d8bf3}{cache\_}}.getInfo(idx);}
+\DoxyCodeLine{00318\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a98a57c00dcd4b2311937a1af439c10b1}{fetchInfo}}(idx);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aa4d5fc9bb2240a72af8af9164e1d8bf3}{cache\_}}.saveInfo(idx,\ info);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ \ \ \}}
+\DoxyCodeLine{00324\ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00327\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ad470ab848b32d8d857229d7fa1ac0e22}{SubHandle<T,E,IndexT>::get}}(}
+\DoxyCodeLine{00328\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00329\ )\ \{}
+\DoxyCodeLine{00330\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00333\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.get(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ l);}
+\DoxyCodeLine{00334\ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00337\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a29afd2245c28f7ad1bf7e058b62cfe07}{SubHandle<T,E,IndexT>::getCount}}(IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}})\ \{}
+\DoxyCodeLine{00338\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ab6c87db6739367bdbd95be5a8f673fc8}{uniform\_size\_}})\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a0e764c3fd8c4601a58ae396b2253d1fd}{count\_if\_uniform\_}};}
+\DoxyCodeLine{00340\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{return}\ info.getCount();}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ \}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00347\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a574e1878028cc096e008f815fd0b3db6}{SubHandle<T,E,IndexT>::rget}}(}
+\DoxyCodeLine{00348\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00349\ )\ \{}
+\DoxyCodeLine{00350\ \ \ \textcolor{comment}{//\ @todo:\ make\ the\ location\ lookup\ async}}
+\DoxyCodeLine{00351\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00353\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00354\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.rget(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ l);}
+\DoxyCodeLine{00355\ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00358\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a6d0b89af8d8a7f68d7b5a44d724e4364}{SubHandle<T,E,IndexT>::rput}}(}
+\DoxyCodeLine{00359\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00360\ )\ \{}
+\DoxyCodeLine{00361\ \ \ \textcolor{comment}{//\ @todo:\ make\ the\ location\ lookup\ async}}
+\DoxyCodeLine{00362\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00363\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00365\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.rput(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ l);}
+\DoxyCodeLine{00366\ \}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00369\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e485242951ffe40f56dade64719c423}{SubHandle<T,E,IndexT>::put}}(}
+\DoxyCodeLine{00370\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00371\ )\ \{}
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00373\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00374\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00375\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.put(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ l);}
+\DoxyCodeLine{00376\ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00379\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a83e0f67ca1cbbaeb729c5a4871548023}{SubHandle<T,E,IndexT>::raccum}}(}
+\DoxyCodeLine{00380\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00381\ \ \ MPI\_Op\ op}
+\DoxyCodeLine{00382\ )\ \{}
+\DoxyCodeLine{00383\ \ \ \textcolor{comment}{//\ @todo:\ make\ the\ location\ lookup\ async}}
+\DoxyCodeLine{00384\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00385\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00386\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00387\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.raccum(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ op,\ l);}
+\DoxyCodeLine{00388\ \}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00391\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ade8b9a06b32efd7533a4f626374cc6eb}{SubHandle<T,E,IndexT>::accum}}(}
+\DoxyCodeLine{00392\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ uint64\_t\ len,\ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00393\ \ \ MPI\_Op\ op}
+\DoxyCodeLine{00394\ )\ \{}
+\DoxyCodeLine{00395\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00396\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00397\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00398\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.accum(node,\ ptr,\ len,\ offset\ +\ chunk\_offset,\ op,\ l);}
+\DoxyCodeLine{00399\ \}}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00402\ T\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aeb76a6664bacfc5ee129866923412c5c}{SubHandle<T,E,IndexT>::fetchOp}}(}
+\DoxyCodeLine{00403\ \ \ IndexT\ \textcolor{keyword}{const}\&\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T\ ptr,\ \textcolor{keywordtype}{int}\ offset,\ MPI\_Op\ op}
+\DoxyCodeLine{00404\ )\ \{}
+\DoxyCodeLine{00405\ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(idx);}
+\DoxyCodeLine{00406\ \ \ \textcolor{keyword}{auto}\ node\ =\ info.getNode();}
+\DoxyCodeLine{00407\ \ \ \textcolor{keyword}{auto}\ chunk\_offset\ =\ info.getOffset();}
+\DoxyCodeLine{00408\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.fetchOp(node,\ ptr,\ offset\ +\ chunk\_offset,\ op,\ l);}
+\DoxyCodeLine{00409\ \}}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00412\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00413\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9773a9d0641613d9ebe10c4a93befd4b}{SubHandle<T,E,IndexT>::access}}(}
+\DoxyCodeLine{00414\ \ \ IndexT\ idx,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ Callable\ fn,\ uint64\_t\ offset}
+\DoxyCodeLine{00415\ )\ \{}
+\DoxyCodeLine{00416\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.find(idx);}
+\DoxyCodeLine{00417\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.end(),\ \textcolor{stringliteral}{"{}Index\ must\ be\ local\ here"{}});}
+\DoxyCodeLine{00418\ \ \ \textcolor{keyword}{auto}\ local\_offset\ \ =\ iter-\/>second.offset\_;}
+\DoxyCodeLine{00419\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}}.access(l,\ fn,\ offset\ +\ local\_offset);}
+\DoxyCodeLine{00420\ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00423\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<T,\ E,\ IndexT>}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a24f366ba0fe9d2228d82a2c766bdbf45}{SubHandle<T,E,IndexT>::addLocalIndex}}(}
+\DoxyCodeLine{00424\ \ \ IndexT\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}},\ uint64\_t\ count}
+\DoxyCodeLine{00425\ )\ \{}
+\DoxyCodeLine{00426\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}[\doxymbox{\hyperlink{namespacevt_1_1index}{index}}]\ =\ count;}
+\DoxyCodeLine{00427\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<T,E,IndexT>}}\{}
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<T,E,IndexT>::IndexTagType}}\{\},}
+\DoxyCodeLine{00429\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.getProxy(),\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}},\ count,\ 0}
+\DoxyCodeLine{00430\ \ \ \};}
+\DoxyCodeLine{00431\ \}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00434\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a8b51ba1b3d7de1bbe11113e7abfc424c}{SubHandle<T,E,IndexT>::stageLocalIndex}}(}
+\DoxyCodeLine{00435\ \ \ IndexT\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}},\ uint64\_t\ count}
+\DoxyCodeLine{00436\ )\ \{}
+\DoxyCodeLine{00437\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00438\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00439\ \ \ \ \ \textcolor{stringliteral}{"{}addLocalIndex:\ idx=\{\},\ count=\{\},\ range=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00440\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1index}{index}},\ count,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a7545e2edae28878b31bfc7bccadc0171}{range\_}}}
+\DoxyCodeLine{00441\ \ \ );}
+\DoxyCodeLine{00442\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.push\_back(\doxymbox{\hyperlink{namespacevt_1_1index}{index}});}
+\DoxyCodeLine{00443\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.size()\ >=\ 2);}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{comment}{//\ Compute\ a\ prefix\ as\ elements\ are\ added}}
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keyword}{auto}\ last\_idx\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.size()-\/2];}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keyword}{auto}\ last\_count\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.find(last\_idx);}
+\DoxyCodeLine{00448\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(last\_count\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.end());}
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{keyword}{auto}\ last\_count\ =\ last\_count\_iter-\/>second.count\_;}
+\DoxyCodeLine{00450\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.push\_back(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.size()-\/1]\ +\ last\_count);}
+\DoxyCodeLine{00451\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.push\_back(0);}
+\DoxyCodeLine{00453\ \ \ \}}
+\DoxyCodeLine{00454\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ offset\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}[\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.size()-\/1];}
+\DoxyCodeLine{00455\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}[\doxymbox{\hyperlink{namespacevt_1_1index}{index}}]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_1_1_sub_info}{SubInfo}}(count,\ offset);}
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ab6c87db6739367bdbd95be5a8f673fc8}{uniform\_size\_}})\ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a0e764c3fd8c4601a58ae396b2253d1fd}{count\_if\_uniform\_}}\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(count);}
+\DoxyCodeLine{00458\ \ \ \}}
+\DoxyCodeLine{00459\ \}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00462\ uint64\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ac8c87ae808bf36b1be5235bc17a4e9d4}{SubHandle<T,E,IndexT>::totalLocalCount}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00463\ \ \ uint64\_t\ total\ =\ 0;}
+\DoxyCodeLine{00464\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ :\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}})\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ total\ +=\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}.second.count\_;}
+\DoxyCodeLine{00466\ \ \ \}}
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordflow}{return}\ total;}
+\DoxyCodeLine{00468\ \}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00471\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a85f238c6e5722b6e9ad9c2eff7c9463f}{SubHandle<T,E,IndexT>::getNumHandles}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00472\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}.size();}
+\DoxyCodeLine{00473\ \}}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00476\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4e1632734958542eb211fb462e54eebb}{SubHandle<T,E,IndexT>::getNumActiveHandles}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00477\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.size();}
+\DoxyCodeLine{00478\ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00481\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a1d472b924cb0ccfbb7abea085afc9c4d}{SubHandle<T,E,IndexT>::deleteHandle}}()\ \{}
+\DoxyCodeLine{00482\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_af2147cd68e8f323bad1e63c83f529bfe}{deleted\_count\_}}++;}
+\DoxyCodeLine{00483\ \}}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00486\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a8760602e62b5ae6c83b32547570f57d5}{SubHandle<T,E,IndexT>::getNumDeletedHandles}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00487\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_af2147cd68e8f323bad1e63c83f529bfe}{deleted\_count\_}};}
+\DoxyCodeLine{00488\ \}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00491\ \textcolor{keyword}{template}\ <mapping::ActiveMapTypedFnType<IndexT>\ map\_fn>}
+\DoxyCodeLine{00492\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4a1fe11b4ca31316c1a20f8b380012c5}{SubHandle<T,E,IndexT>::ProxyType}}}
+\DoxyCodeLine{00493\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a804b2836bdb4b3ce26d9180cb775993c}{SubHandle<T,E,IndexT>::construct}}(}
+\DoxyCodeLine{00494\ \ \ \textcolor{keywordtype}{bool}\ in\_is\_migratable,\ IndexT\ in\_range,\ \textcolor{keywordtype}{bool}\ in\_dense\_start\_with\_zero}
+\DoxyCodeLine{00495\ )\ \{}
+\DoxyCodeLine{00496\ \ \ \textcolor{keyword}{auto}\ map\_han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a07288f368e86daba0e0045a8e7bfda92}{auto\_registry::makeAutoHandlerMap<IndexT,\ map\_fn>}}();}
+\DoxyCodeLine{00497\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a804b2836bdb4b3ce26d9180cb775993c}{construct}}(in\_is\_migratable,\ in\_range,\ in\_dense\_start\_with\_zero,\ map\_han);}
+\DoxyCodeLine{00498\ \}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00501\ \textcolor{comment}{/*static*/}\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4a1fe11b4ca31316c1a20f8b380012c5}{SubHandle<T,E,IndexT>::ProxyType}}}
+\DoxyCodeLine{00502\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a804b2836bdb4b3ce26d9180cb775993c}{SubHandle<T,E,IndexT>::construct}}(}
+\DoxyCodeLine{00503\ \ \ \textcolor{keywordtype}{bool}\ in\_is\_migratable,\ IndexT\ in\_range,\ \textcolor{keywordtype}{bool}\ in\_dense\_start\_with\_zero,}
+\DoxyCodeLine{00504\ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{vt::HandlerType}}\ map\_han}
+\DoxyCodeLine{00505\ )\ \{}
+\DoxyCodeLine{00506\ \ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{vt::theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a451c1375245f317a93fef612e1954c96}{SubHandle<T,E,IndexT>}}>(}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{stringliteral}{"{}RDMASubHandle"{}}}
+\DoxyCodeLine{00508\ \ \ );}
+\DoxyCodeLine{00509\ \ \ proxy.get()-\/>initialize(}
+\DoxyCodeLine{00510\ \ \ \ \ proxy,\ in\_is\_migratable,\ in\_range,\ map\_han,\ in\_dense\_start\_with\_zero}
+\DoxyCodeLine{00511\ \ \ );}
+\DoxyCodeLine{00512\ \ \ \textcolor{keywordflow}{return}\ proxy;}
+\DoxyCodeLine{00513\ \}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00516\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00517\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a57898faf652b288e75811c7c38e94dc2}{SubHandle<T,E,IndexT>::waitForHandleReady}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<U,E>}}\ \textcolor{keyword}{const}\&\ h)\ \{}
+\DoxyCodeLine{00518\ \ \ \doxymbox{\hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{theSched}}()-\/>\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}{runSchedulerWhile}}([\&h]\ \{\ \textcolor{keywordflow}{return}\ not\ h.ready();\ \});}
+\DoxyCodeLine{00519\ \}}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00522\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a869dcc54734a9ff371e0970af2c2c674}{SubHandle<T,E,IndexT>::destroy}}()\ \{}
+\DoxyCodeLine{00523\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.destroyHandleRDMA(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}});}
+\DoxyCodeLine{00524\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.destroyHandleRDMA(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2283d4e38954f446ae4a76ccfae5f19b}{loc\_handle\_}});}
+\DoxyCodeLine{00525\ \}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00528\ \textcolor{comment}{/*static*/}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a1c85a7f35e134ae88ee2ee74ea3e64f2}{SubHandle<T,E,IndexT>::destroyCollective}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4a1fe11b4ca31316c1a20f8b380012c5}{ProxyType}}\ proxy)\ \{}
+\DoxyCodeLine{00529\ \ \ proxy.\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy_a62eef779c097c8398e249827e4ad7c6a}{get}}()-\/>destroy();}
+\DoxyCodeLine{00530\ \ \ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad02bff10088a4f8e453cf24bd832308c}{destroyCollective}}(proxy);}
+\DoxyCodeLine{00531\ \}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00534\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ace1b9d5aa44a6c4474ae8ec2e007a2c6}{SubHandle<T,E,IndexT>::getCollectionExpected}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00535\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4bec3a89845f7818e60afd1bc9ad611e}{collection\_expected\_count\_}};}
+\DoxyCodeLine{00536\ \}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00539\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aedd53281a11526f637a532c0729404e2}{SubHandle<T,E,IndexT>::setCollectionExpected}}(std::size\_t\ count)\ \{}
+\DoxyCodeLine{00540\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a4bec3a89845f7818e60afd1bc9ad611e}{collection\_expected\_count\_}}\ =\ count;}
+\DoxyCodeLine{00541\ \}}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00544\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a6723f3d3ff525c3fd8aaca76f781c95d}{SubHandle<T,E,IndexT>::migratedOutIndex}}(IndexT\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}})\ \{}
+\DoxyCodeLine{00545\ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}});}
+\DoxyCodeLine{00546\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00547\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{stringliteral}{"{}migratedOutIndex:\ idx=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}}}
+\DoxyCodeLine{00549\ \ \ );}
+\DoxyCodeLine{00550\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.push\_back(\doxymbox{\hyperlink{namespacevt_1_1index}{index}});}
+\DoxyCodeLine{00551\ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00554\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a0497a34f8aeb5636e5adaa8d8286c5c8}{SubHandle<T,E,IndexT>::migratedInIndex}}(IndexT\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}})\ \{}
+\DoxyCodeLine{00555\ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}});}
+\DoxyCodeLine{00556\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00557\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{stringliteral}{"{}migratedInIndex:\ idx=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_1_1index}{index}}}
+\DoxyCodeLine{00559\ \ \ );}
+\DoxyCodeLine{00560\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.push\_back(\doxymbox{\hyperlink{namespacevt_1_1index}{index}});}
+\DoxyCodeLine{00561\ \}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma_1_1impl}{impl}}\ \{}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1impl_1_1_reduce_l_b_msg_aad27e6469e2f4d79a5f3f9e4919208ae}{ReduceLBMsg}}\ :\ \doxymbox{\hyperlink{namespacevt_1_1collective_aac13e647936677f13e31763da479a99c}{vt::collective::ReduceTMsg}}<bool>\ \{}
+\DoxyCodeLine{00566\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1impl_1_1_reduce_l_b_msg_aad27e6469e2f4d79a5f3f9e4919208ae}{ReduceLBMsg}}(\textcolor{keywordtype}{bool}\ changed)}
+\DoxyCodeLine{00567\ \ \ \ \ :\ \doxymbox{\hyperlink{namespacevt}{vt}}::\doxymbox{\hyperlink{namespacevt_1_1collective}{collective}}::ReduceTMsg<bool>(changed)}
+\DoxyCodeLine{00568\ \ \ \{\ \}}
+\DoxyCodeLine{00569\ \};}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \}\ \textcolor{comment}{/*\ end\ namespace\ impl\ */}}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00574\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d441d9e8080998111cc659b8ce725b1}{SubHandle<T,E,IndexT>::afterLB}}()\ \{}
+\DoxyCodeLine{00575\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a451c1375245f317a93fef612e1954c96}{SubHandle<T,E,IndexT>}};}
+\DoxyCodeLine{00576\ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2e2fe2ff0da95f9b228d4f0d3cf5b3ce}{is\_migratable\_}});}
+\DoxyCodeLine{00577\ \ \ \textcolor{keywordtype}{bool}\ local\_changed\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.size()\ !=\ 0\ or\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.size()\ !=\ 0;}
+\DoxyCodeLine{00578\ \ \ \textcolor{keyword}{auto}\ cb\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}<}
+\DoxyCodeLine{00579\ \ \ \ \ ThisType,\doxymbox{\hyperlink{structvt_1_1rdma_1_1impl_1_1_reduce_l_b_msg}{impl::ReduceLBMsg}},\&ThisType::checkChanged}
+\DoxyCodeLine{00580\ \ \ >(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}});}
+\DoxyCodeLine{00581\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_aeba62165ec8dfbc445e3631ff295f159}{makeEpochCollective}}(\textcolor{stringliteral}{"{}SubHandle::afterLB"{}});}
+\DoxyCodeLine{00582\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00583\ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{makeMessage<impl::ReduceLBMsg>}}(local\_changed);}
+\DoxyCodeLine{00584\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.template\ reduce<collective::OrOp<bool>>(msg.get(),cb);}
+\DoxyCodeLine{00585\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>popEpoch(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00586\ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \doxymbox{\hyperlink{namespacevt_aa550774c1c9c668176ce535fd7d58fb0}{runSchedulerThrough}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00589\ \}}
+\DoxyCodeLine{00590\ }
+\DoxyCodeLine{00591\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00592\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_af872a0071eac521cb813d998763f5a31}{SubHandle<T,E,IndexT>::checkChanged}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1impl_1_1_reduce_l_b_msg}{impl::ReduceLBMsg}}*\ msg)\ \{}
+\DoxyCodeLine{00593\ \ \ \textcolor{keyword}{auto}\ global\_changed\ =\ msg-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1operators_1_1_reduce_data_msg_a0c24030e9772bc93700310475289c5df}{getVal}}();}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00596\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ global\_changed=\{\}\(\backslash\)n"{}},\ global\_changed}
+\DoxyCodeLine{00598\ \ \ );}
+\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00600\ \ \ \textcolor{comment}{//\ Must\ re-\/configure\ all\ windows}}
+\DoxyCodeLine{00601\ \ \ \textcolor{keywordflow}{if}\ (global\_changed)\ \{}
+\DoxyCodeLine{00602\ \ \ \ \ std::vector<IndexT>\ cur\_handles;}
+\DoxyCodeLine{00603\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}})\ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ cur\_handles.push\_back(h.first);}
+\DoxyCodeLine{00605\ \ \ \ \ \}}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ cur\_handles=\{\},\ in=\{\},\ out=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ cur\_handles.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.size()}
+\DoxyCodeLine{00611\ \ \ \ \ );}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \ \ std::vector<IndexT>\ all\_handles;}
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{comment}{//\ Union\ current\ with\ migrated\ in}}
+\DoxyCodeLine{00615\ \ \ \ \ std::set\_union(}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ cur\_handles.begin(),\ cur\_handles.end(),}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.end(),}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ std::back\_inserter(all\_handles)}
+\DoxyCodeLine{00619\ \ \ \ \ );}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ all\_handles=\{\},\ in=\{\},\ out=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ all\_handles.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.size()}
+\DoxyCodeLine{00625\ \ \ \ \ );}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \ \ \ \ std::vector<IndexT>\ new\_handles;}
+\DoxyCodeLine{00628\ \ \ \ \ std::sort(all\_handles.begin(),\ all\_handles.end());}
+\DoxyCodeLine{00629\ \ \ \ \ std::sort(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.end());}
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{comment}{//\ Minus\ off\ the\ ones\ migrated\ out}}
+\DoxyCodeLine{00631\ \ \ \ \ std::set\_difference(}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ all\_handles.begin(),\ all\_handles.end(),}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.begin(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.end(),}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ std::inserter(new\_handles,\ new\_handles.begin())}
+\DoxyCodeLine{00635\ \ \ \ \ );}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ new\_handles=\{\},\ in=\{\},\ out=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ new\_handles.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.size()}
+\DoxyCodeLine{00641\ \ \ \ \ );}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ in.size()=\{\},\ out.size()=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.size()}
+\DoxyCodeLine{00647\ \ \ \ \ );}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{comment}{//\ Now,\ we\ need\ the\ sizes\ to\ re-\/create\ the\ handles\ that\ belong\ here}}
+\DoxyCodeLine{00650\ \ \ \ \ std::unordered\_map<IndexT,\ std::size\_t>\ new\_handles\_sized;}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ new\_handles)\ \{}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ fetching\ size:\ idx=\{\}\(\backslash\)n"{}},\ h}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \textcolor{comment}{//\ Fetch\ the\ size,\ which\ may\ be\ remote\ if\ it\ migrated}}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ new\_handles\_sized[h]\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a29afd2245c28f7ad1bf7e058b62cfe07}{getCount}}(h);}
+\DoxyCodeLine{00659\ \ \ \ \ \}}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ fetched\ all\ sizes\(\backslash\)n"{}}}
+\DoxyCodeLine{00664\ \ \ \ \ );}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{comment}{//\ Fetch\ all\ the\ data\ for\ the\ new\ handles\ into\ buffers}}
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{comment}{//\ @todo:\ possibly\ we\ could\ do\ a\ local\ memcpy\ for\ the\ purely\ local}}
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{comment}{//\ transfers,\ but\ it\ would\ be\ very\ difficult}}
+\DoxyCodeLine{00669\ \ \ \ \ std::unordered\_map<IndexT,\ std::unique\_ptr<T[]>>\ idx\_data;}
+\DoxyCodeLine{00670\ \ \ \ \ std::vector<RequestHolder>\ reqs;}
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ new\_handles\_sized)\ \{}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ idx\_data[h.first]\ =\ std::make\_unique<T[]>(h.second);}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ reqs.emplace\_back(}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a574e1878028cc096e008f815fd0b3db6}{rget}}(h.first,\ vt::Lock::Shared,\ \&idx\_data[h.first][0],\ h.second,\ 0)}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00676\ \ \ \ \ \}}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ all\ the\ fetches\ to\ complete}}
+\DoxyCodeLine{00679\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ r\ :\ reqs)\ \{}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ r.wait();}
+\DoxyCodeLine{00681\ \ \ \ \ \}}
+\DoxyCodeLine{00682\ \ \ \ \ reqs.clear();}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{comment}{//\ All\ must\ finish\ before\ we\ start\ destroying\ the\ hold\ sub-\/handle\ info}}
+\DoxyCodeLine{00685\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{theCollective}}()-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}();}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{comment}{//\ Clear\ out\ all\ the\ incremental\ building\ data\ structures}}
+\DoxyCodeLine{00688\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae5300cda983bbb530edff53b377a71a8}{sub\_handles\_}}.clear();}
+\DoxyCodeLine{00689\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aefa1426200c59256792c6e048d28d162}{sub\_layout\_}}.clear();}
+\DoxyCodeLine{00690\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a964f4cb2857f1d970253f89ad5bb708c}{sub\_prefix\_}}.clear();}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3675b46b618cd10df2ba80df3c084717}{ordered\_opt\_}})\ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a384d5a4c7b19a6bfd9546769d7da1e85}{ordered\_local\_offset\_}}.clear();}
+\DoxyCodeLine{00693\ \ \ \ \ \}}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{comment}{//\ New\ we\ have\ everything\ to\ re-\/build\ the\ sub-\/handles}}
+\DoxyCodeLine{00696\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ new\_handles\_sized)\ \{}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a24f366ba0fe9d2228d82a2c766bdbf45}{addLocalIndex}}(h.first,\ h.second);}
+\DoxyCodeLine{00698\ \ \ \ \ \}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}checkChanged:\ new\_handles\_sized=\{\},\ staged=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ new\_handles\_sized.size(),\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a5643ad6c60d3cf3478bc9d16dfe72489}{sub\_handles\_staged\_}}.size()}
+\DoxyCodeLine{00704\ \ \ \ \ );}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \ \ \textcolor{comment}{//\ Destroy\ the\ old\ data\ handle}}
+\DoxyCodeLine{00707\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a10a5a6554a57910351679c93432af59e}{proxy\_}}.destroyHandleRDMA(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a9d6fa87336ed3a1f7e3167f1e44c07b2}{data\_handle\_}});}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \ \ \ \ \textcolor{comment}{//\ Make\ the\ new\ sub-\/handles,\ with\ the\ new\ local\ indices\ now\ mapped\ here}}
+\DoxyCodeLine{00710\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a24d2a25c3d1ed517b3d38fdc23067c14}{makeSubHandles}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \textcolor{comment}{//\ Invalidate\ the\ cache,\ since\ handles\ have\ migrated\ and\ the\ cached}}
+\DoxyCodeLine{00713\ \ \ \ \ \textcolor{comment}{//\ locations\ may\ not\ be\ valid\ anymore}}
+\DoxyCodeLine{00714\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aa4d5fc9bb2240a72af8af9164e1d8bf3}{cache\_}}.invalidate();}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00716\ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ everyone\ has\ invalidated,\ as\ to\ not\ get\ bad\ values}}
+\DoxyCodeLine{00717\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{theCollective}}()-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}();}
+\DoxyCodeLine{00718\ }
+\DoxyCodeLine{00719\ \ \ \ \ \textcolor{comment}{//\ Update\ the\ locations\ for\ all\ the\ handles\ since\ they\ are\ been}}
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{comment}{//\ re-\/configured}}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ m\ :\ new\_handles\_sized)\ \{}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ home\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_ae94fc60f536d4248f76d86bf60bdc21b}{getHomeNode}}(m.first);}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \textcolor{comment}{//\ This\ resolveLocation\ better\ be\ a\ local\ operation!}}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_aee0a3506044e6f6b569e553c66e26351}{resolveLocation}}(m.first);}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a3bd9d6c4854f47bf9cc6eebfa9c18fca}{updateInfo}}(m.first,\ info,\ home);}
+\DoxyCodeLine{00726\ \ \ \ \ \}}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ everyone\ has\ updated\ their\ location\ data}}
+\DoxyCodeLine{00729\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{theCollective}}()-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}();}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \textcolor{comment}{//\ Put\ all\ the\ old\ data\ where\ it\ goes}}
+\DoxyCodeLine{00732\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ h\ :\ new\_handles\_sized)\ \{}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ reqs.emplace\_back(}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a6d0b89af8d8a7f68d7b5a44d724e4364}{rput}}(h.first,\ vt::Lock::Shared,\ \&idx\_data[h.first][0],\ h.second,\ 0)}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00736\ \ \ \ \ \}}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ all\ the\ puts\ to\ complete}}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ r\ :\ reqs)\ \{}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ r.wait();}
+\DoxyCodeLine{00741\ \ \ \ \ \}}
+\DoxyCodeLine{00742\ \ \ \ \ reqs.clear();}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ \ \ \ \ \textcolor{comment}{//\ Clear\ the\ migrate\ buffers}}
+\DoxyCodeLine{00745\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a2832d6a83d0ecc36d342d33fcf5ce6dd}{migrate\_in\_}}.clear();}
+\DoxyCodeLine{00746\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_sub_handle_a13c434425c8ab69abfd202acf8979119}{migrate\_out\_}}.clear();}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ all\ the\ puts\ are\ globally\ complete\ before\ we\ exit\ this\ block}}
+\DoxyCodeLine{00749\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{theCollective}}()-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}();}
+\DoxyCodeLine{00750\ \ \ \}}
+\DoxyCodeLine{00751\ \}}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00754\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::rdma\ */}}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00756\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RDMAHANDLE\_SUB\_HANDLE\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,322 @@
+\doxysection{holder.\+impl.\+h}
+\hypertarget{rdmahandle_2holder_8impl_8h_source}{}\label{rdmahandle_2holder_8impl_8h_source}\index{src/vt/rdmahandle/holder.impl.h@{src/vt/rdmahandle/holder.impl.h}}
+\doxymbox{\hyperlink{rdmahandle_2holder_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ holder.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RDMAHANDLE\_HOLDER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RDMAHANDLE\_HOLDER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{mpi__access_8h}{vt/runtime/mpi\_access.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}}\ \{}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00054\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ab5feb3bca7aad2b37c7249f3abf7ab05}{Holder<T,E>::addHandle}}(}
+\DoxyCodeLine{00056\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_key}{HandleKey}}\ key,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac13681b737472b040b1fa67e210e9889}{ElemType}}\ lin,}
+\DoxyCodeLine{00057\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle}{Handle<T,E>}}\ han,\ std::size\_t\ in\_count,\ \textcolor{keywordtype}{bool}\ uniform\_size}
+\DoxyCodeLine{00058\ )\ \{}
+\DoxyCodeLine{00059\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a0995b9b9adfce492d7d3dead1ed8ac7a}{handle\_}}\ =\ han;}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a32fc545bf53fbbd4002369112e5f02e0}{key\_}}\ =\ key;}
+\DoxyCodeLine{00061\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}}\ +=\ in\_count;}
+\DoxyCodeLine{00062\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a6c137c841a55e053778597860c6761e8}{uniform\_size\_}}\ =\ uniform\_size;}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a7dc5e735fb6f919dabec8e118683b4ae}{Holder<T,E>::allocateDataWindow}}(std::size\_t\ \textcolor{keyword}{const}\ in\_len)\ \{}
+\DoxyCodeLine{00067\ \ \ std::size\_t\ len\ =\ in\_len\ ==\ 0\ ?\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}}\ :\ in\_len;}
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00069\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{stringliteral}{"{}allocate:\ len=\{\},\ in\_len=\{\},\ count\_=\{\}\(\backslash\)n"{}},\ len,\ in\_len,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}}}
+\DoxyCodeLine{00071\ \ \ );}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ Allocate\ data\ window}}
+\DoxyCodeLine{00073\ \ \ MPI\_Comm\ comm\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a2d4378c97824792991a3410449cf19db}{getComm}}();}
+\DoxyCodeLine{00074\ \ \ MPI\_Alloc\_mem(len\ *\ \textcolor{keyword}{sizeof}(T),\ MPI\_INFO\_NULL,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a347938e7cc24c482672fc73ed7be9406}{data\_base\_}});}
+\DoxyCodeLine{00075\ \ \ MPI\_Win\_create(}
+\DoxyCodeLine{00076\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a347938e7cc24c482672fc73ed7be9406}{data\_base\_}},\ len\ *\ \textcolor{keyword}{sizeof}(T),\ \textcolor{keyword}{sizeof}(T),\ MPI\_INFO\_NULL,\ comm,}
+\DoxyCodeLine{00077\ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}}}
+\DoxyCodeLine{00078\ \ \ );}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a6c137c841a55e053778597860c6761e8}{uniform\_size\_}})\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ Allocate\ control\ window}}
+\DoxyCodeLine{00081\ \ \ \ \ MPI\_Alloc\_mem(\textcolor{keyword}{sizeof}(uint64\_t),\ MPI\_INFO\_NULL,\ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a4f9ee10b09fb58524ac3659f180a4a96}{control\_base\_}});}
+\DoxyCodeLine{00082\ \ \ \ \ MPI\_Win\_create(}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a4f9ee10b09fb58524ac3659f180a4a96}{control\_base\_}},\ \textcolor{keyword}{sizeof}(uint64\_t),\ \textcolor{keyword}{sizeof}(uint64\_t),\ MPI\_INFO\_NULL,\ comm,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}}}
+\DoxyCodeLine{00085\ \ \ \ \ );}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(Lock::Exclusive,\ this\_node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<uint64\_t>::getType}}();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ MPI\_Put(\&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}},\ 1,\ mpi\_type,\ this\_node,\ 0,\ 1,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}setting\ allocate\ size:\ size=\{\},\ window=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}},\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(\&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}})}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ad61ee11705da8cf0ba8664b3173e7370}{ready\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00102\ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a13c46ec783f1df901cfd7db7f65e0e85}{Holder<T,E>::getCount}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l)\ \{}
+\DoxyCodeLine{00103\ \ \ uint64\_t\ result\ =\ 0;}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<uint64\_t>::getType}}();}
+\DoxyCodeLine{00105\ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}});}
+\DoxyCodeLine{00107\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00108\ \ \ \ \ MPI\_Get(\&result,\ 1,\ mpi\_type,\ node,\ 0,\ 1,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}});}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00111\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{stringliteral}{"{}getCount:\ node=\{\},\ result=\{\},\ window=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00113\ \ \ \ \ node,\ result,\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(\&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}})}
+\DoxyCodeLine{00114\ \ \ );}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(result);}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_afe6dd03862a68f941a44258aac9ef03d}{Holder<T,E>::deallocate}}()\ \{}
+\DoxyCodeLine{00120\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}\ (E\ ==\ \doxymbox{\hyperlink{namespacevt_1_1rdma_a0234ff19cfb3c04718cfdfd36b2d6d88a0c5c41d6a0319a61d3a5e8a060b7c4d7}{HandleEnum::StaticSize}}\ and\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ad61ee11705da8cf0ba8664b3173e7370}{ready\_}})\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ MPI\_Win\_free(\&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00123\ \ \ \ \ MPI\_Free\_mem(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a347938e7cc24c482672fc73ed7be9406}{data\_base\_}});}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a6c137c841a55e053778597860c6761e8}{uniform\_size\_}})\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ MPI\_Win\_free(\&\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adfcf34183c7325a69e1ac6f550c471f1}{control\_window\_}});}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ MPI\_Free\_mem(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a4f9ee10b09fb58524ac3659f180a4a96}{control\_base\_}});}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00132\ std::shared\_ptr<LockMPI>\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a31433de5996d42f49a16fe0f05bd51cf}{Holder<T,E>::lock}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<LockMPI>(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00137\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a352b9ae14f0f60cee7df78231d2debfe}{Holder<T,E>::access}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ Callable\ fn,\ std::size\_t\ offset)\ \{}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{auto}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ this\_node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00142\ \ \ fn(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a347938e7cc24c482672fc73ed7be9406}{data\_base\_}}\ +\ offset,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_adba61a40f9dd80d86ac7d0d82d415923}{count\_}}\ -\/\ offset);}
+\DoxyCodeLine{00143\ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00146\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_abca462aa3e98d1c0fb4852743eaed04a}{Holder<T,E>::rget}}(}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00148\ )\ \{}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<T>::getType}}();}
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{auto}\ mpi\_type\_str\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_ab9b5939e91dfc8d6edd2cbafe0c76c6a}{TypeMPI<T>::getTypeStr}}();}
+\DoxyCodeLine{00151\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ r;}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_aecfc6828df1f361fa24e2780b07b6d56}{mpi2\_}})\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}([\textcolor{keyword}{this},\ l,\ node,\ ptr,\ offset,\ len,\ mpi\_type,\ mpi\_type\_str]\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Get(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ MPI\_Get(ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00162\ \ \ \ \ \});}
+\DoxyCodeLine{00163\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00165\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Rget(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00169\ \ \ \ \ );}
+\DoxyCodeLine{00170\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00171\ \ \ \ \ MPI\_Rget(ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}},\ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}());}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a065715e0c91be9b411b490b740fc064a}{Holder<T,E>::get}}(}
+\DoxyCodeLine{00178\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00179\ )\ \{}
+\DoxyCodeLine{00180\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_abca462aa3e98d1c0fb4852743eaed04a}{rget}}(node,\ l,\ ptr,\ len,\ offset);}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00184\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ae3f9105ec3abe794bd39f24ef55f1c29}{Holder<T,E>::rput}}(}
+\DoxyCodeLine{00185\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00186\ )\ \{}
+\DoxyCodeLine{00187\ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<T>::getType}}();}
+\DoxyCodeLine{00188\ \ \ \textcolor{keyword}{auto}\ mpi\_type\_str\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_ab9b5939e91dfc8d6edd2cbafe0c76c6a}{TypeMPI<T>::getTypeStr}}();}
+\DoxyCodeLine{00189\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ r;}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_aecfc6828df1f361fa24e2780b07b6d56}{mpi2\_}})\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}([\textcolor{keyword}{this},\ l,\ node,\ ptr,\ offset,\ len,\ mpi\_type,\ mpi\_type\_str]\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Put(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ MPI\_Put(ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00200\ \ \ \ \ \});}
+\DoxyCodeLine{00201\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00203\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Rput(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00207\ \ \ \ \ );}
+\DoxyCodeLine{00208\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00209\ \ \ \ \ MPI\_Rput(ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}},\ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}());}
+\DoxyCodeLine{00210\ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00212\ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ad6edaae632bb4025e8d29f27abfcf81c}{Holder<T,E>::put}}(}
+\DoxyCodeLine{00216\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset}
+\DoxyCodeLine{00217\ )\ \{}
+\DoxyCodeLine{00218\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ae3f9105ec3abe794bd39f24ef55f1c29}{rput}}(node,\ l,\ ptr,\ len,\ offset);}
+\DoxyCodeLine{00219\ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00222\ T\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a21514973be4a2a9107be043fe727d9f0}{Holder<T,E>::fetchOp}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T\ in,\ \textcolor{keywordtype}{int}\ offset,\ MPI\_Op\ op)\ \{}
+\DoxyCodeLine{00223\ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<T>::getType}}();}
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{auto}\ mpi\_type\_str\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_ab9b5939e91dfc8d6edd2cbafe0c76c6a}{TypeMPI<T>::getTypeStr}}();}
+\DoxyCodeLine{00225\ \ \ T\ out;}
+\DoxyCodeLine{00226\ \ \ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00228\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Fetch\_and\_op(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ in,\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(\&out),\ mpi\_type\_str,\ node,\ offset}
+\DoxyCodeLine{00232\ \ \ \ \ );}
+\DoxyCodeLine{00233\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00234\ \ \ \ \ MPI\_Fetch\_and\_op(\&in,\ \&out,\ mpi\_type,\ node,\ offset,\ op,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00235\ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00237\ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00240\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a1d1abbaaad0d2490b01b10493fe78e36}{Holder<T,E>::raccum}}(}
+\DoxyCodeLine{00241\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00242\ \ \ MPI\_Op\ op}
+\DoxyCodeLine{00243\ )\ \{}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{auto}\ mpi\_type\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_a5407234c820539dfae6bf411673cf6b5}{TypeMPI<T>::getType}}();}
+\DoxyCodeLine{00245\ \ \ \textcolor{keyword}{auto}\ mpi\_type\_str\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_type_m_p_i_ab9b5939e91dfc8d6edd2cbafe0c76c6a}{TypeMPI<T>::getTypeStr}}();}
+\DoxyCodeLine{00246\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder}{RequestHolder}}\ r;}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_aecfc6828df1f361fa24e2780b07b6d56}{mpi2\_}})\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}([\textcolor{keyword}{this},\ l,\ node,\ offset,\ ptr,\ len,\ mpi\_type,\ mpi\_type\_str,\ op]\{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Accumulate(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ MPI\_Accumulate(}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ op,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00259\ \ \ \ \ \});}
+\DoxyCodeLine{00260\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_lock_m_p_i}{LockMPI}}\ \_scope\_lock(l,\ node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00262\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Raccumulate(\{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ \{\},\ window);\(\backslash\)n"{}},}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ len,\ mpi\_type\_str,\ node,\ offset,\ len,\ mpi\_type\_str}
+\DoxyCodeLine{00266\ \ \ \ \ );}
+\DoxyCodeLine{00267\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00268\ \ \ \ \ MPI\_Raccumulate(}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ ptr,\ len,\ mpi\_type,\ node,\ offset,\ len,\ mpi\_type,\ op,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}},\ r.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_request_holder_a3d4c6399e1b7a28fd6bfceccce5fc506}{add}}()}
+\DoxyCodeLine{00270\ \ \ \ \ );}
+\DoxyCodeLine{00271\ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00273\ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00276\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_affd535937b2b5e3bd243e4cae43d779e}{Holder<T,E>::accum}}(}
+\DoxyCodeLine{00277\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac5c20b41a653e520b6305d4d454ecb70}{Lock}}\ l,\ T*\ ptr,\ std::size\_t\ len,\ \textcolor{keywordtype}{int}\ offset,}
+\DoxyCodeLine{00278\ \ \ MPI\_Op\ op}
+\DoxyCodeLine{00279\ )\ \{}
+\DoxyCodeLine{00280\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a1d1abbaaad0d2490b01b10493fe78e36}{raccum}}(node,\ l,\ ptr,\ len,\ offset,\ op);}
+\DoxyCodeLine{00281\ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00284\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_ae0131450f2f087c80faa444810aa25ed}{Holder<T,E>::fence}}(\textcolor{keywordtype}{int}\ assert)\ \{}
+\DoxyCodeLine{00285\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00286\ \ \ MPI\_Win\_fence(assert,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00287\ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a85d338b1beb4c041aa477b18c4eaa312}{Holder<T,E>::sync}}()\ \{}
+\DoxyCodeLine{00291\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00292\ \ \ MPI\_Win\_sync(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_af2bb524d70bdaa0eaad2a394c0e9b633}{Holder<T,E>::flush}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00297\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00298\ \ \ MPI\_Win\_flush(node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00299\ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00302\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a4b576d334034884d7c72b89310fd4f57}{Holder<T,E>::flushLocal}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ node)\ \{}
+\DoxyCodeLine{00303\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00304\ \ \ MPI\_Win\_flush\_local(node,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00305\ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ HandleEnum\ E>}
+\DoxyCodeLine{00308\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a667a140d3db4f68da8af0f9d6533a88a}{Holder<T,E>::flushAll}}()\ \{}
+\DoxyCodeLine{00309\ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};}
+\DoxyCodeLine{00310\ \ \ MPI\_Win\_flush\_all(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_holder_a05f6eae32db15a58ef6cced25fde7980}{data\_window\_}});}
+\DoxyCodeLine{00311\ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::rdma\ */}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RDMAHANDLE\_HOLDER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

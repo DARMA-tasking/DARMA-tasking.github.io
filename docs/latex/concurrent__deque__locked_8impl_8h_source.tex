@@ -1,0 +1,176 @@
+\doxysection{concurrent\+\_\+deque\+\_\+locked.\+impl.\+h}
+\hypertarget{concurrent__deque__locked_8impl_8h_source}{}\label{concurrent__deque__locked_8impl_8h_source}\index{src/vt/utils/container/concurrent\_deque\_locked.impl.h@{src/vt/utils/container/concurrent\_deque\_locked.impl.h}}
+\doxymbox{\hyperlink{concurrent__deque__locked_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ concurrent\_deque\_locked.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_CONTAINER\_CONCURRENT\_DEQUE\_LOCKED\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_CONTAINER\_CONCURRENT\_DEQUE\_LOCKED\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{concurrent__deque__locked_8h}{vt/utils/container/concurrent\_deque\_locked.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util}{util}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1container}{container}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ =\ std::lock\_guard<std::mutex>;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00058\ std::mutex*\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{ConcurrentDequeLocked<T>::getMutex}}()\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af681c689f7800fca7e35364aeffd9964}{needs\_lock\_}}\ ?\ \&\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a8e3bf213b7580d8d7c9f9bc926ac21b4}{container\_mutex\_}}:\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a4d9bbc1980dba1ffdc3ba8f8eb2c52d5}{ConcurrentDequeLocked<T>::emplaceBack}}(T\&\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}})\ \{}
+\DoxyCodeLine{00064\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00065\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.emplace\_back(std::forward<T>(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}));}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5f5007fed6eaa4d42d1877a0d8b096c9}{ConcurrentDequeLocked<T>::emplaceFront}}(T\&\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}})\ \{}
+\DoxyCodeLine{00070\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00071\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.emplace\_front(std::forward<T>(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}));}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_aa3c9c04fc999b13a6418c08e7c29f969}{ConcurrentDequeLocked<T>::pushBack}}(T\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}})\ \{}
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00077\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.push\_back(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}});}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5bfd4d329adde2c68c2c1cbc13f98ff4}{ConcurrentDequeLocked<T>::pushFront}}(T\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}})\ \{}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.push\_front(\doxymbox{\hyperlink{namespacevt_1_1elm}{elm}});}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00087\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a9da9776dff836c013a95431f3ab15e35}{ConcurrentDequeLocked<T>::TConstRef}}}
+\DoxyCodeLine{00088\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a57af0c7ac85e7bb3922bb839b666c1e7}{ConcurrentDequeLocked<T>::front}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00089\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.front();}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00095\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a9da9776dff836c013a95431f3ab15e35}{ConcurrentDequeLocked<T>::TConstRef}}}
+\DoxyCodeLine{00096\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a1722e76798cd9b6629f111814035e29a}{ConcurrentDequeLocked<T>::back}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00097\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.back();}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00103\ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_aab7ffe336cd7392506121f8e3a86c1b2}{ConcurrentDequeLocked<T>::popGetFront}}()\ \{}
+\DoxyCodeLine{00104\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.front();}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.pop\_front();}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}};}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00111\ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_ad1905f8a1dc68a73ecda8bd2c332440e}{ConcurrentDequeLocked<T>::popGetBack}}()\ \{}
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.back();}
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.pop\_back();}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}};}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00119\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a4451b0e7f6c8aa741f98a77a9fed353e}{ConcurrentDequeLocked<T>::TRef}}}
+\DoxyCodeLine{00120\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a0999ea4ff06ed38095d31ed9710e7525}{ConcurrentDequeLocked<T>::at}}(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a6f35f4923f1329d25378656b0582e916}{SizeType}}\ \textcolor{keyword}{const}\&\ pos)\ \{}
+\DoxyCodeLine{00121\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{auto}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.at(pos);}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00127\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a9da9776dff836c013a95431f3ab15e35}{ConcurrentDequeLocked<T>::TConstRef}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a0999ea4ff06ed38095d31ed9710e7525}{ConcurrentDequeLocked<T>::at}}(}
+\DoxyCodeLine{00128\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a6f35f4923f1329d25378656b0582e916}{SizeType}}\ \textcolor{keyword}{const}\&\ pos}
+\DoxyCodeLine{00129\ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00130\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.at(pos);}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00136\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a4451b0e7f6c8aa741f98a77a9fed353e}{ConcurrentDequeLocked<T>::TRef}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a57af0c7ac85e7bb3922bb839b666c1e7}{ConcurrentDequeLocked<T>::front}}()\ \{}
+\DoxyCodeLine{00137\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{auto}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.front();}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00143\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a4451b0e7f6c8aa741f98a77a9fed353e}{ConcurrentDequeLocked<T>::TRef}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a1722e76798cd9b6629f111814035e29a}{ConcurrentDequeLocked<T>::back}}()\ \{}
+\DoxyCodeLine{00144\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{auto}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.back();}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a24d80e8f7e30a18175f390e79f061a99}{ConcurrentDequeLocked<T>::popFront}}()\ \{}
+\DoxyCodeLine{00151\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.pop\_front();}
+\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af5c7291d01a60ba4ea5e773de4c2b8e3}{ConcurrentDequeLocked<T>::popBack}}()\ \{}
+\DoxyCodeLine{00157\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00158\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.pop\_back();}
+\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00162\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a6f35f4923f1329d25378656b0582e916}{ConcurrentDequeLocked<T>::SizeType}}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_abf19557ef8b6483fd821f7c7fd184153}{ConcurrentDequeLocked<T>::size}}()\ \{}
+\DoxyCodeLine{00163\ \ \ \doxymbox{\hyperlink{namespacevt_1_1util_1_1container_a33794ef533c091623254717da3ba09df}{LockGuardType}}\ lock(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_af96c5a72abb212cb881833d2c761f2c4}{getMutex}}());}
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_concurrent_deque_locked_a5055eeb8cdb93e4e9fb84deb237998f2}{container\_}}.size();}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \}\}\}\ \textcolor{comment}{//end\ namespace\ vt::util::container}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_CONTAINER\_CONCURRENT\_DEQUE\_LOCKED\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

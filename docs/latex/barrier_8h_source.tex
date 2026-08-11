@@ -1,0 +1,147 @@
+\doxysection{barrier.\+h}
+\hypertarget{barrier_8h_source}{}\label{barrier_8h_source}\index{src/vt/collective/barrier/barrier.h@{src/vt/collective/barrier/barrier.h}}
+\doxymbox{\hyperlink{barrier_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ barrier.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_COLLECTIVE\_BARRIER\_BARRIER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_COLLECTIVE\_BARRIER\_BARRIER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{activefn_8h}{vt/activefn/activefn.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{message_8h}{vt/messaging/message.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{tree_8h}{vt/collective/tree/tree.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{barrier__msg_8h}{vt/collective/barrier/barrier\_msg.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{barrier__state_8h}{vt/collective/barrier/barrier\_state.h}}"{}}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective}{collective}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier}{barrier}}\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier_a43d35d830e81f62b5dfb571ce5e0939e}{fst\_barrier}}\ =\ 1;}
+\DoxyCodeLine{00059\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier_a02bc7e6a890bd33f1e0b1b264326099c}{fst\_coll\_barrier}}\ =\ 0x8000000000000001;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aa69e5135299fa366a2c59ac96a9f318d}{Barrier}}\ :\ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1tree_1_1_tree}{collective::tree::Tree}}\ \{}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a9b612818f7b44ca65f2caee0dee094f3}{BarrierStateType}}\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_state}{BarrierState}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aa69e5135299fa366a2c59ac96a9f318d}{Barrier}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a84bfbd26a48a1c3bb7272e81245e4873}{ContainerType}}\ =\ std::unordered\_map<BarrierType,\ T>;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a9b612818f7b44ca65f2caee0dee094f3}{BarrierStateType}}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aa3f74f986e523701c1d85ed97d3ad5a4}{insertFindBarrier}}(}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_named,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_wait,\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}},}
+\DoxyCodeLine{00103\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ cont\_action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00104\ \ \ );}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a74756cba2fda8eedcc6b28ec69a36524}{removeBarrier}}(}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_named,\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}}
+\DoxyCodeLine{00114\ \ \ );}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00124\ \ \ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a0d8e74149ddca96f06c1ff6071b73a74}{newNamedBarrier}}();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00134\ \ \ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a3e101519fbcfa9eee139bf02f991f085}{newNamedCollectiveBarrier}}();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a79096d77724cb095c08696e8af673dfb}{barrierUp}}(}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_named,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_wait,\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}},}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ skip\_term}
+\DoxyCodeLine{00147\ \ \ );}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a962a1cbd78c359e1dee7a8e7df5cfd75}{barrierDown}}(}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_named,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_wait,\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}}
+\DoxyCodeLine{00159\ \ \ );}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}(}
+\DoxyCodeLine{00169\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ poll\_action\ =\ \textcolor{keyword}{nullptr},\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}}\ =\ no\_barrier}
+\DoxyCodeLine{00170\ \ \ )\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a014858c233344d9fd7e1ffc4050a1d8c}{waitBarrier}}(poll\_action,\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}});}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a21adace64047e0e773fb4b55846aab2e}{barrierThen}}(\doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ fn)\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aecec014f5db3d5b608ca553a91acc732}{contBarrier}}(fn);}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a3f1be86145f4b0fe20d6ffd67a285e53}{barrierThen}}(\doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}},\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ fn)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aecec014f5db3d5b608ca553a91acc732}{contBarrier}}(fn,\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a05124050c7d353a4f3475ee1875dd46a}{barrier}});}
+\DoxyCodeLine{00194\ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a31b7fc393348cd50a9beac2372aabd79}{systemMetaBarrier}}()\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ skip\_term\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a014858c233344d9fd7e1ffc4050a1d8c}{waitBarrier}}(\textcolor{keyword}{nullptr},\ no\_barrier,\ skip\_term);}
+\DoxyCodeLine{00205\ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_ad3c1ad5f531262cfebcfd4295db341d4}{systemMetaBarrierCont}}(\doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ fn)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ skip\_term\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aecec014f5db3d5b608ca553a91acc732}{contBarrier}}(fn,\ no\_barrier,\ skip\_term);}
+\DoxyCodeLine{00219\ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a79096d77724cb095c08696e8af673dfb}{barrierUp}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_msg}{BarrierMsg}}*\ msg);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a962a1cbd78c359e1dee7a8e7df5cfd75}{barrierDown}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_msg}{BarrierMsg}}*\ msg);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a014858c233344d9fd7e1ffc4050a1d8c}{waitBarrier}}(}
+\DoxyCodeLine{00238\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ poll\_action\ =\ \textcolor{keyword}{nullptr},\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier}{barrier}}\ =\ no\_barrier,}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ skip\_term\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00240\ \ \ );}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_aecec014f5db3d5b608ca553a91acc732}{contBarrier}}(}
+\DoxyCodeLine{00243\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ fn,\ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier}{barrier}}\ =\ no\_barrier,}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ skip\_term\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00245\ \ \ );}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00248\ \ \ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_ad3e45365fa6ddf4ca0e08e7f877a580a}{cur\_named\_barrier\_}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier_a43d35d830e81f62b5dfb571ce5e0939e}{fst\_barrier}};}
+\DoxyCodeLine{00249\ \ \ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a19701ef650907899ae95d750343db5ac}{cur\_named\_coll\_barrier\_}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier_a02bc7e6a890bd33f1e0b1b264326099c}{fst\_coll\_barrier}};}
+\DoxyCodeLine{00250\ \ \ \doxymbox{\hyperlink{namespacevt_a27d189c85696047b52ddc42b3be7685d}{BarrierType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a320d125e93446c9f39baab502c260a1f}{cur\_unnamed\_barrier\_}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1barrier_a43d35d830e81f62b5dfb571ce5e0939e}{fst\_barrier}};}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a84bfbd26a48a1c3bb7272e81245e4873}{ContainerType<BarrierStateType>}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_ae5a50600bf815ba049915d93bc48b727}{named\_barrier\_state\_}},\ \doxymbox{\hyperlink{structvt_1_1collective_1_1barrier_1_1_barrier_a83ad5a95d40a7cfcff7782dbc461fb1c}{unnamed\_barrier\_state\_}};}
+\DoxyCodeLine{00253\ \};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \}\}\}\ \ \textcolor{comment}{//\ end\ namespace\ vt::collective::barrier}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_COLLECTIVE\_BARRIER\_BARRIER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

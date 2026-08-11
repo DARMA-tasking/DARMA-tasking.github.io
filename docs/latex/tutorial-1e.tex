@@ -1,0 +1,54 @@
+\doxysubsection{Learning about rooted groups }
+\hypertarget{tutorial-1e}{}\label{tutorial-1e}\index{Learning about rooted groups@{Learning about rooted groups}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MySimpleMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerGroupA(MySimpleMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ rooted\ group\ creation\ and\ broadcast\ to\ that\ group}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageGroupRoot()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ This\ is\ an\ example\ of\ the\ rooted\ group\ creation\ and\ broadcast\ to\ that}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ group.\ A\ group\ allows\ the\ user\ to\ create\ a\ subset\ of\ nodes.\ A\ broadcast\ by}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ default\ sends\ the\ message\ to\ every\ node\ in\ the\ default\ group\ (which}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ includes\ all\ nodes).\ If\ a\ explicit\ group\ is\ set\ in\ the\ envelope,\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ broadcast\ will\ only\ arrive\ on\ the\ nodes\ in\ that\ group.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Create\ range\ for\ the\ group\ [1,num\_nodes);}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ range\ =\ std::make\_unique<::vt::group::region::Range>(1,\ num\_nodes);}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ The\ non-\/collective\ group\ is\ created\ by\ a\ single\ node\ based\ on\ a\ range\ or}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ list\ of\ nodes.\ The\ lambda\ is\ executed\ once\ the\ group\ is\ created.\ By}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ setting\ the\ group\ in\ the\ envelope\ of\ the\ message\ and\ broadcasting\ the}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ message\ will\ arrive\ on\ the\ set\ of\ nodes\ included\ in\ the\ group}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keywordtype}{id}\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_a076330445139abce77e1f6ab6e4358c5}{newGroup}}(std::move(range),\ [](GroupType\ group\_id)\{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(\textcolor{stringliteral}{"{}Group\ is\ created:\ id=\{:x\}\(\backslash\)n"{}},\ group\_id);}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ makeMessage<MySimpleMsg>();}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{envelopeSetGroup}}(msg-\/>env,\ group\_id);}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<msgHandlerGroupA>(msg);}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ The\ \`{}id'\ that\ is\ returned\ from\ the\ newGroup\ invocation,\ can\ be\ used}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ anywhere\ in\ the\ system\ to\ broadcast\ (multicast)\ to\ this\ group.}}
+\DoxyCodeLine{\ \ \ \ (void)\textcolor{keywordtype}{id};\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerGroupA([[maybe\_unused]]\ MySimpleMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node\ >=\ 1,\ \textcolor{stringliteral}{"{}This\ handler\ should\ only\ execute\ on\ nodes\ >=\ 1"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerGroupA:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

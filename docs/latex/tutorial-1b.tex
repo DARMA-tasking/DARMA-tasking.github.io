@@ -1,0 +1,131 @@
+\doxysubsection{Learning about active handlers }
+\hypertarget{tutorial-1b}{}\label{tutorial-1b}\index{Learning about active handlers@{Learning about active handlers}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ This\ is\ a\ user-\/defined\ message\ that\ can\ be\ sent\ to\ a\ node\ via\ VT's\ active}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ message\ interface.\ A\ message\ in\ VT\ must\ be\ derived\ from\ the\ type}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ vt::Message.\ The\ derived\ class\ will\ include\ the\ \`{}\`{}envelope'',\ which\ includes}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ the\ handler,\ and\ other\ information\ for\ processing\ the\ message}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ In\ general,\ a\ default\ constructor\ is\ required\ for\ the\ a\ message\ because\ it}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ may\ be\ reconstructed\ by\ VT}}
+\DoxyCodeLine{\ \ MyMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ A\ normal\ constructor}}
+\DoxyCodeLine{\ \ MyMsg(\textcolor{keywordtype}{int}\ in\_a,\ \textcolor{keywordtype}{int}\ in\_b)\ :\ a\_(in\_a),\ b\_(in\_b)\ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ getA()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ a\_;\ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ getB()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ b\_;\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ a\_\ =\ 0,\ b\_\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ Following\ are\ two\ active\ message\ handler\ declarations.\ These\ are\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ functions\ that\ can\ be\ remotely\ invoked\ by\ sending\ a\ message\ in\ VT.\ VT\ allows}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ for\ multiple\ styles\ for\ handlers.\ The\ first\ (msgHandlerA)\ is\ the\ C-\/style}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ active\ message\ handler.\ It\ is\ exactly\ equivalent\ (in\ terms\ of\ practical\ use}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ ramifications)\ to\ the\ functor\ style,\ which\ follows\ (MsgHandlerB).\ Either}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ style\ can\ be\ used\ to\ define\ a\ message\ handler.\ The\ only\ slight\ benefit\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ functor\ has\ is\ uniqueness\ in\ type,\ when\ enables\ introspection\ of\ the\ message}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ type.\ This\ is\ realized\ in\ the\ sending\ side\ code:\ the\ function\ style\ requires}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ the\ message\ type\ before\ the\ value\ function\ template\ parameter.\ However,\ both}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ are\ *fully\ type\ checked*\ and\ will\ not\ allow\ the\ wrong\ message\ type\ to\ be}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ sent.}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler\ (function\ ptr\ style)}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerA(MyMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler\ (functor\ style)}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MsgHandlerB\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(MyMsg*\ msg);}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageNode()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ A\ basic\ active\ message\ send\ essentially\ does\ an}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ \`{}\`{}MPI\_Send(..,destination,...)''\ to\ the\ destination\ node\ passed\ to}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ ::vt::theMsg()-\/>sendMsg(destination).\ The\ handler,\ which\ is\ passed\ as\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ second\ template\ argument,\ is\ the\ function\ that\ is\ triggered\ when\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ message\ arrives\ on\ the\ destination\ node.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ The\ theMsg()-\/>sendMsg(..)\ does\ not\ serialize\ the\ message\ sent\ to\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ destination\ node.\ Even\ if\ the\ message\ has\ a\ serialize\ method\ (the\ above}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ example\ does\ not),\ it\ is\ sent\ as\ bytes.\ This\ is\ because\ sendMsg\ always\ just}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ sends\ the\ data\ directly\ that\ is\ passed\ to\ it.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ This\ example\ uses\ the\ function\ pointer\ style\ compared\ to\ the\ send\ inside\ of}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ msgHandlerA,\ which\ uses\ the\ functor\ style\ send.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ to\_node\ =\ 1;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{::vt::makeMessage<MyMsg>}}(29,32);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<msgHandlerA>(to\_node,\ msg);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgHandlerA(MyMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ VT\ provides\ vtAssert\ (and\ a\ half-\/dozen\ variants)\ that\ replace\ the\ simple}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ the\ assert\ call\ found\ in\ cassert.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA()\ ==\ 29,\ \textcolor{stringliteral}{"{}Value\ a\ incorrect"{}});}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB()\ ==\ 32,\ \textcolor{stringliteral}{"{}Value\ b\ incorrect"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerA:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Node\ 0\ sends\ MyMsg\ to\ node\ 1\ in\ the\ above\ code\ so\ this\ should\ execute\ on}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ node\ 1\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node\ ==\ 1,\ \textcolor{stringliteral}{"{}This\ handler\ should\ execute\ on\ node\ 1"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ In\ response\ to\ this\ message,\ node\ 1\ sends\ a\ message\ back\ to\ node\ 0.\ This}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ invocation\ uses\ the\ functor\ style\ send.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ -\/-\/\ Message\ Ownsership\ -\/-\/}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ When\ an\ API\ that\ 'sends\ a\ message'\ is\ called,\ ownership\ is\ relinquished.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ The\ loss\ of\ ownership\ is\ the\ same\ as\ using\ std::move\ and\ the\ MsgPtr\ object}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ supplied\ becomes\ invalid\ for\ later\ use.\ This\ use\ includes\ attempting}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ to\ send\ the\ same\ message\ twice.\ std::move\ can\ be\ used\ explicit\ if\ desired.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ A\ vtAssert\ will\ be\ raised\ if\ such\ an\ invalid\ use\ is\ detected.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ to\_node\ =\ 0;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ msg2\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{::vt::makeMessage<MyMsg>}}(10,20);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<MsgHandlerB>(to\_node,\ msg2);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Alternate/equivalent\ form\ with\ explicit\ (and\ optional)\ std::move:}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ \ \ ::vt::theMsg()-\/>sendMsg<MsgHandlerB,\ MyMsg>(to\_node,\ std::move(msg2));}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ In\ both\ cases\ it\ is\ invalid\ to\ attempt\ to\ use\ msg2\ here\ as\ the\ ownership}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ of\ the\ message\ has\ been\ relinquished/lost\ when\ making\ the\ call.}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ MsgHandlerB::operator()(MyMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getA()\ ==\ 10,\ \textcolor{stringliteral}{"{}Value\ a\ incorrect"{}});}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>getB()\ ==\ 20,\ \textcolor{stringliteral}{"{}Value\ b\ incorrect"{}});}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node\ ==\ 0,\ \textcolor{stringliteral}{"{}This\ handler\ should\ execute\ on\ node\ 0"{}});}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgHandlerB:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

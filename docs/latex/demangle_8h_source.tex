@@ -1,0 +1,135 @@
+\doxysection{demangle.\+h}
+\hypertarget{demangle_8h_source}{}\label{demangle_8h_source}\index{src/vt/utils/demangle/demangle.h@{src/vt/utils/demangle/demangle.h}}
+\doxymbox{\hyperlink{demangle_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ demangle.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_DEMANGLE\_DEMANGLE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_DEMANGLE\_DEMANGLE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util}{util}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1demangle}{demangle}}\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract}{TemplateExtract}}\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}*\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a8d78bcd9b4286d4d5fb5ca84f6448522}{prettyFunctionForType}}()\ \{}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \#else}}
+\DoxyCodeLine{00070\ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Can\ only\ be\ used\ for\ a\ trace\_enabled\ build."{}});}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00073\ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T,\ T\ PF\_VALUE\_NAME>}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}*\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_ada7c27460eee4bf136050d28337b56f8}{prettyFunctionForValue}}()\ \{}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \#else}}
+\DoxyCodeLine{00082\ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Can\ only\ be\ used\ for\ a\ trace\_enabled\ build."{}});}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ T,T*\ 'overload'\ for\ GCC}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T,\ T*\ PF\_VALUE\_NAME>}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{char}\ \textcolor{keyword}{const}*\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a00f10d7e8f2490c4a45799db365f3ccb}{prettyFunctionForValuePtr}}()\ \{}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \#else}}
+\DoxyCodeLine{00093\ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Can\ only\ be\ used\ for\ a\ trace\_enabled\ build."{}});}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a5b76d8ad80e5054d4da8bea682a1752d}{singlePfType}}(std::string\ \textcolor{keyword}{const}\&\ pf);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a8fe842098a300f5b31f5ab1b0a76804b}{lastNamedPfType}}(std::string\ \textcolor{keyword}{const}\&\ spf,\ std::string\ \textcolor{keyword}{const}\&\ tparam);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a78ecb83a83712ee88bbeacfb49cbf538}{getTypeName}}()\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a5b76d8ad80e5054d4da8bea682a1752d}{singlePfType}}(\doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a8d78bcd9b4286d4d5fb5ca84f6448522}{prettyFunctionForType<T>}}());}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ T\ value>}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_afae798a13fb482fdd8fc668af2c3f0d4}{getValueName}}()\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a8fe842098a300f5b31f5ab1b0a76804b}{lastNamedPfType}}(\doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_ada7c27460eee4bf136050d28337b56f8}{prettyFunctionForValue<T,value>}}(),\ \textcolor{stringliteral}{"{}PF\_VALUE\_NAME"{}});}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{//\ T,T*\ 'overload'\ for\ GCC}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ T*\ value>}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a78f655ef251d1a4a542291d84dc38917}{getValueNamePtr}}()\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a8fe842098a300f5b31f5ab1b0a76804b}{lastNamedPfType}}(\doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a00f10d7e8f2490c4a45799db365f3ccb}{prettyFunctionForValuePtr<T,value>}}(),\ \textcolor{stringliteral}{"{}PF\_VALUE\_NAME"{}});}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a5e896032f040eedc15e6e6b1397a6bfc}{getNamespace}}(std::string\ \textcolor{keyword}{const}\&\ typestr);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_aa9a0cc82115687324c7e10d0b27f0977}{getBarename}}(std::string\ \textcolor{keyword}{const}\&\ typestr);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{static}\ std::string\ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_template_extract_a7085981a1d4ca05c458affcc2a5ca1cc}{getVoidFuncStrArgs}}(std::string\ \textcolor{keyword}{const}\&\ typestr);}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils}{DemanglerUtils}}\ \{}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{static}\ std::vector<std::string>}
+\DoxyCodeLine{00150\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils_a3c280c288503a3420483e6705cddf5fb}{splitString}}(std::string\ \textcolor{keyword}{const}\&\ str,\ \textcolor{keywordtype}{char}\ delim);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{static}\ std::string}
+\DoxyCodeLine{00153\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils_a2e57c8080f9296b2ce137c622718d7bb}{removeSpaces}}(std::string\ \textcolor{keyword}{const}\&\ str);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{static}\ std::string}
+\DoxyCodeLine{00156\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1demangle_1_1_demangler_utils_a8933d7b4e4995e49e13bb632bec61b50}{join}}(std::string\ \textcolor{keyword}{const}\&\ delim,\ std::vector<std::string>\ \textcolor{keyword}{const}\&\ strs);}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \}\}\}\ \textcolor{comment}{//\ end\ namespace\ vt::util::demangle}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_DEMANGLE\_DEMANGLE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

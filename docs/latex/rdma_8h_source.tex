@@ -1,0 +1,641 @@
+\doxysection{rdma.\+h}
+\hypertarget{rdma_8h_source}{}\label{rdma_8h_source}\index{src/vt/rdma/rdma.h@{src/vt/rdma/rdma.h}}
+\doxymbox{\hyperlink{rdma_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rdma.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RDMA\_RDMA\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RDMA\_RDMA\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{activefn_8h}{vt/activefn/activefn.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__common_8h}{vt/rdma/rdma\_common.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__types_8h}{vt/rdma/rdma\_types.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__handle_8h}{vt/rdma/rdma\_handle.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__msg_8h}{vt/rdma/rdma\_msg.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__pending_8h}{vt/rdma/rdma\_pending.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__action_8h}{vt/rdma/rdma\_action.h}}"{}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__state_8h}{vt/rdma/state/rdma\_state.h}}"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__map_8h}{vt/rdma/group/rdma\_map.h}}"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__region_8h}{vt/rdma/group/rdma\_region.h}}"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__group_8h}{vt/rdma/group/rdma\_group.h}}"{}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__channel__lookup_8h}{vt/rdma/channel/rdma\_channel\_lookup.h}}"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__channel_8h}{vt/rdma/channel/rdma\_channel.h}}"{}}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rdma__collection__fwd_8h}{vt/rdma/collection/rdma\_collection\_fwd.h}}"{}}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{collective__scope_8h}{vt/collective/collective\_scope.h}}"{}}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}}\ \{}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aef98ba273bd7756fcf6ff71c96db391b}{RDMAManager}}\ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<RDMAManager>\ \{}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a1fd134fc514587ac616aec8530c7cc87}{RDMA\_BitsType}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1rdma_a91e7211515508952960ca446ea609f65}{Bits}};}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aad42879902ea82c4de357ad482d9333d}{RDMA\_StateType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state}{State}};}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1rdma_ac848e1d9da43db6294bd06f83e5d3946}{Type}};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a81658757dd2c692d5c31048d2d53cb3d}{RDMA\_InfoType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_info}{Info}};}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a1239149a2070897c56e94e65c2016a7a}{RDMA\_PendingType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_pending}{Pending}};}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad6a7e417dca07fe5743318e1153677a8}{RDMA\_ChannelType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a5786d652b263a505c6c74f25e7c0994a}{Channel}};}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aafc574f533ebf5b34c1389ef504448bf}{RDMA\_RegionType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_region}{Region}};}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a16e12d11cf7d771df0d3dc6947a4f95c}{RDMA\_MapType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_map}{Map}};}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a578dd586d6982be7476b4df7656cd024}{RDMA\_GroupType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_group}{Group}};}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7b857edc3e489efd9e65e160a4e55a68}{RDMA\_ActionType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_action}{Action}};}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3df5b264f344d9d4530a96264782a725}{RDMA\_ChannelLookupType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_channel_lookup}{ChannelLookup}};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a106350721a187d2cfb94a9017ef66a07}{RDMA\_EndpointType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_endpoint}{Endpoint}};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a55dd81ff646ebb9d61ebf3a7239ec3b8}{RDMA\_ContainerType}}\ =\ std::unordered\_map<RDMA\_HandleType,\ RDMA\_StateType>;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a689c48ff97319fd83c19e7230b8e9d62}{RDMA\_LiveChannelsType}}\ =\ std::unordered\_map<RDMA\_ChannelLookupType,\ RDMA\_ChannelType>;}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8c9def755fab6d3eb1f529175243f38a}{RDMA\_OpContainerType}}\ =\ std::unordered\_map<RDMA\_OpType,\ RDMA\_PendingType>;}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a77d00c37a45276b36ef64b9226a8ef0f}{RDMA\_GetFunctionType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_af0baaa6ac5c3b7b256d032f2ee845676}{RDMA\_StateType::RDMA\_GetFunctionType}};}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a714321626dc5613772ac43564c6b7d85}{RDMA\_PutFunctionType}}\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_aa43a5d043fe01086818e9c5c364341d4}{RDMA\_StateType::RDMA\_PutFunctionType}};}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8bce76d1b441ca17daf84835eb9a7dec}{RDMA\_DirectType}}\ =\ std::tuple<RDMA\_PtrType,\ ActionType>;}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgType>}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8598fad3cd2506fb2a6e12d444160871}{RDMA\_GetTypedFunctionType}}\ =}
+\DoxyCodeLine{00113\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a95b006a568982435e63aa18feb5fc202}{RDMA\_StateType::RDMA\_GetTypedFunctionType<MsgType>}};}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgType>}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8086be8ea2650f6f37dbc29bcc21f472}{RDMA\_PutTypedFunctionType}}\ =}
+\DoxyCodeLine{00116\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_state_a3f76d1ccdab20ed3091e36d8fb9ecda5}{RDMA\_StateType::RDMA\_PutTypedFunctionType<MsgType>}};}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab2b109454390c41ea74e72a2850edd12}{CollectiveScopeType}}\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1_collective_scope}{collective::CollectiveScope}};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aef98ba273bd7756fcf6ff71c96db391b}{RDMAManager}}();}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_add0f236b62fd550b8eb3d78156a97403}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}RDMAManager"{}};\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a30167dbd8b0165a273a9d91c84acded1}{putTypedData}}(}
+\DoxyCodeLine{00138\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ T\ ptr,}
+\DoxyCodeLine{00139\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{00140\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action\_after\_put\ =\ no\_action}
+\DoxyCodeLine{00141\ \ \ )\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ num\_bytes\ =\ num\_elems\ ==\ no\_byte\ ?\ no\_byte\ :\ \textcolor{keyword}{sizeof}(T)*num\_elems;}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ byte\_offset\ =\ offset\ ==\ no\_byte\ ?\ 0\ :\ \textcolor{keyword}{sizeof}(T)*offset;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a651ca7aaa9fdbf404c41157b883407e2}{putData}}(}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ rdma\_handle,\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\textcolor{keyword}{>}(ptr),\ num\_bytes,\ byte\_offset,\ tag,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(T),\ action\_after\_put}
+\DoxyCodeLine{00147\ \ \ \ \ );}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a553764f2d91b42cf97991bbeadb75a5c}{putTypedData}}(}
+\DoxyCodeLine{00161\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ T\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems\ =\ no\_byte,}
+\DoxyCodeLine{00162\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset\ =\ no\_byte,}
+\DoxyCodeLine{00163\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action\_after\_put\ =\ no\_action}
+\DoxyCodeLine{00164\ \ \ )\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a30167dbd8b0165a273a9d91c84acded1}{putTypedData<T>}}(}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ han,\ ptr,\ num\_elems,\ offset,\ no\_tag,\ action\_after\_put}
+\DoxyCodeLine{00167\ \ \ \ \ );}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a651ca7aaa9fdbf404c41157b883407e2}{putData}}(}
+\DoxyCodeLine{00179\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00180\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,}
+\DoxyCodeLine{00181\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action\_after\_put\ =\ no\_action}
+\DoxyCodeLine{00182\ \ \ )\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a651ca7aaa9fdbf404c41157b883407e2}{putData}}(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ rdma\_handle,\ ptr,\ num\_bytes,\ no\_byte,\ no\_tag,\ rdma\_default\_byte\_size,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ action\_after\_put}
+\DoxyCodeLine{00186\ \ \ \ \ );}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a651ca7aaa9fdbf404c41157b883407e2}{putData}}(}
+\DoxyCodeLine{00204\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00205\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{00206\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_size\ =\ rdma\_default\_byte\_size,}
+\DoxyCodeLine{00207\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action\_after\_put\ =\ no\_action,}
+\DoxyCodeLine{00208\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ collective\_node\ =\ uninitialized\_destination,}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ direct\_message\_send\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00210\ \ \ );}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aa97aeb2fee7d1a1b2228ff063d64eb5f}{getDataIntoBuf}}(}
+\DoxyCodeLine{00225\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00226\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,}
+\DoxyCodeLine{00227\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action\ =\ no\_action,}
+\DoxyCodeLine{00228\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_size\ =\ rdma\_default\_byte\_size,}
+\DoxyCodeLine{00229\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ collective\_node\ =\ uninitialized\_destination}
+\DoxyCodeLine{00230\ \ \ );}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a9f5bbbbdc2d6cca20f3bd5a259ecaf62}{putDataIntoBufCollective}}(}
+\DoxyCodeLine{00243\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00244\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_size,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,}
+\DoxyCodeLine{00245\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ after\_put\_action\ =\ no\_action}
+\DoxyCodeLine{00246\ \ \ );}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a68bf3378ec4132a81b728c180aa63686}{getDataIntoBufCollective}}(}
+\DoxyCodeLine{00259\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00260\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_size,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,}
+\DoxyCodeLine{00261\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action\ =\ no\_action}
+\DoxyCodeLine{00262\ \ \ );}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a108e405a633745d46c2d68a1a0727b7c}{getRegionTypeless}}(}
+\DoxyCodeLine{00273\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aafc574f533ebf5b34c1389ef504448bf}{RDMA\_RegionType}}\ \textcolor{keyword}{const}\&\ region,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action}
+\DoxyCodeLine{00275\ \ \ );}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a2e34becca8d5f72a7d460e6574f8f623}{putRegionTypeless}}(}
+\DoxyCodeLine{00286\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00287\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aafc574f533ebf5b34c1389ef504448bf}{RDMA\_RegionType}}\ \textcolor{keyword}{const}\&\ region,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ after\_put\_action}
+\DoxyCodeLine{00288\ \ \ );}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a06506f3abad91d02456d88f4b1e4db1b}{getRegion}}(}
+\DoxyCodeLine{00300\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ T\ ptr,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aafc574f533ebf5b34c1389ef504448bf}{RDMA\_RegionType}}\ \textcolor{keyword}{const}\&\ region,}
+\DoxyCodeLine{00301\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action\ =\ no\_action}
+\DoxyCodeLine{00302\ \ \ )\ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aafc574f533ebf5b34c1389ef504448bf}{RDMA\_RegionType}}\ new\_region\{region\};}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ new\_region.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_region_a5cc8077a08a31b1662feac8a1a6c257e}{hasElmSize}}())\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ new\_region.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_region_a07d9d321ed359c24a18bfb2e4adc4f89}{setElmSize}}(\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a108e405a633745d46c2d68a1a0727b7c}{getRegionTypeless}}(rdma\_handle,\ ptr,\ new\_region,\ next\_action);}
+\DoxyCodeLine{00308\ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00321\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a267d1a2da52abf259119da964b9051f0}{getTypedDataInfoBuf}}(}
+\DoxyCodeLine{00322\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ T\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems,}
+\DoxyCodeLine{00323\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_offset\ =\ no\_byte,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag,}
+\DoxyCodeLine{00324\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action\ =\ no\_action}
+\DoxyCodeLine{00325\ \ \ )\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ num\_bytes\ =\ num\_elems\ ==\ no\_byte\ ?\ no\_byte\ :\ \textcolor{keyword}{sizeof}(T)*num\_elems;}
+\DoxyCodeLine{00327\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ byte\_offset\ =\ elm\_offset\ ==\ no\_byte\ ?\ 0\ :\ \textcolor{keyword}{sizeof}(T)*elm\_offset;}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aa97aeb2fee7d1a1b2228ff063d64eb5f}{getDataIntoBuf}}(}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ rdma\_handle,\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\textcolor{keyword}{>}(ptr),\ num\_bytes,\ byte\_offset,\ tag,}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ next\_action,\ \textcolor{keyword}{sizeof}(T)}
+\DoxyCodeLine{00332\ \ \ \ \ );}
+\DoxyCodeLine{00333\ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a59f4ee000f6c382289fa6c186962d1d1}{getTypedDataInfoBuf}}(}
+\DoxyCodeLine{00345\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ T\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems,}
+\DoxyCodeLine{00346\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ na}
+\DoxyCodeLine{00347\ \ \ )\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a267d1a2da52abf259119da964b9051f0}{getTypedDataInfoBuf<T>}}(}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ rdma\_handle,\ ptr,\ num\_elems,\ no\_byte,\ no\_tag,\ na}
+\DoxyCodeLine{00350\ \ \ \ \ );}
+\DoxyCodeLine{00351\ \ \ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aebefa1395f990efb66284adc1495f6d4}{getData}}(\doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_a95ff024b0b53ecfdcba919fd54efd56e}{RDMA\_RecvType}}\ cont)\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aebefa1395f990efb66284adc1495f6d4}{getData}}(rdma\_handle,\ no\_tag,\ no\_byte,\ no\_byte,\ cont);}
+\DoxyCodeLine{00361\ \ \ \}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00372\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aebefa1395f990efb66284adc1495f6d4}{getData}}(}
+\DoxyCodeLine{00373\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,}
+\DoxyCodeLine{00374\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \doxymbox{\hyperlink{namespacevt_1_1rdma_a95ff024b0b53ecfdcba919fd54efd56e}{RDMA\_RecvType}}\ cont}
+\DoxyCodeLine{00375\ \ \ );}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00385\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00386\ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a69d6fc1f017047de79f3c1190e55ac53}{registerNewTypedRdmaHandler}}(T\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems)\ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ num\_bytes\ =\ \textcolor{keyword}{sizeof}(T)*num\_elems;}
+\DoxyCodeLine{00388\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ verbose,\ \doxymbox{\hyperlink{namespacevt_1_1rdma}{rdma}},}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}registerNewTypedRdmaHandler\ ptr=\{\},\ bytes=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ num\_bytes}
+\DoxyCodeLine{00392\ \ \ \ \ );}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab68308f4b3b72714f81a00755736b0b5}{registerNewRdmaHandler}}(}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \textcolor{keyword}{true},\ \textcolor{keyword}{reinterpret\_cast<}\doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\textcolor{keyword}{>}(ptr),\ num\_bytes}
+\DoxyCodeLine{00395\ \ \ \ \ );}
+\DoxyCodeLine{00396\ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00408\ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab68308f4b3b72714f81a00755736b0b5}{registerNewRdmaHandler}}(}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ use\_default\ =\ \textcolor{keyword}{false},\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00410\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes\ =\ no\_byte,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_collective\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00411\ \ \ );}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00422\ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a526b7c441125a9d5ed9528736be97819}{collectiveRegisterRdmaHandler}}(}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ use\_default,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes}
+\DoxyCodeLine{00424\ \ \ )\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab68308f4b3b72714f81a00755736b0b5}{registerNewRdmaHandler}}(use\_default,\ ptr,\ num\_bytes,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00426\ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00438\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00439\ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad851bdc250182163eb4996888ba1b863}{registerCollectiveTyped}}(}
+\DoxyCodeLine{00440\ \ \ \ \ T\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_total\_elems,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_elems,}
+\DoxyCodeLine{00441\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a16e12d11cf7d771df0d3dc6947a4f95c}{RDMA\_MapType}}\ \textcolor{keyword}{const}\&\ map\ =\ default\_map}
+\DoxyCodeLine{00442\ \ \ )\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ num\_bytes\ =\ \textcolor{keyword}{sizeof}(T)*num\_elems;}
+\DoxyCodeLine{00444\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\ num\_total\_bytes\ =\ \textcolor{keyword}{sizeof}(T)*num\_total\_elems;}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a339763a690f218c3df58268a691ecfe4}{registerNewCollective}}(}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \textcolor{keyword}{true},\ ptr,\ num\_bytes,\ num\_total\_bytes,\ \textcolor{keyword}{sizeof}(T),\ map}
+\DoxyCodeLine{00447\ \ \ \ \ );}
+\DoxyCodeLine{00448\ \ \ \}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00462\ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a339763a690f218c3df58268a691ecfe4}{registerNewCollective}}(}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ use\_default,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,}
+\DoxyCodeLine{00464\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_total\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ elm\_size\ =\ rdma\_default\_byte\_size,}
+\DoxyCodeLine{00465\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a16e12d11cf7d771df0d3dc6947a4f95c}{RDMA\_MapType}}\ \textcolor{keyword}{const}\&\ map\ =\ default\_map}
+\DoxyCodeLine{00466\ \ \ );}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00476\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a59de11a7b7a8034a2e8e27a10897ce01}{unregisterRdmaHandler}}(}
+\DoxyCodeLine{00477\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ handle,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type\ =\ RDMA\_TypeType::GetOrPut,}
+\DoxyCodeLine{00478\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ use\_default\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00479\ \ \ );}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00488\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a59de11a7b7a8034a2e8e27a10897ce01}{unregisterRdmaHandler}}(}
+\DoxyCodeLine{00489\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ handle,\ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \textcolor{keyword}{const}\&\ handler,}
+\DoxyCodeLine{00490\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag}
+\DoxyCodeLine{00491\ \ \ );}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00504\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgType\ =\ BaseMessage,\ ActiveTypedRDMAGetFnType<MsgType>*\ f>}
+\DoxyCodeLine{00505\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abcddc1a18794163032758fcf035ff406}{associateGetFunction}}(}
+\DoxyCodeLine{00506\ \ \ \ \ MsgType*\ msg,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,}
+\DoxyCodeLine{00507\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8598fad3cd2506fb2a6e12d444160871}{RDMA\_GetTypedFunctionType<MsgType>}}\ \textcolor{keyword}{const}\&\ fn,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00508\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag}
+\DoxyCodeLine{00509\ \ \ )\ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5737cb6eab4f266c495db156907b24c}{associateRdmaGetFunction}}<}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ RDMA\_TypeType::Get,MsgType,\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8598fad3cd2506fb2a6e12d444160871}{RDMA\_GetTypedFunctionType<MsgType>}},f}
+\DoxyCodeLine{00512\ \ \ \ \ >(msg,han,fn,any\_tag,tag);}
+\DoxyCodeLine{00513\ \ \ \}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00526\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgType\ =\ BaseMessage,\ ActiveTypedRDMAPutFnType<MsgType>*\ f>}
+\DoxyCodeLine{00527\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a5092afb73c1a6fb69cb211f23eb704cb}{associatePutFunction}}(}
+\DoxyCodeLine{00528\ \ \ \ \ MsgType*\ msg,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,}
+\DoxyCodeLine{00529\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8086be8ea2650f6f37dbc29bcc21f472}{RDMA\_PutTypedFunctionType<MsgType>}}\ \textcolor{keyword}{const}\&\ fn,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00530\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag\ =\ no\_tag}
+\DoxyCodeLine{00531\ \ \ )\ \{}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a08df53322f7811c8a80911506d3db362}{associateRdmaPutFunction}}<}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ RDMA\_TypeType::Put,MsgType,\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8086be8ea2650f6f37dbc29bcc21f472}{RDMA\_PutTypedFunctionType<MsgType>}},f}
+\DoxyCodeLine{00534\ \ \ \ \ >(msg,han,fn,any\_tag,tag);}
+\DoxyCodeLine{00535\ \ \ \}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00546\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_add2a57acf8b38758b2e53f71d92d452a}{newChannel}}(}
+\DoxyCodeLine{00547\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,}
+\DoxyCodeLine{00548\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00549\ \ \ );}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00559\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_af300aa329bab5b4fe851025525659454}{newGetChannel}}(}
+\DoxyCodeLine{00560\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a106350721a187d2cfb94a9017ef66a07}{RDMA\_EndpointType}}\ \textcolor{keyword}{const}\&\ target,}
+\DoxyCodeLine{00561\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a106350721a187d2cfb94a9017ef66a07}{RDMA\_EndpointType}}\ \textcolor{keyword}{const}\&\ non\_target,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00562\ \ \ )\ \{}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_add2a57acf8b38758b2e53f71d92d452a}{newChannel}}(}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ RDMA\_TypeType::Get,\ han,\ target.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_endpoint_a1eb7530a3e8dc1c223a3b806922ad734}{get}}(),\ non\_target.\doxymbox{\hyperlink{structvt_1_1rdma_1_1_endpoint_a1eb7530a3e8dc1c223a3b806922ad734}{get}}(),\ action}
+\DoxyCodeLine{00565\ \ \ \ \ );}
+\DoxyCodeLine{00566\ \ \ \}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00576\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a6a3ecf9512915681304ccd0126ec531f}{newGetChannel}}(}
+\DoxyCodeLine{00577\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,}
+\DoxyCodeLine{00578\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,}
+\DoxyCodeLine{00579\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,}
+\DoxyCodeLine{00580\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00581\ \ \ )\ \{}
+\DoxyCodeLine{00582\ \textcolor{preprocessor}{\ \ \ \ \#if\ vt\_check\_enabled(mpi\_rdma)}}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_add2a57acf8b38758b2e53f71d92d452a}{newChannel}}(}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ RDMA\_TypeType::Get,\ han,\ target,\ non\_target,\ action}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \doxymbox{\hyperlink{hard__error_8h_afc4cdafa6d3b99f94c26a5d4290999a9}{vtAbort}}(\textcolor{stringliteral}{"{}Feature\ \(\backslash\)"{}mpi\_rdma\(\backslash\)"{}\ is\ not\ enabled\(\backslash\)n"{}});}
+\DoxyCodeLine{00588\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00589\ \ \ \}}
+\DoxyCodeLine{00590\ }
+\DoxyCodeLine{00599\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ae64c8e90dc45fcd44129e4c62f3b65ea}{newPutChannel}}(}
+\DoxyCodeLine{00600\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,}
+\DoxyCodeLine{00601\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,}
+\DoxyCodeLine{00602\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,}
+\DoxyCodeLine{00603\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00604\ \ \ )\ \{}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00606\ \textcolor{preprocessor}{\ \ \ \ \#if\ vt\_check\_enabled(mpi\_rdma)}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_add2a57acf8b38758b2e53f71d92d452a}{newChannel}}(}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ RDMA\_TypeType::Put,\ han,\ target,\ non\_target,\ action}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00610\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \doxymbox{\hyperlink{hard__error_8h_afc4cdafa6d3b99f94c26a5d4290999a9}{vtAbort}}(\textcolor{stringliteral}{"{}Feature\ \(\backslash\)"{}mpi\_rdma\(\backslash\)"{}\ is\ not\ enabled\(\backslash\)n"{}});}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00613\ \ \ \}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00621\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a85e3bd458484375b762492ed0d65d9f5}{syncLocalGetChannel}}(}
+\DoxyCodeLine{00622\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00623\ \ \ )\ \{}
+\DoxyCodeLine{00624\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a85e3bd458484375b762492ed0d65d9f5}{syncLocalGetChannel}}(han,\ uninitialized\_destination,\ action);}
+\DoxyCodeLine{00625\ \ \ \}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00634\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aa38b010741db4c375e22662870549dd9}{syncLocalGetChannel}}(}
+\DoxyCodeLine{00635\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_target,}
+\DoxyCodeLine{00636\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00637\ \ \ )\ \{}
+\DoxyCodeLine{00638\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ target\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abde2782a98e21ad696be5aa621461814}{getTarget}}(han,\ in\_target);}
+\DoxyCodeLine{00640\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_local\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00641\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ this\_node\ !=\ target,\ \textcolor{stringliteral}{"{}Sync\ get\ works\ with\ non-\/target"{}}}
+\DoxyCodeLine{00643\ \ \ \ \ );}
+\DoxyCodeLine{00644\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4dd6beec7e4e1d3cc4c0ad3e8d0e7837}{syncChannel}}(is\_local,\ han,\ RDMA\_TypeType::Get,\ target,\ this\_node,\ action);}
+\DoxyCodeLine{00645\ \ \ \}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00654\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad09037e1408af7037ca87fc4708700aa}{syncLocalPutChannel}}(}
+\DoxyCodeLine{00655\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00656\ \ \ )\ \{}
+\DoxyCodeLine{00657\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad09037e1408af7037ca87fc4708700aa}{syncLocalPutChannel}}(han,\ dest,\ uninitialized\_destination,\ action);}
+\DoxyCodeLine{00658\ \ \ \}}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00668\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3b4e56f84f35786f8225baffeaa921ea}{syncLocalPutChannel}}(}
+\DoxyCodeLine{00669\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,}
+\DoxyCodeLine{00670\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_target,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00671\ \ \ )\ \{}
+\DoxyCodeLine{00672\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ target\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abde2782a98e21ad696be5aa621461814}{getTarget}}(han,\ in\_target);}
+\DoxyCodeLine{00673\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_local\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4dd6beec7e4e1d3cc4c0ad3e8d0e7837}{syncChannel}}(is\_local,\ han,\ RDMA\_TypeType::Put,\ target,\ dest,\ action);}
+\DoxyCodeLine{00675\ \ \ \}}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00684\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_afaa2ab82b754c4a231c3d728fe0a9e88}{syncRemoteGetChannel}}(}
+\DoxyCodeLine{00685\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_target\ =\ uninitialized\_destination,}
+\DoxyCodeLine{00686\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00687\ \ \ )\ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00689\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ target\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abde2782a98e21ad696be5aa621461814}{getTarget}}(han,\ in\_target);}
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_local\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00691\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ this\_node\ !=\ target,\ \textcolor{stringliteral}{"{}Sync\ get\ works\ with\ non-\/target"{}}}
+\DoxyCodeLine{00693\ \ \ \ \ );}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4dd6beec7e4e1d3cc4c0ad3e8d0e7837}{syncChannel}}(is\_local,\ han,\ RDMA\_TypeType::Get,\ target,\ this\_node,\ action);}
+\DoxyCodeLine{00695\ \ \ \}}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00703\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a9b6fb7fac7c6b534659705cf4ad20658}{syncRemotePutChannel}}(}
+\DoxyCodeLine{00704\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00705\ \ \ )\ \{}
+\DoxyCodeLine{00706\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a9b6fb7fac7c6b534659705cf4ad20658}{syncRemotePutChannel}}(han,\ uninitialized\_destination,\ action);}
+\DoxyCodeLine{00707\ \ \ \}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00716\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aae382995709cd7827f256f9d5f3e45e4}{syncRemotePutChannel}}(}
+\DoxyCodeLine{00717\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_target,}
+\DoxyCodeLine{00718\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00719\ \ \ )\ \{}
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ target\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abde2782a98e21ad696be5aa621461814}{getTarget}}(han,\ in\_target);}
+\DoxyCodeLine{00722\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_local\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00723\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ this\_node\ !=\ target,\ \textcolor{stringliteral}{"{}Sync\ remote\ put\ channel\ should\ be\ other\ target"{}}}
+\DoxyCodeLine{00725\ \ \ \ \ );}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4dd6beec7e4e1d3cc4c0ad3e8d0e7837}{syncChannel}}(is\_local,\ han,\ RDMA\_TypeType::Put,\ target,\ this\_node,\ action);}
+\DoxyCodeLine{00727\ \ \ \}}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00736\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a9767f9beafd9a352ae2b9f0a189f7346}{removeDirectChannel}}(}
+\DoxyCodeLine{00737\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ override\_target\ =\ uninitialized\_destination,}
+\DoxyCodeLine{00738\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00739\ \ \ );}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00742\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abde2782a98e21ad696be5aa621461814}{getTarget}}(}
+\DoxyCodeLine{00743\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_tar\ =\ uninitialized\_destination}
+\DoxyCodeLine{00744\ \ \ )\ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ target\ =\ in\_tar\ ==\ uninitialized\_destination\ ?}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_manager_a80488969f034c0ae7e525c9f249b59af}{RDMA\_HandleManagerType::getRdmaNode}}(han)\ :\ in\_tar;}
+\DoxyCodeLine{00747\ \ \ \ \ \textcolor{keywordflow}{return}\ target;}
+\DoxyCodeLine{00748\ \ \ \}}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4dd6beec7e4e1d3cc4c0ad3e8d0e7837}{syncChannel}}(}
+\DoxyCodeLine{00751\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_local,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,}
+\DoxyCodeLine{00752\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action}
+\DoxyCodeLine{00753\ \ \ );}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abd4b573102bf0a4c7dd0687d257f7a0d}{setupChannelWithRemote}}(}
+\DoxyCodeLine{00756\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,}
+\DoxyCodeLine{00757\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action,}
+\DoxyCodeLine{00758\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ override\_target\ =\ uninitialized\_destination}
+\DoxyCodeLine{00759\ \ \ );}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_acef2971a0d793bc8462beac8ef03ef51}{sendDataChannel}}(}
+\DoxyCodeLine{00762\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr,}
+\DoxyCodeLine{00763\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,}
+\DoxyCodeLine{00764\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action\_after\_put}
+\DoxyCodeLine{00765\ \ \ );}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00767\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a0007e2a8fba26477bd9bb52887e855e3}{createDirectChannel}}(}
+\DoxyCodeLine{00768\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,}
+\DoxyCodeLine{00769\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00770\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ override\_target\ =\ uninitialized\_destination}
+\DoxyCodeLine{00771\ \ \ );}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab512ce0c45479a8544e8a1eb6b2ed88a}{createDirectChannelInternal}}(}
+\DoxyCodeLine{00774\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,}
+\DoxyCodeLine{00775\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00776\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ override\_target\ =\ uninitialized\_destination,}
+\DoxyCodeLine{00777\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ channel\_tag\ =\ no\_tag,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes\ =\ no\_byte}
+\DoxyCodeLine{00778\ \ \ );}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3b0d77f20a7c6395fd239b3579056798}{createDirectChannelFinish}}(}
+\DoxyCodeLine{00781\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ type,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,}
+\DoxyCodeLine{00782\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ channel\_tag,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_target,}
+\DoxyCodeLine{00783\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,}
+\DoxyCodeLine{00784\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ override\_target\ =\ uninitialized\_destination}
+\DoxyCodeLine{00785\ \ \ );}
+\DoxyCodeLine{00786\ }
+\DoxyCodeLine{00787\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00788\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMAManager::RDMA\_TypeType}}\ rdma\_type,}
+\DoxyCodeLine{00789\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ FunctionT,\ \doxymbox{\hyperlink{namespacevt_a0a12f7c6b23985633256c11096a14e81}{ActiveTypedRDMAGetFnType<MsgT>}}*\ f}
+\DoxyCodeLine{00790\ \ \ >}
+\DoxyCodeLine{00791\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5737cb6eab4f266c495db156907b24c}{associateRdmaGetFunction}}(}
+\DoxyCodeLine{00792\ \ \ \ \ MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ FunctionT\ \textcolor{keyword}{const}\&\ fn,}
+\DoxyCodeLine{00793\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{00794\ \ \ )\ \{}
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00796\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\_node\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_manager_a80488969f034c0ae7e525c9f249b59af}{RDMA\_HandleManagerType::getRdmaNode}}(han);}
+\DoxyCodeLine{00797\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ is\_collective\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_manager_a0aa955ef0d6bea53f38eaf82fa428beb}{RDMA\_HandleManagerType::isCollective}}(han);}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ (is\_collective\ or\ handler\_node\ ==\ this\_node)}
+\DoxyCodeLine{00801\ \ \ \ \ \ ,\ \textcolor{stringliteral}{"{}Handle\ must\ be\ local\ to\ this\ node"{}}}
+\DoxyCodeLine{00802\ \ \ \ \ );}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \ \ \ \ \textcolor{keyword}{auto}\ holder\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}}.find(han);}
+\DoxyCodeLine{00805\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ holder\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}}.end(),\ \textcolor{stringliteral}{"{}Holder\ for\ handler\ must\ exist\ here"{}}}
+\DoxyCodeLine{00807\ \ \ \ \ );}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \ \ \ \ \textcolor{keyword}{auto}\&\ state\ =\ holder\_iter-\/>second;}
+\DoxyCodeLine{00810\ }
+\DoxyCodeLine{00811\ \ \ \ \ \textcolor{keywordflow}{if}\ (rdma\_type\ ==\ RDMAManager::RDMA\_TypeType::Get)\ \{}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ state.setRDMAGetFn<MsgT,FunctionT,f>(msg,\ fn,\ any\_tag,\ tag);}
+\DoxyCodeLine{00813\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(0,\ \textcolor{stringliteral}{"{}Should\ be\ unreachable"{}});}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ no\_rdma\_handle;}
+\DoxyCodeLine{00816\ \ \ \ \ \}}
+\DoxyCodeLine{00817\ \ \ \}}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00820\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMAManager::RDMA\_TypeType}}\ rdma\_type,}
+\DoxyCodeLine{00821\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ FunctionT,\ \doxymbox{\hyperlink{namespacevt_af401fc79d67744da53e32bb14470ab24}{ActiveTypedRDMAPutFnType<MsgT>}}*\ f}
+\DoxyCodeLine{00822\ \ \ >}
+\DoxyCodeLine{00823\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a08df53322f7811c8a80911506d3db362}{associateRdmaPutFunction}}(}
+\DoxyCodeLine{00824\ \ \ \ \ MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ FunctionT\ \textcolor{keyword}{const}\&\ fn,}
+\DoxyCodeLine{00825\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ any\_tag,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{00826\ \ \ )\ \{}
+\DoxyCodeLine{00827\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00828\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\_node\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_manager_a80488969f034c0ae7e525c9f249b59af}{RDMA\_HandleManagerType::getRdmaNode}}(han);}
+\DoxyCodeLine{00829\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ is\_collective\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_handle_manager_a0aa955ef0d6bea53f38eaf82fa428beb}{RDMA\_HandleManagerType::isCollective}}(han);}
+\DoxyCodeLine{00830\ }
+\DoxyCodeLine{00831\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ (is\_collective\ or\ handler\_node\ ==\ this\_node)}
+\DoxyCodeLine{00833\ \ \ \ \ \ ,\ \textcolor{stringliteral}{"{}Handle\ must\ be\ local\ to\ this\ node"{}}}
+\DoxyCodeLine{00834\ \ \ \ \ );}
+\DoxyCodeLine{00835\ }
+\DoxyCodeLine{00836\ \ \ \ \ \textcolor{keyword}{auto}\ holder\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}}.find(han);}
+\DoxyCodeLine{00837\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ holder\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}}.end(),\ \textcolor{stringliteral}{"{}Holder\ for\ handler\ must\ exist\ here"{}}}
+\DoxyCodeLine{00839\ \ \ \ \ );}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00841\ \ \ \ \ \textcolor{keyword}{auto}\&\ state\ =\ holder\_iter-\/>second;}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00843\ \ \ \ \ \textcolor{keywordflow}{if}\ (rdma\_type\ ==\ RDMAManager::RDMA\_TypeType::Put)\ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ state.setRDMAPutFn<MsgT,FunctionT,f>(msg,\ fn,\ any\_tag,\ tag);}
+\DoxyCodeLine{00845\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(0,\ \textcolor{stringliteral}{"{}Should\ be\ unreachable"{}});}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ no\_rdma\_handle;}
+\DoxyCodeLine{00848\ \ \ \ \ \}}
+\DoxyCodeLine{00849\ \ \ \}}
+\DoxyCodeLine{00850\ }
+\DoxyCodeLine{00851\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aee554383c0376e3751d0957b2c04cc75}{requestGetData}}(}
+\DoxyCodeLine{00852\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_af7e1b78628dfd69843458766157f7c59}{GetMessage}}*\ msg,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_user\_msg,}
+\DoxyCodeLine{00853\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ rdma\_handle,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{00854\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_local,}
+\DoxyCodeLine{00855\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \textcolor{keyword}{const}\&\ ptr\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00856\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ from\_node\ =\ uninitialized\_destination,}
+\DoxyCodeLine{00857\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a195e459b93863ab6490bc2d94aafbad5}{RDMA\_ContinuationType}}\ cont\ =\ no\_action,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ next\_action\ =\ no\_action}
+\DoxyCodeLine{00858\ \ \ );}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a38e87a342616670eb3679e649e3c39cf}{triggerGetRecvData}}(}
+\DoxyCodeLine{00861\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_a58d124c98a4d66fd49192cb1867165d1}{RDMA\_OpType}}\ \textcolor{keyword}{const}\&\ op,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ ptr,}
+\DoxyCodeLine{00862\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action\ =\ no\_action}
+\DoxyCodeLine{00863\ \ \ );}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7670a52bb5673c5e15a6ff21097847f3}{triggerPutRecvData}}(}
+\DoxyCodeLine{00866\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,\ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ ptr,}
+\DoxyCodeLine{00867\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ num\_bytes,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \textcolor{keyword}{const}\&\ offset,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \textcolor{keyword}{const}\&\ action,}
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ is\_local,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ from\_node}
+\DoxyCodeLine{00869\ \ \ );}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8bce76d1b441ca17daf84835eb9a7dec}{RDMA\_DirectType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a49b9fd1ac1fcc391a45b7a4c8c796a2b}{tryGetDataPtrDirect}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_a58d124c98a4d66fd49192cb1867165d1}{RDMA\_OpType}}\ \textcolor{keyword}{const}\&\ op);}
+\DoxyCodeLine{00872\ \ \ \doxymbox{\hyperlink{namespacevt_a17fc27545d19984f7c96c8305ecf0328}{RDMA\_PtrType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_afe917ba8c9a44175dd0766f3f0321e61}{tryPutPtr}}(\doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag);}
+\DoxyCodeLine{00873\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a02d9c1d18f6f15797ee2592613175069}{triggerPutBackData}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_a58d124c98a4d66fd49192cb1867165d1}{RDMA\_OpType}}\ \textcolor{keyword}{const}\&\ op);}
+\DoxyCodeLine{00874\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a0c9f73f027924ee73cb2d9a8af520e1e}{nextRdmaChannelTag}}();}
+\DoxyCodeLine{00875\ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3d8b57617a652d55cf2714930d618c05}{lookupBytesHandler}}(\doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han);}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3df5b264f344d9d4530a96264782a725}{RDMA\_ChannelLookupType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8f6d4973f9ea76e2be99d1aac105fff7}{makeChannelLookup}}(}
+\DoxyCodeLine{00878\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ rdma\_op\_type,}
+\DoxyCodeLine{00879\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target}
+\DoxyCodeLine{00880\ \ \ );}
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00882\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad6a7e417dca07fe5743318e1153677a8}{RDMA\_ChannelType}}*\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a51f828fcbb55e1b4c883746c490b77f0}{findChannel}}(}
+\DoxyCodeLine{00883\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a8cea7c0e7e16b30a91c6bc30fb03e407}{RDMA\_HandleType}}\ \textcolor{keyword}{const}\&\ han,\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7f4369a60dfe2ca11abe39a4ce8c2f5e}{RDMA\_TypeType}}\ \textcolor{keyword}{const}\&\ rdma\_op\_type,}
+\DoxyCodeLine{00884\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ target,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ non\_target,}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ should\_insert\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ must\_exist\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00886\ \ \ );}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00889\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a59e73ef8c81ddf4094802bfda5ac42cc}{RDMACollectionManager}};}
+\DoxyCodeLine{00890\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a5786d652b263a505c6c74f25e7c0994a}{Channel}};}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00893\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a9b393c6dbd360c0b7bfb899e3fc0451b}{allocateNewRdmaHandler}}();}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \ \ \textcolor{comment}{//\ handler\ functions\ for\ managing\ rdma\ operations}}
+\DoxyCodeLine{00896\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aba5002562451e1264979003dcf1e659e}{getRDMAMsg}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_af7e1b78628dfd69843458766157f7c59}{GetMessage}}*\ msg);}
+\DoxyCodeLine{00897\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a1c11e7b5616c22d03fd3884f99d3e7ff}{getRecvMsg}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_aa04d1c992b9cf88a60c127c6a5b77f7a}{GetBackMessage}}*\ msg);}
+\DoxyCodeLine{00898\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ad8525c38d7d47c1e96a6ed4399e5b1ef}{putBackMsg}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_a01262bc1d17bb5338e9306e16640e4f3}{PutBackMessage}}*\ msg);}
+\DoxyCodeLine{00899\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a87d44e05aeeb404290ac2a38b4631fe0}{putRecvMsg}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_a1bc781494f889c868ddaf800542716ca}{PutMessage}}*\ msg);}
+\DoxyCodeLine{00900\ }
+\DoxyCodeLine{00901\ \ \ \textcolor{comment}{//\ handler\ functions\ for\ managing\ direct\ rdma\ channels}}
+\DoxyCodeLine{00902\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a5189682bba9e4b73faa010bf78f96469}{setupChannel}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_create_channel}{CreateChannel}}*\ msg);}
+\DoxyCodeLine{00903\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a240f9f8c6697b4fc94c8a8b1b4d6c737}{removeChannel}}(\doxymbox{\hyperlink{namespacevt_1_1rdma_ab2025f951ef479e14292a4a0cc8ef881}{DestroyChannel}}*\ msg);}
+\DoxyCodeLine{00904\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8c2cb5f8770dfe6265065c6040314399}{remoteChannel}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_channel_message}{ChannelMessage}}*\ msg);}
+\DoxyCodeLine{00905\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a7e01a11f17c52dee2d564341866e2e29}{getInfoChannel}}(\doxymbox{\hyperlink{structvt_1_1rdma_1_1_get_info_channel}{GetInfoChannel}}*\ msg);}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00907\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00908\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a3836ae3598530ab0c5486695f4fcf180}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00909\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4cd37fd70b9598a06a8edbadb44a9eb4}{cur\_rdma\_handler\_}}}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abcdb9005492e7a1145c9b8c9e9e271b0}{cur\_ident\_}}}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4369f821141f2e140441f1b590661a7b}{cur\_collective\_ident\_}}}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}}}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a64c6d7af9b79b175cfbcfe86e40db23e}{cur\_op\_}}}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aa4007bae161761451dc033f5555d0461}{pending\_ops\_}}}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aaedab94d025b3aa711c48e881d81d048}{channels\_}}}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a583736edf4cc08a6072d5284df9e4560}{next\_channel\_tag\_}}}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ada74c89614007b46c007876825dd73a5}{collective\_scope\_}};}
+\DoxyCodeLine{00918\ \ \ \}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00921\ \ \ \textcolor{comment}{//\ next\ local\ rdma\ handler\ (used\ by\ State)}}
+\DoxyCodeLine{00922\ \ \ \doxymbox{\hyperlink{namespacevt_a4ca5ca9096966bc230f4a158b58b599b}{RDMA\_HandlerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4cd37fd70b9598a06a8edbadb44a9eb4}{cur\_rdma\_handler\_}}\ =\ first\_rdma\_handler;}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \textcolor{comment}{//\ next\ local\ rdma\ identifier}}
+\DoxyCodeLine{00925\ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_a997a8436cd91e50995171ff2f876a434}{RDMA\_IdentifierType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_abcdb9005492e7a1145c9b8c9e9e271b0}{cur\_ident\_}}\ =\ first\_rdma\_identifier;}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \ \ \textcolor{comment}{//\ next\ collective\ rdma\ identifier}}
+\DoxyCodeLine{00928\ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_a997a8436cd91e50995171ff2f876a434}{RDMA\_IdentifierType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a4369f821141f2e140441f1b590661a7b}{cur\_collective\_ident\_}}\ =\ first\_rdma\_identifier;}
+\DoxyCodeLine{00929\ }
+\DoxyCodeLine{00930\ \ \ \textcolor{comment}{//\ rdma\ state\ container}}
+\DoxyCodeLine{00931\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a55dd81ff646ebb9d61ebf3a7239ec3b8}{RDMA\_ContainerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab5a0e70728339dd6955d355754f4892a}{holder\_}};}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \ \ \textcolor{comment}{//\ rdma\ unique\ remote\ operation\ identifier}}
+\DoxyCodeLine{00934\ \ \ \doxymbox{\hyperlink{namespacevt_1_1rdma_a58d124c98a4d66fd49192cb1867165d1}{RDMA\_OpType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a64c6d7af9b79b175cfbcfe86e40db23e}{cur\_op\_}}\ =\ 0;}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \textcolor{comment}{//\ operations\ that\ are\ pending\ remote\ interaction}}
+\DoxyCodeLine{00937\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a8c9def755fab6d3eb1f529175243f38a}{RDMA\_OpContainerType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aa4007bae161761451dc033f5555d0461}{pending\_ops\_}};}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \ \ \textcolor{comment}{//\ Live\ channels\ that\ can\ be\ used\ to\ hardware-\/level\ get/put\ ops}}
+\DoxyCodeLine{00940\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a689c48ff97319fd83c19e7230b8e9d62}{RDMA\_LiveChannelsType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_aaedab94d025b3aa711c48e881d81d048}{channels\_}};}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00942\ \ \ \textcolor{comment}{//\ Current\ RDMA\ channel\ tag}}
+\DoxyCodeLine{00943\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_a583736edf4cc08a6072d5284df9e4560}{next\_channel\_tag\_}}\ =\ first\_rdma\_channel\_tag;}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00945\ \ \ \textcolor{comment}{//\ Collective\ scope\ for\ issuing\ MPI\ collective\ operations}}
+\DoxyCodeLine{00946\ \ \ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ab2b109454390c41ea74e72a2850edd12}{CollectiveScopeType}}\ \doxymbox{\hyperlink{structvt_1_1rdma_1_1_r_d_m_a_manager_ada74c89614007b46c007876825dd73a5}{collective\_scope\_}};}
+\DoxyCodeLine{00947\ \};}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \}\}\ \textcolor{comment}{//end\ namespace\ vt::rdma}}
+\DoxyCodeLine{00950\ }
+\DoxyCodeLine{00951\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00952\ }
+\DoxyCodeLine{00953\ \textcolor{keyword}{extern}\ rdma::RDMAManager*\ \doxymbox{\hyperlink{namespacevt_a68b8410bc2b86d3b5228d7dbb6b40bac}{theRDMA}}();}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \}\ \textcolor{comment}{//end\ namespace\ vt}}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00957\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RDMA\_RDMA\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

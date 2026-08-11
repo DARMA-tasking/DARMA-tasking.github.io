@@ -1,0 +1,66 @@
+\doxysubsection{Learning about callbacks }
+\hypertarget{tutorial-1g}{}\label{tutorial-1g}\index{Learning about callbacks@{Learning about callbacks}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ getCallbackHandler(Callback<int>\ cb);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ An\ active\ message\ handler\ used\ as\ the\ target\ for\ a\ callback}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ callbackHandler(\textcolor{keywordtype}{int}\ data)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}\{\}:\ triggering\ active\ message\ callback:\ \{\}\(\backslash\)n"{}},\ cur\_node,\ data);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ An\ active\ message\ handler\ used\ as\ the\ target\ for\ a\ callback}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ callbackBcastHandler(\textcolor{keywordtype}{int}\ data)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ ::fmt::print(}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}\{\}:\ triggering\ active\ message\ callback\ bcast:\ \{\}\(\backslash\)n"{}},\ cur\_node,\ data}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ using\ a\ callback}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageCallback()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ Callbacks\ allow\ one\ to\ generalize\ the\ notion\ of\ an\ endpoint\ with\ a\ abstract}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ interface\ the\ callee\ can\ use\ without\ changing\ code.\ A\ callback\ can\ trigger}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ a\ lambda,\ handler\ on\ a\ node,\ handler\ broadcast,\ handler/lambda\ with\ a}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ context,\ message\ send\ of\ virtual\ context\ collection\ (element\ or\ broadcast)}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Node\ sending\ the\ callback\ message\ to,\ which\ shall\ invoke\ the\ callback}}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ to\_node\ =\ 1;}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Node\ that\ we\ want\ to\ callback\ to\ execute\ on}}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ cb\_node\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Example\ of\ active\ message\ handler\ callback\ with\ send\ node}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a3c6313a04c8ba283f4c32986ff8c7c30}{makeSend}}<callbackHandler>(cb\_node);}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}}<getCallbackHandler>(\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{Node}}\{to\_node\},\ cb);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Example\ of\ active\ message\ handler\ callback\ with\ broadcast}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ \doxymbox{\hyperlink{namespacevt_a673b109e94c7bca58313504c83e1da94}{::vt::theCB}}()-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1_pipe_manager_a5b124c9c765e8b3bb9aca1b367e45db2}{makeBcast}}<callbackBcastHandler>();}
+\DoxyCodeLine{\ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}}<getCallbackHandler>(\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{Node}}\{to\_node\},\ cb);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler\ for\ to\ receive\ callback\ and\ invoke\ it}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ getCallbackHandler(Callback<int>\ cb)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}getCallbackHandler:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Send\ the\ callback\ a\ message}}
+\DoxyCodeLine{\ \ cb.send(29\ +\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

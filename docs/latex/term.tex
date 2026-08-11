@@ -1,0 +1,125 @@
+\doxysubsection{Termination Detector }
+\hypertarget{term}{}\label{term}\index{Termination Detector@{Termination Detector}}
+Detect termination of work.
+
+The termination component {\ttfamily \doxylink{structvt_1_1term_1_1_termination_detector}{vt::\+term::\+\+Termination\+Detector}}, accessed via {\ttfamily \doxylink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::\+the\+Term()}} detects the completion of the transitive closure of work by following the causal chain of messages/\+events across multiple nodes. It provides global termination to determine when all work is complete and the schedulers can stop running. Additionally, it enables the creation of epochs (which stamp message envelopes) to mark messages as part of a work grouping to detect termination of all events causally related to a subset of messages in the system.
+
+The termination detector comes with two different detection algorithms:\+ (1) 4-\/counter wave-\/based termination for large collective or large rooted epochs across the whole system; and, (2) Dijkstra-\/\+Scholten parental responsibility termination for rooted epochs. Epochs are allowed to have other epochs nested within them, thus forming a graph. The detector tracks the relation between epochs, only making progress on epochs that do not have a dependency on another epoch terminating first.
+
+The termination detector also comes with hang detection to detect causes where no progress can be made due to bugs in an application\textquotesingle{}s code or the runtime implementation. When a hang is detected, if configured as such by the user, the detector will dump a DOT graph of the live epochs and their dependencies.\hypertarget{term_term-collective-example}{}\doxysubsubsection{\texorpdfstring{Example of creating a collective epoch}{Example of creating a collective epoch}}\label{term_term-collective-example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ }TestMsg\ =\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ nextNode()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ (this\_node\ +\ 1)\ \%\ num\_nodes;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ test\_handler(TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ num\ =\ 3;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}}(msg-\/>env);}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ test\_handler:\ num=\{\},\ epoch=\{:x\}\(\backslash\)n"{}},\ this\_node,\ num,\ epoch);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ num-\/-\/;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\_send\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<TestMsg>}}();}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<test\_handler>(nextNode(),\ msg\_send);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\_nodes\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}}(\textcolor{stringliteral}{"{}requires\ at\ least\ 2\ nodes"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_aeba62165ec8dfbc445e3631ff295f159}{makeEpochCollective}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ This\ action\ will\ not\ run\ until\ all\ messages\ originating\ from\ the}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ sends\ are\ completed}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}}(epoch,\ [=]\{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ finished\ epoch=\{:x\}\(\backslash\)n"{}},\ this\_node,\ epoch);}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Message\ must\ go\ out\ of\ scope\ before\ finalize}}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<TestMsg>}}();}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}}(msg-\/>env,\ epoch);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<test\_handler>(nextNode(),\ msg);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(epoch);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+\hypertarget{term_term-rooted-example}{}\doxysubsubsection{\texorpdfstring{Example of creating a rooted epoch}{Example of creating a rooted epoch}}\label{term_term-rooted-example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{using\ }TestMsg\ =\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ nextNode()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ (this\_node\ +\ 1)\ \%\ num\_nodes;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ test\_handler(TestMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ num\ =\ 3;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{vt::envelopeGetEpoch}}(msg-\/>env);}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ test\_handler:\ num=\{\},\ epoch=\{:x\}\(\backslash\)n"{}},\ this\_node,\ num,\ epoch);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ num-\/-\/;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\_send\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<TestMsg>}}();}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<test\_handler>(nextNode(),\ msg\_send);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\_nodes\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}}(\textcolor{stringliteral}{"{}requires\ at\ least\ 2\ nodes"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1config_a6bd1d6215bda0d8ca02811798399f689a05bdb92281360bcbfdf239ad3ccbde19}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a232f305124ecd8f4f62e9c8224a74f49}{makeEpochRooted}}(\doxymbox{\hyperlink{structvt_1_1term_1_1_use_d_s}{vt::term::UseDS}}\{\textcolor{keyword}{true}\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ This\ action\ will\ not\ run\ until\ all\ messages\ originating\ from\ the}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ following\ send\ are\ completed}}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a1227042cb4eb38937fb8ed34bcbdf998}{addAction}}(epoch,\ [=]\{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ finished\ epoch=\{:x\}\(\backslash\)n"{}},\ this\_node,\ epoch);}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<TestMsg>}}();}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a4a0a9928690206b588dbcac2afb71088}{vt::envelopeSetEpoch}}(msg-\/>env,\ epoch);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<test\_handler>(nextNode(),\ msg);}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{vt::theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(epoch);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

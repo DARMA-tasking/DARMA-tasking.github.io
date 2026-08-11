@@ -1,0 +1,235 @@
+\doxysection{signal\+\_\+holder.\+impl.\+h}
+\hypertarget{signal__holder_8impl_8h_source}{}\label{signal__holder_8impl_8h_source}\index{src/vt/pipe/signal/signal\_holder.impl.h@{src/vt/pipe/signal/signal\_holder.impl.h}}
+\doxymbox{\hyperlink{signal__holder_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ signal\_holder.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_PIPE\_SIGNAL\_SIGNAL\_HOLDER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_PIPE\_SIGNAL\_SIGNAL\_HOLDER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pipe__common_8h}{vt/pipe/pipe\_common.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{signal__holder_8h}{vt/pipe/signal/signal\_holder.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{callback__base_8h}{vt/pipe/callback/callback\_base.h}}"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pipe_1_1signal}{signal}}\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ae32b546852bc4518b6d75f2e43a5eb5f}{SignalHolder<SignalT>::addSignal}}(}
+\DoxyCodeLine{00061\ \ \ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aad5bfc2b46dfa071ae638385324d7e31}{DataPtrType}}\ in\_data}
+\DoxyCodeLine{00062\ )\ \{}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.find(pid);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.end())\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.emplace(}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ std::forward\_as\_tuple(pid),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ std::forward\_as\_tuple(\doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab04d27c1c48b28813fdd8af29a4cda92}{SignalListType}}\{in\_data\})}
+\DoxyCodeLine{00069\ \ \ \ \ );}
+\DoxyCodeLine{00070\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ iter-\/>second.push\_back(in\_data);}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a5be1905ef30b9c0e8764daa5f471d445}{SignalHolder<SignalT>::removeListener}}(}
+\DoxyCodeLine{00077\ \ \ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a68114d1ad5804c71e014736b18e41e08}{ListenerPtrType}}\ listener}
+\DoxyCodeLine{00078\ )\ \{}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(pid);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end())\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{auto}\ liter\ =\ iter-\/>second.begin();}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{while}\ (liter\ !=\ iter-\/>second.end()\ \&\&\ liter.get()\ !=\ listener)\ ++liter;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}\ (liter\ !=\ iter-\/>second.end())\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a23af418129e6e8ecb4ee9621e6fd6f90}{ListenerType}}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ std::move(*liter);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ iter-\/>second.erase(liter);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abcd78906fca701244f0f13089b5f5057}{SignalHolder<SignalT>::clearAll}}()\ \{}
+\DoxyCodeLine{00093\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.clear();}
+\DoxyCodeLine{00094\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.clear();}
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.clear();}
+\DoxyCodeLine{00096\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a5ef82532eb8d0d65fe7b07f7fb53491d}{SignalHolder<SignalT>::clearAllListeners}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid)\ \{}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(pid);}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end())\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ iter-\/>second.clear();}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a9907ff2a131c6aafe6771c09b6ae9415}{SignalHolder<SignalT>::clearAllSignals}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid)\ \{}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.find(pid);}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_abc4dda923a2844f99d62b8e0555fc2d8}{pending\_holder\_}}.end())\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ iter-\/>second.clear();}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a9f31fab057a4e9af38547859572b6127}{SignalHolder<SignalT>::clearPipe}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid)\ \{}
+\DoxyCodeLine{00116\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a5ef82532eb8d0d65fe7b07f7fb53491d}{clearAllListeners}}(pid);}
+\DoxyCodeLine{00117\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a9907ff2a131c6aafe6771c09b6ae9415}{clearAllSignals}}(pid);}
+\DoxyCodeLine{00118\ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00121\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_af0d3ccf4a8700979f414a0485cf41df5}{SignalHolder<SignalT>::ListenerListIterType}}}
+\DoxyCodeLine{00122\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a5be1905ef30b9c0e8764daa5f471d445}{SignalHolder<SignalT>::removeListener}}(}
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a7f6eed09a10f9b4f679c99ae85983879}{ListenerMapIterType}}\ map\_iter,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_af0d3ccf4a8700979f414a0485cf41df5}{ListenerListIterType}}\ iter}
+\DoxyCodeLine{00124\ )\ \{}
+\DoxyCodeLine{00125\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a23af418129e6e8ecb4ee9621e6fd6f90}{ListenerType}}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ std::move(*iter);}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{auto}\ niter\ =\ map\_iter-\/>second.erase(iter);}
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ explicitly\ set\ to\ nullptr\ to\ invoke\ destructor\ (instead\ of\ waiting\ for}}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{//\ out\ of\ scope)}}
+\DoxyCodeLine{00129\ \ \ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordflow}{return}\ niter;}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00134\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aced54515f402b63f6dea174e5b027c81}{SignalHolder<SignalT>::SigCountType}}}
+\DoxyCodeLine{00135\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aefb0dca5bdcb08b867c24b29f1d48429}{SignalHolder<SignalT>::getCount}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid)\ \{}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.find(pid);}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.end())\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00139\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00141\ \ \ \}}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aa15cf43c4602a9d866f8060746696a45}{SignalHolder<SignalT>::setCount}}(}
+\DoxyCodeLine{00146\ \ \ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aced54515f402b63f6dea174e5b027c81}{SigCountType}}\ \textcolor{keyword}{const}\&\ count}
+\DoxyCodeLine{00147\ )\ \{}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.find(pid);}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.end())\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ iter-\/>second\ =\ count;}
+\DoxyCodeLine{00151\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ab9ff9df04d2407c4fc5d9e0658f9baa0}{listener\_count\_}}.emplace(}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ std::forward\_as\_tuple(pid),}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ std::forward\_as\_tuple(count)}
+\DoxyCodeLine{00156\ \ \ \ \ );}
+\DoxyCodeLine{00157\ \ \ \}}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00161\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a3e04f57a784e41c422357dfda7871304}{SignalHolder<SignalT>::deliverAll}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aad5bfc2b46dfa071ae638385324d7e31}{DataPtrType}}\ data)\ \{}
+\DoxyCodeLine{00162\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(pid);}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end())\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{auto}\ liter\ =\ iter-\/>second.begin();}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{while}\ (liter\ !=\ iter-\/>second.end())\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a611fe4b2ce38900245e2f4a9dd40d5dc}{applySignal}}(liter-\/>get(),data,pid);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ is\_fin\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aa2d3f4de74295a26df20f26e84f99c4e}{finished}}(liter-\/>get());}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_fin)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ liter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a5be1905ef30b9c0e8764daa5f471d445}{removeListener}}(iter,liter);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ liter++;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter-\/>second.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.erase(iter);}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(0,\ \textcolor{stringliteral}{"{}At\ least\ one\ listener\ should\ exist"{}});}
+\DoxyCodeLine{00179\ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ if\ (buffer)\ \{}}
+\DoxyCodeLine{00181\ \ \ \textcolor{comment}{//\ \ \ addSignal(pid,data);}}
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00183\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00186\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aee30c3b7c07d695450e1d6a9953ee98a}{SignalHolder<SignalT>::addListener}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a23af418129e6e8ecb4ee9621e6fd6f90}{ListenerType}}\&\&\ cb)\ \{}
+\DoxyCodeLine{00187\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(pid);}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end())\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.emplace(}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ std::forward\_as\_tuple(pid),}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ std::forward\_as\_tuple(\doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ae37fd15e6a901de2f90620780e936f6e}{ListenerListType}}\{\})}
+\DoxyCodeLine{00193\ \ \ \ \ );}
+\DoxyCodeLine{00194\ \ \ \ \ iter\ =\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(pid);}
+\DoxyCodeLine{00195\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end(),\ \textcolor{stringliteral}{"{}Must\ exist\ now"{}});}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \textcolor{comment}{//\ //\ Deliver\ any\ pending\ signals}}
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ auto\ pending\_iter\ =\ pending\_holder\_.find(pid);}}
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ if\ (pending\_iter\ !=\ \ pending\_holder\_.end())\ \{}}
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ \ \ for\ (auto\&\&\ elm\ :\ pending\_iter-\/>second)\ \{}}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ \ \ \ \ cb-\/>trigger(elm,pid);}}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{//\ Finally\ insert\ into\ listeners}}
+\DoxyCodeLine{00207\ \ \ iter-\/>second.emplace\_back(std::move(cb));}
+\DoxyCodeLine{00208\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a611fe4b2ce38900245e2f4a9dd40d5dc}{SignalHolder<SignalT>::applySignal}}(}
+\DoxyCodeLine{00212\ \ \ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a68114d1ad5804c71e014736b18e41e08}{ListenerPtrType}}\ listener,\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aad5bfc2b46dfa071ae638385324d7e31}{DataPtrType}}\ data,\ \doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ pid}
+\DoxyCodeLine{00213\ )\ \{}
+\DoxyCodeLine{00214\ \ \ listener-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_base_ad54d116447acb7f1d051db946b2e875c}{trigger}}(data,pid);}
+\DoxyCodeLine{00215\ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aa2d3f4de74295a26df20f26e84f99c4e}{SignalHolder<SignalT>::finished}}(\doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_a68114d1ad5804c71e014736b18e41e08}{ListenerPtrType}}\ listener)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordflow}{return}\ listener-\/>\doxymbox{\hyperlink{structvt_1_1pipe_1_1callback_1_1_callback_base_a20ed519d03b62560080ce3bdb8986f03}{finished}}();}
+\DoxyCodeLine{00220\ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SignalT>}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_aeea971b494ab1e9bd716d4a127194ea3}{SignalHolder<SignalT>::exists}}(\doxymbox{\hyperlink{namespacevt_a67508261b7b753cae669afb58196a122}{PipeType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.find(\doxymbox{\hyperlink{namespacevt_1_1pipe}{pipe}})\ !=\ \doxymbox{\hyperlink{structvt_1_1pipe_1_1signal_1_1_signal_holder_ad8784f84675b031bfb829da534f70fe9}{listeners\_}}.end();}
+\DoxyCodeLine{00225\ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::pipe::signal\ */}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_PIPE\_SIGNAL\_SIGNAL\_HOLDER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

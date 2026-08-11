@@ -1,0 +1,169 @@
+\doxysection{dependent\+\_\+send\+\_\+chain.\+h}
+\hypertarget{dependent__send__chain_8h_source}{}\label{dependent__send__chain_8h_source}\index{src/vt/messaging/dependent\_send\_chain.h@{src/vt/messaging/dependent\_send\_chain.h}}
+\doxymbox{\hyperlink{dependent__send__chain_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dependent\_send\_chain.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_DEPENDENT\_SEND\_CHAIN\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_DEPENDENT\_SEND\_CHAIN\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pending__send_8h}{vt/messaging/pending\_send.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{epoch_8h}{vt/epoch/epoch.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_aabf555d7b42f5d663b1ad499f09db9d4}{PendingClosure}}\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_aabf555d7b42f5d663b1ad499f09db9d4}{PendingClosure}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{PendingSend}}\&\&\ in\_pending)}
+\DoxyCodeLine{00070\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_a8a7aa220e450d45f9a7ebec04d563bdd}{pending\_}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(in\_pending))}
+\DoxyCodeLine{00071\ \ \ \{\ \}}
+\DoxyCodeLine{00072\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_a3e703c1f2ff98d8e1a04ad4306a1f011}{PendingClosure}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_aabf555d7b42f5d663b1ad499f09db9d4}{PendingClosure}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00073\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_aa0e2748116e95dd60b31ebfc6a5334c3}{PendingClosure}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_aabf555d7b42f5d663b1ad499f09db9d4}{PendingClosure}}\&\&\ in)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_a484d65eb7d32fde14253976927e37fd9}{operator()}}()\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_a8a7aa220e450d45f9a7ebec04d563bdd}{pending\_}}.release();}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{PendingSend}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure_a8a7aa220e450d45f9a7ebec04d563bdd}{pending\_}};\ }
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_aa860c8bc95d88534a9f8a6b733e377c9}{MergedClosure}}\ \{}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_aa860c8bc95d88534a9f8a6b733e377c9}{MergedClosure}}(std::shared\_ptr<PendingSend>\ shared\_state)}
+\DoxyCodeLine{00098\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_a5e595776f26d0b403464bbe3b94b3329}{shared\_state\_}}(shared\_state)}
+\DoxyCodeLine{00099\ \ \ \{\}}
+\DoxyCodeLine{00100\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_ab21e88def46380f5e1b70cf4211cd511}{MergedClosure}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_aa860c8bc95d88534a9f8a6b733e377c9}{MergedClosure}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_adba4d99af20e97930a0897a2b2610c02}{MergedClosure}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_aa860c8bc95d88534a9f8a6b733e377c9}{MergedClosure}}\&\&\ in)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_abc86a14e2fed26386742c9604d213676}{operator()}}()\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_a5e595776f26d0b403464bbe3b94b3329}{shared\_state\_}}.reset();}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ std::shared\_ptr<PendingSend>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure_a5e595776f26d0b403464bbe3b94b3329}{shared\_state\_}};}
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\ final\ \{}
+\DoxyCodeLine{00118\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00119\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}()\ \{\ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_af6079d6e7c8910bc8a7372796f2227e1}{add}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ new\_epoch,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{PendingSend}}\&\&\ link)\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ebf8a8d7c1cc95afe97ea6f717258c7}{checkInit}}();}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ Produce\ an\ event\ here,\ to\ be\ consumed\ when\ the\ send\ gets}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ released,\ so\ that\ new\_epoch\ doesn't\ appear\ to\ have\ completed\ in}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ the\ interim}}
+\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ac549ac7dfc98b676fd7bf0abe9858b39}{addDependency}}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ new\_epoch);}
+\DoxyCodeLine{00138\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a3ccd1689f56ab62821cfa6b1e65fc60b}{addActionUnique}}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_closure}{PendingClosure}}(std::move(link)));}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ =\ new\_epoch;}
+\DoxyCodeLine{00141\ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a88c235288669210ba02b33185df1005d}{mergeChainStep}}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\ \&a,\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\ \&b,}
+\DoxyCodeLine{00152\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ new\_epoch,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{PendingSend}}\&\&\ link)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ a.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ebf8a8d7c1cc95afe97ea6f717258c7}{checkInit}}();}
+\DoxyCodeLine{00154\ \ \ \ \ b.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ebf8a8d7c1cc95afe97ea6f717258c7}{checkInit}}();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ac549ac7dfc98b676fd7bf0abe9858b39}{addDependency}}(a.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ new\_epoch);}
+\DoxyCodeLine{00157\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ac549ac7dfc98b676fd7bf0abe9858b39}{addDependency}}(b.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ new\_epoch);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{auto}\ c1\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_merged_closure}{MergedClosure}}(std::make\_shared<PendingSend>(std::move(link)));}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{auto}\ c2\ =\ c1;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ closure\ is\ intentionally\ copied\ here;\ basically\ the\ ref\ count\ will\ go\ down}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ when\ all\ actions\ are\ completed\ and\ execute\ the\ PendingSend}}
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a3ccd1689f56ab62821cfa6b1e65fc60b}{addActionUnique}}(a.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ std::move(c1));}
+\DoxyCodeLine{00165\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_term_action_a3ccd1689f56ab62821cfa6b1e65fc60b}{addActionUnique}}(b.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}},\ std::move(c2));}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ a.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ =\ new\_epoch;}
+\DoxyCodeLine{00168\ \ \ \ \ b.\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ =\ new\_epoch;}
+\DoxyCodeLine{00169\ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a3c21ea18f9d248277e3b02ada94b2144}{done}}()\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_aa5cf0fcb78d89b1491b154c820eb9ec6}{reset}}();}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a7a75a0b1850c0463c84a15c0df6520db}{isTerminated}}()\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a1d3cebd2600b5a3900dd9954de55cf35}{testEpochTerminated}}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}})\ ==\ \doxymbox{\hyperlink{namespacevt_1_1term_ad8ec9b371608fc88e7fdeef219785b27afba9c4daa2dd29d1077d32d965320ac1}{vt::term::TermStatusEnum::Terminated}};}
+\DoxyCodeLine{00185\ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00190\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a64a4bc71711110632e2056380a603005}{DependentSendChain}}\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00191\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a74e4a9681e4103eb6f3175d01de19f16}{DependentSendChain}}\ \ \ \ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&\&)\ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00192\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a1202685ea392b816fde05194f4482661}{operator=\ }}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00193\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a1202685ea392b816fde05194f4482661}{operator=\ }}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ac6403b270d59f3619698010688f2b9}{DependentSendChain}}\&\&)\ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_ab83d35f473326151fe0ab2fe82b6de6e}{\string~DependentSendChain}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_a2ebf8a8d7c1cc95afe97ea6f717258c7}{checkInit}}()\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{comment}{//\ Done\ here\ rather\ than\ the\ constructor\ to\ make\ static}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ initialization\ of\ an\ instance\ safe}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ ==\ no\_epoch)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_aa5cf0fcb78d89b1491b154c820eb9ec6}{reset}}();}
+\DoxyCodeLine{00206\ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_aa5cf0fcb78d89b1491b154c820eb9ec6}{reset}}()\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{comment}{//\ Set\ up\ a\ 'closed'\ epoch\ so\ that\ we\ keep\ an\ invariant\ of\ always}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{comment}{//\ having\ an\ epoch\ to\ call\ addAction\ on,\ rather\ than\ edge\ cases\ of}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ whether\ we've\ made\ one\ yet\ or\ not}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{comment}{//\ The\ parameter\ \`{}true`\ here\ tells\ VT\ to\ use\ an\ efficient\ rooted\ DS-\/epoch}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{//\ by\ default.\ This\ can\ still\ be\ overridden\ by\ command-\/line\ flags}}
+\DoxyCodeLine{00219\ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ =\ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a232f305124ecd8f4f62e9c8224a74f49}{makeEpochRooted}}(\textcolor{stringliteral}{"{}DependentSendChain::reset"{}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1_use_d_s}{term::UseDS}}\{\textcolor{keyword}{true}\});}
+\DoxyCodeLine{00220\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_ad54d75c50bd3f34f30247817737bc303}{finishedEpoch}}(\doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}});}
+\DoxyCodeLine{00221\ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_dependent_send_chain_acbba3599015aff00654f3cb8efaba623}{last\_epoch\_}}\ =\ no\_epoch;\ }
+\DoxyCodeLine{00224\ \};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_DEPENDENT\_SEND\_CHAIN\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

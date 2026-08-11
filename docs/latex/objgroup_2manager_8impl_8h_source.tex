@@ -1,0 +1,365 @@
+\doxysection{manager.\+impl.\+h}
+\hypertarget{objgroup_2manager_8impl_8h_source}{}\label{objgroup_2manager_8impl_8h_source}\index{src/vt/objgroup/manager.impl.h@{src/vt/objgroup/manager.impl.h}}
+\doxymbox{\hyperlink{objgroup_2manager_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ manager.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_OBJGROUP\_MANAGER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_OBJGROUP\_MANAGER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{src_2vt_2objgroup_2common_8h}{vt/objgroup/common.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2manager_8h}{vt/objgroup/manager.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{proxy__objgroup_8h}{vt/objgroup/proxy/proxy\_objgroup.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2proxy_2proxy__bits_8h}{vt/objgroup/proxy/proxy\_bits.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2holder_2holder_8h}{vt/objgroup/holder/holder.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{holder__user_8h}{vt/objgroup/holder/holder\_user.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{holder__basic_8h}{vt/objgroup/holder/holder\_basic.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2type__registry_2registry_8h}{vt/objgroup/type\_registry/registry.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry_8h}{vt/registry/auto/auto\_registry.h}}"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{collective__alg_8h}{vt/collective/collective\_alg.h}}"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8h}{vt/messaging/active.h}}"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{elm__id__bits_8h}{vt/elm/elm\_id\_bits.h}}"{}}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}}\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ template\ <typename\ ObjT>}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ ObjGroupManager::ProxyType<ObjT>\ ObjGroupManager::makeObjGroup()\ \{}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ \ vtAssert(0,\ "{}Rooted\ makeObjGroup\ not\ implemented\ yet"{});}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ return\ ProxyType<ObjT>();}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00072\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00073\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{ObjGroupManager::makeCollective}}(std::string\ \textcolor{keyword}{const}\&\ label,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective<ObjT>}}(std::make\_unique<ObjT>(std::forward<Args>(args)...),\ label);}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00078\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00079\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{ObjGroupManager::makeCollective}}(ObjT*\ obj,\ std::string\ \textcolor{keyword}{const}\&\ label)\ \{}
+\DoxyCodeLine{00080\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(obj\ !=\ \ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Must\ be\ a\ valid\ obj\ pointer"{}});}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{auto}\ holder\_base\ =\ std::make\_unique<holder::HolderBasic<ObjT>>(obj);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad31e3c3723477c9dba771975c0a6fc73}{makeCollectiveObj<ObjT>}}(label,\ obj,\ std::move(holder\_base));}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{template}\ <\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}>\ \textcolor{keyword}{class\ }UserPtr,\ \textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00086\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00087\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{ObjGroupManager::makeCollective}}(UserPtr<ObjT>\ obj,\ std::string\ \textcolor{keyword}{const}\&\ label)\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{auto}\ obj\_ptr\ =\ *obj;}
+\DoxyCodeLine{00089\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(obj\_ptr\ !=\ \ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Must\ be\ a\ valid\ obj\ pointer"{}});}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{auto}\ holder\_base\ =\ std::make\_unique<holder::HolderUser<UserPtr,ObjT>>(obj);}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad31e3c3723477c9dba771975c0a6fc73}{makeCollectiveObj<ObjT>}}(label,\ obj\_ptr,\ std::move(holder\_base));}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00095\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00096\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{ObjGroupManager::makeCollective}}(std::unique\_ptr<ObjT>\ obj,\ std::string\ \textcolor{keyword}{const}\&\ label)\ \{}
+\DoxyCodeLine{00097\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(obj\ !=\ \ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Must\ be\ a\ valid\ obj\ pointer"{}});}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{auto}\ obj\_ptr\ =\ obj.get();}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{auto}\ holder\_base\ =\ std::make\_unique<holder::Holder<ObjT>>(std::move(obj));}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad31e3c3723477c9dba771975c0a6fc73}{makeCollectiveObj<ObjT>}}(label,\ obj\_ptr,\ std::move(holder\_base));}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00104\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00105\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad31e3c3723477c9dba771975c0a6fc73}{ObjGroupManager::makeCollectiveObj}}(std::string\ \textcolor{keyword}{const}\&\ label,\ ObjT*\ obj,\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac1e9bb19d4a5923dd6d595bad28f04c9}{HolderBasePtrType}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}})\ \{}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ obj\_ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a3a8dea0e5e1d05a15390a8a0037d2da2}{makeCollectiveImpl}}(label,\ std::move(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}}),\ obj\_ptr);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.find(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}});}
+\DoxyCodeLine{00109\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.end(),\ \textcolor{stringliteral}{"{}Obj\ must\ exist\ on\ this\ node"{}});}
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4898fc9cabf44890e5593f8c4ab86230}{HolderBaseType}}*\ h\ =\ iter-\/>second.get();}
+\DoxyCodeLine{00111\ \ \ h-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1holder_1_1_holder_base_ac7bcdff4841dc78d23e7d96f7a383415}{setElmID}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a0ebea4ad5b94becdeefe688d75f78142}{getNextElm}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}));}
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00113\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}},}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{stringliteral}{"{}makeCollectiveObj:\ proxy=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00115\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}}
+\DoxyCodeLine{00116\ \ \ );}
+\DoxyCodeLine{00117\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a73d5d6f3f63c1243d7f0ea11f33a4661}{regObjProxy<ObjT>}}(obj,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}});}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\{\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}\};}
+\DoxyCodeLine{00119\ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00122\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}}
+\DoxyCodeLine{00123\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{ObjGroupManager::makeCollective}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a397d787b3876752a6d70511b2769b872}{MakeFnType<ObjT>}}\ fn,\ std::string\ \textcolor{keyword}{const}\&\ label)\ \{}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{auto}\ obj\ =\ fn();}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective<ObjT>}}(std::move(obj),\ label);}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ad02bff10088a4f8e453cf24bd832308c}{ObjGroupManager::destroyCollective}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}})\ \{}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{auto}\ obj\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.find(proxy\_bits);}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{if}\ (obj\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.end())\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.erase(obj\_iter);}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{auto}\ label\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9732b303116ebf05972ba319d79f9ac6}{labels\_}}.find(proxy\_bits);}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{if}\ (label\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9732b303116ebf05972ba319d79f9ac6}{labels\_}}.end())\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9732b303116ebf05972ba319d79f9ac6}{labels\_}}.erase(label\_iter);}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a73d5d6f3f63c1243d7f0ea11f33a4661}{ObjGroupManager::regObjProxy}}(ObjT*\ obj,\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}})\ \{}
+\DoxyCodeLine{00144\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00145\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}},}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{stringliteral}{"{}regObjProxy:\ obj=\{\},\ proxy=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00147\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(obj),\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}}
+\DoxyCodeLine{00148\ \ \ );}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{auto}\ pending\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a5678a768bddd808a3b39d96e6843c81d}{pending\_}}.find(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}});}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{if}\ (pending\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a5678a768bddd808a3b39d96e6843c81d}{pending\_}}.end())\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ pending\ :\ pending\_iter-\/>second)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ pending();}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a5678a768bddd808a3b39d96e6843c81d}{pending\_}}.erase(pending\_iter);}
+\DoxyCodeLine{00155\ \ \ \}}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveObjType<MsgT,\ ObjT>\ fn>}
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a922a82ded79fdefb5fd7de60bde77aad}{ObjGroupManager::setTraceName}}(}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ std::string\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a92c0b07c2d90063c40087f625880cca3}{name}},\ std::string\ \textcolor{keyword}{const}\&\ parent}
+\DoxyCodeLine{00161\ )\ \{}
+\DoxyCodeLine{00162\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00163\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dest\_node\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode();}
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctrl\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy_ad2d36832aa9ed3ee219a248d04d53dce}{proxy::ObjGroupProxy::getID}}(proxy\_bits);}
+\DoxyCodeLine{00165\ \ \ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a1eb25883c6f5332dbbf4a61bd22bbf2f}{auto\_registry::setHandlerTraceNameObjGroup<ObjT,MsgT,fn>}}(ctrl,\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a92c0b07c2d90063c40087f625880cca3}{name}},\ parent);}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveObjType<MsgT,\ ObjT>\ fn>}
+\DoxyCodeLine{00169\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4f82f640edf670ba5a282074e5710921}{ObjGroupManager::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a28589f1c420841f18810fbf870c30bad}{ObjGroupManager::send}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msg)\ \{}
+\DoxyCodeLine{00170\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dest\_node\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode();}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctrl\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy_ad2d36832aa9ed3ee219a248d04d53dce}{proxy::ObjGroupProxy::getID}}(proxy\_bits);}
+\DoxyCodeLine{00173\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_af096c71af57c441be5d6d5f9c1dd52fd}{auto\_registry::makeAutoHandlerObjGroup<ObjT,MsgT,fn>}}(ctrl);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{//\ set\ bit\ so\ it\ isn't\ recorded\ as\ it\ routes\ through\ bare}}
+\DoxyCodeLine{00176\ \ \ \textcolor{comment}{//\ handlers}}
+\DoxyCodeLine{00177\ \ \ \doxymbox{\hyperlink{namespacevt_a645d6c6a63b59b426bdf0b8644d7f2ab}{envelopeSetCommLBDataRecordedAboveBareHandler}}(msg-\/>env,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>getTask()\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{auto}\ dest\_elm\_id\ =\ \doxymbox{\hyperlink{structvt_1_1elm_1_1_elm_i_d_bits_a3749809539048f9a46f5d7b2ef3b7163}{elm::ElmIDBits::createObjGroup}}(proxy\_bits,\ dest\_node);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_bytes\ =\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_msg_sizer_a22f440a462f8874a6661cb900d8d1d38}{serialization::MsgSizer<MsgT>::get}}(msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}());}
+\DoxyCodeLine{00182\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a33c490a0020f7854af1a44f044bbf1c7}{getTask}}()-\/>\doxymbox{\hyperlink{structvt_1_1runnable_1_1_runnable_new_aa7e06ec59e7376d1d01dfa6ab9a9563b}{send}}(dest\_elm\_id,\ num\_bytes);}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00186\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}},}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{stringliteral}{"{}ObjGroupManager::send:\ proxy=\{:x\},\ node=\{\},\ ctrl=\{:x\},\ han=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00188\ \ \ \ \ proxy\_bits,\ dest\_node,\ ctrl,\ han}
+\DoxyCodeLine{00189\ \ \ );}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a28589f1c420841f18810fbf870c30bad}{send<MsgT>}}(msg,han,dest\_node);}
+\DoxyCodeLine{00192\ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveObjType<MsgT,\ ObjT>\ fn>}
+\DoxyCodeLine{00195\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9275ff0b2244da4cef4cfe36feb4cc1c}{ObjGroupManager::invoke}}(}
+\DoxyCodeLine{00196\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{messaging::MsgPtrThief<MsgT>}}\ msg}
+\DoxyCodeLine{00197\ )\ \{}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dest\_node\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode();}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctrl\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy_ad2d36832aa9ed3ee219a248d04d53dce}{proxy::ObjGroupProxy::getID}}(proxy\_bits);}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_af096c71af57c441be5d6d5f9c1dd52fd}{auto\_registry::makeAutoHandlerObjGroup<ObjT,\ MsgT,\ fn>}}(ctrl);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00204\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}},}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{stringliteral}{"{}ObjGroupManager::invoke:\ proxy=\{:x\},\ node=\{\},\ ctrl=\{:x\},\ han=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00206\ \ \ \ \ proxy\_bits,\ dest\_node,\ ctrl,\ han}
+\DoxyCodeLine{00207\ \ \ );}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{auto}\&\ msg\_ptr\ =\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief_abc3b141a75ff7a89467d5551384a49ce}{msg\_}};}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_a93db5149930b07803d8cc987449baa66}{invoke<ObjT,\ MsgT,\ fn>}}(msg\_ptr,\ han,\ dest\_node);}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{auto}\ f,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00214\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})}
+\DoxyCodeLine{00215\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9275ff0b2244da4cef4cfe36feb4cc1c}{ObjGroupManager::invoke}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00216\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ dest\_node\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode();}
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00220\ \ \ \ \ dest\_node\ ==\ this\_node,}
+\DoxyCodeLine{00221\ \ \ \ \ fmt::format(}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Attempting\ to\ invoke\ handler\ on\ node:\{\}\ instead\ of\ node:\{\}!\(\backslash\)n"{}},}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ this\_node,\ dest\_node}
+\DoxyCodeLine{00224\ \ \ \ \ )}
+\DoxyCodeLine{00225\ \ \ );}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00228\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctrl\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy_ad2d36832aa9ed3ee219a248d04d53dce}{proxy::ObjGroupProxy::getID}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy());}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_ac9a527b4b0a2e875b45fe8c1f4fc881e}{auto\_registry::makeAutoHandlerObjGroupParam}}<}
+\DoxyCodeLine{00230\ \ \ \ \ ObjT,\ \textcolor{keyword}{decltype}(f),\ f,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00231\ \ \ >(ctrl);}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ trace\_event\ =\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a73a4b3a082031fdd676ae7670f13de3d}{makeTraceCreationSend}}(han,\ 0,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runnable_ad813764ca2a4ab47db7326668da8dde0}{runnable::makeRunnableVoidTraced}}(\textcolor{keyword}{false},\ han,\ this\_node,\ trace\_event,\ 0)}
+\DoxyCodeLine{00235\ \ \ \ \ .withObjGroup(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{get}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}))}
+\DoxyCodeLine{00236\ \ \ \ \ .runLambda(f,\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{get}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runnable_add2dd3b4265d0442d94be320ce058d8a}{runnable::makeRunnableVoid}}(\textcolor{keyword}{false},\ uninitialized\_handler,\ this\_node)}
+\DoxyCodeLine{00240\ \ \ \ \ .withObjGroup(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{get}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}))}
+\DoxyCodeLine{00241\ \ \ \ \ .runLambda(f,\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{get}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveObjType<MsgT,\ ObjT>\ fn>}
+\DoxyCodeLine{00247\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4f82f640edf670ba5a282074e5710921}{ObjGroupManager::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aada9378cc1fd44caff3c4dcb79aaf582}{ObjGroupManager::broadcast}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msg)\ \{}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ctrl\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_obj_group_proxy_ad2d36832aa9ed3ee219a248d04d53dce}{proxy::ObjGroupProxy::getID}}(proxy\_bits);}
+\DoxyCodeLine{00250\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_af096c71af57c441be5d6d5f9c1dd52fd}{auto\_registry::makeAutoHandlerObjGroup<ObjT,MsgT,fn>}}(ctrl);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00253\ \ \ \ \ terse,\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}},}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{stringliteral}{"{}ObjGroupManager::broadcast:\ proxy=\{:x\},\ ctrl=\{:x\},\ han=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00255\ \ \ \ \ proxy\_bits,\ ctrl,\ han}
+\DoxyCodeLine{00256\ \ \ );}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aada9378cc1fd44caff3c4dcb79aaf582}{broadcast<MsgT>}}(msg,\ han);}
+\DoxyCodeLine{00259\ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00262\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4f82f640edf670ba5a282074e5710921}{ObjGroupManager::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a28589f1c420841f18810fbf870c30bad}{ObjGroupManager::send}}(}
+\DoxyCodeLine{00263\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msg,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest\_node}
+\DoxyCodeLine{00264\ )\ \{}
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_a6efc2df6997b609c551848af332cfb15}{objgroup::send}}(msg,han,dest\_node);}
+\DoxyCodeLine{00266\ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ auto\ f>}
+\DoxyCodeLine{00269\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9275ff0b2244da4cef4cfe36feb4cc1c}{ObjGroupManager::invoke}}(}
+\DoxyCodeLine{00270\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<MsgT>}}\ msg,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest\_node}
+\DoxyCodeLine{00271\ )\ \{}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_a93db5149930b07803d8cc987449baa66}{objgroup::invoke<ObjT,\ MsgT,\ f>}}(msg,\ han,\ dest\_node);}
+\DoxyCodeLine{00273\ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00276\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4f82f640edf670ba5a282074e5710921}{ObjGroupManager::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aada9378cc1fd44caff3c4dcb79aaf582}{ObjGroupManager::broadcast}}(\doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msg,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han)\ \{}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_a1986e4cf0b0e869e44860cd1d98196e7}{objgroup::broadcast}}(msg,han);}
+\DoxyCodeLine{00278\ \}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>\ *f>}
+\DoxyCodeLine{00281\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4f82f640edf670ba5a282074e5710921}{ObjGroupManager::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a2aac72728c665b10dc7df994b3e326bc}{ObjGroupManager::reduce}}(}
+\DoxyCodeLine{00282\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<MsgT>}}\ msg,}
+\DoxyCodeLine{00283\ \ \ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_a632d88df25d1027752e55870eb823d63}{collective::reduce::ReduceStamp}}\ \textcolor{keyword}{const}\&\ stamp}
+\DoxyCodeLine{00284\ )\ \{}
+\DoxyCodeLine{00285\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ root\ =\ 0;}
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \textcolor{keyword}{auto}\ r\ =\ \doxymbox{\hyperlink{namespacevt_aa8e0c0ab253e7ad1acd5d09e36fea769}{theCollective}}()-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a712bf763fda2a663e87edc524f99839f}{getReducerObjGroup}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup}{objgroup}});}
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordflow}{return}\ r-\/>template\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a2aac72728c665b10dc7df994b3e326bc}{reduce<f>}}(root,\ msg.\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr_ab26879959aac99ce9969faf7c09c0d12}{get}}(),\ stamp);}
+\DoxyCodeLine{00290\ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00293\ ObjT*\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{ObjGroupManager::get}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}})\ \{}
+\DoxyCodeLine{00294\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{get<ObjT>}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy(),this\_node));}
+\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00299\ ObjT*\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4b11402fc31ca40e1dd2eacb65101e2b}{ObjGroupManager::get}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}})\ \{}
+\DoxyCodeLine{00300\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00301\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(this\_node\ ==\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode(),\ \textcolor{stringliteral}{"{}You\ can\ only\ get\ a\ local\ obj"{}});}
+\DoxyCodeLine{00302\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00303\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.find(proxy\_bits);}
+\DoxyCodeLine{00304\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.end(),\ \textcolor{stringliteral}{"{}Obj\ must\ exist\ on\ this\ node"{}});}
+\DoxyCodeLine{00305\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4898fc9cabf44890e5593f8c4ab86230}{HolderBaseType}}*\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}}\ =\ iter-\/>second.get();}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ObjT*\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}}-\/>getPtr());}
+\DoxyCodeLine{00307\ \}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00310\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abd0f61b0578a268a27420f2c38e3b12d}{ObjGroupManager::update}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00312\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(this\_node\ ==\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getNode(),\ \textcolor{stringliteral}{"{}You\ can\ only\ update\ a\ local\ obj"{}});}
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00314\ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.find(proxy\_bits);}
+\DoxyCodeLine{00315\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abe842c221e7d99494a2323d4584428db}{objs\_}}.end(),\ \textcolor{stringliteral}{"{}Obj\ must\ exist\ on\ this\ node"{}});}
+\DoxyCodeLine{00316\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a4898fc9cabf44890e5593f8c4ab86230}{HolderBaseType}}*\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}}\ =\ iter-\/>second.get();}
+\DoxyCodeLine{00317\ \ \ \textcolor{keyword}{auto}\ obj\_holder\ =\ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{structvt_1_1objgroup_1_1holder_1_1_holder}{holder::Holder<ObjT>}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1holder}{holder}});}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_obj\_ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(obj\_holder-\/>get());}
+\DoxyCodeLine{00320\ \ \ \textcolor{keyword}{auto}\ map\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}.find(cur\_obj\_ptr);}
+\DoxyCodeLine{00321\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(map\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}.end(),\ \textcolor{stringliteral}{"{}Object\ pointer\ must\ exist\ in\ map"{}});}
+\DoxyCodeLine{00322\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}.erase(map\_iter);}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ obj\_holder-\/>reset(std::forward<Args>(args)...);}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ new\_obj\_ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(obj\_holder-\/>get());}
+\DoxyCodeLine{00327\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}[new\_obj\_ptr]\ =\ proxy\_bits;}
+\DoxyCodeLine{00328\ \}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00331\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abd0f61b0578a268a27420f2c38e3b12d}{ObjGroupManager::update}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}},\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00333\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ elm\_proxy\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ProxyElmType<ObjT>}}(\doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy(),this\_node);}
+\DoxyCodeLine{00334\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_abd0f61b0578a268a27420f2c38e3b12d}{update<ObjT>}}(elm\_proxy,std::forward<Args>(args)...);}
+\DoxyCodeLine{00335\ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00338\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9758d68a4656e7ff2eb1ac07b4feeeed}{ObjGroupManager::getProxy}}(ObjT*\ obj)\ \{}
+\DoxyCodeLine{00339\ \ \ \textcolor{keyword}{auto}\ map\_iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}.find(\textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(obj));}
+\DoxyCodeLine{00340\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(map\_iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_ac18db6cad6049a686299ef91909d5945}{obj\_to\_proxy\_}}.end(),\ \textcolor{stringliteral}{"{}Object\ pointer\ does\ not\ exist"{}});}
+\DoxyCodeLine{00341\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ProxyType<ObjT>}}(map\_iter-\/>second);}
+\DoxyCodeLine{00342\ \}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00345\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_adba6c8ecb0f4c30e719f1abb995cfc9b}{ObjGroupManager::ProxyElmType<ObjT>}}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a31f00bd509986001e3154af24239f24d}{ObjGroupManager::proxyElm}}(ObjT*\ obj)\ \{}
+\DoxyCodeLine{00346\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9758d68a4656e7ff2eb1ac07b4feeeed}{getProxy<ObjT>}}(obj).operator()(\doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}());}
+\DoxyCodeLine{00347\ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00350\ std::string\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9de1e58ebc9fd03769840cddb3bd54d7}{ObjGroupManager::getLabel}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_aea65eef52f240a52210132eef5ce591f}{ObjGroupManager::ProxyType<ObjT>}}\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00351\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ \doxymbox{\hyperlink{namespacevt_1_1objgroup_1_1proxy}{proxy}}.getProxy();}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9732b303116ebf05972ba319d79f9ac6}{labels\_}}.find(proxy\_bits);}
+\DoxyCodeLine{00353\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a9732b303116ebf05972ba319d79f9ac6}{labels\_}}.end(),\ \textcolor{stringliteral}{"{}Obj\ label\ does\ not\ exist"{}});}
+\DoxyCodeLine{00354\ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00355\ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::objgroup\ */}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_OBJGROUP\_MANAGER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,286 @@
+\doxysubsection{Virtual Context Collection }
+\hypertarget{collection}{}\label{collection}\index{Virtual Context Collection@{Virtual Context Collection}}
+Collection of tasks.
+
+The virtual context collection component {\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1_collection_manager}{vt::\+vrt::\+collection::\+\+Collection\+Manager}}, accessed via {\ttfamily \doxylink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{vt::\+the\+Collection()}} is a core VT component that manages multi-\/dimensional collections of {\itshape virtual context} (or a migratable C++ object registered with {\bfseries{{\itshape vt}}}) elements. It manages the creation, deletion, and messaging across elements at runtime supporting dense, sparse, on-\/demand, and staged insert modes. It utilizes the \doxylink{location}{Location Manager} to manage the location of these elements to efficiently deliver messages. It also utilizes the \doxylink{group}{Group Manager} to build a spanning tree across the nodes that the collection is currently mapped to. This group makes broadcasts efficient and allows reductions to make progress without waiting for nodes that do not have collection elements.
+
+The \doxylink{node-lb-data}{Node LB Data} component stores the LB data for live collections that then passes the instrumented data to the \doxylink{lb-manager}{LB Manager} component to apply load balancing strategies. You can use {\ttfamily -\/-\/vt\+\_\+lb\+\_\+keep\+\_\+last\+\_\+elm} flag to prohibit load balancer from migrating last element in collection.\hypertarget{collection_collection-configuration}{}\doxysubsubsubsection{\texorpdfstring{Configuring Collections}{Configuring Collections}}\label{collection_collection-configuration}
+The preferred interface for constructing a new collection is {\ttfamily \doxylink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::\+make\+Collection}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}()}. Using a fluent-\/style interface, {\ttfamily make\+Collection} returns a configuration object to set properties of the collection before actually constructing the collection. Once it is configured, the {\ttfamily .wait()} or {\ttfamily .defer\+With\+Epoch(callback)} methods allows one to either block until the collection is created or wait on the returned epoch until construction finishes (respectively). The {\ttfamily wait()} variant returns the proxy for use immediately (after blocking), whereas {\ttfamily defer\+With\+Epoch(callback)} supplies the proxy when the epoch terminates by triggering the callback passed to it.\hypertarget{collection_collection-collective-vs-rooted}{}\doxysubsubsubsubsection{\texorpdfstring{Collective vs. Rooted}{Collective vs. Rooted}}\label{collection_collection-collective-vs-rooted}
+The function {\ttfamily \doxylink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::\+make\+Collection}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}()} will create a collection in a collective fashion, meaning it must be called in tandem on all nodes. Alternatively, one may call {\ttfamily \doxylink{namespacevt_ab20902b4c106509bfc0a8de63a781931}{vt::\+make\+Collection\+Rooted}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}()} to construct a rooted collection, which is invoked only on a single rank. (and the proxy is returned to a single rank). After waiting for construction, elements will have been constructed on their appropriate ranks, and the provided collection proxy will be usable on any rank it\textquotesingle{}s sent to.\hypertarget{collection_collection-bounds-insertion}{}\doxysubsubsubsubsection{\texorpdfstring{Bounds and Insertion}{Bounds and Insertion}}\label{collection_collection-bounds-insertion}
+For collections without dynamic membership at runtime, one must call {\ttfamily .bounds(my\+\_\+range)} to specify the bounds in each dimension for the collection or specify exactly one bulk insertion range ({\ttfamily .bulk\+Insert(my\+\_\+range\+\_\+1)}), where {\ttfamily my\+\_\+range\+\_\+1} will be the assumed bounds for the collection. Bulk insertion is one such way to specify how insertions should happen during construction. The {\ttfamily .bulk\+Insert()} method (with no parameter) tells the runtime to insert all collection elements within the bounds using the mapping function to determine placement. The user can also specify specific ranges to bulk insert using {\ttfamily .bulk\+Insert(my\+\_\+range\+\_\+1)} with a parameter (this can be called multiple times).
+
+For collective collection constructions, one may also use list insertion ({\ttfamily .list\+Insert(my\+\_\+index\+\_\+list)}) to specify non-\/contiguous lists of indices that the runtime should insert at construction time. Finally, for collective constructions, one may call {\ttfamily .list\+Insert\+Here(my\+\_\+index\+\_\+list)} to specifically instruct the runtime to construct a list of collection elements on the particular rank where it is invoked. This overrides the mapping function that the user supplies.\hypertarget{collection_collection-mapping}{}\doxysubsubsubsubsection{\texorpdfstring{Mapping Functions and Object Groups}{Mapping Functions and Object Groups}}\label{collection_collection-mapping}
+By default, a mapping function is applied to every collection. If the collection has bounds, the system will choose a default blocked mapping (across all dimensions) for initial placement. For collections without bounds (ones with dynamic membership), the system uses a simple xor hash function to generate a valid initial location for each index deterministically. One may specify a mapping function in two ways:\+ the user can provide a stateless function as a template argument to {\ttfamily .mapper\+Func\texorpdfstring{$<$}{<}my\+\_\+map\texorpdfstring{$>$}{>}()}, where {\ttfamily my\+\_\+map} has the following definition (shown for a 1-\/dimensional collection):\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ my\_map(\doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}*\ idx,\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}*\ bounds,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ idx-\/>\doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_afb97e872285111d25c53c14271482337}{x}}()\ \%\ num\_nodes;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Or, alternatively, one may specify a object group mapper, which contains an instance across all ranks that may communicate to determine placement. The {\ttfamily .mapper\+Obj\+Group(proxy)} method configures the mapping object with an object group instance that already exists by passing the proxy to it. Otherwise, one may just give the type and constructor arguments to create a new instance:\+ {\ttfamily .mapper\+Obj\+Group\+Construct\texorpdfstring{$<$}{<}My\+Object\+Group\texorpdfstring{$>$}{>}(args...)}. An object group mapper must inherit from {\ttfamily \doxylink{structvt_1_1mapping_1_1_base_mapper}{vt::\+mapping::\+\+Base\+Mapper}} and implement the pure virtual method {\ttfamily Node\+Type map(\+Idx\+T\texorpdfstring{$\ast$}{*} idx, int ndim, Node\+Type num\+\_\+nodes)} to define the mapping for the runtime. As an example, the object group mapper used by default for unbounded collections is implemented as follows:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IdxT>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }UnboundedDefaultMap\ :\ \doxymbox{\hyperlink{structvt_1_1mapping_1_1_base_mapper}{vt::mapping::BaseMapper}}<IdxT>\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ construct()\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<UnboundedDefaultMap<IdxT>>();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ proxy.getProxy();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1mapping_1_1_base_mapper_a940a3ea301c0f60b2b88218afbce5a4f}{map}}(IdxT*\ idx,\ \textcolor{keywordtype}{int}\ ndim,\ NodeType\ num\_nodes)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ IdxT::DenseIndexType\ val\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ndim;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ val\ \string^=\ idx-\/>get(i);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ val\ \%\ num\_nodes;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+Note that all collection mapping functions or object groups must be deterministic across all nodes for the same inputs.\hypertarget{collection_collection-element-construction}{}\doxysubsubsubsubsection{\texorpdfstring{Element Construction}{Element Construction}}\label{collection_collection-element-construction}
+By default, the collection type {\ttfamily T} (that inherits from the runtime base type {\ttfamily \doxylink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::\+\+Collection}\texorpdfstring{$<$}{<}T, Index\+Type\texorpdfstring{$>$}{>}}) must have a default constructor. However, this can be avoided by configuring the collection with a specialized element constructor using {\ttfamily .element\+Constructor(x)}, where {\ttfamily x}\textquotesingle{}s type is {\ttfamily std::\+function\texorpdfstring{$<$}{<}std::\+unique\+\_\+ptr\texorpdfstring{$<$}{<}ColT\texorpdfstring{$>$}{>}(IndexT idx)\texorpdfstring{$>$}{>}} and {\ttfamily ColT} is the collection type and {\ttfamily IndexT} is the index type for the collection. This configuration is only valid for collective constructions because the element constructor function can not be safely sent over the network. If this is provided, the collection manager will not try to default construct the collection elements, instead calling the user-\/provided constructor passed to this function.\hypertarget{collection_collection-element-migratability}{}\doxysubsubsubsubsection{\texorpdfstring{Element Migratability}{Element Migratability}}\label{collection_collection-element-migratability}
+By default, all collection elements are migratable and can be moved by the load balancer when it is invoked by the user. However, one may inform VT that collection is entirely non-\/migratable by setting the parameter {\ttfamily .migratable(false)} during construction. By doing this, work executed by its elements will be recorded as background load on the initially mapped rank and excluded from the load balancer migration decisions.\hypertarget{collection_collection-dynamic-membership}{}\doxysubsubsubsubsection{\texorpdfstring{Dynamic Membership}{Dynamic Membership}}\label{collection_collection-dynamic-membership}
+By default, collections do not have dynamic membership:\+ they might be dense or sparse within the specified bounds, but the set of collection elements that are created at construction time persists (and never grows or shrinks) until the collection is completely destroyed. Dynamic membership allows the user to specify insertions and deletions as the program executes in a safe and orderly manner. To enable this, one must call {\ttfamily .dynamic\+Membership(true)}. Note that the previous requirement of specifying collection bounds becomes optional with dynamic membership.
+
+Once a collection is constructed with dynamic membership, one must start a collective modification epoch to make changes to the collection\textquotesingle{}s membership. This is performed in the following way (note that this is a collective interface):\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<MyCollection>}}(\textcolor{stringliteral}{"{}collection\_label"{}})}
+\DoxyCodeLine{\ \ .dynamicMembership(\textcolor{keyword}{true})}
+\DoxyCodeLine{\ \ .collective(\textcolor{keyword}{true})}
+\DoxyCodeLine{\ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(num\_elms);}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ token\ =\ proxy.beginModification();}
+\DoxyCodeLine{\textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ range.x()\ /\ 2;\ i++)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (i\ \%\ num\_nodes\ ==\ this\_node)\ \{}
+\DoxyCodeLine{\ \ \ \ proxy[i].insertAt(token,\ i\ \%\ 2);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{proxy.finishModification(std::move(token));}
+
+\end{DoxyCode}
+
+
+The calls to {\ttfamily proxy.\+begin\+Modification()} start the insertion/\+deletion epoch by returning a token that must be passed to the actual modification calls. To insert a new collection element, the interface provides several methods on the indexed proxy:\+ {\ttfamily insert}, {\ttfamily insert\+At}, {\ttfamily insert\+Msg} or {\ttfamily insert\+At\+Msg}. The {\ttfamily insert} method performs the insertion at the location specified by the mapping function/\+mapping object group that is provided when the collection is constructed. The {\ttfamily insert\+At} or {\ttfamily insert\+At\+Msg} allow the user to specify exactly where the new element should reside overriding the default mapping for the element. The {\ttfamily insert\+Msg} or {\ttfamily insert\+At\+Msg} calls allow the user to pass a message to the collection element which invokes a non-\/default constructor that has the user-\/specified message as an argument.
+
+Finally, one may call {\ttfamily destroy} on the indexed proxy to delete an element. All these modifications take place after {\ttfamily finish\+Modification} is invoked---a blocking call that enacts the changes across the system. Once {\ttfamily finish\+Modification} returns, the runtime guarantees that all changes have taken place across the system and all spanning trees are reconstructed or modified based on the changes made.
+
+If a reduction is ongoing while insertions or deletions happen, the new elements are still expected to contribute. That is, new collection elements are part of the next sequenced reduction that has not causally terminated across the distributed system. For code readability, we generally recommend that the user wait on termination of any reductions before membership modifications are made.\hypertarget{collection_rooted-hello-world-collection}{}\doxysubsubsection{\texorpdfstring{Hello World 1D Dense Collection (Rooted)}{Hello World 1D Dense Collection (Rooted)}}\label{collection_rooted-hello-world-collection}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Hello\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<Hello,\ vt::Index1D>\ \{}
+\DoxyCodeLine{\ \ Hello()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~Hello()\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(counter\_\ ==\ 1,\ \textcolor{stringliteral}{"{}Must\ be\ equal"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doWork(\textcolor{keywordtype}{int}\ val)\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}Hello\ from\ \{\}:\ val=\{\}\(\backslash\)n"{}},\ this-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(),\ val);}
+\DoxyCodeLine{\ \ \ \ counter\_++;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ int32\_t\ counter\_\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ num\_elms\ =\ 64;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ >\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_elms\ =\ atoi(argv[1]);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(num\_elms);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_ab20902b4c106509bfc0a8de63a781931}{vt::makeCollectionRooted<Hello>}}(\textcolor{stringliteral}{"{}examples\_hello\_world\_collection"{}})}
+\DoxyCodeLine{\ \ \ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ \ \ .wait();}
+\DoxyCodeLine{\ \ \ \ proxy.broadcast<\&Hello::doWork>(10);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+\hypertarget{collection_collective-hello-world-collection}{}\doxysubsubsection{\texorpdfstring{Hello World 1D Dense Collection (Collective)}{Hello World 1D Dense Collection (Collective)}}\label{collection_collective-hello-world-collection}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Hello\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<Hello,\ vt::Index1D>\ \{}
+\DoxyCodeLine{\ \ Hello()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~Hello()\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(counter\_\ ==\ num\_nodes,\ \textcolor{stringliteral}{"{}Should\ receive\ \#\ nodes\ broadcasts"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doWork(\textcolor{keywordtype}{int}\ val)\ \{}
+\DoxyCodeLine{\ \ \ \ counter\_++;}
+\DoxyCodeLine{\ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{stringliteral}{"{}Hello\ from\ \{\},\ val=\{\},\ counter\_=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(),\ val,\ counter\_}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ counter\_\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ int32\_t\ num\_elms\ =\ 16;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ >\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_elms\ =\ atoi(argv[1]);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(num\_elms);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<Hello>}}(\textcolor{stringliteral}{"{}examples\_hello\_world\_collection\_collective"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ All\ nodes\ send\ a\ broadcast\ to\ all\ elements}}
+\DoxyCodeLine{\ \ proxy.broadcast<\&Hello::doWork>(29);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+\hypertarget{collection_reduce-hello-world-collection}{}\doxysubsubsection{\texorpdfstring{Hello World 1D Collection Reduce}{Hello World 1D Collection Reduce}}\label{collection_reduce-hello-world-collection}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Hello\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<Hello,\ vt::Index1D>\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ done(\textcolor{keywordtype}{int}\ val,\ \textcolor{keywordtype}{double}\ val2)\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}Reduce\ complete\ at\ \{\}\ values\ \{\}\ \{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(),\ val,\ val2);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doWork()\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}Hello\ from\ \{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Get\ the\ proxy\ for\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}().x();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ val2\ =\ 2.4;}
+\DoxyCodeLine{\ \ \ \ proxy.allreduce<\&Hello::done,\ \doxymbox{\hyperlink{namespacevt_1_1collective_acf919add3eb5ac632b1cbade9bf9f407}{vt::collective::PlusOp}}>(val,\ val2);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ int32\_t\ num\_elms\ =\ 16;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ >\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_elms\ =\ atoi(argv[1]);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(num\_elms);}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<Hello>}}(\textcolor{stringliteral}{"{}hello\_world\_collection\_reduce"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ proxy.broadcast<\&Hello::doWork>();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+\hypertarget{collection_staged-insert-hello-world-collection}{}\doxysubsubsection{\texorpdfstring{Hello World 1D Collection Staged Insert}{Hello World 1D Collection Staged Insert}}\label{collection_staged-insert-hello-world-collection}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Hello\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<Hello,\ vt::Index1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Default\ constructor\ for\ migration}}
+\DoxyCodeLine{\ \ Hello()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Constructor\ used\ during\ insertion}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ Hello(std::string\ \textcolor{keyword}{const}\&\ input\_string)}
+\DoxyCodeLine{\ \ \ \ :\ in(input\_string)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{virtual}\ \string~Hello()\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(counter\_\ ==\ 1,\ \textcolor{stringliteral}{"{}Must\ be\ equal"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ doWork()\ \{}
+\DoxyCodeLine{\ \ \ \ counter\_++;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ Hello\ from\ \{\}:\ \{\}\(\backslash\)n"{}},\ this\_node,\ this-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(),\ in);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ counter\_\ =\ 0;}
+\DoxyCodeLine{\ \ std::string\ in;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}(num\_nodes\ <\ 2)\{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ num\_elms\ =\ 32;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ >\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ num\_elms\ =\ atoi(argv[1]);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(num\_elms);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::vector<std::tuple<vt::Index1D,\ std::unique\_ptr<Hello>>>\ elms;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_elms;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Insert\ even\ elements,\ round-\/robin\ the\ insertions\ from\ each\ node}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ ((i\ /\ 2)\ \%\ num\_nodes\ ==\ this\_node\ and\ i\ \%\ 2\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ str\ =\ fmt::format(\textcolor{stringliteral}{"{}inserted\ from\ \{\}"{}},\ this\_node);}
+\DoxyCodeLine{\ \ \ \ \ \ elms.emplace\_back(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::make\_tuple(\doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}\{i\},\ std::make\_unique<Hello>(str))}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<Hello>}}(\textcolor{stringliteral}{"{}examples\_hello\_world\_collection\_staged\_insert"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ .listInsertHere(std::move(elms))}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ proxy.broadcast<\&Hello::doWork>();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

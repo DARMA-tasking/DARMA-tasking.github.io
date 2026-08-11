@@ -1,0 +1,138 @@
+\doxysection{collection\+\_\+chain\+\_\+set.\+impl.\+h}
+\hypertarget{collection__chain__set_8impl_8h_source}{}\label{collection__chain__set_8impl_8h_source}\index{src/vt/messaging/collection\_chain\_set.impl.h@{src/vt/messaging/collection\_chain\_set.impl.h}}
+\doxymbox{\hyperlink{collection__chain__set_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ collection\_chain\_set.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_COLLECTION\_CHAIN\_SET\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_COLLECTION\_CHAIN\_SET\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{collection__chain__set_8h}{vt/messaging/collection\_chain\_set.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{listen__events_8h}{vt/vrt/collection/listener/listen\_events.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Index>}
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT,\ \textcolor{keyword}{typename}\ IndexT>}
+\DoxyCodeLine{00054\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aeb43ad4a2e46ea059817b639b72ddb3b}{CollectionChainSet<Index>::CollectionChainSet}}(}
+\DoxyCodeLine{00055\ \ \ ProxyT\ proxy,\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2}{ChainSetLayout}}\ layout}
+\DoxyCodeLine{00056\ )\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{using\ }ColT\ =\ \textcolor{keyword}{typename}\ ProxyT::CollectionType;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aeb43ad4a2e46ea059817b639b72ddb3b}{CollectionChainSet<Index>}};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{using\ }ListenerType\ =\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1listener_a878aba661ae44995d2c307a9ddd99f52}{vrt::collection::listener::ListenFnType<IndexT>}};}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1listener_a96ace4b58b3d91759e7abda5cc33b012}{vrt::collection::listener::ElementEventEnum}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{static\_assert}(std::is\_same<IndexT,\ Index>::value,\ \textcolor{stringliteral}{"{}Must\ match\ index\ type"{}});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ Make\ this\ chain\ set\ an\ objgroup\ instance\ so\ we\ can\ send\ updates}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{auto}\ p\ =\ \doxymbox{\hyperlink{namespacevt_a833f0115b692f578167cbd88e30d39c5}{theObjGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1objgroup_1_1_obj_group_manager_a50e0d8498d142a05773ed5a046803b2b}{makeCollective}}<\doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aeb43ad4a2e46ea059817b639b72ddb3b}{CollectionChainSet<Index>}}>(}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{this},\ \textcolor{stringliteral}{"{}CollectionChainSet"{}}}
+\DoxyCodeLine{00067\ \ \ );}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ proxy\_bits\ =\ proxy.getProxy();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ ListenerType\ l\ =\ [\textcolor{keyword}{this},\ p,\ layout,\ this\_node](ElementEventEnum\ \doxymbox{\hyperlink{namespacevt_1_1event}{event}},\ IndexT\ idx,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ home)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{namespacevt_1_1event}{event}})\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{case}\ ElementEventEnum::ElementCreated:}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{case}\ ElementEventEnum::ElementMigratedIn:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408}{Local}}\ or\ (layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2aa465e89bc755d534f1a8202e5f685db8}{Home}}\ and\ home\ ==\ this\_node))\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_afd05e48d93d231320364149fd538beab}{chains\_}}.find(idx)\ ==\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_afd05e48d93d231320364149fd538beab}{chains\_}}.end())\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aefc11c9b011b4916c3b80dfc8f776239}{addIndex}}(idx);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2aa465e89bc755d534f1a8202e5f685db8}{Home}}\ and\ \doxymbox{\hyperlink{namespacevt_1_1event}{event}}\ ==\ ElementEventEnum::ElementMigratedIn,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Must\ be\ home\ layout\ and\ migrated\ in"{}}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_1_1event}{event}}\ !=\ ElementEventEnum::ElementMigratedIn)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2aa465e89bc755d534f1a8202e5f685db8}{Home}},\ \textcolor{stringliteral}{"{}Must\ be\ a\ home\ layout"{}});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ p[home].template\ send<IdxMsg,\ \&ThisType::addIndexHan>(idx);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{case}\ ElementEventEnum::ElementDestroyed:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_afd05e48d93d231320364149fd538beab}{chains\_}}.find(idx)\ !=\ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_afd05e48d93d231320364149fd538beab}{chains\_}}.end())\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a299e52c482aba47bcdabe796d236c043}{removeIndex}}(idx);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2aa465e89bc755d534f1a8202e5f685db8}{Home}},\ \textcolor{stringliteral}{"{}Must\ be\ a\ home\ layout"{}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ p[home].template\ send<IdxMsg,\ \&ThisType::removeIndexHan>(idx);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{case}\ ElementEventEnum::ElementMigratedOut:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408}{Local}})\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a299e52c482aba47bcdabe796d236c043}{removeIndex}}(idx);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ Register\ the\ listener\ with\ the\ system}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{auto}\ listener\ =\ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>template\ registerElementListener<ColT>(}
+\DoxyCodeLine{00108\ \ \ \ \ proxy\_bits,\ l}
+\DoxyCodeLine{00109\ \ \ );}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ Any\ elements\ that\ currently\ exist\ must\ be\ added\ as\ they\ won't\ be\ triggered}}
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ by\ the\ listener}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ local\_set\ =\ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_a0708d6144e7beea89e4f07fae88e16fc}{getLocalIndices}}(proxy);}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ idx\ :\ local\_set)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ home\ =\ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_manager_ab92af61f5466dd4a1210bd6f2f1bb153}{getMappedNode}}(proxy,\ idx);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408}{Local}}\ or\ (layout\ ==\ \doxymbox{\hyperlink{namespacevt_1_1messaging_af09e66b5a14598baf7e4b56ad6080ec2aa465e89bc755d534f1a8202e5f685db8}{Home}}\ and\ home\ ==\ this\_node))\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_aefc11c9b011b4916c3b80dfc8f776239}{addIndex}}(idx);}
+\DoxyCodeLine{00118\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ p[home].template\ send<IdxMsg,\ \&ThisType::addIndexHan>(idx);}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{classvt_1_1messaging_1_1_collection_chain_set_a0c471bdf6ef26c2ca5c214bdda8eb866}{deallocator\_}}\ =\ [=]\{}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a1c45ce63bfd2c327ff7d76a319a371d8}{theCollection}}()-\/>template\ unregisterElementListener<ColT>(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ proxy\_bits,\ listener}
+\DoxyCodeLine{00126\ \ \ \ \ );}
+\DoxyCodeLine{00127\ \ \ \};}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_COLLECTION\_CHAIN\_SET\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

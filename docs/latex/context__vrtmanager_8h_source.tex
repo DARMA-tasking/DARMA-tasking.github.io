@@ -1,0 +1,228 @@
+\doxysection{context\+\_\+vrtmanager.\+h}
+\hypertarget{context__vrtmanager_8h_source}{}\label{context__vrtmanager_8h_source}\index{src/vt/vrt/context/context\_vrtmanager.h@{src/vt/vrt/context/context\_vrtmanager.h}}
+\doxymbox{\hyperlink{context__vrtmanager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ context\_vrtmanager.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_VRT\_CONTEXT\_CONTEXT\_VRTMANAGER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_VRT\_CONTEXT\_CONTEXT\_VRTMANAGER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context_8h}{vt/context/context.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pending__send_8h}{vt/messaging/pending\_send.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrt_8h}{vt/vrt/context/context\_vrt.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrt__funcs_8h}{vt/vrt/context/context\_vrt\_funcs.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrtmessage_8h}{vt/vrt/context/context\_vrtmessage.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrtinfo_8h}{vt/vrt/context/context\_vrtinfo.h}}"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{vrt_2proxy_2proxy__bits_8h}{vt/vrt/proxy/proxy\_bits.h}}"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrt__internal__msgs_8h}{vt/vrt/context/context\_vrt\_internal\_msgs.h}}"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{bits__common_8h}{vt/utils/bits/bits\_common.h}}"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{activefn_8h}{vt/activefn/activefn.h}}"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{mapping__function_8h}{vt/topos/mapping/mapping\_function.h}}"{}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt}{vrt}}\ \{}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{using\ namespace\ }::vt::serialization;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_ad12718ee3fd4eb94d6fd09a2d7fc3793}{PendingRequest}}\ \{}
+\DoxyCodeLine{00070\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a6caf49b2ce4bae618ff648f1947e5bbd}{VirtualRequestIDType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_a6b50fb651ed1f7f7a38220543b79f968}{req\_id}}\ =\ no\_request\_id;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \doxymbox{\hyperlink{namespacevt_a1eeed92fd07cb9368d26f73660ec4e7f}{ActionProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_af6fddf631eb75dd7045f14ce76e30178}{action}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_ad12718ee3fd4eb94d6fd09a2d7fc3793}{PendingRequest}}(}
+\DoxyCodeLine{00075\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a6caf49b2ce4bae618ff648f1947e5bbd}{VirtualRequestIDType}}\ \textcolor{keyword}{const}\&\ in\_req\_id,\ \doxymbox{\hyperlink{namespacevt_a1eeed92fd07cb9368d26f73660ec4e7f}{ActionProxyType}}\ in\_action}
+\DoxyCodeLine{00076\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_a6b50fb651ed1f7f7a38220543b79f968}{req\_id}}(in\_req\_id),\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_af6fddf631eb75dd7045f14ce76e30178}{action}}(in\_action)}
+\DoxyCodeLine{00077\ \ \ \{\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_ad82771e48d783f4074022b6e8ed518a9}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_a6b50fb651ed1f7f7a38220543b79f968}{req\_id}}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request_af6fddf631eb75dd7045f14ce76e30178}{action}};}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad8955915e98662017678c462df873122}{VirtualContextManager}}}
+\DoxyCodeLine{00087\ \ \ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<VirtualContextManager>\ \{}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a24dd2acbbd37a53f4e4108d385a58441}{VirtualPtrType}}\ =\ std::unique\_ptr<VirtualContext>;}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a0d3901c038c192969202b16e4ab05d8a}{PendingRequestType}}\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_pending_request}{PendingRequest}};}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad2cd828dbd8886166b4ceb3776c49239}{VirtualInfoType}}\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_info}{VirtualInfo}};}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_aa63e106c968a01d4d437d535c4ef9d02}{VirtualInfoPtrType}}\ =\ std::unique\_ptr<VirtualInfoType>;}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ab36ffbed916fb2720dd6db71979a064e}{ContainerType}}\ =\ std::unordered\_map<VirtualIDType,\ VirtualInfoPtrType>;}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_aa0314e4b3f1b39a531c7ba5b630fc72e}{ContainerRemoteType}}\ =\ std::unordered\_map<VirtualIDType,\ VirtualInfoPtrType>;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a85080f8107ed08c3a7fdd8114c724ce2}{PendingContainerType}}\ =\ std::unordered\_map<VirtualRequestIDType,\ PendingRequest>;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad8955915e98662017678c462df873122}{VirtualContextManager}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a56636a2609d203ef7eb3230af13ef7df}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}VirtualContextManager"{}};\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtContextT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00102\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ab6d6601aa3ad04d10b944f9f7f9f478d}{makeVirtual}}(Args\&\&\ ...\ args);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtContextT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a18c6dad4c4c963f883c59f64f78e36cb}{makeVirtualNode}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node,\ Args\&\&\ ...\ args);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtContextT,\ \doxymbox{\hyperlink{namespacevt_1_1mapping_a8d6f58705db238c224b75c51d0f71d14}{mapping::ActiveSeedMapFnType}}\ fn,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00108\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a51d6fd5ce3ca5998b99f113d44297dd6}{makeVirtualMap}}(Args\ ...\ args);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context}{VirtualContext}}*\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a80a625ff7f7a4451fffd9f042a4caa5c}{getVirtualByProxy}}(\doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ proxy);}
+\DoxyCodeLine{00111\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad2cd828dbd8886166b4ceb3776c49239}{VirtualInfoType}}*\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a5f81b9f6d2a629c27c6c2c973005487d}{getVirtualInfoByProxy}}(\doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ proxy);}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a8efe029e733f8f4a704265f3cd7d33b2}{destroyVirtualByProxy}}(\doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ proxy);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VcT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveVrtTypedFnType<MsgT,\ VcT>\ *f>}
+\DoxyCodeLine{00115\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a0e2611d1a11ebdaa50f7e2d69332039d}{sendMsg}}(}
+\DoxyCodeLine{00116\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ toProxy,\ MsgT\ *\textcolor{keyword}{const}\ msg}
+\DoxyCodeLine{00117\ \ \ );}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VcT,\ \textcolor{keyword}{typename}\ MsgT,\ ActiveVrtTypedFnType<MsgT,\ VcT>\ *f>}
+\DoxyCodeLine{00120\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_acad60c848d71b958be05e41993fc66c2}{sendSerialMsg}}(}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ toProxy,\ MsgT\ *\textcolor{keyword}{const}\ msg}
+\DoxyCodeLine{00122\ \ \ );}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a9777d26df90142843e9356e083d59251}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a25967c050488b45a6136e8ca683ad9f8}{holder\_}}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a27aaad47bba7196b28b9246d6d00a345}{remote\_holder\_}}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a5e7ca8ae11806bc82379e36180f610e7}{cur\_seed\_}}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a0aeca2e6cb7e3096d0f6dce413c3bc0a}{curIdent\_}}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ae2c642a96358980259bc165cad68ae6c}{curRemoteID\_}}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a543388bdb406506b6cedd94205bc3efd}{myNode\_}}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a6112cb97539b0db05f3b3f03331f82da}{cur\_request\_id}}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ac9b1471a8c9a3129181d44badc5a2f3b}{pending\_request\_}};}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ For\ delayed\ construction,\ e.g.,\ when\ the\ virtual\ context\ is\ mapped\ to\ a}}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ different\ core,\ create\ a\ proxy\ as\ a\ placeholder\ and\ delay\ construction}}
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ until\ the\ worker\ executes\ it}}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ae3cb983e08d10e841b85782ada02967d}{makeVirtualPlaceholder}}();}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad8b9edf41fb309325cddc07dd49250ad}{setupMappedVirtualContext}}(}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ proxy,\ \doxymbox{\hyperlink{namespacevt_af51703e1c848ad9589ff0d2521152086}{SeedType}}\ \textcolor{keyword}{const}\&\ seed}
+\DoxyCodeLine{00144\ \ \ );}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtContextT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a37eee2956b5b17cae7e4fd6e51869cc0}{makeVirtualMapComm}}(}
+\DoxyCodeLine{00148\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af51703e1c848ad9589ff0d2521152086}{SeedType}}\ \textcolor{keyword}{const}\&\ seed,\ Args\&\&\ ...\ args}
+\DoxyCodeLine{00149\ \ \ );}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtContextT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a7236496fc6ffb6f4b9631a5024008178}{makeVirtualRemote}}(}
+\DoxyCodeLine{00153\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node,\ \textcolor{keywordtype}{bool}\ isImmediate,\ \doxymbox{\hyperlink{namespacevt_a1eeed92fd07cb9368d26f73660ec4e7f}{ActionProxyType}}\ action,}
+\DoxyCodeLine{00154\ \ \ \ \ Args\&\&...\ args}
+\DoxyCodeLine{00155\ \ \ );}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a398fd80620aad8ff9ba5fa9964a661a6}{insertVirtualContext}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a24dd2acbbd37a53f4e4108d385a58441}{VirtualPtrType}}\ new\_vc,\ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ proxy);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a9afc60815d2b382215f458e0aae9dc3f}{generateNewProxy}}();}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a1d381c5a99a890a16a5343e11b33a21e}{VirtualRemoteIDType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a9d5b94f32defc2e563ebf8ad54bb3164}{generateNewRemoteID}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ All\ messages\ directed\ to\ a\ virtual\ context\ are\ routed\ through\ this\ handler}}
+\DoxyCodeLine{00163\ \ \ \textcolor{comment}{//\ so\ the\ user's\ handler\ can\ be\ invoked\ with\ the\ pointer\ to\ the\ virtual}}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ context}}
+\DoxyCodeLine{00165\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_abb1cc10ecf9f53a7f9486cf69446ee81}{virtualMsgHandler}}(\doxymbox{\hyperlink{namespacevt_aa0b9fcb450f32d62033f239a97fb5687}{BaseMessage}}*\ msg);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a62719655b49a47446040710712da6419}{virtualTypedMsgHandler}}(MsgT*\ msg);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{//\ Handler\ to\ send\ back\ a\ generated\ proxy\ to\ a\ requesting\ node}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_aafefc0c35c19338d87f145999c13e011}{sendBackVirtualProxyHan}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_proxy_request_msg}{VirtualProxyRequestMsg}}*\ msg);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ VrtCtxT,\ \textcolor{keyword}{typename}\ Tuple,\ \textcolor{keywordtype}{size\_t}...\ I>}
+\DoxyCodeLine{00174\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a24dd2acbbd37a53f4e4108d385a58441}{VirtualPtrType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a02bc09728afef757b4dddf5813da92be}{runConstructor}}(Tuple*\ tup,\ std::index\_sequence<I...>);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SysMsgT>}
+\DoxyCodeLine{00177\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_af0aa4bd21034e4ab55875760600829a5}{remoteConstructVrt}}(SysMsgT*\ msg);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ab79342508fe36427b54e3d94297e223a}{recvVirtualProxy}}(\doxymbox{\hyperlink{namespacevt_1_1vrt_a6caf49b2ce4bae618ff648f1947e5bbd}{VirtualRequestIDType}}\ \textcolor{keywordtype}{id},\ \doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ proxy);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context}{VirtualContext}}*\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a7e586415b9dd42012cc71134d2b5fd30}{getVirtualByID}}(\doxymbox{\hyperlink{namespacevt_1_1vrt_a765f938399fb3f39771bbd4279397b7a}{VirtualIDType}}\ \textcolor{keyword}{const}\&\ lookupID,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_remote);}
+\DoxyCodeLine{00182\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad2cd828dbd8886166b4ceb3776c49239}{VirtualInfoType}}*\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_aa05f4cec5679a32e0af06fc8283996e1}{getVirtualInfoByID}}(}
+\DoxyCodeLine{00183\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a765f938399fb3f39771bbd4279397b7a}{VirtualIDType}}\ \textcolor{keyword}{const}\&\ lookupID,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_remote}
+\DoxyCodeLine{00184\ \ \ );}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a00ec944a1360a3f4a13ecfe965c22b36}{destroyVirtualByID}}(\doxymbox{\hyperlink{namespacevt_1_1vrt_a765f938399fb3f39771bbd4279397b7a}{VirtualIDType}}\ \textcolor{keyword}{const}\&\ lookupID,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_remote);}
+\DoxyCodeLine{00186\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a765f938399fb3f39771bbd4279397b7a}{VirtualIDType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ad5d3f15d0882e273bf55a48610667881}{getCurrentID}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00187\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ac51ab2c1e35782eeace3c1aaf297214e}{getNode}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ Holder\ for\ local\ virtual\ contexts\ that\ are\ mapped\ to\ this\ node;\ VirtualInfo}}
+\DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ holds\ a\ pointer\ to\ the\ virtual\ along\ with\ other\ meta-\/information\ about\ it}}
+\DoxyCodeLine{00192\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ab36ffbed916fb2720dd6db71979a064e}{ContainerType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a25967c050488b45a6136e8ca683ad9f8}{holder\_}};}
+\DoxyCodeLine{00193\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_aa0314e4b3f1b39a531c7ba5b630fc72e}{ContainerRemoteType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a27aaad47bba7196b28b9246d6d00a345}{remote\_holder\_}};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \doxymbox{\hyperlink{namespacevt_af51703e1c848ad9589ff0d2521152086}{SeedType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a5e7ca8ae11806bc82379e36180f610e7}{cur\_seed\_}}\ =\ 0;}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{comment}{//\ The\ current\ identifier\ (node-\/local)\ for\ this\ manager}}
+\DoxyCodeLine{00198\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a765f938399fb3f39771bbd4279397b7a}{VirtualIDType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a0aeca2e6cb7e3096d0f6dce413c3bc0a}{curIdent\_}};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{comment}{//\ The\ current\ identifier\ (for\ remote\ nodes)\ for\ this\ manager}}
+\DoxyCodeLine{00201\ \ \ std::unordered\_map<NodeType,\ VirtualRemoteIDType>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ae2c642a96358980259bc165cad68ae6c}{curRemoteID\_}};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ Cache\ of\ the\ node\ for\ the\ virtual\ context\ manager}}
+\DoxyCodeLine{00204\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a543388bdb406506b6cedd94205bc3efd}{myNode\_}};}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{//\ The\ current\ request\ identifier,\ used\ to\ track\ remote\ transactions}}
+\DoxyCodeLine{00207\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_a6caf49b2ce4bae618ff648f1947e5bbd}{VirtualRequestIDType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a6112cb97539b0db05f3b3f03331f82da}{cur\_request\_id}}\ =\ 0;}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_a85080f8107ed08c3a7fdd8114c724ce2}{PendingContainerType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1_virtual_context_manager_ac9b1471a8c9a3129181d44badc5a2f3b}{pending\_request\_}};}
+\DoxyCodeLine{00210\ \};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \}\}\ \ \textcolor{comment}{//\ end\ namespace\ vt::vrt}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{extern}\ vrt::VirtualContextManager*\ \doxymbox{\hyperlink{namespacevt_ad46b232b74b745991314a4a509c648f9}{theVirtualManager}}();}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \}\ \ \textcolor{comment}{//\ end\ namespace\ vt}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context__vrtmanager_8impl_8h}{vt/vrt/context/context\_vrtmanager.impl.h}}"{}}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_VRT\_CONTEXT\_CONTEXT\_VRTMANAGER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

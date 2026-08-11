@@ -1,0 +1,944 @@
+\doxysection{active.\+h}
+\hypertarget{active_8h_source}{}\label{active_8h_source}\index{src/vt/messaging/active.h@{src/vt/messaging/active.h}}
+\doxymbox{\hyperlink{active_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ active.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_ACTIVE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_ACTIVE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{activefn_8h}{vt/activefn/activefn.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8fwd_8h}{vt/messaging/active.fwd.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{smart__ptr_8h}{vt/messaging/message/smart\_ptr.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pending__send_8h}{vt/messaging/pending\_send.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{messaging_2request__holder_8h}{vt/messaging/request\_holder.h}}"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{send__info_8h}{vt/messaging/send\_info.h}}"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{async__op__wrapper_8h}{vt/messaging/async\_op\_wrapper.h}}"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{param__msg_8h}{vt/messaging/param\_msg.h}}"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{event_8h}{vt/event/event.h}}"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__interface_8h}{vt/registry/auto/auto\_registry\_interface.h}}"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{trace__common_8h}{vt/trace/trace\_common.h}}"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{functor_8h}{vt/utils/static\_checks/functor.h}}"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{elm__id_8h}{vt/elm/elm\_id.h}}"{}}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{elm__lb__data_8h}{vt/elm/elm\_lb\_data.h}}"{}}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{strong__type_8h}{vt/utils/strong/strong\_type.h}}"{}}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{fntraits_8h}{vt/utils/fntraits/fntraits.h}}"{}}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \#include\ "{}\doxymbox{\hyperlink{trace__headers_8h}{vt/trace/trace\_headers.h}}"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a7a779bd13ab3ed44bd7740a161dc462c}{PtrLenPairType}}\ =\ std::tuple<std::byte*,\ ByteType>;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ =}
+\DoxyCodeLine{00088\ \ \ std::function<void(\doxymbox{\hyperlink{namespacevt_a7a779bd13ab3ed44bd7740a161dc462c}{PtrLenPairType}}\ data,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ deleter)>;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1_strong_node_type}{StrongNodeType}}\ \{\ \};}
+\DoxyCodeLine{00095\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{Node}}\ =\ \doxymbox{\hyperlink{namespacevt_ae4d9e44de2ef70582abd6c1d15033845}{Strong<NodeType,\ uninitialized\_destination,\ StrongNodeType>}};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ =\ int;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\ PutPackedTag\ =}
+\DoxyCodeLine{00104\ \ \ std::numeric\_limits<TagType>::max();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{enum\ class}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55}{MPITag}}\ :\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ \{}
+\DoxyCodeLine{00107\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55ab1ee9044bcae54b74056a088a0d57ac1}{ActiveMsgTag}}\ =\ 1,}
+\DoxyCodeLine{00108\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55a9bee0499791527abc5fcf1099c3cc188}{DataMsgTag}}\ \ \ =\ 2,}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Size-\/class\ active\ message\ tags}}
+\DoxyCodeLine{00111\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55a48d834a9c2974308c78f1e70f1e6f690}{ActiveMsgS}}\ \ \ =\ 11,\ \ \textcolor{comment}{//\ <=\ 512\ bytes}}
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55ae8d73f08def2a26cf00334905c5eeb23}{ActiveMsgM}}\ \ \ =\ 12,\ \ \textcolor{comment}{//\ <=\ 2048\ bytes}}
+\DoxyCodeLine{00113\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55a4c0f6bf66f2dce68771a837afe52829d}{ActiveMsgL}}\ \ \ =\ 13,\ \ \textcolor{comment}{//\ <=\ 8192\ bytes}}
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55abd3fe34900c470ebbdbda08ab54aabce}{ActiveMsgXL}}\ \ =\ 14\ \ \ \textcolor{comment}{//\ <=\ 32768\ bytes}}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\ starting\_direct\_buffer\_tag\ =\ 1000;}
+\DoxyCodeLine{00118\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \textcolor{keyword}{const}\ max\_pack\_direct\_size\ =\ 512;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ada81b3367eca241184cfcf7e77aacacb}{PendingRecv}}\ \{}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a81f94488ff0b51d17d09fad4db88ea37}{nchunks}}\ =\ 0;}
+\DoxyCodeLine{00127\ \ \ std::byte*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_acd0f33d9bdfaf6ba3d283d8e289eee86}{user\_buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00128\ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a38dbaba9db9f4fd8d3e72553f030a21d}{cont}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00129\ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a1d0de0586d485b2b6af7daacafa7ea0d}{dealloc\_user\_buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00130\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a7bf339cd65c0b4caad259825eb7861d5}{sender}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00131\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ac532592ff86b902de3c38c971db6290e}{priority}}\ =\ no\_priority;}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a232d976ea4bb28426530e8c431c52f95}{is\_user\_buf}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ada81b3367eca241184cfcf7e77aacacb}{PendingRecv}}(}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ in\_nchunks,\ std::byte*\ in\_user\_buf,\ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ in\_cont,}
+\DoxyCodeLine{00136\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ in\_dealloc\_user\_buf,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ node,}
+\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ in\_priority,\ \textcolor{keywordtype}{bool}\ in\_is\_user\_buf}
+\DoxyCodeLine{00138\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a81f94488ff0b51d17d09fad4db88ea37}{nchunks}}(in\_nchunks),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_acd0f33d9bdfaf6ba3d283d8e289eee86}{user\_buf}}(in\_user\_buf),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a38dbaba9db9f4fd8d3e72553f030a21d}{cont}}(in\_cont),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a1d0de0586d485b2b6af7daacafa7ea0d}{dealloc\_user\_buf}}(in\_dealloc\_user\_buf),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a7bf339cd65c0b4caad259825eb7861d5}{sender}}(node),}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ac532592ff86b902de3c38c971db6290e}{priority}}(in\_priority),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a232d976ea4bb28426530e8c431c52f95}{is\_user\_buf}}(in\_is\_user\_buf)}
+\DoxyCodeLine{00141\ \ \ \{\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ac49714a19453135a9cc1f2d5a0b98af1}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a81f94488ff0b51d17d09fad4db88ea37}{nchunks}}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_acd0f33d9bdfaf6ba3d283d8e289eee86}{user\_buf}}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a38dbaba9db9f4fd8d3e72553f030a21d}{cont}}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a1d0de0586d485b2b6af7daacafa7ea0d}{dealloc\_user\_buf}}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a7bf339cd65c0b4caad259825eb7861d5}{sender}}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_ac532592ff86b902de3c38c971db6290e}{priority}}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv_a232d976ea4bb28426530e8c431c52f95}{is\_user\_buf}};}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}\ \{}
+\DoxyCodeLine{00161\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}(}
+\DoxyCodeLine{00162\ \ \ \ \ std::byte*\ in\_buf,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ in\_probe\_bytes,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_sender}
+\DoxyCodeLine{00163\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a57373105895853e9f6fccc06d9a88696}{buf}}(in\_buf),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a702edc025a2cd95e5a267d5acbda9f1d}{probe\_bytes}}(in\_probe\_bytes),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_ad0c153e52ba71c9295a45d73a5d3ccd8}{sender}}(in\_sender),}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a5dce1ae0bdfaa40935023561e0d16671}{valid}}(true)}
+\DoxyCodeLine{00165\ \ \ \{\ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_afa9023f2c85ac14ef3b35ac71e8a477e}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a57373105895853e9f6fccc06d9a88696}{buf}}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a702edc025a2cd95e5a267d5acbda9f1d}{probe\_bytes}}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_ad0c153e52ba71c9295a45d73a5d3ccd8}{sender}}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a5dce1ae0bdfaa40935023561e0d16671}{valid}};}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ std::byte*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a57373105895853e9f6fccc06d9a88696}{buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00176\ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a702edc025a2cd95e5a267d5acbda9f1d}{probe\_bytes}}\ =\ 0;}
+\DoxyCodeLine{00177\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_ad0c153e52ba71c9295a45d73a5d3ccd8}{sender}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a5dce1ae0bdfaa40935023561e0d16671}{valid}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00179\ \};}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00186\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_a1206e5cae68fd12bb821dc2c4c8172d4}{InProgressIRecv}}\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}\ \{}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_a1206e5cae68fd12bb821dc2c4c8172d4}{InProgressIRecv}}(}
+\DoxyCodeLine{00189\ \ \ \ \ std::byte*\ in\_buf,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ in\_probe\_bytes,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_sender,}
+\DoxyCodeLine{00190\ \ \ \ \ MPI\_Request\ in\_req\ =\ MPI\_REQUEST\_NULL}
+\DoxyCodeLine{00191\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}(in\_buf,\ in\_probe\_bytes,\ in\_sender),}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_af1ee8d3168a064aa7749b986439b81e8}{req}}(in\_req)}
+\DoxyCodeLine{00193\ \ \ \{\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_ac5cabd7a87cc7c75d6870a2597c50a8c}{test}}(\textcolor{keywordtype}{int}\&\ num\_mpi\_tests)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};\ \textcolor{comment}{//\ MPI\_Test}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00199\ \ \ \ \ MPI\_Status\ stat;}
+\DoxyCodeLine{00200\ \ \ \ \ MPI\_Test(\&\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_af1ee8d3168a064aa7749b986439b81e8}{req}},\ \&flag,\ \&stat);}
+\DoxyCodeLine{00201\ \ \ \ \ num\_mpi\_tests++;}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{return}\ flag;}
+\DoxyCodeLine{00203\ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00206\ \ \ MPI\_Request\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv_af1ee8d3168a064aa7749b986439b81e8}{req}}\ =\ MPI\_REQUEST\_NULL;}
+\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_ade6ceb29a94d9adcfd05a5ff0c6e4383}{InProgressDataIRecv}}\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}\ \{}
+\DoxyCodeLine{00215\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_ade6ceb29a94d9adcfd05a5ff0c6e4383}{InProgressDataIRecv}}(}
+\DoxyCodeLine{00216\ \ \ \ \ std::byte*\ in\_buf,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ in\_probe\_bytes,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_sender,}
+\DoxyCodeLine{00217\ \ \ \ \ std::vector<MPI\_Request>\ in\_reqs,\ std::byte*\ \textcolor{keyword}{const}\ in\_user\_buf,}
+\DoxyCodeLine{00218\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ in\_dealloc\_user\_buf,}
+\DoxyCodeLine{00219\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ in\_next,}
+\DoxyCodeLine{00220\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ in\_priority}
+\DoxyCodeLine{00221\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_base_a0ba75fd3516ed6b29d0d52ca2bdf8477}{InProgressBase}}\{in\_buf,\ in\_probe\_bytes,\ in\_sender\},}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_affc7774716056ef55e65ebf8e288ac0f}{user\_buf}}(in\_user\_buf),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_ad1cd80fe79577e1a22177ad1f49f8c0d}{dealloc\_user\_buf}}(in\_dealloc\_user\_buf),}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a0f080a57da0a21402687c3a96d535036}{next}}(in\_next),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a4ba8a7812367449cfe568d87806fd4c4}{priority}}(in\_priority),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a077c3734a7c030be8e230406af350781}{reqs}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(in\_reqs))}
+\DoxyCodeLine{00224\ \ \ \{\ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a5d7e51732503e70a684f27a8c2985dc9}{test}}(\textcolor{keywordtype}{int}\&\ num\_mpi\_tests)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00228\ \ \ \ \ MPI\_Status\ stat;}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{for}\ (\ ;\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a74c8704c86b2be19c06a0b7152aede88}{cur}}\ <\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a077c3734a7c030be8e230406af350781}{reqs}}.size();\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a74c8704c86b2be19c06a0b7152aede88}{cur}}++)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \doxymbox{\hyperlink{mpi__access_8h_a99651284f3c25773012920c19cf5c723}{VT\_ALLOW\_MPI\_CALLS}};\ \textcolor{comment}{//\ MPI\_Test}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ MPI\_Test(\&\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a077c3734a7c030be8e230406af350781}{reqs}}[\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a74c8704c86b2be19c06a0b7152aede88}{cur}}],\ \&flag,\ \&stat);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ num\_mpi\_tests++;}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (flag\ ==\ 0)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00241\ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_afa4efb5376b20b0acfc7e5d789818f49}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_affc7774716056ef55e65ebf8e288ac0f}{user\_buf}}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_ad1cd80fe79577e1a22177ad1f49f8c0d}{dealloc\_user\_buf}}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a0f080a57da0a21402687c3a96d535036}{next}}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a4ba8a7812367449cfe568d87806fd4c4}{priority}}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a74c8704c86b2be19c06a0b7152aede88}{cur}}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a077c3734a7c030be8e230406af350781}{reqs}};}
+\DoxyCodeLine{00251\ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ std::byte*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_affc7774716056ef55e65ebf8e288ac0f}{user\_buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00254\ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_ad1cd80fe79577e1a22177ad1f49f8c0d}{dealloc\_user\_buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00255\ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a0f080a57da0a21402687c3a96d535036}{next}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00256\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a4ba8a7812367449cfe568d87806fd4c4}{priority}}\ =\ no\_priority;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00259\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a74c8704c86b2be19c06a0b7152aede88}{cur}}\ =\ 0;}
+\DoxyCodeLine{00260\ \ \ std::vector<MPI\_Request>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv_a077c3734a7c030be8e230406af350781}{reqs}};}
+\DoxyCodeLine{00261\ \};}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a76b964a87805d59f20d0cbf861f546a2}{BufferedActiveMsg}}\ \{}
+\DoxyCodeLine{00269\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a36c6d58d477907e916a251fb358f9154}{MessageType}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a36c6d58d477907e916a251fb358f9154}{MessageType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a88906175db478caa759a279ba6c43bea}{buffered\_msg}};}
+\DoxyCodeLine{00272\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a54ea3b62b0e7f9ec65d866c7afc82770}{from\_node}};}
+\DoxyCodeLine{00273\ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_aced58d5a05c15a2e6eeca7b72bd45e47}{cont}};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a76b964a87805d59f20d0cbf861f546a2}{BufferedActiveMsg}}(}
+\DoxyCodeLine{00276\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a36c6d58d477907e916a251fb358f9154}{MessageType}}\ \textcolor{keyword}{const}\&\ in\_buffered\_msg,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ in\_from\_node,}
+\DoxyCodeLine{00277\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ in\_cont}
+\DoxyCodeLine{00278\ \ \ )\ :\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a88906175db478caa759a279ba6c43bea}{buffered\_msg}}(in\_buffered\_msg),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a54ea3b62b0e7f9ec65d866c7afc82770}{from\_node}}(in\_from\_node),\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_aced58d5a05c15a2e6eeca7b72bd45e47}{cont}}(in\_cont)}
+\DoxyCodeLine{00279\ \ \ \{\ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_ad94bdc76553889e9c87c35d5bec945f2}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a88906175db478caa759a279ba6c43bea}{buffered\_msg}}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_a54ea3b62b0e7f9ec65d866c7afc82770}{from\_node}}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg_aced58d5a05c15a2e6eeca7b72bd45e47}{cont}};}
+\DoxyCodeLine{00286\ \ \ \}}
+\DoxyCodeLine{00287\ \};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{comment}{//\ forward-\/declare\ for\ header}}
+\DoxyCodeLine{00290\ \textcolor{keyword}{struct\ }MultiMsg;}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00327\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6b4f326bf77ec032d8ba86d51899c60}{ActiveMessenger}}\ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_pollable_component}{runtime::component::PollableComponent}}<ActiveMessenger>\ \{}
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a80a9cbda399d7bf035bfcecc761f4b02}{BufferedMsgType}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_buffered_active_msg}{BufferedActiveMsg}};}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a720a2b1e7462d414b2a51d9fe005eca9}{MessageType}}\ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_a310d3ca78fa35e62ac4d5d9a1ee6784b}{ShortMessage}};}
+\DoxyCodeLine{00330\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa69cbede6a9fbc4d727bfb38d5546600}{CountType}}\ \ \ \ \ \ \ \ \ \ \ \ =\ int32\_t;}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_add1d7ab7bf168d53dfe7b93f29f64f02}{PendingRecvType}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_recv}{PendingRecv}};}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aed736a2b2eaa0f96971a4f0be3fe0a25}{EventRecordType}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1event_1_1_async_event_a5b4ef37db6e5962fdc0e6e0e56e74bc1}{event::AsyncEvent::EventRecordType}};}
+\DoxyCodeLine{00333\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a09efd64a8c1bc26a7333c70b76ca01bd}{SendFnType}}\ \ \ \ \ \ \ \ \ \ \ =\ std::function<\doxymbox{\hyperlink{structvt_1_1messaging_1_1_send_info}{SendInfo}}(\doxymbox{\hyperlink{namespacevt_a7a779bd13ab3ed44bd7740a161dc462c}{PtrLenPairType}},\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}},\doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}})>;}
+\DoxyCodeLine{00334\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{UserSendFnType}}\ \ \ \ \ \ \ =\ std::function<void(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a09efd64a8c1bc26a7333c70b76ca01bd}{SendFnType}})>;}
+\DoxyCodeLine{00335\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a388e97eeb72592e57551e045b43bcfde}{ContainerPendingType}}\ =\ std::unordered\_map<TagType,PendingRecvType>;}
+\DoxyCodeLine{00336\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a98bb74aa4a561161dd7c7073dcd5f1d3}{ReadyHanTagType}}\ \ \ \ \ \ =\ std::tuple<HandlerType,\ TagType>;}
+\DoxyCodeLine{00337\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac7e9165df6550ea333f8eb018a5a0e60}{HandlerManagerType}}\ \ \ =\ \doxymbox{\hyperlink{structvt_1_1_handler_manager}{HandlerManager}};}
+\DoxyCodeLine{00338\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{PendingSend}};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00343\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6b4f326bf77ec032d8ba86d51899c60}{ActiveMessenger}}();}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00348\ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a10ef2a3dae9bcaddaa1f80903274e7b3}{\string~ActiveMessenger}}();}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a42112dea411907ca529bd5bc6586249a}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}ActiveMessenger"{}};\ \}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a14656b543cdd9b1e52ce7772b6d5b99b}{startup}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_acdeca2f65de625cee6fdc770f89d4d4b}{initialize}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00365\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ad76f4f0ee9830f4431b57720163f715c}{markAsTermMessage}}(MsgPtrT\ \textcolor{keyword}{const}\ msg);}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00373\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae813b0555258b09de8fa324ed98dcd02}{markAsLocationMessage}}(MsgPtrT\ \textcolor{keyword}{const}\ msg);}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00380\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00381\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{markAsSerialMsgMessage}}(MsgPtrT\ \textcolor{keyword}{const}\ msg);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00388\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgPtrT>}
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a0587ea992b0f1b06da38d52a3851aae5}{markAsCollectionMessage}}(MsgPtrT\ \textcolor{keyword}{const}\ msg);}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00397\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a5fc9cb79e5cbef41007d847964c17113}{setEpochMessage}}(MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00407\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00408\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6d3637cb3c416b3491b748aaf4bab48}{setTagMessage}}(MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag);}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a0b16304b6df578229e16b93ddc483cb1}{trace::TraceEventIDType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a73a4b3a082031fdd676ae7670f13de3d}{makeTraceCreationSend}}(}
+\DoxyCodeLine{00411\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ \textcolor{keyword}{const}\ handler,\ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ serialized\_msg\_size,\ \textcolor{keywordtype}{bool}\ is\_bcast}
+\DoxyCodeLine{00412\ \ \ );}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \textcolor{comment}{//\ With\ serialization,\ the\ correct\ method\ is\ resolved\ via\ SFINAE.}}
+\DoxyCodeLine{00415\ \ \ \textcolor{comment}{//\ This\ also\ includes\ additional\ guards\ to\ detect\ ambiguity.}}
+\DoxyCodeLine{00416\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00417\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae3c0b836a082ffb3f39d7610bdbe5b70}{sendMsgSerializableImpl}}(}
+\DoxyCodeLine{00418\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00419\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00420\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00421\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00422\ \ \ );}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \textcolor{comment}{//\ All\ messages\ that\ do\ NOT\ define\ their\ own\ serialization\ policy}}
+\DoxyCodeLine{00425\ \ \ \textcolor{comment}{//\ and\ do\ NOT\ define\ their\ own\ serialization\ function\ are\ required}}
+\DoxyCodeLine{00426\ \ \ \textcolor{comment}{//\ to\ be\ byte-\/transmittable.\ This\ covers\ basic\ byte-\/copyable}}
+\DoxyCodeLine{00427\ \ \ \textcolor{comment}{//\ messages\ directly\ inheriting\ from\ ActiveMsg.\ ActivMsg\ implements}}
+\DoxyCodeLine{00428\ \ \ \textcolor{comment}{//\ a\ serialize\ function\ which\ is\ implicitly\ inherited..}}
+\DoxyCodeLine{00429\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,}
+\DoxyCodeLine{00431\ \ \ \ \ std::enable\_if\_t<\textcolor{keyword}{true}}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ and\ not\ ::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value,}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00434\ \ \ \ \ >\ =\ 0}
+\DoxyCodeLine{00435\ \ \ >}
+\DoxyCodeLine{00436\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl}}(}
+\DoxyCodeLine{00437\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00438\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00439\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00440\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00441\ \ \ )\ \{}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ not\ ::vt::messaging::has\_own\_serialize<MsgT>,}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Message\ prohibiting\ serialization\ must\ not\ have\ a\ serialization\ function."{}}}
+\DoxyCodeLine{00446\ \ \ \ \ );}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4234a56f6c50c0c0a0eefd3f3f66b58e}{sendMsgCopyableImpl<MsgT>}}(dest,\ han,\ msg,\ tag);}
+\DoxyCodeLine{00449\ \ \ \}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \textcolor{comment}{//\ Serializable\ and\ serialization\ required\ on\ this\ type.}}
+\DoxyCodeLine{00452\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,}
+\DoxyCodeLine{00454\ \ \ \ \ std::enable\_if\_t<\textcolor{keyword}{true}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_serialization\_mode<MsgT>::required,}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00458\ \ \ \ \ >\ =\ 0}
+\DoxyCodeLine{00459\ \ \ >}
+\DoxyCodeLine{00460\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl}}(}
+\DoxyCodeLine{00461\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00462\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00463\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00464\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00465\ \ \ )\ \{}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ ::vt::messaging::has\_own\_serialize<MsgT>,}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Message\ requiring\ serialization\ must\ have\ a\ serialization\ function."{}}}
+\DoxyCodeLine{00470\ \ \ \ \ );}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae3c0b836a082ffb3f39d7610bdbe5b70}{sendMsgSerializableImpl<MsgT>}}(dest,\ han,\ msg,\ tag);}
+\DoxyCodeLine{00473\ \ \ \}}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \textcolor{comment}{//\ Serializable,\ but\ support\ is\ only\ for\ derived\ types.}}
+\DoxyCodeLine{00476\ \ \ \textcolor{comment}{//\ This\ type\ will\ still\ be\ sent\ using\ byte-\/copy\ serialization.}}
+\DoxyCodeLine{00477\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,}
+\DoxyCodeLine{00479\ \ \ \ \ std::enable\_if\_t<\textcolor{keyword}{true}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_serialization\_mode<MsgT>::supported,}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00483\ \ \ \ \ >\ =\ 0}
+\DoxyCodeLine{00484\ \ \ >}
+\DoxyCodeLine{00485\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl}}(}
+\DoxyCodeLine{00486\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00487\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00488\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00489\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00490\ \ \ )\ \{}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ ::vt::messaging::has\_own\_serialize<MsgT>,}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Message\ supporting\ serialization\ must\ have\ a\ serialization\ function."{}}}
+\DoxyCodeLine{00495\ \ \ \ \ \ );}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4234a56f6c50c0c0a0eefd3f3f66b58e}{sendMsgCopyableImpl<MsgT>}}(dest,\ han,\ msg,\ tag);}
+\DoxyCodeLine{00498\ \ \ \}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \textcolor{comment}{//\ Messaged\ marked\ as\ prohibiting\ serialization\ cannot\ define}}
+\DoxyCodeLine{00501\ \ \ \textcolor{comment}{//\ a\ serialization\ function\ and\ must\ be\ sent\ via\ byte-\/transmission.}}
+\DoxyCodeLine{00502\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT,}
+\DoxyCodeLine{00504\ \ \ \ \ std::enable\_if\_t<\textcolor{keyword}{true}}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ and\ ::vt::messaging::msg\_serialization\_mode<MsgT>::prohibited,}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00508\ \ \ \ \ >\ =\ 0}
+\DoxyCodeLine{00509\ \ \ >}
+\DoxyCodeLine{00510\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aae60feeb3e184a5a77d9be6e7c43d91a}{sendMsgImpl}}(}
+\DoxyCodeLine{00511\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00512\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00513\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00514\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00515\ \ \ )\ \{}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ not\ ::vt::messaging::has\_own\_serialize<MsgT>,}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Message\ prohibiting\ serialization\ must\ not\ have\ a\ serialization\ function."{}}}
+\DoxyCodeLine{00520\ \ \ \ \ );}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4234a56f6c50c0c0a0eefd3f3f66b58e}{sendMsgCopyableImpl<MsgT>}}(dest,\ han,\ msg,\ tag);}
+\DoxyCodeLine{00523\ \ \ \}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00526\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{ActiveMessenger::PendingSendType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4234a56f6c50c0c0a0eefd3f3f66b58e}{sendMsgCopyableImpl}}(}
+\DoxyCodeLine{00527\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00528\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00529\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\&\ msg,}
+\DoxyCodeLine{00530\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag}
+\DoxyCodeLine{00531\ \ \ );}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00576\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00577\ \ \ [[deprecated(\textcolor{stringliteral}{"{}size\ must\ be\ set\ in\ makeMessageSz,\ use\ regular\ sendMsg"{}})]]}
+\DoxyCodeLine{00578\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0d38199d7351ef980e166d8aaabe1be2}{sendMsgSz}}(}
+\DoxyCodeLine{00579\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00580\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00581\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00582\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00583\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00584\ \ \ );}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00598\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00599\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}(}
+\DoxyCodeLine{00600\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00601\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00602\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00603\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00604\ \ \ );}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00620\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00621\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_gad30a4e31445d40f9c3c36521fc04f975}{sendMsgAuto}}(}
+\DoxyCodeLine{00622\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00623\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{00624\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00625\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00626\ \ \ );}
+\DoxyCodeLine{00627\ }
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00631\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00632\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ End\ Basic\ Active\ Message\ Send\ with\ Pre-\/Registered\ Handler}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00634\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00677\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00678\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga9f860f0d5b630840ca164af25f74e9e9}{broadcastMsgSz}}(}
+\DoxyCodeLine{00679\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00680\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00681\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00682\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00683\ \ \ );}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00696\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00697\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}(}
+\DoxyCodeLine{00698\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00699\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00700\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00701\ \ \ );}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00714\ \ \ \textcolor{keyword}{template}\ <auto\ f>}
+\DoxyCodeLine{00715\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_gae1504d8a205fc51f9771f6e76271905d}{broadcastMsg}}(}
+\DoxyCodeLine{00716\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::MsgT>\ msg,}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00718\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00719\ \ \ )\ \{}
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::MsgT;}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg<MsgT,\ f>}}(msg,\ deliver\_to\_sender,\ tag);}
+\DoxyCodeLine{00722\ \ \ \}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00735\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00736\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}(}
+\DoxyCodeLine{00737\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00738\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00739\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00740\ \ \ );}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00753\ \ \ \textcolor{keyword}{template}\ <auto\ f>}
+\DoxyCodeLine{00754\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga3302f205ea51bff679d76cb059dbdce7}{sendMsg}}(}
+\DoxyCodeLine{00755\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00756\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::MsgT>\ msg,}
+\DoxyCodeLine{00757\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00758\ \ \ )\ \{}
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::MsgT;}
+\DoxyCodeLine{00760\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg<MsgT,\ f>}}(dest,\ msg,\ tag);}
+\DoxyCodeLine{00761\ \ \ \}}
+\DoxyCodeLine{00762\ }
+\DoxyCodeLine{00771\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ f,\ \textcolor{keyword}{typename}...\ Params>}
+\DoxyCodeLine{00772\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga4557b5ce74c8c5df0013cf49738517bf}{send}}(\doxymbox{\hyperlink{namespacevt_acbce2fda915306d7d63272e4e6b64e1e}{Node}}\ dest,\ Params\&\&...\ params)\ \{}
+\DoxyCodeLine{00773\ \ \ \ \ \textcolor{keyword}{using\ }Tuple\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::TupleType;}
+\DoxyCodeLine{00774\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_param_msg}{ParamMsg<Tuple>}};}
+\DoxyCodeLine{00775\ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<MsgT>}}();}
+\DoxyCodeLine{00776\ \ \ \ \ msg-\/>setParams(std::forward<Params>(params)...);}
+\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keyword}{auto}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a5253f6bb76b4c7e98416fddd05c2695e}{auto\_registry::makeAutoHandlerParam<decltype(f),\ f,\ MsgT>}}();}
+\DoxyCodeLine{00778\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg<MsgT>}}(dest.\doxymbox{\hyperlink{structvt_1_1util_1_1strong_1_1detail_1_1_strong_a13135a68bc8e15c849509101fe30c2b0}{get}}(),\ han,\ msg,\ no\_tag);}
+\DoxyCodeLine{00779\ \ \ \}}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00788\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ f,\ \textcolor{keyword}{typename}...\ Params>}
+\DoxyCodeLine{00789\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga058d20ece0e732645bc62d6a448abe76}{broadcast}}(Params\&\&...\ params)\ \{}
+\DoxyCodeLine{00790\ \ \ \ \ \textcolor{keyword}{using\ }Tuple\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1_func_traits}{FuncTraits}}<\textcolor{keyword}{decltype}(f)>::TupleType;}
+\DoxyCodeLine{00791\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_param_msg}{ParamMsg<Tuple>}};}
+\DoxyCodeLine{00792\ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<MsgT>}}();}
+\DoxyCodeLine{00793\ \ \ \ \ msg-\/>setParams(std::forward<Params>(params)...);}
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keyword}{auto}\ han\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a5253f6bb76b4c7e98416fddd05c2695e}{auto\_registry::makeAutoHandlerParam<decltype(f),\ f,\ MsgT>}}();}
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00796\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg<MsgT>}}(han,\ msg,\ deliver\_to\_sender,\ no\_tag);}
+\DoxyCodeLine{00797\ \ \ \}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00815\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00816\ \ \ [[deprecated(\textcolor{stringliteral}{"{}size\ must\ be\ set\ in\ makeMessageSz,\ use\ regular\ sendMsg"{}})]]}
+\DoxyCodeLine{00817\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0d38199d7351ef980e166d8aaabe1be2}{sendMsgSz}}(}
+\DoxyCodeLine{00818\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00819\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00820\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a3ba8ac0d16b81668cd40e47bc7502419}{ByteType}}\ msg\_size,}
+\DoxyCodeLine{00821\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00822\ \ \ );}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00836\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00837\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga7a5d96676fde771a9ce5af119796fb3a}{broadcastMsgAuto}}(}
+\DoxyCodeLine{00838\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00839\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00840\ \ \ );}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00855\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{00856\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_gad30a4e31445d40f9c3c36521fc04f975}{sendMsgAuto}}(}
+\DoxyCodeLine{00857\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00858\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00859\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00860\ \ \ );}
+\DoxyCodeLine{00861\ }
+\DoxyCodeLine{00863\ }
+\DoxyCodeLine{00864\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00865\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00866\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ End\ Send\ Message\ Active\ Function\ (type-\/safe\ handler)}}
+\DoxyCodeLine{00867\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00868\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00869\ }
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00913\ \ \ \textcolor{keyword}{template}\ <ActiveFnType*\ f,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00914\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__basicsend_ga880e93f0c239c1aa9c9ade805d75dd7a}{broadcastMsg}}(}
+\DoxyCodeLine{00915\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00916\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00917\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00918\ \ \ );}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00931\ \ \ \textcolor{keyword}{template}\ <ActiveFnType*\ f,\ \textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00932\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__basicsend_gaab0dc380a72f038f4fc2350ba89de98f}{sendMsg}}(}
+\DoxyCodeLine{00933\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{00934\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00935\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00936\ \ \ );}
+\DoxyCodeLine{00937\ }
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00940\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00941\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00942\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ End\ Send\ Message\ BASIC\ Active\ Function\ (deprecated?)}}
+\DoxyCodeLine{00943\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00944\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00945\ }
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00986\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00987\ \ \ \ \ \textcolor{keyword}{typename}\ FunctorT,}
+\DoxyCodeLine{00988\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT}
+\DoxyCodeLine{00989\ \ \ >}
+\DoxyCodeLine{00990\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__functorsend_ga880e93f0c239c1aa9c9ade805d75dd7a}{broadcastMsg}}(}
+\DoxyCodeLine{00991\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{00992\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00993\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{00994\ \ \ );}
+\DoxyCodeLine{00995\ }
+\DoxyCodeLine{01007\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{01008\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}(}
+\DoxyCodeLine{01009\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}>\ msg,}
+\DoxyCodeLine{01010\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01011\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01012\ \ \ );}
+\DoxyCodeLine{01013\ }
+\DoxyCodeLine{01026\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{01027\ \ \ \ \ \textcolor{keyword}{typename}\ FunctorT,}
+\DoxyCodeLine{01028\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}}
+\DoxyCodeLine{01029\ \ \ >}
+\DoxyCodeLine{01030\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__functorsend_ga9337b80d48503a52676f80f86bc66cf2}{broadcastMsgAuto}}(}
+\DoxyCodeLine{01031\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01032\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01033\ \ \ );}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01046\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT,\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01047\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__functorsend_gaab0dc380a72f038f4fc2350ba89de98f}{sendMsg}}(}
+\DoxyCodeLine{01048\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{01049\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01050\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01051\ \ \ );}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01064\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FunctorT>}
+\DoxyCodeLine{01065\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}(}
+\DoxyCodeLine{01066\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{01067\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief}}<\textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}>\ msg,}
+\DoxyCodeLine{01068\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01069\ \ \ );}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01084\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{01085\ \ \ \ \ \textcolor{keyword}{typename}\ FunctorT,}
+\DoxyCodeLine{01086\ \ \ \ \ \textcolor{keyword}{typename}\ MsgT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1util_1_1_functor_extractor_a6da3f67871dbf871f832dd5efad726d4}{util::FunctorExtractor<FunctorT>::MessageType}}}
+\DoxyCodeLine{01087\ \ \ >}
+\DoxyCodeLine{01088\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__functorsend_ga902007cdc61f7c93e694b7c4c89d7ee1}{sendMsgAuto}}(}
+\DoxyCodeLine{01089\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{01090\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01091\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01092\ \ \ );}
+\DoxyCodeLine{01093\ }
+\DoxyCodeLine{01095\ }
+\DoxyCodeLine{01096\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01097\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01098\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ End\ Send\ Message\ Functor\ Variants}}
+\DoxyCodeLine{01099\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01100\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01101\ }
+\DoxyCodeLine{01141\ }
+\DoxyCodeLine{01154\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01155\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}(}
+\DoxyCodeLine{01156\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{01157\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keywordtype}{bool}\ deliver\_to\_sender\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01159\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01160\ \ \ );}
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01174\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01175\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}(}
+\DoxyCodeLine{01176\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{01177\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{01178\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01179\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{UserSendFnType}}\ send\_payload\_fn}
+\DoxyCodeLine{01180\ \ \ );}
+\DoxyCodeLine{01181\ }
+\DoxyCodeLine{01193\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ ActiveTypedFnType<MsgT>*\ f>}
+\DoxyCodeLine{01194\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}(}
+\DoxyCodeLine{01195\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,}
+\DoxyCodeLine{01196\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01197\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a4b1993ad77436b6ed6c7fd32801c50ed}{UserSendFnType}}\ send\_payload\_fn}
+\DoxyCodeLine{01198\ \ \ );}
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01213\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01214\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3626a6ca76d8ad4ec7c3b47a2c70d3a8}{PendingSendType}}\ \doxymbox{\hyperlink{group__typesafehan_ga7a5d96676fde771a9ce5af119796fb3a}{broadcastMsgAuto}}(}
+\DoxyCodeLine{01215\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,}
+\DoxyCodeLine{01216\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_ptr_thief}{MsgPtrThief<MsgT>}}\ msg,}
+\DoxyCodeLine{01217\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ tag\ =\ no\_tag}
+\DoxyCodeLine{01218\ \ \ );}
+\DoxyCodeLine{01219\ }
+\DoxyCodeLine{01221\ }
+\DoxyCodeLine{01222\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01223\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01224\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ End\ Send\ Data\ Message}}
+\DoxyCodeLine{01225\ \textcolor{comment}{\ \ \ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01226\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01243\ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_adaafe7668d548b768f44e95760152657}{packMsg}}(}
+\DoxyCodeLine{01244\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a720a2b1e7462d414b2a51d9fe005eca9}{MessageType}}*\ msg,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ size,\ std::byte*\ ptr,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ ptr\_bytes}
+\DoxyCodeLine{01245\ \ \ );}
+\DoxyCodeLine{01246\ }
+\DoxyCodeLine{01257\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_send_info}{SendInfo}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a98c8e157b97812c677debc8a25ec392d}{sendData}}(}
+\DoxyCodeLine{01258\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a7a779bd13ab3ed44bd7740a161dc462c}{PtrLenPairType}}\ \textcolor{keyword}{const}\&\ ptr,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{01259\ \ \ );}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01271\ \ \ std::tuple<EventType,\ int>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_adb7981ed13c847b01294d240b5c333cb}{sendDataMPI}}(}
+\DoxyCodeLine{01272\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a7a779bd13ab3ed44bd7740a161dc462c}{PtrLenPairType}}\ \textcolor{keyword}{const}\&\ ptr,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag}
+\DoxyCodeLine{01273\ \ \ );}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01287\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_afd1df9e2ef65cbce28b3785a17c96348}{recvDataMsgPriority}}(}
+\DoxyCodeLine{01288\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{01289\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node,\ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{01290\ \ \ );}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01303\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9dc244ad2e4fbb24a7bb0b0cd2ef0b61}{recvDataMsg}}(}
+\DoxyCodeLine{01304\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node,}
+\DoxyCodeLine{01305\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{01306\ \ \ );}
+\DoxyCodeLine{01307\ }
+\DoxyCodeLine{01321\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9dc244ad2e4fbb24a7bb0b0cd2ef0b61}{recvDataMsg}}(}
+\DoxyCodeLine{01322\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{01323\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ sender,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ enqueue,}
+\DoxyCodeLine{01324\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{01325\ \ \ );}
+\DoxyCodeLine{01326\ }
+\DoxyCodeLine{01343\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab7d4bd52da0f64a73148567a53751e8b}{recvDataMsgBuffer}}(}
+\DoxyCodeLine{01344\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ std::byte*\ \textcolor{keyword}{const}\ user\_buf,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{01345\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node\ =\ uninitialized\_destination,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ enqueue\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01346\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ dealloc\_user\_buf\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01347\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ is\_user\_buf\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{01348\ \ \ );}
+\DoxyCodeLine{01349\ }
+\DoxyCodeLine{01365\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab7d4bd52da0f64a73148567a53751e8b}{recvDataMsgBuffer}}(}
+\DoxyCodeLine{01366\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ std::byte*\ \textcolor{keyword}{const}\ user\_buf,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ tag,}
+\DoxyCodeLine{01367\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ node\ =\ uninitialized\_destination,\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\&\ enqueue\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{01368\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ dealloc\_user\_buf\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01369\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ is\_user\_buf\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{01370\ \ \ );}
+\DoxyCodeLine{01371\ }
+\DoxyCodeLine{01387\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a963afb0b7780f51f3d9d607e615789d1}{recvDataDirect}}(}
+\DoxyCodeLine{01388\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ std::byte*\ \textcolor{keyword}{const}\ buf,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\ tag,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ from,}
+\DoxyCodeLine{01389\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ len,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ prio,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ dealloc\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{01390\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ is\_user\_buf\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{01391\ \#\textcolor{keywordflow}{if}\ MPI\_VERSION\ >=\ 3}
+\DoxyCodeLine{01392\ \ \ \ \ ,\ MPI\_Message\ first\_msg\ =\ MPI\_MESSAGE\_NULL,\ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ first\_chunk\_bytes\ =\ 0}
+\DoxyCodeLine{01393\ \#endif}
+\DoxyCodeLine{01394\ \ \ );}
+\DoxyCodeLine{01395\ }
+\DoxyCodeLine{01405\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a963afb0b7780f51f3d9d607e615789d1}{recvDataDirect}}(}
+\DoxyCodeLine{01406\ \ \ \ \ \textcolor{keywordtype}{int}\ nchunks,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\ tag,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ from,}
+\DoxyCodeLine{01407\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ len,\ \doxymbox{\hyperlink{namespacevt_af115fa46aacfd608ee88b347a6096940}{ContinuationDeleterType}}\ next}
+\DoxyCodeLine{01408\ \ \ );}
+\DoxyCodeLine{01409\ }
+\DoxyCodeLine{01420\ \ \ \doxymbox{\hyperlink{namespacevt_a7d6df0c1414eb886b0cd8b3ddd491a94}{EventType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa8eb9f6ac7daee5782dbf6ff790eca34}{doMessageSend}}(}
+\DoxyCodeLine{01421\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\&\ msg}
+\DoxyCodeLine{01422\ \ \ );}
+\DoxyCodeLine{01423\ }
+\DoxyCodeLine{01430\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a65ec9bc6f62213cac6320ea76cdd4d47}{tryProcessIncomingActiveMsg}}();}
+\DoxyCodeLine{01431\ }
+\DoxyCodeLine{01438\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_af4dafc0786bb0515293356e78035a71e}{tryProcessDataMsgRecv}}();}
+\DoxyCodeLine{01439\ }
+\DoxyCodeLine{01448\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a59eadf26776b0adcf46d22d7bddedf4c}{progress}}(\doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ current\_time)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{01449\ }
+\DoxyCodeLine{01463\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a1015a2c761250fca503d61de7ffc06f2}{processActiveMsg}}(}
+\DoxyCodeLine{01464\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ sender,}
+\DoxyCodeLine{01465\ \ \ \ \ \textcolor{keywordtype}{bool}\ insert,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ cont\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{01466\ \ \ );}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01477\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9bfd445e8c4a416a4a7964455c4b1d1d}{prepareActiveMsgToRun}}(}
+\DoxyCodeLine{01478\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base,\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ from\_node,}
+\DoxyCodeLine{01479\ \ \ \ \ \textcolor{keywordtype}{bool}\ insert,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ cont}
+\DoxyCodeLine{01480\ \ \ );}
+\DoxyCodeLine{01481\ }
+\DoxyCodeLine{01493\ \ \ \doxymbox{\hyperlink{namespacevt_a7d6df0c1414eb886b0cd8b3ddd491a94}{EventType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab3542048b6c0f380899643b031eb1731}{sendMsgBytes}}(}
+\DoxyCodeLine{01494\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base,}
+\DoxyCodeLine{01495\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \textcolor{keyword}{const}\&\ msg\_size,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ send\_tag}
+\DoxyCodeLine{01496\ \ \ );}
+\DoxyCodeLine{01497\ }
+\DoxyCodeLine{01507\ \ \ \doxymbox{\hyperlink{namespacevt_a7d6df0c1414eb886b0cd8b3ddd491a94}{EventType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aed9f371edc98d1cb3a6173203c9749ad}{sendMsgBytesWithPut}}(}
+\DoxyCodeLine{01508\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base}
+\DoxyCodeLine{01509\ \ \ );}
+\DoxyCodeLine{01510\ }
+\DoxyCodeLine{01523\ \ \ \doxymbox{\hyperlink{namespacevt_a7d6df0c1414eb886b0cd8b3ddd491a94}{EventType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ad1406c7f73624f030a0d74dd210ca9d6}{sendMsgMPI}}(}
+\DoxyCodeLine{01524\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\&\ dest,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base,}
+\DoxyCodeLine{01525\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \textcolor{keyword}{const}\&\ msg\_size,\ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \textcolor{keyword}{const}\&\ send\_tag}
+\DoxyCodeLine{01526\ \ \ );}
+\DoxyCodeLine{01527\ }
+\DoxyCodeLine{01538\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ac60a61b85392a5c40d2334919981963a}{pushEpoch}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{01539\ }
+\DoxyCodeLine{01554\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ popEpoch(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ no\_epoch);}
+\DoxyCodeLine{01555\ }
+\DoxyCodeLine{01562\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a627a8b2918ad283edf386038cf5693ca}{getEpoch}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{01563\ }
+\DoxyCodeLine{01573\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01574\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(MsgT*\ msg);}
+\DoxyCodeLine{01575\ }
+\DoxyCodeLine{01585\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01586\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa60710a2d4a1ac7fe60113fd8cbb9809}{getEpochContextMsg}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ \textcolor{keyword}{const}\&\ msg);}
+\DoxyCodeLine{01587\ }
+\DoxyCodeLine{01601\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01602\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{setupEpochMsg}}(MsgT*\ msg);}
+\DoxyCodeLine{01603\ }
+\DoxyCodeLine{01612\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{01613\ \ \ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a7b5a8fc73617491423bf68c4fbe1e2a2}{setupEpochMsg}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<MsgT>}}\ \textcolor{keyword}{const}\&\ msg);}
+\DoxyCodeLine{01614\ }
+\DoxyCodeLine{01620\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3e26d32c550adc1f3589aef49fcfd06e}{registerAsyncOp}}(std::unique\_ptr<AsyncOp>\ op);}
+\DoxyCodeLine{01621\ }
+\DoxyCodeLine{01631\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_add04ad2e4c5d7578410debbb0fa93838}{blockOnAsyncOp}}(std::unique\_ptr<AsyncOp>\ op);}
+\DoxyCodeLine{01632\ }
+\DoxyCodeLine{01633\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{01634\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aaf97f035a1f144599523144a9abeaf0e}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{01635\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a77b9f9e025e09d85ba39262e523599b8}{pending\_recvs\_}}}
+\DoxyCodeLine{01636\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9a85ff32f58ff99db2c89da92e9c8443}{cur\_direct\_buffer\_tag\_}}}
+\DoxyCodeLine{01637\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aecb78cf16379a90416dd5c78dcc0ec65}{in\_progress\_active\_msg\_irecv}}}
+\DoxyCodeLine{01638\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a484829c30624563c7157614849a58d37}{in\_progress\_data\_irecv}}}
+\DoxyCodeLine{01639\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a2f3fd6978007e5740861bd05c28dd588}{in\_progress\_ops}}}
+\DoxyCodeLine{01640\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a44428f493f635833b6b8da6a6dfcf08f}{this\_node\_}}}
+\DoxyCodeLine{01641\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3f7864f87ef5d5aa841fa04bb4ab3fb8}{amForwardCounterGauge}}}
+\DoxyCodeLine{01642\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a6f7a203c3fc2cabd2f6900ecfcd72f89}{amHandlerCount}}}
+\DoxyCodeLine{01643\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a0bc9c9fa378e092e29a246e644529a12}{amPollCount}}}
+\DoxyCodeLine{01644\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aec484a9a792d9833d00621cadf3cace8}{amPostedCounterGauge}}}
+\DoxyCodeLine{01645\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aee8bc2dca92bc3be57472aca90e45759}{amRecvCounterGauge}}}
+\DoxyCodeLine{01646\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a8756789430c46b3829714999926a50ae}{amSentCounterGauge}}}
+\DoxyCodeLine{01647\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae7063289867d66c16627d2a5e1d01cd7}{bcastsSentCount}}}
+\DoxyCodeLine{01648\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_abb8fb58c74b059143a49fc18140c62f6}{dmPollCount}}}
+\DoxyCodeLine{01649\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a5fcc4dc86c3b084e781bdb656230c90f}{dmPostedCounterGauge}}}
+\DoxyCodeLine{01650\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a910d9d24eea2daf233a063fd1348ec31}{dmRecvCounterGauge}}}
+\DoxyCodeLine{01651\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a96a3d12f2dcad41e66f7ee766d1e8d5f}{dmSentCounterGauge}}}
+\DoxyCodeLine{01652\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a313a1560507175413727fed0464f0b9d}{tdRecvCount}}}
+\DoxyCodeLine{01653\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a8b33706c08e1f3475b504040cac79fc7}{tdSentCount}};}
+\DoxyCodeLine{01654\ }
+\DoxyCodeLine{01655\ \textcolor{preprocessor}{\ \ \#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{01656\ \ \ \ \ s\ |\ trace\_irecv}
+\DoxyCodeLine{01657\ \ \ \ \ \ \ |\ trace\_isend}
+\DoxyCodeLine{01658\ \ \ \ \ \ \ |\ trace\_irecv\_polling\_am}
+\DoxyCodeLine{01659\ \ \ \ \ \ \ |\ trace\_irecv\_polling\_dm}
+\DoxyCodeLine{01660\ \ \ \ \ \ \ |\ trace\_asyncop;}
+\DoxyCodeLine{01661\ \textcolor{preprocessor}{\ \ \#\ endif}}
+\DoxyCodeLine{01662\ \ \ \}}
+\DoxyCodeLine{01663\ }
+\DoxyCodeLine{01664\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01673\ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_af2339f3300276bdc7e55706ce0cfff2a}{allocateNewTag}}();}
+\DoxyCodeLine{01674\ }
+\DoxyCodeLine{01681\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3ec09d3c055bee21bfd3d55a9c500b39}{handleChunkedMultiMsg}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_multi_msg}{MultiMsg}}*\ msg);}
+\DoxyCodeLine{01682\ }
+\DoxyCodeLine{01689\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae8f6417a532c73601f9c26190a29a21e}{chunkedMultiMsg}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_multi_msg}{MultiMsg}}*\ msg);}
+\DoxyCodeLine{01690\ }
+\DoxyCodeLine{01696\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a12133fda914a7809ac7ce7694efc312e}{testPendingActiveMsgAsyncRecv}}();}
+\DoxyCodeLine{01697\ }
+\DoxyCodeLine{01703\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae8e94c46cd2948864a97a671428b64bc}{testPendingDataMsgAsyncRecv}}();}
+\DoxyCodeLine{01704\ }
+\DoxyCodeLine{01710\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aa6828cf77adfd137f27e689a732363fa}{testPendingAsyncOps}}();}
+\DoxyCodeLine{01711\ }
+\DoxyCodeLine{01715\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a162667e5566546402f12baf8cf60d4da}{finishPendingActiveMsgAsyncRecv}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_i_recv}{InProgressIRecv}}*\ irecv);}
+\DoxyCodeLine{01716\ }
+\DoxyCodeLine{01720\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a80a13017308870133ff8538741bee394}{finishPendingDataMsgAsyncRecv}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_in_progress_data_i_recv}{InProgressDataIRecv}}*\ irecv);}
+\DoxyCodeLine{01721\ }
+\DoxyCodeLine{01729\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a142aeb4905ce18e3c01250f880bca062}{recordLBDataCommForSend}}(}
+\DoxyCodeLine{01730\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ dest,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr<BaseMsgType>}}\ \textcolor{keyword}{const}\&\ base,}
+\DoxyCodeLine{01731\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ \textcolor{keyword}{const}\ msg\_size}
+\DoxyCodeLine{01732\ \ \ );}
+\DoxyCodeLine{01733\ }
+\DoxyCodeLine{01739\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a29c7c695cf9a9c6e8c06681716a72e00}{selectActiveTag}}(\doxymbox{\hyperlink{namespacevt_a2d0bfe731fdf89e6d6b7532532acb994}{MsgSizeType}}\ size);}
+\DoxyCodeLine{01740\ }
+\DoxyCodeLine{01748\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker}{ActiveRecvBroker}}\ \{}
+\DoxyCodeLine{01749\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot}{Slot}}\ \{}
+\DoxyCodeLine{01750\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot_a8bb06c84be0e07c89cefeb80574d674f}{cap}}\ =\ 0;}
+\DoxyCodeLine{01751\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot_a6a9108f17ca6f68b194f64db538bdf4d}{tag}}\ =\ 0;}
+\DoxyCodeLine{01752\ \ \ \ \ \ \ std::byte*\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot_a680f257e6db1b95d1ae0293e9bfb33ef}{buf}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01753\ \ \ \ \ \ \ MPI\_Request\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot_a46a4484380bd319f5525d50cf7aab16d}{req}}\ =\ MPI\_REQUEST\_NULL;}
+\DoxyCodeLine{01754\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot_ad4319800d42079a0411be55074766cf1}{posted}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01755\ \ \ \ \ \};}
+\DoxyCodeLine{01756\ }
+\DoxyCodeLine{01757\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_a83bbd11efbd82f07d7b71249534ed1a1}{setup}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6b4f326bf77ec032d8ba86d51899c60}{ActiveMessenger}}*\ self);}
+\DoxyCodeLine{01758\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_a62fe60999d9a3c6012c1d8cac9cb6e2a}{progress}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6b4f326bf77ec032d8ba86d51899c60}{ActiveMessenger}}*\ self);}
+\DoxyCodeLine{01759\ }
+\DoxyCodeLine{01760\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_adbd9d5ff77077738de78cd598be850a7}{num\_caps\_}}\ =\ 4;}
+\DoxyCodeLine{01761\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_aa79733830c98210998e4f18ecaf3dd1c}{caps\_}}[\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_adbd9d5ff77077738de78cd598be850a7}{num\_caps\_}}]\ =\ \{512,\ 2048,\ 8192,\ 32768\};}
+\DoxyCodeLine{01762\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01763\ \ \ \ \ std::vector<Slot>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_ae5104769e71f5af743005ad1d9651700}{slots\_}};}
+\DoxyCodeLine{01764\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_a8369c59de9de666eaff032189eab0373}{tags\_}}[\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_adbd9d5ff77077738de78cd598be850a7}{num\_caps\_}}]\ =\ \{}
+\DoxyCodeLine{01765\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55a48d834a9c2974308c78f1e70f1e6f690}{MPITag::ActiveMsgS}}),}
+\DoxyCodeLine{01766\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55ae8d73f08def2a26cf00334905c5eeb23}{MPITag::ActiveMsgM}}),}
+\DoxyCodeLine{01767\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55a4c0f6bf66f2dce68771a837afe52829d}{MPITag::ActiveMsgL}}),}
+\DoxyCodeLine{01768\ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\doxymbox{\hyperlink{namespacevt_1_1messaging_a6e844644416b860019f08db267860f31}{MPI\_TagType}}\textcolor{keyword}{>}(\doxymbox{\hyperlink{namespacevt_1_1messaging_a1e0d9a8b346c8536b25544c725adcf55abd3fe34900c470ebbdbda08ab54aabce}{MPITag::ActiveMsgXL}})}
+\DoxyCodeLine{01769\ \ \ \ \ \};}
+\DoxyCodeLine{01770\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_a35a19e84a42d9d03ed5f80596a62b473}{slots\_per\_class\_}}\ =\ 4;}
+\DoxyCodeLine{01771\ }
+\DoxyCodeLine{01772\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_aaf432eaae9f664c0e281badf0a9c05cd}{postSlot}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ab6b4f326bf77ec032d8ba86d51899c60}{ActiveMessenger}}*\ self,\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_1_1_slot}{Slot}}\&\ s);}
+\DoxyCodeLine{01773\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01774\ \ \ \ \ \textcolor{comment}{//\ Cleanup\ outstanding\ posted\ receives\ and\ buffers\ to\ avoid\ leaks\ at\ shutdown}}
+\DoxyCodeLine{01775\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker_aa8c279b70566b434e20304e4620682fb}{cleanup}}();}
+\DoxyCodeLine{01776\ \ \ \};}
+\DoxyCodeLine{01777\ }
+\DoxyCodeLine{01778\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01784\ \ \ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a013bcd07c361e7d6b9c03501ac3bac40}{getRankLBData}}()\ \{}
+\DoxyCodeLine{01785\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_tuple(}
+\DoxyCodeLine{01786\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aafc3fafa7dd26af3db14c9514f7a69be}{bare\_handler\_dummy\_elm\_id\_for\_lb\_data\_}},}
+\DoxyCodeLine{01787\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a81c1445908fe33e56d859073edc09534}{bare\_handler\_lb\_data\_}}}
+\DoxyCodeLine{01788\ \ \ \ \ );}
+\DoxyCodeLine{01789\ \ \ \}}
+\DoxyCodeLine{01790\ }
+\DoxyCodeLine{01791\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01792\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{01793\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_irecv\ \ \ \ \ \ \ \ \ \ \ \ \ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{01794\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_isend\ \ \ \ \ \ \ \ \ \ \ \ \ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{01795\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_irecv\_polling\_am\ \ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{01796\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_irecv\_polling\_dm\ \ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{01797\ \ \ \doxymbox{\hyperlink{namespacevt_1_1trace_a5225e69e26846cb546765c60fb702c29}{trace::UserEventIDType}}\ trace\_asyncop\ \ \ \ \ \ \ \ \ \ \ =\ trace::no\_user\_event\_id;}
+\DoxyCodeLine{01798\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{01799\ }
+\DoxyCodeLine{01800\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a388e97eeb72592e57551e045b43bcfde}{ContainerPendingType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a77b9f9e025e09d85ba39262e523599b8}{pending\_recvs\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{01801\ \ \ \doxymbox{\hyperlink{namespacevt_a2270c7e3e128c46cecf442fa42f00b79}{TagType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a9a85ff32f58ff99db2c89da92e9c8443}{cur\_direct\_buffer\_tag\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ starting\_direct\_buffer\_tag;}
+\DoxyCodeLine{01802\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder}{RequestHolder<InProgressIRecv>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aecb78cf16379a90416dd5c78dcc0ec65}{in\_progress\_active\_msg\_irecv}};}
+\DoxyCodeLine{01803\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder}{RequestHolder<InProgressDataIRecv>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a484829c30624563c7157614849a58d37}{in\_progress\_data\_irecv}};}
+\DoxyCodeLine{01804\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_request_holder}{RequestHolder<AsyncOpWrapper>}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a2f3fd6978007e5740861bd05c28dd588}{in\_progress\_ops}};}
+\DoxyCodeLine{01805\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a44428f493f635833b6b8da6a6dfcf08f}{this\_node\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ uninitialized\_destination;}
+\DoxyCodeLine{01806\ }
+\DoxyCodeLine{01807\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01808\ \ \ \textcolor{comment}{//\ Diagnostic\ counter\ gauge\ combos\ for\ sent\ counts/bytes}}
+\DoxyCodeLine{01809\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a8756789430c46b3829714999926a50ae}{amSentCounterGauge}};}
+\DoxyCodeLine{01810\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a96a3d12f2dcad41e66f7ee766d1e8d5f}{dmSentCounterGauge}};}
+\DoxyCodeLine{01811\ }
+\DoxyCodeLine{01812\ \ \ \textcolor{comment}{//\ Diagnostic\ counters\ for\ recv\ counts/bytes}}
+\DoxyCodeLine{01813\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aee8bc2dca92bc3be57472aca90e45759}{amRecvCounterGauge}};}
+\DoxyCodeLine{01814\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a910d9d24eea2daf233a063fd1348ec31}{dmRecvCounterGauge}};}
+\DoxyCodeLine{01815\ }
+\DoxyCodeLine{01816\ \ \ \textcolor{comment}{//\ Diagnostic\ counters\ for\ posted\ irecv\ counts/bytes}}
+\DoxyCodeLine{01817\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aec484a9a792d9833d00621cadf3cace8}{amPostedCounterGauge}};}
+\DoxyCodeLine{01818\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a5fcc4dc86c3b084e781bdb656230c90f}{dmPostedCounterGauge}};}
+\DoxyCodeLine{01819\ }
+\DoxyCodeLine{01820\ \ \ \textcolor{comment}{//\ Diagnostic\ counters\ for\ counting\ various\ actions}}
+\DoxyCodeLine{01821\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a6f7a203c3fc2cabd2f6900ecfcd72f89}{amHandlerCount}};}
+\DoxyCodeLine{01822\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae7063289867d66c16627d2a5e1d01cd7}{bcastsSentCount}};}
+\DoxyCodeLine{01823\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a0bc9c9fa378e092e29a246e644529a12}{amPollCount}};}
+\DoxyCodeLine{01824\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_abb8fb58c74b059143a49fc18140c62f6}{dmPollCount}};}
+\DoxyCodeLine{01825\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a8b33706c08e1f3475b504040cac79fc7}{tdSentCount}};}
+\DoxyCodeLine{01826\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a313a1560507175413727fed0464f0b9d}{tdRecvCount}};}
+\DoxyCodeLine{01827\ }
+\DoxyCodeLine{01828\ \ \ \textcolor{comment}{//\ Diagnostic\ counters\ for\ counting\ forwarded\ messages}}
+\DoxyCodeLine{01829\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a2db155334d6b34531910dc928f4a8d78}{diagnostic::CounterGauge}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a3f7864f87ef5d5aa841fa04bb4ab3fb8}{amForwardCounterGauge}};}
+\DoxyCodeLine{01830\ }
+\DoxyCodeLine{01831\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01832\ \ \ \doxymbox{\hyperlink{structvt_1_1elm_1_1_element_i_d_struct}{elm::ElementIDStruct}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_aafc3fafa7dd26af3db14c9514f7a69be}{bare\_handler\_dummy\_elm\_id\_for\_lb\_data\_}}\ =\ \{\};}
+\DoxyCodeLine{01833\ \ \ \doxymbox{\hyperlink{structvt_1_1elm_1_1_element_l_b_data}{elm::ElementLBData}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a81c1445908fe33e56d859073edc09534}{bare\_handler\_lb\_data\_}};}
+\DoxyCodeLine{01834\ \ \ MPI\_Comm\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ad6e49556491d13fa27d3dc5c5eed65cb}{comm\_}}\ =\ MPI\_COMM\_NULL;}
+\DoxyCodeLine{01835\ }
+\DoxyCodeLine{01836\ \ \ \textcolor{comment}{//\ Active\ receive\ broker\ instance}}
+\DoxyCodeLine{01837\ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_1_1_active_recv_broker}{ActiveRecvBroker}}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ad7f074cf7bde872721c3b55091965734}{active\_broker\_}};}
+\DoxyCodeLine{01838\ \};}
+\DoxyCodeLine{01839\ }
+\DoxyCodeLine{01840\ \}\}\ \textcolor{comment}{//\ end\ namespace\ vt::messaging}}
+\DoxyCodeLine{01841\ }
+\DoxyCodeLine{01842\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{01843\ }
+\DoxyCodeLine{01844\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a492543313196079e88915c5b5b0072f8}{Active}}\ =\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger}{messaging::ActiveMessenger}};}
+\DoxyCodeLine{01845\ }
+\DoxyCodeLine{01846\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger}{messaging::ActiveMessenger}}*\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}();}
+\DoxyCodeLine{01847\ }
+\DoxyCodeLine{01848\ \}\ \textcolor{comment}{//\ end\ namespace\ vt}}
+\DoxyCodeLine{01849\ }
+\DoxyCodeLine{01850\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8impl_8h}{vt/messaging/active.impl.h}}"{}}}
+\DoxyCodeLine{01851\ }
+\DoxyCodeLine{01852\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_ACTIVE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

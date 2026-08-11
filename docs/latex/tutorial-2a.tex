@@ -1,0 +1,67 @@
+\doxysubsection{Learning about collections }
+\hypertarget{tutorial-2a}{}\label{tutorial-2a}\index{Learning about collections@{Learning about collections}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ message}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyCollMsg;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Class\ for\ a\ collection}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ \ \ /}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyCol\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{::vt::Collection}}<MyCol,Index1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ msgHandler(MyCollMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message\ for\ Collections}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MyCollMsg\ :\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{::vt::CollectionMessage}}<MyCol>\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ MyCol::msgHandler([[maybe\_unused]]\ MyCollMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ idx\ =\ this-\/>\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}();}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}MyCol::msgHandler\ index=\{\},\ node=\{\}\(\backslash\)n"{}},\ idx.x(),\ cur\_node);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ creating\ a\ collection}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ collection()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ This\ is\ an\ example\ of\ creating\ a\ virtual\ context\ collection\ with\ an\ index}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ range}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Range\ of\ 32\ elements\ for\ the\ collection}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(32);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Construct\ the\ collection\ (collective\ variant):\ invoked\ by\ all\ nodes.\ By}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ default,\ the\ elements\ will\ be\ block\ mapped\ to\ the\ nodes}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<MyCol>}}(\textcolor{stringliteral}{"{}tutorial\_collection"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)\ \ \ \ \textcolor{comment}{//\ Set\ the\ bounds\ for\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()\ \ \ \ \ \textcolor{comment}{//\ Bulk\ insert\ all\ the\ elements\ within\ the\ bounds}}
+\DoxyCodeLine{\ \ \ \ .wait();\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ construction\ and\ get\ the\ proxy\ back}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Broadcast\ a\ message\ to\ the\ entire\ collection.\ The\ msgHandler\ will\ be}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ invoked\ on\ every\ element\ to\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ proxy.broadcast<MyCollMsg,\&MyCol::msgHandler>();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Send\ a\ message\ to\ the\ 5th\ element\ of\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ proxy[5].send<MyCollMsg,\&MyCol::msgHandler>();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Collectively\ broadcast\ to\ the\ collection\ (all\ nodes\ participate\ for\ a}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ single\ broadcast)}}
+\DoxyCodeLine{\ \ proxy.broadcastCollective<MyCollMsg,\&MyCol::msgHandler>();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

@@ -1,0 +1,136 @@
+\doxysection{list\+\_\+serialize.\+h}
+\hypertarget{list__serialize_8h_source}{}\label{list__serialize_8h_source}\index{lib/checkpoint/src/checkpoint/container/list\_serialize.h@{lib/checkpoint/src/checkpoint/container/list\_serialize.h}}
+\doxymbox{\hyperlink{list__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ list\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_LIST\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_LIST\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{allocator_8h}{checkpoint/dispatch/allocator.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{container__serialize_8h}{checkpoint/container/container\_serialize.h}}"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT,\ \textcolor{keyword}{typename}\ ElmT>}
+\DoxyCodeLine{00058\ \textcolor{keyword}{inline}\ \textcolor{keyword}{typename}\ std::enable\_if\_t<}
+\DoxyCodeLine{00059\ \ \ not\ checkpoint::is\_footprinter\_v<Serializer>,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00060\ >}
+\DoxyCodeLine{00061\ \doxymbox{\hyperlink{namespacecheckpoint_ac7c7ff0bb079c6a049c33eb2936fcfce}{deserializeOrderedElems}}(}
+\DoxyCodeLine{00062\ \ \ Serializer\&\ s,\ ContainerT\&\ cont,\ \textcolor{keyword}{typename}\ ContainerT::size\_type\ size,}
+\DoxyCodeLine{00063\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a37f9d5ee9769d5f9cf42f12979bd5c76}{isCopyConstructible<ElmT>}}*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00064\ )\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{using\ }Alloc\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_allocator}{dispatch::Allocator<ElmT>}};}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{using\ }Reconstructor\ =}
+\DoxyCodeLine{00067\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{dispatch::Reconstructor<typename\ dispatch::CleanType<ElmT>::CleanT}}>;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ Alloc\ allocated;}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ reconstructed\ =\ Reconstructor::construct(allocated.buf);}
+\DoxyCodeLine{00071\ \ \ cont.resize(size,\ *reconstructed);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ val\ :\ cont)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00074\ \ \ \}}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT,\ \textcolor{keyword}{typename}\ ElmT>}
+\DoxyCodeLine{00078\ \textcolor{keyword}{inline}\ \textcolor{keyword}{typename}\ std::enable\_if\_t<}
+\DoxyCodeLine{00079\ \ \ not\ checkpoint::is\_footprinter\_v<Serializer>,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00080\ >}
+\DoxyCodeLine{00081\ \doxymbox{\hyperlink{namespacecheckpoint_ac7c7ff0bb079c6a049c33eb2936fcfce}{deserializeOrderedElems}}(}
+\DoxyCodeLine{00082\ \ \ Serializer\&\ s,\ ContainerT\&\ cont,\ \textcolor{keyword}{typename}\ ContainerT::size\_type\ size,}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a04cdef454d682a988b58795231c5f02d}{isNotCopyConstructible<ElmT>}}*\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00084\ )\ \{}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{using\ }Alloc\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_allocator}{dispatch::Allocator<ElmT>}};}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{using\ }Reconstructor\ =}
+\DoxyCodeLine{00087\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1_reconstructor}{dispatch::Reconstructor<typename\ dispatch::CleanType<ElmT>::CleanT}}>;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ Alloc\ allocated;}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{typename}\ ContainerT::size\_type\ i\ =\ 0;\ i\ <\ size;\ ++i)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{auto}\ reconstructed\ =\ Reconstructor::construct(allocated.buf);}
+\DoxyCodeLine{00092\ \ \ \ \ s\ |\ *reconstructed;}
+\DoxyCodeLine{00093\ \ \ \ \ cont.emplace\_back(std::move(*reconstructed));}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT,\ \textcolor{keyword}{typename}\ ElmT>}
+\DoxyCodeLine{00098\ \textcolor{keyword}{inline}\ \textcolor{keyword}{typename}\ std::enable\_if\_t<}
+\DoxyCodeLine{00099\ \ \ checkpoint::is\_footprinter\_v<Serializer>,\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00100\ >}
+\DoxyCodeLine{00101\ \doxymbox{\hyperlink{namespacecheckpoint_ac7c7ff0bb079c6a049c33eb2936fcfce}{deserializeOrderedElems}}(}
+\DoxyCodeLine{00102\ \ \ Serializer\&,\ ContainerT\&,\ \textcolor{keyword}{typename}\ ContainerT::size\_type}
+\DoxyCodeLine{00103\ )\ \{\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT>}
+\DoxyCodeLine{00106\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a0b15edc50a881e06260e7112b2c60742}{serializeOrderedContainer}}(Serializer\&\ s,\ ContainerT\&\ cont)\ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{using\ }ValueT\ =\ \textcolor{keyword}{typename}\ ContainerT::value\_type;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{typename}\ ContainerT::size\_type\ size\ =\ \doxymbox{\hyperlink{namespacecheckpoint_a3359595d5a4c6fcf5fc95069c71f869b}{serializeContainerSize}}(s,\ cont);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_ac7c7ff0bb079c6a049c33eb2936fcfce}{deserializeOrderedElems<Serializer,\ ContainerT,\ ValueT>}}(s,\ cont,\ size);}
+\DoxyCodeLine{00113\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a9c880ba9bb9a106e784e06554b2fbcf2}{serializeContainerElems<Serializer,\ ContainerT>}}(s,\ cont);}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00119\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(Serializer\&\ s,\ std::list<T>\&\ lst)\ \{}
+\DoxyCodeLine{00120\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a0b15edc50a881e06260e7112b2c60742}{serializeOrderedContainer}}(s,\ lst);}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00124\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(Serializer\&\ s,\ std::deque<T>\&\ lst)\ \{}
+\DoxyCodeLine{00125\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a0b15edc50a881e06260e7112b2c60742}{serializeOrderedContainer}}(s,\ lst);}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_LIST\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

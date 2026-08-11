@@ -1,0 +1,478 @@
+\doxysection{serialized\+\_\+messenger.\+impl.\+h}
+\hypertarget{serialized__messenger_8impl_8h_source}{}\label{serialized__messenger_8impl_8h_source}\index{src/vt/serialization/messaging/serialized\_messenger.impl.h@{src/vt/serialization/messaging/serialized\_messenger.impl.h}}
+\doxymbox{\hyperlink{serialized__messenger_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ serialized\_messenger.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_SERIALIZATION\_MESSAGING\_SERIALIZED\_MESSENGER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_SERIALIZATION\_MESSAGING\_SERIALIZED\_MESSENGER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{message_8h}{vt/messaging/message.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{active_8h}{vt/messaging/active.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__interface_8h}{vt/registry/auto/auto\_registry\_interface.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{auto__registry__vc_8h}{vt/registry/auto/vc/auto\_registry\_vc.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serialized__data__msg_8h}{vt/serialization/messaging/serialized\_data\_msg.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serialized__messenger_8h}{vt/serialization/messaging/serialized\_messenger.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{envelope__set_8h}{vt/messaging/envelope/envelope\_set.h}}"{}}\ \textcolor{comment}{//\ envelopeSetRef}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{make__runnable_8h}{vt/runnable/make\_runnable.h}}"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{objgroup_2manager_8fwd_8h}{vt/objgroup/manager.fwd.h}}"{}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1serialization}{serialization}}\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<MsgT>}}\ deserializeFullMessage(\doxymbox{\hyperlink{namespacevt_afbc33738e916490e942725b5bce8edb3}{SerialByteType}}*\ source)\ \{}
+\DoxyCodeLine{00067\ \ \ MsgT*\ msg\ =\ \doxymbox{\hyperlink{namespacevt_1_1detail_a4a77d2b5e0bf16256d7e31fae644933f}{detail::makeMessageImpl<MsgT>}}();}
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_a1de43f19990476b2cc6e2a11a1b4d682}{checkpoint::deserializeInPlace<MsgT>}}(source,\ msg);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \doxymbox{\hyperlink{namespacevt_ace3e4542ae09ecd9728bea6548d71d5a}{envelopeInitRecv}}(msg-\/>env);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<MsgT>}}(msg);}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ UserMsgT>}
+\DoxyCodeLine{00075\ \textcolor{comment}{/*static*/}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_adc342b3e5a4a536182f6045c5fe485b7}{SerializedMessenger::serialMsgHandlerBcast}}(}
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_a279027d1664b42cf7f288dc3fc9c3014}{SerialWrapperMsgType<UserMsgT>}}*\ sys\_msg}
+\DoxyCodeLine{00077\ )\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_ab6711d57897e86d9ea0c5587fee75eff}{handler}};}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ ptr\_size\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_a756d93ea71e8c3f0ec849f49e19cac98}{ptr\_size}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00082\ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{stringliteral}{"{}serialMsgHandlerBcast:\ group\_=\{:x\},\ handler=\{\},\ ptr\_size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00084\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a76b9bdf05b27d6470bac66186c32d9eb}{envelopeGetGroup}}(sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_msg_ae3f8937b2c95f548f1a3c3340b887c09}{env}}),\ handler,\ ptr\_size}
+\DoxyCodeLine{00085\ \ \ );}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{auto}\ ptr\_offset\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(sys\_msg)}
+\DoxyCodeLine{00088\ \ \ \ \ +\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_a279027d1664b42cf7f288dc3fc9c3014}{SerialWrapperMsgType<UserMsgT>}});}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{auto}\ msg\_data\ =\ ptr\_offset;}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{auto}\ user\_msg\ =\ deserializeFullMessage<UserMsgT>(msg\_data);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_obj\ =\ \doxymbox{\hyperlink{structvt_1_1_handler_manager_a41bb9a71156fa3010988e8b576022bf5}{HandlerManager::isHandlerObjGroup}}(handler);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordflow}{if}\ (is\_obj)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1objgroup_ad45be555d5ff3bd308e8f61e4e2dd909}{objgroup::dispatchObjGroup}}(}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ user\_msg.template\ to<BaseMsgType>(),\ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}},\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00096\ \ \ \ \ );}
+\DoxyCodeLine{00097\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runnable_a60743efdd5f9d278271b4dd97a30f77e}{runnable::makeRunnable}}(user\_msg,\ \textcolor{keyword}{true},\ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}})}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ .withTDEpochFromMsg()}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ .enqueue();}
+\DoxyCodeLine{00101\ \ \ \}}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ UserMsgT>}
+\DoxyCodeLine{00105\ \textcolor{comment}{/*static*/}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_aad74b93ed6e38beb26ce31d69eb85a71}{SerializedMessenger::serialMsgHandler}}(}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_a279027d1664b42cf7f288dc3fc9c3014}{SerialWrapperMsgType<UserMsgT>}}*\ sys\_msg}
+\DoxyCodeLine{00107\ )\ \{}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_ab6711d57897e86d9ea0c5587fee75eff}{handler}};}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ recv\_tag\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_af731100b67b3186dbb76fbcff39be3f0}{data\_recv\_tag}};}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ nchunks\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_ae38aba68b339489ae16ad23b7c0cccf2}{nchunks}};}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ len\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_a756d93ea71e8c3f0ec849f49e19cac98}{ptr\_size}};}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ =\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_msg_ae3f8937b2c95f548f1a3c3340b887c09}{env}});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00115\ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{stringliteral}{"{}serialMsgHandler:\ non-\/eager,\ recvDataMsg:\ msg=\{\},\ handler=\{\},\ "{}}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{stringliteral}{"{}recv\_tag=\{\},\ epoch=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00118\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(sys\_msg),\ handler,\ recv\_tag,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}}
+\DoxyCodeLine{00119\ \ \ );}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_valid\_epoch\ =\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}}\ !=\ no\_epoch;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{if}\ (is\_valid\_epoch)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a3c31a1c36b5d55e9d28b5b26b2436573}{produce}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{auto}\ node\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}};}
+\DoxyCodeLine{00128\ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a963afb0b7780f51f3d9d607e615789d1}{recvDataDirect}}(}
+\DoxyCodeLine{00129\ \ \ \ \ nchunks,\ recv\_tag,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}},\ len,}
+\DoxyCodeLine{00130\ \ \ \ \ [handler,\ recv\_tag,\ node,\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}},\ is\_valid\_epoch]}
+\DoxyCodeLine{00131\ \ \ \ \ (\doxymbox{\hyperlink{namespacevt_a514ed0db2305941eaba3fefd324fab84}{RDMA\_GetType}}\ ptr,\ \doxymbox{\hyperlink{namespacevt_a375d9819ae94c16d35afde4bc8e9cb42}{ActionType}}\ action)\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{comment}{//\ be\ careful\ here\ not\ to\ use\ "{}sys\_msg"{},\ it\ is\ no\ longer\ valid}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ auto\ msg\_data\ =\ reinterpret\_cast<SerialByteType*>(std::get<0>(ptr));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ auto\ msg\ =\ deserializeFullMessage<UserMsgT>(msg\_data);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ vt\_debug\_print(}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}serialMsgHandler:\ recvDataMsg\ finished:\ handler=\{\},\ recv\_tag=\{\},"{}}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}epoch=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ handler,\ recv\_tag,\ envelopeGetEpoch(msg-\/>env)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ bool\ const\ is\_obj\ =\ HandlerManager::isHandlerObjGroup(handler);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ if\ (is\_obj)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ objgroup::dispatchObjGroup(}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ msg.template\ to<BaseMsgType>(),\ handler,\ node,\ action}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ runnable::makeRunnable(msg,\ true,\ handler,\ node)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ .withTDEpoch(epoch,\ not\ is\_valid\_epoch)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ .withContinuation(action)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ .enqueue();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ if\ (is\_valid\_epoch)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a127580fdfcaba0b4171e5c48c5676733}{theTerm}}()-\/>\doxymbox{\hyperlink{structvt_1_1term_1_1_termination_detector_a950215186c7303d99316ece6ea31c4cd}{consume}}(\doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ );}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ UserMsgT,\ \textcolor{keyword}{typename}\ BaseEagerMsgT>}
+\DoxyCodeLine{00163\ \textcolor{comment}{/*static*/}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_adef4a4664f9eab8eca28304871540791}{SerializedMessenger::payloadMsgHandler}}(}
+\DoxyCodeLine{00164\ \ \ \doxymbox{\hyperlink{namespacevt_1_1serialization_aa02ac2e7102b5a4456471cf5de8da0d2}{SerialEagerPayloadMsg<UserMsgT,\ BaseEagerMsgT>}}*\ sys\_msg}
+\DoxyCodeLine{00165\ )\ \{}
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_ab6711d57897e86d9ea0c5587fee75eff}{handler}};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00169\ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{stringliteral}{"{}payloadMsgHandler:\ handler=\{\},\ bytes=\{\},\ epoch=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00171\ \ \ \ \ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serial_payload_msg_ac9022dd53be215aeca6b300f84834806}{bytes}},\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(sys\_msg-\/>env)}
+\DoxyCodeLine{00172\ \ \ );}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{keyword}{auto}\ msg\_data\ =\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serial_payload_msg_ab71d301de848ba00a812bfaf3a0cc44e}{payload}}.data();}
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{auto}\ user\_msg\ =\ deserializeFullMessage<UserMsgT>(msg\_data);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{//\ Keep\ bcast\ related\ data\ in\ user\_msg\ since\ it's\ sometimes}}
+\DoxyCodeLine{00178\ \ \ \textcolor{comment}{//\ needed\ in\ the\ handler}}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordflow}{if}\ (envelopeIsBcast(sys\_msg-\/>env))\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a16caa74ca477155c59de62474b2e1f89}{envelopeCopyBcastData}}(user\_msg-\/>env,\ sys\_msg-\/>env);}
+\DoxyCodeLine{00181\ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00184\ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{stringliteral}{"{}payloadMsgHandler:\ group=\{:x\},\ msg=\{\},\ handler=\{\},\ bytes=\{\},\ "{}}}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{stringliteral}{"{}user\ ref=\{\},\ sys\ ref=\{\},\ user\_msg=\{\},\ epoch=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a76b9bdf05b27d6470bac66186c32d9eb}{envelopeGetGroup}}(sys\_msg-\/>env),\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(sys\_msg),\ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serial_payload_msg_ac9022dd53be215aeca6b300f84834806}{bytes}},}
+\DoxyCodeLine{00188\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(user\_msg-\/>env),\ \doxymbox{\hyperlink{namespacevt_ad664e6e94c1ea309344adad1c3fb291c}{envelopeGetRef}}(sys\_msg-\/>env),}
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(user\_msg.get()),\ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(sys\_msg-\/>env)}
+\DoxyCodeLine{00190\ \ \ );}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_obj\ =\ \doxymbox{\hyperlink{structvt_1_1_handler_manager_a41bb9a71156fa3010988e8b576022bf5}{HandlerManager::isHandlerObjGroup}}(handler);}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{if}\ (is\_obj)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1objgroup_ad45be555d5ff3bd308e8f61e4e2dd909}{objgroup::dispatchObjGroup}}(}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ user\_msg.template\ to<BaseMsgType>(),\ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}},\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00196\ \ \ \ \ );}
+\DoxyCodeLine{00197\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runnable_a60743efdd5f9d278271b4dd97a30f77e}{runnable::makeRunnable}}(user\_msg,\ \textcolor{keyword}{true},\ handler,\ sys\_msg-\/>\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_data_msg_any_aca0ea3cc0037b1d171d610a44a2b8e43}{from\_node}})}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ .withTDEpochFromMsg()}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ .enqueue();}
+\DoxyCodeLine{00201\ \ \ \}}
+\DoxyCodeLine{00202\ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ BaseT>}
+\DoxyCodeLine{00205\ \textcolor{comment}{/*static*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_a2e9c1f9f5c6923f8ad3467e62542f5ab}{SerializedMessenger::sendSerialMsg}}(}
+\DoxyCodeLine{00206\ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest,\ MsgT*\ msg,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ handler,}
+\DoxyCodeLine{00207\ \ \ \doxymbox{\hyperlink{namespacevt_1_1serialization_a263682bb93396109e0ae6c8eef1e2997}{ActionEagerSend<MsgT,\ BaseT>}}\ eager\_sender}
+\DoxyCodeLine{00208\ )\ \{}
+\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{auto}\ eager\_default\_send\ =}
+\DoxyCodeLine{00210\ \ \ \ \ [=](\doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<SerializedEagerMsg<MsgT,BaseT>}}>\ m)\ -\/>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{using\ }MsgType\ =\ \doxymbox{\hyperlink{namespacevt_1_1serialization_aa02ac2e7102b5a4456471cf5de8da0d2}{SerialEagerPayloadMsg<MsgT,BaseT>}};}
+\DoxyCodeLine{00212\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{markAsSerialMsgMessage}}(m);}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<MsgType,\doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_adef4a4664f9eab8eca28304871540791}{payloadMsgHandler}}>(dest,\ m);}
+\DoxyCodeLine{00214\ \ \ \};}
+\DoxyCodeLine{00215\ \ \ \textcolor{keyword}{auto}\ eager\ =\ eager\_sender\ ?\ eager\_sender\ :\ eager\_default\_send;}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_abf1608ea281ed8c48f521ac1e90d9969}{sendSerialMsgSendImpl<MsgT,BaseT>}}(}
+\DoxyCodeLine{00217\ \ \ \ \ msg,\ handler,\ eager,}
+\DoxyCodeLine{00218\ \ \ \ \ [=](\doxymbox{\hyperlink{namespacevt_1_1serialization_a4af77db18b3383136dc796dbab921966}{ActionNodeSendType}}\ action)\ -\/>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ action(dest);}
+\DoxyCodeLine{00220\ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ );}
+\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ BaseT>}
+\DoxyCodeLine{00225\ \textcolor{comment}{/*static*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}}
+\DoxyCodeLine{00226\ \ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_aa72a9a7c6b1ea78eeccb928c68a4c505}{SerializedMessenger::broadcastSerialMsg}}(}
+\DoxyCodeLine{00227\ \ \ MsgT*\ msg\_ptr,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ han,\ \textcolor{keywordtype}{bool}\ deliver\_to\_sender}
+\DoxyCodeLine{00228\ )\ \{}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{using\ }PayloadMsg\ =\ \doxymbox{\hyperlink{namespacevt_1_1serialization_aa02ac2e7102b5a4456471cf5de8da0d2}{SerialEagerPayloadMsg<MsgT,\ BaseT>}};}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(msg\_ptr);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<SerialEagerPayloadMsg<MsgT,BaseT>}}>\ payload\_msg\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00234\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<SerialWrapperMsgType<MsgT>}}>\ sys\_msg\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00235\ \ \ \doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ ptr\_size\ =\ 0;}
+\DoxyCodeLine{00236\ \ \ \textcolor{keyword}{auto}\ sys\_size\ =\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{typename}\ \textcolor{keyword}{decltype}(sys\_msg)::MsgType);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \doxymbox{\hyperlink{namespacevt_aeda768e2b7668340d73e5254a6b2923f}{envelopeSetIsLocked}}(msg-\/>env,\ \textcolor{keyword}{true});\ \textcolor{comment}{//\ implies\ locked\ on\ deserialize}}
+\DoxyCodeLine{00239\ \ \ \doxymbox{\hyperlink{namespacevt_a32c449c2c4c6e0806cdab6798e275c03}{envelopeSetHasBeenSerialized}}(msg-\/>env,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{auto}\ serialized\_msg\ =\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{checkpoint::serialize}}(}
+\DoxyCodeLine{00242\ \ \ \ \ *msg.get(),\ [\&](\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ size)\ -\/>\ \doxymbox{\hyperlink{namespacevt_afbc33738e916490e942725b5bce8edb3}{SerialByteType}}*\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ ptr\_size\ =\ size;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ if\ (size\ >=\ serialized\_msg\_eager\_size)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ sys\_msg\ =\ makeMessageSz<SerialWrapperMsgType<MsgT>>(ptr\_size);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ return\ reinterpret\_cast<char*>(sys\_msg.get())\ +\ sys\_size;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ payload\_msg\ =\ makeMessage<PayloadMsg>(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ static\_cast<NumBytesType>(size)}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ return\ payload\_msg-\/>payload.data();}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ );}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00257\ \ \ \ \ envelopeHasBeenSerialized(msg-\/>env),}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{stringliteral}{"{}A\ message\ was\ serialized\ that\ did\ not\ correctly\ serialize\ parents."{}}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{stringliteral}{"{}\ All\ serialized\ messages\ are\ required\ to\ call\ serialize\ on\ the"{}}}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{stringliteral}{"{}\ message's\ parent\ type.\ See\ 'msg\_serialize\_parent'."{}},}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{typeid}(MsgT).name()}
+\DoxyCodeLine{00262\ \ \ );}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordflow}{if}\ (ptr\_size\ <\ serialized\_msg\_eager\_size)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ ptr\_size\ <\ serialized\_msg\_eager\_size,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Must\ be\ smaller\ for\ eager\ protocol"{}}}
+\DoxyCodeLine{00268\ \ \ \ \ );}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{comment}{//\ wrap\ metadata}}
+\DoxyCodeLine{00271\ \ \ \ \ payload\_msg-\/>handler\ =\ han;}
+\DoxyCodeLine{00272\ \ \ \ \ payload\_msg-\/>from\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ setup\ envelope}}
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a931b61a10a85d44d2355e984e40177ff}{envelopeInitCopy}}(payload\_msg-\/>env,\ msg-\/>env);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}broadcastSerialMsg\ (eager):\ han=\{\},\ size=\{\},\ "{}}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}serialized\_msg\_eager\_size=\{\},\ group=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ han,\ ptr\_size,\ serialized\_msg\_eager\_size,\ \doxymbox{\hyperlink{namespacevt_a76b9bdf05b27d6470bac66186c32d9eb}{envelopeGetGroup}}(msg-\/>env)}
+\DoxyCodeLine{00281\ \ \ \ \ );}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{markAsSerialMsgMessage}}(payload\_msg);}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<PayloadMsg,payloadMsgHandler>(payload\_msg,\ deliver\_to\_sender);}
+\DoxyCodeLine{00285\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ total\_size\ =\ ptr\_size\ +\ sys\_size;}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{auto}\ traceable\_han\ =\ han;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#\ \ \ if\ vt\_check\_enabled(trace\_enabled)}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \textcolor{comment}{//\ Since\ we\ aren't\ sending\ the\ message\ (just\ packing\ it\ into\ a\ buffer,\ we}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ transfer\ whether\ the\ handler\ should\ be\ traced\ on\ that\ message}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ auto\_registry::HandlerManagerType::setHandlerTrace(}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ traceable\_han,\ envelopeGetTraceRuntimeEnabled(msg-\/>env)}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#\ \ \ endif}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{//\ wrap\ metadata}}
+\DoxyCodeLine{00299\ \ \ \ \ sys\_msg-\/>handler\ =\ traceable\_han;}
+\DoxyCodeLine{00300\ \ \ \ \ sys\_msg-\/>from\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00301\ \ \ \ \ sys\_msg-\/>ptr\_size\ =\ ptr\_size;}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ setup\ envelope}}
+\DoxyCodeLine{00303\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a931b61a10a85d44d2355e984e40177ff}{envelopeInitCopy}}(sys\_msg-\/>env,\ msg-\/>env);}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}broadcastSerialMsg\ (non-\/eager):\ container:\ han=\{\},\ sys\_size=\{\},\ "{}}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ptr\_size=\{\},\ total\_size=\{\},\ group=\{:x\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ traceable\_han,\ sys\_size,\ ptr\_size,\ total\_size,\ \doxymbox{\hyperlink{namespacevt_a76b9bdf05b27d6470bac66186c32d9eb}{envelopeGetGroup}}(msg-\/>env)}
+\DoxyCodeLine{00310\ \ \ \ \ );}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keyword}{using\ }MsgType\ =\ SerialWrapperMsgType<MsgT>;}
+\DoxyCodeLine{00313\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{markAsSerialMsgMessage}}(sys\_msg);}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga9f860f0d5b630840ca164af25f74e9e9}{broadcastMsgSz}}<MsgType,serialMsgHandlerBcast>(}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ sys\_msg,\ total\_size,\ deliver\_to\_sender,\ no\_tag}
+\DoxyCodeLine{00316\ \ \ \ \ );}
+\DoxyCodeLine{00317\ \ \ \}}
+\DoxyCodeLine{00318\ \}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ BaseT>}
+\DoxyCodeLine{00321\ \textcolor{comment}{/*static*/}\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \doxymbox{\hyperlink{structvt_1_1serialization_1_1_serialized_messenger_abf1608ea281ed8c48f521ac1e90d9969}{SerializedMessenger::sendSerialMsgSendImpl}}(}
+\DoxyCodeLine{00322\ \ \ MsgT*\ msg\_ptr,\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}}\ typed\_handler,}
+\DoxyCodeLine{00323\ \ \ \doxymbox{\hyperlink{namespacevt_1_1serialization_a263682bb93396109e0ae6c8eef1e2997}{ActionEagerSend<MsgT,\ BaseT>}}\ eager\_sender,\ \doxymbox{\hyperlink{namespacevt_1_1serialization_af9115e12edb3cf64801eb40552e6ce17}{ActionDataSend}}\ data\_sender}
+\DoxyCodeLine{00324\ )\ \{}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#ifndef\ vt\_quirked\_serialize\_method\_detection}}
+\DoxyCodeLine{00326\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00327\ \ \ \ \ ::vt::messaging::has\_own\_serialize<MsgT>,}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{stringliteral}{"{}Messages\ sent\ via\ SerializedMessenger\ must\ have\ a\ serialization\ function."{}}}
+\DoxyCodeLine{00329\ \ \ );}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00332\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__defines__serialize__mode}{::vt::messaging::msg\_defines\_serialize\_mode<MsgT>::value}},}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{stringliteral}{"{}Messages\ that\ define\ a\ serialization\ function\ must\ specify\ serialization\ mode."{}}}
+\DoxyCodeLine{00334\ \ \ );}
+\DoxyCodeLine{00335\ \ \ \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{00336\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1messaging_1_1msg__serialization__mode_a8f8d90f9eb1935c504685abe11600a57}{::vt::messaging::msg\_serialization\_mode<MsgT>::required}},}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{stringliteral}{"{}Messages\ sent\ via\ SerializedMessenger\ should\ require\ serialization."{}}}
+\DoxyCodeLine{00338\ \ \ );}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(msg\_ptr);}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<SerialEagerPayloadMsg<MsgT,BaseT>}}>\ payload\_msg\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00343\ \ \ \doxymbox{\hyperlink{namespacevt_afbc33738e916490e942725b5bce8edb3}{SerialByteType}}*\ ptr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00344\ \ \ \doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ ptr\_size\ =\ 0;}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \doxymbox{\hyperlink{namespacevt_aeda768e2b7668340d73e5254a6b2923f}{envelopeSetIsLocked}}(msg-\/>env,\ \textcolor{keyword}{true});\ \textcolor{comment}{//\ implies\ locked\ on\ deserialize}}
+\DoxyCodeLine{00347\ \ \ \doxymbox{\hyperlink{namespacevt_a32c449c2c4c6e0806cdab6798e275c03}{envelopeSetHasBeenSerialized}}(msg-\/>env,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \textcolor{keyword}{auto}\ serialized\_msg\ =\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{checkpoint::serialize}}(}
+\DoxyCodeLine{00350\ \ \ \ \ *msg.get(),\ [\&](\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ size)\ -\/>\ \doxymbox{\hyperlink{namespacevt_afbc33738e916490e942725b5bce8edb3}{SerialByteType}}*\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ ptr\_size\ =\ size;}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ if\ (size\ >\ serialized\_msg\_eager\_size)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ ptr\ =\ reinterpret\_cast<SerialByteType*>(std::malloc(size));}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ return\ ptr;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ payload\_msg\ =\ makeMessage<SerialEagerPayloadMsg<MsgT,\ BaseT>>(}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ static\_cast<NumBytesType>(ptr\_size)}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ return\ payload\_msg-\/>payload.data();}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00362\ \ \ \ \ \}}
+\DoxyCodeLine{00363\ \ \ );}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00366\ \ \ \ \ envelopeHasBeenSerialized(msg-\/>env),}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{stringliteral}{"{}A\ message\ was\ serialized\ that\ did\ not\ correctly\ serialize\ parents."{}}}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{stringliteral}{"{}\ All\ serialized\ messages\ are\ required\ to\ call\ serialize\ on\ the"{}}}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{stringliteral}{"{}\ message's\ parent\ type.\ See\ 'msg\_serialize\_parent'."{}},}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{typeid}(MsgT).name()}
+\DoxyCodeLine{00371\ \ \ );}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \textcolor{comment}{//fmt::print("{}ptr\_size=\{\}\(\backslash\)n"{},\ ptr\_size);}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00376\ \ \ \ \ normal,\ serial\_msg,}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{stringliteral}{"{}sendSerialMsgHandler:\ ptr\_size=\{\},\ han=\{\},\ eager=\{\},\ epoch=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00378\ \ \ \ \ ptr\_size,\ typed\_handler,\ ptr\_size\ <=\ serialized\_msg\_eager\_size,}
+\DoxyCodeLine{00379\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ad5495e7900227550b44837e899c5bb13}{envelopeGetEpoch}}(msg\_ptr-\/>env)}
+\DoxyCodeLine{00380\ \ \ );}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \textcolor{keywordflow}{if}\ (ptr\_size\ >\ serialized\_msg\_eager\_size)\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ verbose,\ serial\_msg,}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sendSerialMsg:\ non-\/eager:\ ptr\_size=\{\}\(\backslash\)n"{}},\ ptr\_size}
+\DoxyCodeLine{00386\ \ \ \ \ );}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(payload\_msg\ ==\ \textcolor{keyword}{nullptr}\ \&\&\ data\_sender\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{auto}\ send\_data\ =\ [=](\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ dest)\ -\/>\ \doxymbox{\hyperlink{structvt_1_1messaging_1_1_pending_send}{messaging::PendingSend}}\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (node\ !=\ dest)\ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ sys\_msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{makeMessage<SerialWrapperMsgType<MsgT>}}>();}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ send\_serialized\ =\ [=](\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_a09efd64a8c1bc26a7333c70b76ca01bd}{Active::SendFnType}}\ send)\{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ byte\_ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(ptr);}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ret\ =\ send(\doxymbox{\hyperlink{namespacevt_a514ed0db2305941eaba3fefd324fab84}{RDMA\_GetType}}\{byte\_ptr,\ ptr\_size\},\ dest,\ no\_tag);}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a7d6df0c1414eb886b0cd8b3ddd491a94}{EventType}}\ \textcolor{keyword}{event}\ =\ ret.getEvent();}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aa297fcaadc8a330890eb90c5b0081ec5}{theEvent}}()-\/>\doxymbox{\hyperlink{structvt_1_1event_1_1_async_event_aa6432e2fff56eb073f9489bfc37e89bc}{attachAction}}(\doxymbox{\hyperlink{namespacevt_1_1event}{event}},\ [=]\{\ std::free(ptr);\ \});}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ sys\_msg-\/>data\_recv\_tag\ =\ ret.getTag();}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ sys\_msg-\/>nchunks\ =\ ret.getNumChunks();}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ sys\_msg-\/>ptr\_size\ =\ ptr\_size;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wrap\ metadata}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ sys\_msg-\/>handler\ =\ typed\_handler;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ sys\_msg-\/>from\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ setup\ envelope}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a931b61a10a85d44d2355e984e40177ff}{envelopeInitCopy}}(sys\_msg-\/>env,\ msg-\/>env);}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ verbose,\ serial\_msg,}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sendSerialMsg:\ non-\/eager:\ dest=\{\},\ sys\_msg=\{\},\ handler=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ dest,\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(sys\_msg.get()),\ typed\_handler}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{structvt_1_1messaging_1_1_active_messenger_ae4f8d48cda11b13d4447ab253ff18bf2}{markAsSerialMsgMessage}}(sys\_msg);}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ sys\_msg\_send\ =\ \doxymbox{\hyperlink{namespacevt_a8b011f867d0cd6a6175031143faadf95}{promoteMsg}}(sys\_msg.get());\ \textcolor{comment}{//\ payload\ fn}}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<SerialWrapperMsgType<MsgT>,\ serialMsgHandler>(}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ dest,\ sys\_msg\_send,\ send\_serialized}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Dest\ is\ current\ node,\ still\ runs\ through\ serialization;\ no\ send.}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\_data\ =\ ptr;}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ user\_msg\ =\ deserializeFullMessage<MsgT>(msg\_data);}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ std::free(msg\_data);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ verbose,\ serial\_msg,}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}serialMsgHandler:\ local\ msg:\ handler=\{\}\(\backslash\)n"{}},\ typed\_handler}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ base\_msg\ =\ user\_msg.template\ to<BaseMsgType>();}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ messaging::PendingSend(}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ base\_msg,\ [=]([[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_a0f8ba6b65b1d630ab97265dcc90369a9}{MsgPtr<BaseMsgType>}}\ in}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ )\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_obj\ =\ \doxymbox{\hyperlink{structvt_1_1_handler_manager_a41bb9a71156fa3010988e8b576022bf5}{HandlerManager::isHandlerObjGroup}}(typed\_handler);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_obj)\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1objgroup_ad45be555d5ff3bd308e8f61e4e2dd909}{objgroup::dispatchObjGroup}}(}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ user\_msg.template\ to<BaseMsgType>(),\ typed\_handler,\ node,\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1runnable_a60743efdd5f9d278271b4dd97a30f77e}{runnable::makeRunnable}}(user\_msg,\ \textcolor{keyword}{true},\ typed\_handler,\ node)}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .withTDEpochFromMsg()}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .enqueue();}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \};}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordflow}{return}\ data\_sender(send\_data);}
+\DoxyCodeLine{00452\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ verbose,\ serial\_msg,}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sendSerialMsg:\ eager:\ ptr\_size=\{\}\(\backslash\)n"{}},\ ptr\_size}
+\DoxyCodeLine{00456\ \ \ \ \ );}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(payload\_msg\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ eager\_sender\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{comment}{//\ wrap\ metadata}}
+\DoxyCodeLine{00461\ \ \ \ \ payload\_msg-\/>handler\ =\ typed\_handler;}
+\DoxyCodeLine{00462\ \ \ \ \ payload\_msg-\/>from\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{comment}{//\ setup\ envelope}}
+\DoxyCodeLine{00464\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a931b61a10a85d44d2355e984e40177ff}{envelopeInitCopy}}(payload\_msg-\/>env,\ msg-\/>env);}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_sender(payload\_msg);}
+\DoxyCodeLine{00467\ \ \ \}}
+\DoxyCodeLine{00468\ \}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::serialization\ */}}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_SERIALIZATION\_MESSAGING\_SERIALIZED\_MESSENGER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

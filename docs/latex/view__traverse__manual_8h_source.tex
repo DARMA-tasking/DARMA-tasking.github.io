@@ -1,0 +1,356 @@
+\doxysection{view\+\_\+traverse\+\_\+manual.\+h}
+\hypertarget{view__traverse__manual_8h_source}{}\label{view__traverse__manual_8h_source}\index{lib/checkpoint/src/checkpoint/container/view\_traverse\_manual.h@{lib/checkpoint/src/checkpoint/container/view\_traverse\_manual.h}}
+\doxymbox{\hyperlink{view__traverse__manual_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ view\_traverse\_manual.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_MANUAL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_MANUAL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{view__traits__extract_8h}{checkpoint/container/view\_traits\_extract.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ MAGISTRATE\_KOKKOS\_ENABLED}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <Kokkos\_Core.hpp>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <Kokkos\_DynamicView.hpp>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ===\ Manual\ Traversal\ ===}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ This\ is\ left\ here\ to\ test\ the\ automatic\ code.}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ Serialization\ of\ data\ backing\ a\ view\ by\ manually\ traversing\ the\ data\ using}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ the\ Kokkos::View::operator()(...)\ or}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Kokkos::DynamicView::operator()(...).\ The\ access\ operator\ is\ guaranteed\ to}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ correctly\ accesses\ the\ data\ regardless\ of\ the\ layout.}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }SerializeMemory;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00078\ \textcolor{keyword}{using\ }KokkosAtomicArchetype\ =\ \textcolor{keyword}{typename}\ std::is\_same<}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{typename}\ ViewT::traits::memory\_traits,\ ::Kokkos::MemoryTraits<Kokkos::Atomic>}
+\DoxyCodeLine{00080\ >;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00083\ \textcolor{keyword}{struct\ }SerializeMemory<}
+\DoxyCodeLine{00084\ \ \ ViewT,}
+\DoxyCodeLine{00085\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::enable\_if\_t<KokkosAtomicArchetype<ViewT>::value>}
+\DoxyCodeLine{00086\ >}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewT\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{using\ }DataType\ =\ \textcolor{keyword}{typename}\ ViewGetType<ViewT>::DataType;}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ DataType\ val;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ v.operator()().\textcolor{keyword}{operator}=(val);}
+\DoxyCodeLine{00095\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()().\textcolor{keyword}{operator}\ \textcolor{keyword}{const}\ DataType();}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \textcolor{comment}{//DataType\ const\&\ val\ =\ v.operator()();}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ViewT>}
+\DoxyCodeLine{00104\ \textcolor{keyword}{struct\ }SerializeMemory<}
+\DoxyCodeLine{00105\ \ \ ViewT,}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1lb_a74989c7b4dd16fcc067e90a29cd1febead2229cc70e64ae7c07361778573c4e0c}{std}}::enable\_if\_t<!KokkosAtomicArchetype<ViewT>::value>}
+\DoxyCodeLine{00107\ >}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewT\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ s\ |\ v.operator()();}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType,\ std::\textcolor{keywordtype}{size\_t}\ dims>}
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }TraverseManual;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00119\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,0>\ \{}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ SerializeMemory<ViewType>::apply(s,v);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ This\ code\ works\ for\ both\ atomic\ and\ non-\/atomic\ views\ but\ I've\ specially}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ above\ for\ more\ clarity.}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ if\ (s.isUnpacking())\ \{}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ \ \ BaseType\ val\{\};}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ \ \ s\ |\ val;}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//\ \ \ v.operator()()\ =\ val;}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//\ \}\ else\ \{}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ \ \ /*}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{comment}{//\ \ \ \ *\ Be\ very\ careful\ here,\ do\ not\ use\ "{}auto\ const\&\ val"{}.\ If\ the\ view\ is}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ \ \ \ *\ atomic\ we\ need\ to\ get\ the\ conversion\ operator\ to\ \`{}BaseType`.\ In\ full}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ \ \ \ *\ glory,\ we\ are\ invoking\ the\ following\ implicitly:}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ \ \ \ *}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ \ \ \ *\ \ \ auto\ const\&\ val\ =\ v.operator()().operator\ const\ BaseType();}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ \ \ \ */}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{comment}{//\ \ \ BaseType\ const\&\ val\ =\ v.operator()();}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ \ \ s\ |\ val;}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00147\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,1>\ \{}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ v.operator()(i)\ =\ val;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00165\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,2>\ \{}
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j)\ =\ val;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \}}
+\DoxyCodeLine{00182\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00185\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,3>\ \{}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k)\ =\ val;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \}}
+\DoxyCodeLine{00204\ \};}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00207\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,4>\ \{}
+\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ l\ =\ 0;\ l\ <\ v.extent(3);\ l++)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k,l)\ =\ val;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k,l);}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \}}
+\DoxyCodeLine{00228\ \};}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00231\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,5>\ \{}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ l\ =\ 0;\ l\ <\ v.extent(3);\ l++)\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ m\ =\ 0;\ m\ <\ v.extent(4);\ m++)\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k,l,m)\ =\ val;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k,l,m);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \}}
+\DoxyCodeLine{00254\ \};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00257\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,6>\ \{}
+\DoxyCodeLine{00258\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ l\ =\ 0;\ l\ <\ v.extent(3);\ l++)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ m\ =\ 0;\ m\ <\ v.extent(4);\ m++)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ n\ =\ 0;\ n\ <\ v.extent(5);\ n++)\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k,l,m,n)\ =\ val;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k,l,m,n);}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \}}
+\DoxyCodeLine{00282\ \};}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00285\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,7>\ \{}
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ l\ =\ 0;\ l\ <\ v.extent(3);\ l++)\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ m\ =\ 0;\ m\ <\ v.extent(4);\ m++)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ n\ =\ 0;\ n\ <\ v.extent(5);\ n++)\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ o\ =\ 0;\ o\ <\ v.extent(6);\ o++)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k,l,m,n,o)\ =\ val;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k,l,m,n,o);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \}}
+\DoxyCodeLine{00312\ \};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT,\ \textcolor{keyword}{typename}\ ViewType>}
+\DoxyCodeLine{00315\ \textcolor{keyword}{struct\ }TraverseManual<SerializerT,ViewType,8>\ \{}
+\DoxyCodeLine{00316\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(SerializerT\&\ s,\ ViewType\ \textcolor{keyword}{const}\&\ v)\ \{}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{using\ }BaseType\ =\ \textcolor{keyword}{typename}\ CountDims<ViewType>::BaseT;}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1serialization_ab0c73aaf3800888499b662a67dafe4eb}{SizeType}}\ =\ \textcolor{keyword}{typename}\ ViewType::size\_type;}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ i\ =\ 0;\ i\ <\ v.extent(0);\ i++)\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ j\ =\ 0;\ j\ <\ v.extent(1);\ j++)\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ k\ =\ 0;\ k\ <\ v.extent(2);\ k++)\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ l\ =\ 0;\ l\ <\ v.extent(3);\ l++)\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ m\ =\ 0;\ m\ <\ v.extent(4);\ m++)\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ n\ =\ 0;\ n\ <\ v.extent(5);\ n++)\ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ o\ =\ 0;\ o\ <\ v.extent(6);\ o++)\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (SizeType\ p\ =\ 0;\ p\ <\ v.extent(7);\ p++)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ val\{\};}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v.operator()(i,j,k,l,m,n,o,p)\ =\ val;}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BaseType\ \textcolor{keyword}{const}\&\ val\ =\ v.operator()(i,j,k,l,m,n,o,p);}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ |\ val;}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00342\ \ \ \ \ \}}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ \};}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*MAGISTRATE\_KOKKOS\_ENABLED*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_VIEW\_TRAVERSE\_MANUAL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

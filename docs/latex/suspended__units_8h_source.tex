@@ -1,0 +1,99 @@
+\doxysection{suspended\+\_\+units.\+h}
+\hypertarget{suspended__units_8h_source}{}\label{suspended__units_8h_source}\index{src/vt/scheduler/suspended\_units.h@{src/vt/scheduler/suspended\_units.h}}
+\doxymbox{\hyperlink{suspended__units_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ suspended\_units.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_SCHEDULER\_SUSPENDED\_UNITS\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_SCHEDULER\_SUSPENDED\_UNITS\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{types__type_8h}{vt/configs/types/types\_type.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{priority_8h}{vt/scheduler/priority.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{runnable_8fwd_8h}{vt/runnable/runnable.fwd.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1sched}{sched}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1sched_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a2bc6c62d0934ab1f58f1367d62c0e4ef}{SuspendedRunnable}}\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a537f33a52d34b0372cfa7f52ab2b6524}{RunnablePtrType}}\ =\ \doxymbox{\hyperlink{structvt_1_1runnable_1_1_runnable_new}{runnable::RunnableNew}}*;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a2bc6c62d0934ab1f58f1367d62c0e4ef}{SuspendedRunnable}}(\doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a537f33a52d34b0372cfa7f52ab2b6524}{RunnablePtrType}}\ in\_runnable,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ in\_priority)}
+\DoxyCodeLine{00074\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a75e2acf06f06e65bee0f88a14accc1c8}{runnable\_}}(\doxymbox{\hyperlink{namespacestd}{std}}::move(in\_runnable)),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_ab591ea2e254d1f520c775a082f361c68}{priority\_}}(in\_priority)}
+\DoxyCodeLine{00076\ \ \ \{\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a537f33a52d34b0372cfa7f52ab2b6524}{RunnablePtrType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_a75e2acf06f06e65bee0f88a14accc1c8}{runnable\_}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1detail_1_1_suspended_runnable_ab591ea2e254d1f520c775a082f361c68}{priority\_}}\ =\ default\_priority;\ \ \ }
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \}\ \textcolor{comment}{/*\ end\ detail\ namespace\ */}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units}{SuspendedUnits}}\ \{}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a676693336c5e9f93da33338945a2ec6c}{RunnablePtrType}}\ =\ \doxymbox{\hyperlink{structvt_1_1runnable_1_1_runnable_new}{runnable::RunnableNew}}*;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_af98ef20b8bf4e914b673a50c3d3a83ba}{addSuspended}}(}
+\DoxyCodeLine{00103\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a7f6440d42e6f07f004e86e4756e37d33}{ThreadIDType}}\ tid,\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a676693336c5e9f93da33338945a2ec6c}{RunnablePtrType}}\ \doxymbox{\hyperlink{namespacevt_1_1runnable}{runnable}},}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ p\ =\ default\_priority}
+\DoxyCodeLine{00105\ \ \ );}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a9c6e5accda32f30bf5541fe1f6be7d05}{resumeRunnable}}(\doxymbox{\hyperlink{namespacevt_a7f6440d42e6f07f004e86e4756e37d33}{ThreadIDType}}\ tid);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a849db2cdb3218a3c0221b21b6c0defad}{serializer}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a21eb59ab4bd3b27bbb5f2913a15b0d49}{units\_}};}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00122\ \ \ std::unordered\_map<ThreadIDType,\ detail::SuspendedRunnable>\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units_a21eb59ab4bd3b27bbb5f2913a15b0d49}{units\_}};}
+\DoxyCodeLine{00123\ \};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::sched\ */}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_SCHEDULER\_SUSPENDED\_UNITS\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

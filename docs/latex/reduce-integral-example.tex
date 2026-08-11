@@ -1,0 +1,213 @@
+\doxysubsection{Example Integral Reduction Program }
+\hypertarget{reduce-integral-example}{}\label{reduce-integral-example}\index{Example Integral Reduction Program@{Example Integral Reduction Program}}
+The full code for this example can be found here:\+ {\ttfamily examples/\+collection/\+reduce\+\_\+integral.\+cc}.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ This\ code\ computes\ a\ composite\ trapezoidal\ rule\ for\ the\ integral}}
+\DoxyCodeLine{\textcolor{comment}{//\ \(\backslash\)int\_\{0\}\string^\{1\}\ f(x)\ dx}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ function\ 'f'\ is\ defined\ in\ the\ code.}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ interval\ [0,\ 1]\ is\ broken\ into\ uniform\ sub-\/intervals\ of\ length}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ H\ =\ 1.0\ /\ (\#\ of\ objects)}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ Each\ sub-\/interval\ [xi,\ xi\ +\ H]\ is\ broken\ into\ smaller\ parts\ of\ length}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ h\ =\ H\ /\ (\#\ of\ parts\ per\ object)}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{transport_8h}{vt/transport.h}}>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \textcolor{keyword}{const}\ default\_nparts\_object\ =\ 8;}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \textcolor{keyword}{const}\ default\_num\_objs\ =\ 4;}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacevt_1_1config_a724e99568632cc0fe9c456c2230270d0a9b54bf70f7b7fe7cfb6f3da0e167ae27}{verbose}}\ =\ 1;}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ \textcolor{keyword}{const}\ reduce\_root\_node\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ root\_reduce\_finished\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ exactIntegral\ =\ 0.0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{\textcolor{comment}{//\ Function\ 'f'\ to\ integrate\ over\ [0,\ 1]}}
+\DoxyCodeLine{\textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{double}\ f(\textcolor{keywordtype}{double}\ x)\ \{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//-\/-\/-\/-\/}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//exactIntegral\ =\ 1.0\ /\ 3.0;}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//return\ x*x;}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//-\/-\/-\/-\/}}
+\DoxyCodeLine{\ \ exactIntegral\ =\ M\_2\_PI;}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ sin(M\_PI\ *\ x);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1collective_adaa682cacb1aa9df8d01dd3b507e4116}{ReduceMsg}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_aac13e647936677f13e31763da479a99c}{vt::collective::ReduceTMsg<double>}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Integration1D\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{vt::Collection}}<Integration1D,\ vt::Index1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numObjs\_\ =\ default\_num\_objs;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numPartsPerObject\_\ =\ default\_nparts\_object;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{explicit}\ Integration1D()}
+\DoxyCodeLine{\ \ \ \ :\ numObjs\_(default\_num\_objs),}
+\DoxyCodeLine{\ \ \ \ \ \ numPartsPerObject\_(default\_nparts\_object)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ checkIntegral(\textcolor{keywordtype}{double}\ val)\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}\ >>\ The\ integral\ over\ [0,\ 1]\ is\ \{\}\(\backslash\)n"{}},\ val);}
+\DoxyCodeLine{\ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{stringliteral}{"{}\ >>\ The\ absolute\ error\ is\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ std::fabs(val\ -\/\ exactIntegral)}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Set\ the\ 'root\_reduce\_finished'\ variable\ to\ true.}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ root\_reduce\_finished\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }InitMsg\ :\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{vt::CollectionMessage}}<Integration1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ numObjects\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ nIntervalPerObject\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ InitMsg(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nobjs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nint)}
+\DoxyCodeLine{\ \ \ \ \ \ :\ numObjects(nobjs),\ nIntervalPerObject(nint)}
+\DoxyCodeLine{\ \ \ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ compute(InitMsg\ *msg)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ numObjs\_\ =\ msg-\/>numObjects;}
+\DoxyCodeLine{\ \ \ \ numPartsPerObject\_\ =\ msg-\/>nIntervalPerObject;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Compute\ the\ integral\ with\ the\ trapezoidal\ rule}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ over\ the\ interval\ [a,\ b]}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ a\ =\ numPartsPerObject\_\ *\ (IndexID)\ *\ h}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ b\ =\ a\ +\ numPartsPerObject\_\ *\ h}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ where\ h\ =\ 1.0\ /\ (numPartsPerObject\_\ *\ numObjs\_\ )}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Since\ 0\ <=\ (IndexID)\ <\ numObjs\_,\ the\ union\ of\ these\ intervals}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ covers\ [0,\ 1]}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ h\ =\ 1.0\ /\ (numPartsPerObject\_\ *\ numObjs\_\ );}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ quadsum\ =\ 0.0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ numPartsPerObject\_\ *\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}().x()\ *\ h;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Apply\ composite\ trapezoidal\ rule\ over}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [a,\ a\ +\ numPartsPerObject\_\ *\ h]}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ ii\ =\ 0;\ ii\ <\ numPartsPerObject\_;\ ++ii)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{double}\ x0\ =\ a\ +\ ii\ *\ h;}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Trapeze\ Quadrature\ Rule\ over\ the\ interval\ [x0,\ x0+h]\ */}}
+\DoxyCodeLine{\ \ \ \ \ \ quadsum\ +=\ 0.5\ *\ h\ *\ (\ f(x0)\ +\ f(x0+h)\ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (verbose\ >\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ a\ +\ numPartsPerObject\_\ *\ h;}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ Interval\ [\{\},\ \{\}],\ on\ node\ \{\}\ \&\ object\ \{\},\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}has\ integral\ \{\}.\(\backslash\)n"{}},\ a,\ b,\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_indexable_a28d05f23e7a20e12e94b8235305c1e82}{getIndex}}(),\ quadsum}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Reduce\ the\ partial\ sum\ to\ get\ the\ integral\ over\ [0,\ 1]}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ this-\/>\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1_collection_base_ad97d9ab1a28fb535c5d7f82c15e99791}{getCollectionProxy}}();}
+\DoxyCodeLine{\ \ \ \ proxy.reduce<\&Integration1D::checkIntegral,\ \doxymbox{\hyperlink{namespacevt_1_1collective_acf919add3eb5ac632b1cbade9bf9f407}{vt::collective::PlusOp}}>(}
+\DoxyCodeLine{\ \ \ \ \ \ proxy[0],\ quadsum}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ num\_objs\ =\ default\_num\_objs;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ numIntPerObject\ =\ default\_nparts\_object;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ std::string\ name(argv[0]);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (argc\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stderr,\ \textcolor{stringliteral}{"{}\{\}:\ using\ default\ arguments\ since\ none\ provided\(\backslash\)n"{}},\ name}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ num\_objs\ =\ default\_num\_objs\ *\ num\_nodes;}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (argc\ ==\ 2)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ num\_objs\ =\ (size\_t)\ strtol(argv[1],\ \textcolor{keyword}{nullptr},\ 10);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (argc\ ==\ 3)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ num\_objs\ =\ (size\_t)\ strtol(argv[1],\ \textcolor{keyword}{nullptr},\ 10);}
+\DoxyCodeLine{\ \ \ \ \ \ numIntPerObject\ =\ (size\_t)\ strtol(argv[2],\ \textcolor{keyword}{nullptr},\ 10);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stderr,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}usage:\ \{\}\ <num-\/objects>\ <num-\/interval-\/per-\/object>\(\backslash\)n"{}},\ name}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Create\ the\ interval\ decomposition\ into\ objects}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }BaseIndexType\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1index_1_1_dense_index_array_a36698427e28045290d1fb072573275ec}{vt::Index1D::DenseIndexType}};}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(\textcolor{keyword}{static\_cast<}BaseIndexType\textcolor{keyword}{>}(num\_objs));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_a65c22c5297a86fcc30a3c4f3326f5cf4}{vt::makeCollection<Integration1D>}}(\textcolor{stringliteral}{"{}examples\_reduce\_integral"{}})}
+\DoxyCodeLine{\ \ \ \ .bounds(range)}
+\DoxyCodeLine{\ \ \ \ .bulkInsert()}
+\DoxyCodeLine{\ \ \ \ .wait();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}}([proxy,\ num\_objs,\ numIntPerObject]\{}
+\DoxyCodeLine{\ \ \ \ proxy.broadcastCollective<Integration1D::InitMsg,\ \&Integration1D::compute>(}
+\DoxyCodeLine{\ \ \ \ \ \ num\_objs,\ numIntPerObject}
+\DoxyCodeLine{\ \ \ \ );}
+\DoxyCodeLine{\ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Add\ something\ like\ this\ to\ validate\ the\ reduction.}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Create\ the\ variable\ root\_reduce\_finished\ as\ a\ static\ variable,}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ which\ is\ only\ checked\ on\ one\ node.}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode()\ ==\ reduce\_root\_node)\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(root\_reduce\_finished\ ==\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

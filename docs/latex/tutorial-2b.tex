@@ -1,0 +1,77 @@
+\doxysubsection{Learning about collection reductions }
+\hypertarget{tutorial-2b}{}\label{tutorial-2b}\index{Learning about collection reductions@{Learning about collection reductions}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ message}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ColRedMsg;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Class\ for\ a\ collection}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Index\ \ \ /}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ReduceCol\ :\ \doxymbox{\hyperlink{namespacevt_a9a5451fc0da9b3add6bca98fffadd142}{::vt::Collection}}<ReduceCol,Index1D>\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ reduceHandler();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ reduceTarget(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message\ for\ Collections}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ColRedMsg\ :\ \doxymbox{\hyperlink{namespacevt_a4d72ce6f492ae4098b4df6c4ac5f7d98}{::vt::CollectionMessage}}<ReduceCol>\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ ReduceCol::reduceHandler()\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ (void)cur\_node;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ idx\ =\ this-\/>\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}();}
+\DoxyCodeLine{\ \ (void)idx;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//::fmt::print("{}MyCol::reduceHandler\ index=\{\},\ node=\{\}\(\backslash\)n"{},\ idx.x(),\ cur\_node);}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ proxy\ =\ getCollectionProxy();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ val\ =\ 100;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Invoke\ the\ reduce!}}
+\DoxyCodeLine{\ \ proxy.allreduce<\&ReduceCol::reduceTarget,\ collective::PlusOp>(val);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ number\_of\_elements\ =\ 32;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ ReduceCol::reduceTarget(\textcolor{keywordtype}{int}\ value)\ \{}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}collection\ reduce\ value=\{\}\(\backslash\)n"{}},\ value);}
+\DoxyCodeLine{\ \ assert(number\_of\_elements\ *\ 100\ ==\ value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ reducing\ a\ collection}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ collectionReduce()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ This\ is\ an\ example\ of\ reducing\ over\ a\ virtual\ context\ collection}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Range\ of\ \`{}number\_of\_elements`\ elements\ for\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ range\ =\ \doxymbox{\hyperlink{namespacevt_ac1c8aa450e3ce0f11655be877e62db7c}{vt::Index1D}}(number\_of\_elements);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Construct\ the\ collection\ in\ a\ rooted\ manner.\ By\ default,\ the\ elements}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ will\ be\ block\ mapped\ to\ the\ nodes}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ proxy\ =\ \doxymbox{\hyperlink{namespacevt_ab20902b4c106509bfc0a8de63a781931}{vt::makeCollectionRooted<ReduceCol>}}(\textcolor{stringliteral}{"{}tutorial\_collection\_reduce"{}})}
+\DoxyCodeLine{\ \ \ \ \ \ .bounds(range)\ \ \ \ \ \textcolor{comment}{//\ Set\ the\ bounds\ for\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ \ \ .bulkInsert()\ \ \ \ \ \ \textcolor{comment}{//\ Bulk\ insert\ all\ the\ elements\ within\ the\ bounds}}
+\DoxyCodeLine{\ \ \ \ \ \ .wait();\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ construction\ and\ get\ the\ proxy\ back}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Broadcast\ a\ message\ to\ the\ entire\ collection.\ The\ reduceHandler\ will\ be}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ invoked\ on\ every\ element\ to\ the\ collection}}
+\DoxyCodeLine{\ \ \ \ proxy.broadcast<\&ReduceCol::reduceHandler>();}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

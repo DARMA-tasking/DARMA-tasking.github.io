@@ -1,0 +1,72 @@
+\doxysubsection{Group Manager }
+\hypertarget{group}{}\label{group}\index{Group Manager@{Group Manager}}
+Create a grouping of nodes.
+
+The group manager component {\ttfamily \doxylink{structvt_1_1group_1_1_group_manager}{vt::\+group::\+\+Group\+Manager}}, accessed via {\ttfamily \doxylink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::\+the\+Group()}} manages both rooted and collective groups (or subsets) of nodes that can be broadcast to or reduced over. The group manager implements a fully distributed algorithm for constructing groups collectively with each node deciding if it should be included. The group manager builds a reasonably balanced distributed spanning tree based on these collective votes.
+
+One major use case for the group manager is creating spanning trees for reductions over virtual collections that do not span all the nodes.
+
+When creating a group, one may ask {\bfseries{{\itshape vt}}} to create a underlying MPI group, which can be accessed once the group has finished construction.\hypertarget{group_collective-group-example}{}\doxysubsubsection{\texorpdfstring{Example creating a collective group}{Example creating a collective group}}\label{group_collective-group-example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }HelloGroupMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{\ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ hello\_group\_handler([[maybe\_unused]]\ HelloGroupMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ Hello\ from\ group\ handler\(\backslash\)n"{}},\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>getNode());}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1collective_adaa682cacb1aa9df8d01dd3b507e4116}{ReduceMsg}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_aac13e647936677f13e31763da479a99c}{vt::collective::ReduceTMsg<int>}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Print\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ operator()(ReduceMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \ \ fmt::print(\textcolor{stringliteral}{"{}final\ value=\{\}\(\backslash\)n"{}},\ msg-\/>getConstVal());}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{vt::NodeType}}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (num\_nodes\ <\ 2)\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_aff96ace008dc847d4c0f44cfa5dfb3a0}{vt::rerror}}(\textcolor{stringliteral}{"{}requires\ at\ least\ 2\ nodes"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ srand48(this\_node\ *\ 29);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ odd\_node\_filter\ =\ this\_node\ \%\ 2\ ==\ 1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{vt::GroupType}}\ new\_group\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_a92b301d6cf77af7d57ed822c6f044d58}{newGroupCollective}}(}
+\DoxyCodeLine{\ \ \ \ odd\_node\_filter,\ [=](\doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{vt::GroupType}}\ group)\{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ root\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ in\_group\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_a2204bcd119aaf06e0e356957faad36e6}{inGroup}}(group);}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ root\_node\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_ab5b8178a37165903c73f9159c9259cf5}{groupRoot}}(group);}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ is\_default\_group\ =\ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_ad4d55f7bcf2aadd97c858b3f11c5d365}{isGroupDefault}}(group);}
+\DoxyCodeLine{\ \ \ \ \ \ fmt::print(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\{\}:\ Group\ is\ created:\ group=\{:x\},\ in\_group=\{\},\ root=\{\},\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\_default\_group=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this\_node,\ group,\ in\_group,\ root\_node,\ is\_default\_group}
+\DoxyCodeLine{\ \ \ \ \ \ );}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{if}\ (in\_group)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Op\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_acf919add3eb5ac632b1cbade9bf9f407}{vt::collective::PlusOp<int>}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<ReduceMsg>}}(1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4548473dce44fb654400009e2b2fe64e}{vt::theGroup}}()-\/>\doxymbox{\hyperlink{structvt_1_1group_1_1_group_manager_a3234e5be55c32ccfb56785265e26b4c6}{groupReducer}}(group)-\/>\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_adf8bd9748a220a3ed29087c30f8adafc}{reduce}}<Op,\ Print>(root,\ msg.get());}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{vt::makeMessage<HelloGroupMsg>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a9f9d4ce6034c0eaaf98bdffd33d0e1c7}{vt::envelopeSetGroup}}(msg-\/>env,\ group);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__typesafehan_ga1a347aac6b6b8d47c9b1c8cc11b7f33e}{broadcastMsg}}<hello\_group\_handler>(msg);}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ );}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ fmt::print(\textcolor{stringliteral}{"{}\{\}:\ New\ group=\{\}\(\backslash\)n"{}},\ this\_node,\ new\_group);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

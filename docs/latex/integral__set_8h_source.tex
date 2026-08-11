@@ -1,0 +1,513 @@
+\doxysection{integral\+\_\+set.\+h}
+\hypertarget{integral__set_8h_source}{}\label{integral__set_8h_source}\index{src/vt/termination/interval/integral\_set.h@{src/vt/termination/interval/integral\_set.h}}
+\doxymbox{\hyperlink{integral__set_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ integral\_set.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTEGRAL\_SET\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTEGRAL\_SET\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{interval_8h}{vt/termination/interval/interval.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1term}{term}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1term_1_1interval}{interval}}\ \{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ Discrete\ interval\ tree\ for\ encoding\ a\ set\ of\ partially\ tangent,}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ non-\/overlapping\ integral\ values\ into\ interval\ ranges\ seamlessly\ in\ a}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ tree.\ Maintains\ a\ "{}DIET"{}\ data\ structure:\ Discrete\ Interval\ Encoding}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ Tree.\ When\ inserting\ contiguous\ elements\ in\ order,\ the\ storage\ (non-\/bit)\ and}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ time\ is\ constant\ O(1).}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{typename}\ DomainT,}
+\DoxyCodeLine{00066\ \ \ DomainT\ sentinel,}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }AllocatorT,}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ U,\ U>\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }IntervalT,}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class},\ \textcolor{keyword}{class},\ \textcolor{keyword}{class}>\ \ \ \textcolor{keyword}{class\ }OrderedSetT,}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }IntervalCompareT}
+\DoxyCodeLine{00071\ >}
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}\ \{}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a74b3ffb0498e75459e23d59b2d4facfa}{DomainType}}\ \ \ \ \ \ \ \ \ \ =\ DomainT;}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\ \ \ \ \ \ \ \ =\ IntervalT<DomainT,\ sentinel>;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a8788c1d68e2b4348c341c120363c95e7}{CompareType}}\ \ \ \ \ \ \ \ \ =\ IntervalCompareT<DomainT>;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af699b4961903ebe28d478088eae9b60a}{AllocType}}\ \ \ \ \ \ \ \ \ \ \ =\ AllocatorT<IntervalType>;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af29bc3750493c7de4043f43ef7eb2ca2}{OrderedSetType}}\ \ \ \ \ \ =\ OrderedSetT<IntervalType,\ CompareType,\ AllocType>;}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{typename}\ OrderedSetType::iterator;}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a04700201180ff07417358d70c9ac5c82}{PositionType}}\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{typename}\ IntervalType::PositionEnum;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}()\ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aaec7a0f928c035753685be34d0cc54f8}{end}}())\ \{\ \}}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a8584b495b7b88baa0eed6012993dd562}{IntegralSetBase}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a54265fe55a770f1d7dc880f013fdb99c}{IntegralSetBase}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00084\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}\&\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a8a78caf39b0e83c38106477c97454afc}{operator=}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a0826331831d6c87ec6b81a9264f98e12}{IntegralSetBase}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1e162190ce569f5479d29c2284419980}{IntegralSetBase}}(DomainT\ base)}
+\DoxyCodeLine{00087\ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}(base),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}(base),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aaec7a0f928c035753685be34d0cc54f8}{end}}())}
+\DoxyCodeLine{00090\ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ normal,\ gen,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ construct:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\},\ is\_end=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end()}
+\DoxyCodeLine{00095\ \ \ \ \ );}
+\DoxyCodeLine{00096\ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{typename}\ DomainU,}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ std::is\_same<}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::remove\_const\_t<std::remove\_reference\_t<DomainU>>,\ DomainT}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ >::value}
+\DoxyCodeLine{00104\ \ \ \ \ >}
+\DoxyCodeLine{00105\ \ \ >}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a7476d33df36a287580cdecc9dd6c2bd1}{insert}}(DomainU\&\&\ val)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ normal,\ gen,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ insert:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\},\ is\_end=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end()}
+\DoxyCodeLine{00111\ \ \ \ \ );}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ade802dbc86e759545ee5b3aaa9bf6396}{insertInterval}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}(std::forward<DomainU>(val)));}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{typename}\ DomainU,}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ std::is\_same<}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ std::remove\_const\_t<std::remove\_reference\_t<DomainU>>,\ DomainT}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ >::value}
+\DoxyCodeLine{00121\ \ \ \ \ >}
+\DoxyCodeLine{00122\ \ \ >}
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a34422ad0f4a5341e700a9264f921381d}{insert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it,\ DomainU\&\&\ val)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ vtAsserExpr(it\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end());}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ade802dbc86e759545ee5b3aaa9bf6396}{insertInterval}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}(std::forward<DomainU>(val)));}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{typename}\ IntervalU,}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ std::is\_same<}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ std::remove\_const\_t<std::remove\_reference\_t<IntervalU>>,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ >::value}
+\DoxyCodeLine{00134\ \ \ \ \ >}
+\DoxyCodeLine{00135\ \ \ >}
+\DoxyCodeLine{00136\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ade802dbc86e759545ee5b3aaa9bf6396}{insertInterval}}(IntervalU\&\&\ i)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ normal,\ gen,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ insertInterval:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\},\ i=\{\},\ is\_end=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}},\ i,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end()}
+\DoxyCodeLine{00141\ \ \ \ \ );}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ ==\ 0\ ?\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end()\ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ Expand\ the\ global\ bounds\ in\ this\ interval\ set}}
+\DoxyCodeLine{00146\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae2ce827cfd5857da621cf84247669075}{insertGlobal}}(i);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//\ Insert\ interval\ into\ the\ compressed\ tree}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a87c94a2beab19ba74470b18a1de9aedf}{insertSet}}(iter,std::move(i));}
+\DoxyCodeLine{00150\ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{typename}\ IntervalU,}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ std::is\_same<}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ std::remove\_const\_t<std::remove\_reference\_t<IntervalU>>,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ >::value}
+\DoxyCodeLine{00158\ \ \ \ \ >}
+\DoxyCodeLine{00159\ \ \ >}
+\DoxyCodeLine{00160\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a2520319a367538b984b3a3a1ba56204d}{insertInterval}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it,\ IntervalU\&\&\ i)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{comment}{//\ Expand\ the\ global\ bounds\ in\ this\ interval\ set}}
+\DoxyCodeLine{00162\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae2ce827cfd5857da621cf84247669075}{insertGlobal}}(i);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ Must\ be\ valid\ iterator\ to\ call\ this\ overload}}
+\DoxyCodeLine{00165\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(it\ !=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end(),\ \textcolor{stringliteral}{"{}Must\ be\ valid\ iterator"{}});}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{//\ If\ the\ val\ is\ tangent\ to\ the\ hint\ iterator,\ directly\ update}}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{auto}\ pos\ =\ it-\/>tangent(i);}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ not\_eq\ PositionType::NotTangent)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ it-\/>join(i,\ pos);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{comment}{//\ Insert\ interval\ into\ the\ compressed\ tree}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a87c94a2beab19ba74470b18a1de9aedf}{insertSet}}(it,std::move(i));}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a26d04c73487d5911c447e627dae87627}{erase}}(DomainT\ \textcolor{keyword}{const}\&\ val)\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abe3fb337e5e5690d72aa6576519e5b86}{existsGlobal}}(val),\ \textcolor{stringliteral}{"{}This\ element\ must\ exist\ in\ the\ set"{}});}
+\DoxyCodeLine{00180\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\ j(val);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.find(j);}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_set\ =\ iter\ !=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end();}
+\DoxyCodeLine{00183\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ normal,\ gen,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ erase:\ bounds=[\{:x\},\{:x\}]\ size=\{\},\ comp=\{\},\ val=\{\},\ in=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aeee10fc1f3ea82698fd50f226fee86dc}{size}}(),\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a48ab16ffe03b4285c7210df3084904af}{compressedSize}}(),\ j,\ in\_set}
+\DoxyCodeLine{00187\ \ \ \ \ );}
+\DoxyCodeLine{00188\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(in\_set,\ \textcolor{stringliteral}{"{}The\ element\ must\ exist\ in\ a\ interval\ bucket"{}});}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}\ (in\_set)\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iter-\/>width()\ ==\ 1)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ invalid\_hint\ =\ iter\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ret\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.erase(iter);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (invalid\_hint)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ =\ ret;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (iter-\/>upper()\ ==\ val)\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ to\_split\ =\ \textcolor{keyword}{const\_cast<}\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\textcolor{keyword}{>}(*iter);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ to\_split.setUpper(iter-\/>upper()\ -\/\ 1);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (iter-\/>lower()\ ==\ val)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ to\_split\ =\ \textcolor{keyword}{const\_cast<}\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\textcolor{keyword}{>}(*iter);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ to\_split.setLower(iter-\/>lower()\ +\ 1);}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Slice\ the\ interval\ into\ two\ interval\ nodes}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter-\/>width()\ >\ 2,\ \textcolor{stringliteral}{"{}Interval\ width\ must\ be\ greater\ than\ 2"{}});}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ub\ =\ iter-\/>upper();}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ to\_split\ =\ \textcolor{keyword}{const\_cast<}\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\textcolor{keyword}{>}(*iter);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ to\_split.setUpper(val\ -\/\ 1);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\ i(val+1,\ ub);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a87c94a2beab19ba74470b18a1de9aedf}{insertSet}}(iter,std::move(i));}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae93298452c48fe7c583f0a7264a7dde2}{eraseGlobal}}(val);}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \ \ \}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aa44021f10057190693c22777749fc8c4}{contains}}(DomainT\ \textcolor{keyword}{const}\&\ val)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a4f5f1203eb50e1ebaccc479b16af89a1}{exists}}(val);\ \}}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a4f5f1203eb50e1ebaccc479b16af89a1}{exists}}(DomainT\ \textcolor{keyword}{const}\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abe3fb337e5e5690d72aa6576519e5b86}{existsGlobal}}(val))\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\ i(val);}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.find(i);}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_set\ =\ iter\ !=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end();}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (in\_set)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter-\/>contains(val),\ \textcolor{stringliteral}{"{}Value\ must\ be\ contained\ in\ range"{}});}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{return}\ in\_set;}
+\DoxyCodeLine{00227\ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5786bb488ef808cd89474afa94ecc856}{clear}}()\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.clear();}
+\DoxyCodeLine{00231\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ =\ 0;}
+\DoxyCodeLine{00232\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end();}
+\DoxyCodeLine{00233\ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a9c808e539cad61d40a062317e983ba74}{range}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ -\/\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}};\ \}}
+\DoxyCodeLine{00236\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5d0984e302e0ddb9828130261b86ec50}{lower}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}};\ \}}
+\DoxyCodeLine{00237\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a88ef66995c9fd0c1d8ba031dab28da9b}{upper}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}};\ \}}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aaf1b42550ad04b45edf7bb0b120a3ea5}{empty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ ==\ 0;\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aeee10fc1f3ea82698fd50f226fee86dc}{size}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}};\ \}}
+\DoxyCodeLine{00241\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a48ab16ffe03b4285c7210df3084904af}{compressedSize}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.size();\ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1897d55d5f300ad209d2ce014240680d}{compression}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}})\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.size());}
+\DoxyCodeLine{00246\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ ==\ 0,\ \textcolor{stringliteral}{"{}Number\ of\ elements\ must\ be\ zero\ is\ set\ is\ empty"{}});}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0f;}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1af9b94870159b8796053112c31f9570}{dumpState}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00253\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ bounds=[\{:x\},\{:x\}]\ size=\{\},\ compressedSize=\{\},\ compression=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aeee10fc1f3ea82698fd50f226fee86dc}{size}}(),\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a48ab16ffe03b4285c7210df3084904af}{compressedSize}}(),\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1897d55d5f300ad209d2ce014240680d}{compression}}()}
+\DoxyCodeLine{00257\ \ \ \ \ );}
+\DoxyCodeLine{00258\ \ \ \ \ std::size\_t\ c\ =\ 0;}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ i\ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}})\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)t\ interval\ \{\}\ :\ \{\}\(\backslash\)n"{}},\ c,\ i}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ c++;}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a87c94a2beab19ba74470b18a1de9aedf}{insertSet}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\&\ i)\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ normal,\ gen,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ insertSet:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\},\ i=\{\},\ is\_end=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}},\ i,\ it\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end()}
+\DoxyCodeLine{00275\ \ \ \ \ );}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{//\ Insert\ into\ the\ set}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{auto}\ ret\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.insert(it,std::move(i));}
+\DoxyCodeLine{00279\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(ret\ not\_eq\ it,\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Should\ be\ a\ valid\ insert"{}});}
+\DoxyCodeLine{00280\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(ret\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end(),\ \textcolor{stringliteral}{"{}Must\ be\ valid\ insert-\/-\/-\/live\ iterator"{}});}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{comment}{//\ Fuse\ interval\ set\ elements\ that\ are\ now\ tangent\ after\ this\ insertion}}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a91191c2534322434444f55456acbc9a8}{join}}(ret);}
+\DoxyCodeLine{00284\ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abe3fb337e5e5690d72aa6576519e5b86}{existsGlobal}}(DomainT\ \textcolor{keyword}{const}\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{return}\ val\ >=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ and\ val\ <=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}};}
+\DoxyCodeLine{00288\ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae93298452c48fe7c583f0a7264a7dde2}{eraseGlobal}}(DomainT\ \textcolor{keyword}{const}\&\ val)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_lower\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ ==\ val;}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_upper\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ ==\ val;}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_lower)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.begin()-\/>lower();}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ =\ 0;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_upper)\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ =\ std::prev(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end())-\/>upper();}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ =\ 0;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{comment}{//\ Decrement\ count\ of\ non-\/compressed\ elements}}
+\DoxyCodeLine{00308\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}-\/-\/;}
+\DoxyCodeLine{00309\ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae2ce827cfd5857da621cf84247669075}{insertGlobal}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\ \textcolor{keyword}{const}\&\ i)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ insertGlobal:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\},\ i=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}},\ i}
+\DoxyCodeLine{00316\ \ \ \ \ );}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ =\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}();}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ =\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}();}
+\DoxyCodeLine{00321\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \textcolor{comment}{//\ Expand\ the\ global\ bounds\ in\ this\ interval\ set}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ =\ std::min<DomainT>(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}());}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ =\ std::max<DomainT>(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}());}
+\DoxyCodeLine{00325\ \ \ \ \ \}}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{comment}{//\ Increment\ count\ of\ non-\/compressed\ elements}}
+\DoxyCodeLine{00327\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ +=\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_af3222f61f45e1e5a7fdd5a127e300289}{width}}();}
+\DoxyCodeLine{00328\ \ \ \}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a91191c2534322434444f55456acbc9a8}{join}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it)\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OrderedSet:\ join:\ bounds=[\{:x\},\{:x\}]\ elms\_=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}},\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}}
+\DoxyCodeLine{00335\ \ \ \ \ );}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{auto}\ it2\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a67af1e4189b8466888468076a39e9a23}{joinLeft}}(it);}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a8b3b55cbc22cfa0da942cc27cbc83f92}{joinRight}}(it2);}
+\DoxyCodeLine{00339\ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a67af1e4189b8466888468076a39e9a23}{joinLeft}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it)\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(it\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end());}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.begin())\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ prev\ =\ std::prev(it);}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it-\/>tangent(*prev)\ ==\ PositionType::TangentLeft)\ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ *prev;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.erase(prev);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ to\_fuse\ =\ \textcolor{keyword}{const\_cast<}\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\textcolor{keyword}{>}(*it);}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ to\_fuse.join(tmp,\ PositionType::TangentLeft);}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00353\ \ \ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a8b3b55cbc22cfa0da942cc27cbc83f92}{joinRight}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ it)\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(it\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end());}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keyword}{auto}\ next\ =\ std::next(it);}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordflow}{if}\ (next\ not\_eq\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end())\ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it-\/>tangent(*next)\ ==\ PositionType::TangentRight)\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ *next;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.erase(next);}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ to\_fuse\ =\ \textcolor{keyword}{const\_cast<}\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a1f8f5bb84064be35bbaaf15bb5a43f14}{IntervalType}}\&\textcolor{keyword}{>}(*it);}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ to\_fuse.join(tmp,\ PositionType::TangentRight);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00367\ \ \ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00372\ \ \ \textcolor{comment}{//\ This\ might\ be\ needed\ in\ the\ future\ for\ C++17\ (std::make\_reverse\_iterator)}}
+\DoxyCodeLine{00373\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00374\ \ \ \textcolor{comment}{//\ using\ iterator\_category\ =\ std::bidirectional\_iterator\_tag;}}
+\DoxyCodeLine{00375\ \ \ \textcolor{comment}{//\ using\ difference\_type\ \ \ =\ DomainT;}}
+\DoxyCodeLine{00376\ \ \ \textcolor{comment}{//\ using\ value\_type\ \ \ \ \ \ \ \ =\ DomainT;}}
+\DoxyCodeLine{00377\ \ \ \textcolor{comment}{//\ using\ pointer\ \ \ \ \ \ \ \ \ \ \ =\ DomainT*;}}
+\DoxyCodeLine{00378\ \ \ \textcolor{comment}{//\ using\ reference\ \ \ \ \ \ \ \ \ =\ DomainT\&;}}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Impl>}
+\DoxyCodeLine{00381\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ae998c7fc4e1db5a8d69ca061d70d5ceb}{IntervalSetIter}}\ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ae998c7fc4e1db5a8d69ca061d70d5ceb}{IntervalSetIter}};}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a50527fe18f4660916ae341f4d06b40d4}{iterator\_category}}\ =\ std::bidirectional\_iterator\_tag;}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_aba8b3805fbc28a4fbb78cad61e0f2ed4}{difference\_type}}\ \ \ =\ DomainT;}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_abc7b9a7a287957cc11f7f8679084fad8}{value\_type}}\ \ \ \ \ \ \ \ =\ DomainT;}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a9da8b4820369a4e830f6ca596e08270c}{pointer}}\ \ \ \ \ \ \ \ \ \ \ =\ DomainT;}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a59b5e1223198deaeacb85051517dd80a}{reference}}\ \ \ \ \ \ \ \ \ =\ DomainT;}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ae998c7fc4e1db5a8d69ca061d70d5ceb}{IntervalSetIter}}(Impl\ in\_impl,\ std::size\_t\ in\_cur)}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}(in\_impl),}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}(in\_cur)}
+\DoxyCodeLine{00392\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\&\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ab3728ec88a235decf58eb3740fa4bb08}{operator++}}()\ \{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}-\/>lower()\ +\ \textcolor{keyword}{static\_cast<}DomainT\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}})\ <\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}-\/>upper())\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}++;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}\ =\ 0;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}\ =\ std::next(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}});}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00402\ \ \ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\&\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a9764e0394f32de089f43b4dcf63628e2}{operator-\/-\/}}()\ \{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}\ =\ std::prev(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}});}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}-\/>width()\ -\/\ 1;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}-\/-\/;}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00412\ \ \ \ \ \}}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a26713b576eb416b6e6921a118812790e}{operator++}}(\textcolor{keywordtype}{int})\ \{\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ ret\ =\ *\textcolor{keyword}{this};\ ++(*this);\ \textcolor{keywordflow}{return}\ ret;\ \}}
+\DoxyCodeLine{00415\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a90d803834d8cdbc8b568d91123a2e307}{operator-\/-\/}}(\textcolor{keywordtype}{int})\ \{\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ ret\ =\ *\textcolor{keyword}{this};\ -\/-\/(*this);\ \textcolor{keywordflow}{return}\ ret;\ \}}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4981392cafb35bd47869470943de003c}{operator==}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}\ and\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}};\ \}}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ae229788677a1abe98372f54204a3dbe7}{operator!=}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4056b2dcca9f60143d2d76387599e6e1}{Iter}}\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ i);\ \}}
+\DoxyCodeLine{00418\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a9da8b4820369a4e830f6ca596e08270c}{pointer}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a408e2c002ef293e57d09804734e640c7}{operator*}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}-\/>get(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}});\ \}}
+\DoxyCodeLine{00419\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a59b5e1223198deaeacb85051517dd80a}{reference}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_ab5c26e34018f1157d210a3ebc29afd3a}{operator-\/>}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}-\/>get(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}});\ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00422\ \ \ \ \ Impl\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a4180d4e5b3e4dcfef87b99d2e2ca760c}{impl\_}}\ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{00423\ \ \ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter_a39af9348b844da48482e8d719b9d4c14}{cur\_}}\ =\ 0;}
+\DoxyCodeLine{00424\ \ \ \};}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abd0d7f40a96384d2db0a2782a8921a34}{ForwardIter}}\ \ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_1_1_interval_set_iter}{IntervalSetIter<IteratorType>}};}
+\DoxyCodeLine{00427\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af36c82de08ca3e67714c9051d9f3db92}{ReverseIter}}\ \ =\ std::reverse\_iterator<ForwardIter>;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \textcolor{comment}{//\ Per-\/element\ iterators}}
+\DoxyCodeLine{00430\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abd0d7f40a96384d2db0a2782a8921a34}{ForwardIter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a23d95f362bdc1094ae5f7f293771465a}{begin}}()\ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abd0d7f40a96384d2db0a2782a8921a34}{ForwardIter}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.begin(),0);\ \}}
+\DoxyCodeLine{00431\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abd0d7f40a96384d2db0a2782a8921a34}{ForwardIter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aaec7a0f928c035753685be34d0cc54f8}{end}}()\ \ \ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_abd0d7f40a96384d2db0a2782a8921a34}{ForwardIter}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end(),0);\ \}}
+\DoxyCodeLine{00432\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af36c82de08ca3e67714c9051d9f3db92}{ReverseIter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ab253d070e9a28940a9b727696b0bb25c}{rbegin}}()\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af36c82de08ca3e67714c9051d9f3db92}{ReverseIter}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aaec7a0f928c035753685be34d0cc54f8}{end}}());\ \}}
+\DoxyCodeLine{00433\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af36c82de08ca3e67714c9051d9f3db92}{ReverseIter}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ae174160d7537b4c841d71514deb90a89}{rend}}()\ \ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af36c82de08ca3e67714c9051d9f3db92}{ReverseIter}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a23d95f362bdc1094ae5f7f293771465a}{begin}}());\ \}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \textcolor{comment}{//\ Per-\/interval\ iterators}}
+\DoxyCodeLine{00436\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a3e9dc82d28ecca2c84edac4c80e6c433}{ibegin}}()\ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.begin();\ \}}
+\DoxyCodeLine{00437\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a34c4b2af7847cae15a7827fe8b578d1b}{iend}}()\ \ \ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end();\ \}}
+\DoxyCodeLine{00438\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a07c43cee06c7e1f943f4acfd1274e8c1}{irbegin}}()\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.rbegin();\ \}}
+\DoxyCodeLine{00439\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a2656b9c3920215f4cbc3a8bad3f3b9fd}{irend}}()\ \ \ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.rend();\ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_aa057be2db33d30cb34a2c8734f7f0278}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00445\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}};}
+\DoxyCodeLine{00446\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}};}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{comment}{//\ @todo\ Use\ a\ more\ efficient\ unpack\ (like\ the\ following)\ so\ insertions\ are}}
+\DoxyCodeLine{00450\ \ \ \ \ \textcolor{comment}{//\ O(1)\ since\ the\ elements\ are\ already\ in\ sorted\ order\ when\ they\ are}}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{comment}{//\ serialized}}
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{comment}{//\ typename\ OrderedSetType::size\_type\ size\ =\ set\_.size();}}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{comment}{//\ s\ |\ size;}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{comment}{//\ if\ (s.isUnpacking())\ \{}}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{comment}{//\ \ \ auto\ iter\ =\ set\_.end();}}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{comment}{//\ \ \ for\ (typename\ OrderedSetType::size\_type\ =\ 0;\ i\ <\ size;\ i++)\ \{}}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ typename\ OrderedSetType::value\_type\ elm\ =\ \{\};}}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ s\ |\ elm;}}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ iter\ =\ set\_.insert(iter,elm)}}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00462\ \ \ \ \ \textcolor{comment}{//\ \}\ else\ \{}}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{comment}{//\ \ \ for\ (auto\&\&\ i\ :\ set\_)\ \{}}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ s\ |\ i;}}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{comment}{//\ \ \ \}}}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.isUnpacking())\ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}.end();}
+\DoxyCodeLine{00470\ \ \ \ \ \}}
+\DoxyCodeLine{00471\ \ \ \ \ s.skip(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}});}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}};}
+\DoxyCodeLine{00474\ \ \ \}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00477\ \ \ \textcolor{comment}{//\ The\ lower\ bound\ for\ the\ entire\ set}}
+\DoxyCodeLine{00478\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a81a48c32a51a56d1006dc212b2de60aa}{lb\_}}\ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00479\ \ \ \textcolor{comment}{//\ The\ upper\ bound\ for\ the\ entire\ set}}
+\DoxyCodeLine{00480\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_ace5d01da6b573a7e13405b362ca57f48}{ub\_}}\ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00481\ \ \ \textcolor{comment}{//\ The\ set\ of\ all\ the\ interval\ ranges}}
+\DoxyCodeLine{00482\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_af29bc3750493c7de4043f43ef7eb2ca2}{OrderedSetType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a5ed151f2f412d1df26f6b1fae4515bad}{set\_}}\ =\ \{\};}
+\DoxyCodeLine{00483\ \ \ \textcolor{comment}{//\ The\ previous\ insert\ iterator\ for\ quick\ lookup}}
+\DoxyCodeLine{00484\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a111b2ec1ea960a40ba4270be702f11f1}{IteratorType}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a50bd3ba628483148568402f9b474f680}{hint\_}}\ \ =\ \{\};}
+\DoxyCodeLine{00485\ \ \ \textcolor{comment}{//\ Not\ required\ for\ correctness:\ count\ of\ non-\/compressed\ elements}}
+\DoxyCodeLine{00486\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base_a6b6c9d51286b662d28eb1dfac3047af0}{elms\_}}\ \ \ =\ 0;}
+\DoxyCodeLine{00487\ \};}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::term::interval\ */}}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT>}
+\DoxyCodeLine{00495\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a4dabf220fed532376918fa1dc4a6a7c0}{IntegralSet}}\ =}
+\DoxyCodeLine{00496\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_integral_set_base}{term::interval::IntegralSetBase}}<}
+\DoxyCodeLine{00497\ \ \ \ \ DomainT,}
+\DoxyCodeLine{00498\ \ \ \ \ DomainT\{\},}
+\DoxyCodeLine{00499\ \ \ \ \ std::allocator,}
+\DoxyCodeLine{00500\ \ \ \ \ term::interval::Interval,}
+\DoxyCodeLine{00501\ \ \ \ \ std::set,}
+\DoxyCodeLine{00502\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a447ddf27e89223ae70b2a2e27ffc404e}{IntervalCompare}}}
+\DoxyCodeLine{00503\ \ \ >;}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTEGRAL\_SET\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

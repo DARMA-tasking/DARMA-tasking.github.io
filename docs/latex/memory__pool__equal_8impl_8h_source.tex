@@ -1,0 +1,164 @@
+\doxysection{memory\+\_\+pool\+\_\+equal.\+impl.\+h}
+\hypertarget{memory__pool__equal_8impl_8h_source}{}\label{memory__pool__equal_8impl_8h_source}\index{src/vt/pool/static\_sized/memory\_pool\_equal.impl.h@{src/vt/pool/static\_sized/memory\_pool\_equal.impl.h}}
+\doxymbox{\hyperlink{memory__pool__equal_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memory\_pool\_equal.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_POOL\_STATIC\_SIZED\_MEMORY\_POOL\_EQUAL\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_POOL\_STATIC\_SIZED\_MEMORY\_POOL\_EQUAL\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{memory__pool__equal_8h}{vt/pool/static\_sized/memory\_pool\_equal.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{pool__header_8h}{vt/pool/header/pool\_header.h}}"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1pool}{pool}}\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00058\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_ad1f64e3c3c70d8c037c592f96443d02a}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::MemoryPoolEqual}}(\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_af05a2c24c95c666b20e3758745be746b}{SlotType}}\ \textcolor{keyword}{const}\ in\_pool\_size)}
+\DoxyCodeLine{00059\ \ \ :\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a25a2b249ba0983b65ec1e2877dbd4f19}{pool\_size\_}}(in\_pool\_size)}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a42ba3ac19921517b82c4e6ff4cba6b80}{resizePool}}();}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00065\ \textcolor{comment}{/*virtual*/}\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aa6f87becb85f4fc575b2d5dcd68d89af}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::\string~MemoryPoolEqual}}()\ \{}
+\DoxyCodeLine{00066\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00067\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1pool}{pool}},}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{stringliteral}{"{}cur\_slot\_=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}}
+\DoxyCodeLine{00069\ \ \ );}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{comment}{//\ for\ (auto\ i\ =\ 0;\ i\ <\ cur\_slot\_;\ i++)\ \{}}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ \ \ vt\_debug\_print\_force(}}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ \ \ \ \ pool,\ node,}}
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ \ \ \ \ "{}alloc\ never\ freed:\ ptr=\{\},\ cur\_slot\_=\{\}\(\backslash\)n"{},\ holder\_.at(i),\ i}}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ \ \ );}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}};\ i\ <\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.size();\ i++)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ free(\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.at(i));}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00084\ std::byte*\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aa142ba97f3dda1ad1843175579eb1994}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::alloc}}(}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{size\_t}\ \textcolor{keyword}{const}\&\ sz,\ \textcolor{keywordtype}{size\_t}\ \textcolor{keyword}{const}\&\ oversize}
+\DoxyCodeLine{00086\ )\ \{}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}\ +\ 1)\ >=\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.size())\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a42ba3ac19921517b82c4e6ff4cba6b80}{resizePool}}();}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}+1)\ <\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.size(),}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{stringliteral}{"{}Must\ be\ within\ pool\ size,\ add\ capability\ to\ grow"{}}}
+\DoxyCodeLine{00094\ \ \ );}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ slot\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}};}
+\DoxyCodeLine{00097\ \ \ std::byte*\ \textcolor{keyword}{const}\ ptr\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}[slot];}
+\DoxyCodeLine{00098\ \ \ std::byte*\ ptr\_ret\ =\ ptr;}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordflow}{if}\ (use\_header)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ ptr\_ret\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_header_manager_a4b61bc71c3795014a08b318d0c94e92f}{HeaderManagerType::setHeader}}(}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ sz,\ oversize,\ ptr}
+\DoxyCodeLine{00102\ \ \ \ \ );}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00106\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1pool}{pool}},}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{stringliteral}{"{}alloc:\ ptr=\{\},\ ptr\_ret=\{\}\ cur\_slot=\{\},\ sz=\{\},\ oversize=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00108\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr\_ret),\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}},\ sz,\ oversize}
+\DoxyCodeLine{00109\ \ \ );}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}++;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordflow}{return}\ ptr\_ret;}
+\DoxyCodeLine{00114\ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_afdb11f39c6d8b86c797657092f90b85e}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::dealloc}}(std::byte*\ \textcolor{keyword}{const}\ t)\ \{}
+\DoxyCodeLine{00118\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00119\ \ \ \ \ normal,\ \doxymbox{\hyperlink{namespacevt_1_1pool}{pool}},}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{stringliteral}{"{}dealloc\ t=\{\},\ cur\_slot=\{\}\(\backslash\)n"{}},\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(t),\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}}
+\DoxyCodeLine{00121\ \ \ );}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}\ -\/\ 1\ >=\ 0,\ \textcolor{stringliteral}{"{}Must\ be\ greater\ than\ zero"{}}}
+\DoxyCodeLine{00125\ \ \ );}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ std::byte*\ ptr\_actual\ =\ t;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordflow}{if}\ (use\_header)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ ptr\_actual\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_header_manager_a096e79f4565de773a59cfd0084de0152}{HeaderManagerType::getHeaderPtr}}(t);}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}[-\/-\/\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_aeb14c73621125dc7d9179833bbc780a7}{cur\_slot\_}}]\ =\ ptr\_actual;}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00136\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a42ba3ac19921517b82c4e6ff4cba6b80}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::resizePool}}()\ \{}
+\DoxyCodeLine{00137\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_af05a2c24c95c666b20e3758745be746b}{SlotType}}\ \textcolor{keyword}{const}\ cur\_size\ =\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.size();}
+\DoxyCodeLine{00138\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_af05a2c24c95c666b20e3758745be746b}{SlotType}}\ \textcolor{keyword}{const}\ new\_size\ =\ cur\_size\ ==\ 0\ ?\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a25a2b249ba0983b65ec1e2877dbd4f19}{pool\_size\_}}\ :\ cur\_size\ *\ 2;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}.resize(new\_size);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ cur\_size;\ i\ <\ new\_size;\ i++)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a901b7dfe76a139d533e80fec478235c8}{holder\_}}[i]\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(malloc(use\_header\ ?\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a70c83d8bfd3a1c0c8f2c1a4a27e2aa04}{num\_full\_bytes\_}}\ :\ num\_bytes\_t));}
+\DoxyCodeLine{00144\ \ \ \}}
+\DoxyCodeLine{00145\ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}64\_t\ num\_\textcolor{keywordtype}{byte}s\_t,\ \textcolor{keywordtype}{bool}\ use\_header>}
+\DoxyCodeLine{00148\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_af05a2c24c95c666b20e3758745be746b}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::SlotType}}}
+\DoxyCodeLine{00149\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a222efeb2d8fee03b4fb8c275f9cfa1ac}{MemoryPoolEqual<num\_bytes\_t,\ use\_header>::getNumBytes}}()\ \{}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal_a50e14945e15e2ab88319e347c2a3f1b7}{num\_bytes\_}};}
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{template}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal}{MemoryPoolEqual<memory\_size\_small,\ true>}};}
+\DoxyCodeLine{00154\ \textcolor{keyword}{template}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1pool_1_1_memory_pool_equal}{MemoryPoolEqual<memory\_size\_medium,\ true>}};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \}\}\ \textcolor{comment}{//end\ namespace\ vt::pool}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_POOL\_STATIC\_SIZED\_MEMORY\_POOL\_EQUAL\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

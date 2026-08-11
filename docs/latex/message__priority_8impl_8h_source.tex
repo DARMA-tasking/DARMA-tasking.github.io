@@ -1,0 +1,165 @@
+\doxysection{message\+\_\+priority.\+impl.\+h}
+\hypertarget{message__priority_8impl_8h_source}{}\label{message__priority_8impl_8h_source}\index{src/vt/messaging/message/message\_priority.impl.h@{src/vt/messaging/message/message\_priority.impl.h}}
+\doxymbox{\hyperlink{message__priority_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message\_priority.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_PRIORITY\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_PRIORITY\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a5cca7f3fb7db0bfe14b3426ef9132090}{msgSetPriorityLevel}}(}
+\DoxyCodeLine{00053\ \ \ [[maybe\_unused]]\ MsgT\ ptr,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae2e8856c48d936ff4a20140b1afa16e3}{PriorityLevelType}}\ level}
+\DoxyCodeLine{00054\ )\ \{}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00056\ \ \ envelopeSetPriorityLevel(ptr-\/>env,\ level);}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00058\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_aae494e42c66a7b35346fd31d0100ebeb}{msgSetPriorityAllLevels}}(}
+\DoxyCodeLine{00062\ \ \ [[maybe\_unused]]\ MsgT\ ptr,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority}
+\DoxyCodeLine{00063\ )\ \{}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00065\ \ \ envelopeSetPriority(ptr-\/>env,\ priority);}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ MsgU>}
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a6ee5ed1aac4e553185dc3fe80544ac2a}{msgIncPriorityLevel}}(}
+\DoxyCodeLine{00071\ \ \ [[maybe\_unused]]\ MsgT\ old\_msg,\ [[maybe\_unused]]\ MsgU\ new\_msg}
+\DoxyCodeLine{00072\ )\ \{}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ level\ =\ envelopeGetPriorityLevel(old\_msg-\/>env);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordflow}{if}\ (level\ +\ 1\ <\ sched::priority\_num\_levels)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ envelopeSetPriorityLevel(new\_msg-\/>env,\ level\ +\ 1);}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00078\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgU>}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ab8115ae64f9c390e7a92f3f02aea8454}{msgSetPriority}}(}
+\DoxyCodeLine{00088\ \ \ [[maybe\_unused]]\ MsgU\ new\_msg,}
+\DoxyCodeLine{00089\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,}
+\DoxyCodeLine{00090\ \ \ [[maybe\_unused]]\ \textcolor{keywordtype}{bool}\ increment\_level}
+\DoxyCodeLine{00091\ )\ \{}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00093\ \ \ \doxymbox{\hyperlink{namespacevt_ae2e8856c48d936ff4a20140b1afa16e3}{PriorityLevelType}}\ \textcolor{keyword}{const}\ level\ =\ increment\_level\ ?\ 1\ :\ 0;}
+\DoxyCodeLine{00094\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ old\_priority\ =\ vt::min\_priority;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ad71afa970305de275db8e91a5041d8e9}{msgSetPriorityImpl<MsgU>}}(new\_msg,\ priority,\ old\_priority,\ level);}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgU>}
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ad71afa970305de275db8e91a5041d8e9}{msgSetPriorityImpl}}(}
+\DoxyCodeLine{00101\ \ \ [[maybe\_unused]]\ MsgU\ new\_msg,}
+\DoxyCodeLine{00102\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ new\_priority,}
+\DoxyCodeLine{00103\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ old\_priority,}
+\DoxyCodeLine{00104\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae2e8856c48d936ff4a20140b1afa16e3}{PriorityLevelType}}\ level}
+\DoxyCodeLine{00105\ )\ \{}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ is\_breadth\_first\ =\ new\_priority\ ==\ sched::Priority::BreadthFirst;}
+\DoxyCodeLine{00109\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00110\ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{stringliteral}{"{}msgSetPriorityImpl:\ new\_priority=\{:x\},\ old\_priority=\{:x\},\ level=\{\},\ "{}}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{stringliteral}{"{}is\_breadth\_first=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00113\ \ \ \ \ new\_priority,\ old\_priority,\ level,\ is\_breadth\_first}
+\DoxyCodeLine{00114\ \ \ );}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{for}\ (\doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ l\ =\ level\ +\ 1;\ l\ <\ sched::priority\_num\_levels;\ l++)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_breadth\_first)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_manip_a1e3fd14daa6da7902a621d7e175b0d76}{sched::PriorityManip::setPriority}}(old\_priority,\ l,\ sched::priority\_all\_set);}
+\DoxyCodeLine{00118\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_manip_a1e3fd14daa6da7902a621d7e175b0d76}{sched::PriorityManip::setPriority}}(old\_priority,\ l,\ 0);}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_manip_a1e3fd14daa6da7902a621d7e175b0d76}{sched::PriorityManip::setPriority}}(old\_priority,\ level,\ new\_priority);}
+\DoxyCodeLine{00123\ \ \ envelopeSetPriorityLevel(new\_msg-\/>env,\ level);}
+\DoxyCodeLine{00124\ \ \ envelopeSetPriority(new\_msg-\/>env,\ old\_priority);}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ MsgU>}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_a9cbb4989b799eaba6ab9b8dde9e3cf14}{msgSetPriorityFrom}}(}
+\DoxyCodeLine{00130\ \ \ [[maybe\_unused]]\ MsgT\ old\_msg,\ [[maybe\_unused]]\ MsgU\ new\_msg,}
+\DoxyCodeLine{00131\ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,\ [[maybe\_unused]]\ \textcolor{keywordtype}{bool}\ increment\_level}
+\DoxyCodeLine{00132\ )\ \{}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00134\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(old\_msg\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Must\ have\ a\ valid\ message"{}});}
+\DoxyCodeLine{00135\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(new\_msg\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Must\ have\ a\ valid\ message"{}});}
+\DoxyCodeLine{00136\ \ \ \doxymbox{\hyperlink{namespacevt_ae2e8856c48d936ff4a20140b1afa16e3}{PriorityLevelType}}\ level\ =\ envelopeGetPriorityLevel(old\_msg-\/>env);}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{if}\ (increment\_level\ and\ level\ +\ 1\ <\ sched::priority\_num\_levels)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ level\ +=\ 1;}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ old\_priority\ =\ envelopeGetPriority(old\_msg-\/>env);}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ad71afa970305de275db8e91a5041d8e9}{msgSetPriorityImpl<MsgU>}}(new\_msg,\ priority,\ old\_priority,\ level);}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00143\ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_1_1messaging_ab609ea1ed68952c30bc8f9bba8d796b2}{msgSystemSetPriority}}(}
+\DoxyCodeLine{00147\ \ \ [[maybe\_unused]]\ MsgT\ ptr,\ [[maybe\_unused]]\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority}
+\DoxyCodeLine{00148\ )\ \{}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00150\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ prior\ =\ no\_priority;}
+\DoxyCodeLine{00151\ \ \ envelopeSetPriorityLevel(ptr-\/>env,\ 0);}
+\DoxyCodeLine{00152\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_manip_a1e3fd14daa6da7902a621d7e175b0d76}{sched::PriorityManip::setPriority}}(prior,\ 0,\ priority);}
+\DoxyCodeLine{00153\ \ \ envelopeSetPriority(ptr-\/>env,\ prior);}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_MESSAGING\_MESSAGE\_MESSAGE\_PRIORITY\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

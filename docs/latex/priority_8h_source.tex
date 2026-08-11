@@ -1,0 +1,244 @@
+\doxysection{priority.\+h}
+\hypertarget{priority_8h_source}{}\label{priority_8h_source}\index{src/vt/scheduler/priority.h@{src/vt/scheduler/priority.h}}
+\doxymbox{\hyperlink{priority_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ priority.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_SCHEDULER\_PRIORITY\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_SCHEDULER\_PRIORITY\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1sched}{sched}}\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ The\ priority\ field\ range:\ [0..2\ <<\ priority\_num\_bits)}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ It's\ split\ into\ levels\ to\ partition\ across\ recursive\ invocations\ of}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ components.}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ \ \ System\ level:\ 0}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ \ \ User\ levels:\ [1\ ...\ priority\_num\_levels\ -\/\ 1)}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ Thus,\ if\ level\ bits\ is\ 3\ and\ priority\ field\ width\ is\ 16,\ num\ levels\ is\ 5}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ (must\ be\ rounded\ down).}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ Example\ PriorityType\ bit\ field\ layout:}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ \ \ \ \ [\ 0,1,2,\ 3,4,5,\ 6,7,8,\ 9,10,11,\ 12,13,14,\ (unused\ bits)...\ ]}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ \ \ \ \ \ \ <===>\ \ <=============================>}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ \ \ \ \ \ \ System\ \ \ \ User\ Bits:\ 4\ user\ levels}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ \ \ \ \ \ \ Bits\ \ \ \ \ \ w/\ 3\ bits\ each}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ priority\_level\_bits\ =}
+\DoxyCodeLine{00076\ \ \ vt\_feature\_cmake\_priority\_bits\_level;}
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ priority\_num\_levels\ =}
+\DoxyCodeLine{00078\ \ \ priority\_num\_bits\ /\ priority\_level\_bits;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ priority\_midpoint\ =}
+\DoxyCodeLine{00080\ \ \ (((1\ <<\ (priority\_level\_bits\ +\ 1))\ -\/\ 1)\ >>\ 2);}
+\DoxyCodeLine{00081\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ priority\_remainder\ =}
+\DoxyCodeLine{00082\ \ \ priority\_num\_bits\ -\/\ priority\_level\_bits\ *\ priority\_num\_levels;}
+\DoxyCodeLine{00083\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ priority\_all\_set\ =}
+\DoxyCodeLine{00084\ \ \ ((1\ <<\ (priority\_level\_bits\ +\ 1))\ -\/\ 1)\ >>\ 1;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ 111\ 1000\ 111\ 0000000001000\ \ \ \ \ \ \ 1000\ 111}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{namespacevt_1_1sched_a2857a110a140d0a9f77d374c90eb498b}{PriorityLevel}}\ \{}
+\DoxyCodeLine{00089\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a2857a110a140d0a9f77d374c90eb498ba17c6729b868f4c633d17ba760a875cae}{SystemLevel}}\ \ =\ 0,}
+\DoxyCodeLine{00090\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a2857a110a140d0a9f77d374c90eb498baee78e11eb2efcad3e8f54d60271ef6b6}{UserLevelMin}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1sched_a2857a110a140d0a9f77d374c90eb498ba17c6729b868f4c633d17ba760a875cae}{PriorityLevel::SystemLevel}}\ +\ 1,}
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a2857a110a140d0a9f77d374c90eb498bada7b4271cb9b277f573951caa83f8128}{UserLevelMax}}\ =\ priority\_num\_levels\ -\/\ 1}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ Recursively,\ at\ compile-\/time,\ build\ the\ proper\ mask\ for\ the\ default\ priority}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ for\ depth-\/first\ expansion}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ N,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ M,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ L,\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ R,}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{bool}\ F,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00103\ >}
+\DoxyCodeLine{00104\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}\ \{}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_ae91f8382806210477762fc109a74fddd}{offset}}\ =\ N\ -\/\ priority\_level\_bits;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a3949a195768183b0086b582bdc8855d2}{M\_p}}\ \ \ \ =\ M\ |\ (priority\_midpoint\ <<\ (\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_ae91f8382806210477762fc109a74fddd}{offset}}-\/1));}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{value}}\ \ =\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_ae91f8382806210477762fc109a74fddd}{offset}},\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a3949a195768183b0086b582bdc8855d2}{M\_p}},\ L-\/1,\ R,\ F>\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{::value}};}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <PriorityType\ N,\ PriorityType\ M,\ PriorityType\ R>}
+\DoxyCodeLine{00111\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ 0,\ R,\ true,\ typename\ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if<N\ !=\ R>::type>\ \{}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable83ae8fa0b6fa5099c4f4e54fe14a77e7_a135ff903440365afaf87ffb49e822820}{offset}}\ =\ N\ -\/\ priority\_level\_bits;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable83ae8fa0b6fa5099c4f4e54fe14a77e7_ac7b7308185e80b997833fc8575384ea0}{M\_p}}\ \ \ \ =\ M\ |\ (((1\ <<\ (priority\_level\_bits\ +\ 1))\ -\/\ 1)\ <<\ (\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable83ae8fa0b6fa5099c4f4e54fe14a77e7_a135ff903440365afaf87ffb49e822820}{offset}}-\/1));}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01true_00_01typename_01std_1_1enable83ae8fa0b6fa5099c4f4e54fe14a77e7_a9b04f95f8b193e0b8f6e09ad2e580c4a}{value}}\ \ =\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{Mask<offset,\ M\_p,\ 0,\ R,\ true>::value}};}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{template}\ <PriorityType\ N,\ PriorityType\ M,\ PriorityType\ R>}
+\DoxyCodeLine{00118\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ 0,\ R,\ false,\ typename\ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if<N\ !=\ R>::type>\ \{}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01false_00_01typename_01std_1_1enabl1a151bab8eeeed9dbd647b030ed774a4_a19acd4efecf001695272262bd0baa93b}{offset}}\ =\ N\ -\/\ priority\_level\_bits;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_010_00_01_r_00_01false_00_01typename_01std_1_1enabl1a151bab8eeeed9dbd647b030ed774a4_a1f4fbcc1ba267a7c9e1585f33b0ccd52}{value}}\ \ =\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{Mask<offset,\ M,\ 0,\ R,\ false>::value}};}
+\DoxyCodeLine{00121\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{template}\ <PriorityType\ N,\ PriorityType\ M,\ PriorityType\ L,\ PriorityType\ R,\ \textcolor{keywordtype}{bool}\ fill>}
+\DoxyCodeLine{00125\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ L,\ R,\ fill,\ typename\ \doxymbox{\hyperlink{namespacestd}{std}}::enable\_if<N\ ==\ R>::type>\ \{}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_3_01_n_00_01_m_00_01_l_00_01_r_00_01fill_00_01typename_01std_1_1enabladf878397a307d8d42f7fd6193eeef52_a26ca5fb3bba5f44f4a1852c1ec0f2099}{value}}\ =\ M\ <<\ R;}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00130\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ N\ =\ priority\_num\_bits,}
+\DoxyCodeLine{00131\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ M\ =\ 0x0,}
+\DoxyCodeLine{00132\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ L\ =\ priority\_num\_levels,}
+\DoxyCodeLine{00133\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ R\ =\ priority\_remainder}
+\DoxyCodeLine{00134\ >}
+\DoxyCodeLine{00135\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_default_mask}{DefaultMask}}\ :\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ L,\ R,\ false>\ \{\ \};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00138\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ N,}
+\DoxyCodeLine{00139\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ M,}
+\DoxyCodeLine{00140\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ L,}
+\DoxyCodeLine{00141\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ R\ =\ priority\_remainder}
+\DoxyCodeLine{00142\ >}
+\DoxyCodeLine{00143\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_level_mask}{LevelMask}}\ :\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ L,\ R,\ false>\ \{\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{template}\ <}
+\DoxyCodeLine{00146\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ N,}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ M,}
+\DoxyCodeLine{00148\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ L,}
+\DoxyCodeLine{00149\ \ \ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ R\ =\ priority\_remainder}
+\DoxyCodeLine{00150\ >}
+\DoxyCodeLine{00151\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_level_fill_mask}{LevelFillMask}}\ :\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask}{Mask}}<N,\ M,\ L,\ R,\ true>\ \{\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\ =\ std::array<PriorityType,\ sched::priority\_num\_levels>;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *\ Build\ the\ medium-\/level\ priority\ array\ for\ each\ level}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{template}\ <\doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}...\ i>}
+\DoxyCodeLine{00160\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\ \doxymbox{\hyperlink{namespacevt_1_1sched_a3f4c11ddd24523a16b3f3606a4662014}{mediumArray}}(std::integer\_sequence<PriorityType,\ i...>)\ \{}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\{\{\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{LevelMask<priority\_num\_bits,\ 0x0,\ i+1>::value}}...\}\};}
+\DoxyCodeLine{00162\ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{template}\ <PriorityType\ L\ =\ priority\_num\_levels>}
+\DoxyCodeLine{00165\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\ \doxymbox{\hyperlink{namespacevt_1_1sched_a3f4c11ddd24523a16b3f3606a4662014}{mediumArray}}()\ \{}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1sched_a3f4c11ddd24523a16b3f3606a4662014}{mediumArray}}(std::make\_integer\_sequence<PriorityType,\ L>\{\});}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *\ Build\ the\ breadth-\/first\ priority\ array\ for\ each\ level}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{template}\ <\doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}...\ i>}
+\DoxyCodeLine{00174\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\ \doxymbox{\hyperlink{namespacevt_1_1sched_ac82001576ed1c9cee962ed07113cebe7}{breadthArray}}(std::integer\_sequence<PriorityType,\ i...>)\ \{}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\{\{\doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{LevelFillMask<priority\_num\_bits,\ 0x0,\ i+1>::value}}...\}\};}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{template}\ <PriorityType\ L\ =\ priority\_num\_levels>}
+\DoxyCodeLine{00179\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{PriorityArrayType}}\ \doxymbox{\hyperlink{namespacevt_1_1sched_ac82001576ed1c9cee962ed07113cebe7}{breadthArray}}()\ \{}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1sched_ac82001576ed1c9cee962ed07113cebe7}{breadthArray}}(std::make\_integer\_sequence<PriorityType,\ L>\{\});}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ *\ Some\ names\ for\ priorities\ that\ could\ possibly\ be\ used\ with\ a\ 1-\/,2-\/,3-\/bit}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ *\ layout\ per\ level}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#if\ vt\_feature\_cmake\_priority\_bits\_level\ ==\ 1}}
+\DoxyCodeLine{00189\ \ \ \textcolor{keyword}{enum}\ Priority\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{comment}{//\ Breadth-\/first\ execution\ is\ all\ bits\ set}}
+\DoxyCodeLine{00191\ \ \ \ \ BreadthFirst\ =\ 1,\textcolor{comment}{//1}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ Depth-\/first\ execution\ priority\ hierarchy}}
+\DoxyCodeLine{00194\ \ \ \ \ DepthFirst\ \ \ =\ 0,\textcolor{comment}{//0}}
+\DoxyCodeLine{00195\ \ \ \};}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#elif\ vt\_feature\_cmake\_priority\_bits\_level\ ==\ 2}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{enum}\ Priority\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{comment}{//\ Breadth-\/first\ execution\ is\ all\ bits\ set}}
+\DoxyCodeLine{00199\ \ \ \ \ BreadthFirst\ =\ 3,\textcolor{comment}{//11}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ Depth-\/first\ execution\ priority\ hierarchy}}
+\DoxyCodeLine{00202\ \ \ \ \ High\ \ \ \ \ \ \ \ \ =\ 2,\textcolor{comment}{//10}}
+\DoxyCodeLine{00203\ \ \ \ \ Medium\ \ \ \ \ \ \ =\ 1,\textcolor{comment}{//01}}
+\DoxyCodeLine{00204\ \ \ \ \ Low\ \ \ \ \ \ \ \ \ \ =\ 0\ \textcolor{comment}{//00}}
+\DoxyCodeLine{00205\ \ \ \};}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#elif\ vt\_feature\_cmake\_priority\_bits\_level\ ==\ 3}}
+\DoxyCodeLine{00207\ \ \ \textcolor{keyword}{enum}\ Priority\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{comment}{//\ Breadth-\/first\ execution\ is\ all\ bits\ set}}
+\DoxyCodeLine{00209\ \ \ \ \ BreadthFirst\ =\ 7,\textcolor{comment}{//111}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ Depth-\/first\ execution\ priority\ hierarchy}}
+\DoxyCodeLine{00212\ \ \ \ \ Highest\ \ \ \ \ \ =\ 6,\textcolor{comment}{//110}}
+\DoxyCodeLine{00213\ \ \ \ \ High\ \ \ \ \ \ \ \ \ =\ 5,\textcolor{comment}{//101}}
+\DoxyCodeLine{00214\ \ \ \ \ MediumHigh\ \ \ =\ 4,\textcolor{comment}{//100}}
+\DoxyCodeLine{00215\ \ \ \ \ Medium\ \ \ \ \ \ \ =\ 3,\textcolor{comment}{//011}}
+\DoxyCodeLine{00216\ \ \ \ \ MediumLow\ \ \ \ =\ 2,\textcolor{comment}{//010}}
+\DoxyCodeLine{00217\ \ \ \ \ Low\ \ \ \ \ \ \ \ \ \ =\ 1,\textcolor{comment}{//001}}
+\DoxyCodeLine{00218\ \ \ \ \ Lowest\ \ \ \ \ \ \ =\ 0\ \textcolor{comment}{//000}}
+\DoxyCodeLine{00219\ \ \ \};}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00221\ \ \ \textcolor{comment}{//\ No\ enum,\ priority\ bits\ must\ be\ set\ without\ an\ alias\ from\ the\ system}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::sched\ */}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{sched::PriorityArrayType}}\ breadth\_priority\ =\ \doxymbox{\hyperlink{namespacevt_1_1sched_ac82001576ed1c9cee962ed07113cebe7}{sched::breadthArray<>}}();}
+\DoxyCodeLine{00229\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_1_1sched_aadcfdb0eeed38970a9d643f97b298e05}{sched::PriorityArrayType}}\ medium\_priority\ \ =\ \doxymbox{\hyperlink{namespacevt_1_1sched_a3f4c11ddd24523a16b3f3606a4662014}{sched::mediumArray<>}}();}
+\DoxyCodeLine{00230\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ sys\_max\_priority\ \ \ \ \ \ \ =\ breadth\_priority[0];}
+\DoxyCodeLine{00231\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ sys\_min\_priority\ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00232\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ max\_priority\ \ \ \ \ \ \ \ \ \ \ =\ breadth\_priority[1];}
+\DoxyCodeLine{00233\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ min\_priority\ \ \ \ \ \ \ \ \ \ \ =\ medium\_priority[0];}
+\DoxyCodeLine{00234\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ \textcolor{keyword}{const}\ default\_priority\ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_mask_a754152322550ef1c075cc4ecb702d6cd}{sched::DefaultMask<>::value}};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_SCHEDULER\_PRIORITY\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

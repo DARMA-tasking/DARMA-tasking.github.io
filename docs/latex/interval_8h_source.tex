@@ -1,0 +1,251 @@
+\doxysection{interval.\+h}
+\hypertarget{interval_8h_source}{}\label{interval_8h_source}\index{src/vt/termination/interval/interval.h@{src/vt/termination/interval/interval.h}}
+\doxymbox{\hyperlink{interval_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interval.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTERVAL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTERVAL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ INCLUDE\_FMT\_OSTREAM}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1term}{term}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1term_1_1interval}{interval}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ Discrete\ interval\ for\ encoding\ compressed\ sets\ (DIETs).\ Inclusive\ in}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ representation.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT,\ DomainT\ sentinel\ =\ DomainT()>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}\ \{}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a183b53c7344a9aa51c026dfe71b57ad4}{IntervalType}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval<DomainT,\ sentinel>}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a237ccc9805d839c82151945ad80b796c}{DomainType}}\ \ \ =\ DomainT;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00066\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a75b627acf7c30e4bb48b49ea323842f3}{Interval}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00067\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acf0d2f1a988e5afff0a9414ff2340f09}{Interval}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}\&\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adc8aea10324ff42769333ce62779fc8b}{operator=}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_ac4d9f09fc40777980cb6b7efc3bc2d0d}{Interval}}(DomainT\ \textcolor{keyword}{const}\&\ val)\ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}(val),\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}(val)\ \{\ \}}
+\DoxyCodeLine{00071\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a9e1d8a552f0f204c9e391ac47cca7b1b}{Interval}}(DomainT\ \textcolor{keyword}{const}\&\ lb,\ DomainT\ \textcolor{keyword}{const}\&\ ub)\ :\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}(lb),\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}(ub)\ \{\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}};\ \}}
+\DoxyCodeLine{00075\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}};\ \}}
+\DoxyCodeLine{00076\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_af3222f61f45e1e5a7fdd5a127e300289}{width}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}-\/\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}})+1;\ \}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a563160f1b6e405bb9d11255a0b80d187}{valid}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ <=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}};\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aff4a5032ac979adcc393022e77acffb6}{get}}(std::size\_t\ i)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ val\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ +\ \textcolor{keyword}{static\_cast<}DomainT\textcolor{keyword}{>}(i);}
+\DoxyCodeLine{00081\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ not\_eq\ sentinel,\ \textcolor{stringliteral}{"{}Lower\ bound\ must\ be\ valid"{}});}
+\DoxyCodeLine{00082\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ not\_eq\ sentinel,\ \textcolor{stringliteral}{"{}Upper\ bound\ must\ be\ valid"{}});}
+\DoxyCodeLine{00083\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(val\ <=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}},\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Must\ be\ in\ interval\ range"{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_af77c4efbf790b76fcb92bb5db65299f5}{setUpper}}(DomainT\ \textcolor{keyword}{const}\&\ val)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ =\ val;}
+\DoxyCodeLine{00089\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(val\ >=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}},\ \textcolor{stringliteral}{"{}Upper\ must\ be\ greater\ than\ lower\ bound"{}});}
+\DoxyCodeLine{00090\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a563160f1b6e405bb9d11255a0b80d187}{valid}}(),\ \ \ \ \textcolor{stringliteral}{"{}Interval\ must\ remain\ valid"{}});}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a23bacd3eae47ae66f9cf22c1a2fa2567}{setLower}}(DomainT\ \textcolor{keyword}{const}\&\ val)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ =\ val;}
+\DoxyCodeLine{00095\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ >=\ val,\ \textcolor{stringliteral}{"{}Lower\ must\ be\ less\ than\ upper\ bound"{}});}
+\DoxyCodeLine{00096\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a563160f1b6e405bb9d11255a0b80d187}{valid}}(),\ \ \ \ \textcolor{stringliteral}{"{}Interval\ must\ remain\ valid"{}});}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_ad35081ddb8a26d02d9e1bbae722da2ba}{set}}(DomainT\ \textcolor{keyword}{const}\&\ lo,\ DomainT\ \textcolor{keyword}{const}\&\ hi)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a23bacd3eae47ae66f9cf22c1a2fa2567}{setLower}}(lo);}
+\DoxyCodeLine{00101\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_af77c4efbf790b76fcb92bb5db65299f5}{setUpper}}(hi);}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a7464cff4f0697f02604868fcf60a8132}{contains}}(DomainT\ \textcolor{keyword}{const}\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ val\ >=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ and\ val\ <=\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}};}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{enum\ struct}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3}{PositionEnum}}\ :\ \textcolor{keywordtype}{int}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3a934c79ed6ebd50dae0a3f811f4627d05}{TangentLeft}}\ =\ -\/1,}
+\DoxyCodeLine{00110\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3ad2a5d0f2a4b974799f671c29ffc6449c}{NotTangent}}\ \ \ =\ 0,}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3adca1cfdff00036253f1f3573fc12b98f}{TangentRight}}\ =\ 1}
+\DoxyCodeLine{00112\ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ *\ Determine\ if\ a\ input\ interval\ is\ tangent\ to\ this\ interval\ within\ a}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ *\ specified\ gap.}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ TangentLeft\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TangentRight}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ |-\/-\/-\/-\/-\/-\/i-\/-\/-\/-\/-\/|\ lb\_\ \ \ \ \ \ \ \ ub\_\ |-\/-\/-\/-\/-\/-\/i-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |-\/-\/-\/-\/this-\/-\/-\/-\/|}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \string^\ \ \ \ \ \ \ \ \ \ \ \ \ \ \string^}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gap\ \ \ \ \ \ \ \ \ \ \ \ gap}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3}{PositionEnum}}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a5558f4e833a84bed506f4fdc3a386071}{tangent}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a183b53c7344a9aa51c026dfe71b57ad4}{IntervalType}}\ \textcolor{keyword}{const}\&\ i,\ DomainT\ gap\ =\ 1)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ ==\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ +\ gap)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3a934c79ed6ebd50dae0a3f811f4627d05}{PositionEnum::TangentLeft}};}
+\DoxyCodeLine{00128\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ ==\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ -\/\ gap)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3adca1cfdff00036253f1f3573fc12b98f}{PositionEnum::TangentRight}};}
+\DoxyCodeLine{00130\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3ad2a5d0f2a4b974799f671c29ffc6449c}{PositionEnum::NotTangent}};}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_ab39108ee4b0837f74bcbc8fe456dedac}{join}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a183b53c7344a9aa51c026dfe71b57ad4}{IntervalType}}\ \textcolor{keyword}{const}\&\ i,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3}{PositionEnum}}\ pos)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{switch}\ (pos)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3a934c79ed6ebd50dae0a3f811f4627d05}{PositionEnum::TangentLeft}}:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ ==\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}()\ +\ 1);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ =\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}();}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_adfdde0c1b12f536189432b168f6df6b3adca1cfdff00036253f1f3573fc12b98f}{PositionEnum::TangentRight}}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_a60b04695e9ed43131da50386a2ced779}{vtAssertExpr}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ ==\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}()\ -\/\ 1);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ =\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Must\ have\ tangent\ position\ to\ join"{}});}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_ae176079522ba7c58e69a55d51f80a4c9}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ |\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}};}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a16520378af9e1732749f52b8016980b4}{operator==}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a183b53c7344a9aa51c026dfe71b57ad4}{IntervalType}}\ \textcolor{keyword}{const}\&\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ and\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}};\ \}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_afedba25db2f425af176d3d2c9219a8fe}{operator!=}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a183b53c7344a9aa51c026dfe71b57ad4}{IntervalType}}\ \textcolor{keyword}{const}\&\ i)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ i);\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ *\ Determine\ if\ two\ intervals\ intersect:}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ *.\ \ \ \ \ \ \ \ \ [i1.lower(),\ ...,\ i1.upper()]}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \string^\ \ \ \ \ \ \ \ \ \ \string^}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [i2.lower(),\ ...,\ \ i2.upper()]}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ *\ Two\ intervals\ intersect\ iff:}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ (i2.lower()\ <=\ i1.upper())\ \&\&\ (i1.lower()\ <=\ i2.upper())}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IntT,\ \textcolor{keyword}{typename}\ IntU>}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa9ce87dd0605710869be8d9c12547d2c}{intersects}}(IntT\&\&\ i1,\ IntU\&\&\ i2)\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ i1.lower()\ <=\ i2.upper()\ and\ i2.lower()\ <=\ i1.upper();}
+\DoxyCodeLine{00174\ \ \ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ verbose,\ gen,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Interval\ intersects:\ i1=\{\},\ i2=\{\},\ op:\{\}<=\{\}=\{\}\ and\ \{\}<=\{\}=\{\}\ =>\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ i1,\ i2,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ i1.lower(),\ i2.upper(),\ i1.lower()\ <=\ i2.upper(),}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ i2.lower(),\ i1.upper(),\ i2.lower()\ <=\ i1.upper(),}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ ret}
+\DoxyCodeLine{00181\ \ \ \ \ );}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ IntT,\ \textcolor{keyword}{typename}\ IntU>}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aeceb02f8e69baada4cc1d47bdefc851f}{less}}(IntT\&\&\ i1,\ IntU\&\&\ i2)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ i1.lower()\ <\ i2.lower()\ and\ i1.upper()\ <\ i2.lower();}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainU,\ DomainT\ sentinel2>}
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_ac749dc791f49126328a9a8c69e282e5f}{operator<}}(}
+\DoxyCodeLine{00192\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval<DomainU,\ sentinel2>}}\ \textcolor{keyword}{const}\&\ i1,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval<DomainU,\ sentinel2>}}\ \textcolor{keyword}{const}\&\ i2}
+\DoxyCodeLine{00193\ \ \ );}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ DomainT\ v>}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a435b2cc74cea36c9b419023b852ce340}{operator<<}}(std::ostream\&\ os,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aa92ceaec8b9d5448c67b8aa39606c91c}{Interval<T,v>}}\ \textcolor{keyword}{const}\&\ i)\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}itv["{}}\ <<\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}()\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}()\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00199\ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00202\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a12aa2c05e55f64d6b83f66fbeabddf47}{lb\_}}\ =\ sentinel;}
+\DoxyCodeLine{00203\ \ \ DomainT\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a74c71b9f525b0f282187490b2cbe3494}{ub\_}}\ =\ sentinel;}
+\DoxyCodeLine{00204\ \};}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT,\ DomainT\ sentinel>}
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacevt_1_1term_1_1interval_a389d50e78b21fe2724432fcc75db6f4b}{operator<}}(}
+\DoxyCodeLine{00208\ \ \ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval}{Interval<DomainT,\ sentinel>}}\ \textcolor{keyword}{const}\&\ i1,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval}{Interval<DomainT,\ sentinel>}}\ \textcolor{keyword}{const}\&\ i2}
+\DoxyCodeLine{00209\ )\ \{}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aeceb02f8e69baada4cc1d47bdefc851f}{Interval<DomainT,\ sentinel>::less}}(i1,i2);}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT>}
+\DoxyCodeLine{00214\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare}{IntervalCompare}}\ \{}
+\DoxyCodeLine{00215\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare_a0f8be38c302892b92b68484f1925ac71}{IntervalType}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval}{Interval<DomainT>}};}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare_ae30957e5c338baf722853e9a0ef04fa2}{operator()}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare_a0f8be38c302892b92b68484f1925ac71}{IntervalType}}\ \textcolor{keyword}{const}\&\ i1,\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare_a0f8be38c302892b92b68484f1925ac71}{IntervalType}}\ \textcolor{keyword}{const}\&\ i2)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_aeceb02f8e69baada4cc1d47bdefc851f}{IntervalType::less}}(i1,i2);}
+\DoxyCodeLine{00218\ \ \ \}}
+\DoxyCodeLine{00219\ \};}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT,\ DomainT\ sentinel>}
+\DoxyCodeLine{00222\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1term_1_1interval_ac790434b61b732fd90c88a968b2b56cb}{format\_as}}(\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval}{Interval<DomainT,\ sentinel>}}\ i)\ \{}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}Interval[\{\},\ \{\}]"{}},\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_a36da58c3174932da9889d973c2940789}{lower}}(),\ i.\doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_acbe552f15a1f22a89fa43bcba34fe27f}{upper}}());}
+\DoxyCodeLine{00224\ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::term::interval\ */}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT>}
+\DoxyCodeLine{00231\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a447ddf27e89223ae70b2a2e27ffc404e}{IntervalCompare}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval_compare}{term::interval::IntervalCompare<DomainT>}};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT>}
+\DoxyCodeLine{00234\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_a9b0d290c100bdf0078bb26db9fbc05ec}{Interval}}\ =\ \doxymbox{\hyperlink{structvt_1_1term_1_1interval_1_1_interval}{term::interval::Interval<DomainT>}};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }term\ \{\ \textcolor{keyword}{namespace\ }interval\ \{}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ DomainT,\ DomainT\ sentinel>}
+\DoxyCodeLine{00241\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{namespacevt_a9b0d290c100bdf0078bb26db9fbc05ec}{Interval}};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \}\}\}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_TERMINATION\_INTERVAL\_INTERVAL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,198 @@
+\doxysection{How to Build }
+\hypertarget{vt-build}{}\label{vt-build}\index{How to Build@{How to Build}}
+Building DARMA/\+vt with cmake.
+
+{\bfseries{{\itshape vt}}} can be built with {\ttfamily cmake} or built inside a {\ttfamily docker} container. Most of the external dependencies come bundled with {\bfseries{{\itshape vt}}} for ease of compiling.\hypertarget{vt-build_how-to-build}{}\doxysubsection{\texorpdfstring{Building}{Building}}\label{vt-build_how-to-build}
+To build {\bfseries{{\itshape vt}}}, one must obtain the following dependencies:\+\hypertarget{vt-build_required-deps}{}\doxysubsubsection{\texorpdfstring{Required}{Required}}\label{vt-build_required-deps}
+
+\begin{DoxyItemize}
+\item checkpoint, ({\itshape vt} ecosystem)
+\item MPI (mpich/\+openmpi/\+mvapich/\+\+IBM Spectrum MPI/\+\+Cray MPICH/\+etc.)
+\end{DoxyItemize}\hypertarget{vt-build_automatic-build-deps}{}\doxysubsubsection{\texorpdfstring{Automatically build dependencies}{Automatically build dependencies}}\label{vt-build_automatic-build-deps}
+Assuming MPI is installed and accessible via CC/\+\+CXX, the only other dependency that is required is checkpoint. The easiest way to get these built are to clone it inside {\ttfamily vt/\+lib}:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ git\ clone\ git@github.com:DARMA-\/tasking/vt}
+\DoxyCodeLine{\$\ cd\ vt/lib}
+\DoxyCodeLine{\$\ git\ clone\ git@github.com:DARMA-\/tasking/checkpoint}
+
+\end{DoxyCode}
+
+
+With these in {\ttfamily vt/\+lib}, cmake will automatically build them and stitch them into {\itshape vt}\textquotesingle{}s linking process.\hypertarget{vt-build_use-cmake-directly-vars}{}\doxysubsubsection{\texorpdfstring{Using cmake directly}{Using cmake directly}}\label{vt-build_use-cmake-directly-vars}
+One may use {\ttfamily cmake} as normal on {\itshape vt}, with checkpoint cloned in {\ttfamily vt/\+lib} to compile them all together as explained above. The following are some custom configuration build options that can be provided to {\ttfamily cmake} to change the build configuration:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}CMake Variable  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Default Value  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  \\
+{\ttfamily vt\+\_\+lb\+\_\+enabled}  &1  &Compile with support for runtime load balancing  \\
+{\ttfamily vt\+\_\+trace\+\_\+enabled}  &0  &Compile with support for runtime tracing (Projections-\/format)  \\
+{\ttfamily vt\+\_\+trace\+\_\+only}  &0  &Compile vt in trace-\/only mode (stripped down version for tracing MPI calls)  \\
+{\ttfamily vt\+\_\+test\+\_\+trace\+\_\+runtime\+\_\+enabled}  &0  &Force tracing on at runtime for VT tests  \\
+{\ttfamily vt\+\_\+doxygen\+\_\+enabled}  &0  &Enable doxygen generation  \\
+{\ttfamily vt\+\_\+mimalloc\+\_\+enabled}  &0  &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/\+frees/\+corruption  \\
+{\ttfamily vt\+\_\+asan\+\_\+enabled}  &0  &Enable building with address sanitizer  \\
+{\ttfamily vt\+\_\+ubsan\+\_\+enabled}  &0  &Enable building with undefined behavior sanitizer  \\
+{\ttfamily vt\+\_\+werror\+\_\+enabled}  &0  &Treat all warnings as errors  \\
+{\ttfamily vt\+\_\+pool\+\_\+enabled}  &1  &Use memory pool in {\itshape vt} for message allocation  \\
+{\ttfamily vt\+\_\+zoltan\+\_\+enabled}  &0  &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support  \\
+{\ttfamily vt\+\_\+mpi\+\_\+guards}  &0  &Guards against mis-\/use of MPI calls in code using {\itshape vt}  \\
+{\ttfamily vt\+\_\+priorities\+\_\+enabled}  &1  &Enable prioritization of work (adds bits in envelope)  \\
+{\ttfamily vt\+\_\+diagnostics\+\_\+enabled}  &1  &Enable VT component diagnostics for performance analysis  \\
+{\ttfamily vt\+\_\+diagnostics\+\_\+runtime\+\_\+enabled}  &0  &Enable VT component diagnostics at runtime by default  \\
+{\ttfamily vt\+\_\+priority\+\_\+bits\+\_\+per\+\_\+level}  &3  &Number of bits per level of priority in envelope  \\
+{\ttfamily vt\+\_\+build\+\_\+extended\+\_\+tests}  &1  &Build with full, extended testing  \\
+{\ttfamily vt\+\_\+production\+\_\+build\+\_\+enabled}  &0  &Disable assertions and debug prints at compile time  \\
+{\ttfamily vt\+\_\+unity\+\_\+build\+\_\+enabled}  &0  &Build with Unity/\+\+Jumbo mode enabled (requires CMake \texorpdfstring{$>$}{>}= 3.\+16)  \\
+{\ttfamily vt\+\_\+fcontext\+\_\+enabled}  &0  &Force use of fcontext for threading  \\
+{\ttfamily vt\+\_\+tests\+\_\+num\+\_\+nodes}  &-\/  &Maximum number of nodes used for tests. If empty, then the default value detected by CMake is used  \\
+{\ttfamily vt\+\_\+code\+\_\+coverage}  &0  &Enable code coverage for VT examples/\+tests  \\
+{\ttfamily vt\+\_\+build\+\_\+tests}  &1  &Build all VT tests  \\
+{\ttfamily vt\+\_\+build\+\_\+examples}  &1  &Build all VT examples  \\
+{\ttfamily vt\+\_\+debug\+\_\+verbose}  &1 (not Release)  &Enable VT verbose debug prints at compile-\/time  \\
+{\ttfamily vt\+\_\+no\+\_\+color\+\_\+enabled}  &0  &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default  \\
+{\ttfamily BUILD\+\_\+\+SHARED\+\_\+\+LIBS}  &0  &Build VT as shared library  \\
+\end{DoxyTable}
+\hypertarget{vt-build_using-the-build-script}{}\doxysubsubsection{\texorpdfstring{Using the Build Script}{Using the Build Script}}\label{vt-build_using-the-build-script}
+Instead of running {\ttfamily cmake}, one may invoke the {\ttfamily vt/\+ci/\+build\+\_\+cpp.\+sh} script which will run {\ttfamily cmake} for {\itshape vt} with environment variables for most configuration parameters.\hypertarget{vt-build_building-environment-variables}{}\doxysubsubsubsection{\texorpdfstring{Build Script Environment Variables}{Build Script Environment Variables}}\label{vt-build_building-environment-variables}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Variable  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Default Value  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  \\
+{\ttfamily CMAKE\+\_\+\+BUILD\+\_\+\+TYPE}  &Release  &The {\ttfamily cmake} build type  \\
+{\ttfamily VT\+\_\+\+LB\+\_\+\+ENABLED}  &1  &Compile with support for runtime load balancing  \\
+{\ttfamily VT\+\_\+\+TRACE\+\_\+\+ENABLED }  &0  &Compile with support for runtime tracing (Projections-\/format)  \\
+{\ttfamily VT\+\_\+\+TRACE\+\_\+\+ONLY }  &0  &Compile vt in trace-\/only mode (stripped down version for tracing MPI calls)  \\
+{\ttfamily VT\+\_\+\+TRACE\+\_\+\+RUNTIME\+\_\+\+ENABLED }  &0  &Force tracing on at runtime (used in CI for automatically testing tracing on all tests/\+examples)  \\
+{\ttfamily VT\+\_\+\+DOXYGEN\+\_\+\+ENABLED }  &0  &Enable doxygen generation  \\
+{\ttfamily VT\+\_\+\+MIMALLOC\+\_\+\+ENABLED }  &0  &Enable {\ttfamily mimalloc}, alternative allocator for debugging memory usage/\+frees/\+corruption  \\
+{\ttfamily VT\+\_\+\+ASAN\+\_\+\+ENABLED }  &0  &Enable building with address sanitizer  \\
+{\ttfamily VT\+\_\+\+UBSAN\+\_\+\+ENABLED }  &0  &Enable building with undefined behavior sanitizer  \\
+{\ttfamily VT\+\_\+\+WERROR\+\_\+\+ENABLED }  &0  &Treat all warnings as errors  \\
+{\ttfamily VT\+\_\+\+POOL\+\_\+\+ENABLED }  &1  &Use memory pool in {\itshape vt} for message allocation  \\
+{\ttfamily VT\+\_\+\+FCONTEXT\+\_\+\+ENABLED}  &0  &Force use of fcontext for threading  \\
+{\ttfamily VT\+\_\+\+ZOLTAN\+\_\+\+ENABLED }  &0  &Build with Zoltan enabled for {\ttfamily Zoltan\+LB} support  \\
+{\ttfamily ZOLTAN\+\_\+\+DIR }  &$<$empty$>$  &Directory pointing to Zoltan installation  \\
+{\ttfamily VT\+\_\+\+MPI\+\_\+\+GUARD\+\_\+\+ENABLED }  &0  &Guards against mis-\/use of MPI calls in code using {\itshape vt}  \\
+{\ttfamily VT\+\_\+\+EXTENDED\+\_\+\+TESTS\+\_\+\+ENABLED}  &1  &Build with full, extended testing  \\
+{\ttfamily VT\+\_\+\+UNITY\+\_\+\+BUILD\+\_\+\+ENABLED}  &0  &Build with Unity/\+\+Jumbo mode enabled (requires CMake \texorpdfstring{$>$}{>}= 3.\+16)  \\
+{\ttfamily VT\+\_\+\+PRODUCTION\+\_\+\+BUILD\+\_\+\+ENABLED}  &0  &Disable assertions and debug prints at compile time  \\
+{\ttfamily VT\+\_\+\+DIAGNOSTICS\+\_\+\+ENABLED}  &1  &Enable VT component diagnostics for performance analysis  \\
+{\ttfamily VT\+\_\+\+DIAGNOSTICS\+\_\+\+RUNTIME\+\_\+\+ENABLED}  &0  &Enable VT component diagnostics at runtime by default  \\
+{\ttfamily VT\+\_\+\+DEBUG\+\_\+\+VERBOSE}  &$<$empty$>$  &Enable VT verbose debug prints at compile-\/time  \\
+{\ttfamily VT\+\_\+\+TESTS\+\_\+\+NUM\+\_\+\+NODES}  &$<$empty$>$  &Maximum number of nodes used for tests. If empty, then the default value detected by CMake is used  \\
+{\ttfamily VT\+\_\+\+NO\+\_\+\+COLOR\+\_\+\+ENABLED}  &0  &Set {\ttfamily -\/-\/vt\+\_\+no\+\_\+color} flag to true by default  \\
+{\ttfamily BUILD\+\_\+\+SHARED\+\_\+\+LIBS}  &0  &Build VT as shared library  \\
+\end{DoxyTable}
+
+
+With these set, invoke the script with two arguments:\+ the path to the {\itshape vt} root directory and the build path. Here\textquotesingle{}s an example assuming that {\itshape vt} is cloned into {\ttfamily /\+usr/\+src/\+vt} with trace enabled in debug mode.
+
+{\bfseries{Usage for building:\+}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ vt/ci/build\_cpp.sh\ <full-\/path-\/to-\/vt-\/source>\ <full-\/path-\/to-\/build-\/dir>}
+
+\end{DoxyCode}
+
+
+{\bfseries{Example:\+}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ cd\ /usr/src}
+\DoxyCodeLine{\$\ git\ clone\ git@github.com:DARMA-\/tasking/vt}
+\DoxyCodeLine{\$\ VT\_TRACE\_ENABLED=1\ CMAKE\_BUILD\_TYPE=Debug\ /usr/src/vt/ci/build\_cpp.sh\ /usr/src/vt\ /usr/build/vt}
+
+\end{DoxyCode}
+\hypertarget{vt-build_docker-build}{}\doxysubsubsection{\texorpdfstring{Building with {\ttfamily docker} containerization}{Building with {\ttfamily docker} containerization}}\label{vt-build_docker-build}
+The easiest way to build {\itshape vt} is by using {\ttfamily docker} with the available containers that contain the proper compilers, MPI, and all other dependencies. First, install {\ttfamily docker} on the system. On some systems, {\ttfamily docker compose} might also need to be installed.
+
+The {\ttfamily docker} builds are configured through {\ttfamily docker compose} to use a shared, cached filesystem mount with the host for {\ttfamily ccache} to enable fast re-\/builds.
+
+For {\ttfamily docker compose}, the following variables can be set to configure the build. One may configure the architecture, compiler type (GNU, Clang, Intel, Nvidia) and compiler version, Linux distro (ubuntu or alpine), and distro version.
+
+The default set of the docker configuration options is located in {\ttfamily vt/\+.env}, which {\ttfamily docker compose} will read.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Variables:}
+\DoxyCodeLine{\#\ \ \ ARCH=\{amd64,\ arm64v8,\ ...\}}
+\DoxyCodeLine{\#\ \ \ COMPILER\_TYPE=\{gnu,\ clang,\ intel,\ nvidia\}}
+\DoxyCodeLine{\#\ \ \ COMPILER=\{gcc-\/9,\ gcc-\/10,}
+\DoxyCodeLine{\#\ \ \ \ \ \ \ \ \ \ \ \ \ clang-\/8,\ clang-\/9,\ clang-\/10,}
+\DoxyCodeLine{\#\ \ \ \ \ \ \ \ \ \ \ \ \ icpc,\ icpx,}
+\DoxyCodeLine{\#\ \ \ \ \ \ \ \ \ \ \ \ \ nvcc-\/11,\ nvcc-\/11.2\}}
+\DoxyCodeLine{\#\ \ \ REPO=lifflander1/vt}
+\DoxyCodeLine{\#\ \ \ UBUNTU=\{18.04,\ 20.04,\ 22.04\}}
+\DoxyCodeLine{\#\ \ \ ULIMIT\_CORE=0}
+\DoxyCodeLine{\#}
+\DoxyCodeLine{\#\ DARMA/vt\ Configuration\ Variables:}
+\DoxyCodeLine{\#\ \ \ VT\_LB=1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ load\ balancing}
+\DoxyCodeLine{\#\ \ \ VT\_TRACE=0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ tracing}
+\DoxyCodeLine{\#\ \ \ VT\_MIMALLOC=0\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ mimalloc\ memory\ allocator}
+\DoxyCodeLine{\#\ \ \ VT\_DOXYGEN\_ENABLED=0\ \ \ \ \ \ \#\ Enable\ doxygen\ build}
+\DoxyCodeLine{\#\ \ \ VT\_TRACE\_RT=0\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ tracing\ at\ runtime\ (for\ testing)}
+\DoxyCodeLine{\#\ \ \ VT\_ASAN=0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ address\ sanitizer}
+\DoxyCodeLine{\#\ \ \ VT\_UBSAN=0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ undefined\ behavior\ sanitizer}
+\DoxyCodeLine{\#\ \ \ VT\_WERROR=1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Treat\ all\ warnings\ as\ errors}
+\DoxyCodeLine{\#\ \ \ VT\_EXTENDED\_TESTS=1\ \ \ \ \ \ \ \#\ Build\ all\ the\ extended\ testing}
+\DoxyCodeLine{\#\ \ \ VT\_ZOLTAN=0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Build\ with\ Zoltan\ enabled}
+\DoxyCodeLine{\#\ \ \ VT\_UNITY\_BUILD=0\ \ \ \ \ \ \ \ \ \ \#\ Build\ with\ Unity/Jumbo\ mode\ enabled}
+\DoxyCodeLine{\#\ \ \ VT\_FCONTEXT=0\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Force\ use\ of\ fcontext\ for\ threading}
+\DoxyCodeLine{\#\ \ \ VT\_DIAGNOSTICS=1\ \ \ \ \ \ \ \ \ \ \#\ Build\ with\ diagnostics\ enabled}
+\DoxyCodeLine{\#\ \ \ VT\_DIAGNOSTICS\_RUNTIME=0\ \ \#\ Enable\ diagnostics\ at\ runtime\ by\ default}
+\DoxyCodeLine{\#\ \ \ BUILD\_TYPE=release\ \ \ \ \ \ \ \ \#\ CMake\ build\ type}
+\DoxyCodeLine{\#\ \ \ VT\_CODE\_COVERAGE=0\ \ \ \ \ \ \ \ \ \ \ \#\ Enable\ generation\ of\ code\ coverage\ reports}
+\DoxyCodeLine{\#\ \ \ VT\_DEBUG\_VERBOSE\ \ \ \ \ \ \ \ \ \ \#\ Enable\ verbose\ debug\ prints\ at\ compile-\/time}
+\DoxyCodeLine{\#\ \ \ VT\_NO\_COLOR\_ENABLED=0\ \ \ \ \ \#\ Set\ -\/-\/vt\_no\_color\ flag\ to\ true\ by\ default}
+\DoxyCodeLine{\#\ \ \ VT\_BUILD\_SHARED\_LIBS=0\ \ \ \ \#\ Build\ VT\ as\ shared\ library}
+
+\end{DoxyCode}
+
+
+With these set, one may run the following for a non-\/interactive build with ubuntu. Or, to speed up the build process, the base container can be pulled for many of the common configurations:\+ {\ttfamily docker compose pull ubuntu-\/cpp}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ cd\ vt}
+\DoxyCodeLine{\$\ docker\ compose\ run\ -\/e\ BUILD\_TYPE=debug\ -\/e\ VT\_TRACE=1\ ubuntu-\/cpp}
+
+\end{DoxyCode}
+
+
+Or, alternatively, run a non-\/interactive build with alpine:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ cd\ vt}
+\DoxyCodeLine{\$\ docker\ compose\ run\ -\/e\ BUILD\_TYPE=debug\ -\/e\ VT\_TRACE=1\ alpine-\/cpp}
+
+\end{DoxyCode}
+
+
+For an interactive build with ubuntu, where one can build, debug, and run {\ttfamily valgrind}, etc:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ cd\ vt}
+\DoxyCodeLine{\$\ docker\ compose\ run\ -\/e\ BUILD\_TYPE=debug\ -\/e\ VT\_TRACE=1\ ubuntu-\/cpp-\/interactive}
+\DoxyCodeLine{\#\ /vt/ci/build\_cpp.sh\ /vt\ /build}
+\DoxyCodeLine{\#\ /vt/ci/test\_cpp.sh\ /vt\ /build}
+\DoxyCodeLine{\#\ /vt/ci/build\_vt\_sample.sh\ /vt\ /build}
+
+\end{DoxyCode}
+
+
+The same call applies to alpine distro builds if you swap {\ttfamily ubuntu-\/cpp-\/interactive} for {\ttfamily alpine-\/cpp-\/interactive}.
+
+For more detailed information on configuring the docker build, read the documentation in {\ttfamily vt/\+docker-\/compose.\+yml}.\hypertarget{vt-build_test-vt}{}\doxysubsection{\texorpdfstring{Testing}{Testing}}\label{vt-build_test-vt}
+After {\itshape vt} is built successfully, one may invoke the tests several ways. One may run {\ttfamily make test} or {\ttfamily ninja test} (depending on the generator used) or {\ttfamily ctest}, to run all the tests. Alternatively, the tests can be run automatically from the CI script:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ vt/ci/test\_cpp.sh\ <full-\/path-\/to-\/vt-\/source>\ <full-\/path-\/to-\/build-\/dir>}
+
+\end{DoxyCode}
+ 

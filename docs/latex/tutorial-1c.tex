@@ -1,0 +1,113 @@
+\doxysubsection{Learning about serialization }
+\hypertarget{tutorial-1c}{}\label{tutorial-1c}\index{Learning about serialization@{Learning about serialization}}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ Some\ user\ defined\ data\ structures}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Particle\ \{}
+\DoxyCodeLine{\ \ Particle()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\ \ Particle(\textcolor{keywordtype}{double}\ in\_x,\ \textcolor{keywordtype}{double}\ in\_y,\ \textcolor{keywordtype}{double}\ in\_z)}
+\DoxyCodeLine{\ \ \ \ :\ x(in\_x),\ y(in\_y),\ z(in\_z)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Non-\/message\ types\ can\ use\ serializers\ like\ this.}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ s\ |\ x\ |\ y\ |\ z;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{double}\ x,\ y,\ z;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }Data\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ a;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ s\ |\ a;}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ TODO\ -\/\ show\ data\ with\ non-\/intrusive\ serialization}}
+\DoxyCodeLine{\textcolor{comment}{//\ TODO\ -\/\ show\ data\ that\ does\ not\ need\ serialization}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\ Base\ Message}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }ParticleMsg\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}}\ \{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }MessageParentType\ =\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{::vt::Message}};\ \textcolor{comment}{//\ base\ message}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{message__serialize_8h_a54128d5338aaa9c918179826085e13d1}{vt\_msg\_serialize\_required}}();\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mark\ serialization\ mode}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ParticleMsg()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ParticleMsg(\textcolor{keywordtype}{int}\ in\_x,\ \textcolor{keywordtype}{int}\ in\_y,\ \textcolor{keywordtype}{int}\ in\_z)}
+\DoxyCodeLine{\ \ \ \ :\ x(in\_x),\ y(in\_y),\ z(in\_z)}
+\DoxyCodeLine{\ \ \{\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ Implement\ a\ serialize\ method\ so\ the\ std::vector\ and\ pointer\ are\ properly}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ serialization\ on\ the\ send.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a3ae835131252c03a5e8eddde3bbc0f12}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ MessageParentType::serialize(s);\ \ \ \ \textcolor{comment}{//\ ensure\ parent\ is\ serialized\ consistently}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ s\ |\ particles;}
+\DoxyCodeLine{\ \ \ \ s\ |\ x\ |\ y\ |\ z;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Serialize\ a\ pointer\ by\ first\ serializing\ whether\ it\ is\ non-\/null\ and\ then}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ the\ actual\ value\ if\ it's\ not\ non-\/null}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{bool}\ has\_a\ =\ a\ !=\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\ \ \ \ s\ |\ has\_a;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (has\_a)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ s\ |\ *a;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ std::vector<Particle>\ particles;}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ x\ =\ 0,\ y\ =\ 0,\ z\ =\ 0;}
+\DoxyCodeLine{\ \ Data*\ a\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Forward\ declaration\ for\ the\ active\ message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgSerialA(ParticleMsg*\ msg);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Tutorial\ code\ to\ demonstrate\ serialization\ in\ active\ message\ sends}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ activeMessageSerialization()\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{\ \ (void)num\_nodes;\ \ \textcolor{comment}{//\ don't\ warn\ about\ unused\ variable}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ The\ theMsg()-\/>sendMsg(..)\ will\ serialize\ the\ message\ sent\ to\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ destination\ node\ if\ it\ has\ a\ serialize\ method.\ If\ not,\ it\ will\ send\ the}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ message\ as\ if\ it\ is\ sent\ directly\ the\ sendMsg.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (this\_node\ ==\ 0)\ \{}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \textcolor{keyword}{const}\ to\_node\ =\ 1;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ \doxymbox{\hyperlink{namespacevt_a948c0bbe39c34326b5453065a461ebaa}{::vt::makeMessage<ParticleMsg>}}(1,2,3);}
+\DoxyCodeLine{\ \ \ \ msg-\/>particles.push\_back(Particle\{10,11,12\});}
+\DoxyCodeLine{\ \ \ \ msg-\/>particles.push\_back(Particle\{13,14,15\});}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{::vt::theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<msgSerialA>(to\_node,\ msg);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Message\ handler}}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ msgSerialA(ParticleMsg*\ msg)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>particles.size()\ ==\ 2,\ \textcolor{stringliteral}{"{}Should\ be\ two\ particles"{}});}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(msg-\/>x\ ==\ 1\ \&\&\ msg-\/>y\ ==\ 2\ \&\&\ msg-\/>z\ ==\ 3,\ \textcolor{stringliteral}{"{}Values\ x,y,z\ incorrect"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ cur\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{::vt::theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*\ Node\ 0\ sends\ MyMsg\ to\ node\ 1\ in\ the\ above\ code\ so\ this\ should\ execute\ on}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ *\ node\ 1\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(cur\_node\ ==\ 1,\ \textcolor{stringliteral}{"{}This\ handler\ should\ execute\ on\ node\ 1"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ ::fmt::print(\textcolor{stringliteral}{"{}msgSerialA:\ triggered\ on\ node=\{\}\(\backslash\)n"{}},\ cur\_node);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

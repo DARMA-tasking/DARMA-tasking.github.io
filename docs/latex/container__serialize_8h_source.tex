@@ -1,0 +1,136 @@
+\doxysection{container\+\_\+serialize.\+h}
+\hypertarget{container__serialize_8h_source}{}\label{container__serialize_8h_source}\index{lib/checkpoint/src/checkpoint/container/container\_serialize.h@{lib/checkpoint/src/checkpoint/container/container\_serialize.h}}
+\doxymbox{\hyperlink{container__serialize_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container\_serialize.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_CONTAINER\_SERIALIZE\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_CONTAINER\_SERIALIZE\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lib_2checkpoint_2src_2checkpoint_2common_8h}{checkpoint/common.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{serializers__headers_8h}{checkpoint/serializers/serializers\_headers.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ Template\ to\ determine\ the\ clean\ value\ type\ for\ a\ container}}
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1detail}{detail}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1detail_1_1get__value__type}{get\_value\_type}}\ :\ std::false\_type\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structcheckpoint_1_1detail_1_1get__value__type_a527b130d11e18fceb0cedd5de9fa9dc7}{value\_type}}\ =\ \textcolor{keyword}{typename}\ T::value\_type;}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1detail_1_1get__value__type}{get\_value\_type}}<}
+\DoxyCodeLine{00062\ \ \ T,\ \doxymbox{\hyperlink{namespacestd}{std}}::void\_t<typename\ T::mapped\_type>}
+\DoxyCodeLine{00063\ >\ :\ std::true\_type\ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structcheckpoint_1_1detail_1_1get__value__type_3_01_t_00_01std_1_1void__t_3_01typename_01_t_1_1mapped__type_01_4_01_4_a383356068bb2827ab45ea732f8b12595}{value\_type}}\ =\ std::pair<typename\ T::key\_type,\ typename\ T::mapped\_type>;}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \}\ \textcolor{comment}{/*\ end\ detail\ namespace\ */}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT>}
+\DoxyCodeLine{00070\ \textcolor{keyword}{inline}\ \textcolor{keyword}{typename}\ ContainerT::size\_type}
+\DoxyCodeLine{00071\ \doxymbox{\hyperlink{namespacecheckpoint_a3359595d5a4c6fcf5fc95069c71f869b}{serializeContainerSize}}(Serializer\&\ s,\ ContainerT\&\ cont)\ \{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{typename}\ ContainerT::size\_type\ cont\_size\ =\ cont.size();}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordflow}{if}\ (s.isFootprinting())\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ s.countBytes(cont);}
+\DoxyCodeLine{00075\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ s\ |\ cont\_size;}
+\DoxyCodeLine{00077\ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{return}\ cont\_size;}
+\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT>}
+\DoxyCodeLine{00082\ \textcolor{keyword}{inline}\ \textcolor{keyword}{typename}\ ContainerT::size\_type}
+\DoxyCodeLine{00083\ \doxymbox{\hyperlink{namespacecheckpoint_abb25020fd55429c701342e79205a8d9a}{serializeContainerCapacity}}(Serializer\&\ s,\ ContainerT\&\ cont)\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{typename}\ ContainerT::size\_type\ cont\_capacity\ =\ cont.capacity();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordflow}{if}\ (!s.isFootprinting())\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ s\ |\ cont\_capacity;}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{return}\ cont\_capacity;}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer,\ \textcolor{keyword}{typename}\ ContainerT>}
+\DoxyCodeLine{00092\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacecheckpoint_a9c880ba9bb9a106e784e06554b2fbcf2}{serializeContainerElems}}(Serializer\&\ s,\ ContainerT\&\ cont)\ \{}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Without\ error\ checking,\ we\ can\ easily\ iterate\ and\ serialize\ by\ iterating}}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ through.\ However,\ since\ we\ are\ modifying\ the\ type\ to\ eliminate\ const\ from}}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ std::pair<X\ const,\ Y>,\ error\ checking\ identifies\ the\ type\ mismatch.\ Here,}}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ we\ adjust\ the\ types\ to\ align\ with\ the\ serialization\ process\ based\ on\ the}}
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ resulting\ value\_type.\ For\ instance,\ in\ the\ case\ of\ std::set,\ the\ value\_type}}
+\DoxyCodeLine{00098\ \ \ \textcolor{comment}{//\ is\ always\ const\ because\ the\ elements\ cannot\ be\ altered,\ necessitating\ the}}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ use\ of\ const\_cast\ to\ remove\ the\ const\ qualifier.}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#if\ defined(SERIALIZATION\_ERROR\_CHECKING)}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{using\ }ValueT\ =\ \textcolor{keyword}{typename}\ \doxymbox{\hyperlink{structcheckpoint_1_1detail_1_1get__value__type_a527b130d11e18fceb0cedd5de9fa9dc7}{detail::get\_value\_type<ContainerT>::value\_type}};}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ elm\ :\ cont)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same<ValueT\&,\ \textcolor{keyword}{decltype}(elm)>::value)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \textcolor{comment}{//\ Case\ where\ get\_value\_type<ContainerT>::value\_type\ matches\ the}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{comment}{//\ value\_type\ of\ the\ container\ (no\ type\ change\ is\ necessary)}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ s\ |\ elm;}
+\DoxyCodeLine{00108\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same<ValueT\ \textcolor{keyword}{const}\&,\ \textcolor{keyword}{decltype}(elm)>::value)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{comment}{//\ Case\ where\ get\_value\_type<ContainerT>::value\_type\ just\ has\ an\ added}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \textcolor{comment}{//\ const,\ this\ occurs\ for\ \(\backslash\)c\ std::set<T>,\ because\ the\ elements\ can\ not\ be}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \textcolor{comment}{//\ modified\ during\ iteration,\ but\ the\ deserialization\ uses\ the\ non-\/const}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \textcolor{comment}{//\ type\ to\ reconstruct\ value\_type\ and\ put\ it\ in\ the\ container}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ s\ |\ \textcolor{keyword}{const\_cast<}ValueT\&\textcolor{keyword}{>}(elm);}
+\DoxyCodeLine{00114\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \textcolor{comment}{//\ Case\ where\ get\_value\_type<ContainerT>::value\_type\ has\ a\ const\ removed}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{comment}{//\ inside\ a\ pair,\ occurring\ for\ std::map,\ which\ can't\ be\ handled\ with}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \textcolor{comment}{//\ const\_cast.\ Thus,\ we\ reinterpret\_cast\ the\ const\ out\ for\ error\ checking.}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ s\ |\ \textcolor{keyword}{reinterpret\_cast<}ValueT\&\textcolor{keyword}{>}(elm);}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ elm\ :\ cont)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ s\ |\ elm;}
+\DoxyCodeLine{00124\ \ \ \}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint\ */}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_CONTAINER\_CONTAINER\_SERIALIZE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

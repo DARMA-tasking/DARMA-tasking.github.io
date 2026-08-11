@@ -1,0 +1,313 @@
+\doxysection{scheduler.\+h}
+\hypertarget{scheduler_8h_source}{}\label{scheduler_8h_source}\index{src/vt/scheduler/scheduler.h@{src/vt/scheduler/scheduler.h}}
+\doxymbox{\hyperlink{scheduler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scheduler.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_SCHEDULER\_SCHEDULER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_SCHEDULER\_SCHEDULER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{queue_8h}{vt/scheduler/queue.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{priority__queue_8h}{vt/scheduler/priority\_queue.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{prioritized__work__unit_8h}{vt/scheduler/prioritized\_work\_unit.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{work__unit_8h}{vt/scheduler/work\_unit.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{suspended__units_8h}{vt/scheduler/suspended\_units.h}}"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{timing_8h}{vt/timing/timing.h}}"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{async__op__wrapper_8fwd_8h}{vt/messaging/async\_op\_wrapper.fwd.h}}"{}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_aa550774c1c9c668176ce535fd7d58fb0}{runSchedulerThrough}}(\doxymbox{\hyperlink{namespacevt_aebb04f13dc1ec6b4c3add2cd87295b13}{EpochType}}\ \doxymbox{\hyperlink{namespacevt_1_1epoch}{epoch}});}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{runInEpochRooted}}(Callable\&\&\ fn);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{runInEpochRooted}}(std::string\ \textcolor{keyword}{const}\&\ label,\ Callable\&\&\ fn);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{runInEpochCollective}}(Callable\&\&\ fn);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{runInEpochCollective}}(std::string\ \textcolor{keyword}{const}\&\ label,\ Callable\&\&\ fn);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1messaging}{messaging}}\ \{}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00082\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{MsgSharedPtr}};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::messaging\ */}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1sched}{sched}}\ \{}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{struct\ }ThreadManager;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616}{SchedulerEvent}}\ \{}
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616a8bbf26915a1dd443fc831173eef2a5c2}{BeginIdle}}\ \ \ \ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00092\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616a18303c08c4ee52b363809a1b302fd807}{EndIdle}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,}
+\DoxyCodeLine{00093\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616a72d613b13201f766d3fc9d15c41ad6b5}{BeginIdleMinusTerm}}\ \ \ =\ 2,}
+\DoxyCodeLine{00094\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616addd8bd380a885eec328be20b317db5f1}{EndIdleMinusTerm}}\ \ \ \ \ =\ 3,}
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616aef46509b0036c1d7ed074229a9d44fdf}{BeginSchedulerLoop}}\ \ \ =\ 4,}
+\DoxyCodeLine{00096\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616ac5e4d564fc096f6e9e7a4e43347dc98c}{EndSchedulerLoop}}\ \ \ \ \ =\ 5,}
+\DoxyCodeLine{00097\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616aa75e330bc5c4f9fd26dad998d5b20df4}{PendingSchedulerLoop}}\ =\ 6,}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616a51c718670af733bf6cdb3c39ed9ce42d}{LastSchedulerEvent}}\ \ \ =\ 6,}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54b61f09996bca1d5ed5332e1a4e2b60}{Scheduler}}\ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<Scheduler>\ \{}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad40b8136b7810da5bab9b27e317e4eb3}{SchedulerEventType}}\ \ \ =\ \doxymbox{\hyperlink{namespacevt_1_1sched_a54756ec39b60951d6765fcfa692d1616}{SchedulerEvent}};}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aa0c06d6e1c31a5f1c3db474036ad7d29}{TriggerType}}\ \ \ \ \ \ \ \ \ \ =\ std::function<void()>;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a0b9fe2a5ee31ca84fa52764a126ad666}{TriggerContainerType}}\ =\ std::list<TriggerType>;}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a68203230dc48285d3d50bbb363ed267b}{EventTriggerContType}}\ =\ std::vector<TriggerContainerType>;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a954897a33d52184963961e284b326a32}{RunnablePtrType}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1runnable_1_1_runnable_new}{runnable::RunnableNew}}*;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard_ae27a3a8d8d60384f8d94475926bbd19e}{SchedulerLoopGuard}}\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard_ae27a3a8d8d60384f8d94475926bbd19e}{SchedulerLoopGuard}}(\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54b61f09996bca1d5ed5332e1a4e2b60}{Scheduler}}*\ scheduler);}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard_a99f568ec1bd01de497ee706c005087c8}{\string~SchedulerLoopGuard}}();}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54b61f09996bca1d5ed5332e1a4e2b60}{Scheduler}}*\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_1_1_scheduler_loop_guard_a5af77be3e6a48d4d21c6936c8148a35f}{scheduler\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00125\ \ \ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a398229f29b0940cea85aba4bae78b0be}{UnitType}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_unit}{PriorityUnit}};}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a398229f29b0940cea85aba4bae78b0be}{UnitType}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{namespacevt_1_1sched_add62c53b19411bf2779f776b21c512d3}{Unit}};}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54b61f09996bca1d5ed5332e1a4e2b60}{Scheduler}}();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a60d76cb810df35be76d414226c24d6c4}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Scheduler"{}};\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a42835a58f541dd65cecd4d393fe78a81}{preDiagnostic}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a286486c3abedb8cb189664d835acbf32}{startup}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad1b05fb0d94a3e707d7733ef5206b7c8}{checkTermSingleNode}}();}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aa1e901f6264aa52d918f4c64802e54b5}{shouldCallProgress}}(}
+\DoxyCodeLine{00155\ \ \ \ \ int32\_t\ processed\_since\_last\_progress,\ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ time\_since\_last\_progress}
+\DoxyCodeLine{00156\ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a991208100bd8be482164303b7d8135ad}{runSchedulerOnceImpl}}(\textcolor{keywordtype}{bool}\ msg\_only\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a0b2421b15792021ffc74237ccafb3649}{runProgress}}(\textcolor{keywordtype}{bool}\ msg\_only\ =\ \textcolor{keyword}{false},\ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ current\_time\ =\ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\{0.0\}\ );}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a9c130fc0ccbf237633420a7aa35069a4}{runSchedulerWhile}}(std::function<\textcolor{keywordtype}{bool}()>\ cond);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a818711c413c1ff0e843fffa877c52c78}{registerTrigger}}(\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad40b8136b7810da5bab9b27e317e4eb3}{SchedulerEventType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1event}{event}},\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aa0c06d6e1c31a5f1c3db474036ad7d29}{TriggerType}}\ trigger);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ac6faee91832e52305c2e6ab28e1b3040}{registerTriggerOnce}}(}
+\DoxyCodeLine{00210\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad40b8136b7810da5bab9b27e317e4eb3}{SchedulerEventType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1event}{event}},\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aa0c06d6e1c31a5f1c3db474036ad7d29}{TriggerType}}\ trigger}
+\DoxyCodeLine{00211\ \ \ );}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1bbc574a084b361bf0c88d24882ef08b}{triggerEvent}}(\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad40b8136b7810da5bab9b27e317e4eb3}{SchedulerEventType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1event}{event}});}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ac7a9512a4a616d51915d5dfee84ff986}{hasSchedRun}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad67cd334d571ced5aa2ae2ffc6a8bec3}{has\_executed\_}};\ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ RunT>}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a768062132bfdc473b84722a3d51c26f3}{enqueue}}(RunT\ r);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00243\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ RunT>}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a768062132bfdc473b84722a3d51c26f3}{enqueue}}(\doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ priority,\ RunT\ r);}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a48a6fdb0c7384df09b467c0e68ca8e6f}{printMemoryUsage}}();}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00257\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ RunT>}
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a768062132bfdc473b84722a3d51c26f3}{enqueue}}(\textcolor{keywordtype}{bool}\ is\_term,\ RunT\ r);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00267\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ RunT>}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a768062132bfdc473b84722a3d51c26f3}{enqueue}}(MsgT*\ msg,\ RunT\ r);}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00277\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT,\ \textcolor{keyword}{typename}\ RunT>}
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1d0bebe8809636fcd1bd3d66cb7c40b7}{enqueue}}(\doxymbox{\hyperlink{structvt_1_1messaging_1_1_msg_shared_ptr}{messaging::MsgSharedPtr<MsgT>}}\ \textcolor{keyword}{const}\&\ msg,\ RunT\ r);}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00285\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a6ee315ffd90f37a277bb2b5622af1f4f}{workQueueSize}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}}.size();\ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a49bfd7d4a6d187c6c995b84885a1ed19}{workQueueEmpty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}}.empty();\ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a047e7a211a220c2729c51c36271c7bf1}{isIdle}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}}.empty();\ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a3229e007ac15bfb1d337428a52157817}{isIdleMinusTerm}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}}.size()\ ==\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a4c70a87a9b15558a6ed628272a1db0fd}{num\_term\_msgs\_}};\ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00315\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a9d29a90bbdd1cadd49a4d53415bfdb1a}{suspend}}(}
+\DoxyCodeLine{00316\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a7f6440d42e6f07f004e86e4756e37d33}{ThreadIDType}}\ tid,\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a954897a33d52184963961e284b326a32}{RunnablePtrType}}\ \doxymbox{\hyperlink{namespacevt_1_1runnable}{runnable}},\ \doxymbox{\hyperlink{namespacevt_ae7ba24548b4bde4e61bd7e2a1607e8bb}{PriorityType}}\ p\ =\ default\_priority}
+\DoxyCodeLine{00317\ \ \ );}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aae177a07ed61e9de5caeab0fefef577a}{resume}}(\doxymbox{\hyperlink{namespacevt_a7f6440d42e6f07f004e86e4756e37d33}{ThreadIDType}}\ tid);}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00332\ \ \ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a6882d98a8bbc69eaaa5c328486e12553}{getRecentTime}}()\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_abe2c298f88eec4dd3a80f1f892e56959}{is\_recent\_time\_stale\_}})\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ace924a4463219cca2d4314c131a7002b}{recent\_time\_}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1timing_adb71f74fee337dab5a317e58e7d35b1d}{timing::getCurrentTime}}();}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_abe2c298f88eec4dd3a80f1f892e56959}{is\_recent\_time\_stale\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00336\ \ \ \ \ \}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ace924a4463219cca2d4314c131a7002b}{recent\_time\_}};}
+\DoxyCodeLine{00338\ \ \ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a6f2cfade939f1c02940938feac8be9f5}{setRecentTimeToStale}}()\ \{\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_abe2c298f88eec4dd3a80f1f892e56959}{is\_recent\_time\_stale\_}}\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00349\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a52248e77f8dcfe461c9613a7b62f1e4b}{getSchedulerDepth}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a48b47c91aecd2db61a68221e4d636bed}{in\_sched\_depth\_}};\ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(fcontext)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00357\ \ \ ThreadManager*\ getThreadManager();}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00361\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ac4221da465bbe5d3acaa56c8c099ef7b}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}}}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8d3ae065d92642e3b8cf928307c29369}{suspended\_}}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(fcontext)}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ |\ thread\_manager\_}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad67cd334d571ced5aa2ae2ffc6a8bec3}{has\_executed\_}}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a99754f7b43db03bf0c67ae64d99c86ff}{is\_idle}}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad8e195a880684117d7cbb988488c36ef}{is\_idle\_minus\_term}}}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a2cd57a3a421320e22d3ee8a6d47eb19e}{action\_depth\_}}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a48b47c91aecd2db61a68221e4d636bed}{in\_sched\_depth\_}}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a4c70a87a9b15558a6ed628272a1db0fd}{num\_term\_msgs\_}}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1f4ed72508099a9959a861f75e37f334}{event\_triggers}}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a6bd19949bf8d905ea48f59ed544f6424}{event\_triggers\_once}}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aba043e8bb57963e7a490376a06d0c96d}{last\_progress\_time\_}}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a0eba67280dfcfb4d1e612e4cf15b8c4b}{progress\_time\_enabled\_}}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a826e82af9529a9f2dd087e4b8c14be9d}{processed\_after\_last\_progress\_}}}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a49a7b0137e9096d9197d8a664eb28bf2}{last\_threshold\_memory\_usage\_}}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a034c9560a2d4d8f60b3ddab063abe16d}{threshold\_memory\_usage\_}}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54f31a009c8abdf8b9f220832b25f668}{last\_memory\_usage\_poll\_}}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a741c125ad6d0f15ee3b62ba2809be0ff}{special\_progress\_}}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ace924a4463219cca2d4314c131a7002b}{recent\_time\_}}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_abe2c298f88eec4dd3a80f1f892e56959}{is\_recent\_time\_stale\_}}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_acb82ca3c712cf5c36bce05c2ef8b53ad}{progressCount}}}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1b22d8a8efd0cb27fdba01ae616e060b}{workUnitCount}}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_afd3dfb9290dd31015056f4a89e447325}{queueSizeGauge}}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_adce0ae8437702f0aa29cbdea4fd58a12}{vtLiveTime}}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a89fb2b5f6ab5c29aed1db7a6a924eb13}{schedLoopTime}}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a5ccba45f9944b59236f7802f974b252e}{idleTime}}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a86c062f0d1dce9656dce8af9875cee73}{idleTimeMinusTerm}};}
+\DoxyCodeLine{00391\ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00400\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ac4d5c3a4baf7a6cb6bdc2e8dc1a3af91}{runWorkUnit}}(\doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a398229f29b0940cea85aba4bae78b0be}{UnitType}}\&\ work);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00409\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a24bc155e1e860c1c7723373128dfd90c}{progressMsgOnlyImpl}}(\doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ current\_time);}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00418\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a29bba6f371736bcfaf542c7d6f46ad30}{progressImpl}}(\doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ current\_time);}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#\ if\ vt\_check\_enabled(priorities)}}
+\DoxyCodeLine{00423\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_priority_queue}{PriorityQueue<UnitType>}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}};}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00425\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_queue}{Queue<UnitType>}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8176bae441897c36b86e3fb917496a7a}{work\_queue\_}};}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(fcontext)}}
+\DoxyCodeLine{00429\ \ \ std::unique\_ptr<ThreadManager>\ thread\_manager\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_suspended_units}{SuspendedUnits}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a8d3ae065d92642e3b8cf928307c29369}{suspended\_}};}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad67cd334d571ced5aa2ae2ffc6a8bec3}{has\_executed\_}}\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00435\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a99754f7b43db03bf0c67ae64d99c86ff}{is\_idle}}\ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00436\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ad8e195a880684117d7cbb988488c36ef}{is\_idle\_minus\_term}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00437\ \ \ \textcolor{comment}{//\ The\ depth\ of\ work\ action\ currently\ executing.}}
+\DoxyCodeLine{00438\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a2cd57a3a421320e22d3ee8a6d47eb19e}{action\_depth\_}}\ =\ 0;}
+\DoxyCodeLine{00440\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a48b47c91aecd2db61a68221e4d636bed}{in\_sched\_depth\_}}\ =\ 0;}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \textcolor{comment}{//\ The\ number\ of\ termination\ messages\ currently\ in\ the\ queue-\/-\/-\/they\ weakly}}
+\DoxyCodeLine{00443\ \ \ \textcolor{comment}{//\ imply\ idleness\ for\ the\ stake\ of\ termination}}
+\DoxyCodeLine{00444\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a4c70a87a9b15558a6ed628272a1db0fd}{num\_term\_msgs\_}}\ =\ 0;}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a68203230dc48285d3d50bbb363ed267b}{EventTriggerContType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1f4ed72508099a9959a861f75e37f334}{event\_triggers}};}
+\DoxyCodeLine{00447\ \ \ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a68203230dc48285d3d50bbb363ed267b}{EventTriggerContType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a6bd19949bf8d905ea48f59ed544f6424}{event\_triggers\_once}};}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \ \ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_aba043e8bb57963e7a490376a06d0c96d}{last\_progress\_time\_}}\ =\ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\{0.0\};}
+\DoxyCodeLine{00450\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a0eba67280dfcfb4d1e612e4cf15b8c4b}{progress\_time\_enabled\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00451\ \ \ int32\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a826e82af9529a9f2dd087e4b8c14be9d}{processed\_after\_last\_progress\_}}\ =\ 0;}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a49a7b0137e9096d9197d8a664eb28bf2}{last\_threshold\_memory\_usage\_}}\ =\ 0;}
+\DoxyCodeLine{00454\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a034c9560a2d4d8f60b3ddab063abe16d}{threshold\_memory\_usage\_}}\ =\ 0;}
+\DoxyCodeLine{00455\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a54f31a009c8abdf8b9f220832b25f668}{last\_memory\_usage\_poll\_}}\ =\ 0;}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a741c125ad6d0f15ee3b62ba2809be0ff}{special\_progress\_}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00458\ \ \ \doxymbox{\hyperlink{namespacevt_aaf5618f609a7df35c6076cac55ad567b}{TimeType}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_ace924a4463219cca2d4314c131a7002b}{recent\_time\_}};}
+\DoxyCodeLine{00459\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_abe2c298f88eec4dd3a80f1f892e56959}{is\_recent\_time\_stale\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \textcolor{comment}{//\ Access\ to\ triggerEvent.}}
+\DoxyCodeLine{00462\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00463\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a9f5cbbc484d7f14f2ad0ee46d62dfb6e}{vt::runInEpochRooted}}(Callable\&\&\ fn);}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Callable>}
+\DoxyCodeLine{00466\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{namespacevt_a2fc4ef34f30b49a1781d765804bfadbb}{vt::runInEpochCollective}}(Callable\&\&\ fn);}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00469\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_acb82ca3c712cf5c36bce05c2ef8b53ad}{progressCount}};}
+\DoxyCodeLine{00470\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a6c0984aa1f1ab3c7fdd036834979bd88}{diagnostic::Counter}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a1b22d8a8efd0cb27fdba01ae616e060b}{workUnitCount}};}
+\DoxyCodeLine{00471\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_af09df4a1033f953561bd8cdcd32deb08}{diagnostic::Gauge}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_afd3dfb9290dd31015056f4a89e447325}{queueSizeGauge}};}
+\DoxyCodeLine{00472\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a68773369a594fd417b291bd59321ea98}{diagnostic::Timer}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_adce0ae8437702f0aa29cbdea4fd58a12}{vtLiveTime}};}
+\DoxyCodeLine{00473\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a68773369a594fd417b291bd59321ea98}{diagnostic::Timer}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a89fb2b5f6ab5c29aed1db7a6a924eb13}{schedLoopTime}};}
+\DoxyCodeLine{00474\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a68773369a594fd417b291bd59321ea98}{diagnostic::Timer}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a5ccba45f9944b59236f7802f974b252e}{idleTime}};}
+\DoxyCodeLine{00475\ \ \ \doxymbox{\hyperlink{namespacevt_1_1diagnostic_a68773369a594fd417b291bd59321ea98}{diagnostic::Timer}}\ \doxymbox{\hyperlink{structvt_1_1sched_1_1_scheduler_a86c062f0d1dce9656dce8af9875cee73}{idleTimeMinusTerm}};}
+\DoxyCodeLine{00476\ \};}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \}\}\ \textcolor{comment}{//end\ namespace\ vt::sched}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \textcolor{keyword}{extern}\ sched::Scheduler*\ \doxymbox{\hyperlink{namespacevt_a4508b38e6ab664b64f1415aecbb83571}{theSched}}();}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \}\ \ \textcolor{comment}{//end\ namespace\ vt}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{scheduler_8impl_8h}{vt/scheduler/scheduler.impl.h}}"{}}}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_SCHEDULER\_SCHEDULER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

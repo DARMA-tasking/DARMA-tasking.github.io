@@ -1,0 +1,143 @@
+\doxysection{type\+\_\+registry.\+h}
+\hypertarget{type__registry_8h_source}{}\label{type__registry_8h_source}\index{lib/checkpoint/src/checkpoint/dispatch/type\_registry.h@{lib/checkpoint/src/checkpoint/dispatch/type\_registry.h}}
+\doxymbox{\hyperlink{type__registry_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\_registry.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/magistrate\ =>\ Serialization\ Library}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_TYPE\_REGISTRY\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_TYPE\_REGISTRY\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUG\_\_}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \#include\ <cstdlib>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \#include\ <cxxabi.h>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \#include\ <memory>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint}{checkpoint}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch}{dispatch}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry}{typeregistry}}\ \{}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUG\_\_}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{inline}\ std::string\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa2dadf5c548fb89df1ac165e46e3abb1}{demangle}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\ \{}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00064\ \ \ std::unique\_ptr<char,\ void\ (*)(\textcolor{keywordtype}{void}*)>\ res\{}
+\DoxyCodeLine{00065\ \ \ \ \ abi::\_\_cxa\_demangle(name,\ NULL,\ NULL,\ \&status),\ std::free}
+\DoxyCodeLine{00066\ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ success\ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{return}\ (status\ ==\ success)\ ?\ res.get()\ :\ name;}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{inline}\ std::string\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa2dadf5c548fb89df1ac165e46e3abb1}{demangle}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name)\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordflow}{return}\ name;}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ =\ std::uint32\_t;}
+\DoxyCodeLine{00081\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a0653822a423ca273bf2620cff70bc6d4}{TypeNames}}\ =\ std::unordered\_map<DecodedIndex,\ std::string>;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a0653822a423ca273bf2620cff70bc6d4}{TypeNames}}\&\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a43edc2c13c168c0a93275966cc67bbcb}{getRegisteredNames}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a0653822a423ca273bf2620cff70bc6d4}{TypeNames}}\ registered\_names;}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordflow}{return}\ registered\_names;}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a646c25282a166af8610eefbc67016221}{TypeIndex}}\ =\ std::uint16\_t;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a646c25282a166af8610eefbc67016221}{TypeIndex}}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}()\ \{}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a646c25282a166af8610eefbc67016221}{TypeIndex}}\ index\ =\ 0;}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordflow}{return}\ index++;}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a67d6f9e02562341bdb32fab71559c070}{DeadType}}\ =\ std::uint32\_t;}
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a67d6f9e02562341bdb32fab71559c070}{DeadType}}\ dead\_mask\ =\ 0xFF0000FF;}
+\DoxyCodeLine{00097\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a67d6f9e02562341bdb32fab71559c070}{DeadType}}\ dead\_mark\ =\ 0xDE0000AD;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_ad6c54e529f67d0cb0aca100f1595d002}{validateIndex}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ index)\ \{}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordflow}{return}\ dead\_mark\ ==\ (index\ \&\ dead\_mask);}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00104\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_a8eddeda9b18c2667b032d25a2b5bbceb}{Registrar}}\ \{}
+\DoxyCodeLine{00105\ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_a8eddeda9b18c2667b032d25a2b5bbceb}{Registrar}}()\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_ad2efba9399224c4fe27f1afdd89ecf0a}{index}}\ =\ (\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa75ef84e9b63a687784360ded2d56fe4}{getIndex}}()\ <<\ 8)\ |\ dead\_mark;}
+\DoxyCodeLine{00107\ \ \ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a43edc2c13c168c0a93275966cc67bbcb}{getRegisteredNames}}()[\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_ad2efba9399224c4fe27f1afdd89ecf0a}{index}}]\ =\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa2dadf5c548fb89df1ac165e46e3abb1}{demangle}}(\textcolor{keyword}{typeid}(ObjT).name());}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_ad2efba9399224c4fe27f1afdd89ecf0a}{index}};}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00114\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type}{Type}}\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type_ad6ffcb534a5000856120edd34ad04553}{idx}};}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00119\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type_ad6ffcb534a5000856120edd34ad04553}{Type<ObjT>::idx}}\ =\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar}{Registrar<ObjT>}}().\doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_registrar_ad2efba9399224c4fe27f1afdd89ecf0a}{index}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00122\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa6368a47718fd3d3b14939d5527a784e}{getTypeIdx}}()\ \{}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcheckpoint_1_1dispatch_1_1typeregistry_1_1_type_ad6ffcb534a5000856120edd34ad04553}{Type<ObjT>::idx}};}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{inline}\ std::string\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a804216fa8e98ba9f3d044fe4f54df993}{getTypeNameForIdx}}(\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa873c35983b65899447027a22cae4eed}{DecodedIndex}}\ \textcolor{keyword}{const}\ typeIdx)\ \{}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a43edc2c13c168c0a93275966cc67bbcb}{getRegisteredNames}}()[typeIdx];}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00131\ \textcolor{keyword}{inline}\ std::string\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a894198c870f13c0474e4310ffaadb100}{getTypeName}}()\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_a804216fa8e98ba9f3d044fe4f54df993}{getTypeNameForIdx}}(\doxymbox{\hyperlink{namespacecheckpoint_1_1dispatch_1_1typeregistry_aa6368a47718fd3d3b14939d5527a784e}{getTypeIdx<ObjT>}}());}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ checkpoint::dispatch::typeregistry\ */}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_SRC\_CHECKPOINT\_DISPATCH\_TYPE\_REGISTRY\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

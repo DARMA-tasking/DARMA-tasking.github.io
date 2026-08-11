@@ -1,0 +1,112 @@
+\doxysection{scatter.\+impl.\+h}
+\hypertarget{scatter_8impl_8h_source}{}\label{scatter_8impl_8h_source}\index{src/vt/collective/scatter/scatter.impl.h@{src/vt/collective/scatter/scatter.impl.h}}
+\doxymbox{\hyperlink{scatter_8impl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scatter.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_COLLECTIVE\_SCATTER\_SCATTER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_COLLECTIVE\_SCATTER\_SCATTER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{scatter_8h}{vt/collective/scatter/scatter.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{scatter__msg_8h}{vt/collective/scatter/scatter\_msg.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{context_8h}{vt/context/context.h}}"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective}{collective}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective_1_1scatter}{scatter}}\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MessageT,\ ActiveTypedFnType<MessageT>*\ f>}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a0873f5fd4b890ad95e6ed6c097efe8bd}{Scatter::scatter}}(}
+\DoxyCodeLine{00059\ \ \ std::size\_t\ \textcolor{keyword}{const}\&\ total\_size,\ std::size\_t\ \textcolor{keyword}{const}\&\ max\_proc\_size,}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a977d895e42999a4078c6705ac851f447}{FuncSizeType}}\ size\_fn,\ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a19da1fe0f7347a8e91f08b6a19fee781}{FuncDataType}}\ data\_fn}
+\DoxyCodeLine{00061\ )\ \{}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ num\_nodes\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a7f41071aadf6d5fa9e1b6c703c5ff19d}{getNumNodes}}();}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ elm\_size\ =\ max\_proc\_size;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ combined\_size\ =\ num\_nodes\ *\ elm\_size;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{auto}\ scatter\_msg\ =}
+\DoxyCodeLine{00066\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a02d4a45f1b229ac6fd5da4bf289d6654}{makeMessageSz<ScatterMsg>}}(combined\_size,\ combined\_size,\ elm\_size);}
+\DoxyCodeLine{00067\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(total\_size\ ==\ combined\_size,\ \textcolor{stringliteral}{"{}Sizes\ must\ be\ consistent"{}});}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(scatter\_msg.get())\ +\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_msg}{ScatterMsg}});}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ vt\_check\_enabled(memory\_pool)}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ remaining\_size\ =}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aab3530d89a64e5ea903b0ccf303ecbb7}{thePool}}()-\/>\doxymbox{\hyperlink{structvt_1_1pool_1_1_pool_a0ad85d6ace3fda593f75aed336b67b8b}{remainingSize}}(\textcolor{keyword}{reinterpret\_cast<}std::byte*\textcolor{keyword}{>}(scatter\_msg.get()));}
+\DoxyCodeLine{00072\ \ \ \doxymbox{\hyperlink{config__assert_8h_ae932792396d11439e4f28a59381f6dc8}{vtAssertInfo}}(}
+\DoxyCodeLine{00073\ \ \ \ \ remaining\_size\ >=\ combined\_size,\ \textcolor{stringliteral}{"{}Remaining\ size\ must\ be\ sufficient"{}},}
+\DoxyCodeLine{00074\ \ \ \ \ total\_size,\ combined\_size,\ remaining\_size,\ elm\_size}
+\DoxyCodeLine{00075\ \ \ );}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{auto}\ remaining\_size\ =\ elm\_size;}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00080\ \ \ \ \ terse,\ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a0873f5fd4b890ad95e6ed6c097efe8bd}{scatter}},}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{stringliteral}{"{}Scatter::scatter:\ total\_size=\{\},\ elm\_size=\{\},\ ScatterMsg=\{\},\ msg-\/ptr=\{\},\ "{}}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{stringliteral}{"{}ptr=\{\},\ remaining\_size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00083\ \ \ \ \ total\_size,\ elm\_size,\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_msg}{ScatterMsg}}),\ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(scatter\_msg.get()),}
+\DoxyCodeLine{00084\ \ \ \ \ \doxymbox{\hyperlink{debug__printconst_8h_a2a030f018eca8f4bd882d5cf74a80674}{print\_ptr}}(ptr),\ remaining\_size}
+\DoxyCodeLine{00085\ \ \ );}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ root\_node\ =\ 0;}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{auto}\ nptr\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a9df5022388117801e0e3735dad07ec66}{applyScatterRecur}}(root\_node,\ ptr,\ elm\_size,\ size\_fn,\ data\_fn);}
+\DoxyCodeLine{00088\ \ \ \doxymbox{\hyperlink{debug__print_8h_ab994f04eda64129ff010c6fcea609ecb}{vt\_debug\_print}}(}
+\DoxyCodeLine{00089\ \ \ \ \ verbose,\ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a0873f5fd4b890ad95e6ed6c097efe8bd}{scatter}},\ \textcolor{stringliteral}{"{}Scatter::scatter:\ incremented\ size=\{\}\(\backslash\)n"{}},\ nptr\ -\/\ ptr}
+\DoxyCodeLine{00090\ \ \ );}
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(nptr\ ==\ ptr\ +\ combined\_size,\ \textcolor{stringliteral}{"{}nptr\ must\ match\ size"{}});}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ handler\ =\ \doxymbox{\hyperlink{namespacevt_1_1auto__registry_a4fa21479ba39b8c493729b941f9f267b}{auto\_registry::makeScatterHandler<MessageT,\ f>}}();}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ this\_node\ =\ \doxymbox{\hyperlink{namespacevt_a26551fe0e6e6a1371111df5b12c7e92c}{theContext}}()-\/>\doxymbox{\hyperlink{structvt_1_1ctx_1_1_context_a0d52c263ce8516546a67443d9a86fa5f}{getNode}}();}
+\DoxyCodeLine{00094\ \ \ scatter\_msg-\/>user\_han\ =\ handler;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{if}\ (this\_node\ !=\ root\_node)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_aeafd31f866aeb4dc6fc2f6ee97136350}{theMsg}}()-\/>\doxymbox{\hyperlink{group__preregister_ga0162a39473e7f9b490a79a7983d949ac}{sendMsg}}<\doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_a96466ab88d5f8e69613c69e0e644e10c}{scatterHandler}}>(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ root\_node,\ scatter\_msg}
+\DoxyCodeLine{00098\ \ \ \ \ );}
+\DoxyCodeLine{00099\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1scatter_1_1_scatter_aa80a957377cce3126058f3d7d30d2fed}{scatterIn}}(scatter\_msg.get());}
+\DoxyCodeLine{00101\ \ \ \}}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::collective::scatter\ */}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_COLLECTIVE\_SCATTER\_SCATTER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

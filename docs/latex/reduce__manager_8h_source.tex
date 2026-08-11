@@ -1,0 +1,96 @@
+\doxysection{reduce\+\_\+manager.\+h}
+\hypertarget{reduce__manager_8h_source}{}\label{reduce__manager_8h_source}\index{src/vt/collective/reduce/reduce\_manager.h@{src/vt/collective/reduce/reduce\_manager.h}}
+\doxymbox{\hyperlink{reduce__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reduce\_manager.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_MANAGER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_MANAGER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{reduce__scope_8h}{vt/collective/reduce/reduce\_scope.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{tree_8h}{vt/collective/tree/tree.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective}{collective}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce}{reduce}}\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a28e777d1b70bc4e2d369db4ed3df76ab}{ReduceManager}}\ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_ae6d6635476f9d9f601d131a334ca3817}{ReducePtrType}}\ \ \ =\ std::unique\_ptr<Reduce>;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a2c340e5d3b12e4f2df64b9c1502445cf}{ReduceScopeType}}\ =\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder}{detail::ReduceScopeHolder<ReducePtrType>}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a28e777d1b70bc4e2d369db4ed3df76ab}{ReduceManager}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00079\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afa3c814ff0e1c7ef1a9f76ed4036512b}{global}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00088\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_ad502c08497db1a1d811e1cad034f4891}{getReducer}}(\doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope}{detail::ReduceScope}}\ \textcolor{keyword}{const}\&\ scope);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00097\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a712bf763fda2a663e87edc524f99839f}{getReducerObjGroup}}(\doxymbox{\hyperlink{namespacevt_a12be1886f47b4680f35092c4a4d60811}{ObjGroupProxyType}}\ \textcolor{keyword}{const}\&\ proxy);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_aa6a24ee9cccbc984031bc834471429a9}{getReducerVrtProxy}}(\doxymbox{\hyperlink{namespacevt_a4e4d92243748760daf2c2bd1d654a92a}{VirtualProxyType}}\ \textcolor{keyword}{const}\&\ proxy);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00115\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_afedfe0dbb9fcbe6120a310ac8f4ad9b0}{getReducerGroup}}(\doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{GroupType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1group}{group}});}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00127\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_ae154a987a32dfa8c86e0391a2915579d}{getReducerComponent}}(\doxymbox{\hyperlink{namespacevt_a3184e94499e9e1085c928c76f8db942e}{ComponentIDType}}\ \textcolor{keyword}{const}\&\ cid);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00135\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce}{Reduce}}*\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a4b81ceab5d9f081f393dd68cece25935}{makeReducerCollective}}();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a44fa84680d3b310f4cb3f6c776a31751}{makeReducerGroup}}(\doxymbox{\hyperlink{namespacevt_a1d1e5242e0b3eb8d99a36fe1fa134b7c}{GroupType}}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{namespacevt_1_1group}{group}},\ \doxymbox{\hyperlink{structvt_1_1collective_1_1tree_1_1_tree}{collective::tree::Tree}}*\ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1tree}{tree}});}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a7ee21e635c585acc7d7339911a0900eb}{reduceRootRecv}}(MsgT*\ msg);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ MsgT>}
+\DoxyCodeLine{00162\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a257d3445e311d1347a7e2f20a487d556}{reduceUpHan}}(MsgT*\ msg);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00165\ \ \ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a2c340e5d3b12e4f2df64b9c1502445cf}{ReduceScopeType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a8226dde1ab69b8332db65f558f405ad5}{reducers\_}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \doxymbox{\hyperlink{namespacevt_1_1collective_1_1reduce_1_1detail_a693224577ee1b246a4153d138faef551}{detail::UserIDType}}\ \doxymbox{\hyperlink{structvt_1_1collective_1_1reduce_1_1_reduce_manager_a716c66493c02898d5ac8c2b8ca62efd0}{cur\_user\_id\_}}\ =\ 0;\ \ }
+\DoxyCodeLine{00167\ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::collective::reduce\ */}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_COLLECTIVE\_REDUCE\_REDUCE\_MANAGER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,127 @@
+\doxysection{component\+\_\+registry.\+h}
+\hypertarget{component__registry_8h_source}{}\label{component__registry_8h_source}\index{src/vt/runtime/component/component\_registry.h@{src/vt/runtime/component/component\_registry.h}}
+\doxymbox{\hyperlink{component__registry_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component\_registry.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_RUNTIME\_COMPONENT\_COMPONENT\_REGISTRY\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_RUNTIME\_COMPONENT\_COMPONENT\_REGISTRY\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{types__type_8h}{vt/configs/types/types\_type.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runtime}{runtime}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component}{component}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry}{registry}}\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ =\ \doxymbox{\hyperlink{namespacevt_ac4053a168a8336fbaa330f0014f66b6f}{HandlerType}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a220e3778174336e8dd22b7eca5e5b17e}{RegisteredDeps}}\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a220e3778174336e8dd22b7eca5e5b17e}{RegisteredDeps}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_ade8f00bce66b04af3464a98b7b78dd5a}{addStartupDep}}(\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ dep)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a1249e438a3dc7f3851a8ec29fbefdb50}{startup\_deps\_}}.insert(dep);}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a1fdedf93f1a08ff74463b79d48197238}{addRuntimeDep}}(\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ dep)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a2e7f2397e003de58f2bd306703fb6b2c}{runtime\_deps\_}}.insert(dep);}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_aaf33b22d3997fef9b1c678660559a9ec}{getStartupDeps}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a1249e438a3dc7f3851a8ec29fbefdb50}{startup\_deps\_}};\ \}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_ae151a074b2c1b51e71e99d619c996c2c}{getRuntimeDeps}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a2e7f2397e003de58f2bd306703fb6b2c}{runtime\_deps\_}};\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ std::unordered\_set<AutoHandlerType>\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a1249e438a3dc7f3851a8ec29fbefdb50}{startup\_deps\_}};\ }
+\DoxyCodeLine{00074\ \ \ std::unordered\_set<AutoHandlerType>\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps_a2e7f2397e003de58f2bd306703fb6b2c}{runtime\_deps\_}};\ }
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a8ac0030e3da0624eb5197698d70acbdd}{RegistryType}}\ =\ std::vector<RegisteredDeps>;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a8ac0030e3da0624eb5197698d70acbdd}{RegistryType}}\&\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a931146b86362093b3b2b3da9b780969b}{getRegistry}}()\ \{}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a8ac0030e3da0624eb5197698d70acbdd}{RegistryType}}\ reg;}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordflow}{return}\ reg;}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_a6cc2c9515c686dab9ac32c091854ef12}{Registrar}}\ \{}
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_a6cc2c9515c686dab9ac32c091854ef12}{Registrar}}()\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\&\ reg\ =\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a931146b86362093b3b2b3da9b780969b}{getRegistry}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_a7dfbeea6d73d4baed5c94abfdd172cc6}{index}}\ =\ reg.size();}
+\DoxyCodeLine{00089\ \ \ \ \ reg.emplace\_back(\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps}{RegisteredDeps}}\{\});}
+\DoxyCodeLine{00090\ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_a7dfbeea6d73d4baed5c94abfdd172cc6}{index}};}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00095\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_type}{Type}}\ \{}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_type_ab078d45ada4ab2f2700f99e7d766057a}{idx}};}
+\DoxyCodeLine{00097\ \};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00100\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_type_ab078d45ada4ab2f2700f99e7d766057a}{Type<ObjT>::idx}}\ =\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar}{Registrar<ObjT>}}().\doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_registrar_a7dfbeea6d73d4baed5c94abfdd172cc6}{index}};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\&\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a44e22bd0de22967bcf605ef12902484f}{getIdx}}(\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ han)\ \{}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a931146b86362093b3b2b3da9b780969b}{getRegistry}}().at(han);}
+\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a420d01e68be6c1ba6a494ddecba4bb7a}{getStartupDeps}}(\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ han)\ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a931146b86362093b3b2b3da9b780969b}{getRegistry}}().at(han).getStartupDeps();}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a068a8f5429feca38b5636b141375d455}{getRuntimeDeps}}(\doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ han)\ \{}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a931146b86362093b3b2b3da9b780969b}{getRegistry}}().at(han).getRuntimeDeps();}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ObjT>}
+\DoxyCodeLine{00115\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_a580482177a182821681230f76eea23d9}{AutoHandlerType}}\ \doxymbox{\hyperlink{namespacevt_1_1runtime_1_1component_1_1registry_afc84ed277c6fcec64cba12fa7477e37c}{makeIdx}}()\ \{}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1registry_1_1_type_ab078d45ada4ab2f2700f99e7d766057a}{Type<ObjT>::idx}};}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \}\}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::runtime::component::registry\ */}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_RUNTIME\_COMPONENT\_COMPONENT\_REGISTRY\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

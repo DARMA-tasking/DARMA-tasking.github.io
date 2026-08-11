@@ -1,0 +1,194 @@
+\doxysection{lb\+\_\+data\+\_\+restart\+\_\+reader.\+h}
+\hypertarget{lb__data__restart__reader_8h_source}{}\label{lb__data__restart__reader_8h_source}\index{src/vt/vrt/collection/balance/lb\_data\_restart\_reader.h@{src/vt/vrt/collection/balance/lb\_data\_restart\_reader.h}}
+\doxymbox{\hyperlink{lb__data__restart__reader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lb\_data\_restart\_reader.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_VRT\_COLLECTION\_BALANCE\_LB\_DATA\_RESTART\_READER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_VRT\_COLLECTION\_BALANCE\_LB\_DATA\_RESTART\_READER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{baselb__msgs_8h}{vt/vrt/collection/balance/baselb/baselb\_msgs.h}}"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lb__common_8h}{vt/vrt/collection/balance/lb\_common.h}}"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{component__pack_8h}{vt/runtime/component/component\_pack.h}}"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{proxy__objgroup_8h}{vt/objgroup/proxy/proxy\_objgroup.h}}"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lb__data__holder_8h}{vt/vrt/collection/balance/lb\_data\_holder.h}}"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt}{vrt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection}{collection}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance}{balance}}\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a66d7aad803c86006eb72e95d46aa945a}{LBDataRestartReader}}\ :\ \doxymbox{\hyperlink{structvt_1_1runtime_1_1component_1_1_component}{runtime::component::Component}}<LBDataRestartReader>\ \{}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ad05175ba6f58b7ae93ef5886f1d2f10c}{ReduceMsg}}\ =\ \doxymbox{\hyperlink{namespacevt_1_1collective_aac13e647936677f13e31763da479a99c}{collective::ReduceTMsg<std::vector<bool>}}>;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a66d7aad803c86006eb72e95d46aa945a}{LBDataRestartReader}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ae30c9f24751a3d57be687c0b1b66c6a2}{setProxy}}(\doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{objgroup::proxy::Proxy<LBDataRestartReader>}}\ in\_proxy);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<LBDataRestartReader>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_af95b01c9f94865b810acc3c1713dbeae}{construct}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ std::string\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a2d715003c589c23a80346e4f84443fc4}{name}}()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}LBDataRestartReader"{}};\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a38c23202434f16113d3c7e474013627a}{startup}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ad8f831d516dc5b438db5cbc0f36e47a5}{readLBDataFromStream}}(std::stringstream\ stream);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a663c6182169b2fb68e89fbfc69077700}{readLBData}}(std::string\ \textcolor{keyword}{const}\&\ fileName);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a41149e5cac124b4dfbab58ab3253d840}{readHistory}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_holder}{LBDataHolder}}\ \textcolor{keyword}{const}\&\ lbdh);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a332e58de26b5d93197d68a4ce3d743fe}{needsLB}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ade00b90a9eeee5d3dd05edee5d24e5a9}{changed\_distro\_}}.size()\ >\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}\ ?\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ade00b90a9eeee5d3dd05edee5d24e5a9}{changed\_distro\_}}.at(\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}})\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00116\ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a26454044882316e639cbfbea61f41c61}{serialize}}(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a65b1a0379efca529b3ce6cff045e047a}{proxy\_}}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ade00b90a9eeee5d3dd05edee5d24e5a9}{changed\_distro\_}}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ |\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a8a9f63f593ce73388ca9b2da4b705b98}{num\_phases\_}};}
+\DoxyCodeLine{00124\ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00133\ \ \ std::shared\_ptr<const\ std::set<ElementIDStruct>>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a08e0c198c816dae271dd617da5e3d1e6}{getDistro}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}.find(\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}});}
+\DoxyCodeLine{00135\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(iter\ !=\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}.end(),\ \textcolor{stringliteral}{"{}Must\ have\ a\ valid,\ not\ skipped\ phase"{}});}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_afc552e9714573f639444437c0b2d6cc1}{clearDistro}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}})\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}.erase(\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}});}
+\DoxyCodeLine{00146\ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_abc1544f035265866b6d5ac2dae87d16e}{addDistro}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}},\ \textcolor{keyword}{const}\ std::set<ElementIDStruct>\&\ distro)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]\ =\ std::make\_shared<std::set<ElementIDStruct>>();}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]-\/>insert(distro.begin(),\ distro.end());}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ac336f44c5a00d54506baba46ee606c70}{addIdenticalPhase}}(\doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{namespacevt_1_1phase}{phase}},\ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ identical)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \doxymbox{\hyperlink{config__assert_8h_aeddd4990a496e91a0ca5d6c16437359b}{vtAssert}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}.find(identical)\ !=\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}.end(),\ \textcolor{stringliteral}{"{}Identical\ phase\ was\ not\ added\ to\ history\ map."{}});}
+\DoxyCodeLine{00169\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}[\doxymbox{\hyperlink{namespacevt_1_1phase}{phase}}]\ =\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}}[identical];}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_aa84bd50943dd33158739b78973647930}{reduceDistroChanges}}(std::vector<bool>\ \textcolor{keyword}{const}\&\ vec);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_af9cb0f3ba080b54902909a34f6fe0fef}{determinePhasesToMigrate}}();}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00188\ \ \ \doxymbox{\hyperlink{structvt_1_1objgroup_1_1proxy_1_1_proxy}{objgroup::proxy::Proxy<LBDataRestartReader>}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a65b1a0379efca529b3ce6cff045e047a}{proxy\_}};\ }
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00191\ \ \ std::vector<bool>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ade00b90a9eeee5d3dd05edee5d24e5a9}{changed\_distro\_}};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00194\ \ \ std::unordered\_map<PhaseType,\ std::shared\_ptr<std::set<ElementIDStruct>>>\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a5221a190363be1cdc6940778ee0ed22b}{history\_}};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_ae15909d6d9849206bcde8611ed200d29}{DepartMsg}}\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_ae15909d6d9849206bcde8611ed200d29}{DepartMsg}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_depart\_node,\ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ in\_phase,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ in\_elm)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a358d56cbb13dd103a6ad620318be1504}{depart\_node}}(in\_depart\_node),}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a24a16bf35dbfd3e5e25e7d38736ac269}{phase}}(in\_phase),}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a971917745c6eeb1762e1d345b270475b}{elm}}(in\_elm)}
+\DoxyCodeLine{00201\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a358d56cbb13dd103a6ad620318be1504}{depart\_node}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00204\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a24a16bf35dbfd3e5e25e7d38736ac269}{phase}}\ =\ no\_lb\_phase;}
+\DoxyCodeLine{00205\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg_a971917745c6eeb1762e1d345b270475b}{elm}};}
+\DoxyCodeLine{00206\ \ \ \};}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_ab83f336b46516e8d1c2915725c86ebc8}{ArriveMsg}}\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_ab83f336b46516e8d1c2915725c86ebc8}{ArriveMsg}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_arrive\_node,\ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ in\_phase,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ in\_elm)}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_a90c862079818906acddd6b334509cf63}{arrive\_node}}(in\_arrive\_node),}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_ae50ef991dd3d09ab883d14e75c15b44b}{phase}}(in\_phase),}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_a7a56a9862c000fecdfd71072e93ef071}{elm}}(in\_elm)}
+\DoxyCodeLine{00213\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_a90c862079818906acddd6b334509cf63}{arrive\_node}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00216\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_ae50ef991dd3d09ab883d14e75c15b44b}{phase}}\ =\ no\_lb\_phase;}
+\DoxyCodeLine{00217\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg_a7a56a9862c000fecdfd71072e93ef071}{elm}};}
+\DoxyCodeLine{00218\ \ \ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_a464255a6854dd3ed4053bffc35182ea0}{UpdateMsg}}\ :\ \doxymbox{\hyperlink{namespacevt_a2d5079028aeaeb60fd233ae4ae599af5}{vt::Message}}\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_a464255a6854dd3ed4053bffc35182ea0}{UpdateMsg}}(\doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ in\_curr\_node,\ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ in\_phase,\ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ in\_elm)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_aa3393d7888ea637ced5b80a854090ce3}{curr\_node}}(in\_curr\_node),}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_af85fa6a0407e7a02715a34448ee50a3f}{phase}}(in\_phase),}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_a51c68d7e69df000c9020cdc94865bafb}{elm}}(in\_elm)}
+\DoxyCodeLine{00225\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_abda554de809ecd8eeca0429b809f1a1f}{NodeType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_aa3393d7888ea637ced5b80a854090ce3}{curr\_node}}\ =\ uninitialized\_destination;}
+\DoxyCodeLine{00228\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_af85fa6a0407e7a02715a34448ee50a3f}{phase}}\ =\ no\_lb\_phase;}
+\DoxyCodeLine{00229\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_1_1vrt_1_1collection_1_1balance_a634c199926b0d87626e2e63dced3031b}{ElementIDStruct}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg_a51c68d7e69df000c9020cdc94865bafb}{elm}};}
+\DoxyCodeLine{00230\ \ \ \};}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_coord}{Coord}}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<ArriveMsg>}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_coord_a3b0807e8a6c5462bb3b7a47821e93e6c}{arrive}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00234\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a4c7d432ffe692c874d21dd78c23b5679}{MsgSharedPtr<DepartMsg>}}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_coord_aaaed15af931102018fbb9148e3b75604}{depart}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00235\ \ \ \};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a307888d173e79695956a9ed6dc247c7a}{departing}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_depart_msg}{DepartMsg}}*\ msg);}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_abbdef5a1c61003624ef5a41d281ec355}{arriving}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_arrive_msg}{ArriveMsg}}*\ msg);}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ae5101e7bdafbc8c6d546330b0fbadd4f}{update}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_update_msg}{UpdateMsg}}*\ msg);}
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a7d8669c0396398818721febf079213c9}{checkBothEnds}}(\doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_1_1_coord}{Coord}}\&\ coord);}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ std::unordered\_map<}
+\DoxyCodeLine{00243\ \ \ \ \ \doxymbox{\hyperlink{namespacevt_a932e22a5e30095164846b1262859c5be}{PhaseType}},\ std::unordered\_map<ElementIDStruct,\ Coord>}
+\DoxyCodeLine{00244\ \ \ >\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_ab24e7539668dcbe68d141c2be45ad2d1}{coordinate\_}};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00247\ \ \ std::size\_t\ \doxymbox{\hyperlink{structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader_a8a9f63f593ce73388ca9b2da4b705b98}{num\_phases\_}}\ =\ 0;}
+\DoxyCodeLine{00248\ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \}\}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::vrt::collection::balance\ */}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{keyword}{extern}\ vrt::collection::balance::LBDataRestartReader*\ \doxymbox{\hyperlink{namespacevt_a6dc000b04e41df77184588b50280b312}{theLBDataReader}}();}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\ */}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_VRT\_COLLECTION\_BALANCE\_LB\_DATA\_RESTART\_READER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

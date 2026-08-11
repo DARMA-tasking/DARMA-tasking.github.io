@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['memory_20usage_20tracker_14927',['Memory Usage Tracker',['../mem-usage.html',1,'introduction']]],
-  ['memory_20pool_14928',['Memory Pool',['../pool.html',1,'introduction']]]
+  ['group_0',['group',['../group.html#collective-group-example',1,'Example creating a collective group'],['../objgroup.html#objgroup-example',1,'Example creating an object group']]],
+  ['group_20manager_1',['Group Manager',['../group.html',1,'Group Manager'],['../objgroup.html',1,'Object Group Manager']]],
+  ['groups_2',['Mapping Functions and Object Groups',['../collection.html#collection-mapping',1,'']]],
+  ['groups_3',['groups',['../tutorial-1f.html',1,'Learning about collective groups'],['../tutorial-1e.html',1,'Learning about rooted groups']]]
 ];

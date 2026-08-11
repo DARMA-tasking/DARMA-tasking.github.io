@@ -1,0 +1,106 @@
+\doxysection{Tutorial }
+\hypertarget{tutorial}{}\label{tutorial}\index{Tutorial@{Tutorial}}
+Tutorial of how to use {\bfseries{{\itshape vt}}}.\hypertarget{tutorial_tutorial-init-finalize-vt}{}\doxysubsection{\texorpdfstring{Initializing/\+\+Finalizing}{Initializing/\+\+Finalizing}}\label{tutorial_tutorial-init-finalize-vt}
+To initialize {\bfseries{{\itshape vt}}} all you must do is invoke the {\ttfamily \doxylink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::\+initialize}} call with the program arguments, which creates and initializes a new {\bfseries{{\itshape vt}}} runtime. The initialize call reads the {\bfseries{{\itshape vt}}} arguments and removes them, leaving the remaining for the program.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv);}
+\DoxyCodeLine{\ \ \ \textcolor{comment}{//\ program\ here}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If you are already using MPI in your program already, you don\textquotesingle{}t want to call initialize like this because {\bfseries{{\itshape vt}}} will initialize MPI itself. Instead, you should pass a pointer to the live MPI communicator to {\bfseries{{\itshape vt}}} for it to clone, as so:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ MPI\_Init(\&argc,\ \&argv);}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv,\ \&MPI\_COMM\_WORLD);}
+\DoxyCodeLine{\ \ \ \textcolor{comment}{//\ program\ here}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\ \ MPI\_Finalize();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If, for any reason, you want to predefine configuration, you can do it by creating {\ttfamily App\+Config} object, setting its members as you wish, and passing it to {\ttfamily \doxylink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::\+initialize}}:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ arguments::AppConfig\ appConfig\{\};}
+\DoxyCodeLine{\ \ appConfig.vt\_lb\_name\ =\ \textcolor{stringliteral}{"{}RotateLB"{}};}
+\DoxyCodeLine{\ \ appConfig.vt\_lb\_data\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv,\ \&appConfig);}
+\DoxyCodeLine{\ \ \ \textcolor{comment}{//\ program\ here}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+You can do also do it if you initialized MPI on your own:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\ \ MPI\_Init(\&argc,\ \&argv);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ arguments::AppConfig\ appConfig\{\};}
+\DoxyCodeLine{\ \ appConfig.vt\_lb\_name\ =\ \textcolor{stringliteral}{"{}RotateLB"{}};}
+\DoxyCodeLine{\ \ appConfig.vt\_lb\_data\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::initialize}}(argc,\ argv,\ \&MPI\_COMM\_WORLD,\ \&appConfig);}
+\DoxyCodeLine{\ \ \ \textcolor{comment}{//\ program\ here}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{namespacevt_ae8e663109f635cbeca94c39b89b4683c}{vt::finalize}}();}
+\DoxyCodeLine{\ \ MPI\_Finalize();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+It is worth noting that if you run your application with any of vt\textquotesingle{}s command-\/line arguments and at the same time you define and pass {\ttfamily App\+Config} to {\ttfamily \doxylink{namespacevt_a0b9d4884da642e4231dc1a27d14dff72}{vt::\+initialize}}, CLI arguments have a higher priority. In other words, if you predefine in source code and give from the command line the same vt\textquotesingle{}s argument, but with a different value, the program will use the CLI one.
+
+There is also an option to use configuration file. Refer to CLI11 documentation for details \href{https://cliutils.github.io/CLI11/book/chapters/config.html}{\texttt{https:\+/\+/\+cliutils.\+github.\+io/\+\+CLI11/\+book/\+chapters/\+config.\+html}}. Important thing to remember -\/ CLI11 processes configuration file before command line arguments, so in the end command line arguments might overwrite values defined in configuration file.\hypertarget{tutorial_tutorial-walkthrough}{}\doxysubsection{\texorpdfstring{Tutorial Code Snippets}{Tutorial Code Snippets}}\label{tutorial_tutorial-walkthrough}
+This page walks through the tutorial that exists in the source code. See {\ttfamily vt/\+tutorial/\+\texorpdfstring{$\ast$}{*}.h} for the tutorial pieces in the repository. The main tutorial example code that stitches the pieces together is located in example:\+ {\ttfamily vt/\+tutorial/\+tutorial\+\_\+main.\+h}. The actual code that compiles into an example is in {\ttfamily vt/\+examples/\+tutorial.\+cc}.
+
+
+\begin{DoxyItemize}
+\item Tutorial 1---Basic Concepts
+\begin{DoxyItemize}
+\item 1a:\+ \doxylink{tutorial-1a}{Learning about context}
+\item 1b:\+ \doxylink{tutorial-1b}{Learning about active handlers}
+\item 1c:\+ \doxylink{tutorial-1c}{Learning about serialization}
+\item 1d:\+ \doxylink{tutorial-1d}{Learning about broadcasts}
+\item 1e:\+ \doxylink{tutorial-1e}{Learning about rooted groups}
+\item 1f:\+ \doxylink{tutorial-1f}{Learning about collective groups}
+\item 1g:\+ \doxylink{tutorial-1g}{Learning about callbacks}
+\item 1h:\+ \doxylink{tutorial-1h}{Learning about reductions}
+\end{DoxyItemize}
+\item Tutorial 2---Collections
+\begin{DoxyItemize}
+\item 2a:\+ \doxylink{tutorial-2a}{Learning about collections}
+\item 2b:\+ \doxylink{tutorial-2b}{Learning about collection reductions}
+\end{DoxyItemize}
+\item Tutorial 3---Epochs
+\begin{DoxyItemize}
+\item 3a:\+ \doxylink{tutorial-3a}{Learning about collective epochs} 
+\end{DoxyItemize}
+\end{DoxyItemize}\input{tutorial-1a}
+\input{tutorial-1b}
+\input{tutorial-1c}
+\input{tutorial-1d}
+\input{tutorial-1e}
+\input{tutorial-1f}
+\input{tutorial-1g}
+\input{tutorial-1h}
+\input{tutorial-2a}
+\input{tutorial-2b}
+\input{tutorial-3a}

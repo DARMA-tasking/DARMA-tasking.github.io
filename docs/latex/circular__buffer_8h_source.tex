@@ -1,0 +1,129 @@
+\doxysection{circular\+\_\+buffer.\+h}
+\hypertarget{circular__buffer_8h_source}{}\label{circular__buffer_8h_source}\index{src/vt/utils/container/circular\_buffer.h@{src/vt/utils/container/circular\_buffer.h}}
+\doxymbox{\hyperlink{circular__buffer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ circular\_buffer.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt\ =>\ Virtual\ Transport}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_UTILS\_CONTAINER\_CIRCULAR\_BUFFER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_UTILS\_CONTAINER\_CIRCULAR\_BUFFER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{config_8h}{vt/config.h}}"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt}{vt}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util}{util}}\ \{\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt_1_1util_1_1container}{container}}\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ capacity>}
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a38cfb7731cba8b9276711b18ddedf4e8}{CircularBuffer}}\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a38cfb7731cba8b9276711b18ddedf4e8}{CircularBuffer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aa5c6301f521d2e1b1331e6adb9573890}{getNextEntry}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ next\_entry\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ +\ 1;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (next\_entry\ ==\ capacity)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ next\_entry\ =\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ next\_entry;}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a31bb27eb15a398ba25fbadf4aa0f2b58}{emplace}}(Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ next\_entry\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aa5c6301f521d2e1b1331e6adb9573890}{getNextEntry}}();}
+\DoxyCodeLine{00069\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}}[\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}]\ =\ T\{std::forward<Args>(args)...\};}
+\DoxyCodeLine{00070\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ =\ next\_entry;}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a3abb7bc0fe6fc2989e042a817822d56a}{push}}(T\&\&\ t)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ next\_entry\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aa5c6301f521d2e1b1331e6adb9573890}{getNextEntry}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}}[\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}]\ =\ std::move(t);}
+\DoxyCodeLine{00076\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ =\ next\_entry;}
+\DoxyCodeLine{00077\ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_ad5f6b5a0351e64b8dd0929a9a67157a0}{push}}(T\ \textcolor{keyword}{const}\&\ t)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ next\_entry\ =\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aa5c6301f521d2e1b1331e6adb9573890}{getNextEntry}}();}
+\DoxyCodeLine{00081\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}}[\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}]\ =\ t;}
+\DoxyCodeLine{00082\ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ =\ next\_entry;}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ T\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aa35da044d0a91356040a531776d4ae61}{pop}}()\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ T\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}}\ =\ std::move(\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}}[\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}]);}
+\DoxyCodeLine{00087\ \ \ \ \ ++\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}\ ==\ capacity)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}\ =\ 0;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{namespacevt_1_1elm}{elm}};}
+\DoxyCodeLine{00092\ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aee95bce7a967bf98e3190db8f62a5f76}{numFree}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}})\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ capacity\ -\/\ 1;}
+\DoxyCodeLine{00097\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ <\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}})\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ -\/\ 1;}
+\DoxyCodeLine{00099\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ capacity\ +\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ -\/\ 1;}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a856c48e3984ef0d66d595d303fc5ff99}{empty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ ==\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}};\ \}}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_af528f4f242956508ea90b942246d2325}{full}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aee95bce7a967bf98e3190db8f62a5f76}{numFree}}()\ ==\ 0;\ \}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a38d1a449f1b3d374a96e7c61275980e5}{size}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ capacity\ -\/\ 1\ -\/\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_aee95bce7a967bf98e3190db8f62a5f76}{numFree}}();\ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_abe281a81a9c63e24ce30c553cdc57ab8}{serialize}}(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}};}
+\DoxyCodeLine{00111\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}};}
+\DoxyCodeLine{00112\ \ \ \ \ s\ |\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}};\ \textcolor{comment}{//\ this\ is\ inefficient,\ but\ its\ use\ is\ footprinting}}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a543bede3221fb2df06bd856bc4a45f21}{head\_}}\ =\ 0;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a5eb4acef245cc1a7a455a9ef99f1f4b4}{tail\_}}\ =\ 0;}
+\DoxyCodeLine{00118\ \ \ std::array<T,\ capacity>\ \doxymbox{\hyperlink{structvt_1_1util_1_1container_1_1_circular_buffer_a9c05e2d6d78d7db1a57ff24a00f928e0}{elms\_}};}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \}\}\}\ \textcolor{comment}{/*\ end\ namespace\ vt::util::container\ */}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_UTILS\_CONTAINER\_CIRCULAR\_BUFFER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

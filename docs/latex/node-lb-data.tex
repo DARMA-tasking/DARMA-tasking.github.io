@@ -1,0 +1,392 @@
+\doxysubsection{Node LB Data }
+\hypertarget{node-lb-data}{}\label{node-lb-data}\index{Node LB Data@{Node LB Data}}
+Manager object profiling data.
+
+The node LB data manager component {\ttfamily \doxylink{structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data}{vt::\+vrt::\+collection::\+balance::\+\+Node\+LBData}}, accessed via {\ttfamily \doxylink{namespacevt_af2ddfbdc455e98a0d46732522d8cf589}{vt::\+the\+Node\+LBData()}} manages instrumentation data from objects in a collection. It holds data per node on the timing of these objects and communication between them demarcated by phase and subphase.
+
+When LB is invoked in {\bfseries{{\itshape vt}}}, the \doxylink{lb-manager}{LB Manager} passes the node LB data to the various LB strategies to run the load balancer. The node LB data component can also dump the LB data it holds to files, which can be read externally. The LBAF (Load Balancing Analysis Framework) can also then read this data to analyze the quality of the load distribution at any phase in the file.\hypertarget{node-lb-data_export-lb-data-file}{}\doxysubsubsection{\texorpdfstring{Exporting LB Data Files (VOM)}{Exporting LB Data Files (VOM)}}\label{node-lb-data_export-lb-data-file}
+The {\ttfamily Node\+LBData} component, after collecting LB data from the running program, can dump these to files in a VOM file (Virtual Object Map). As indicated by the name, the VOM file specifies the mapping of object to node for each phase along with LB data for each object (computation time and communication load).
+
+To output VOM files, pass {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data} to enable output along with {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+dir=\texorpdfstring{$<$}{<}my-\/directory\texorpdfstring{$>$}{>}} and {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+file=\texorpdfstring{$<$}{<}my-\/base-\/name\texorpdfstring{$>$}{>}} to control the directory the files are generated along with the base file name. With this enabled, {\bfseries{{\itshape vt}}} will generate a file for each node that contains the LB data and mapping.\hypertarget{node-lb-data_lb-data-file-format}{}\doxysubsubsubsection{\texorpdfstring{File Format}{File Format}}\label{node-lb-data_lb-data-file-format}
+The VOM files are output in JSON format, either compressed with brotli compression (default on) or pure JSON if the argument {\ttfamily -\/-\/vt\+\_\+lb\+\_\+data\+\_\+compress} is set to {\ttfamily false}.
+
+The JSON files contain an array of {\ttfamily phases} that have been captured by {\bfseries{{\itshape vt}}} and output to the file. Each phase has an {\ttfamily id} indicating which phase it was while the application was running. Each phase also has an array of {\ttfamily tasks} that represent work that was done during that phase. Each task has a {\ttfamily time}, {\ttfamily resource}, {\ttfamily node}, {\ttfamily entity}, and optionally a list of {\ttfamily subphases}. The {\ttfamily entity} contains information about the task that performed this work. If that {\ttfamily entity} is a virtual collection object, it will specify the unique {\ttfamily id} for the object, and optionally the {\ttfamily index}, {\ttfamily home}, and {\ttfamily collection\+\_\+id} for that object.
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ "{}metadata"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ "{}phases"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ "{}identical\_to\_previous"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}list"{}:\ [],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}range"{}:\ []}
+\DoxyCodeLine{\ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ "{}skipped"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}list"{}:\ [],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ "{}range"{}:\ []}
+\DoxyCodeLine{\ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ "{}rank"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ "{}shared\_node"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ "{}id"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ "{}num\_nodes"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ "{}rank"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ "{}size"{}:\ 1}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ "{}type"{}:\ "{}LBDatafile"{}}
+\DoxyCodeLine{\ \ \},}
+\DoxyCodeLine{\ \ "{}phases"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ "{}communications"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}bytes"{}:\ 152.0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}from"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}collection\_id"{}:\ 7,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 262147,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}index"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}messages"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}to"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}collection\_id"{}:\ 7,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 262147,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}index"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}SendRecv"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ "{}id"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ "{}tasks"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}collection\_id"{}:\ 7,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 262147,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}index"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ true,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}subphases"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0004248750001352164}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0004248750001352164}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 3145740,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 786435,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 4194316,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 1048579,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 5242892,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 1310723,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}subphases"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 1.041999894368928e-\/06}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 1.041999894368928e-\/06}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 6291468,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 1572867,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 7340044,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 1835011,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 8388620,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}objgroup\_id"{}:\ 2097155,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}entity"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}node"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}resource"{}:\ "{}cpu"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ "{}time"{}:\ 0.0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+
+
+Each phase in the file may also have a {\ttfamily communications} array that specify any communication between tasks that occurred during the phase. Each communication has {\ttfamily type}, which is described below in the following table. Additionally, it specifies the {\ttfamily bytes}, number of {\ttfamily messages}, and the two entities that were involved in the operator as {\ttfamily to} and {\ttfamily from}. The entities may be of different types, like an {\ttfamily object} or {\ttfamily node} depending on the type of communication.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ "{}phases"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ "{}communications"{}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}bytes"{}:\ 1456.0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}from"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}messages"{}:\ 26,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}to"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 5,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}SendRecv"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}bytes"{}:\ 1456.0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}from"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 1,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}messages"{}:\ 26,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}to"{}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}home"{}:\ 2,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}id"{}:\ 9,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}migratable"{}:\ false,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}object"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}type"{}:\ "{}SendRecv"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ ]}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The type of communication lines up with the enum {\ttfamily vt::\+vrt::\+collection::\+balance::\+\+Comm\+Category} in the code.
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Value  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Enum entry  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Description  \\
+1  &{\ttfamily Comm\+Category::\+\+Send\+Recv}  &A send-\/receive edge between two collection elements  \\
+2  &{\ttfamily Comm\+Category::\+\+Collection\+To\+Node}  &A send from a collection element to a node  \\
+3  &{\ttfamily Comm\+Category::\+\+Node\+To\+Collection}  &A send from a node to a collection element  \\
+4  &{\ttfamily Comm\+Category::\+\+Broadcast}  &A broadcast from a collection element to a whole collection (receive-\/side)  \\
+5  &{\ttfamily Comm\+Category::\+\+Collection\+To\+Node\+Bcast}  &A broadcast from a collection element to all nodes (receive-\/side)  \\
+6  &{\ttfamily Comm\+Category::\+\+Node\+To\+Collection\+Bcast}  &A broadcast from a node to a whole collection (receive-\/side)  \\
+7  &{\ttfamily Comm\+Category::\+\+Collective\+To\+Collection\+Bcast}  &Collective \textquotesingle{}broadcast\textquotesingle{} from every node to the local collection elements (receive-\/side)  \\
+\end{DoxyTable}
+
+
+For all the broadcast-\/like edges, the communication logging will occur on the receive of the broadcast side (one entry per broadcast recipient).\hypertarget{node-lb-data_lb-data-file-validator}{}\doxysubsubsection{\texorpdfstring{LB Data File Validator}{LB Data File Validator}}\label{node-lb-data_lb-data-file-validator}
+All input JSON files will be validated using the {\ttfamily JSON\+\_\+data\+\_\+files\+\_\+validator.\+py} found in the {\ttfamily scripts} directory, which ensures that a given JSON adheres to the following schema:\+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{keyword}{from}\ schema\ \textcolor{keyword}{import}\ And,\ Optional,\ Schema}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{def\ }validate\_ids(field):}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ Ensure\ that\ 1)\ either\ seq\_id\ or\ id\ is\ provided,}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ and\ 2)\ if\ an\ object\ is\ migratable,\ collection\_id\ has\ been\ set.}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'seq\_id'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ field\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'id'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ field:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Either\ id\ (bit-\/encoded)\ or\ seq\_id\ must\ be\ provided.'})}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ field.get(\textcolor{stringliteral}{"{}migratable"{}})\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'seq\_id'}\ \textcolor{keywordflow}{in}\ field\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'collection\_id'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ field:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'If\ an\ entity\ is\ migratable,\ it\ must\ have\ a\ collection\_id'})}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ field}
+\DoxyCodeLine{}
+\DoxyCodeLine{task\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'entity'}:\ And(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'collection\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'home'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'seq\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ Optional(\textcolor{stringliteral}{'index'}):\ [int],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'type'}:\ str,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'migratable'}:\ bool,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'objgroup\_id'}):\ int}
+\DoxyCodeLine{\ \ \ \ \},\ validate\_ids),}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'node'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'resource'}:\ str,}
+\DoxyCodeLine{\ \ \ \ Optional(\textcolor{stringliteral}{'subphases'}):\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'time'}:\ float,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'time'}:\ float,}
+\DoxyCodeLine{\ \ \ \ Optional(\textcolor{stringliteral}{'user\_defined'}):\ dict,}
+\DoxyCodeLine{\ \ \ \ Optional(\textcolor{stringliteral}{'attributes'}):\ dict}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{communication\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'type'}:\ str,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'to'}:\ And(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'type'}:\ str,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'seq\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'home'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'collection\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'migratable'}):\ bool,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'index'}):\ [int],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'objgroup\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \},\ validate\_ids),}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'messages'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'from'}:\ And(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'type'}:\ str,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'seq\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'home'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'collection\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'migratable'}):\ bool,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'index'}):\ [int],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'objgroup\_id'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \},\ validate\_ids),}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'bytes'}:\ float}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{LBDatafile\_schema\ =\ Schema(}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'type'}):\ And(str,\ \textcolor{stringliteral}{"{}LBDatafile"{}},\ error=\textcolor{stringliteral}{"{}'LBDatafile'\ must\ be\ chosen."{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'metadata'}):\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'type'}):\ And(str,\ \textcolor{stringliteral}{"{}LBDatafile"{}},\ error=\textcolor{stringliteral}{"{}'LBDatafile'\ must\ be\ chosen."{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'rank'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'rank\_alpha'}):\ And(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float,\ \textcolor{keyword}{lambda}\ x:\ x\ >=\ 0.0,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ error=\textcolor{stringliteral}{"{}Should\ be\ of\ type\ 'float'\ and\ >=\ 0"{}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'shared\_node'}):\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'size'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rank'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'num\_nodes'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'phases'}):\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'count'}):\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'skipped'}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'list'}:\ [int],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'range'}:\ [[int]],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'identical\_to\_previous'}:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'list'}:\ [int],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'range'}:\ [[int]],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'attributes'}):\ dict}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'phases'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'tasks'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'communications'}):\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ communication}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'user\_defined'}):\ dict,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'lb\_iterations'}):\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ int,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'tasks'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'communications'}):\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ communication}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Optional(\textcolor{stringliteral}{'user\_defined'}):\ dict}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{)}
+
+\end{DoxyCodeInclude}
+\hypertarget{node-lb-data_lb-spec-file}{}\doxysubsubsection{\texorpdfstring{LB Specification File}{LB Specification File}}\label{node-lb-data_lb-spec-file}
+In order to customize when LB output is enabled and disabled, a LB specification file can be passed to {\bfseries{{\itshape vt}}} via a command-\/line flag:\+ {\ttfamily -\/-\/vt\+\_\+lb\+\_\+spec -\/-\/vt\+\_\+lb\+\_\+spec\+\_\+file=filename.\+spec}.
+
+For details about vt\textquotesingle{}s Specification File see \doxysectlink{spec-file}{Spec File}{0} 
