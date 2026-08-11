@@ -7,14 +7,14 @@
 \begin{DoxyTable}{3}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Layer  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Contents  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Depends on  \\
 Internal data structures  &{\ttfamily cache/\+} (LRU), {\ttfamily directory/\+} (home map), {\ttfamily lookup/\+} (cache+directory), {\ttfamily record/\+} (per-\/entity state)  &nothing but the C++ standard library  \\
-Coordinator  &{\ttfamily \doxylink{coordinator_8h_source}{coordinator.\+h}} — the resolver protocol  &the internal structures + a {\ttfamily comm::\+\+Communicator}  \\
+Coordinator  &{\ttfamily \doxylink{coordinator_8h_source}{coordinator.\+h}} — the resolver protocol  &the internal structures + a {\ttfamily loc::\+\+Communicator} backend  \\
 \end{DoxyTable}
 
 
 The internal structures are pure and single-\/rank testable. The coordinator adds the distributed protocol.\hypertarget{md__2loc_2docs_2md_2architecture_autotoc_md2}{}\doxysection{\texorpdfstring{The resolver protocol}{The resolver protocol}}\label{md__2loc_2docs_2md_2architecture_autotoc_md2}
 Every entity has a fixed {\bfseries{home}} rank (a deterministic function of its id, chosen by the embedder). The home holds the authoritative location in its {\ttfamily directory}; other ranks hold cached resolutions that may be evicted.
 
-Control messages are point-\/to-\/point {\ttfamily comm::\+send\texorpdfstring{$<$}{<}\&Coordinator::\+handler\texorpdfstring{$>$}{>}} calls:\+
+Control messages are point-\/to-\/point {\ttfamily Comm::\+send\texorpdfstring{$<$}{<}\&Coordinator::\+handler\texorpdfstring{$>$}{>}} calls:\+
 
 
 \begin{DoxyItemize}
@@ -30,5 +30,5 @@ The coordinator registers itself with the communicator ({\ttfamily register\+Ins
 \begin{DoxyItemize}
 \item Message forwarding /\+ routing of the entities\textquotesingle{} own messages (resolver-\/only).
 \item The multi-\/instance {\ttfamily Location\+Manager}:\+ the embedder owns coordinator lifetime and instantiates one per logical entity space.
-\item Any objgroup /\+ VT coupling:\+ the sole communication dependency is the {\ttfamily comm::\+\+Communicator} concept, satisfied by {\ttfamily Comm\+MPI} (pure MPI) or {\ttfamily Comm\+VT}. 
+\item Any objgroup /\+ VT coupling:\+ the communication backend is injected through {\ttfamily loc::\+\+Communicator}, satisfied by standalone {\ttfamily comm::\+\+Comm\+MPI} or a VT adapter. 
 \end{DoxyItemize}

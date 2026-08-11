@@ -7,8 +7,8 @@
     </briefdescription>
     <detaileddescription>
 <para><anchor id="md__2loc_2docs_2md_2overview_1autotoc_md5"/></para>
-<para><computeroutput>loc</computeroutput> is a standalone, communication-backend-agnostic library that answers one question for a set of migratable entities: <bold>which rank currently hosts entity X?</bold> It tracks entity registration and migration, caches resolutions, and keeps those caches coherent — all on top of the <ulink url="https://github.com/DARMA-tasking/comm"><computeroutput>comm</computeroutput></ulink> communication abstraction, with no dependency on VT.</para>
-<para>It is extracted from VT&apos;s location manager (<computeroutput>vt/src/vt/topos/location</computeroutput>) and redesigned around <computeroutput>comm</computeroutput>&apos;s <computeroutput>Communicator</computeroutput> concept.</para>
+<para><computeroutput>loc</computeroutput> is a standalone, communication-backend-agnostic library that answers one question for a set of migratable entities: <bold>which rank currently hosts entity X?</bold> It tracks entity registration and migration, caches resolutions, and keeps those caches coherent through an injected communication abstraction, with no dependency on VT. Standalone builds use <ulink url="https://github.com/DARMA-tasking/comm"><computeroutput>comm</computeroutput></ulink>; an embedding runtime can supply its own backend directly.</para>
+<para>It is extracted from VT&apos;s location manager (<computeroutput>vt/src/vt/topos/location</computeroutput>) and redesigned around the backend-neutral <computeroutput>loc::Communicator</computeroutput> concept.</para>
 <sect1 id="md__2loc_2docs_2md_2overview_1autotoc_md6">
 <title>Resolver, not router</title><para><computeroutput>loc</computeroutput> is a <bold>resolver</bold>: it tells you the node an entity lives on. It does <emphasis>not</emphasis> forward the entity&apos;s own messages. Once <computeroutput>getLocation</computeroutput> hands back a node, the embedder performs the actual send. This keeps <computeroutput>loc</computeroutput> free of message envelopes, epochs, and eager/rendezvous routing — the pieces most entangled with a specific runtime. (Message forwarding on top of <computeroutput>comm</computeroutput> is a possible later phase.)</para>
 </sect1>
@@ -23,7 +23,7 @@
 </listitem><listitem><para><computeroutput>isCached(id)</computeroutput>, <computeroutput>clearCache()</computeroutput>, <computeroutput>thisNode()</computeroutput>.</para>
 </listitem></itemizedlist>
 </para>
-<para>Asynchronous results are delivered while the embedder pumps <computeroutput>Comm::poll()</computeroutput>.</para>
+<para>Asynchronous results are delivered while the embedder drives its communication backend.</para>
 </sect1>
 <sect1 id="md__2loc_2docs_2md_2overview_1autotoc_md8">
 <title>Building</title><para><computeroutput>loc</computeroutput> consumes an installed <computeroutput>comm</computeroutput> via <computeroutput>find_package(comm CONFIG)</computeroutput> (which brings MPI, magistrate/checkpoint, and fmt transitively):</para>
@@ -31,7 +31,8 @@
 <codeline><highlight class="normal">cmake<sp/>--build<sp/>build<sp/>--parallel</highlight></codeline>
 <codeline><highlight class="normal">ctest<sp/>--test-dir<sp/>build<sp/>--output-on-failure</highlight></codeline>
 <codeline><highlight class="normal">mpirun<sp/>-np<sp/>2<sp/>./build/tests/loc_tests<sp/><sp/><sp/>#<sp/>exercises<sp/>the<sp/>cross-rank<sp/>protocol</highlight></codeline>
-</programlisting> </para>
+</programlisting></para>
+<para>When embedded with <computeroutput>add_subdirectory</computeroutput>, <computeroutput>loc</computeroutput> defaults to a dependency-free TPL configuration: it does not find or link <computeroutput>comm</computeroutput> or MPI, and it does not build its examples, tests, or documentation. The parent target links <computeroutput>loc::loc</computeroutput> and provides a communication type satisfying <computeroutput>loc::Communicator</computeroutput>. </para>
 </sect1>
     </detaileddescription>
     <location file="/loc/docs/md/overview.md"/>

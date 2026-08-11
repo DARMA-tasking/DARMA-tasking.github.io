@@ -4,9 +4,9 @@
 \Hypertarget{md__2loc_2docs_2md_2overview_autotoc_md5}%
 
 
-{\ttfamily loc} is a standalone, communication-\/backend-\/agnostic library that answers one question for a set of migratable entities:\+ {\bfseries{which rank currently hosts entity X?}} It tracks entity registration and migration, caches resolutions, and keeps those caches coherent — all on top of the \href{https://github.com/DARMA-tasking/comm}{\texttt{{\ttfamily comm}}} communication abstraction, with no dependency on VT.
+{\ttfamily loc} is a standalone, communication-\/backend-\/agnostic library that answers one question for a set of migratable entities:\+ {\bfseries{which rank currently hosts entity X?}} It tracks entity registration and migration, caches resolutions, and keeps those caches coherent through an injected communication abstraction, with no dependency on VT. Standalone builds use \href{https://github.com/DARMA-tasking/comm}{\texttt{{\ttfamily comm}}}; an embedding runtime can supply its own backend directly.
 
-It is extracted from VT\textquotesingle{}s location manager ({\ttfamily vt/\+src/\+vt/\+topos/\+location}) and redesigned around {\ttfamily comm}\textquotesingle{}s {\ttfamily Communicator} concept.\hypertarget{md__2loc_2docs_2md_2overview_autotoc_md6}{}\doxysection{\texorpdfstring{Resolver, not router}{Resolver, not router}}\label{md__2loc_2docs_2md_2overview_autotoc_md6}
+It is extracted from VT\textquotesingle{}s location manager ({\ttfamily vt/\+src/\+vt/\+topos/\+location}) and redesigned around the backend-\/neutral {\ttfamily loc::\+\+Communicator} concept.\hypertarget{md__2loc_2docs_2md_2overview_autotoc_md6}{}\doxysection{\texorpdfstring{Resolver, not router}{Resolver, not router}}\label{md__2loc_2docs_2md_2overview_autotoc_md6}
 {\ttfamily loc} is a {\bfseries{resolver}}:\+ it tells you the node an entity lives on. It does {\itshape not} forward the entity\textquotesingle{}s own messages. Once {\ttfamily get\+Location} hands back a node, the embedder performs the actual send. This keeps {\ttfamily loc} free of message envelopes, epochs, and eager/\+rendezvous routing — the pieces most entangled with a specific runtime. (Message forwarding on top of {\ttfamily comm} is a possible later phase.)\hypertarget{md__2loc_2docs_2md_2overview_autotoc_md7}{}\doxysection{\texorpdfstring{Public API}{Public API}}\label{md__2loc_2docs_2md_2overview_autotoc_md7}
 The one type you use is {\ttfamily \doxylink{structloc_1_1Coordinator}{loc::\+\+Coordinator}\texorpdfstring{$<$}{<}Entity\+ID, Comm\texorpdfstring{$>$}{>}}:\+
 
@@ -20,7 +20,7 @@ The one type you use is {\ttfamily \doxylink{structloc_1_1Coordinator}{loc::\+\+
 \item {\ttfamily is\+Cached(id)}, {\ttfamily clear\+Cache()}, {\ttfamily this\+Node()}.
 \end{DoxyItemize}
 
-Asynchronous results are delivered while the embedder pumps {\ttfamily Comm::\+poll()}.\hypertarget{md__2loc_2docs_2md_2overview_autotoc_md8}{}\doxysection{\texorpdfstring{Building}{Building}}\label{md__2loc_2docs_2md_2overview_autotoc_md8}
+Asynchronous results are delivered while the embedder drives its communication backend.\hypertarget{md__2loc_2docs_2md_2overview_autotoc_md8}{}\doxysection{\texorpdfstring{Building}{Building}}\label{md__2loc_2docs_2md_2overview_autotoc_md8}
 {\ttfamily loc} consumes an installed {\ttfamily comm} via {\ttfamily find\+\_\+package(comm CONFIG)} (which brings MPI, magistrate/\+checkpoint, and fmt transitively):\+
 
 
@@ -31,4 +31,6 @@ Asynchronous results are delivered while the embedder pumps {\ttfamily Comm::\+p
 \DoxyCodeLine{mpirun\ -\/np\ 2\ ./build/tests/loc\_tests\ \ \ \#\ exercises\ the\ cross-\/rank\ protocol}
 
 \end{DoxyCode}
- 
+
+
+When embedded with {\ttfamily add\+\_\+subdirectory}, {\ttfamily loc} defaults to a dependency-\/free TPL configuration:\+ it does not find or link {\ttfamily comm} or MPI, and it does not build its examples, tests, or documentation. The parent target links {\ttfamily loc::\+loc} and provides a communication type satisfying {\ttfamily loc::\+\+Communicator}. 

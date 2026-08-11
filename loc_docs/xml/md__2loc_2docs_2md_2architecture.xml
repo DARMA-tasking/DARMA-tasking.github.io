@@ -21,7 +21,7 @@
 <row>
 <entry thead="no"><para>Coordinator  </para>
 </entry><entry thead="no"><para><computeroutput><ref refid="coordinator_8h_source" kindref="compound">coordinator.h</ref></computeroutput> — the resolver protocol  </para>
-</entry><entry thead="no"><para>the internal structures + a <computeroutput>comm::Communicator</computeroutput>  </para>
+</entry><entry thead="no"><para>the internal structures + a <computeroutput>loc::Communicator</computeroutput> backend  </para>
 </entry></row>
 </table>
 </para>
@@ -29,7 +29,7 @@
 </sect1>
 <sect1 id="md__2loc_2docs_2md_2architecture_1autotoc_md2">
 <title>The resolver protocol</title><para>Every entity has a fixed <bold>home</bold> rank (a deterministic function of its id, chosen by the embedder). The home holds the authoritative location in its <computeroutput>directory</computeroutput>; other ranks hold cached resolutions that may be evicted.</para>
-<para>Control messages are point-to-point <computeroutput>comm::send&lt;&amp;Coordinator::handler&gt;</computeroutput> calls:</para>
+<para>Control messages are point-to-point <computeroutput>Comm::send&lt;&amp;Coordinator::handler&gt;</computeroutput> calls:</para>
 <para><itemizedlist>
 <listitem><para><computeroutput>updateHome(id, node)</computeroutput> — a rank tells the home where an entity now lives.</para>
 </listitem><listitem><para><computeroutput>locationRequest(id, requester)</computeroutput> — a rank asks the home for a location.</para>
@@ -46,7 +46,7 @@
 <title>What is deliberately out of scope</title><para><itemizedlist>
 <listitem><para>Message forwarding / routing of the entities&apos; own messages (resolver-only).</para>
 </listitem><listitem><para>The multi-instance <computeroutput>LocationManager</computeroutput>: the embedder owns coordinator lifetime and instantiates one per logical entity space.</para>
-</listitem><listitem><para>Any objgroup / VT coupling: the sole communication dependency is the <computeroutput>comm::Communicator</computeroutput> concept, satisfied by <computeroutput>CommMPI</computeroutput> (pure MPI) or <computeroutput>CommVT</computeroutput>. </para>
+</listitem><listitem><para>Any objgroup / VT coupling: the communication backend is injected through <computeroutput>loc::Communicator</computeroutput>, satisfied by standalone <computeroutput>comm::CommMPI</computeroutput> or a VT adapter. </para>
 </listitem></itemizedlist>
 </para>
 </sect1>

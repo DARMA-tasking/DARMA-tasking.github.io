@@ -14,7 +14,7 @@
 <codeline><highlight class="normal">|<sp/>Layer<sp/>|<sp/>Contents<sp/>|<sp/>Depends<sp/>on<sp/>|</highlight></codeline>
 <codeline><highlight class="normal">|-------|----------|-----------|</highlight></codeline>
 <codeline><highlight class="normal">|<sp/>Internal<sp/>data<sp/>structures<sp/>|<sp/>`cache/`<sp/>(LRU),<sp/>`directory/`<sp/>(home<sp/>map),<sp/>`lookup/`<sp/>(cache+directory),<sp/>`record/`<sp/>(per-entity<sp/>state)<sp/>|<sp/>nothing<sp/>but<sp/>the<sp/>C++<sp/>standard<sp/>library<sp/>|</highlight></codeline>
-<codeline><highlight class="normal">|<sp/>Coordinator<sp/>|<sp/>`coordinator.h`<sp/>—<sp/>the<sp/>resolver<sp/>protocol<sp/>|<sp/>the<sp/>internal<sp/>structures<sp/>+<sp/>a<sp/>`comm::Communicator`<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>Coordinator<sp/>|<sp/>`coordinator.h`<sp/>—<sp/>the<sp/>resolver<sp/>protocol<sp/>|<sp/>the<sp/>internal<sp/>structures<sp/>+<sp/>a<sp/>`loc::Communicator`<sp/>backend<sp/>|</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">The<sp/>internal<sp/>structures<sp/>are<sp/>pure<sp/>and<sp/>single-rank<sp/>testable.<sp/>The<sp/>coordinator<sp/>adds</highlight></codeline>
 <codeline><highlight class="normal">the<sp/>distributed<sp/>protocol.</highlight></codeline>
@@ -25,7 +25,7 @@
 <codeline><highlight class="normal">chosen<sp/>by<sp/>the<sp/>embedder).<sp/>The<sp/>home<sp/>holds<sp/>the<sp/>authoritative<sp/>location<sp/>in<sp/>its</highlight></codeline>
 <codeline><highlight class="normal">`directory`;<sp/>other<sp/>ranks<sp/>hold<sp/>cached<sp/>resolutions<sp/>that<sp/>may<sp/>be<sp/>evicted.</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">Control<sp/>messages<sp/>are<sp/>point-to-point<sp/>`comm::send&lt;&amp;Coordinator::handler&gt;`<sp/>calls:</highlight></codeline>
+<codeline><highlight class="normal">Control<sp/>messages<sp/>are<sp/>point-to-point<sp/>`Comm::send&lt;&amp;Coordinator::handler&gt;`<sp/>calls:</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">-<sp/>`updateHome(id,<sp/>node)`<sp/>—<sp/>a<sp/>rank<sp/>tells<sp/>the<sp/>home<sp/>where<sp/>an<sp/>entity<sp/>now<sp/>lives.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>`locationRequest(id,<sp/>requester)`<sp/>—<sp/>a<sp/>rank<sp/>asks<sp/>the<sp/>home<sp/>for<sp/>a<sp/>location.</highlight></codeline>
@@ -51,8 +51,8 @@
 <codeline><highlight class="normal">-<sp/>Message<sp/>forwarding<sp/>/<sp/>routing<sp/>of<sp/>the<sp/>entities&apos;<sp/>own<sp/>messages<sp/>(resolver-only).</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>The<sp/>multi-instance<sp/>`LocationManager`:<sp/>the<sp/>embedder<sp/>owns<sp/>coordinator<sp/>lifetime</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>and<sp/>instantiates<sp/>one<sp/>per<sp/>logical<sp/>entity<sp/>space.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Any<sp/>objgroup<sp/>/<sp/>VT<sp/>coupling:<sp/>the<sp/>sole<sp/>communication<sp/>dependency<sp/>is<sp/>the</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>`comm::Communicator`<sp/>concept,<sp/>satisfied<sp/>by<sp/>`CommMPI`<sp/>(pure<sp/>MPI)<sp/>or<sp/>`CommVT`.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Any<sp/>objgroup<sp/>/<sp/>VT<sp/>coupling:<sp/>the<sp/>communication<sp/>backend<sp/>is<sp/>injected<sp/>through</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>`loc::Communicator`,<sp/>satisfied<sp/>by<sp/>standalone<sp/>`comm::CommMPI`<sp/>or<sp/>a<sp/>VT<sp/>adapter.</highlight></codeline>
     </programlisting>
     <location file="/loc/docs/md/architecture.md"/>
   </compounddef>

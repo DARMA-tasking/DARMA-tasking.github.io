@@ -12,11 +12,13 @@
 <codeline><highlight class="normal">`loc`<sp/>is<sp/>a<sp/>standalone,<sp/>communication-backend-agnostic<sp/>library<sp/>that<sp/>answers<sp/>one</highlight></codeline>
 <codeline><highlight class="normal">question<sp/>for<sp/>a<sp/>set<sp/>of<sp/>migratable<sp/>entities:<sp/>**which<sp/>rank<sp/>currently<sp/>hosts<sp/>entity</highlight></codeline>
 <codeline><highlight class="normal">X?**<sp/>It<sp/>tracks<sp/>entity<sp/>registration<sp/>and<sp/>migration,<sp/>caches<sp/>resolutions,<sp/>and<sp/>keeps</highlight></codeline>
-<codeline><highlight class="normal">those<sp/>caches<sp/>coherent<sp/>—<sp/>all<sp/>on<sp/>top<sp/>of<sp/>the<sp/>[`comm`](https://github.com/DARMA-tasking/comm)</highlight></codeline>
-<codeline><highlight class="normal">communication<sp/>abstraction,<sp/>with<sp/>no<sp/>dependency<sp/>on<sp/>VT.</highlight></codeline>
+<codeline><highlight class="normal">those<sp/>caches<sp/>coherent<sp/>through<sp/>an<sp/>injected<sp/>communication<sp/>abstraction,<sp/>with<sp/>no</highlight></codeline>
+<codeline><highlight class="normal">dependency<sp/>on<sp/>VT.<sp/>Standalone<sp/>builds<sp/>use</highlight></codeline>
+<codeline><highlight class="normal">[`comm`](https://github.com/DARMA-tasking/comm);<sp/>an<sp/>embedding<sp/>runtime<sp/>can<sp/>supply</highlight></codeline>
+<codeline><highlight class="normal">its<sp/>own<sp/>backend<sp/>directly.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">It<sp/>is<sp/>extracted<sp/>from<sp/>VT&apos;s<sp/>location<sp/>manager<sp/>(`vt/src/vt/topos/location`)<sp/>and</highlight></codeline>
-<codeline><highlight class="normal">redesigned<sp/>around<sp/>`comm`&apos;s<sp/>`Communicator`<sp/>concept.</highlight></codeline>
+<codeline><highlight class="normal">redesigned<sp/>around<sp/>the<sp/>backend-neutral<sp/>`loc::Communicator`<sp/>concept.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Resolver,<sp/>not<sp/>router</highlight></codeline>
 <codeline></codeline>
@@ -40,7 +42,8 @@
 <codeline><highlight class="normal"><sp/><sp/>`action(exists,<sp/>node)`.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>`isCached(id)`,<sp/>`clearCache()`,<sp/>`thisNode()`.</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">Asynchronous<sp/>results<sp/>are<sp/>delivered<sp/>while<sp/>the<sp/>embedder<sp/>pumps<sp/>`Comm::poll()`.</highlight></codeline>
+<codeline><highlight class="normal">Asynchronous<sp/>results<sp/>are<sp/>delivered<sp/>while<sp/>the<sp/>embedder<sp/>drives<sp/>its<sp/>communication</highlight></codeline>
+<codeline><highlight class="normal">backend.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Building</highlight></codeline>
 <codeline></codeline>
@@ -53,6 +56,11 @@
 <codeline><highlight class="normal">ctest<sp/>--test-dir<sp/>build<sp/>--output-on-failure</highlight></codeline>
 <codeline><highlight class="normal">mpirun<sp/>-np<sp/>2<sp/>./build/tests/loc_tests<sp/><sp/><sp/>#<sp/>exercises<sp/>the<sp/>cross-rank<sp/>protocol</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>embedded<sp/>with<sp/>`add_subdirectory`,<sp/>`loc`<sp/>defaults<sp/>to<sp/>a<sp/>dependency-free<sp/>TPL</highlight></codeline>
+<codeline><highlight class="normal">configuration:<sp/>it<sp/>does<sp/>not<sp/>find<sp/>or<sp/>link<sp/>`comm`<sp/>or<sp/>MPI,<sp/>and<sp/>it<sp/>does<sp/>not<sp/>build<sp/>its</highlight></codeline>
+<codeline><highlight class="normal">examples,<sp/>tests,<sp/>or<sp/>documentation.<sp/>The<sp/>parent<sp/>target<sp/>links<sp/>`loc::loc`<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">provides<sp/>a<sp/>communication<sp/>type<sp/>satisfying<sp/>`loc::Communicator`.</highlight></codeline>
     </programlisting>
     <location file="/loc/docs/md/overview.md"/>
   </compounddef>
