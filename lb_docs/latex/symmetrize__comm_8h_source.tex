@@ -1,0 +1,158 @@
+\doxysection{symmetrize\+\_\+comm.\+h}
+\hypertarget{symmetrize__comm_8h_source}{}\label{symmetrize__comm_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/symmetrize\_comm.h@{/LB/src/vt-\/lb/algo/temperedlb/symmetrize\_comm.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ symmetrize\_comm.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_SYMMETRIZE\_COMM\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_SYMMETRIZE\_COMM\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <unordered\_map>}\ \textcolor{comment}{//\ added}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }CommunicationsSymmetrizer\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ CommunicationsSymmetrizer<CommT>;}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<ThisType>;}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{using\ }PhaseData\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}};}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{using\ }Edge\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Edge}{vt\_lb::model::Edge}};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{using\ }RankType\ =\ vt\_lb::model::RankType;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{explicit}\ CommunicationsSymmetrizer(CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ PhaseData\&\ pd)}
+\DoxyCodeLine{00067\ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),\ pd\_(\&pd)}
+\DoxyCodeLine{00068\ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ handle\_\ =\ comm\_.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this});}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ run()\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ my\_rank\ =\ pd\_-\/>getRank();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{auto}\ comms\ =\ pd\_-\/>getCommunications();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ Batch\ edges\ per\ remote\ rank}}
+\DoxyCodeLine{00077\ \ \ \ \ std::unordered\_map<RankType,\ std::vector<Edge>>\ rank\_batches;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ comms)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ RankType\ fr\ =\ e.getFromRank();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ RankType\ tr\ =\ e.getToRank();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}symmetrize\_comm:\ rank=\{\}\ processing\ edge\ from\ \{\}(rank=\{\})\ to\ \{\}(rank=\{\})\ vol=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ my\_rank,\ e.getFrom(),\ fr,\ e.getTo(),\ tr,\ e.getVolume()}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tr\ !=\ model::invalid\_rank\ \&\&\ tr\ !=\ my\_rank)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ rank\_batches[tr].push\_back(e);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fr\ !=\ model::invalid\_rank\ \&\&\ fr\ !=\ my\_rank\ \&\&\ fr\ !=\ tr)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ rank\_batches[fr].push\_back(e);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ Send\ one\ message\ per\ remote\ rank}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ rank\_batches)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ handle\_[kv.first].template\ send<\&ThisType::recvEdgesHandler>(kv.second);}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{comment}{//\ Drain\ progress}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm\_.poll())\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}completed\ symmetrization\ of\ communications\(\backslash\)n"{}}}
+\DoxyCodeLine{00110\ \ \ \ \ );}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ hasEdge(TaskType\ f,\ TaskType\ t)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd\_-\/>getCommunications())\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e.getFrom()\ ==\ f\ \&\&\ e.getTo()\ ==\ t)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00119\ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{comment}{//\ Add\ edge\ only\ if\ not\ already\ present\ locally;\ do\ not\ add\ reverse}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ addIfMissingLocal(Edge\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}addIfMissingLocal:\ checking\ edge\ from\ \{\}\ to\ \{\}\ vol=\{:.2f\}\ exists=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ e.getFrom(),\ e.getTo(),\ e.getVolume(),\ hasEdge(e.getFrom(),\ e.getTo())}
+\DoxyCodeLine{00127\ \ \ \ \ );}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (!hasEdge(e.getFrom(),\ e.getTo()))\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ pd\_-\/>addCommunication(e);}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ recvEdgesHandler(std::vector<Edge>\ edges)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}recvEdgesHandler:\ received\ \{\}\ edges\ to\ symmetrize\(\backslash\)n"{}},}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ edges.size()}
+\DoxyCodeLine{00138\ \ \ \ \ );}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ edges)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ addIfMissingLocal(e);}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00145\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00146\ \ \ PhaseData*\ pd\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00147\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \}\ \textcolor{comment}{//\ namespace\ vt\_lb::algo::temperedlb}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_SYMMETRIZE\_COMM\_H}}
+
+\end{DoxyCode}

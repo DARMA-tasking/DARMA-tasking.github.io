@@ -1,0 +1,452 @@
+\doxysection{temperedlb.\+h}
+\hypertarget{temperedlb_8h_source}{}\label{temperedlb_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/temperedlb.h@{/LB/src/vt-\/lb/algo/temperedlb/temperedlb.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperedlb.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TEMPEREDLB\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TEMPEREDLB\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/comm/comm\_traits.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/baselb/baselb.h>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Include\ all\ model\ types}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/types.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Task.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/SharedBlock.h>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ Include\ various\ temperedlb\ components}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/work\_model.h>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/configuration.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/clustering.h>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/symmetrize\_comm.h>}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/visualize.h>}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/cluster\_summarizer.h>}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/full\_graph\_visualizer.h>}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/info\_propagation.h>}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/transfer.h>}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/basic\_transfer.h>}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/relaxed\_cluster\_transfer.h>}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/statistics.h>}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/graph\_edge\_resolver.h>}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ Logging\ include}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00087\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TemperedLB_adfc921671b2e2561e63f16bdcfed6765}{TemperedLB}}\ final\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1baselb_1_1BaseLB}{baselb::BaseLB}}\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<TemperedLB<CommT>>;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Assert\ that\ CommT\ conforms\ to\ the\ communication\ interface\ we\ expect}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{static\_assert}(comm::is\_comm\_conformant<CommT>::value,\ \textcolor{stringliteral}{"{}CommT\ must\ be\ comm\ conformant"{}});}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00099\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TemperedLB_adfc921671b2e2561e63f16bdcfed6765}{TemperedLB}}(CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}\ config\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}())}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}),}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ config\_(config),}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ handle\_(comm\_.template\ registerInstanceCollective<\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TemperedLB_adfc921671b2e2561e63f16bdcfed6765}{TemperedLB}}<CommT>>(this))}
+\DoxyCodeLine{00103\ \ \ \{\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{void}\ clusterBasedOnCommunication()\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{auto}\&\ pd\ =\ this-\/>getPhaseData();}
+\DoxyCodeLine{00107\ \ \ \ \ clusterer\_\ =\ std::make\_unique<LeidenCPMStandaloneClusterer>(pd,\ 1000.0);}
+\DoxyCodeLine{00108\ \ \ \ \ clusterer\_-\/>compute();}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{void}\ clusterBasedOnSharedBlocks()\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{auto}\&\ pd\ =\ this-\/>getPhaseData();}
+\DoxyCodeLine{00113\ \ \ \ \ clusterer\_\ =\ std::make\_unique<SharedBlockClusterer>(pd);}
+\DoxyCodeLine{00114\ \ \ \ \ clusterer\_-\/>compute();}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ doClustering()\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_ae5fa8e16c339921cfaa2df54d567de7d}{cluster\_based\_on\_communication\_}}\ ||\ config\_.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_af944e681a05f5e802ed4a08e8c9ef6cc}{cluster\_based\_on\_shared\_blocks\_}})\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_ae5fa8e16c339921cfaa2df54d567de7d}{cluster\_based\_on\_communication\_}})\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ clusterBasedOnCommunication();}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (config\_.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_af944e681a05f5e802ed4a08e8c9ef6cc}{cluster\_based\_on\_shared\_blocks\_}})\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ clusterBasedOnSharedBlocks();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ std::unordered\_map<int,\ TaskClusterSummaryInfo>\ buildClusterSummaries()\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ ClusterSummarizer<CommT>\ cs(comm\_,\ getClusterer(),\ global\_max\_clusters\_);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ cs.buildClusterSummaries(}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ this-\/>getPhaseData(),\ config\_}
+\DoxyCodeLine{00131\ \ \ \ \ );}
+\DoxyCodeLine{00132\ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{void}\ makeCommunicationsSymmetric()\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ CommunicationsSymmetrizer<CommT>\ symm(comm\_,\ this-\/>getPhaseData());}
+\DoxyCodeLine{00136\ \ \ \ \ symm.run();}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{void}\ resolveGraphEdges()\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ GraphEdgeResolver<CommT>\ resolver(comm\_,\ this-\/>getPhaseData());}
+\DoxyCodeLine{00141\ \ \ \ \ resolver.run();}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ visualizeGraph(\textcolor{keyword}{const}\ std::string\&\ prefix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}\ (!config\_.visualize\_task\_graph\_\ \&\&\ !config\_.visualize\_clusters\_)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ std::string\ base\ =\ prefix\ +\ \textcolor{stringliteral}{"{}\_rank"{}}\ +\ std::to\_string(comm\_.getRank());}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ pd\ =\ this-\/>getPhaseData();}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{const}\ Clusterer*\ cl\ =\ getClusterer();}
+\DoxyCodeLine{00151\ \ \ \ \ std::string\ dot\ =\ vt\_lb::algo::temperedlb::buildTaskGraphDOT(}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ pd,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ cl,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ config\_.visualize\_clusters\_,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{comment}{/*show\_loads*/}\textcolor{keyword}{true}}
+\DoxyCodeLine{00156\ \ \ \ \ );}
+\DoxyCodeLine{00157\ \ \ \ \ std::ofstream\ ofs(base\ +\ \textcolor{stringliteral}{"{}.dot"{}});}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (ofs.good())\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ ofs\ <<\ dot;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{void}\ visualizeFullGraphIfNeeded(}
+\DoxyCodeLine{00164\ \ \ \ \ CommT\&\ comm,}
+\DoxyCodeLine{00165\ \ \ \ \ model::PhaseData\ \textcolor{keyword}{const}\&\ pd,}
+\DoxyCodeLine{00166\ \ \ \ \ Clusterer\ \textcolor{keyword}{const}*\ clusterer,}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters,}
+\DoxyCodeLine{00168\ \ \ \ \ Configuration\ \textcolor{keyword}{const}\&\ config,}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ prefix}
+\DoxyCodeLine{00170\ \ \ )\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (!config.visualize\_full\_graph\_)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \ \ FullGraphVisualizer<CommT>\ visualizer(comm,\ pd,\ clusterer,\ global\_max\_clusters,\ prefix);}
+\DoxyCodeLine{00175\ \ \ \ \ visualizer.run();}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00179\ \ \ std::unordered\_map<int,\ T>\ runInformationPropagation(T\&\ initial\_data)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ InformationPropagation<CommT,\ T>\ ip(comm\_,\ config\_);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{auto}\ gathered\_info\ =\ ip.run(initial\_data);}
+\DoxyCodeLine{00182\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}gathered\ load\ info\ size=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ gathered\_info.size()}
+\DoxyCodeLine{00186\ \ \ \ \ );}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ gathered\_info;}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ std::unordered\_set<model::TaskType>\ run()\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{comment}{//\ Make\ communications\ symmetric\ before\ running\ trials\ so\ we\ only\ have\ to\ do\ it\ once}}
+\DoxyCodeLine{00192\ \ \ \ \ makeCommunicationsSymmetric();}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ trial\ =\ 0;\ trial\ <\ config\_.num\_trials\_;\ ++trial)\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}Starting\ trial\ \{\}/\{\}\(\backslash\)n"{}},\ trial\ +\ 1,\ config\_.num\_trials\_);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ runTrial(trial);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}Finished\ trial\ \{\}/\{\}\(\backslash\)n"{}},\ trial\ +\ 1,\ config\_.num\_trials\_);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ Sort\ trial\ work\ distribution\ by\ max\ work}}
+\DoxyCodeLine{00205\ \ \ \ \ std::sort(}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ trial\_work\_distribution\_.begin(),}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ trial\_work\_distribution\_.end(),}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ return\ std::get<0>(a)\ <\ std::get<0>(b);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ );}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Best\ trial:\ max\ work\ =\ \{\}\(\backslash\)n"{}},\ std::get<0>(trial\_work\_distribution\_.front())}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00218\ \ \ \ \ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<1>(trial\_work\_distribution\_.front());}
+\DoxyCodeLine{00221\ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{void}\ runTrial(\textcolor{keywordtype}{int}\ trial)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ Save\ a\ clone\ of\ the\ phase\ data\ before\ load\ balancing}}
+\DoxyCodeLine{00225\ \ \ \ \ savePhaseData();}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ iter\ =\ 0;\ iter\ <\ config\_.num\_iters\_;\ ++iter)\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ \ Starting\ iteration\ \{\}/\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ iter\ +\ 1,\ config\_.num\_iters\_}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ wm\ =\ config\_.work\_model\_;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(wm.beta\ ==\ 0.0\ \&\&\ wm.gamma\ ==\ 0.0\ \&\&\ wm.delta\ ==\ 0.0))\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Edges\ might\ have\ the\ wrong\ rank\ after\ transfers,\ so\ fix\ them}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ resolveGraphEdges();}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ communications\ symmetric}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ makeCommunicationsSymmetric();}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ runIteration(trial,\ iter);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ \ Finished\ iteration\ \{\}/\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ iter\ +\ 1,\ config\_.num\_iters\_}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{comment}{//\ Before\ we\ restore\ phase\ data\ for\ the\ next\ trial,\ save\ the\ work\ and\ task\ distribution}}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ @todo:\ for\ now,\ we\ recompute\ work\ from\ scratch\ but\ we\ probably\ can\ use\ the\ breakdown}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{auto}\ after\_iters\_work\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ config\_.work\_model\_,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_afe1323a1bfcb23ebf14bfba651ffdc61}{WorkModelCalculator::computeWorkBreakdown}}(this-\/>getPhaseData(),\ config\_)}
+\DoxyCodeLine{00261\ \ \ \ \ );}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keyword}{auto}\ final\_stats\ =\ computeStatistics(after\_iters\_work,\ \textcolor{stringliteral}{"{}Final\ Work\ After\ Iters"{}});}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{//\ Save\ the\ max\ work\ and\ task\ distribution\ for\ this\ trial}}
+\DoxyCodeLine{00265\ \ \ \ \ trial\_work\_distribution\_.emplace\_back(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ final\_stats.max,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ this-\/>getPhaseData().getTaskIds()}
+\DoxyCodeLine{00268\ \ \ \ \ );}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{comment}{//\ Restore\ phase\ data}}
+\DoxyCodeLine{00271\ \ \ \ \ restorePhaseData();}
+\DoxyCodeLine{00272\ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordtype}{void}\ runIteration(\textcolor{keywordtype}{int}\ trial,\ \textcolor{keywordtype}{int}\ iter)\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordtype}{double}\ total\_load\ =\ computeLoad();}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{auto}\ load\_stats\ =\ computeStatistics(total\_load,\ \textcolor{stringliteral}{"{}Compute\ Load"{}});}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{auto}\ work\_breakdown\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_afe1323a1bfcb23ebf14bfba651ffdc61}{WorkModelCalculator::computeWorkBreakdown}}(}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ this-\/>getPhaseData(),\ config\_}
+\DoxyCodeLine{00280\ \ \ \ \ );}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ total\_work\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ config\_.work\_model\_,\ work\_breakdown}
+\DoxyCodeLine{00283\ \ \ \ \ );}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ VT\_LB\_LOG(LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}Total\ work:\ \{\}\(\backslash\)n"{}},\ total\_work);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{auto}\ work\_stats\ =\ computeStatistics(total\_work,\ \textcolor{stringliteral}{"{}Work"{}});}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_.hasMemoryInfo())\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ total\_memory\_usage\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ac74d69bdeb18b7a2bd05b581dd0160e0}{WorkModelCalculator::computeMemoryUsage}}(}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ config\_,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ this-\/>getPhaseData()}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ ).\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1MemoryBreakdown_a0cc7f91f7acf21c9d152dd27d87a4c2d}{current\_memory\_usage}};}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ computeStatistics(total\_memory\_usage,\ \textcolor{stringliteral}{"{}Memory\ Usage"{}});}
+\DoxyCodeLine{00295\ \ \ \ \ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{comment}{//\ Run\ the\ clustering\ algorithm\ if\ appropriate\ for\ the\ configuration}}
+\DoxyCodeLine{00298\ \ \ \ \ doClustering();}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{comment}{//\ Generate\ visualization\ after\ clustering}}
+\DoxyCodeLine{00301\ \ \ \ \ visualizeGraph(}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}temperedlb\_rank"{}}\ +\ std::to\_string(comm\_.getRank())\ +}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\_trial"{}}\ +\ std::to\_string(trial)\ +}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\_iter"{}}\ +\ std::to\_string(iter)}
+\DoxyCodeLine{00305\ \ \ \ \ );}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ visualizeFullGraphIfNeeded(}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ comm\_,}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ this-\/>getPhaseData(),}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ getClusterer(),}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ global\_max\_clusters\_,}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ config\_,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}temperedlb\_full\_graph\_trial"{}}\ +\ std::to\_string(trial)\ +\ \textcolor{stringliteral}{"{}\_iter"{}}\ +\ std::to\_string(iter)}
+\DoxyCodeLine{00314\ \ \ \ \ );}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keyword}{auto}\&\ wm\ =\ config\_.work\_model\_;}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordflow}{if}\ (wm.beta\ ==\ 0.0\ \&\&\ wm.gamma\ ==\ 0.0\ \&\&\ wm.delta\ ==\ 0.0)\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rank\_info\ =\ RankInfo\{total\_work,\ config\_.work\_model\_.rank\_alpha\};}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ runInformationPropagation(rank\_info);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ VT\_LB\_LOG(LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}runTrial:\ gathered\ load\ info\ from\ \{\}\ ranks\(\backslash\)n"{}},\ info.size());}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ BasicTransfer<CommT>\ transfer(comm\_,\ *\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1baselb_1_1BaseLB_a04f85eb378c18b2b184fe432e0ae7e82}{phase\_data\_}},\ info,\ work\_stats);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ std::mt19937\ gen\_select\_;}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ std::random\_device\ seed\_;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ transfer.run(}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ config\_.cmf\_type\_,}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ config\_.obj\_ordering\_,}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ config\_.criterion\_,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ config\_.deterministic\_,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ load\_stats.avg,}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ gen\_select\_,}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ seed\_}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \textcolor{keyword}{const}\ after\_work\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ config\_.work\_model\_,}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_afe1323a1bfcb23ebf14bfba651ffdc61}{WorkModelCalculator::computeWorkBreakdown}}(this-\/>getPhaseData(),\ config\_)}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ computeStatistics(after\_work,\ \textcolor{stringliteral}{"{}After\ Work"{}});}
+\DoxyCodeLine{00338\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \textcolor{comment}{//\ computeGlobalMaxClusters();}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \textcolor{comment}{//\ Just\ assume\ max\ of\ 1000\ clusters\ per\ rank\ for\ now,\ until\ we\ have\ bcast}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \textcolor{comment}{//\ For\ now,\ we\ will\ assume\ that\ if\ beta/gamma/delta\ are\ non-\/zero,\ clustering\ must\ occur.}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \textcolor{comment}{//\ Every\ task\ could\ be\ its\ own\ cluster,\ but\ clusters\ must\ exist}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ vt\_lb\_assert(clusterer\_\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Clusterer\ must\ be\ valid"{}});}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ local\_summary\ =\ buildClusterSummaries();}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\_inter\_bytes\ =\ std::max(}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ work\_breakdown.inter\_node\_recv\_comm,\ work\_breakdown.inter\_node\_send\_comm}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ computeStatistics(total\_inter\_bytes,\ \textcolor{stringliteral}{"{}Work\ intercomm\ bytes"{}});}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rank\_info\ =\ RankClusterInfo\{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ local\_summary,}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ this-\/>getPhaseData().getRankFootprintBytes(),}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ config\_.work\_model\_.rank\_alpha,}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ work\_breakdown,}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ this-\/>getPhaseData().getSharedBlockIdsHomed()}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ runInformationPropagation(rank\_info);}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}runTrial:\ gathered\ load\ info\ from\ \{\}\ ranks\(\backslash\)n"{}},}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ info.size()}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ RelaxedClusterTransfer<CommT>\ transfer(}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ comm\_,\ *\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1baselb_1_1BaseLB_a04f85eb378c18b2b184fe432e0ae7e82}{phase\_data\_}},\ config\_,\ clusterer\_.get(),\ global\_max\_clusters\_,\ info,\ work\_stats}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ transfer.run();}
+\DoxyCodeLine{00371\ \ \ \ \ \}}
+\DoxyCodeLine{00372\ \ \ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00379\ \ \ std::unordered\_map<model::RankType,\ std::vector<model::TaskType>>}
+\DoxyCodeLine{00380\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TemperedLB_a434a72b83f5f2fdac36297494bb09a65}{getGlobalDistribution}}(std::unordered\_set<model::TaskType>\ \textcolor{keyword}{const}\&\ local\_tasks)\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ std::vector<model::TaskType>\ local\_task\_vec(}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ local\_tasks.begin(),\ local\_tasks.end()}
+\DoxyCodeLine{00383\ \ \ \ \ );}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{auto}\ all\_task\_vecs\ =\ handle\_.template\ allgather<model::TaskType>(}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ local\_task\_vec.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(local\_task\_vec.size())}
+\DoxyCodeLine{00386\ \ \ \ \ );}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordflow}{return}\ all\_task\_vecs;}
+\DoxyCodeLine{00389\ \ \ \}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \textcolor{keyword}{const}*\ getClusterer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ clusterer\_.get();\ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{void}\ computeGlobalMaxClusters()\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ compute\ max\ number\ of\ clusters\ on\ any\ rank}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordtype}{int}\ local\_clusters\ =\ 0;}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keywordflow}{if}\ (clusterer\_)\ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \textcolor{comment}{//\ assume\ Clusterer\ provides\ numClusters();\ if\ not,\ set\ appropriately}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ local\_clusters\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(clusterer\_-\/>clusters().size());}
+\DoxyCodeLine{00401\ \ \ \ \ \}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ root\ =\ 0;}
+\DoxyCodeLine{00404\ \ \ \ \ handle\_.reduce(root,\ MPI\_INT,\ MPI\_MAX,\ \&local\_clusters,\ \&global\_max\_clusters\_,\ 1);}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ root)\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}global\ max\ clusters\ across\ ranks:\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ global\_max\_clusters\_}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00412\ \ \ \ \ \}}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{comment}{//\ @todo:\ once\ we\ have\ a\ bcast,\ broadcast\ global\_max\_clusters\_\ to\ all\ ranks}}
+\DoxyCodeLine{00414\ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00417\ \ \ Statistics\ computeStatistics(T\ quantity,\ std::string\ \textcolor{keyword}{const}\&\ name)\ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{comment}{//\ Compute\ min,\ max,\ avg\ of\ quantity\ across\ all\ ranks}}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordtype}{double}\ local\_value\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(quantity);}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordtype}{double}\ global\_min\ =\ 0.0;}
+\DoxyCodeLine{00421\ \ \ \ \ \textcolor{keywordtype}{double}\ global\_max\ =\ 0.0;}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordtype}{double}\ global\_sum\ =\ 0.0;}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ handle\_.reduce(0,\ MPI\_DOUBLE,\ MPI\_MIN,\ \&local\_value,\ \&global\_min,\ 1);}
+\DoxyCodeLine{00425\ \ \ \ \ handle\_.reduce(0,\ MPI\_DOUBLE,\ MPI\_MAX,\ \&local\_value,\ \&global\_max,\ 1);}
+\DoxyCodeLine{00426\ \ \ \ \ handle\_.reduce(0,\ MPI\_DOUBLE,\ MPI\_SUM,\ \&local\_value,\ \&global\_sum,\ 1);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ handle\_.broadcast(0,\ MPI\_DOUBLE,\ \&global\_min,\ 1);}
+\DoxyCodeLine{00429\ \ \ \ \ handle\_.broadcast(0,\ MPI\_DOUBLE,\ \&global\_max,\ 1);}
+\DoxyCodeLine{00430\ \ \ \ \ handle\_.broadcast(0,\ MPI\_DOUBLE,\ \&global\_sum,\ 1);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{double}\ global\_avg\ =\ global\_sum\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(comm\_.numRanks());}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordtype}{double}\ I\ =\ 0;}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordflow}{if}\ (global\_avg\ >\ 0.0)\ \{}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ I\ =\ (global\_max\ /\ global\_avg)\ -\/\ 1.0;}
+\DoxyCodeLine{00436\ \ \ \ \ \}}
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_.getRank()\ ==\ 0)\ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}\{\}\ statistics\ -\/-\/\ min:\ \{\},\ max:\ \{\},\ avg:\ \{\},\ I:\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ name,\ global\_min,\ global\_max,\ global\_avg,\ I}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00442\ \ \ \ \ \}}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordflow}{return}\ Statistics\{global\_min,\ global\_max,\ global\_avg,\ I\};}
+\DoxyCodeLine{00444\ \ \ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00448\ \ \ CommT\&\ comm\_;}
+\DoxyCodeLine{00450\ \ \ Configuration\ config\_;}
+\DoxyCodeLine{00452\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00454\ \ \ std::unique\_ptr<Clusterer>\ clusterer\_;}
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters\_\ =\ 1000;}
+\DoxyCodeLine{00458\ \ \ std::vector<std::tuple<double,\ std::unordered\_set<model::TaskType>>>\ trial\_work\_distribution\_;}
+\DoxyCodeLine{00459\ \};}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TEMPEREDLB\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

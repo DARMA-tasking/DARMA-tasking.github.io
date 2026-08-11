@@ -1,0 +1,284 @@
+\doxysection{graph\+\_\+edge\+\_\+resolver.\+h}
+\hypertarget{graph__edge__resolver_8h_source}{}\label{graph__edge__resolver_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/graph\_edge\_resolver.h@{/LB/src/vt-\/lb/algo/temperedlb/graph\_edge\_resolver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graph\_edge\_resolver.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_GRAPH\_EDGE\_RESOLVER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_GRAPH\_EDGE\_RESOLVER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Task.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ VALIDATE\_RESOLVED\_GRAPH\_EDGES\ 0}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00062\ \textcolor{keyword}{struct\ }GraphEdgeResolver\ \{}
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ GraphEdgeResolver<CommT>;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<ThisType>;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{using\ }PhaseData\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}};}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{using\ }Edge\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Edge}{vt\_lb::model::Edge}};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{using\ }RankType\ =\ vt\_lb::model::RankType;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{explicit}\ GraphEdgeResolver(CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ PhaseData\&\ pd)}
+\DoxyCodeLine{00071\ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),\ pd\_(\&pd)}
+\DoxyCodeLine{00072\ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ handle\_\ =\ comm\_.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this});}
+\DoxyCodeLine{00074\ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ run()\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ first\ remove\ any\ communication\ where\ neither\ endpoint\ task\ exists}}
+\DoxyCodeLine{00078\ \ \ \ \ pd\_-\/>purgeDanglingCommunications();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ std::list<Edge*>\ to\_resolve;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ resolve\ rank\ ID\ -\/>\ list\ of\ task\ IDs}}
+\DoxyCodeLine{00082\ \ \ \ \ std::unordered\_map<int,\ std::vector<model::TaskType>>\ rank\_to\_tasks;}
+\DoxyCodeLine{00083\ \ \ \ \ std::unordered\_map<int,\ std::vector<model::TaskType>>\ resolve\_tasks\_requests;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ num\_ranks\ =\ comm\_.numRanks();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ Proactively\ inform\ brokers\ of\ all\ local\ tasks\ to\ handle\ asymmetric\ graphs}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Assumes\ PhaseData\ exposes\ tasks\ as\ a\ map\ from\ TaskType\ -\/>\ Task}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id}\ :\ pd\_-\/>getTaskIds())\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ rank\_to\_tasks[\textcolor{keywordtype}{id}\ \%\ num\_ranks].push\_back(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ e\ :\ pd\_-\/>getCommunicationsRef())\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ from\_task\ =\ pd\_-\/>getTask(e.getFrom());}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ to\_task\ =\ pd\_-\/>getTask(e.getTo());}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ from\_task\ !=\ \textcolor{keyword}{nullptr}\ ||\ to\_task\ !=\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}At\ least\ one\ endpoint\ task\ must\ exist\ after\ purge"{}}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (from\_task\ ==\ \textcolor{keyword}{nullptr}\ ||\ to\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (from\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ resolve\_tasks\_requests[e.getFrom()\ \%\ num\_ranks].push\_back(e.getFrom());}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ rank\_to\_tasks[e.getFrom()\ \%\ num\_ranks].push\_back(e.getFrom());}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (to\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ resolve\_tasks\_requests[e.getTo()\ \%\ num\_ranks].push\_back(e.getTo());}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ rank\_to\_tasks[e.getTo()\ \%\ num\_ranks].push\_back(e.getTo());}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ to\_resolve.push\_back(\&e);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Deduplicate\ per-\/rank\ task\ IDs}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ rank\_to\_tasks)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ v\ =\ kv.second;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ std::sort(v.begin(),\ v.end());}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ v.erase(std::unique(v.begin(),\ v.end()),\ v.end());}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ resolve\_tasks\_requests)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ v\ =\ kv.second;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ std::sort(v.begin(),\ v.end());}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ v.erase(std::unique(v.begin(),\ v.end()),\ v.end());}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ rank\_to\_tasks)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\_rank\ =\ kv.first;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ task\_ids\ =\ kv.second;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!task\_ids.empty())\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ handle\_[target\_rank].template\ send<\&ThisType::informTaskLocation>(comm\_.getRank(),\ task\_ids);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ resolve\_tasks\_requests)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\_rank\ =\ kv.first;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ task\_ids\ =\ kv.second;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!task\_ids.empty())\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ handle\_[target\_rank].template\ send<\&ThisType::resolveTasks>(comm\_.getRank(),\ task\_ids);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm\_.poll())\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ e\ :\ to\_resolve)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ from\_task\ =\ pd\_-\/>getTask(e-\/>getFrom());}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ to\_task\ =\ pd\_-\/>getTask(e-\/>getTo());}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ from\_task\ !=\ \textcolor{keyword}{nullptr}\ ||\ to\_task\ !=\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}At\ least\ one\ endpoint\ task\ must\ exist\ after\ purge"{}}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (from\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ resolved\_tasks\_.find(e-\/>getFrom());}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ it\ !=\ resolved\_tasks\_.end(),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}From\ task\ must\ have\ been\ resolved"{}}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ e-\/>setToRank(comm\_.getRank());}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ e-\/>setFromRank(it-\/>second);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (to\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ resolved\_tasks\_.find(e-\/>getTo());}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ it\ !=\ resolved\_tasks\_.end(),}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}To\ task\ must\ have\ been\ resolved"{}}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ e-\/>setToRank(it-\/>second);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ e-\/>setFromRank(comm\_.getRank());}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#if\ VALIDATE\_RESOLVED\_GRAPH\_EDGES}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{auto}\ comm2\ =\ comm\_.clone();}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{auto}\ handle2\ =\ comm2.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this});}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ Validate\ end\ points}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ e\ :\ to\_resolve)\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ from\_task\ =\ pd\_-\/>getTask(e-\/>getFrom());}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ to\_task\ =\ pd\_-\/>getTask(e-\/>getTo());}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (from\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ handle2[e-\/>getFromRank()].template\ send<\&ThisType::validateEndpoint>(}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ comm\_.getRank(),}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ e-\/>getFrom()}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (to\_task\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ handle2[e-\/>getToRank()].template\ send<\&ThisType::validateEndpoint>(}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ comm\_.getRank(),}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ e-\/>getTo()}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm2.poll())\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00200\ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{void}\ returnTaskLocation(}
+\DoxyCodeLine{00203\ \ \ \ \ RankType\ rank,}
+\DoxyCodeLine{00204\ \ \ \ \ model::TaskType\ task\_id}
+\DoxyCodeLine{00205\ \ \ )\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ resolved\_tasks\_[task\_id]\ =\ rank;}
+\DoxyCodeLine{00207\ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{void}\ informTaskLocation(}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{int}\ rank,}
+\DoxyCodeLine{00211\ \ \ \ \ std::vector<model::TaskType>\ \textcolor{keyword}{const}\&\ task\_ids}
+\DoxyCodeLine{00212\ \ \ )\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GraphEdgeResolver::informTaskLocation:\ received\ \{\}\ task\ locations\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ task\_ids.size(),\ rank}
+\DoxyCodeLine{00217\ \ \ \ \ );}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ tid\ :\ task\_ids)\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ task\_location\_map\_[tid]\ =\ rank;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ it\ =\ resolve\_tasks\_requests\_.find(tid);\ it\ !=\ resolve\_tasks\_requests\_.end())\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ req\_rank\ :\ it-\/>second)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ handle\_[req\_rank].template\ send<\&ThisType::returnTaskLocation>(rank,\ tid);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ resolve\_tasks\_requests\_.erase(it);}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{void}\ resolveTasks(}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{int}\ rank,}
+\DoxyCodeLine{00233\ \ \ \ \ std::vector<model::TaskType>\ \textcolor{keyword}{const}\&\ task\_ids}
+\DoxyCodeLine{00234\ \ \ )\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GraphEdgeResolver::resolveTasks:\ received\ \{\}\ task\ resolution\ requests\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ task\_ids.size(),\ rank}
+\DoxyCodeLine{00239\ \ \ \ \ );}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ tid\ :\ task\_ids)\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ it\ =\ task\_location\_map\_.find(tid);\ it\ !=\ task\_location\_map\_.end())\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ handle\_[rank].template\ send<\&ThisType::returnTaskLocation>(it-\/>second,\ tid);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ resolve\_tasks\_requests\_[tid].push\_back(rank);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{void}\ validateEndpoint(}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordtype}{int}\ rank,}
+\DoxyCodeLine{00252\ \ \ \ \ model::TaskType\ task\_id}
+\DoxyCodeLine{00253\ \ \ )\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GraphEdgeResolver::validateEndpoint:\ received\ validation\ request\ for\ task\ \{\}\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ task\_id,\ rank}
+\DoxyCodeLine{00258\ \ \ \ \ );}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{auto}\ task\ =\ pd\_-\/>getTask(task\_id);}
+\DoxyCodeLine{00261\ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ task\ !=\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Validated\ task\ must\ exist\ locally"{}}}
+\DoxyCodeLine{00264\ \ \ \ \ );}
+\DoxyCodeLine{00265\ \ \ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00268\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00269\ \ \ PhaseData*\ pd\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00270\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00271\ \ \ std::unordered\_map<model::TaskType,\ int>\ task\_location\_map\_;}
+\DoxyCodeLine{00272\ \ \ std::unordered\_map<model::TaskType,\ std::vector<int>>\ resolve\_tasks\_requests\_;}
+\DoxyCodeLine{00273\ \ \ std::unordered\_map<model::TaskType,\ int>\ resolved\_tasks\_;}
+\DoxyCodeLine{00274\ \};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_GRAPH\_EDGE\_RESOLVER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

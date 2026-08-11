@@ -1,0 +1,144 @@
+\doxysection{Task.\+h}
+\hypertarget{Task_8h_source}{}\label{Task_8h_source}\index{/LB/src/vt-\/lb/model/Task.h@{/LB/src/vt-\/lb/model/Task.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Task.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_MODEL\_TASK\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_MODEL\_TASK\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }vt\_lb::model\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }TaskMemory\ \{}
+\DoxyCodeLine{00054\ \ \ TaskMemory()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00055\ \ \ TaskMemory(BytesType\ working,\ BytesType\ footprint,\ BytesType\ serialized)}
+\DoxyCodeLine{00056\ \ \ \ \ :\ working\_(working),\ footprint\_(footprint),\ serialized\_(serialized)}
+\DoxyCodeLine{00057\ \ \ \{\}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ BytesType\ getWorking()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ working\_;\ \}}
+\DoxyCodeLine{00060\ \ \ BytesType\ getFootprint()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ footprint\_;\ \}}
+\DoxyCodeLine{00061\ \ \ BytesType\ getSerialized()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ serialized\_;\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ s\ |\ working\_;}
+\DoxyCodeLine{00066\ \ \ \ \ s\ |\ footprint\_;}
+\DoxyCodeLine{00067\ \ \ \ \ s\ |\ serialized\_;}
+\DoxyCodeLine{00068\ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ BytesType\ working\_\ =\ 0.0;}
+\DoxyCodeLine{00072\ \ \ BytesType\ footprint\_\ =\ 0.0;}
+\DoxyCodeLine{00073\ \ \ BytesType\ serialized\_\ =\ 0.0;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{struct\ }Task\ \{}
+\DoxyCodeLine{00077\ \ \ Task()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00078\ \ \ Task(TaskType\ \textcolor{keywordtype}{id},\ RankType\ home,\ RankType\ current,\ \textcolor{keywordtype}{bool}\ migratable,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1TaskMemory}{TaskMemory}}\ \textcolor{keyword}{const}\&\ memory,\ LoadType\ load)}
+\DoxyCodeLine{00080\ \ \ \ \ :\ id\_(\textcolor{keywordtype}{id}),}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ home\_(home),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ current\_(current),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ migratable\_(migratable),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ memory\_(memory),}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ load\_(load)}
+\DoxyCodeLine{00086\ \ \ \{\}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ TaskType\ getId()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ id\_;\ \}}
+\DoxyCodeLine{00089\ \ \ RankType\ getHome()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ home\_;\ \}}
+\DoxyCodeLine{00090\ \ \ RankType\ getCurrent()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ current\_;\ \}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{bool}\ isMigratable()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ migratable\_;\ \}}
+\DoxyCodeLine{00092\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1TaskMemory}{TaskMemory}}\ \textcolor{keyword}{const}\&\ getMemory()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ memory\_;\ \}}
+\DoxyCodeLine{00093\ \ \ LoadType\ getLoad()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ load\_;\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ setMemory(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1TaskMemory}{TaskMemory}}\ mem)\ \{\ memory\_\ =\ mem;\ \}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ setLoad(LoadType\ load)\ \{\ load\_\ =\ load;\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{comment}{//\ Add\ accessors\ for\ shared\ blocks}}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{void}\ addSharedBlock(SharedBlockType\ sb)\ \{\ shared\_blocks\_.insert(sb);\ \}}
+\DoxyCodeLine{00100\ \ \ std::unordered\_set<SharedBlockType>\ \textcolor{keyword}{const}\&\ getSharedBlocks()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shared\_blocks\_;\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ s\ |\ id\_;}
+\DoxyCodeLine{00105\ \ \ \ \ s\ |\ home\_;}
+\DoxyCodeLine{00106\ \ \ \ \ s\ |\ current\_;}
+\DoxyCodeLine{00107\ \ \ \ \ s\ |\ migratable\_;}
+\DoxyCodeLine{00108\ \ \ \ \ s\ |\ memory\_;}
+\DoxyCodeLine{00109\ \ \ \ \ s\ |\ load\_;}
+\DoxyCodeLine{00110\ \ \ \ \ s\ |\ shared\_blocks\_;}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00114\ \ \ TaskType\ id\_\ =\ invalid\_task;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{int}\ home\_\ =\ invalid\_rank;}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{int}\ current\_\ =\ invalid\_rank;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{bool}\ migratable\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00118\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1TaskMemory}{TaskMemory}}\ memory\_;}
+\DoxyCodeLine{00119\ \ \ LoadType\ load\_\ =\ 0.0;}
+\DoxyCodeLine{00120\ \ \ std::unordered\_set<SharedBlockType>\ shared\_blocks\_;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Task\&\ other)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ id\_\ ==\ other.id\_;\ \}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ Task\&\ other)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);\ \}}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::model\ */}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }hash<vt\_lb::model::Task>\ \{}
+\DoxyCodeLine{00132\ \ \ std::size\_t\ operator()(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{vt\_lb::model::Task}}\&\ t)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{return}\ std::hash<vt\_lb::model::TaskType>\{\}(t.getId());}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00136\ \}\ \textcolor{comment}{/*\ end\ namespace\ std\ */}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_MODEL\_TASK\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,641 @@
+\doxysection{relaxed\+\_\+cluster\+\_\+transfer.\+h}
+\hypertarget{relaxed__cluster__transfer_8h_source}{}\label{relaxed__cluster__transfer_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/relaxed\_cluster\_transfer.h@{/LB/src/vt-\/lb/algo/temperedlb/relaxed\_cluster\_transfer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ relaxed\_cluster\_transfer.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_RELAXED\_CLUSTER\_TRANSFER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_RELAXED\_CLUSTER\_TRANSFER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/transfer.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/statistics.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/comm/comm\_traits.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/work\_model.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/configuration.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/cluster\_summarizer.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ PRINT\_TOP\_N\_CANDIDATES\ 0}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}\ <comm::Communicator\ CommT>}
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }RelaxedClusterTransfer\ \{}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ RelaxedClusterTransfer<CommT>;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<ThisType>;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ RelaxedClusterTransfer(}
+\DoxyCodeLine{00070\ \ \ \ \ CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\&\ pd,}
+\DoxyCodeLine{00072\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}\ \textcolor{keyword}{const}\&\ config,}
+\DoxyCodeLine{00073\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}*\ clusterer,}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters,}
+\DoxyCodeLine{00075\ \ \ \ \ std::unordered\_map<int,\ RankClusterInfo>\ \textcolor{keyword}{const}\&\ cluster\_info,}
+\DoxyCodeLine{00076\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Statistics}{Statistics}}\ stats}
+\DoxyCodeLine{00077\ \ \ )\ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ handle\_(comm\_.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this})),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ pd\_(pd),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ clusterer\_(clusterer),}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ global\_max\_clusters\_(global\_max\_clusters),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ cluster\_info\_(cluster\_info),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ stats\_(stats),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ config\_(config)}
+\DoxyCodeLine{00085\ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (clusterer\_)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{comment}{//\ Remap\ all\ local\ cluster\ IDs\ to\ global\ IDs}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ required\ so\ that\ when\ we\ migrate\ clusters\ we\ don't\ have\ to\ remap\ the\ IDs}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ clusterer\_-\/>remapClusterIDs(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_ade2c313b1e57318829bbe5974322656b}{ClusterSummarizerUtil::buildLocalToGlobalClusterIDMap}}(}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ comm\_.getRank(),}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ global\_max\_clusters\_,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ clusterer\_-\/>clusters()}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ ));}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RelaxedClusterTransfer_1_1Candidate}{Candidate}}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ dst\_rank\ =\ -\/1;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ give\_cluster\_gid\ =\ -\/1;}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{int}\ recv\_cluster\_gid\ =\ -\/1;}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{double}\ this\_work\_before\ =\ 0.0,\ this\_work\_after\ =\ 0.0;}
+\DoxyCodeLine{00102\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkBreakdown}{WorkBreakdown}}\ this\_work\_breakdown\_after\ =\ \{\};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{double}\ dst\_work\_before\ =\ 0.0,\ dst\_work\_after\ =\ 0.0;}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkBreakdown}{WorkBreakdown}}\ dst\_work\_breakdown\_after\ =\ \{\};}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{double}\ improvement\ =\ 0.0;\ \textcolor{comment}{//\ w\_max\_0\ -\/\ w\_max\_new}}
+\DoxyCodeLine{00106\ \ \ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RelaxedClusterTransfer_1_1Candidate}{Candidate}}\ findBestSwapCandidate()\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{int}\ this\_rank\ =\ this-\/>comm\_.getRank();}
+\DoxyCodeLine{00110\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankClusterInfo}{RankClusterInfo}}\ \textcolor{keyword}{const}\&\ this\_rank\_info\ =\ cluster\_info\_.at(this\_rank);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ local\_cluster\_summaries\ =\ this\_rank\_info.cluster\_summaries;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ std::vector<int>\ dest\_ranks;}
+\DoxyCodeLine{00114\ \ \ \ \ dest\_ranks.reserve(cluster\_info\_.size());}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [rank,\ \_]\ :\ cluster\_info\_)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rank\ !=\ this\_rank)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ dest\_ranks.push\_back(rank);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ Precompute\ "{}before"{}\ work\ per\ known\ rank}}
+\DoxyCodeLine{00122\ \ \ \ \ std::unordered\_map<int,\ double>\ before\_work;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [rank,\ info]\ :\ cluster\_info\_)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ before\_work[rank]\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ config\_.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a369b4c95b65271180e2bb039bffc0262}{work\_model\_}},\ info.rank\_breakdown}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ std::vector<Candidate>\ candidates;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{auto}\ eval\_swap\ =\ [\&](\textcolor{keywordtype}{int}\ dst\_rank,\ \textcolor{keywordtype}{int}\ give\_gid,\ \textcolor{keywordtype}{int}\ recv\_gid)\ -\/>\ Candidate\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ Candidate\ c\{dst\_rank,\ give\_gid,\ recv\_gid,\ 0.0,\ 0.0,\ 0.0\};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ RankClusterInfo\ \textcolor{keyword}{const}\&\ dst\_info\ =\ cluster\_info\_.at(dst\_rank);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ TaskClusterSummaryInfo\ to\_add\_this\{\};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ TaskClusterSummaryInfo\ to\_remove\_this\{\};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ TaskClusterSummaryInfo\ to\_add\_dst\{\};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ TaskClusterSummaryInfo\ to\_remove\_dst\{\};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (give\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ to\_remove\_this\ =\ to\_add\_dst\ =\ local\_cluster\_summaries.at(give\_gid);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (recv\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ to\_add\_this\ =\ to\_remove\_dst\ =\ dst\_info.cluster\_summaries.at(recv\_gid);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ memory\ fit\ on\ this\ rank}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_.hasMemoryInfo())\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ fits\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad99106c04c2ae34a424a71637338f520}{WorkModelCalculator::checkMemoryFitUpdate}}(}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ config\_,\ this\_rank\_info,\ to\_add\_this,\ to\_remove\_this,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ this-\/>pd\_.getRankMaxMemoryAvailable()\ \textcolor{comment}{//\ assume\ all\ ranks\ have\ equal\ memory\ available}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!fits)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ c.improvement\ =\ -\/std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ memory\ fit\ on\ destination\ rank}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config\_.hasMemoryInfo())\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ fits\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad99106c04c2ae34a424a71637338f520}{WorkModelCalculator::checkMemoryFitUpdate}}(}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ config\_,\ dst\_info,\ to\_add\_dst,\ to\_remove\_dst,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ this-\/>pd\_.getRankMaxMemoryAvailable()\ \textcolor{comment}{//\ assume\ all\ ranks\ have\ equal\ memory\ available}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!fits)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ c.improvement\ =\ -\/std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ post-\/swap\ work\ on\ this\ rank}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ c.this\_work\_breakdown\_after\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad8809b7ce2a3d8825050420a5628af7b}{WorkModelCalculator::computeWorkUpdateSummary}}(}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ this\_rank\_info,\ to\_add\_this,\ to\_remove\_this}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ c.this\_work\_after\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ config\_.work\_model\_,\ c.this\_work\_breakdown\_after}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ post-\/swap\ work\ on\ destination\ rank}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ c.dst\_work\_breakdown\_after\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad8809b7ce2a3d8825050420a5628af7b}{WorkModelCalculator::computeWorkUpdateSummary}}(}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ dst\_info,\ to\_add\_dst,\ to\_remove\_dst}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ c.dst\_work\_after\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ config\_.work\_model\_,\ c.dst\_work\_breakdown\_after}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \textcolor{comment}{//\ Criterion:\ improvement\ in\ max\ work}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ before\_w\_src\ =\ before\_work[this\_rank];}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ before\_w\_dst\ =\ before\_work[dst\_rank];}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\_max\_0\ =\ std::max(before\_w\_src,\ before\_w\_dst);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\_max\_new\ =\ std::max(c.this\_work\_after,\ c.dst\_work\_after);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ c.improvement\ =\ w\_max\_0\ -\/\ w\_max\_new;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ c.this\_work\_before\ =\ before\_w\_src;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ c.dst\_work\_before\ =\ before\_w\_dst;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{00197\ \ \ \ \ \};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{comment}{//\ Null\ swap\ candidates}}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [give\_gid,\ \_]\ :\ local\_cluster\_summaries)\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dst\ :\ dest\_ranks)\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ candidates.emplace\_back(eval\_swap(dst,\ give\_gid,\ -\/1));}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{comment}{//\ Receive-\/only\ candidates}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dst\ :\ dest\_ranks)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ dst\_summaries\ =\ cluster\_info\_.at(dst).cluster\_summaries;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [recv\_gid,\ \_]\ :\ dst\_summaries)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ candidates.emplace\_back(eval\_swap(dst,\ -\/1,\ recv\_gid));}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{if}\ (candidates.empty())\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ VT\_LB\_LOG(LoadBalancer,\ normal,\ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ no\ swap\ candidates\(\backslash\)n"{}});}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RelaxedClusterTransfer_1_1Candidate}{Candidate}}\{\};}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ Sort\ by\ descending\ improvement;\ tie-\/breakers\ by\ this\ rank’s\ post-\/work\ then\ destination’s}}
+\DoxyCodeLine{00220\ \ \ \ \ std::sort(}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ candidates.begin(),\ candidates.end(),}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ [](\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RelaxedClusterTransfer_1_1Candidate}{Candidate}}\ \textcolor{keyword}{const}\&\ a,\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RelaxedClusterTransfer_1_1Candidate}{Candidate}}\ \textcolor{keyword}{const}\&\ b)\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ if\ (a.improvement\ !=\ b.improvement)\ return\ a.improvement\ >\ b.improvement;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ if\ (a.this\_work\_after\ !=\ b.this\_work\_after)\ return\ a.this\_work\_after\ <\ b.this\_work\_after;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ return\ a.dst\_work\_after\ <\ b.dst\_work\_after;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ );}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#if\ PRINT\_TOP\_N\_CANDIDATES}}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{comment}{//\ Print\ top\ N\ candidates}}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_print\ =\ std::min(5,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(candidates.size()));}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n\_print;\ ++i)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ c\ =\ candidates[i];}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ candidate[\{\}]\ dst\_rank=\{\}\ give\_gid=\{\}\ recv\_gid=\{\}\ "{}}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}this\_work\_after=\{:.2f\}\ dst\_work\_after=\{:.2f\}\ improvement=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ i,\ c.dst\_rank,\ c.give\_cluster\_gid,\ c.recv\_cluster\_gid,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ c.this\_work\_after,\ c.dst\_work\_after,\ c.improvement}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ best\ =\ candidates.front();}
+\DoxyCodeLine{00245\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ best\ candidate\ dst\_rank=\{\}\ give\_gid=\{\}\ recv\_gid=\{\}\ "{}}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}this\_work\_before=\{:.2f\}\ this\_work\_after=\{:.2f\}\ dst\_work\_before=\{:.2f\}\ dst\_work\_after=\{:.2f\}\ improvement=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ best.dst\_rank,\ best.give\_cluster\_gid,\ best.recv\_cluster\_gid,}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ best.this\_work\_before,\ best.this\_work\_after,\ best.dst\_work\_before,\ best.dst\_work\_after,\ best.improvement}
+\DoxyCodeLine{00251\ \ \ \ \ );}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{return}\ best;}
+\DoxyCodeLine{00254\ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{void}\ run()\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{int}\ this\_rank\ =\ this-\/>comm\_.getRank();}
+\DoxyCodeLine{00258\ \ \ \ \ RankClusterInfo\ \textcolor{keyword}{const}\&\ this\_rank\_info\ =\ cluster\_info\_.at(this\_rank);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(config\_.work\_model\_,\ this\_rank\_info.rank\_breakdown)\ <=\ stats\_.avg)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00262\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ found\_good\_swap\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (found\_good\_swap\ \&\&\ transaction\_status\_\ !=\ TransactionStatus::Rejected)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ best\ =\ findBestSwapCandidate();}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (best.improvement\ >\ 0.0)\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ executing\ swap\ dst\_rank=\{\}\ give\_gid=\{\}\ recv\_gid=\{\}\ "{}}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}this\_work\_after=\{:.2f\}\ dst\_work\_after=\{:.2f\}\ improvement=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ best.dst\_rank,\ best.give\_cluster\_gid,\ best.recv\_cluster\_gid,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ best.this\_work\_after,\ best.dst\_work\_after,\ best.improvement}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ TaskClusterSummaryInfo\ give\_cluster\_summary\{\};}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (best.give\_cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ give\_cluster\_summary\ =\ this\_rank\_info.cluster\_summaries.at(best.give\_cluster\_gid);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ this-\/>migrateCluster(}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ best.dst\_rank,\ best.give\_cluster\_gid,\ give\_cluster\_summary,\ best.recv\_cluster\_gid,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false},\ best.dst\_work\_before}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ found\_good\_swap\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ transaction\_status\_\ =\ TransactionStatus::Pending;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (transaction\_status\_\ ==\ TransactionStatus::Pending\ \&\&\ this-\/>comm\_.poll())\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (transaction\_status\_\ ==\ TransactionStatus::Accepted)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ swap\ accepted\ dst\_rank=\{\}\ give\_gid=\{\}\ recv\_gid=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ best.dst\_rank,\ best.give\_cluster\_gid,\ best.recv\_cluster\_gid}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ ci\_r\ =\ cluster\_info\_[this\_rank];}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ ci\_d\ =\ cluster\_info\_[best.dst\_rank];}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ ci\_r.rank\_breakdown\ =\ best.this\_work\_breakdown\_after;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ ci\_d.rank\_breakdown\ =\ best.dst\_work\_breakdown\_after;}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (best.give\_cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ it\ =\ ci\_r.cluster\_summaries.find(best.give\_cluster\_gid);\ it\ !=\ ci\_r.cluster\_summaries.end())\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ci\_d.cluster\_summaries[best.give\_cluster\_gid]\ =\ it-\/>second;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ci\_r.cluster\_summaries.erase(it);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (best.recv\_cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ it\ =\ ci\_d.cluster\_summaries.find(best.recv\_cluster\_gid);\ it\ !=\ ci\_d.cluster\_summaries.end())\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ci\_r.cluster\_summaries[best.recv\_cluster\_gid]\ =\ it-\/>second;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ci\_d.cluster\_summaries.erase(it);}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ new\_work\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ config\_.work\_model\_,\ ci\_r.rank\_breakdown}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer:\ post-\/swap\ this\_rank=\{\}\ new\_work=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ this\_rank,\ new\_work}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{comment}{//\ Just\ wait\ for\ termination\ and\ process\ requests}}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keywordflow}{while}\ (this-\/>comm\_.poll())\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00334\ \ \ \ \ \}}
+\DoxyCodeLine{00335\ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordtype}{void}\ migrateCluster(}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ rank,}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{int}\ cluster\_gid,}
+\DoxyCodeLine{00340\ \ \ \ \ TaskClusterSummaryInfo\ cluster\_gid\_summary,}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keywordtype}{int}\ request\_cluster\_gid,}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordtype}{bool}\ sending\_requested\_cluster\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordtype}{double}\ dst\_work\_before\ =\ 0.0}
+\DoxyCodeLine{00344\ \ \ )\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{comment}{//\ Assume\ all\ clusters\ have\ been\ converted\ to\ global\ IDs\ already}}
+\DoxyCodeLine{00346\ \ \ \ \ vt\_lb\_assert(clusterer\_\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Clusterer\ must\ be\ initialized\ to\ migrate\ clusters"{}});}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ std::vector<model::Task>\ tasks\_to\_migrate;}
+\DoxyCodeLine{00349\ \ \ \ \ std::vector<model::Edge>\ edges\_to\_migrate;}
+\DoxyCodeLine{00350\ \ \ \ \ std::set<model::SharedBlockType>\ shared\_blocks\_id\_set;}
+\DoxyCodeLine{00351\ \ \ \ \ std::vector<model::SharedBlock>\ shared\_blocks\_to\_migrate;}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keywordflow}{if}\ (cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [task\_id,\ task\_cluster\_id]\ :\ clusterer\_-\/>taskToCluster())\ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\_cluster\_id\ ==\ cluster\_gid)\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}*\ task\ =\ pd\_.getTask(task\_id);}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ vt\_lb\_assert(task\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Task\ must\ exist\ locally\ to\ migrate"{}});}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ tasks\_to\_migrate.push\_back(*task);}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ edge\ :\ pd\_.getCommunicationsRef())\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ task-\/>getId()\ ||\ edge.getTo()\ ==\ task-\/>getId())\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ task-\/>getId())\ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge.setFromRank(rank);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getTo()\ ==\ task-\/>getId())\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge.setToRank(rank);}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer::migrateCluster:\ migrating\ edge\ from\ task\ \{\}\ rank\ \{\}\ to\ task\ \{\}\ rank\ \{\}\ volume\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge.getFrom(),\ edge.getFromRank(),\ edge.getTo(),\ edge.getToRank(),\ edge.getVolume()}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edges\_to\_migrate.push\_back(edge);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\_id\ :\ task-\/>getSharedBlocks())\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (shared\_blocks\_id\_set.find(sb\_id)\ ==\ shared\_blocks\_id\_set.end())\ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared\_blocks\_id\_set.insert(sb\_id);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared\_blocks\_to\_migrate.push\_back(*pd\_.getSharedBlock(sb\_id));}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Erase\ the\ tasks..\ they\ are\ gone.\ If\ it\ is\ rejected,\ then\ we\ add\ them\ back}}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ pd\_.eraseTask(task-\/>getId());}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \textcolor{comment}{//\ Tell\ the\ transfer\ scheme\ that\ the\ cluster\ should\ be\ removed}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ outgoingCluster(cluster\_gid,\ cluster\_gid\_summary);}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::migrateCluster:\ migrating\ cluster\_gid=\{\}\ with\ \{\}\ tasks\ \{\}\ edges\ to\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ cluster\_gid,\ tasks\_to\_migrate.size(),\ edges\_to\_migrate.size(),\ rank}
+\DoxyCodeLine{00397\ \ \ \ \ );}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ handle\_[rank].template\ send<\&ThisType::migrationClusterHandler>(}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ comm\_.getRank(),\ cluster\_gid,\ cluster\_gid\_summary,}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ tasks\_to\_migrate,\ edges\_to\_migrate,\ shared\_blocks\_to\_migrate,}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ request\_cluster\_gid,\ sending\_requested\_cluster,\ dst\_work\_before}
+\DoxyCodeLine{00403\ \ \ \ \ );}
+\DoxyCodeLine{00404\ \ \ \}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \textcolor{keywordtype}{void}\ migrationClusterHandler(}
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keywordtype}{int}\ from\_rank,}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordtype}{int}\ cluster\_gid,}
+\DoxyCodeLine{00409\ \ \ \ \ TaskClusterSummaryInfo\ cluster\_gid\_summary,}
+\DoxyCodeLine{00410\ \ \ \ \ std::vector<model::Task>\ \textcolor{keyword}{const}\&\ tasks,}
+\DoxyCodeLine{00411\ \ \ \ \ std::vector<model::Edge>\ \textcolor{keyword}{const}\&\ edges,}
+\DoxyCodeLine{00412\ \ \ \ \ std::vector<model::SharedBlock>\ \textcolor{keyword}{const}\&\ shared\_blocks,}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordtype}{int}\ request\_cluster\_gid,}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{bool}\ sending\_requested\_cluster,}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordtype}{double}\ dst\_work\_before}
+\DoxyCodeLine{00416\ \ \ )\ \{}
+\DoxyCodeLine{00417\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::migrationClusterHandler:\ received\ cluster\_gid=\{\}\ with\ \{\}\ tasks\ \{\}\ edges\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ cluster\_gid,\ tasks.size(),\ edges.size(),\ from\_rank}
+\DoxyCodeLine{00421\ \ \ \ \ );}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordtype}{bool}\ accept\ =}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ sending\_requested\_cluster\ ||}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ acceptIncomingClusterSwap(from\_rank,\ cluster\_gid,\ cluster\_gid\_summary,\ request\_cluster\_gid,\ dst\_work\_before);}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \ \ \ \ \textcolor{comment}{//\ If\ we\ are\ sending\ back\ a\ requested\ cluster,\ always\ accept\ it}}
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordflow}{if}\ (accept)\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ std::vector<model::TaskType>\ task\_ids;}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ all\ received\ tasks\ to\ local\ PhaseData}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ :\ tasks)\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::migrationClusterHandler:\ adding\ task\ \{\}\ from\ cluster\_gid=\{\}\ received\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ task.getId(),\ cluster\_gid,\ from\_rank}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ pd\_.addTask(task);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ task\_ids.push\_back(task.getId());}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ all\ received\ edges}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ model::Edge\ e\ =\ edge;}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pd\_.getTask(e.getFrom())\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ e.setFromRank(comm\_.getRank());}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pd\_.getTask(e.getTo())\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ e.setToRank(comm\_.getRank());}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ pd\_.addCommunication(e);}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ all\ received\ shared\ blocks}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ shared\_blocks)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!pd\_.hasSharedBlock(sb.getId()))\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ pd\_.addSharedBlock(sb);}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ new\ cluster\ of\ tasks\ to\ the\ clusterer,\ used\ to\ extract\ tasks\ for\ future\ migrations}}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ clusterer\_-\/>addCluster(task\_ids,\ cluster\_gid);}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ cluster\ to\ the\ bookkeeping}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ incomingCluster(cluster\_gid,\ cluster\_gid\_summary);}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (request\_cluster\_gid\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ cluster\_info\_.at(this-\/>comm\_.getRank()).cluster\_summaries.find(request\_cluster\_gid);}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ iter\ !=\ cluster\_info\_.at(this-\/>comm\_.getRank()).cluster\_summaries.end(),}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}request\_cluster\_gid\ not\ found\ in\ local\ summaries"{}}}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Send\ back\ the\ requested\ cluster}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ migrateCluster(from\_rank,\ request\_cluster\_gid,\ iter-\/>second,\ -\/1,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sending\_requested\_cluster)\ \{}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ cluster\ sent\ back\ from\ the\ swap\ is\ complete;\ notify\ that\ the\ transaction\ is\ complete}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ transactionComplete(TransactionStatus::Accepted);}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ a\ null\ swap,\ so\ notify\ of\ completion}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ handle\_[from\_rank].template\ send<\&ThisType::clusterAccepted>(}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_gid}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00485\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::migrationClusterHandler:\ rejecting\ incoming\ cluster\_gid=\{\}\ from\ rank\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ cluster\_gid,\ from\_rank}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \textcolor{comment}{//\ Send\ back\ all\ tasks}}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ handle\_[from\_rank].template\ send<\&ThisType::sendBackClusterHandler>(}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ cluster\_gid,\ cluster\_gid\_summary,\ tasks}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00495\ \ \ \ \ \}}
+\DoxyCodeLine{00496\ \ \ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \textcolor{keywordtype}{void}\ clusterAccepted(\textcolor{keywordtype}{int}\ cluster\_gid)\ \{}
+\DoxyCodeLine{00499\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::clusterAccepted:\ cluster\_gid=\{\}\ accepted\ by\ remote\ rank\(\backslash\)n"{}},}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ cluster\_gid}
+\DoxyCodeLine{00503\ \ \ \ \ );}
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{comment}{//\ Cluster\ is\ accepted;\ notify\ that\ the\ transaction\ is\ complete}}
+\DoxyCodeLine{00505\ \ \ \ \ transactionComplete(TransactionStatus::Accepted);}
+\DoxyCodeLine{00506\ \ \ \}}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \ \ \textcolor{keywordtype}{void}\ sendBackClusterHandler(}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordtype}{int}\ cluster\_gid,}
+\DoxyCodeLine{00510\ \ \ \ \ TaskClusterSummaryInfo\ cluster\_gid\_summary,}
+\DoxyCodeLine{00511\ \ \ \ \ std::vector<model::Task>\ \textcolor{keyword}{const}\&\ tasks}
+\DoxyCodeLine{00512\ \ \ )\ \{}
+\DoxyCodeLine{00513\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::sendBackClusterHandler:\ cluster\ sent\ back\ cluster\_gid=\{\}\ with\ \{\}\ tasks\(\backslash\)n"{}},}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ cluster\_gid,\ tasks.size()}
+\DoxyCodeLine{00517\ \ \ \ \ );}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ :\ tasks)\ \{}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ pd\_.addTask(task);}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ the\ edge\ endpoints}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ edge\ :\ pd\_.getCommunicationsRef())\ \{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ task.getId()\ ||\ edge.getTo()\ ==\ task.getId())\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ task.getId())\ \{}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ edge.setFromRank(comm\_.getRank());}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getTo()\ ==\ task.getId())\ \{}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ edge.setToRank(comm\_.getRank());}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00533\ \ \ \ \ \}}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ cluster\ to\ the\ bookkeeping}}
+\DoxyCodeLine{00536\ \ \ \ \ incomingCluster(cluster\_gid,\ cluster\_gid\_summary);}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{comment}{//\ Cluster\ is\ sent\ back;\ notify\ that\ the\ transaction\ is\ complete}}
+\DoxyCodeLine{00539\ \ \ \ \ transactionComplete(TransactionStatus::Rejected);}
+\DoxyCodeLine{00540\ \ \ \}}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \textcolor{keywordtype}{void}\ transactionComplete(TransactionStatus\ status)\ \{}
+\DoxyCodeLine{00543\ \ \ \ \ transaction\_status\_\ =\ status;}
+\DoxyCodeLine{00544\ \ \ \}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \textcolor{keywordtype}{void}\ outgoingCluster(}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{keywordtype}{int}\ cluster\_gid,}
+\DoxyCodeLine{00548\ \ \ \ \ TaskClusterSummaryInfo\ cluster\_gid\_summary}
+\DoxyCodeLine{00549\ \ \ )\ \{}
+\DoxyCodeLine{00550\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer::outgoingCluster\ removing\ cluster\_gid=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ cluster\_gid}
+\DoxyCodeLine{00554\ \ \ \ \ );}
+\DoxyCodeLine{00555\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ cluster\_info\_[this-\/>comm\_.getRank()].cluster\_summaries.find(cluster\_gid);}
+\DoxyCodeLine{00556\ \ \ \ \ vt\_lb\_assert(}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ iter\ !=\ cluster\_info\_[this-\/>comm\_.getRank()].cluster\_summaries.end(),}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer::outgoingCluster:\ cluster\_gid\ not\ found\ in\ local\ summaries"{}}}
+\DoxyCodeLine{00559\ \ \ \ \ );}
+\DoxyCodeLine{00560\ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()].cluster\_summaries.erase(iter);}
+\DoxyCodeLine{00561\ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()].rank\_breakdown\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad8809b7ce2a3d8825050420a5628af7b}{WorkModelCalculator::computeWorkUpdateSummary}}(}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()],\ \{\},\ cluster\_gid\_summary}
+\DoxyCodeLine{00563\ \ \ \ \ );}
+\DoxyCodeLine{00564\ \ \ \}}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \textcolor{keywordtype}{void}\ incomingCluster(}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keywordtype}{int}\ cluster\_gid,}
+\DoxyCodeLine{00568\ \ \ \ \ TaskClusterSummaryInfo\ cluster\_gid\_summary}
+\DoxyCodeLine{00569\ \ \ )\ \{}
+\DoxyCodeLine{00570\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer::incomingCluster\ adding\ cluster\_gid=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ cluster\_gid}
+\DoxyCodeLine{00574\ \ \ \ \ );}
+\DoxyCodeLine{00575\ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()].cluster\_summaries[cluster\_gid]\ =\ cluster\_gid\_summary;}
+\DoxyCodeLine{00576\ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()].rank\_breakdown\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_ad8809b7ce2a3d8825050420a5628af7b}{WorkModelCalculator::computeWorkUpdateSummary}}(}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ cluster\_info\_[this-\/>comm\_.getRank()],\ cluster\_gid\_summary,\ \{\}}
+\DoxyCodeLine{00578\ \ \ \ \ );}
+\DoxyCodeLine{00579\ \ \ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \textcolor{keywordtype}{bool}\ acceptIncomingClusterSwap(}
+\DoxyCodeLine{00582\ \ \ \ \ [[maybe\_unused]]\ \textcolor{keywordtype}{int}\ from\_rank,}
+\DoxyCodeLine{00583\ \ \ \ \ [[maybe\_unused]]\ \textcolor{keywordtype}{int}\ give\_cluster\_gid,}
+\DoxyCodeLine{00584\ \ \ \ \ [[maybe\_unused]]\ TaskClusterSummaryInfo\ \textcolor{keyword}{const}\&\ give\_cluster\_gid\_summary,}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordtype}{int}\ recv\_cluster\_gid,}
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keywordtype}{double}\ dst\_work\_before}
+\DoxyCodeLine{00587\ \ \ )\ \{}
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains\_cluster\ =\ cluster\_info\_.at(this-\/>comm\_.getRank()).cluster\_summaries.contains(recv\_cluster\_gid);}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_cluster\_or\_null\ =}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ recv\_cluster\_gid\ ==\ -\/1\ ||}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ contains\_cluster;}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keyword}{auto}\ current\_work\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModelCalculator_a29b4d49108072c4f9723b2be7f8de8fd}{WorkModelCalculator::computeWork}}(}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ config\_.work\_model\_,\ cluster\_info\_[this-\/>comm\_.getRank()].rank\_breakdown}
+\DoxyCodeLine{00595\ \ \ \ \ );}
+\DoxyCodeLine{00596\ \ \ \ \ \textcolor{comment}{//\ auto\ recv\_cluster\_summary\ =}}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{comment}{//\ \ \ contains\_cluster\ ?}}
+\DoxyCodeLine{00598\ \ \ \ \ \textcolor{comment}{//\ \ \ cluster\_info\_[this-\/>comm\_.getRank()].cluster\_summaries.at(recv\_cluster\_gid)\ :}}
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{comment}{//\ \ \ TaskClusterSummaryInfo\{\};}}
+\DoxyCodeLine{00600\ \ \ \ \ \textcolor{comment}{//\ auto\ new\_bd\ =\ WorkModelCalculator::computeWorkUpdateSummary(}}
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{comment}{//\ \ \ cluster\_info\_[this-\/>comm\_.getRank()],\ give\_cluster\_gid\_summary,\ recv\_cluster\_summary}}
+\DoxyCodeLine{00602\ \ \ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{00603\ \ \ \ \ \textcolor{comment}{//\ auto\ new\_work\ =\ WorkModelCalculator::computeWork(}}
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{comment}{//\ \ \ config\_.work\_model\_,\ new\_bd}}
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RelaxedClusterTransfer::acceptIncomingClusterSwap\ cluster\_gid=\{\},\ has\_cluster\_or\_null=\{\},\ current\_work=\{\},\ max\_work=\{\},\ dst\_work\_before=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ recv\_cluster\_gid,\ has\_cluster\_or\_null,\ current\_work,\ stats\_.max,\ dst\_work\_before}
+\DoxyCodeLine{00612\ \ \ \ \ );}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \ \ \ \ \textcolor{comment}{//\ For\ relaxed\ approach,\ we\ accept\ if\ we\ still\ have\ the\ recv\_cluster\_gid}}
+\DoxyCodeLine{00615\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_cluster\_or\_null\ \&\&\ current\_work\ <=\ dst\_work\_before)\ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00617\ \ \ \ \ \}}
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00619\ \ \ \}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00622\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00623\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00624\ \ \ model::PhaseData\&\ pd\_;}
+\DoxyCodeLine{00625\ \ \ Clusterer*\ clusterer\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00626\ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters\_\ =\ 0;}
+\DoxyCodeLine{00627\ \ \ std::unordered\_map<int,\ RankClusterInfo>\ cluster\_info\_;}
+\DoxyCodeLine{00628\ \ \ Statistics\ stats\_;}
+\DoxyCodeLine{00629\ \ \ TransactionStatus\ transaction\_status\_\ =\ TransactionStatus::Pending;}
+\DoxyCodeLine{00630\ \ \ Configuration\ \textcolor{keyword}{const}\&\ config\_;}
+\DoxyCodeLine{00631\ \};}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00635\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_RELAXED\_CLUSTER\_TRANSFER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

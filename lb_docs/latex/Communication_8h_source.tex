@@ -1,0 +1,122 @@
+\doxysection{Communication.\+h}
+\hypertarget{Communication_8h_source}{}\label{Communication_8h_source}\index{/LB/src/vt-\/lb/model/Communication.h@{/LB/src/vt-\/lb/model/Communication.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Communication.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_MODEL\_COMMUNICATION\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_MODEL\_COMMUNICATION\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }vt\_lb::model\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }Edge\ \{}
+\DoxyCodeLine{00057\ \ \ Edge()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00058\ \ \ Edge(TaskType\ from,\ TaskType\ to,\ BytesType\ volume)}
+\DoxyCodeLine{00059\ \ \ \ \ :\ from\_(from),\ to\_(to),\ volume\_(volume),\ num\_messages\_(1)}
+\DoxyCodeLine{00060\ \ \ \{\}}
+\DoxyCodeLine{00061\ \ \ \textcolor{comment}{//\ New\ ctor\ with\ explicit\ endpoint\ ranks}}
+\DoxyCodeLine{00062\ \ \ Edge(TaskType\ from,\ TaskType\ to,\ BytesType\ volume,\ RankType\ from\_rank,\ RankType\ to\_rank)}
+\DoxyCodeLine{00063\ \ \ \ \ :\ from\_(from),\ to\_(to),\ volume\_(volume),\ from\_rank\_(from\_rank),\ to\_rank\_(to\_rank),\ num\_messages\_(1)}
+\DoxyCodeLine{00064\ \ \ \{\}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ TaskType\ getFrom()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ from\_;\ \}}
+\DoxyCodeLine{00067\ \ \ TaskType\ getTo()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ to\_;\ \}}
+\DoxyCodeLine{00068\ \ \ BytesType\ getVolume()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ volume\_;\ \}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ setVolume(BytesType\ volume)\ \{\ volume\_\ =\ volume;\ \}}
+\DoxyCodeLine{00070\ \ \ RankType\ getFromRank()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ from\_rank\_;\ \}}
+\DoxyCodeLine{00071\ \ \ RankType\ getToRank()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ to\_rank\_;\ \}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ setFromRank(RankType\ rank)\ \{\ from\_rank\_\ =\ rank;\ \}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ setToRank(RankType\ rank)\ \{\ to\_rank\_\ =\ rank;\ \}}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{int}\ getNumMessages()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ num\_messages\_;\ \}}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ setNumMessages(\textcolor{keywordtype}{int}\ num)\ \{\ num\_messages\_\ =\ num;\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ s\ |\ from\_;}
+\DoxyCodeLine{00080\ \ \ \ \ s\ |\ to\_;}
+\DoxyCodeLine{00081\ \ \ \ \ s\ |\ volume\_;}
+\DoxyCodeLine{00082\ \ \ \ \ s\ |\ from\_rank\_;}
+\DoxyCodeLine{00083\ \ \ \ \ s\ |\ to\_rank\_;}
+\DoxyCodeLine{00084\ \ \ \ \ s\ |\ num\_messages\_;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ TaskType\ from\_\ =\ invalid\_task;}
+\DoxyCodeLine{00089\ \ \ TaskType\ to\_\ =\ invalid\_task;}
+\DoxyCodeLine{00090\ \ \ BytesType\ volume\_\ =\ 0.0;}
+\DoxyCodeLine{00091\ \ \ RankType\ from\_rank\_\ =\ invalid\_rank;}
+\DoxyCodeLine{00092\ \ \ RankType\ to\_rank\_\ =\ invalid\_rank;}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{int}\ num\_messages\_\ =\ 0;}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{struct\ }ClusterEdge\ \{}
+\DoxyCodeLine{00102\ \ \ ClusterEdge()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00103\ \ \ ClusterEdge(\textcolor{keywordtype}{int}\ from\_cluster,\ \textcolor{keywordtype}{int}\ to\_cluster,\ BytesType\ volume)}
+\DoxyCodeLine{00104\ \ \ \ \ :\ from\_cluster\_(from\_cluster),\ to\_cluster\_(to\_cluster),\ volume\_(volume)}
+\DoxyCodeLine{00105\ \ \ \{\}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ getFromCluster()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ from\_cluster\_;\ \}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{int}\ getToCluster()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ to\_cluster\_;\ \}}
+\DoxyCodeLine{00109\ \ \ BytesType\ getVolume()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ volume\_;\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ s\ |\ from\_cluster\_;}
+\DoxyCodeLine{00114\ \ \ \ \ s\ |\ to\_cluster\_;}
+\DoxyCodeLine{00115\ \ \ \ \ s\ |\ volume\_;}
+\DoxyCodeLine{00116\ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{int}\ from\_cluster\_\ =\ -\/1;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{int}\ to\_cluster\_\ =\ -\/1;}
+\DoxyCodeLine{00121\ \ \ BytesType\ volume\_\ =\ 0.0;}
+\DoxyCodeLine{00122\ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::model\ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_MODEL\_COMMUNICATION\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

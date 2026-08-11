@@ -1,0 +1,787 @@
+\doxysection{clustering.\+h}
+\hypertarget{clustering_8h_source}{}\label{clustering_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/clustering.h@{/LB/src/vt-\/lb/algo/temperedlb/clustering.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clustering.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTERING\_H}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTERING\_H}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ Common\ clustering\ artifacts}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Cluster}{Cluster}}\ \{}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ =\ -\/1;}
+\DoxyCodeLine{00068\ \ \ std::vector<vt\_lb::model::TaskType>\ members;}
+\DoxyCodeLine{00069\ \ \ vt\_lb::model::LoadType\ load\ =\ 0.0;}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ Assumption:\ all\ tasks\ must\ exist\ to\ at\ least\ one\ cluster}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \{}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{using\ }BytesType\ =\ vt\_lb::model::BytesType;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{\string~Clusterer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ compute()\ =\ 0;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ std::unordered\_map<TaskType,int>\ \textcolor{keyword}{const}\&\ taskToCluster()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ task\_to\_cluster\_;\ \}}
+\DoxyCodeLine{00080\ \ \ std::vector<Cluster>\ \textcolor{keyword}{const}\&\ clusters()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ clusters\_;\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer_a2c8fe17774d1002a1a5d6d2e518daf08}{addCluster}}(std::vector<TaskType>\ \textcolor{keyword}{const}\&\ tasks,\ \textcolor{keywordtype}{int}\ cluster\_global\_id\ =\ -\/1)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Clusterer:\ addCluster:\ cluster\_global\_id=\{\},\ num\_tasks=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ cluster\_global\_id,\ tasks.size()}
+\DoxyCodeLine{00094\ \ \ \ \ );}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ next\_id\ =\ cluster\_global\_id;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{if}\ (cluster\_global\_id\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cl\ :\ clusters\_)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cl.id\ >=\ next\_id)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ next\_id\ =\ cl.id\ +\ 1;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Cluster}{Cluster}}\ cl;}
+\DoxyCodeLine{00105\ \ \ \ \ cl.id\ =\ next\_id;}
+\DoxyCodeLine{00106\ \ \ \ \ cl.members\ =\ tasks;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ t\ :\ tasks)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Clusterer:\ addCluster:\ assigning\ task\ \{\}\ to\ cluster\ \{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ t,\ next\_id}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ task\_to\_cluster\_[t]\ =\ next\_id;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ clusters\_.push\_back(std::move(cl));}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ cl.id;}
+\DoxyCodeLine{00117\ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer_af58813a9b91af842158954fc5b25a95c}{remapClusterIDs}}(std::unordered\_map<int,\ int>\ \textcolor{keyword}{const}\&\ local\_to\_global)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ Update\ task\_to\_cluster\_}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [task,\ cid]\ :\ task\_to\_cluster\_)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ local\_to\_global.find(cid);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ vt\_lb\_assert(it\ !=\ local\_to\_global.end(),\ \textcolor{stringliteral}{"{}All\ local\ cluster\ IDs\ must\ have\ a\ global\ mapping"{}});}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ cid\ =\ it-\/>second;}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//\ Update\ clusters\_}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ cl\ :\ clusters\_)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ local\_to\_global.find(cl.id);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ vt\_lb\_assert(it\ !=\ local\_to\_global.end(),\ \textcolor{stringliteral}{"{}All\ local\ cluster\ IDs\ must\ have\ a\ global\ mapping"{}});}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ cl.id\ =\ it-\/>second;}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00140\ \ \ std::unordered\_map<TaskType,int>\ task\_to\_cluster\_;}
+\DoxyCodeLine{00141\ \ \ std::vector<Cluster>\ clusters\_;}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ Communication-\/based\ clustering,\ strawman\ method}}
+\DoxyCodeLine{00145\ \textcolor{keyword}{struct\ }CommunicationClusterer\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \{}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{using\ }BytesType\ =\ vt\_lb::model::BytesType;}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{using\ }LoadType\ =\ vt\_lb::model::LoadType;}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{using\ }PhaseData\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{explicit}\ CommunicationClusterer(PhaseData\ \textcolor{keyword}{const}\&\ pd)\ :\ pd\_(pd)\ \{\}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ compute()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00154\ \ \ \ \ clear();}
+\DoxyCodeLine{00155\ \ \ \ \ buildAggregatedEdges();}
+\DoxyCodeLine{00156\ \ \ \ \ collectTasks();}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (agg\_edges\_.empty())\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cid\ =\ 0;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ tasks\_)\ task\_to\_cluster\_[t]\ =\ cid++;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ materializeClusters();}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \ \ std::sort(}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ agg\_edges\_.begin(),\ agg\_edges\_.end(),}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\{\ return\ std::get<2>(a)\ >\ std::get<2>(b);\ \}}
+\DoxyCodeLine{00166\ \ \ \ \ );}
+\DoxyCodeLine{00167\ \ \ \ \ std::unordered\_set<TaskType>\ matched;}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{int}\ next\_cid\ =\ 0;}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ agg\_edges\_)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ std::get<0>(e);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ std::get<1>(e);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!matched.count(u)\ \&\&\ !matched.count(v))\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[u]\ =\ next\_cid;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[v]\ =\ next\_cid;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ matched.insert(u);\ matched.insert(v);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ ++next\_cid;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ tasks\_)}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!task\_to\_cluster\_.count(t))}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[t]\ =\ next\_cid++;}
+\DoxyCodeLine{00182\ \ \ \ \ materializeClusters();}
+\DoxyCodeLine{00183\ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ tasks\_.clear();}
+\DoxyCodeLine{00188\ \ \ \ \ agg\_edges\_.clear();}
+\DoxyCodeLine{00189\ \ \ \ \ task\_to\_cluster\_.clear();}
+\DoxyCodeLine{00190\ \ \ \ \ clusters\_.clear();}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ collectTasks()\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd\_.getTasksMap())\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ tasks\_.push\_back(kv.first);}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{void}\ buildAggregatedEdges()\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{struct\ }PairHash\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(std::pair<TaskType,TaskType>\ \textcolor{keyword}{const}\&\ p)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\ =\ p.first\ <\ p.second\ ?\ p.first\ :\ p.second;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ b\ =\ p.first\ <\ p.second\ ?\ p.second\ :\ p.first;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(a)\ <<\ 32)\ \string^\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(b);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \};}
+\DoxyCodeLine{00207\ \ \ \ \ std::unordered\_map<std::pair<TaskType,TaskType>,\ BytesType,\ PairHash>\ agg;}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd\_.getCommunications())\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ e.getFrom();\ \textcolor{keyword}{auto}\ v\ =\ e.getTo();}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ ==\ v\ ||\ !pd\_.hasTask(u)\ ||\ !pd\_.hasTask(v))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ (u\ <\ v)\ ?\ std::make\_pair(u,v)\ :\ std::make\_pair(v,u);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ agg[key]\ +=\ e.getVolume();}
+\DoxyCodeLine{00213\ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ agg\_edges\_.reserve(agg.size());}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ agg)}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ agg\_edges\_.emplace\_back(kv.first.first,\ kv.first.second,\ kv.second);}
+\DoxyCodeLine{00217\ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{void}\ materializeClusters()\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ std::unordered\_map<int,\ Cluster>\ tmp;}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [t,cid]\ :\ task\_to\_cluster\_)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ cl\ =\ tmp[cid];\ cl.id\ =\ cid;\ cl.members.push\_back(t);}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ tmp)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ cl\ =\ kv.second;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ cl.members)}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ cl.load\ +=\ pd\_.getTasksMap().at(t).getLoad();}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ clusters\_.push\_back(std::move(cl));}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ std::sort(clusters\_.begin(),\ clusters\_.end(),\ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\{\ return\ a.id\ <\ b.id;\ \});}
+\DoxyCodeLine{00231\ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00234\ \ \ PhaseData\ \textcolor{keyword}{const}\&\ pd\_;}
+\DoxyCodeLine{00235\ \ \ std::vector<TaskType>\ tasks\_;}
+\DoxyCodeLine{00236\ \ \ std::vector<std::tuple<TaskType,TaskType,BytesType>>\ agg\_edges\_;}
+\DoxyCodeLine{00237\ \};}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{comment}{//\ Shared-\/block-\/based\ clustering}}
+\DoxyCodeLine{00240\ \textcolor{keyword}{struct\ }SharedBlockClusterer\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \{}
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00242\ \ \ \textcolor{keyword}{using\ }BytesType\ =\ vt\_lb::model::BytesType;}
+\DoxyCodeLine{00243\ \ \ \textcolor{keyword}{using\ }LoadType\ =\ vt\_lb::model::LoadType;}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{using\ }PhaseData\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \textcolor{keyword}{explicit}\ SharedBlockClusterer(PhaseData\ \textcolor{keyword}{const}\&\ pd)\ :\ pd\_(pd)\ \{\}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{void}\ compute()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00249\ \ \ \ \ clear();}
+\DoxyCodeLine{00250\ \ \ \ \ buildAggregatedEdgesFromSharedBlocks();\ \textcolor{comment}{//\ only\ shared-\/block-\/derived\ edges}}
+\DoxyCodeLine{00251\ \ \ \ \ collectTasks();}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{if}\ (sb\_edges\_.empty())\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ task\ its\ own\ cluster}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cid\ =\ 0;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ tasks\_)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[t]\ =\ cid++;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ materializeClusters();}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00260\ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ std::sort(}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ sb\_edges\_.begin(),\ sb\_edges\_.end(),}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\{\ return\ std::get<2>(a)\ >\ std::get<2>(b);\ \}}
+\DoxyCodeLine{00264\ \ \ \ \ );}
+\DoxyCodeLine{00265\ \ \ \ \ std::unordered\_set<TaskType>\ matched;}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordtype}{int}\ next\_cid\ =\ 0;}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ sb\_edges\_)\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ std::get<0>(e);}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ std::get<1>(e);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!matched.count(u)\ \&\&\ !matched.count(v))\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[u]\ =\ next\_cid;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[v]\ =\ next\_cid;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ matched.insert(u);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ matched.insert(v);}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ ++next\_cid;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ tasks\_)\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!task\_to\_cluster\_.count(t))\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[t]\ =\ next\_cid++;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ \ \ \}}
+\DoxyCodeLine{00283\ \ \ \ \ materializeClusters();}
+\DoxyCodeLine{00284\ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ tasks\_.clear();}
+\DoxyCodeLine{00289\ \ \ \ \ sb\_edges\_.clear();}
+\DoxyCodeLine{00290\ \ \ \ \ task\_to\_cluster\_.clear();}
+\DoxyCodeLine{00291\ \ \ \ \ clusters\_.clear();}
+\DoxyCodeLine{00292\ \ \ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \textcolor{keywordtype}{void}\ collectTasks()\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd\_.getTasksMap())\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ tasks\_.push\_back(kv.first);}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \textcolor{keywordtype}{void}\ buildAggregatedEdgesFromSharedBlocks()\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{comment}{//\ Build\ edges\ exclusively\ from\ shared\ block\ co-\/access\ (communication\ edges\ are\ ignored)}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ Map\ shared\ block\ -\/>\ tasks}}
+\DoxyCodeLine{00303\ \ \ \ \ std::unordered\_map<vt\_lb::model::SharedBlockType,\ std::vector<TaskType>>\ blk\_to\_tasks;}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd\_.getTasksMap())\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ =\ kv.second;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ task.getSharedBlocks())\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ blk\_to\_tasks[sb].push\_back(task.getId());}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{comment}{//\ Aggregate\ edges:\ weight\ is\ sum\ of\ shared\ block\ sizes\ across\ pairs}}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{struct\ }PairHash\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(std::pair<TaskType,TaskType>\ \textcolor{keyword}{const}\&\ p)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\ =\ p.first\ <\ p.second\ ?\ p.first\ :\ p.second;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ b\ =\ p.first\ <\ p.second\ ?\ p.second\ :\ p.first;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(a)\ <<\ 32)\ \string^\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(b);}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \};}
+\DoxyCodeLine{00318\ \ \ \ \ std::unordered\_map<std::pair<TaskType,TaskType>,\ BytesType,\ PairHash>\ agg;}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\_map\ =\ pd\_.getSharedBlocksMap();}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ blk\_to\_tasks)\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ blk\_id\ =\ kv.first;}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\_blk\ =\ sb\_map.find(blk\_id);}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\_blk\ ==\ sb\_map.end())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ BytesType\ size\ =\ it\_blk-\/>second.getSize();}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ vec\ =\ kv.second;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i=0;i<vec.size();++i)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j=i+1;j<vec.size();++j)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ vec[i];\ \textcolor{keyword}{auto}\ v\ =\ vec[j];}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ (u\ <\ v)\ ?\ std::make\_pair(u,v)\ :\ std::make\_pair(v,u);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ agg[key]\ +=\ size;}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \ \ \ \ sb\_edges\_.reserve(agg.size());}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ agg)\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ sb\_edges\_.emplace\_back(kv.first.first,\ kv.first.second,\ kv.second);}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \ \ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \textcolor{keywordtype}{void}\ materializeClusters()\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ std::unordered\_map<int,\ Cluster>\ tmp;}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [t,cid]\ :\ task\_to\_cluster\_)\ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ cl\ =\ tmp[cid];}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ cl.id\ =\ cid;}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ cl.members.push\_back(t);}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ tmp)\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ cl\ =\ kv.second;}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t\ :\ cl.members)\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ cl.load\ +=\ pd\_.getTasksMap().at(t).getLoad();}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ clusters\_.push\_back(std::move(cl));}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \ \ \ \ std::sort(clusters\_.begin(),\ clusters\_.end(),\ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\{\ return\ a.id\ <\ b.id;\ \});}
+\DoxyCodeLine{00355\ \ \ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00358\ \ \ PhaseData\ \textcolor{keyword}{const}\&\ pd\_;}
+\DoxyCodeLine{00359\ \ \ std::vector<TaskType>\ tasks\_;}
+\DoxyCodeLine{00360\ \ \ \textcolor{comment}{//\ aggregated\ undirected\ shared-\/block\ edges:\ (u,v,weight)}}
+\DoxyCodeLine{00361\ \ \ std::vector<std::tuple<TaskType,TaskType,BytesType>>\ sb\_edges\_;}
+\DoxyCodeLine{00362\ \};}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{comment}{//\ Standalone\ Leiden-\/style\ clustering\ using\ CPM\ (Constant\ Potts\ Model)\ objective.}}
+\DoxyCodeLine{00365\ \textcolor{comment}{//\ Objective\ per\ community\ c:\ Q\_c\ =\ W\_in(c)\ -\/\ gamma\ *\ C(S\_c,\ 2)}}
+\DoxyCodeLine{00366\ \textcolor{comment}{//\ Move\ delta\ (v:\ node,\ A-\/>B):\ dQ\ =\ w\_\{v,B\}\ -\/\ w\_\{v,A\}\ -\/\ gamma\ *\ (S\_B\ -\/\ (S\_A\ -\/\ 1))}}
+\DoxyCodeLine{00367\ \textcolor{comment}{//\ Multi-\/level:\ local\ moving\ -\/>\ refinement\ (split\ disconnected\ communities)\ -\/>\ coarsen\ (communities\ as\ super-\/nodes)\ -\/>\ repeat.}}
+\DoxyCodeLine{00368\ \textcolor{keyword}{struct\ }LeidenCPMStandaloneClusterer\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \{}
+\DoxyCodeLine{00369\ \ \ \textcolor{keyword}{using\ }TaskType\ \ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00370\ \ \ \textcolor{keyword}{using\ }BytesType\ =\ vt\_lb::model::BytesType;}
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{using\ }PhaseData\ =\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}};}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ LeidenCPMStandaloneClusterer(}
+\DoxyCodeLine{00374\ \ \ \ \ PhaseData\ \textcolor{keyword}{const}\&\ pd,}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordtype}{double}\ resolution\ =\ 50.0,}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_passes\ =\ 10,}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_levels\ =\ 4}
+\DoxyCodeLine{00378\ \ \ )\ :\ pd\_(pd),}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ gamma\_(resolution),}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ max\_passes\_(max\_passes),}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ max\_levels\_(max\_levels)}
+\DoxyCodeLine{00382\ \ \ \{\}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \textcolor{keywordtype}{void}\ compute()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00385\ \ \ \ \ clear();}
+\DoxyCodeLine{00386\ \ \ \ \ buildInitialGraph();}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordflow}{if}\ (node\_to\_tasks\_.empty())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}LeidenCPMStandalone:\ start\ nodes=\{\}\ edges=\{\}\ gamma=\{:.4f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ node\_to\_tasks\_.size(),\ edges\_.size(),\ gamma\_}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordtype}{int}\ level\ =\ 0;}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{while}\ (level\ <\ max\_levels\_)\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}LeidenCPMStandalone:\ level\ \{\}\(\backslash\)n"{}},\ level);}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ moved\_any\ =\ localMovingPhase();}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ refinementPhase();}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ coarsened\ =\ coarsenGraph();}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}\ \ after\ level\ \{\}:\ moved=\{\}\ coarsened=\{\}\ nodes=\{\}\ edges=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ level,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ moved\_any\ ?\ \textcolor{stringliteral}{"{}yes"{}}\ :\ \textcolor{stringliteral}{"{}no"{}},}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ coarsened\ ?\ \textcolor{stringliteral}{"{}yes"{}}\ :\ \textcolor{stringliteral}{"{}no"{}},}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ node\_to\_tasks\_.size(),\ edges\_.size()}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ ++level;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!coarsened)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00416\ \ \ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ materializeClusters();}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ VT\_LB\_LOG(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}LeidenCPMStandalone:\ final\ communities=\{\}\(\backslash\)n"{}},\ clusters\_.size());}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ c\ :\ clusters\_)\ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}\ \ community\ \{\}\ size=\{\}\ load=\{:.2f\}\(\backslash\)n"{}},\ c.id,\ c.members.size(),\ c.load);}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ \ \ \ \ \}}
+\DoxyCodeLine{00426\ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00429\ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Graph\ state\ for\ current\ level\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00430\ \ \ \textcolor{comment}{//\ nodes\ are\ indexed\ [0..N-\/1],\ each\ super-\/node\ maps\ to\ a\ vector\ of\ original\ tasks}}
+\DoxyCodeLine{00431\ \ \ std::vector<std::vector<TaskType>>\ node\_to\_tasks\_;}
+\DoxyCodeLine{00432\ \ \ \textcolor{comment}{//\ adjacency\ list:\ for\ each\ node,\ vector\ of\ (neighbor\_node,\ weight)}}
+\DoxyCodeLine{00433\ \ \ std::vector<std::vector<std::pair<int,double>>>\ adj\_;}
+\DoxyCodeLine{00434\ \ \ \textcolor{comment}{//\ unique\ undirected\ edge\ list\ as\ (u,v,w)\ with\ u<v}}
+\DoxyCodeLine{00435\ \ \ std::vector<std::tuple<int,int,double>>\ edges\_;}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \textcolor{comment}{//\ community\ membership\ for\ current\ level:\ node\ -\/>\ community\ id}}
+\DoxyCodeLine{00438\ \ \ std::vector<int>\ membership\_;}
+\DoxyCodeLine{00439\ \ \ \textcolor{comment}{//\ size\ of\ each\ community\ in\ number\ of\ nodes\ (not\ original\ tasks)}}
+\DoxyCodeLine{00440\ \ \ std::unordered\_map<int,int>\ comm\_size\_;}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Inputs/outputs\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00443\ \ \ PhaseData\ \textcolor{keyword}{const}\&\ pd\_;}
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordtype}{double}\ gamma\_\ =\ 1.0;}
+\DoxyCodeLine{00445\ \ \ \textcolor{keywordtype}{int}\ max\_passes\_\ =\ 10;}
+\DoxyCodeLine{00446\ \ \ \textcolor{keywordtype}{int}\ max\_levels\_\ =\ 4;}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Utils\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00449\ \ \ \textcolor{keywordtype}{bool}\ rank0()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pd\_.getRank()\ ==\ 0;\ \}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ node\_to\_tasks\_.clear();}
+\DoxyCodeLine{00453\ \ \ \ \ adj\_.clear();}
+\DoxyCodeLine{00454\ \ \ \ \ edges\_.clear();}
+\DoxyCodeLine{00455\ \ \ \ \ membership\_.clear();}
+\DoxyCodeLine{00456\ \ \ \ \ comm\_size\_.clear();}
+\DoxyCodeLine{00457\ \ \ \ \ task\_to\_cluster\_.clear();}
+\DoxyCodeLine{00458\ \ \ \ \ clusters\_.clear();}
+\DoxyCodeLine{00459\ \ \ \}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ key(TaskType\ a,\ TaskType\ b)\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \textcolor{keyword}{auto}\ x\ =\ std::min(a,b);}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ std::max(a,b);}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})x\ <<\ 32\ |\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)y;}
+\DoxyCodeLine{00465\ \ \ \}}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordtype}{void}\ buildInitialGraph()\ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{comment}{//\ Aggregate\ undirected\ weights\ from\ communications}}
+\DoxyCodeLine{00469\ \ \ \ \ std::unordered\_map<unsigned\ long\ long,\ double>\ agg;}
+\DoxyCodeLine{00470\ \ \ \ \ std::vector<TaskType>\ tasks;}
+\DoxyCodeLine{00471\ \ \ \ \ tasks.reserve(pd\_.getTasksMap().size());}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd\_.getTasksMap())\ tasks.push\_back(kv.first);}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd\_.getCommunications())\ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ e.getFrom(),\ v\ =\ e.getTo();}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ ==\ v\ ||\ !pd\_.hasTask(u)\ ||\ !pd\_.hasTask(v))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ agg[key(u,v)]\ +=\ e.getVolume();}
+\DoxyCodeLine{00478\ \ \ \ \ \}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{comment}{//\ Node\ 0..N-\/1\ map\ 1-\/1\ to\ tasks\ initially}}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ N\ =\ tasks.size();}
+\DoxyCodeLine{00482\ \ \ \ \ node\_to\_tasks\_.resize(N);}
+\DoxyCodeLine{00483\ \ \ \ \ std::unordered\_map<TaskType,int>\ t2i;}
+\DoxyCodeLine{00484\ \ \ \ \ t2i.reserve(N);}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i=0;i<N;++i)\ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ node\_to\_tasks\_[i].push\_back(tasks[i]);}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ t2i[tasks[i]]\ =\ (int)i;}
+\DoxyCodeLine{00488\ \ \ \ \ \}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{comment}{//\ Build\ edges\_\ and\ adj\_}}
+\DoxyCodeLine{00491\ \ \ \ \ adj\_.assign(N,\ \{\});}
+\DoxyCodeLine{00492\ \ \ \ \ edges\_.clear();\ edges\_.reserve(agg.size());}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ agg)\ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ TaskType\ a\ =\ (TaskType)(kv.first\ >>\ 32);}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ TaskType\ b\ =\ (TaskType)(kv.first\ \&\ 0xffffffffULL);}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ t2i[a],\ v\ =\ t2i[b];}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\ =\ kv.second;}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (u\ ==\ v)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\ =\ std::min(u,v),\ y\ =\ std::max(u,v);}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ edges\_.emplace\_back(x,y,w);}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ adj\_[u].push\_back(\{v,w\});}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ adj\_[v].push\_back(\{u,w\});}
+\DoxyCodeLine{00503\ \ \ \ \ \}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{comment}{//\ Initialize\ membership:\ each\ node\ its\ own\ community}}
+\DoxyCodeLine{00506\ \ \ \ \ membership\_.resize(N);}
+\DoxyCodeLine{00507\ \ \ \ \ comm\_size\_.clear();}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<(int)N;++i)\ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ membership\_[i]\ =\ i;}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ comm\_size\_[i]\ =\ 1;}
+\DoxyCodeLine{00511\ \ \ \ \ \}}
+\DoxyCodeLine{00512\ \ \ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \textcolor{comment}{//\ Compute\ w\_\{v,c\}\ sums\ for\ neighboring\ communities\ of\ v}}
+\DoxyCodeLine{00515\ \ \ \textcolor{keywordtype}{void}\ neighborCommWeights(\textcolor{keywordtype}{int}\ v,\ std::unordered\_map<int,double>\&\ sums)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00516\ \ \ \ \ sums.clear();}
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ pr\ :\ adj\_[v])\ \{}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ pr.first;}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\ =\ pr.second;}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ c\ =\ membership\_[u];}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ sums[c]\ +=\ w;}
+\DoxyCodeLine{00522\ \ \ \ \ \}}
+\DoxyCodeLine{00523\ \ \ \}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \textcolor{comment}{//\ Local\ moving\ phase\ (greedy\ CPM\ improvement)}}
+\DoxyCodeLine{00526\ \ \ \textcolor{keywordtype}{bool}\ localMovingPhase()\ \{}
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keywordtype}{bool}\ moved\_any\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00528\ \ \ \ \ std::mt19937\ gen(\ (\textcolor{keywordtype}{unsigned})pd\_.getRank()\ +\ 7777\ );}
+\DoxyCodeLine{00529\ \ \ \ \ std::vector<int>\ order(membership\_.size());}
+\DoxyCodeLine{00530\ \ \ \ \ std::iota(order.begin(),\ order.end(),\ 0);}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ pass=0;\ pass<max\_passes\_;\ ++pass)\ \{}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ std::shuffle(order.begin(),\ order.end(),\ gen);}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ moved\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ :\ order)\ \{}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cA\ =\ membership\_[v];}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeA\ =\ comm\_size\_[cA];}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ w\_\{v,c\}\ for\ neighbor\ communities}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ std::unordered\_map<int,double>\ w\_by\_comm;}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ neighborCommWeights(v,\ w\_by\_comm);}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\_vA\ =\ w\_by\_comm.count(cA)\ ?\ w\_by\_comm[cA]\ :\ 0.0;}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluate\ moves\ to\ neighbor\ communities}}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ best\_delta\ =\ 0.0;}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ best\_comm\ =\ cA;}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ w\_by\_comm)\ \{}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cB\ =\ kv.first;}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cB\ ==\ cA)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeB\ =\ comm\_size\_[cB];}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\_vB\ =\ kv.second;}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ delta\ =\ w\_vB\ -\/\ w\_vA\ -\/\ gamma\_\ *\ (sizeB\ -\/\ (sizeA\ -\/\ 1));}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (delta\ >\ best\_delta\ +\ 1e-\/14)\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ best\_delta\ =\ delta;}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ best\_comm\ =\ cB;}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Consider\ move\ to\ an\ empty\ community\ (new\ singleton)}}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sizeB\ =\ 0,\ w\_vB\ =\ 0}}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ delta\_empty\ =\ -\/\ w\_vA\ -\/\ gamma\_\ *\ (0\ -\/\ (sizeA\ -\/\ 1));}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (delta\_empty\ >\ best\_delta\ +\ 1e-\/14)\ \{}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ best\_delta\ =\ delta\_empty;}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ best\_comm\ =\ makeNewCommunityId();}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (best\_comm\ !=\ cA)\ \{}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ move\ v:\ cA\ -\/>\ best\_comm}}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ decrementCommSize(cA);}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ membership\_[v]\ =\ best\_comm;}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ incrementCommSize(best\_comm);}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ moved\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ moved\_any\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}\ \ local\ pass\ \{\}\ moved=\{\}\(\backslash\)n"{}},\ pass,\ moved\ ?\ \textcolor{stringliteral}{"{}yes"{}}\ :\ \textcolor{stringliteral}{"{}no"{}});}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!moved)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00585\ \ \ \ \ \}}
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keywordflow}{return}\ moved\_any;}
+\DoxyCodeLine{00587\ \ \ \}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \textcolor{comment}{//\ Split\ any\ community\ that\ is\ not\ connected\ into\ connected\ components}}
+\DoxyCodeLine{00590\ \ \ \textcolor{keywordtype}{void}\ refinementPhase()\ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{comment}{//\ Group\ nodes\ by\ community}}
+\DoxyCodeLine{00592\ \ \ \ \ std::unordered\_map<int,std::vector<int>>\ nodes\_by\_comm;}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v=0;\ v<(int)membership\_.size();\ ++v)}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ nodes\_by\_comm[membership\_[v]].push\_back(v);}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \ \ \ \ \textcolor{keywordtype}{int}\ splits\ =\ 0;}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ nodes\_by\_comm)\ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ nodes\ =\ kv.second;}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nodes.size()\ <=\ 1)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ set\ for\ fast\ membership\ filtering}}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ std::unordered\_set<int>\ node\_set(nodes.begin(),\ nodes.end());}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ connected\ components\ inside\ this\ community}}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ std::unordered\_map<int,int>\ comp\_id;\ \textcolor{comment}{//\ node-\/>component}}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ next\_comp\ =\ 0;}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ s\ :\ nodes)\ \{}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (comp\_id.count(s))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BFS/DFS\ within\ node\_set}}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ std::deque<int>\ dq;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ dq.push\_back(s);}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ comp\_id[s]\ =\ next\_comp;}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!dq.empty())\ \{}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\ =\ dq.front();\ dq.pop\_front();}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ pr\ :\ adj\_[x])\ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ y\ =\ pr.first;}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!node\_set.count(y))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!comp\_id.count(y))\ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comp\_id[y]\ =\ next\_comp;}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dq.push\_back(y);}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ ++next\_comp;}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (next\_comp\ <=\ 1)\ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ already\ connected}}
+\DoxyCodeLine{00627\ }
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \textcolor{comment}{//\ Split:\ assign\ each\ component\ to\ a\ new\ community\ id}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ std::unordered\_map<int,int>\ comp\_to\_comm;}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ p\ :\ comp\_id)\ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ p.first;}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ c\ =\ p.second;}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\_comm;}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ comp\_to\_comm.find(c);}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ comp\_to\_comm.end())\ \{}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ target\_comm\ =\ makeNewCommunityId();}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ comp\_to\_comm[c]\ =\ target\_comm;}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ target\_comm\ =\ it-\/>second;}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ decrementCommSize(membership\_[v]);}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ membership\_[v]\ =\ target\_comm;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ incrementCommSize(target\_comm);}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ ++splits;}
+\DoxyCodeLine{00646\ \ \ \ \ \}}
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{keywordflow}{if}\ (rank0())\ \{}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ VT\_LB\_LOG(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}},\ normal,\ \textcolor{stringliteral}{"{}\ \ refinement:\ splits=\{\}\(\backslash\)n"{}},\ splits);}
+\DoxyCodeLine{00649\ \ \ \ \ \}}
+\DoxyCodeLine{00650\ \ \ \}}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \ \ \textcolor{comment}{//\ Build\ coarse\ graph\ of\ communities;\ return\ false\ if\ no\ aggregation\ possible}}
+\DoxyCodeLine{00653\ \ \ \textcolor{keywordtype}{bool}\ coarsenGraph()\ \{}
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{comment}{//\ Map\ current\ community\ ids\ to\ compact\ ids\ [0..C-\/1]}}
+\DoxyCodeLine{00655\ \ \ \ \ std::unordered\_map<int,int>\ remap;}
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keywordtype}{int}\ next\ =\ 0;}
+\DoxyCodeLine{00657\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cid\ :\ membership\_)\ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!remap.count(cid))\ remap[cid]\ =\ next++;}
+\DoxyCodeLine{00659\ \ \ \ \ \}}
+\DoxyCodeLine{00660\ \ \ \ \ \textcolor{keywordtype}{int}\ C\ =\ next;}
+\DoxyCodeLine{00661\ \ \ \ \ \textcolor{keywordflow}{if}\ (C\ ==\ (\textcolor{keywordtype}{int})node\_to\_tasks\_.size())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{comment}{//\ Build\ new\ nodes\ (super-\/nodes)\ membership:\ node\ index\ -\/>\ compact\ comm}}
+\DoxyCodeLine{00664\ \ \ \ \ std::vector<int>\ node\_comm\_compact(membership\_.size());}
+\DoxyCodeLine{00665\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<(int)membership\_.size();++i)\ node\_comm\_compact[i]\ =\ remap[membership\_[i]];}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{comment}{//\ Aggregate\ members:\ combine\ original\ tasks\ per\ super-\/node}}
+\DoxyCodeLine{00668\ \ \ \ \ std::vector<std::vector<TaskType>>\ new\_node\_to\_tasks(C);}
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<(int)node\_to\_tasks\_.size();\ ++i)\ \{}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ c\ =\ node\_comm\_compact[i];}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ dst\ =\ new\_node\_to\_tasks[c];}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ src\ =\ node\_to\_tasks\_[i];}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ dst.insert(dst.end(),\ src.begin(),\ src.end());}
+\DoxyCodeLine{00674\ \ \ \ \ \}}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \ \ \ \ \textcolor{comment}{//\ Aggregate\ edges\ between\ communities}}
+\DoxyCodeLine{00677\ \ \ \ \ std::unordered\_map<unsigned\ long\ long,\ double>\ agg\_edges;}
+\DoxyCodeLine{00678\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ edges\_)\ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ std::get<0>(e);}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ std::get<1>(e);}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\ =\ std::get<2>(e);}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cu\ =\ node\_comm\_compact[u];}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cv\ =\ node\_comm\_compact[v];}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cu\ ==\ cv)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ a\ =\ std::min(cu,cv),\ b\ =\ std::max(cu,cv);}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ k\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)a\ <<\ 32)\ |\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})b;}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ agg\_edges[k]\ +=\ w;}
+\DoxyCodeLine{00688\ \ \ \ \ \}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{comment}{//\ Rebuild\ current\ graph\ state\ from\ aggregates}}
+\DoxyCodeLine{00691\ \ \ \ \ node\_to\_tasks\_.swap(new\_node\_to\_tasks);}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ \ \ \ \ adj\_.assign(C,\ \{\});}
+\DoxyCodeLine{00694\ \ \ \ \ edges\_.clear();\ edges\_.reserve(agg\_edges.size());}
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ agg\_edges)\ \{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ a\ =\ (int)(kv.first\ >>\ 32);}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ b\ =\ (int)(kv.first\ \&\ 0xffffffffULL);}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ w\ =\ kv.second;}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ edges\_.emplace\_back(a,b,w);}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ adj\_[a].push\_back(\{b,w\});}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ adj\_[b].push\_back(\{a,w\});}
+\DoxyCodeLine{00702\ \ \ \ \ \}}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \ \ \ \ \textcolor{comment}{//\ Reset\ membership:\ each\ super-\/node\ starts\ in\ its\ own\ community}}
+\DoxyCodeLine{00705\ \ \ \ \ membership\_.assign(C,\ 0);}
+\DoxyCodeLine{00706\ \ \ \ \ comm\_size\_.clear();}
+\DoxyCodeLine{00707\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<C;++i)\ \{}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ membership\_[i]\ =\ i;}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ comm\_size\_[i]\ =\ 1;}
+\DoxyCodeLine{00710\ \ \ \ \ \}}
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00712\ \ \ \}}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \textcolor{comment}{//\ Helpers\ to\ maintain\ comm\_size\_}}
+\DoxyCodeLine{00715\ \ \ \textcolor{keywordtype}{int}\ makeNewCommunityId()\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \textcolor{comment}{//\ pick\ the\ next\ integer\ not\ in\ comm\_size\_}}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ =\ (int)comm\_size\_.size()\ ?\ maxCommId()+1\ :\ 0;}
+\DoxyCodeLine{00718\ \ \ \ \ \textcolor{comment}{//\ Ensure\ uniqueness}}
+\DoxyCodeLine{00719\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm\_size\_.count(\textcolor{keywordtype}{id}))\ ++id;}
+\DoxyCodeLine{00720\ \ \ \ \ comm\_size\_[id]\ =\ 0;}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordflow}{return}\ id;}
+\DoxyCodeLine{00722\ \ \ \}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \ \ \textcolor{keywordtype}{int}\ maxCommId()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{keywordtype}{int}\ mx\ =\ -\/1;}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ comm\_size\_)\ mx\ =\ std::max(mx,\ kv.first);}
+\DoxyCodeLine{00727\ \ \ \ \ \textcolor{keywordflow}{return}\ mx;}
+\DoxyCodeLine{00728\ \ \ \}}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \ \ \textcolor{keywordtype}{void}\ incrementCommSize(\textcolor{keywordtype}{int}\ cid)\ \{\ ++comm\_size\_[cid];\ \}}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \ \ \textcolor{keywordtype}{void}\ decrementCommSize(\textcolor{keywordtype}{int}\ cid)\ \{}
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ comm\_size\_.find(cid);}
+\DoxyCodeLine{00734\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ comm\_size\_.end())\ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ -\/-\/(it-\/>second);}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it-\/>second\ ==\ 0)\ \{}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keep\ empty\ comm\ id\ so\ future\ renumbering\ can\ compress}}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ not\ erase\ to\ avoid\ reusing\ id\ within\ phase}}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00740\ \ \ \ \ \}}
+\DoxyCodeLine{00741\ \ \ \}}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \ \ \textcolor{keywordtype}{void}\ materializeClusters()\ \{}
+\DoxyCodeLine{00744\ \ \ \ \ \textcolor{comment}{//\ Remap\ final\ communities\ to\ 0..K-\/1}}
+\DoxyCodeLine{00745\ \ \ \ \ std::unordered\_map<int,int>\ remap;}
+\DoxyCodeLine{00746\ \ \ \ \ \textcolor{keywordtype}{int}\ next\ =\ 0;}
+\DoxyCodeLine{00747\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cid\ :\ membership\_)\ \textcolor{keywordflow}{if}\ (!remap.count(cid))\ remap[cid]\ =\ next++;}
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{keywordtype}{int}\ K\ =\ next;}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ \textcolor{comment}{//\ Accumulate\ original\ tasks\ by\ final\ community}}
+\DoxyCodeLine{00751\ \ \ \ \ std::vector<std::vector<TaskType>>\ cl\_tasks(K);}
+\DoxyCodeLine{00752\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ n=0;\ n<(int)node\_to\_tasks\_.size();\ ++n)\ \{}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ c\ =\ remap[membership\_[n]];}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ cl\_tasks[c].insert(cl\_tasks[c].end(),}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_to\_tasks\_[n].begin(),}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ node\_to\_tasks\_[n].end());}
+\DoxyCodeLine{00757\ \ \ \ \ \}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{comment}{//\ Build\ clusters\_\ and\ task\_to\_cluster\_}}
+\DoxyCodeLine{00760\ \ \ \ \ std::unordered\_map<int,\ Cluster>\ tmp;}
+\DoxyCodeLine{00761\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cid=0;\ cid<K;\ ++cid)\ \{}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ cl\ =\ tmp[cid];}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ cl.id\ =\ cid;}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ cl.members\ =\ std::move(cl\_tasks[cid]);}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ load\_sum\ =\ 0.0;}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ t\ :\ cl.members)\ \{}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ task\_to\_cluster\_[t]\ =\ cid;}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pd\_.hasTask(t))\ load\_sum\ +=\ pd\_.getTasksMap().at(t).getLoad();}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ cl.load\ =\ load\_sum;}
+\DoxyCodeLine{00771\ \ \ \ \ \}}
+\DoxyCodeLine{00772\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ kv\ :\ tmp)\ clusters\_.push\_back(std::move(kv.second));}
+\DoxyCodeLine{00773\ \ \ \ \ std::sort(clusters\_.begin(),\ clusters\_.end(),}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ a,\ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ b)\{\ return\ a.id\ <\ b.id;\ \});}
+\DoxyCodeLine{00775\ \ \ \}}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \};}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \textcolor{comment}{//\ Utility:\ verify\ that\ all\ tasks\ in\ pd\ are\ present\ in\ the\ cluster\ mapping}}
+\DoxyCodeLine{00780\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ allTasksClustered(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \textcolor{keyword}{const}\&\ clusterer,\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{vt\_lb::model::PhaseData}}\ \textcolor{keyword}{const}\&\ pd)\ \{}
+\DoxyCodeLine{00781\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t2c\ =\ clusterer.taskToCluster();}
+\DoxyCodeLine{00782\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd.getTasksMap())\ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ task\_id\ =\ kv.first;}
+\DoxyCodeLine{00784\ \ \ \ \ \textcolor{keywordflow}{if}\ (t2c.find(task\_id)\ ==\ t2c.end())\ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00786\ \ \ \ \ \}}
+\DoxyCodeLine{00787\ \ \ \}}
+\DoxyCodeLine{00788\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00789\ \}}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \}\ \textcolor{comment}{//\ namespace\ vt\_lb::algo::temperedlb}}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTERING\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,134 @@
+\doxysection{cluster\+\_\+summarizer.\+h}
+\hypertarget{cluster__summarizer_8h_source}{}\label{cluster__summarizer_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/cluster\_summarizer.h@{/LB/src/vt-\/lb/algo/temperedlb/cluster\_summarizer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_summarizer.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/configuration.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/task\_cluster\_summary\_info.h>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Cluster}{Cluster}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil}{ClusterSummarizerUtil}}\ \{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(\textcolor{keywordtype}{int}\ cluster\_id,\ \textcolor{keywordtype}{int}\ rank,\ \textcolor{keywordtype}{int}\ global\_max\_clusters)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//\ Map\ local\ cluster\ IDs\ to\ global\ cluster\ IDs\ based\ on\ global\_max\_clusters\_}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Implementation\ depends\ on\ how\ clusters\ are\ represented\ and\ communicated}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ cluster\_id\ +\ rank\ *\ global\_max\_clusters;}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_a379f25706be7b1d644469163a5cb2da4}{globalToLocalClusterID}}(\textcolor{keywordtype}{int}\ global\_cluster\_id,\ \textcolor{keywordtype}{int}\ global\_max\_clusters)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ global\_cluster\_id\ \%\ global\_max\_clusters;}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_a557284e3772cb70f64598fb5b45c32ce}{globalClusterToRank}}(\textcolor{keywordtype}{int}\ global\_cluster\_id,\ \textcolor{keywordtype}{int}\ global\_max\_clusters)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ global\_cluster\_id\ /\ global\_max\_clusters;}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{static}\ std::unordered\_map<int,\ int>\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_ade2c313b1e57318829bbe5974322656b}{buildLocalToGlobalClusterIDMap}}(}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ rank,}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters,}
+\DoxyCodeLine{00114\ \ \ \ \ std::vector<Cluster>\ \textcolor{keyword}{const}\&\ clusters}
+\DoxyCodeLine{00115\ \ \ );}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00119\ \textcolor{keyword}{struct\ }ClusterSummarizer\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil}{ClusterSummarizerUtil}}\ \{}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<ClusterSummarizer<CommT>>;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ ClusterSummarizer(}
+\DoxyCodeLine{00123\ \ \ \ \ CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},}
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \textcolor{keyword}{const}*\ clusterer,}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters}
+\DoxyCodeLine{00126\ \ \ )\ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ handle\_(comm\_.template\ registerInstanceCollective<ClusterSummarizer<CommT>>(\textcolor{keyword}{this})),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ clusterer\_(clusterer),}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ global\_max\_clusters\_(global\_max\_clusters)}
+\DoxyCodeLine{00130\ \ \ \{\}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00140\ \ \ std::unordered\_map<int,\ TaskClusterSummaryInfo>}
+\DoxyCodeLine{00141\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_a0e2f843d655f010eb7bc5dc3269a506b}{buildClusterSummaries}}(}
+\DoxyCodeLine{00142\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\ \textcolor{keyword}{const}\&\ pd,}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}\ \textcolor{keyword}{const}\&\ config}
+\DoxyCodeLine{00144\ \ \ );}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_abcdb726334a65cf6479ccfc8537d92a7}{resolveClusterIDForTask}}(}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{int}\ from\_rank,}
+\DoxyCodeLine{00156\ \ \ \ \ model::TaskType\ task\_id,}
+\DoxyCodeLine{00157\ \ \ \ \ model::TaskType\ source\_task\_id,}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{int}\ source\_global\_cluster\_id}
+\DoxyCodeLine{00159\ \ \ );}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_a5803d5d10619564ff938f968d802cb94}{recvClusterIDForTask}}(}
+\DoxyCodeLine{00168\ \ \ \ \ model::TaskType\ task\_id,}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{int}\ global\_cluster\_id}
+\DoxyCodeLine{00170\ \ \ );}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00173\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00174\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00175\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \textcolor{keyword}{const}*\ clusterer\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{int}\ global\_max\_clusters\_\ =\ 1000;}
+\DoxyCodeLine{00177\ \ \ std::unordered\_map<model::TaskType,\ int>\ task\_to\_global\_cluster\_id\_;}
+\DoxyCodeLine{00178\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/cluster\_summarizer.impl.h>}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

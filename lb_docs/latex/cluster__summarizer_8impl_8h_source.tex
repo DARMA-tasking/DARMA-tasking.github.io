@@ -1,0 +1,367 @@
+\doxysection{cluster\+\_\+summarizer.\+impl.\+h}
+\hypertarget{cluster__summarizer_8impl_8h_source}{}\label{cluster__summarizer_8impl_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/cluster\_summarizer.impl.h@{/LB/src/vt-\/lb/algo/temperedlb/cluster\_summarizer.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_summarizer.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/cluster\_summarizer.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/clustering.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/configuration.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_abcdb726334a65cf6479ccfc8537d92a7}{ClusterSummarizer<CommT>::resolveClusterIDForTask}}(}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{int}\ from\_rank,}
+\DoxyCodeLine{00061\ \ \ model::TaskType\ task\_id,}
+\DoxyCodeLine{00062\ \ \ model::TaskType\ source\_task\_id,}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{int}\ source\_global\_cluster\_id}
+\DoxyCodeLine{00064\ )\ \{}
+\DoxyCodeLine{00065\ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00066\ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{stringliteral}{"{}ClusterSummarizer::resolveClusterIDForTask:\ trying\ to\ resolve\ task\_id=\{\},\ source\_task\_id=\{\},\ "{}}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{stringliteral}{"{}source\_global\_cluster\_id=\{\},\ from\_rank=\{\},\ found=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00069\ \ \ \ \ task\_id,\ source\_task\_id,\ source\_global\_cluster\_id,\ from\_rank,}
+\DoxyCodeLine{00070\ \ \ \ \ clusterer\_-\/>taskToCluster().find(task\_id)\ !=\ clusterer\_-\/>taskToCluster().end()}
+\DoxyCodeLine{00071\ \ \ );}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{auto}\ iter\ =\ clusterer\_-\/>taskToCluster().find(task\_id);}
+\DoxyCodeLine{00074\ \ \ vt\_lb\_assert(iter\ !=\ clusterer\_-\/>taskToCluster().end(),\ \textcolor{stringliteral}{"{}Task\ must\ be\ clustered\ here"{}});}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{int}\ local\_cluster\_id\ =\ iter-\/>second;}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ global\_cluster\_id\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(}
+\DoxyCodeLine{00077\ \ \ \ \ local\_cluster\_id,}
+\DoxyCodeLine{00078\ \ \ \ \ comm\_.getRank(),}
+\DoxyCodeLine{00079\ \ \ \ \ global\_max\_clusters\_}
+\DoxyCodeLine{00080\ \ \ );}
+\DoxyCodeLine{00081\ \ \ handle\_[from\_rank].template\ send<\&ClusterSummarizer::recvClusterIDForTask>(}
+\DoxyCodeLine{00082\ \ \ \ \ task\_id,\ global\_cluster\_id}
+\DoxyCodeLine{00083\ \ \ );}
+\DoxyCodeLine{00084\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_a5803d5d10619564ff938f968d802cb94}{recvClusterIDForTask}}(source\_task\_id,\ source\_global\_cluster\_id);}
+\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_a5803d5d10619564ff938f968d802cb94}{ClusterSummarizer<CommT>::recvClusterIDForTask}}(}
+\DoxyCodeLine{00089\ \ \ model::TaskType\ task\_id,}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{int}\ global\_cluster\_id}
+\DoxyCodeLine{00091\ )\ \{}
+\DoxyCodeLine{00092\ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00093\ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{stringliteral}{"{}ClusterSummarizer:\ recvClusterIDForTask:\ task\_id=\{\},\ global\_cluster\_id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00095\ \ \ \ \ task\_id,\ global\_cluster\_id}
+\DoxyCodeLine{00096\ \ \ );}
+\DoxyCodeLine{00097\ \ \ task\_to\_global\_cluster\_id\_[task\_id]\ =\ global\_cluster\_id;}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT>}
+\DoxyCodeLine{00101\ std::unordered\_map<int,\ TaskClusterSummaryInfo>}
+\DoxyCodeLine{00102\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizer_a0e2f843d655f010eb7bc5dc3269a506b}{ClusterSummarizer<CommT>::buildClusterSummaries}}(}
+\DoxyCodeLine{00103\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\ \textcolor{keyword}{const}\&\ pd,}
+\DoxyCodeLine{00104\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}\ \textcolor{keyword}{const}\&\ config}
+\DoxyCodeLine{00105\ )\ \{}
+\DoxyCodeLine{00106\ \ \ vt\_lb\_assert(clusterer\_\ !=\ \textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Clusterer\ must\ be\ initialized\ to\ build\ summaries"{}});}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ rank\ =\ pd.getRank();}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ Validate\ assumption:\ every\ task\ must\ be\ assigned\ to\ a\ cluster}}
+\DoxyCodeLine{00110\ \ \ vt\_lb\_assert(allTasksClustered(*clusterer\_,\ pd),\ \textcolor{stringliteral}{"{}All\ tasks\ must\ exist\ in\ at\ least\ one\ cluster"{}});}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ Task\ -\/>\ local\ cluster\ id}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ t2c\ =\ clusterer\_-\/>taskToCluster();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ Prepare\ summary\ per\ cluster\ id,\ saved\ as\ the\ global\ cluster\ ID}}
+\DoxyCodeLine{00116\ \ \ std::unordered\_map<int,\ TaskClusterSummaryInfo>\ summary\_by\_global;}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ cl\ :\ clusterer\_-\/>clusters())\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TaskClusterSummaryInfo}{TaskClusterSummaryInfo}}\ info;}
+\DoxyCodeLine{00119\ \ \ \ \ info.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TaskClusterSummaryInfo_a210ffa907b36581afa3d08df67ea66da}{cluster\_id}}\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cl.id,\ rank,\ global\_max\_clusters\_);}
+\DoxyCodeLine{00120\ \ \ \ \ info.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TaskClusterSummaryInfo_ae12dc188b01890d92c4b3877cf367bf5}{num\_tasks\_}}\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(cl.members.size());}
+\DoxyCodeLine{00121\ \ \ \ \ info.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TaskClusterSummaryInfo_a02b78598b958d5a3bcc4f3c06d0512e2}{cluster\_load}}\ =\ cl.load;}
+\DoxyCodeLine{00122\ \ \ \ \ summary\_by\_global.emplace(info.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TaskClusterSummaryInfo_a210ffa907b36581afa3d08df67ea66da}{cluster\_id}},\ std::move(info));}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ std::vector<model::Edge>\ to\_resolve\_later;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ Walk\ communications:\ accumulate\ intra\ send/recv;\ collect\ broadened\ inter\ edges\ starting\ in\ a\ cluster}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd.getCommunications())\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ e.getFrom();}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ e.getTo();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{auto}\ itu\ =\ t2c.find(u);}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{auto}\ itv\ =\ t2c.find(v);}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{int}\ cu\ =\ (itu\ !=\ t2c.end())\ ?\ itu-\/>second\ :\ -\/1;\ \textcolor{comment}{//\ local\ cluster\ id\ or\ -\/1\ if\ cluster\ is\ elsewhere}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ cv\ =\ (itv\ !=\ t2c.end())\ ?\ itv-\/>second\ :\ -\/1;}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{int}\ cug\ =\ (cu\ !=\ -\/1)\ ?\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cu,\ rank,\ global\_max\_clusters\_)\ :\ -\/1;}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{int}\ cvg\ =\ (cv\ !=\ -\/1)\ ?\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cv,\ rank,\ global\_max\_clusters\_)\ :\ -\/1;}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{auto}\ vol\ =\ e.getVolume();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{if}\ ((cu\ ==\ -\/1\ \&\&\ cv\ ==\ -\/1)\ ||\ (pd.getTask(u)\ ==\ \textcolor{keyword}{nullptr}\ \&\&\ pd.getTask(v)\ ==\ \textcolor{keyword}{nullptr}))\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{comment}{//\ Both\ endpoints\ are\ remote:\ nothing\ to\ do\ here;\ or\ one\ of\ the\ tasks\ does\ not\ exist\ on\ this\ rank}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ Intra-\/cluster:\ both\ endpoints\ mapped\ and\ equal\ -\/>\ accumulate\ send/recv}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (cu\ !=\ -\/1\ \&\&\ cv\ !=\ -\/1\ \&\&\ cu\ ==\ cv)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ assert(}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ e.getFromRank()\ ==\ e.getToRank()\ \&\&\ e.getFromRank()\ ==\ rank\ \&\&}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Intra-\/cluster\ edge\ must\ be\ intra-\/rank"{}}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ sum\ =\ summary\_by\_global.at(cug);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ sum.cluster\_intra\_send\_bytes\ +=\ vol;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ sum.cluster\_intra\_recv\_bytes\ +=\ vol;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (cu\ !=\ -\/1\ \&\&\ cv\ !=\ -\/1\ \&\&\ cu\ !=\ cv)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \textcolor{comment}{//\ Inter-\/cluster\ on\ same\ rank:\ do\ not\ count\ as\ intra,\ but\ add\ to\ inter\ edges\ for\ both\ clusters}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1ClusterEdge}{model::ClusterEdge}}\ cluster\_edge(}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ cug,\ \textcolor{comment}{//\ from\ cu}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ cvg,\ \textcolor{comment}{//\ to\ cv}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ vol}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ summary\_by\_global.at(cug).inter\_edges\_.push\_back(cluster\_edge);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ summary\_by\_global.at(cvg).inter\_edges\_.push\_back(cluster\_edge);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}buildClusterSummaries:\ rank=\{\}\ edge\ from\ \{\}(cu=\{\})\ to\ \{\}(cv=\{\})\ vol=\{:.2f\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ rank,\ u,\ cu,\ v,\ cv,\ vol}
+\DoxyCodeLine{00173\ \ \ \ \ );}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ Now,\ discover\ the\ target\ clusters\ that\ are\ not\ local\ to\ this\ rank}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{if}\ (cu\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ClusterSummarizer:\ resolveClusterIDForTask:\ from\_rank=\{\},\ to\_rank=\{\}\ task\_id=\{\}\ source\_task\_id=\{\}\ "{}}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}source\_global\_cluster\_id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ rank,\ e.getToRank(),\ u,\ v,\ cug}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{comment}{//\ Source\ cluster\ is\ local;\ destination\ is\ remote}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ to\_rank\ =\ e.getToRank();}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \textcolor{comment}{//\ Request\ cluster\ ID\ for\ destination\ task,\ send\ cluster\ ID\ for\ source\ task}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ handle\_[to\_rank].template\ send<\&ClusterSummarizer::resolveClusterIDForTask>(}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ comm\_.getRank(),\ e.getTo(),\ e.getFrom(),\ cug}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ to\_resolve\_later.push\_back(e);}
+\DoxyCodeLine{00190\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cv\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ClusterSummarizer:\ resolveClusterIDForTask:\ from\_rank=\{\},\ to\_rank=\{\}\ task\_id=\{\}\ source\_task\_id=\{\}\ "{}}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}source\_global\_cluster\_id=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ rank,\ e.getToRank(),\ u,\ v,\ cvg}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ to\_resolve\_later.push\_back(e);}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ Wait\ for\ termination}}
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordflow}{while}\ (comm\_.poll())\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ Process\ incoming\ requests\ for\ cluster\ IDs}}
+\DoxyCodeLine{00204\ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{//\ After\ all\ cluster\ IDs\ are\ resolved,\ process\ deferred\ edges}}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ to\_resolve\_later)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ e.getFrom();}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ e.getTo();}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{auto}\ itu\ =\ t2c.find(u);}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{auto}\ itv\ =\ t2c.find(v);}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{int}\ cu\ =\ (itu\ !=\ t2c.end())\ ?\ itu-\/>second\ :\ -\/1;}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{int}\ cv\ =\ (itv\ !=\ t2c.end())\ ?\ itv-\/>second\ :\ -\/1;}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{auto}\ vol\ =\ e.getVolume();}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{comment}{//\ Only\ one\ endpoint\ is\ local,\ the\ other\ is\ remote}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\ local\_cluster\ =\ (cu\ !=\ -\/1)\ ?\ cu\ :\ cv;}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{int}\ remote\_task\ =\ (cu\ !=\ -\/1)\ ?\ v\ :\ u;}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ Find\ the\ global\ cluster\ ID\ for\ the\ remote\ task}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{auto}\ it\_remote\_gid\ =\ task\_to\_global\_cluster\_id\_.find(remote\_task);}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\_remote\_gid\ ==\ task\_to\_global\_cluster\_id\_.end())\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BUG:\ Missing\ global\ cluster\ ID\ for\ remote\_task=\{\}\ (local\_cluster=\{\},\ cu=\{\},\ cv=\{\},\ rank=\{\})\(\backslash\)n"{}},}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ remote\_task,\ local\_cluster,\ cu,\ cv,\ rank}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ assert(}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ it\_remote\_gid\ !=\ task\_to\_global\_cluster\_id\_.end()\ \&\&}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Should\ not\ happen\ if\ all\ resolutions\ are\ complete"{}}}
+\DoxyCodeLine{00232\ \ \ \ \ );}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{int}\ remote\_global\_cluster\_id\ =\ it\_remote\_gid-\/>second;}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{int}\ local\_global\_cluster\_id\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(local\_cluster,\ rank,\ global\_max\_clusters\_);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{comment}{//\ Add\ the\ inter-\/cluster\ edge\ to\ the\ local\ cluster\ summary}}
+\DoxyCodeLine{00238\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1ClusterEdge}{model::ClusterEdge}}\ cluster\_edge(}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ local\_global\_cluster\_id,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ remote\_global\_cluster\_id,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ vol}
+\DoxyCodeLine{00242\ \ \ \ \ );}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ summary\_by\_global.at(local\_global\_cluster\_id).inter\_edges\_.push\_back(cluster\_edge);}
+\DoxyCodeLine{00245\ \ \ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \textcolor{comment}{//\ Memory\ summaries\ per\ cluster\ (only\ if\ enabled)}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordflow}{if}\ (config.hasMemoryInfo())\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{comment}{//\ Precompute\ a\ full\ set\ of\ task\ IDs\ for\ outside-\/cluster\ checks}}
+\DoxyCodeLine{00250\ \ \ \ \ std::unordered\_set<model::TaskType>\ all\_tasks;}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd.getTasksMap())\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ all\_tasks.insert(kv.first);}
+\DoxyCodeLine{00253\ \ \ \ \ \}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ cl\ :\ clusterer\_-\/>clusters())\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ global\_cluster\_id\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cl.id,\ rank,\ global\_max\_clusters\_);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ sum\ =\ summary\_by\_global.at(global\_cluster\_id);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ set\ of\ tasks\ in\ this\ cluster}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ std::unordered\_set<model::TaskType>\ cluster\_tasks(cl.members.begin(),\ cl.members.end());}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ maxima\ and\ footprint}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ model::BytesType\ max\_working\_inside\ =\ 0;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ model::BytesType\ max\_serialized\_inside\ =\ 0;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ model::BytesType\ max\_working\_outside\ =\ 0;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ model::BytesType\ max\_serialized\_outside\ =\ 0;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ model::BytesType\ total\_footprint\ =\ 0;}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{comment}{//\ Collect\ shared\ blocks\ used\ by\ cluster\ tasks}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ std::unordered\_set<model::SharedBlockType>\ shared\_blocks\_in\_cluster;}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ tasks\ to\ compute\ inside\ values\ and\ shared\ blocks}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ t\ :\ cl.members)\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ pd.getTasksMap().find(t);}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ pd.getTasksMap().end())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ =\ it-\/>second;}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Footprint\ sum}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskFootprintMemoryInfo())\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ total\_footprint\ +=\ task.getMemory().getFootprint();}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Max\ inside\ working/serialized}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskWorkingMemoryInfo())\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ max\_working\_inside\ =\ std::max(max\_working\_inside,\ task.getMemory().getWorking());}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskSerializedMemoryInfo())\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ max\_serialized\_inside\ =\ std::max(max\_serialized\_inside,\ task.getMemory().getSerialized());}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Shared\ blocks\ union}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasSharedBlockMemoryInfo())\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ task.getSharedBlocks())\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ shared\_blocks\_in\_cluster.insert(sb);}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ max\ outside\ values\ by\ scanning\ tasks\ not\ in\ this\ cluster}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskWorkingMemoryInfo()\ ||\ config.hasTaskSerializedMemoryInfo())\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd.getTasksMap())\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ =\ kv.second;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cluster\_tasks.find(task.getId())\ !=\ cluster\_tasks.end())\ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ skip\ inside}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskWorkingMemoryInfo())\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ max\_working\_outside\ =\ std::max(max\_working\_outside,\ task.getMemory().getWorking());}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasTaskSerializedMemoryInfo())\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ max\_serialized\_outside\ =\ std::max(max\_serialized\_outside,\ task.getMemory().getSerialized());}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \textcolor{comment}{//\ Fill\ shared\_block\_bytes\_\ with\ sizes}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (config.hasSharedBlockMemoryInfo())\ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ shared\_blocks\_in\_cluster)\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!pd.hasSharedBlock(sb))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ info\ =\ pd.getSharedBlock(sb);}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ sum.shared\_block\_bytes\_[sb]\ =\ info-\/>getSize();}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ computed\ values\ on\ summary}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ sum.max\_object\_working\_bytes\ =\ max\_working\_inside;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ sum.max\_object\_serialized\_bytes\ =\ max\_serialized\_inside;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ sum.max\_object\_working\_bytes\_outside\ =\ max\_working\_outside;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ sum.max\_object\_serialized\_bytes\_outside\ =\ max\_serialized\_outside;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ sum.cluster\_footprint\ =\ total\_footprint;}
+\DoxyCodeLine{00328\ \ \ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{comment}{//\ Emit\ summaries}}
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ cl\ :\ clusterer\_-\/>clusters())\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keyword}{auto}\ global\_cl\_id\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cl.id,\ rank,\ global\_max\_clusters\_);}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sum\ =\ summary\_by\_global.at(global\_cl\_id);}
+\DoxyCodeLine{00335\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ LoadBalancer,}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ verbose,}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}buildClusterSummaries\ cluster\ \{\}\ size=\{\}\ load=\{:.2f\}\ intra\_send=\{:.2f\}\ intra\_recv=\{:.2f\}\ "{}}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}inter\_edges=\{\}\ footprint=\{:.0f\}\ max\_work\_in=\{:.0f\}\ max\_work\_out=\{:.0f\}\ "{}}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}max\_ser\_in=\{:.0f\}\ max\_ser\_out=\{:.0f\}\ shared\_block\_count=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ClusterSummarizerUtil_aeafed2355b2ded59e68125e56efa073f}{localToGlobalClusterID}}(cl.id,\ rank,\ global\_max\_clusters\_),}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ cl.members.size(),}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ cl.load,}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ sum.cluster\_intra\_send\_bytes,}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ sum.cluster\_intra\_recv\_bytes,}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ sum.inter\_edges\_.size(),}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ sum.cluster\_footprint,}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ sum.max\_object\_working\_bytes,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ sum.max\_object\_working\_bytes\_outside,}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ sum.max\_object\_serialized\_bytes,}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ sum.max\_object\_serialized\_bytes\_outside,}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ sum.shared\_block\_bytes\_.size()}
+\DoxyCodeLine{00353\ \ \ \ \ );}
+\DoxyCodeLine{00354\ \ \ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordflow}{return}\ summary\_by\_global;}
+\DoxyCodeLine{00357\ \}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_CLUSTER\_SUMMARIZER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

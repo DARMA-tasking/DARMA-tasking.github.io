@@ -1,0 +1,227 @@
+\doxysection{basic\+\_\+transfer.\+h}
+\hypertarget{basic__transfer_8h_source}{}\label{basic__transfer_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/basic\_transfer.h@{/LB/src/vt-\/lb/algo/temperedlb/basic\_transfer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ basic\_transfer.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_BASIC\_TRANSFER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_BASIC\_TRANSFER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/types.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/comm/comm\_traits.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/statistics.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/transfer\_util.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/transfer.h>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <comm::Communicator\ CommT>}
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }BasicTransfer\ final\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a2f59ebb2c6e8c409974bbcb8df4aacab}{Transferer}}<CommT>\ \{}
+\DoxyCodeLine{00060\ \ \ BasicTransfer(}
+\DoxyCodeLine{00061\ \ \ \ \ CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},}
+\DoxyCodeLine{00062\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\&\ pd,}
+\DoxyCodeLine{00063\ \ \ \ \ std::unordered\_map<int,\ RankInfo>\ \textcolor{keyword}{const}\&\ load\_info,}
+\DoxyCodeLine{00064\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Statistics}{Statistics}}\ stats}
+\DoxyCodeLine{00065\ \ \ )\ :\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a2f59ebb2c6e8c409974bbcb8df4aacab}{Transferer<CommT>}}(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ pd),}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ load\_info\_(load\_info),}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ stats\_(stats)}
+\DoxyCodeLine{00068\ \ \ \{\}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ isOverloaded(model::LoadType\ load)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ load\ >\ stats\_.avg;}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{void}\ run(}
+\DoxyCodeLine{00075\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048}{TransferUtil::CMFType}}\ cmf\_type,}
+\DoxyCodeLine{00076\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066}{TransferUtil::ObjectOrder}}\ obj\_ordering,}
+\DoxyCodeLine{00077\ \ \ \ \ CriterionEnum\ criterion,}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ deterministic,}
+\DoxyCodeLine{00079\ \ \ \ \ model::LoadType\ target\_max\_load,}
+\DoxyCodeLine{00080\ \ \ \ \ std::mt19937\ gen\_sample\_,}
+\DoxyCodeLine{00081\ \ \ \ \ std::random\_device\&\ seed\_}
+\DoxyCodeLine{00082\ \ \ )\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\&\ cur\_load\ =\ load\_info\_.at(this-\/>pd\_.getRank());}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Initialize\ transfer\ and\ rejection\ counters}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_transfers\ =\ 0,\ n\_rejected\ =\ 0;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Try\ to\ migrate\ objects\ only\ from\ overloaded\ ranks}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{if}\ (isOverloaded(cur\_load.getScaledLoad()))\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ std::vector<int>\ under\ =\ TransferUtil::makeUnderloaded(deterministic,\ load\_info\_,\ stats\_.avg);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cur\_tasks\ =\ this-\/>pd\_.getTasksMap();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (under.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::vector<model::TaskType>\ ordered\_obj\_ids\ =\ TransferUtil::orderObjects(}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ obj\_ordering,\ cur\_tasks,\ cur\_load,\ target\_max\_load}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ through\ all\ the\ objects}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ iter\ =\ ordered\_obj\_ids.begin();\ iter\ !=\ ordered\_obj\_ids.end();\ )\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ obj\_id\ =\ *iter;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ obj\_load\ =\ cur\_tasks[obj\_id].getLoad();}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cmf\_type\ ==\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048a0a52da7a03a6de3beefe54f8c03ad80d}{TransferUtil::CMFType::Original}})\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rebuild\ the\ relaxed\ underloaded\ set\ based\ on\ updated\ load\ of\ this\ node}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ under\ =\ TransferUtil::makeUnderloaded(deterministic,\ load\_info\_,\ stats\_.avg);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (under.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cmf\_type\ ==\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048abaf94565ded5ad030ec19a9c5ab07d95}{TransferUtil::CMFType::NormByMaxExcludeIneligible}})\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rebuild\ the\ underloaded\ set\ and\ eliminate\ processors\ that\ will}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fail\ the\ Criterion\ for\ this\ object}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ under\ =\ TransferUtil::makeSufficientlyUnderloaded(}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deterministic,\ load\_info\_,\ criterion,\ cur\_load,\ target\_max\_load,\ obj\_load}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (under.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++n\_rejected;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter++;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rebuild\ the\ CMF\ with\ the\ new\ loads\ taken\ into\ account}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cmf\ =\ TransferUtil::createCMF(cmf\_type,\ load\_info\_,\ target\_max\_load,\ under);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Select\ a\ node\ using\ the\ CMF}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ selected\_rank\ =\ TransferUtil::sampleFromCMF(deterministic,\ under,\ cmf,\ gen\_sample\_,\ seed\_);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BasicTransfer:\ selected\_rank=\{\},\ load\_info\_.size()=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_rank,\ load\_info\_.size()}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ load\ of\ selected\ node}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ load\_iter\ =\ load\_info\_.find(selected\_rank);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ vt\_lb\_assert(load\_iter\ !=\ load\_info\_.end(),\ \textcolor{stringliteral}{"{}Selected\ node\ not\ found"{}});}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ selected\_load\ =\ load\_iter-\/>second;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ object\ is\ migratable\ and\ evaluate\ criterion\ for\ proposed\ transfer}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_migratable\ =\ cur\_tasks[obj\_id].isMigratable();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ eval\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Criterion}{Criterion}}(criterion)(}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_load,\ selected\_load,\ obj\_load,\ target\_max\_load}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BasicTransfer:\ under.size()=\{\},\ "{}}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}selected\_rank=\{\},\ selected\_load=\{\},\ obj\_id=\{\},\ "{}}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\_migratable()=\{\},\ obj\_load=\{\},\ target\_max\_load=\{\},\ "{}}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cur\_load=\{\},\ criterion=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ under.size(),}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_rank,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_load,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ obj\_id,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ is\_migratable,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ obj\_load,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ target\_max\_load,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_load,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ eval}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Decide\ about\ proposed\ migration\ based\ on\ criterion\ evaluation}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_migratable\ \&\&\ eval)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ ++n\_transfers;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transfer\ the\ object\ load\ in\ seconds}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ match\ the\ object\ load\ units\ on\ the\ receiving\ end}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>migrateTask(selected\_rank,\ cur\_tasks[obj\_id]);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BasicTransfer:\ migrating\ obj\_id=\{:x\}\ of\ load=\{\}\ to\ rank=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj\_id,\ model::LoadType(obj\_load),\ selected\_rank}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ loads}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_load.load\ -\/=\ obj\_load;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_load.load\ +=\ obj\_load;}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ ordered\_obj\_ids.erase(iter);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ cur\_tasks.erase(obj\_id);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ ++n\_rejected;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ iter++;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(cur\_load.getScaledLoad()\ >\ target\_max\_load))\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing\ (underloaded-\/based\ algorithm),\ waits\ to\ get\ work\ from}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \textcolor{comment}{//\ overloaded\ nodes}}
+\DoxyCodeLine{00194\ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ this-\/>doMigrations();}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{/*virtual*/}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1BasicTransfer_a8aa81a6a4ec7b03259d8c4b67955d2c8}{acceptIncomingTask}}(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{model::Task}}\ \textcolor{keyword}{const}\&\ task)\ \textcolor{keyword}{override}\ \textcolor{keyword}{final}\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\&\ cur\_load\ =\ load\_info\_.at(this-\/>pd\_.getRank());}
+\DoxyCodeLine{00201\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}BasicTransfer::acceptIncomingTask:\ current\ load=\{\}\ task\ load=\{\}\ total\ load=\{\}\ max=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ cur\_load.load,\ task.getLoad(),\ cur\_load.load\ +\ task.getLoad(),\ stats\_.max}
+\DoxyCodeLine{00205\ \ \ \ \ );}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}\ ((cur\_load.load\ +\ task.getLoad())\ *\ cur\_load.rank\_alpha\ >\ stats\_.max)\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00208\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ cur\_load.load\ +=\ task.getLoad();}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00215\ \ \ std::unordered\_map<int,\ RankInfo>\ load\_info\_;}
+\DoxyCodeLine{00216\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Statistics}{Statistics}}\ stats\_;}
+\DoxyCodeLine{00217\ \};}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_BASIC\_TRANSFER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,203 @@
+\doxysection{transfer.\+h}
+\hypertarget{transfer_8h_source}{}\label{transfer_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/transfer.h@{/LB/src/vt-\/lb/algo/temperedlb/transfer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transfer.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/types.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/comm/comm\_traits.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/logging.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/statistics.h>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/transfer\_util.h>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{enum\ class}\ TransactionStatus\ :\ \textcolor{keywordtype}{int}\ \{}
+\DoxyCodeLine{00061\ \ \ Pending\ =\ 0,}
+\DoxyCodeLine{00062\ \ \ Accepted\ =\ 1,}
+\DoxyCodeLine{00063\ \ \ Rejected\ =\ 2}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <comm::Communicator\ CommT>}
+\DoxyCodeLine{00067\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a2f59ebb2c6e8c409974bbcb8df4aacab}{Transferer}}\ \{}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<Transferer<CommT>>;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00076\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a2f59ebb2c6e8c409974bbcb8df4aacab}{Transferer}}(CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\&\ pd)}
+\DoxyCodeLine{00077\ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ handle\_(comm\_.template\ registerInstanceCollective<\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a2f59ebb2c6e8c409974bbcb8df4aacab}{Transferer}}<CommT>>(this)),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ pd\_(pd)}
+\DoxyCodeLine{00080\ \ \ \{\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer}{\string~Transferer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_1_1TransferTask}{TransferTask}}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{model::Task}}\ task;}
+\DoxyCodeLine{00086\ \ \ \ \ std::vector<model::Edge>\ edges;}
+\DoxyCodeLine{00087\ \ \ \ \ std::vector<model::SharedBlock>\ shared\_blocks;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ serialize(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ s\ |\ task;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ s\ |\ edges;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ s\ |\ shared\_blocks;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ migrateTask(\textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ rank,\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{model::Task}}\ \textcolor{keyword}{const}\&\ task,\ \textcolor{keywordtype}{bool}\ include\_comm\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ std::vector<model::Edge>\ edges;}
+\DoxyCodeLine{00099\ \ \ \ \ std::vector<model::SharedBlock>\ shared\_blocks;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}\ (include\_comm)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\_id\ :\ task.getSharedBlocks())\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}*\ sb\ =\ pd\_.getSharedBlock(sb\_id);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sb\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ shared\_blocks.push\_back(*sb);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ edge\ :\ pd\_.getCommunications())\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ task.getId()\ ||\ edge.getTo()\ ==\ task.getId())\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ edges.push\_back(edge);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ migrate\_tasks\_[rank].push\_back(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_1_1TransferTask}{TransferTask}}\{task,\ edges,\ shared\_blocks\});}
+\DoxyCodeLine{00116\ \ \ \ \ pd\_.eraseTask(task.getId());}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ We\ can't\ clean\ up\ everything\ here,\ because\ the\ task\ might\ come\ back.}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ Do\ this\ later\ once\ all\ migrations\ are\ done.}}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ doMigrations(\textcolor{keywordtype}{bool}\ do\_cleanup\ =\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ [rank,\ tasks]\ :\ migrate\_tasks\_)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ handle\_[rank].template\ send<\&Transferer::migrationHandler>(comm\_.getRank(),\ tasks);}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ termination\ on\ the\ migrations}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm\_.poll())\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ migrate\_tasks\_.clear();}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (do\_cleanup)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ cleanup();}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{void}\ sendBackHandler(model::Task\ \textcolor{keyword}{const}\&\ task)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//\ Add\ the\ task\ back}}
+\DoxyCodeLine{00142\ \ \ \ \ pd\_.addTask(task);}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{void}\ migrationHandler(\textcolor{keywordtype}{int}\ from\_rank,\ std::vector<TransferTask>\ \textcolor{keyword}{const}\&\ tasks)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [task,\ edges,\ shared\_blocks]\ :\ tasks)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a29750207b18b1d57ecc08613153f9834}{acceptIncomingTask}}(task))\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ LoadBalancer,\ normal,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Transferer::migrationHandler:\ rejecting\ incoming\ task\ \{\},\ load\ \{\}\ due\ to\ load\ constraints\(\backslash\)n"{}},}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ task.getId(),}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ task.getLoad()}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ handle\_[from\_rank].template\ send<\&Transferer::sendBackHandler>(task);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ pd\_.addTask(task);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ pd\_.addCommunication(edge);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ shared\_blocks)\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!pd\_.hasSharedBlock(sb.getId()))\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ pd\_.addSharedBlock(sb);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{void}\ cleanup()\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ 1)\ Remove\ communications\ where\ neither\ endpoint\ exists\ locally}}
+\DoxyCodeLine{00171\ \ \ \ \ pd\_.purgeDanglingCommunications();}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ 2)\ Compute\ shared-\/block\ references\ from\ current\ tasks}}
+\DoxyCodeLine{00174\ \ \ \ \ std::unordered\_map<model::SharedBlockType,\ int>\ refcounts;}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [\textcolor{keywordtype}{id},\ task]\ :\ pd\_.getTasksMap())\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ sb\ :\ task.getSharedBlocks())\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ ++refcounts[sb];}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{comment}{//\ 3)\ Remove\ shared\ blocks\ with\ zero\ references\ on\ this\ rank}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [sb\_id,\ sb]\ :\ pd\_.getSharedBlocksMap())\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (refcounts.find(sb\_id)\ ==\ refcounts.end())\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ pd\_.eraseSharedBlock(sb\_id);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Transferer_a29750207b18b1d57ecc08613153f9834}{acceptIncomingTask}}(}
+\DoxyCodeLine{00199\ \ \ \ \ [[maybe\_unused]]\ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{model::Task}}\ \textcolor{keyword}{const}\&\ task}
+\DoxyCodeLine{00200\ \ \ )\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00203\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00204\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00205\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1PhaseData}{model::PhaseData}}\&\ pd\_;}
+\DoxyCodeLine{00206\ \ \ std::unordered\_map<int,\ std::vector<TransferTask>>\ migrate\_tasks\_;}
+\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

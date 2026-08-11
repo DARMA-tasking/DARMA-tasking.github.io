@@ -1,0 +1,125 @@
+\doxysection{driver.\+impl.\+h}
+\hypertarget{driver_8impl_8h_source}{}\label{driver_8impl_8h_source}\index{/LB/src/vt-\/lb/algo/driver/driver.impl.h@{/LB/src/vt-\/lb/algo/driver/driver.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ driver.cc}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_DRIVER\_DRIVER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_DRIVER\_DRIVER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/temperedlb.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/configuration.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/driver/driver.h>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }vt\_lb\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT,\ \textcolor{keyword}{typename}\ ConfigT>}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ runLB(DriverAlgoEnum\ algo,\ CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ ConfigT\ config,\ std::unique\_ptr<model::PhaseData>\ phase\_data)\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{switch}\ (algo)\ \{}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordflow}{case}\ DriverAlgoEnum::None:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ No\ load\ balancing}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{case}\ DriverAlgoEnum::TemperedLB:}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{comment}{//\ Run\ TemperedLB\ algorithm}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lb\ =\ std::make\_unique<algo::temperedlb::TemperedLB<CommT>>(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ config);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ lb-\/>inputData(std::move(phase\_data));}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ lb-\/>run();}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Invalid\ load\ balancer\ algorithm"{}});}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT,\ \textcolor{keyword}{typename}\ ConfigT>}
+\DoxyCodeLine{00073\ std::unordered\_map<model::RankType,\ std::vector<model::TaskType>>}
+\DoxyCodeLine{00074\ runLBAllGather(DriverAlgoEnum\ algo,\ CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ ConfigT\ config,\ std::unique\_ptr<model::PhaseData>\ phase\_data)\ \{}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordflow}{switch}\ (algo)\ \{}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordflow}{case}\ DriverAlgoEnum::None:}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ No\ load\ balancing}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordflow}{case}\ DriverAlgoEnum::TemperedLB:}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{comment}{//\ Run\ TemperedLB\ algorithm}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lb\ =\ std::make\_unique<algo::temperedlb::TemperedLB<CommT>>(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ config);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ lb-\/>inputData(std::move(phase\_data));}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ local\_tasks\ =\ lb-\/>run();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lb-\/>getGlobalDistribution(local\_tasks);}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Invalid\ load\ balancer\ algorithm"{}});}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{00092\ \ \ \}}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ConfigT>}
+\DoxyCodeLine{00096\ ConfigT\ makeLoadOnlyConfig()\ \{}
+\DoxyCodeLine{00097\ \ \ vt\_lb::algo::temperedlb::Configuration\ config;}
+\DoxyCodeLine{00098\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_afe91b194b9a35bef4daa43e791905d26}{num\_iters\_}}\ =\ 10;}
+\DoxyCodeLine{00099\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a3102385fcc6c5bca973435162af1a12c}{num\_trials\_}}\ =\ 1;}
+\DoxyCodeLine{00100\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_afa9ad1e20a40a8463ffda2c98d78c005}{deterministic\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00101\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a369b4c95b65271180e2bb039bffc0262}{work\_model\_}}.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModel_a5c115c3254fecd9bbe303dbc234f560e}{rank\_alpha}}\ =\ 1.0;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{return}\ config;}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ConfigT>}
+\DoxyCodeLine{00106\ ConfigT\ makeCommConfig(\textcolor{keywordtype}{double}\ beta)\ \{}
+\DoxyCodeLine{00107\ \ \ vt\_lb::algo::temperedlb::Configuration\ config;}
+\DoxyCodeLine{00108\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_afe91b194b9a35bef4daa43e791905d26}{num\_iters\_}}\ =\ 10;}
+\DoxyCodeLine{00109\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a3102385fcc6c5bca973435162af1a12c}{num\_trials\_}}\ =\ 1;}
+\DoxyCodeLine{00110\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_afa9ad1e20a40a8463ffda2c98d78c005}{deterministic\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00111\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a369b4c95b65271180e2bb039bffc0262}{work\_model\_}}.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModel_a5c115c3254fecd9bbe303dbc234f560e}{rank\_alpha}}\ =\ 1.0;}
+\DoxyCodeLine{00112\ \ \ config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a369b4c95b65271180e2bb039bffc0262}{work\_model\_}}.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkModel_aff48c32483cad13fc3650fec9f90ab93}{beta}}\ =\ beta;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordflow}{return}\ config;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb\ */}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_DRIVER\_DRIVER\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

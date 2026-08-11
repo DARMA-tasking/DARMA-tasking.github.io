@@ -1,0 +1,160 @@
+\doxysection{comm\+\_\+traits.\+h}
+\hypertarget{comm__traits_8h_source}{}\label{comm__traits_8h_source}\index{/LB/src/vt-\/lb/comm/comm\_traits.h@{/LB/src/vt-\/lb/comm/comm\_traits.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm\_traits.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_COMM\_COMM\_TRAITS\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_COMM\_COMM\_TRAITS\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{vt\_lb::comm}}\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ New\ concept\ helpers\ capturing\ common\ communicator\ API\ across\ CommMPI\ and\ CommVT}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }detail\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ Dummy\ class\ and\ member-\/function\ pointer\ used\ to\ instantiate\ templated\ send<fn>(...)}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1comm_1_1detail_1_1DummyClass}{DummyClass}}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ dummyMethod();}
+\DoxyCodeLine{00060\ \ \ \};}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ dummyMemFn\ =\ \&DummyClass::dummyMethod;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ Concepts\ for\ required\ member\ functions}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasInit}{HasInit}}\ =\ \textcolor{keyword}{requires}(Comm\ c,\ \textcolor{keywordtype}{int}\&\ argc,\ \textcolor{keywordtype}{char}**\&\ argv)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \{\ c.init(argc,\ argv)\ \};}
+\DoxyCodeLine{00068\ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasFinalize}{HasFinalize}}\ =\ \textcolor{keyword}{requires}(Comm\ c)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \{\ c.finalize()\ \};}
+\DoxyCodeLine{00073\ \ \ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasNumRanks}{HasNumRanks}}\ =\ \textcolor{keyword}{requires}(Comm\ \textcolor{keyword}{const}\&\ c)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \{\ c.numRanks()\ \}\ -\/>\ std::integral;}
+\DoxyCodeLine{00078\ \ \ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasGetRank}{HasGetRank}}\ =\ \textcolor{keyword}{requires}(Comm\ \textcolor{keyword}{const}\&\ c)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \{\ c.getRank()\ \}\ -\/>\ std::integral;}
+\DoxyCodeLine{00083\ \ \ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasPoll}{HasPoll}}\ =\ \textcolor{keyword}{requires}(Comm\ c)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \{\ c.poll()\ \}\ -\/>\ std::convertible\_to<bool>;}
+\DoxyCodeLine{00088\ \ \ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ registerInstanceCollective<T>(T*)}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasRegisterInstanceCollective}{HasRegisterInstanceCollective}}\ =\ \textcolor{keyword}{requires}(Comm\ c,\ T*\ t)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \{\ c.template\ registerInstanceCollective<T>(t)\ \};}
+\DoxyCodeLine{00094\ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ Resolve\ instance\ handle\ type\ returned\ by\ registerInstanceCollective<T>(T*)}}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{using\ }instance\_handle\_t\ =}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{decltype}(std::declval<Comm\&>().template\ registerInstanceCollective<T>(std::declval<T*>()));}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ Unified\ send\ pattern:\ send<fn>(int\ dest,\ Handle\ proxy,\ ...)}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasSendUnified}{HasSendUnified}}\ =}
+\DoxyCodeLine{00104\ \ \ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasRegisterInstanceCollective}{HasRegisterInstanceCollective<Comm,\ DummyClass>}}\ \&\&}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{requires}(Comm\ c)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \{\ c.template\ send<dummyMemFn>(}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ std::declval<int>(),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ std::declval<instance\_handle\_t<Comm,\ DummyClass>>()}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00111\ \ \ \ \ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \}\ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ Primary\ concept\ that\ a\ communicator\ must\ satisfy}}
+\DoxyCodeLine{00116\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00117\ \textcolor{keyword}{concept\ }\doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1Communicator}{Communicator}}\ =}
+\DoxyCodeLine{00118\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasInit}{detail::HasInit<Comm>}}\ \&\&}
+\DoxyCodeLine{00119\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasFinalize}{detail::HasFinalize<Comm>}}\ \&\&}
+\DoxyCodeLine{00120\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasNumRanks}{detail::HasNumRanks<Comm>}}\ \&\&}
+\DoxyCodeLine{00121\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasGetRank}{detail::HasGetRank<Comm>}}\ \&\&}
+\DoxyCodeLine{00122\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasPoll}{detail::HasPoll<Comm>}}\ \&\&}
+\DoxyCodeLine{00123\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasRegisterInstanceCollective}{detail::HasRegisterInstanceCollective<Comm,\ detail::DummyClass>}}\ \&\&}
+\DoxyCodeLine{00124\ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasSendUnified}{detail::HasSendUnified<Comm>}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ Backward-\/compatible\ traits\ shim\ implemented\ in\ terms\ of\ concepts}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00128\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1comm_1_1CommunicatorTraits}{CommunicatorTraits}}\ \{}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_init\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasInit}{detail::HasInit<Comm>}};}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_finalize\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasFinalize}{detail::HasFinalize<Comm>}};}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_num\_ranks\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasNumRanks}{detail::HasNumRanks<Comm>}};}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_get\_rank\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasGetRank}{detail::HasGetRank<Comm>}};}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_poll\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasPoll}{detail::HasPoll<Comm>}};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{using\ }instance\_handle\_t\ =\ detail::instance\_handle\_t<Comm,\ T>;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_register\_instance\ =}
+\DoxyCodeLine{00140\ \ \ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasRegisterInstanceCollective}{detail::HasRegisterInstanceCollective<Comm,\ T>}};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_send\_unified\ =}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1detail_1_1HasSendUnified}{detail::HasSendUnified<Comm>}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_valid\ =\ \doxymbox{\hyperlink{conceptvt__lb_1_1comm_1_1Communicator}{Communicator<Comm>}};}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ Convenience\ alias\ to\ check\ conformance\ at\ compile\ time}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00150\ \textcolor{keyword}{using\ }is\_comm\_conformant\ =\ std::bool\_constant<Communicator<Comm>>;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::comm\ */}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_COMM\_COMM\_TRAITS\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

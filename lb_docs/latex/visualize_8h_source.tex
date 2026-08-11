@@ -1,0 +1,154 @@
+\doxysection{visualize.\+h}
+\hypertarget{visualize_8h_source}{}\label{visualize_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/visualize.h@{/LB/src/vt-\/lb/algo/temperedlb/visualize.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/Communication.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}clustering.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cmath>}\ \textcolor{comment}{//\ llround}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{inline}\ std::string\ buildTaskGraphDOT(}
+\DoxyCodeLine{00020\ \ \ vt\_lb::model::PhaseData\ \textcolor{keyword}{const}\&\ pd,}
+\DoxyCodeLine{00021\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Clusterer}{Clusterer}}\ \textcolor{keyword}{const}*\ clusterer,}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{bool}\ show\_clusters,}
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{bool}\ show\_loads}
+\DoxyCodeLine{00024\ )\ \{}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{using\ }TaskType\ =\ vt\_lb::model::TaskType;}
+\DoxyCodeLine{00026\ \ \ std::ostringstream\ out;}
+\DoxyCodeLine{00027\ \ \ out\ <<\ \textcolor{stringliteral}{"{}digraph\ TaskGraph\ \{\(\backslash\)n"{}};}
+\DoxyCodeLine{00028\ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ rankdir=LR;\(\backslash\)n"{}};}
+\DoxyCodeLine{00029\ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ node\ [shape=ellipse,\ fontname=\(\backslash\)"{}Helvetica\(\backslash\)"{}];\(\backslash\)n"{}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ std::unordered\_map<TaskType,int>\ cluster\_map;}
+\DoxyCodeLine{00032\ \ \ std::vector<Cluster>\ clusters;}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordflow}{if}\ (clusterer\ \&\&\ show\_clusters)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ cluster\_map\ =\ clusterer-\/>taskToCluster();}
+\DoxyCodeLine{00035\ \ \ \ \ clusters\ =\ clusterer-\/>clusters();}
+\DoxyCodeLine{00036\ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ Compute\ per-\/cluster\ boundary\ bytes\ (sum\ of\ edges\ crossing\ cluster\ boundary)}}
+\DoxyCodeLine{00039\ \ \ \textcolor{comment}{//\ Use\ integer\ accumulation\ to\ avoid\ FP\ off-\/by-\/one\ when\ printing.}}
+\DoxyCodeLine{00040\ \ \ std::unordered\_map<int,\ unsigned\ long\ long>\ cluster\_boundary\_bytes;}
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{//\ New:\ intra-\/cluster\ total\ bytes\ (sum\ of\ edges\ where\ both\ endpoints\ in\ same\ cluster)}}
+\DoxyCodeLine{00042\ \ \ std::unordered\_map<int,\ unsigned\ long\ long>\ cluster\_intra\_bytes;}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordflow}{if}\ (show\_clusters\ \&\&\ !clusters.empty())\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Build\ fast\ membership\ sets\ per\ cluster}}
+\DoxyCodeLine{00045\ \ \ \ \ std::unordered\_map<int,\ std::unordered\_set<TaskType>>\ cluster\_members;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ cl\ :\ clusters)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ cluster\_members[cl.id]\ =\ std::unordered\_set<TaskType>(cl.members.begin(),\ cl.members.end());}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ cluster\_boundary\_bytes[cl.id]\ =\ 0ULL;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ cluster\_intra\_bytes[cl.id]\ =\ 0ULL;\ \textcolor{comment}{//\ initialize\ intra}}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ Iterate\ communications\ and\ add\ volume\ to\ intra\ or\ boundary}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd.getCommunications())\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ f\ =\ e.getFrom();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ e.getTo();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{comment}{//\ Skip\ edges\ without\ tasks}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!pd.hasTask(f)\ ||\ !pd.hasTask(t))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{comment}{//\ Round\ each\ edge\ volume\ to\ integer\ bytes\ before\ summing}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ vol\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\textcolor{keyword}{>}(std::llround(e.getVolume()));}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cf\_it\ =\ cluster\_map.find(f);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ct\_it\ =\ cluster\_map.find(t);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cf\_it\ !=\ cluster\_map.end()\ ||\ ct\_it\ !=\ cluster\_map.end())\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cf\_it\ !=\ cluster\_map.end()\ \&\&\ ct\_it\ !=\ cluster\_map.end())\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cf\ =\ cf\_it-\/>second;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ct\ =\ ct\_it-\/>second;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cf\ ==\ ct)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Intra-\/cluster\ communication}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_intra\_bytes[cf]\ +=\ vol;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Crossing\ cluster\ boundary}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_boundary\_bytes[cf]\ +=\ vol;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_boundary\_bytes[ct]\ +=\ vol;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ One\ endpoint\ is\ in\ some\ cluster,\ the\ other\ is\ unclustered}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cf\_it\ !=\ cluster\_map.end())\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_boundary\_bytes[cf\_it-\/>second]\ +=\ vol;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ct\_it\ !=\ cluster\_map.end())\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_boundary\_bytes[ct\_it-\/>second]\ +=\ vol;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Color\ palette}}
+\DoxyCodeLine{00089\ \ \ std::array<const\ char*,\ 12>\ palette\ =\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{stringliteral}{"{}\#1f77b4"{}},\textcolor{stringliteral}{"{}\#ff7f0e"{}},\textcolor{stringliteral}{"{}\#2ca02c"{}},\textcolor{stringliteral}{"{}\#d62728"{}},}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{stringliteral}{"{}\#9467bd"{}},\textcolor{stringliteral}{"{}\#8c564b"{}},\textcolor{stringliteral}{"{}\#e377c2"{}},\textcolor{stringliteral}{"{}\#7f7f7f"{}},}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{stringliteral}{"{}\#bcbd22"{}},\textcolor{stringliteral}{"{}\#17becf"{}},\textcolor{stringliteral}{"{}\#393b79"{}},\textcolor{stringliteral}{"{}\#637939"{}}}
+\DoxyCodeLine{00093\ \ \ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ Emit\ clusters\ or\ standalone\ nodes}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordflow}{if}\ (show\_clusters\ \&\&\ !clusters.empty())\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ cl\ :\ clusters)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ color\ =\ palette[cl.id\ \%\ palette.size()];}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ bytes\_boundary\ =\ cluster\_boundary\_bytes.count(cl.id)\ ?\ cluster\_boundary\_bytes[cl.id]\ :\ 0ULL;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ bytes\_intra\ \ \ \ =\ cluster\_intra\_bytes.count(cl.id)\ \ \ \ ?\ cluster\_intra\_bytes[cl.id]\ \ \ \ :\ 0ULL;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ subgraph\ cluster\_"{}}\ <<\ cl.id\ <<\ \textcolor{stringliteral}{"{}\ \{\(\backslash\)n"{}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ label=\(\backslash\)"{}cluster\ "{}}\ <<\ cl.id}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)nload="{}}\ <<\ std::fixed\ <<\ std::setprecision(2)\ <<\ cl.load}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)nbytes\_intra="{}}\ <<\ bytes\_intra}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)nbytes\_boundary="{}}\ <<\ bytes\_boundary\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{};\(\backslash\)n"{}};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ color=\(\backslash\)"{}"{}}\ <<\ color\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{};\(\backslash\)n"{}};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ t\ :\ cl.members)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}*\ task\ =\ pd.getTask(t);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!task)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \(\backslash\)"{}"{}}\ <<\ t\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ [style=filled,\ fillcolor=\(\backslash\)"{}"{}}\ <<\ color\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{},\ label=\(\backslash\)"{}"{}}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ t;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (show\_loads)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)nL="{}}\ <<\ std::fixed\ <<\ std::setprecision(1)\ <<\ task-\/>getLoad();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}];\(\backslash\)n"{}};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \}\(\backslash\)n"{}};}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ Just\ tasks}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ pd.getTasksMap())\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ task\ =\ kv.second;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \(\backslash\)"{}"{}}\ <<\ task.getId()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ [label=\(\backslash\)"{}"{}}\ <<\ task.getId();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (show\_loads)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)nL="{}}\ <<\ std::fixed\ <<\ std::setprecision(1)\ <<\ task.getLoad();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}];\(\backslash\)n"{}};}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{comment}{//\ Edges}}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ pd.getCommunications())\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{auto}\ f\ =\ e.getFrom();}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ e.getTo();}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pd.hasTask(f)\ ||\ !pd.hasTask(t))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00136\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ \(\backslash\)"{}"{}}\ <<\ f\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ -\/>\ \(\backslash\)"{}"{}}\ <<\ t\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ [label=\(\backslash\)"{}"{}}\ <<\ std::fixed\ <<\ std::setprecision(0)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ <<\ e.getVolume()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ If\ clusters\ shown,\ style\ inter-\/cluster\ edges\ bold}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (show\_clusters\ \&\&\ !cluster\_map.empty())\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cf\_it\ =\ cluster\_map.find(f);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ct\_it\ =\ cluster\_map.find(t);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cf\_it\ !=\ cluster\_map.end()\ \&\&\ ct\_it\ !=\ cluster\_map.end()\ \&\&\ cf\_it-\/>second\ !=\ ct\_it-\/>second)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{},\ penwidth=2,\ color=red"{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}];\(\backslash\)n"{}};}
+\DoxyCodeLine{00147\ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ out\ <<\ \textcolor{stringliteral}{"{}\}\(\backslash\)n"{}};}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{return}\ out.str();}
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \}\ \textcolor{comment}{//\ namespace\ vt\_lb::algo::temperedlb}}
+
+\end{DoxyCode}

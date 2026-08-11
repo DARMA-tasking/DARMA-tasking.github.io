@@ -1,0 +1,170 @@
+\doxysection{info\+\_\+propagation.\+h}
+\hypertarget{info__propagation_8h_source}{}\label{info__propagation_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/info\_propagation.h@{/LB/src/vt-\/lb/algo/temperedlb/info\_propagation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ info\_propagation.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_INFO\_PROPAGATION\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_INFO\_PROPAGATION\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ CommT,\ \textcolor{keyword}{typename}\ DataT>}
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1InformationPropagation_af98825050906e69c89465d872f859de2}{InformationPropagation}}\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{using\ }ThisType\ =\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1InformationPropagation_af98825050906e69c89465d872f859de2}{InformationPropagation<CommT,\ DataT>}};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{using\ }JoinedDataType\ =\ std::unordered\_map<int,\ DataT>;}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \textcolor{keyword}{typename}\ CommT::template\ HandleType<ThisType>;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1InformationPropagation_af98825050906e69c89465d872f859de2}{InformationPropagation}}(CommT\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}},\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration}{Configuration}}\ \textcolor{keyword}{const}\&\ config)}
+\DoxyCodeLine{00069\ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.clone()),\ \textcolor{comment}{//\ collective\ operation}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ f\_(config.f\_),}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ k\_max\_(config.k\_max\_),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ deterministic\_(config.deterministic\_)}
+\DoxyCodeLine{00073\ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ handle\_\ =\ comm\_.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this});}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (deterministic\_)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ gen\_select\_.seed(config.\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1Configuration_a389dfa65d1acde05fdcadd72b3992292}{seed\_}}\ +\ comm\_.getRank());}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ JoinedDataType\ run(DataT\ initial\_data)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ Insert\ this\ rank\ to\ avoid\ self-\/selection}}
+\DoxyCodeLine{00083\ \ \ \ \ already\_selected\_.insert(comm\_.getRank());}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ local\_data\_[comm\_.getRank()]\ =\ initial\_data;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ sendToFanout(1,\ local\_data\_);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ termination\ to\ happen}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{while}\ (comm\_.poll())\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ VT\_LB\_LOG(}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ LoadBalancer,\ verbose,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}done\ with\ poll:\ local\_data\ size=\{\}\(\backslash\)n"{}},\ local\_data\_.size()}
+\DoxyCodeLine{00097\ \ \ \ \ );}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ local\_data\_;}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ sendToFanout(\textcolor{keywordtype}{int}\ round,\ JoinedDataType\ \textcolor{keyword}{const}\&\ data)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ rank\ =\ comm\_.getRank();}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keyword}{const}\ num\_ranks\ =\ comm\_.numRanks();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ sent\_count\_\ =\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ recv\_count\_\ =\ 0;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ f\_;\ ++i)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (already\_selected\_.size()\ >=\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(num\_ranks))\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ std::uniform\_int\_distribution<int>\ dist(0,\ num\_ranks\ -\/\ 1);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\ =\ -\/1;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ target\ =\ dist(gen\_select\_);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (already\_selected\_.find(target)\ !=\ already\_selected\_.end());}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ already\_selected\_.insert(target);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \textcolor{comment}{//printf("{}rank\ \%d\ sending\ to\ rank\ \%d\(\backslash\)n"{},\ comm\_.getRank(),\ target);}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ sent\_count\_++;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ handle\_[target].template\ send<\&ThisType::infoPropagateHandler>(rank,\ round,\ data);}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (deterministic\_)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{comment}{//\ In\ deterministic\ mode,\ we\ expect\ an\ ack\ from\ each\ sent\ message}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (sent\_count\_\ !=\ recv\_count\_)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ comm\_.poll();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (round\ <\ k\_max\_)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ sendToFanout(round\ +\ 1,\ local\_data\_);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{void}\ infoAckHandler()\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ recv\_count\_++;}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//printf("{}rank\ \%d\ received\ ack\ \%d/\%d\(\backslash\)n"{},\ comm\_.getRank(),\ recv\_count\_,\ sent\_count\_);}}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ infoPropagateHandler(\textcolor{keywordtype}{int}\ from\_rank,\ \textcolor{keywordtype}{int}\ round,\ JoinedDataType\ incoming\_data)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ Process\ incoming\ data\ and\ add\ to\ local\ data}}
+\DoxyCodeLine{00146\ \ \ \ \ local\_data\_.insert(incoming\_data.begin(),\ incoming\_data.end());}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (deterministic\_)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \textcolor{comment}{//\ Acknowledge\ receipt\ of\ message\ to\ sender\ before\ we\ go\ to\ the\ next\ round}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ handle\_[from\_rank].template\ send<\&ThisType::infoAckHandler>();}
+\DoxyCodeLine{00151\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (round\ <\ k\_max\_)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ sendToFanout(round\ +\ 1,\ local\_data\_);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00159\ \ \ CommT\ comm\_;}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{int}\ f\_\ =\ 2;}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{int}\ k\_max\_\ =\ 2;}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{bool}\ deterministic\_\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{int}\ sent\_count\_\ =\ 0;}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{int}\ recv\_count\_\ =\ 0;}
+\DoxyCodeLine{00165\ \ \ std::unordered\_set<int>\ already\_selected\_;}
+\DoxyCodeLine{00166\ \ \ std::unordered\_map<int,\ DataT>\ local\_data\_;}
+\DoxyCodeLine{00167\ \ \ std::mt19937\ gen\_select\_\{std::random\_device\{\}()\};}
+\DoxyCodeLine{00168\ \ \ HandleType\ handle\_;}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \}\ \textcolor{comment}{/*end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_INFO\_PROPAGATION\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

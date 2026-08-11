@@ -1,0 +1,225 @@
+\doxysection{Phase\+Data.\+h}
+\hypertarget{PhaseData_8h_source}{}\label{PhaseData_8h_source}\index{/LB/src/vt-\/lb/model/PhaseData.h@{/LB/src/vt-\/lb/model/PhaseData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PhaseData.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_MODEL\_PHASE\_DATA\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_MODEL\_PHASE\_DATA\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}SharedBlock.h"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}Task.h"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}Communication.h"{}}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }vt\_lb::model\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{struct\ }PhaseData\ \{}
+\DoxyCodeLine{00058\ \ \ PhaseData()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{explicit}\ PhaseData(RankType\ rank)\ :\ rank\_(rank)\ \{\}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ addTask(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{Task}}\ \textcolor{keyword}{const}\&\ t)\ \{\ tasks\_.emplace(t.getId(),\ t);\ \}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ addCommunication(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1Edge}{Edge}}\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ static\_cast<int>(communications\_.size());\ ++i)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}\ =\ communications\_[i];}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getFrom()\ ==\ e.getFrom()\ \&\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getTo()\ ==\ e.getTo())\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}\ =\ e;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ communications\_.push\_back(e);}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ aggregateCommunication(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1Edge}{Edge}}\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ static\_cast<int>(communications\_.size());\ ++i)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}\ =\ communications\_[i];}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getFrom()\ ==\ e.getFrom()\ \&\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getTo()\ ==\ e.getTo())\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.setVolume(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getVolume()\ +\ e.getVolume());}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.setNumMessages(\doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getNumMessages()\ +\ e.getNumMessages());}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ task\_messages\_out\_[e.getFrom()]\ +=\ e.getNumMessages();}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ task\_messages\_in\_[e.getTo()]\ +=\ e.getNumMessages();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ communications\_.push\_back(e);}
+\DoxyCodeLine{00084\ \ \ \ \ task\_messages\_out\_[e.getFrom()]\ +=\ e.getNumMessages();}
+\DoxyCodeLine{00085\ \ \ \ \ task\_messages\_in\_[e.getTo()]\ +=\ e.getNumMessages();}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ addSharedBlock(\doxymbox{\hyperlink{structvt__lb_1_1model_1_1SharedBlock}{SharedBlock}}\ \textcolor{keyword}{const}\&\ b)\ \{\ shared\_blocks\_.emplace(b.getId(),\ b);\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ RankType\ getRank()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ rank\_;\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{Task}}\ \textcolor{keyword}{const}*\ getTask(TaskType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ tasks\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ tasks\_.end()\ ?\ \&it-\/>second\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1Task}{Task}}\ *\ getTask(TaskType\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ tasks\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ tasks\_.end()\ ?\ \&it-\/>second\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ hasTask(TaskType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ tasks\_.find(\textcolor{keywordtype}{id})\ !=\ tasks\_.end();\ \}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{void}\ eraseTask(TaskType\ \textcolor{keywordtype}{id})\ \{\ tasks\_.erase(\textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1SharedBlock}{SharedBlock}}\ \textcolor{keyword}{const}*\ getSharedBlock(SharedBlockType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ shared\_blocks\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ shared\_blocks\_.end()\ ?\ \&it-\/>second\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1model_1_1SharedBlock}{SharedBlock}}\ *\ getSharedBlock(SharedBlockType\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ shared\_blocks\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ shared\_blocks\_.end()\ ?\ \&it-\/>second\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{bool}\ hasSharedBlock(SharedBlockType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shared\_blocks\_.find(\textcolor{keywordtype}{id})\ !=\ shared\_blocks\_.end();\ \}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{void}\ eraseSharedBlock(SharedBlockType\ \textcolor{keywordtype}{id})\ \{\ shared\_blocks\_.erase(\textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ std::unordered\_map<TaskType,\ Task>\ \textcolor{keyword}{const}\&\ getTasksMap()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ tasks\_;\ \}}
+\DoxyCodeLine{00114\ \ \ std::vector<Edge>\ \textcolor{keyword}{const}\&\ getCommunications()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ communications\_;\ \}}
+\DoxyCodeLine{00115\ \ \ std::vector<Edge>\&\ getCommunicationsRef()\ \{\ \textcolor{keywordflow}{return}\ communications\_;\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ std::size\_t\ getCommunicationMessagesCount()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00118\ \ \ \ \ std::size\_t\ count\ =\ 0;}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}\ :\ communications\_)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ count\ +=\ \doxymbox{\hyperlink{namespacevt__lb_1_1comm}{comm}}.getNumMessages();}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ std::size\_t\ getTaskMessagesOut(TaskType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ task\_messages\_out\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ task\_messages\_out\_.end()\ ?\ it-\/>second\ :\ 0;}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ std::size\_t\ getTaskMessagesIn(TaskType\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ task\_messages\_in\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ it\ !=\ task\_messages\_in\_.end()\ ?\ it-\/>second\ :\ 0;}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ std::unordered\_map<SharedBlockType,\ SharedBlock>\ \textcolor{keyword}{const}\&\ getSharedBlocksMap()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shared\_blocks\_;\ \}}
+\DoxyCodeLine{00136\ \ \ std::unordered\_set<TaskType>\ getTaskIds()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00137\ \ \ \ \ std::unordered\_set<TaskType>\ ids;}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [\textcolor{keywordtype}{id},\ task]\ :\ tasks\_)\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ ids.insert(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ ids;}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ \ \ std::unordered\_set<SharedBlockType>\ getSharedBlockIds()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00144\ \ \ \ \ std::unordered\_set<SharedBlockType>\ ids;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [\textcolor{keywordtype}{id},\ block]\ :\ shared\_blocks\_)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ ids.insert(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ ids;}
+\DoxyCodeLine{00149\ \ \ \}}
+\DoxyCodeLine{00150\ \ \ std::unordered\_set<SharedBlockType>\ getSharedBlockIdsHomed()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00151\ \ \ \ \ std::unordered\_set<SharedBlockType>\ ids;}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ [\textcolor{keywordtype}{id},\ sb]\ :\ shared\_blocks\_)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sb.getHome()\ ==\ rank\_)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ ids.insert(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ ids;}
+\DoxyCodeLine{00158\ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ BytesType\ getRankFootprintBytes()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ rank\_footprint\_bytes\_;\ \}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{void}\ setRankFootprintBytes(BytesType\ bytes)\ \{\ rank\_footprint\_bytes\_\ =\ bytes;\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ BytesType\ getRankMaxMemoryAvailable()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ rank\_max\_memory\_available\_;\ \}}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{void}\ setRankMaxMemoryAvailable(BytesType\ bytes)\ \{\ rank\_max\_memory\_available\_\ =\ bytes;\ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ tasks\_.clear();}
+\DoxyCodeLine{00168\ \ \ \ \ communications\_.clear();}
+\DoxyCodeLine{00169\ \ \ \ \ shared\_blocks\_.clear();}
+\DoxyCodeLine{00170\ \ \ \ \ task\_messages\_out\_.clear();}
+\DoxyCodeLine{00171\ \ \ \ \ task\_messages\_in\_.clear();}
+\DoxyCodeLine{00172\ \ \ \ \ rank\_footprint\_bytes\_\ =\ 0.0;}
+\DoxyCodeLine{00173\ \ \ \ \ rank\_max\_memory\_available\_\ =\ 0.0;}
+\DoxyCodeLine{00174\ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keywordtype}{void}\ purgeDanglingCommunications()\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ std::vector<Edge>\ filtered;}
+\DoxyCodeLine{00178\ \ \ \ \ filtered.reserve(communications\_.size());}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ e\ :\ communications\_)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ from\_present\ =\ hasTask(e.getFrom());}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ to\_present\ \ \ =\ hasTask(e.getTo());}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ edge\ unless\ both\ sides\ are\ missing}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (from\_present\ ||\ to\_present)\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ filtered.push\_back(e);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ communications\_.swap(filtered);}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ s\ |\ rank\_;}
+\DoxyCodeLine{00193\ \ \ \ \ s\ |\ tasks\_;}
+\DoxyCodeLine{00194\ \ \ \ \ s\ |\ communications\_;}
+\DoxyCodeLine{00195\ \ \ \ \ s\ |\ shared\_blocks\_;}
+\DoxyCodeLine{00196\ \ \ \ \ s\ |\ task\_messages\_out\_;}
+\DoxyCodeLine{00197\ \ \ \ \ s\ |\ task\_messages\_in\_;}
+\DoxyCodeLine{00198\ \ \ \ \ s\ |\ rank\_footprint\_bytes\_;}
+\DoxyCodeLine{00199\ \ \ \ \ s\ |\ rank\_max\_memory\_available\_;}
+\DoxyCodeLine{00200\ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{void}\ setRank(RankType\ in\_rank)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ rank\_\ =\ in\_rank;}
+\DoxyCodeLine{00204\ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00207\ \ \ RankType\ rank\_\ =\ invalid\_rank;}
+\DoxyCodeLine{00208\ \ \ std::unordered\_map<TaskType,\ Task>\ tasks\_;}
+\DoxyCodeLine{00209\ \ \ std::vector<Edge>\ communications\_;}
+\DoxyCodeLine{00210\ \ \ std::unordered\_map<SharedBlockType,\ SharedBlock>\ shared\_blocks\_;}
+\DoxyCodeLine{00211\ \ \ std::unordered\_map<TaskType,\ std::size\_t>\ task\_messages\_out\_;}
+\DoxyCodeLine{00212\ \ \ std::unordered\_map<TaskType,\ std::size\_t>\ task\_messages\_in\_;}
+\DoxyCodeLine{00213\ \ \ BytesType\ rank\_footprint\_bytes\_\ =\ 0.0;}
+\DoxyCodeLine{00214\ \ \ BytesType\ rank\_max\_memory\_available\_\ =\ 0.0;}
+\DoxyCodeLine{00215\ \};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::model\ */}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_MODEL\_PHASE\_DATA\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

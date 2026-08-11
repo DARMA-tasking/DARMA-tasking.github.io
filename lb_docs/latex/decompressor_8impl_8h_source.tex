@@ -1,0 +1,174 @@
+\doxysection{decompressor.\+impl.\+h}
+\hypertarget{decompressor_8impl_8h_source}{}\label{decompressor_8impl_8h_source}\index{/LB/src/vt-\/lb/input/decompressor.impl.h@{/LB/src/vt-\/lb/input/decompressor.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decompressor.impl.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/tv\ =>\ Virtual\ Transport\ -\/-\/\ Task\ Visualizer}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_INPUT\_DECOMPRESSOR\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_INPUT\_DECOMPRESSOR\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/input/decompressor.h>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <fmt-\/lb/format.h>}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }vt\_lb::input\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Readable>}
+\DoxyCodeLine{00056\ \doxymbox{\hyperlink{structvt__lb_1_1input_1_1Decompressor_a7e88255504c0c18c865e3e7d40145d92}{Decompressor<Readable>::Decompressor}}(Readable\ in\_r,\ std::size\_t\ buf\_len\_)}
+\DoxyCodeLine{00057\ \ \ :\ r\_(std::move(in\_r)),}
+\DoxyCodeLine{00058\ \ \ \ \ in\_buf\_len\_(buf\_len\_)\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{//\ for\ now,\ use\ the\ default\ allocator}}
+\DoxyCodeLine{00060\ \ \ dec\_\ =\ BrotliDecoderCreateInstance(\textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordflow}{if}\ (!dec\_)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Could\ not\ allocate\ decompressor!\(\backslash\)n"{}});}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ allocate\ the\ temporary\ buffer\ for\ input\ that\ streams\ into\ the\ decompressor}}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ @note:\ if\ we\ use\ something\ like\ mmap\ in\ the\ future,\ we\ can\ avoid\ this\ step}}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ potentially}}
+\DoxyCodeLine{00067\ \ \ buf\_in\_\ =\ std::make\_unique<uint8\_t[]>(in\_buf\_len\_);}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Readable>}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structvt__lb_1_1input_1_1Decompressor_a7df39ca6219bbd6b3ffcc1a4e3ca23e2}{Decompressor<Readable>::done}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordflow}{return}\ BrotliDecoderIsUsed(dec\_)\ ?\ BrotliDecoderIsFinished(dec\_)\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Readable>}
+\DoxyCodeLine{00076\ Decompressor<Readable>::\string~Decompressor()\ \{}
+\DoxyCodeLine{00077\ \ \ assert(done()\ and\ \textcolor{stringliteral}{"{}Should\ be\ finished\ decompressing\ before\ destroying"{}});}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{if}\ (dec\_)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ BrotliDecoderDestroyInstance(dec\_);}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Readable>}
+\DoxyCodeLine{00084\ std::size\_t\ \doxymbox{\hyperlink{structvt__lb_1_1input_1_1Decompressor_a8844fb3a548be33e8e831956aa84f50c}{Decompressor<Readable>::read}}(}
+\DoxyCodeLine{00085\ \ \ uint8\_t*\ output\_buffer,\ std::size\_t\ bytes\_to\_output)\ \{}
+\DoxyCodeLine{00086\ \ \ uint8\_t*\ next\_out\ =\ output\_buffer;}
+\DoxyCodeLine{00087\ \ \ std::size\_t\ avail\_out\ =\ bytes\_to\_output;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{if}\ (avail\_in\_\ ==\ 0)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ getMoreInput();}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ While\ we\ have\ input\ data\ and\ room\ to\ output\ decompressed\ data...}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{while}\ (avail\_out\ >\ 0\ and\ not\ success)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ BrotliDecoderResult\ res\ =\ BrotliDecoderDecompressStream(}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ dec\_,\ \&avail\_in\_,\ \&next\_in\_,\ \&avail\_out,\ \&next\_out,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{switch}\ (res)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{case}\ BROTLI\_DECODER\_RESULT\_NEEDS\_MORE\_INPUT:\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ read\ more\ to\ continue\ decoding}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ assert(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ avail\_in\_\ ==\ 0\ \&\&}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Brotli\ asked\ for\ more\ input\ even\ though\ we\ still\ had\ some."{}});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ has\_more\_input\ =\ getMoreInput();}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ has\_more\_input)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ assert(}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false}\ \&\&}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Brotli\ asked\ for\ more\ input\ but\ the\ file\ terminated\ early."{}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{case}\ BROTLI\_DECODER\_RESULT\_NEEDS\_MORE\_OUTPUT:\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{comment}{//\ this\ is\ an\ expected\ condition}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ assert(}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ avail\_out\ ==\ 0\ \&\&}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Brotli\ asked\ for\ more\ output\ even\ though\ we\ still\ had\ some."{}});}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{case}\ BROTLI\_DECODER\_RESULT\_SUCCESS:\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (avail\_in\_\ !=\ 0\ or\ getMoreInput())\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ assert(}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Brotli\ terminated\ early\ before\ reading\ the\ whole\ file!"{}});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ success\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{case}\ BROTLI\_DECODER\_RESULT\_ERROR:\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{comment}{//\ we\ have\ hit\ an\ unknown\ error,\ print\ the\ code\ and\ corresponding\ message!}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ error\_code\ =\ BrotliDecoderGetErrorCode(dec\_);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{keyword}{auto}\ error\_str\ =\ fmt::format(}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}code=\{\},\ msg=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}typename\ std::underlying\_type<decltype(error\_code)\textcolor{keyword}{>}::type>(}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ error\_code}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ BrotliDecoderErrorString(error\_code)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ fmt::print(fmt::runtime(error\_str));}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Unknown\ error\ condition\ during\ decompression"{}});}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ return\ how\ many\ bytes\ we\ ended\ up\ decoding}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{return}\ bytes\_to\_output\ -\/\ avail\_out;}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Readable>}
+\DoxyCodeLine{00151\ \textcolor{keywordtype}{bool}\ Decompressor<Readable>::getMoreInput()\ \{}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordflow}{if}\ (avail\_in\_\ ==\ 0)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{comment}{//\ read\ some\ data,\ up\ to\ our\ internal\ temporary\ buffer\ length}}
+\DoxyCodeLine{00154\ \ \ \ \ r\_.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(buf\_in\_.get()),\ in\_buf\_len\_);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{//\ check\ how\ much\ we\ actually\ read\ in}}
+\DoxyCodeLine{00157\ \ \ \ \ avail\_in\_\ =\ r\_.gcount();}
+\DoxyCodeLine{00158\ \ \ \ \ next\_in\_\ =\ buf\_in\_.get();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ avail\_in\_\ !=\ 0;}
+\DoxyCodeLine{00161\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::input\ */}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_INPUT\_DECOMPRESSOR\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil" kind="struct" language="C++" prot="public">
+    <compoundname>vt_lb::algo::temperedlb::TransferUtil</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048" prot="public" static="no" strong="yes">
+        <type>uint8_t</type>
+        <name>CMFType</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::CMFType</qualifiedname>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048a0a52da7a03a6de3beefe54f8c03ad80d" prot="public">
+          <name>Original</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Original approach. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Remove processors from the CMF as soon as they exceed the target (e.g., processor-avg) load. Use a CMF factor of 1.0/x, where x is the target load. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048a2a17cd13e37fb3cacfea703c5edc3680" prot="public">
+          <name>NormByMax</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Compute the CMF factor using the largest processor load in the CMF. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Do not remove processors from the CMF that exceed the target load until the next iteration. Use a CMF factor of 1.0/x, where x is the greater of the target load and the load of the most loaded processor in the CMF. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048abaf94565ded5ad030ec19a9c5ab07d95" prot="public">
+          <name>NormByMaxExcludeIneligible</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Narrow the CMF to only include processors that can accommodate the transfer. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Use a CMF factor of 1.0/x, where x is the greater of the target load and the load of the most loaded processor in the CMF. Only include processors in the CMF that will pass the chosen <ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1Criterion" kindref="compound">Criterion</ref> for the object being considered for transfer. </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for how the CMF is computed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="161" column="3" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" bodystart="161" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="enum" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066" prot="public" static="no" strong="yes">
+        <type>uint8_t</type>
+        <name>ObjectOrder</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::ObjectOrder</qualifiedname>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066a3c1fc46575f79b15fc8990642387d07f" prot="public">
+          <name>Arbitrary</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066a63d0a624ca97347ebbc3f4190b343888" prot="public">
+          <name>ElmID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>By element ID. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Sort ascending by the ID member of ElementIDStruct. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066a37b06ef260760bd7b343b29b8fb43063" prot="public">
+          <name>FewestMigrations</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Order for the fewest migrations. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Order starting with the object with the smallest load that can be transferred to drop the processor load below the average, then by descending load for objects with smaller loads, and finally by ascending load for objects with larger loads. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066aba285d85de6643804425ac332bf81193" prot="public">
+          <name>SmallObjects</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Order for migrating the objects with the smallest loads. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Find the object with the smallest load where the sum of its own load and all smaller loads meets or exceeds the amount by which this processor&apos;s load exceeds the target load. Order starting with that object, then by descending load for objects with smaller loads, and finally by ascending load for objects with larger loads. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066a58a14656ff3b03b4af0559d79b5ac566" prot="public">
+          <name>LargestObjects</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Order by descending load. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for the order in which local objects are considered for transfer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="190" column="3" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" bodystart="190" bodyend="221"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2b54f14e9bbab08042344aa080e09337" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt; double &gt; vt_lb::algo::temperedlb::TransferUtil::createCMF</definition>
+        <argsstring>(CMFType cmf_type, std::unordered_map&lt; int, RankInfo &gt; const &amp;load_info, model::LoadType target_max_load, std::vector&lt; int &gt; const &amp;under)</argsstring>
+        <name>createCMF</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::createCMF</qualifiedname>
+        <param>
+          <type><ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048" kindref="member">CMFType</ref></type>
+          <declname>cmf_type</declname>
+        </param>
+        <param>
+          <type>std::unordered_map&lt; int, <ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo" kindref="compound">RankInfo</ref> &gt; const &amp;</type>
+          <declname>load_info</declname>
+        </param>
+        <param>
+          <type>model::LoadType</type>
+          <declname>target_max_load</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; const &amp;</type>
+          <declname>under</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="223" column="22" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.cc" bodystart="58" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a73aec64e8d2fc29cdd25f264ac9acec5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vt_lb::algo::temperedlb::TransferUtil::sampleFromCMF</definition>
+        <argsstring>(bool deterministic, std::vector&lt; int &gt; const &amp;under, std::vector&lt; double &gt; const &amp;cmf, std::mt19937 gen_sample, std::random_device &amp;seed)</argsstring>
+        <name>sampleFromCMF</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::sampleFromCMF</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>deterministic</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; const &amp;</type>
+          <declname>under</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; double &gt; const &amp;</type>
+          <declname>cmf</declname>
+        </param>
+        <param>
+          <type>std::mt19937</type>
+          <declname>gen_sample</declname>
+        </param>
+        <param>
+          <type>std::random_device &amp;</type>
+          <declname>seed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="230" column="14" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.cc" bodystart="119" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1adb6567dfef52fd84c2cd33c334fd4de9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; vt_lb::algo::temperedlb::TransferUtil::makeUnderloaded</definition>
+        <argsstring>(bool deterministic, std::unordered_map&lt; int, RankInfo &gt; const &amp;load_info, double underloaded_threshold)</argsstring>
+        <name>makeUnderloaded</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::makeUnderloaded</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>deterministic</declname>
+        </param>
+        <param>
+          <type>std::unordered_map&lt; int, <ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo" kindref="compound">RankInfo</ref> &gt; const &amp;</type>
+          <declname>load_info</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>underloaded_threshold</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="238" column="22" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.cc" bodystart="149" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a204064f90042b6f146e8cef0d928f092" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; vt_lb::algo::temperedlb::TransferUtil::makeSufficientlyUnderloaded</definition>
+        <argsstring>(bool deterministic, std::unordered_map&lt; int, RankInfo &gt; const &amp;load_info, CriterionEnum criterion, RankInfo this_rank_info, model::LoadType target_max_load, model::LoadType load_to_accommodate)</argsstring>
+        <name>makeSufficientlyUnderloaded</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::makeSufficientlyUnderloaded</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>deterministic</declname>
+        </param>
+        <param>
+          <type>std::unordered_map&lt; int, <ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo" kindref="compound">RankInfo</ref> &gt; const &amp;</type>
+          <declname>load_info</declname>
+        </param>
+        <param>
+          <type>CriterionEnum</type>
+          <declname>criterion</declname>
+        </param>
+        <param>
+          <type><ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo" kindref="compound">RankInfo</ref></type>
+          <declname>this_rank_info</declname>
+        </param>
+        <param>
+          <type>model::LoadType</type>
+          <declname>target_max_load</declname>
+        </param>
+        <param>
+          <type>model::LoadType</type>
+          <declname>load_to_accommodate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="244" column="22" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.cc" bodystart="166" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a56189b4c13ae8cb802d61bad529f22a0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; model::TaskType &gt;</type>
+        <definition>std::vector&lt; model::TaskType &gt; vt_lb::algo::temperedlb::TransferUtil::orderObjects</definition>
+        <argsstring>(ObjectOrder obj_ordering, std::unordered_map&lt; model::TaskType, model::Task &gt; cur_objs, RankInfo this_rank_info, model::LoadType target_max_load)</argsstring>
+        <name>orderObjects</name>
+        <qualifiedname>vt_lb::algo::temperedlb::TransferUtil::orderObjects</qualifiedname>
+        <param>
+          <type><ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066" kindref="member">ObjectOrder</ref></type>
+          <declname>obj_ordering</declname>
+        </param>
+        <param>
+          <type>std::unordered_map&lt; model::TaskType, <ref refid="structvt__lb_1_1model_1_1Task" kindref="compound">model::Task</ref> &gt;</type>
+          <declname>cur_objs</declname>
+        </param>
+        <param>
+          <type><ref refid="structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo" kindref="compound">RankInfo</ref></type>
+          <declname>this_rank_info</declname>
+        </param>
+        <param>
+          <type>model::LoadType</type>
+          <declname>target_max_load</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="253" column="22" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.cc" bodystart="192" bodyend="343"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" line="158" column="1" bodyfile="/LB/src/vt-lb/algo/temperedlb/transfer_util.h" bodystart="158" bodyend="259"/>
+    <listofallmembers>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a0ada500b5490322023a198f5bea44048" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>CMFType</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2b54f14e9bbab08042344aa080e09337" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>createCMF</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a204064f90042b6f146e8cef0d928f092" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>makeSufficientlyUnderloaded</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1adb6567dfef52fd84c2cd33c334fd4de9" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>makeUnderloaded</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a2987b2d42a53a4791f7168e2e307d066" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>ObjectOrder</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a56189b4c13ae8cb802d61bad529f22a0" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>orderObjects</name></member>
+      <member refid="structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_1a73aec64e8d2fc29cdd25f264ac9acec5" prot="public" virt="non-virtual"><scope>vt_lb::algo::temperedlb::TransferUtil</scope><name>sampleFromCMF</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

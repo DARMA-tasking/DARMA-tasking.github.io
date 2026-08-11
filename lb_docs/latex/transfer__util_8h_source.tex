@@ -1,0 +1,220 @@
+\doxysection{transfer\+\_\+util.\+h}
+\hypertarget{transfer__util_8h_source}{}\label{transfer__util_8h_source}\index{/LB/src/vt-\/lb/algo/temperedlb/transfer\_util.h@{/LB/src/vt-\/lb/algo/temperedlb/transfer\_util.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ transfer\_util.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/vt-\/lb\ =>\ Virtual\ Transport/Load\ Balancers}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_UTIL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_UTIL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/types.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <vt-\/lb/model/PhaseData.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/task\_cluster\_summary\_info.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vt-\/lb/algo/temperedlb/work\_model.h>}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <vt-\/lb/util/assert.h>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <fmt-\/lb/format.h>}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{namespace\ }vt\_lb::algo::temperedlb\ \{}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ \{}
+\DoxyCodeLine{00064\ \ \ model::LoadType\ load\ =\ 0.0;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{double}\ rank\_alpha\ =\ 0.0;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{double}\ getScaledLoad()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ load\ *\ rank\_alpha;}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ serialize(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ s\ |\ load;}
+\DoxyCodeLine{00074\ \ \ \ \ s\ |\ rank\_alpha;}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankClusterInfo}{RankClusterInfo}}\ \{}
+\DoxyCodeLine{00079\ \ \ std::unordered\_map<int,\ TaskClusterSummaryInfo>\ cluster\_summaries;}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{double}\ rank\_footprint\_bytes\ =\ 0.0;}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{double}\ rank\_alpha\ =\ 0.0;}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1WorkBreakdown}{WorkBreakdown}}\ rank\_breakdown;}
+\DoxyCodeLine{00083\ \ \ std::unordered\_set<model::SharedBlockType>\ shared\_blocks\_homed;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ serialize(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ s\ |\ cluster\_summaries;}
+\DoxyCodeLine{00088\ \ \ \ \ s\ |\ rank\_footprint\_bytes;}
+\DoxyCodeLine{00089\ \ \ \ \ s\ |\ rank\_alpha;}
+\DoxyCodeLine{00090\ \ \ \ \ s\ |\ rank\_breakdown;}
+\DoxyCodeLine{00091\ \ \ \ \ s\ |\ shared\_blocks\_homed;}
+\DoxyCodeLine{00092\ \ \ \}}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{enum\ struct}\ CriterionEnum\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00096\ \ \ Grapevine\ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00097\ \ \ ModifiedGrapevine\ =\ 1}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1GrapevineCriterion}{GrapevineCriterion}}\ \{}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{bool}\ operator()(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}},\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ under,\ model::LoadType\ obj,\ model::LoadType\ avg)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ !(under.getScaledLoad()\ +\ obj\ *\ under.rank\_alpha\ >\ avg);}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ModifiedGrapevineCriterion}{ModifiedGrapevineCriterion}}\ \ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ operator()(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ over,\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ under,\ model::LoadType\ obj,\ model::LoadType)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ obj\ *\ under.rank\_alpha\ <=\ over.getScaledLoad()\ -\/\ under.getScaledLoad();}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{struct\ }Criterion\ \{}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{explicit}\ Criterion(CriterionEnum\ \textcolor{keyword}{const}\ criterion)}
+\DoxyCodeLine{00114\ \ \ \ \ :\ criterion\_(criterion)}
+\DoxyCodeLine{00115\ \ \ \{\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{bool}\ operator()(\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ over,\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ under,\ model::LoadType\ obj,\ model::LoadType\ avg)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{switch}\ (criterion\_)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{case}\ CriterionEnum::Grapevine:}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1GrapevineCriterion}{GrapevineCriterion}}()(over,\ under,\ obj,\ avg);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{case}\ CriterionEnum::ModifiedGrapevine:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1ModifiedGrapevineCriterion}{ModifiedGrapevineCriterion}}()(over,\ under,\ obj,\ avg);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ vt\_lb\_assert(\textcolor{keyword}{false},\ \textcolor{stringliteral}{"{}Incorrect\ criterion\ value"{}});}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00129\ \ \ \ \ \};}
+\DoxyCodeLine{00130\ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00133\ \ \ CriterionEnum\ \textcolor{keyword}{const}\ criterion\_;}
+\DoxyCodeLine{00134\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ format\_as(CriterionEnum\ c)\ \{}
+\DoxyCodeLine{00137\ \ \ std::string\_view\ name\ =\ \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordflow}{switch}\ (c)\ \{}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordflow}{case}\ CriterionEnum::Grapevine:}
+\DoxyCodeLine{00140\ \ \ \ \ name\ =\ \textcolor{stringliteral}{"{}Grapevine"{}};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordflow}{case}\ CriterionEnum::ModifiedGrapevine:}
+\DoxyCodeLine{00143\ \ \ \ \ name\ =\ \textcolor{stringliteral}{"{}ModifiedGrapevine"{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00146\ \ \ \ \ name\ =\ \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordflow}{return}\ name;}
+\DoxyCodeLine{00150\ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ Provide\ fmt::format\_as\ overload\ for\ RankInfo\ so\ it\ can\ be\ used\ with\ fmt::print}}
+\DoxyCodeLine{00153\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ format\_as(RankInfo\ \textcolor{keyword}{const}\&\ ri)\ \{}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordflow}{return}\ fmt::format(\textcolor{stringliteral}{"{}RankInfo\{\{load=\{\},\ rank\_alpha=\{\},\ scaled\_load=\{\}\}\}"{}},}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ri.load,\ ri.rank\_alpha,\ ri.getScaledLoad());}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil}{TransferUtil}}\ \{}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{enum\ struct}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048}{CMFType}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048a0a52da7a03a6de3beefe54f8c03ad80d}{Original}}\ \ \ =\ 0,}
+\DoxyCodeLine{00176\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048a2a17cd13e37fb3cacfea703c5edc3680}{NormByMax}}\ \ =\ 1,}
+\DoxyCodeLine{00186\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048abaf94565ded5ad030ec19a9c5ab07d95}{NormByMaxExcludeIneligible}}\ =\ 2,}
+\DoxyCodeLine{00187\ \ \ \};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{keyword}{enum\ struct}\ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066}{ObjectOrder}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ Arbitrary\ =\ 0,\ \textcolor{comment}{//<\ Arbitrary\ order:\ iterate\ as\ defined\ by\ the\ unordered\_map}}
+\DoxyCodeLine{00197\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066a63d0a624ca97347ebbc3f4190b343888}{ElmID}}\ \ \ \ \ =\ 1,}
+\DoxyCodeLine{00206\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066a37b06ef260760bd7b343b29b8fb43063}{FewestMigrations}}\ =\ 2,}
+\DoxyCodeLine{00216\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066aba285d85de6643804425ac332bf81193}{SmallObjects}}\ =\ 3,}
+\DoxyCodeLine{00220\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066a58a14656ff3b03b4af0559d79b5ac566}{LargestObjects}}\ =\ 4}
+\DoxyCodeLine{00221\ \ \ \};}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keyword}{static}\ std::vector<double>\ createCMF(}
+\DoxyCodeLine{00224\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a0ada500b5490322023a198f5bea44048}{CMFType}}\ cmf\_type,}
+\DoxyCodeLine{00225\ \ \ \ \ std::unordered\_map<int,\ RankInfo>\ \textcolor{keyword}{const}\&\ load\_info,}
+\DoxyCodeLine{00226\ \ \ \ \ model::LoadType\ target\_max\_load,}
+\DoxyCodeLine{00227\ \ \ \ \ std::vector<int>\ \textcolor{keyword}{const}\&\ under}
+\DoxyCodeLine{00228\ \ \ );}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ sampleFromCMF(}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{bool}\ deterministic,}
+\DoxyCodeLine{00232\ \ \ \ \ std::vector<int>\ \textcolor{keyword}{const}\&\ under,}
+\DoxyCodeLine{00233\ \ \ \ \ std::vector<double>\ \textcolor{keyword}{const}\&\ cmf,}
+\DoxyCodeLine{00234\ \ \ \ \ std::mt19937\ gen\_sample,}
+\DoxyCodeLine{00235\ \ \ \ \ std::random\_device\&\ seed}
+\DoxyCodeLine{00236\ \ \ );}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keyword}{static}\ std::vector<int>\ makeUnderloaded(}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{bool}\ deterministic,}
+\DoxyCodeLine{00240\ \ \ \ \ std::unordered\_map<int,\ RankInfo>\ \textcolor{keyword}{const}\&\ load\_info,}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordtype}{double}\ underloaded\_threshold}
+\DoxyCodeLine{00242\ \ \ );}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{static}\ std::vector<int>\ makeSufficientlyUnderloaded(}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{bool}\ deterministic,}
+\DoxyCodeLine{00246\ \ \ \ \ std::unordered\_map<int,\ RankInfo>\ \textcolor{keyword}{const}\&\ load\_info,}
+\DoxyCodeLine{00247\ \ \ \ \ CriterionEnum\ criterion,}
+\DoxyCodeLine{00248\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ this\_rank\_info,}
+\DoxyCodeLine{00249\ \ \ \ \ model::LoadType\ target\_max\_load,}
+\DoxyCodeLine{00250\ \ \ \ \ model::LoadType\ load\_to\_accommodate}
+\DoxyCodeLine{00251\ \ \ );}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \textcolor{keyword}{static}\ std::vector<model::TaskType>\ orderObjects(}
+\DoxyCodeLine{00254\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1TransferUtil_a2987b2d42a53a4791f7168e2e307d066}{ObjectOrder}}\ obj\_ordering,}
+\DoxyCodeLine{00255\ \ \ \ \ std::unordered\_map<model::TaskType,\ model::Task>\ cur\_objs,}
+\DoxyCodeLine{00256\ \ \ \ \ \doxymbox{\hyperlink{structvt__lb_1_1algo_1_1temperedlb_1_1RankInfo}{RankInfo}}\ this\_rank\_info,}
+\DoxyCodeLine{00257\ \ \ \ \ model::LoadType\ target\_max\_load}
+\DoxyCodeLine{00258\ \ \ );}
+\DoxyCodeLine{00259\ \};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \}\ \textcolor{comment}{/*\ end\ namespace\ vt\_lb::algo::temperedlb\ */}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_VT\_LB\_ALGO\_TEMPEREDLB\_TRANSFER\_UTIL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
