@@ -1,0 +1,92 @@
+\doxysection{lookup.\+h}
+\hypertarget{lookup_8h_source}{}\label{lookup_8h_source}\index{/loc/src/loc/lookup/lookup.h@{/loc/src/loc/lookup/lookup.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lookup.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/loc\ =>\ Location\ Coordinator}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Copyright\ 2019-\/2024\ NTESS\ (see\ LICENSE\ for\ full\ details)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_LOC\_LOOKUP\_LOOKUP\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INCLUDED\_LOC\_LOOKUP\_LOOKUP\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}loc/common.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}loc/cache/cache.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}loc/directory/directory.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }loc\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ KeyT,\ \textcolor{keyword}{typename}\ ValueT>}
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }LocLookup\ \{}
+\DoxyCodeLine{00028\ \ \ LocLookup(LocationSizeType\ \textcolor{keyword}{const}\&\ in\_max\_cache\_size,\ NodeType\ in\_this\_node)}
+\DoxyCodeLine{00029\ \ \ \ \ :\ max\_cache\_size\_(in\_max\_cache\_size),}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ cache\_(in\_max\_cache\_size),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ this\_node\_(in\_this\_node)}
+\DoxyCodeLine{00032\ \ \ \{\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ exists(KeyT\ \textcolor{keyword}{const}\&\ key)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ directory\_.exists(key)\ or\ cache\_.exists(key);}
+\DoxyCodeLine{00036\ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ LocationSizeType\ getCacheSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ cache\_.getSize();\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ ValueT\ \textcolor{keyword}{const}\&\ get(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ dir\_iter\ =\ directory\_.getIter(key);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (dir\_iter\ !=\ directory\_.getIterEnd())\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dir\_iter-\/>second;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ cache\_.get(key);}
+\DoxyCodeLine{00046\ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ remove(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ directory\_.remove(key);}
+\DoxyCodeLine{00050\ \ \ \ \ cache\_.remove(key);}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ insert(KeyT\ \textcolor{keyword}{const}\&\ key,\ NodeType\ \textcolor{keyword}{const}\ home,\ ValueT\ \textcolor{keyword}{const}\&\ value)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ If\ this\ node\ is\ the\ home,\ maintain\ location\ in\ the\ permanent\ directory,}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ otherwise\ insert/update\ in\ the\ local\ cache\ of\ locations.}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{if}\ (this\_node\_\ ==\ home)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ directory\_.insert(key,\ value);}
+\DoxyCodeLine{00058\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ cache\_.insert(key,\ value);}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ update(KeyT\ \textcolor{keyword}{const}\&\ key,\ ValueT\ \textcolor{keyword}{const}\&\ value)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{auto}\ dir\_iter\ =\ directory\_.getIter(key);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{if}\ (dir\_iter\ !=\ directory\_.getIterEnd())\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ dir\_iter-\/>second\ =\ value;}
+\DoxyCodeLine{00067\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ cache\_.insert(key,\ value);}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ clearCache()\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ cache\_\ =\ \doxymbox{\hyperlink{structloc_1_1LocationCache}{LocationCache<KeyT,\ ValueT>}}\{max\_cache\_size\_\};}
+\DoxyCodeLine{00074\ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structloc_1_1LocLookup_a95c06c8c85a9c5d99e16648549fde8e3}{getDirectory}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ directory\_;\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ s\ |\ max\_cache\_size\_\ |\ directory\_\ |\ cache\_\ |\ this\_node\_;}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00085\ \ \ LocationSizeType\ max\_cache\_size\_\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ Directory<KeyT,\ ValueT>\ directory\_;}
+\DoxyCodeLine{00087\ \ \ LocationCache<KeyT,\ ValueT>\ cache\_;}
+\DoxyCodeLine{00088\ \ \ NodeType\ this\_node\_\ =\ no\_node;}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \}\ \textcolor{comment}{/*\ end\ namespace\ loc\ */}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_LOC\_LOOKUP\_LOOKUP\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

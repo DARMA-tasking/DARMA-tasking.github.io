@@ -1,0 +1,84 @@
+\doxysection{directory.\+h}
+\hypertarget{directory_8h_source}{}\label{directory_8h_source}\index{/loc/src/loc/directory/directory.h@{/loc/src/loc/directory/directory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ directory.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/loc\ =>\ Location\ Coordinator}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Copyright\ 2019-\/2024\ NTESS\ (see\ LICENSE\ for\ full\ details)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_LOC\_DIRECTORY\_DIRECTORY\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INCLUDED\_LOC\_DIRECTORY\_DIRECTORY\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}loc/common.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }loc\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ KeyT,\ \textcolor{keyword}{typename}\ ValueT>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }Directory\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{using\ }DirectoryMapType\ =\ std::unordered\_map<KeyT,\ ValueT>;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ Directory()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ exists(KeyT\ \textcolor{keyword}{const}\&\ key)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{return}\ dir\_.find(key)\ !=\ dir\_.end();}
+\DoxyCodeLine{00035\ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ std::size\_t\ getSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ dir\_.size();\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ ValueT\ \textcolor{keyword}{const}\&\ get(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ dir\_.find(key);}
+\DoxyCodeLine{00041\ \ \ \ \ locAssert(iter\ !=\ dir\_.end(),\ \textcolor{stringliteral}{"{}Key\ must\ exist\ in\ directory"{}});}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ iter-\/>second;}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{typename}\ DirectoryMapType::iterator\ getIter(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ dir\_.find(key);}
+\DoxyCodeLine{00047\ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{typename}\ DirectoryMapType::iterator\ getIterEnd()\ \{\ \textcolor{keywordflow}{return}\ dir\_.end();\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ remove(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ dir\_.find(key);}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ dir\_.end())\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ dir\_.erase(iter);}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ insert(KeyT\ \textcolor{keyword}{const}\&\ key,\ ValueT\ \textcolor{keyword}{const}\&\ value)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ dir\_.find(key);}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ dir\_.end())\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ dir\_.emplace(}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::forward\_as\_tuple(key),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::forward\_as\_tuple(value)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00066\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ iter-\/>second\ =\ value;}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ \doxymbox{\hyperlink{structloc_1_1Directory_a58d6590654ce90b81601f5cbdf46a1f8}{getMap}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ dir\_;\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ s\ |\ dir\_;}
+\DoxyCodeLine{00077\ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00080\ \ \ DirectoryMapType\ dir\_;}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \}\ \textcolor{comment}{/*\ end\ namespace\ loc\ */}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_LOC\_DIRECTORY\_DIRECTORY\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

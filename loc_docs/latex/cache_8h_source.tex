@@ -1,0 +1,97 @@
+\doxysection{cache.\+h}
+\hypertarget{cache_8h_source}{}\label{cache_8h_source}\index{/loc/src/loc/cache/cache.h@{/loc/src/loc/cache/cache.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cache.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/loc\ =>\ Location\ Coordinator}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Copyright\ 2019-\/2024\ NTESS\ (see\ LICENSE\ for\ full\ details)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_LOC\_CACHE\_CACHE\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INCLUDED\_LOC\_CACHE\_CACHE\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}loc/common.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }loc\ \{}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ KeyT,\ \textcolor{keyword}{typename}\ ValueT>}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }LocationCache\ \{}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{using\ }LookupType\ =\ std::tuple<KeyT,\ ValueT>;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{using\ }CacheOrderedType\ =\ std::list<LookupType>;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{using\ }ValueIter\ =\ \textcolor{keyword}{typename}\ CacheOrderedType::iterator;}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{using\ }LookupContainerType\ =\ std::unordered\_map<KeyT,\ ValueIter>;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{explicit}\ LocationCache(LocationSizeType\ \textcolor{keyword}{const}\&\ in\_max\_size)}
+\DoxyCodeLine{00036\ \ \ \ \ :\ max\_size\_(in\_max\_size)}
+\DoxyCodeLine{00037\ \ \ \{\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ LocationCache(LocationCache\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00040\ \ \ LocationCache(LocationCache\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ \ \ LocationCache\&\ operator=(LocationCache\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ exists(KeyT\ \textcolor{keyword}{const}\&\ key)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ lookup\_.find(key)\ !=\ lookup\_.end();}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ LocationSizeType\ getSize()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ max\_size\_;\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ ValueT\ \textcolor{keyword}{const}\&\ get(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ lookup\_.find(key);}
+\DoxyCodeLine{00051\ \ \ \ \ locAssert(iter\ !=\ lookup\_.end(),\ \textcolor{stringliteral}{"{}Key\ must\ exist\ in\ cache"{}});}
+\DoxyCodeLine{00052\ \ \ \ \ cache\_.splice(cache\_.begin(),\ cache\_,\ iter-\/>second);}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<1>(*iter-\/>second);}
+\DoxyCodeLine{00054\ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ remove(KeyT\ \textcolor{keyword}{const}\&\ key)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ lookup\_.find(key);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ !=\ lookup\_.end())\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ cache\_.erase(iter-\/>second);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ lookup\_.erase(iter);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ insert(KeyT\ \textcolor{keyword}{const}\&\ key,\ ValueT\ \textcolor{keyword}{const}\&\ value)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ lookup\_.find(key);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (iter\ ==\ lookup\_.end())\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lookup\_.size()\ +\ 1\ >\ max\_size\_)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\_iter\ =\ cache\_.crbegin();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ lookup\_.erase(std::get<0>(*last\_iter));}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ cache\_.pop\_back();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ cache\_.push\_front(std::make\_tuple(key,\ value));}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ lookup\_.emplace(}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ std::piecewise\_construct,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ std::forward\_as\_tuple(key),}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ std::forward\_as\_tuple(cache\_.begin())}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00078\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ std::get<1>(*iter-\/>second)\ =\ value;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ cache\_.splice(cache\_.cbegin(),\ cache\_,\ iter-\/>second);}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Serializer>}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{void}\ serialize(Serializer\&\ s)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ s\ |\ cache\_\ |\ max\_size\_\ |\ lookup\_;}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ LookupContainerType\ lookup\_;}
+\DoxyCodeLine{00093\ \ \ CacheOrderedType\ cache\_;}
+\DoxyCodeLine{00095\ \ \ LocationSizeType\ max\_size\_;}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \}\ \textcolor{comment}{/*\ end\ namespace\ loc\ */}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_LOC\_CACHE\_CACHE\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="overview_8md" kind="file" language="Markdown">
+    <compoundname>overview.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>loc<sp/>—<sp/>Location<sp/>Coordinator</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`loc`<sp/>is<sp/>a<sp/>standalone,<sp/>communication-backend-agnostic<sp/>library<sp/>that<sp/>answers<sp/>one</highlight></codeline>
+<codeline><highlight class="normal">question<sp/>for<sp/>a<sp/>set<sp/>of<sp/>migratable<sp/>entities:<sp/>**which<sp/>rank<sp/>currently<sp/>hosts<sp/>entity</highlight></codeline>
+<codeline><highlight class="normal">X?**<sp/>It<sp/>tracks<sp/>entity<sp/>registration<sp/>and<sp/>migration,<sp/>caches<sp/>resolutions,<sp/>and<sp/>keeps</highlight></codeline>
+<codeline><highlight class="normal">those<sp/>caches<sp/>coherent<sp/>—<sp/>all<sp/>on<sp/>top<sp/>of<sp/>the<sp/>[`comm`](https://github.com/DARMA-tasking/comm)</highlight></codeline>
+<codeline><highlight class="normal">communication<sp/>abstraction,<sp/>with<sp/>no<sp/>dependency<sp/>on<sp/>VT.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>extracted<sp/>from<sp/>VT&apos;s<sp/>location<sp/>manager<sp/>(`vt/src/vt/topos/location`)<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">redesigned<sp/>around<sp/>`comm`&apos;s<sp/>`Communicator`<sp/>concept.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Resolver,<sp/>not<sp/>router</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`loc`<sp/>is<sp/>a<sp/>**resolver**:<sp/>it<sp/>tells<sp/>you<sp/>the<sp/>node<sp/>an<sp/>entity<sp/>lives<sp/>on.<sp/>It<sp/>does<sp/>*not*</highlight></codeline>
+<codeline><highlight class="normal">forward<sp/>the<sp/>entity&apos;s<sp/>own<sp/>messages.<sp/>Once<sp/>`getLocation`<sp/>hands<sp/>back<sp/>a<sp/>node,<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">embedder<sp/>performs<sp/>the<sp/>actual<sp/>send.<sp/>This<sp/>keeps<sp/>`loc`<sp/>free<sp/>of<sp/>message<sp/>envelopes,</highlight></codeline>
+<codeline><highlight class="normal">epochs,<sp/>and<sp/>eager/rendezvous<sp/>routing<sp/>—<sp/>the<sp/>pieces<sp/>most<sp/>entangled<sp/>with<sp/>a<sp/>specific</highlight></codeline>
+<codeline><highlight class="normal">runtime.<sp/>(Message<sp/>forwarding<sp/>on<sp/>top<sp/>of<sp/>`comm`<sp/>is<sp/>a<sp/>possible<sp/>later<sp/>phase.)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Public<sp/>API</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>one<sp/>type<sp/>you<sp/>use<sp/>is<sp/>`loc::Coordinator&lt;EntityID,<sp/>Comm&gt;`:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>`registerEntity(id,<sp/>home)`<sp/>/<sp/>`entityImmigrated(id,<sp/>home,<sp/>from)`<sp/>—<sp/>an<sp/>entity<sp/>now</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>lives<sp/>on<sp/>this<sp/>rank.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`entityEmigrated(id,<sp/>new_node)`<sp/>—<sp/>an<sp/>entity<sp/>left<sp/>this<sp/>rank.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`unregisterEntity(id)`<sp/>—<sp/>an<sp/>entity<sp/>no<sp/>longer<sp/>exists<sp/>here.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`getLocation(id,<sp/>home,<sp/>action)`<sp/>—<sp/>asynchronously<sp/>resolve<sp/>the<sp/>hosting<sp/>node;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>`action(node)`<sp/>fires<sp/>once<sp/>known.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`entityExists(id,<sp/>home,<sp/>action)`<sp/>—<sp/>asynchronously<sp/>test<sp/>existence;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>`action(exists,<sp/>node)`.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`isCached(id)`,<sp/>`clearCache()`,<sp/>`thisNode()`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Asynchronous<sp/>results<sp/>are<sp/>delivered<sp/>while<sp/>the<sp/>embedder<sp/>pumps<sp/>`Comm::poll()`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Building</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`loc`<sp/>consumes<sp/>an<sp/>installed<sp/>`comm`<sp/>via<sp/>`find_package(comm<sp/>CONFIG)`<sp/>(which<sp/>brings</highlight></codeline>
+<codeline><highlight class="normal">MPI,<sp/>magistrate/checkpoint,<sp/>and<sp/>fmt<sp/>transitively):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>-S<sp/>.<sp/>-B<sp/>build<sp/>-DCMAKE_PREFIX_PATH=/path/to/comm/install/cmake</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>build<sp/>--parallel</highlight></codeline>
+<codeline><highlight class="normal">ctest<sp/>--test-dir<sp/>build<sp/>--output-on-failure</highlight></codeline>
+<codeline><highlight class="normal">mpirun<sp/>-np<sp/>2<sp/>./build/tests/loc_tests<sp/><sp/><sp/>#<sp/>exercises<sp/>the<sp/>cross-rank<sp/>protocol</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="/loc/docs/md/overview.md"/>
+  </compounddef>
+</doxygen>

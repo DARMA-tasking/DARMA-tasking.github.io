@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="md__2loc_2docs_2md_2overview" kind="page">
+    <compoundname>md__2loc_2docs_2md_2overview</compoundname>
+    <title>loc — Location Coordinator</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__2loc_2docs_2md_2overview_1autotoc_md5"/></para>
+<para><computeroutput>loc</computeroutput> is a standalone, communication-backend-agnostic library that answers one question for a set of migratable entities: <bold>which rank currently hosts entity X?</bold> It tracks entity registration and migration, caches resolutions, and keeps those caches coherent — all on top of the <ulink url="https://github.com/DARMA-tasking/comm"><computeroutput>comm</computeroutput></ulink> communication abstraction, with no dependency on VT.</para>
+<para>It is extracted from VT&apos;s location manager (<computeroutput>vt/src/vt/topos/location</computeroutput>) and redesigned around <computeroutput>comm</computeroutput>&apos;s <computeroutput>Communicator</computeroutput> concept.</para>
+<sect1 id="md__2loc_2docs_2md_2overview_1autotoc_md6">
+<title>Resolver, not router</title><para><computeroutput>loc</computeroutput> is a <bold>resolver</bold>: it tells you the node an entity lives on. It does <emphasis>not</emphasis> forward the entity&apos;s own messages. Once <computeroutput>getLocation</computeroutput> hands back a node, the embedder performs the actual send. This keeps <computeroutput>loc</computeroutput> free of message envelopes, epochs, and eager/rendezvous routing — the pieces most entangled with a specific runtime. (Message forwarding on top of <computeroutput>comm</computeroutput> is a possible later phase.)</para>
+</sect1>
+<sect1 id="md__2loc_2docs_2md_2overview_1autotoc_md7">
+<title>Public API</title><para>The one type you use is <computeroutput><ref refid="structloc_1_1Coordinator" kindref="compound">loc::Coordinator</ref>&lt;EntityID, Comm&gt;</computeroutput>:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>registerEntity(id, home)</computeroutput> / <computeroutput>entityImmigrated(id, home, from)</computeroutput> — an entity now lives on this rank.</para>
+</listitem><listitem><para><computeroutput>entityEmigrated(id, new_node)</computeroutput> — an entity left this rank.</para>
+</listitem><listitem><para><computeroutput>unregisterEntity(id)</computeroutput> — an entity no longer exists here.</para>
+</listitem><listitem><para><computeroutput>getLocation(id, home, action)</computeroutput> — asynchronously resolve the hosting node; <computeroutput>action(node)</computeroutput> fires once known.</para>
+</listitem><listitem><para><computeroutput>entityExists(id, home, action)</computeroutput> — asynchronously test existence; <computeroutput>action(exists, node)</computeroutput>.</para>
+</listitem><listitem><para><computeroutput>isCached(id)</computeroutput>, <computeroutput>clearCache()</computeroutput>, <computeroutput>thisNode()</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para>Asynchronous results are delivered while the embedder pumps <computeroutput>Comm::poll()</computeroutput>.</para>
+</sect1>
+<sect1 id="md__2loc_2docs_2md_2overview_1autotoc_md8">
+<title>Building</title><para><computeroutput>loc</computeroutput> consumes an installed <computeroutput>comm</computeroutput> via <computeroutput>find_package(comm CONFIG)</computeroutput> (which brings MPI, magistrate/checkpoint, and fmt transitively):</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">cmake<sp/>-S<sp/>.<sp/>-B<sp/>build<sp/>-DCMAKE_PREFIX_PATH=/path/to/comm/install/cmake</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>build<sp/>--parallel</highlight></codeline>
+<codeline><highlight class="normal">ctest<sp/>--test-dir<sp/>build<sp/>--output-on-failure</highlight></codeline>
+<codeline><highlight class="normal">mpirun<sp/>-np<sp/>2<sp/>./build/tests/loc_tests<sp/><sp/><sp/>#<sp/>exercises<sp/>the<sp/>cross-rank<sp/>protocol</highlight></codeline>
+</programlisting> </para>
+</sect1>
+    </detaileddescription>
+    <location file="/loc/docs/md/overview.md"/>
+  </compounddef>
+</doxygen>

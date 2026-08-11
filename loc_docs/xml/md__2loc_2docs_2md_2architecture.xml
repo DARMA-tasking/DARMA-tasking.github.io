@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="md__2loc_2docs_2md_2architecture" kind="page">
+    <compoundname>md__2loc_2docs_2md_2architecture</compoundname>
+    <title>Architecture</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__2loc_2docs_2md_2architecture_1autotoc_md0"/></para>
+<sect1 id="md__2loc_2docs_2md_2architecture_1autotoc_md1">
+<title>Layers</title><para><table rows="3" cols="3"><row>
+<entry thead="yes"><para>Layer  </para>
+</entry><entry thead="yes"><para>Contents  </para>
+</entry><entry thead="yes"><para>Depends on  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Internal data structures  </para>
+</entry><entry thead="no"><para><computeroutput>cache/</computeroutput> (LRU), <computeroutput>directory/</computeroutput> (home map), <computeroutput>lookup/</computeroutput> (cache+directory), <computeroutput>record/</computeroutput> (per-entity state)  </para>
+</entry><entry thead="no"><para>nothing but the C++ standard library  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>Coordinator  </para>
+</entry><entry thead="no"><para><computeroutput><ref refid="coordinator_8h_source" kindref="compound">coordinator.h</ref></computeroutput> — the resolver protocol  </para>
+</entry><entry thead="no"><para>the internal structures + a <computeroutput>comm::Communicator</computeroutput>  </para>
+</entry></row>
+</table>
+</para>
+<para>The internal structures are pure and single-rank testable. The coordinator adds the distributed protocol.</para>
+</sect1>
+<sect1 id="md__2loc_2docs_2md_2architecture_1autotoc_md2">
+<title>The resolver protocol</title><para>Every entity has a fixed <bold>home</bold> rank (a deterministic function of its id, chosen by the embedder). The home holds the authoritative location in its <computeroutput>directory</computeroutput>; other ranks hold cached resolutions that may be evicted.</para>
+<para>Control messages are point-to-point <computeroutput>comm::send&lt;&amp;Coordinator::handler&gt;</computeroutput> calls:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>updateHome(id, node)</computeroutput> — a rank tells the home where an entity now lives.</para>
+</listitem><listitem><para><computeroutput>locationRequest(id, requester)</computeroutput> — a rank asks the home for a location.</para>
+</listitem><listitem><para><computeroutput>resolveResponse(id, node)</computeroutput> — the home answers a request (and eagerly refreshes previously-answered ranks when the location later changes).</para>
+</listitem><listitem><para><computeroutput>existsRequest</computeroutput> / <computeroutput>existsResponse</computeroutput> — the existence query pair.</para>
+</listitem></itemizedlist>
+</para>
+<para>Requests that reach the home before the entity is known are buffered (<computeroutput>pending_home_</computeroutput>) and answered on registration. Ranks that have been answered are remembered (<computeroutput>loc_asks_</computeroutput>) and <bold>eagerly refreshed</bold> when the entity migrates, so caches converge without re-querying.</para>
+</sect1>
+<sect1 id="md__2loc_2docs_2md_2architecture_1autotoc_md3">
+<title>Instance registration is collective</title><para>The coordinator registers itself with the communicator (<computeroutput>registerInstanceCollective</computeroutput>) in its constructor. Because the returned handle&apos;s index must match across ranks, <bold>every rank must construct its coordinator in the same order</bold>. This mirrors VT&apos;s objgroup collective-creation requirement and is the embedder&apos;s responsibility.</para>
+</sect1>
+<sect1 id="md__2loc_2docs_2md_2architecture_1autotoc_md4">
+<title>What is deliberately out of scope</title><para><itemizedlist>
+<listitem><para>Message forwarding / routing of the entities&apos; own messages (resolver-only).</para>
+</listitem><listitem><para>The multi-instance <computeroutput>LocationManager</computeroutput>: the embedder owns coordinator lifetime and instantiates one per logical entity space.</para>
+</listitem><listitem><para>Any objgroup / VT coupling: the sole communication dependency is the <computeroutput>comm::Communicator</computeroutput> concept, satisfied by <computeroutput>CommMPI</computeroutput> (pure MPI) or <computeroutput>CommVT</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="/loc/docs/md/architecture.md"/>
+  </compounddef>
+</doxygen>

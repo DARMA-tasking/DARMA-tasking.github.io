@@ -1,0 +1,254 @@
+\doxysection{coordinator.\+impl.\+h}
+\hypertarget{coordinator_8impl_8h_source}{}\label{coordinator_8impl_8h_source}\index{/loc/src/loc/coordinator.impl.h@{/loc/src/loc/coordinator.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coordinator.impl.h}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/loc\ =>\ Location\ Coordinator}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Copyright\ 2019-\/2024\ NTESS\ (see\ LICENSE\ for\ full\ details)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_LOC\_COORDINATOR\_IMPL\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INCLUDED\_LOC\_COORDINATOR\_IMPL\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}loc/coordinator.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }loc\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00019\ \doxymbox{\hyperlink{structloc_1_1Coordinator_ae4032349d642df94c65c454184916f28}{Coordinator<EntityID,\ Comm>::Coordinator}}(}
+\DoxyCodeLine{00020\ \ \ Comm\&\ in\_comm,\ LocationSizeType\ in\_max\_cache\_size}
+\DoxyCodeLine{00021\ )\ :\ comm\_(in\_comm),}
+\DoxyCodeLine{00022\ \ \ \ \ this\_node\_(in\_comm.getRank()),}
+\DoxyCodeLine{00023\ \ \ \ \ recs\_(in\_max\_cache\_size,\ this\_node\_)}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ handle\_\ =\ comm\_.template\ registerInstanceCollective<ThisType>(\textcolor{keyword}{this});}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a51dc6feed1ca803fc0bb9370894e6971}{Coordinator<EntityID,\ Comm>::registerEntity}}(}
+\DoxyCodeLine{00030\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ home}
+\DoxyCodeLine{00031\ )\ \{}
+\DoxyCodeLine{00032\ \ \ local\_registered\_.insert(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordflow}{if}\ (home\ ==\ this\_node\_)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ announceLocation(\textcolor{keywordtype}{id},\ this\_node\_);}
+\DoxyCodeLine{00035\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ comm\_.template\ send<\&ThisType::updateHome>(home,\ handle\_,\ \textcolor{keywordtype}{id},\ this\_node\_);}
+\DoxyCodeLine{00037\ \ \ \}}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_ad0f63dcacc28272e0057f2bd8f86494a}{Coordinator<EntityID,\ Comm>::entityImmigrated}}(}
+\DoxyCodeLine{00042\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ home,\ NodeType\ \textcolor{comment}{/*from*/}}
+\DoxyCodeLine{00043\ )\ \{}
+\DoxyCodeLine{00044\ \ \ \doxymbox{\hyperlink{structloc_1_1Coordinator_a51dc6feed1ca803fc0bb9370894e6971}{registerEntity}}(\textcolor{keywordtype}{id},\ home);}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_ad1e8df08c9b5859ed6350158e350121b}{Coordinator<EntityID,\ Comm>::entityEmigrated}}(}
+\DoxyCodeLine{00049\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ new\_node}
+\DoxyCodeLine{00050\ )\ \{}
+\DoxyCodeLine{00051\ \ \ local\_registered\_.erase(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00052\ \ \ recs\_.update(\textcolor{keywordtype}{id},\ makeRec(\textcolor{keywordtype}{id},\ new\_node));}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a379afc30991eb315849bffce1416b8bf}{Coordinator<EntityID,\ Comm>::unregisterEntity}}(EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00057\ \ \ local\_registered\_.erase(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00058\ \ \ recs\_.remove(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a8d9cb94442526a0b706a8c2c4c30eb04}{Coordinator<EntityID,\ Comm>::getLocation}}(}
+\DoxyCodeLine{00063\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ home,\ NodeAction\ action}
+\DoxyCodeLine{00064\ )\ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordflow}{if}\ (local\_registered\_.count(\textcolor{keywordtype}{id})\ !=\ 0)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ action(this\_node\_);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00068\ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{if}\ (recs\_.exists(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ action(recs\_.get(\textcolor{keywordtype}{id}).getRemoteNode());}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00072\ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{auto}\&\ list\ =\ pending\_[id];}
+\DoxyCodeLine{00074\ \ \ list.push\_back(std::move(action));}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ Only\ the\ first\ waiter\ issues\ the\ request;\ the\ home\ is\ not\ this\ rank\ here}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ (otherwise\ it\ would\ be\ locally\ known\ once\ registered).}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordflow}{if}\ (list.size()\ ==\ 1\ \&\&\ home\ !=\ this\_node\_)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ comm\_.template\ send<\&ThisType::locationRequest>(}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ home,\ handle\_,\ \textcolor{keywordtype}{id},\ this\_node\_}
+\DoxyCodeLine{00080\ \ \ \ \ );}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a3cf7bc34d7133848e70102e22ebc4635}{Coordinator<EntityID,\ Comm>::entityExists}}(}
+\DoxyCodeLine{00086\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ home,\ ExistsAction\ action}
+\DoxyCodeLine{00087\ )\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (local\_registered\_.count(\textcolor{keywordtype}{id})\ !=\ 0)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ action(\textcolor{keyword}{true},\ this\_node\_);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordflow}{if}\ (recs\_.exists(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ action(\textcolor{keyword}{true},\ recs\_.get(\textcolor{keywordtype}{id}).getRemoteNode());}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordflow}{if}\ (home\ ==\ this\_node\_)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ The\ home\ is\ authoritative:\ unknown\ here\ means\ it\ does\ not\ exist.}}
+\DoxyCodeLine{00098\ \ \ \ \ action(\textcolor{keyword}{false},\ no\_node);}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{auto}\&\ list\ =\ pending\_exists\_[id];}
+\DoxyCodeLine{00102\ \ \ list.push\_back(std::move(action));}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{if}\ (list.size()\ ==\ 1)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ comm\_.template\ send<\&ThisType::existsRequest>(home,\ handle\_,\ \textcolor{keywordtype}{id},\ this\_node\_);}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a8725a8b017c778194f8eaea96cd0709d}{Coordinator<EntityID,\ Comm>::isCached}}(EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordflow}{return}\ local\_registered\_.count(\textcolor{keywordtype}{id})\ !=\ 0\ ||\ recs\_.exists(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_af29d254af0c105e9282396da0f00db7e}{Coordinator<EntityID,\ Comm>::clearCache}}()\ \{}
+\DoxyCodeLine{00115\ \ \ recs\_.clearCache();}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00119\ NodeType\ \doxymbox{\hyperlink{structloc_1_1Coordinator_ae66cb65fd96dc72dc971f2ee512f054a}{Coordinator<EntityID,\ Comm>::thisNode}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{return}\ this\_node\_;}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a190a80e3ed408743bbe52aeb2754ac38}{Coordinator<EntityID,\ Comm>::updateHome}}(EntityID\ \textcolor{keywordtype}{id},\ NodeType\ node)\ \{}
+\DoxyCodeLine{00125\ \ \ announceLocation(\textcolor{keywordtype}{id},\ node);}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a7655a01b3795f8b1f19716b125787e1a}{Coordinator<EntityID,\ Comm>::locationRequest}}(}
+\DoxyCodeLine{00130\ \ \ EntityID\ \textcolor{keywordtype}{id},\ NodeType\ requester}
+\DoxyCodeLine{00131\ )\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{if}\ (recs\_.exists(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ loc\_asks\_[id].insert(requester);}
+\DoxyCodeLine{00134\ \ \ \ \ comm\_.template\ send<\&ThisType::resolveResponse>(}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ recs\_.get(\textcolor{keywordtype}{id}).getRemoteNode()}
+\DoxyCodeLine{00136\ \ \ \ \ );}
+\DoxyCodeLine{00137\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (local\_registered\_.count(\textcolor{keywordtype}{id})\ !=\ 0)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ loc\_asks\_[id].insert(requester);}
+\DoxyCodeLine{00139\ \ \ \ \ comm\_.template\ send<\&ThisType::resolveResponse>(}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ this\_node\_}
+\DoxyCodeLine{00141\ \ \ \ \ );}
+\DoxyCodeLine{00142\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ Not\ known\ yet:\ buffer\ until\ the\ entity\ registers\ /\ is\ updated\ here.}}
+\DoxyCodeLine{00144\ \ \ \ \ pending\_home\_[id].push\_back(requester);}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00149\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_ab95ba2f44e9de703dcd0669945a48835}{Coordinator<EntityID,\ Comm>::resolveResponse}}(}
+\DoxyCodeLine{00150\ \ \ EntityID\ \textcolor{keywordtype}{id},\ NodeType\ node}
+\DoxyCodeLine{00151\ )\ \{}
+\DoxyCodeLine{00152\ \ \ recs\_.update(\textcolor{keywordtype}{id},\ makeRec(\textcolor{keywordtype}{id},\ node));}
+\DoxyCodeLine{00153\ \ \ flushPending(pending\_,\ \textcolor{keywordtype}{id},\ node);}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a7d972874adb380aae4e181682f790163}{Coordinator<EntityID,\ Comm>::existsRequest}}(}
+\DoxyCodeLine{00158\ \ \ EntityID\ \textcolor{keywordtype}{id},\ NodeType\ requester}
+\DoxyCodeLine{00159\ )\ \{}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordflow}{if}\ (recs\_.exists(\textcolor{keywordtype}{id}))\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ comm\_.template\ send<\&ThisType::existsResponse>(}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{true},\ recs\_.get(\textcolor{keywordtype}{id}).getRemoteNode()}
+\DoxyCodeLine{00163\ \ \ \ \ );}
+\DoxyCodeLine{00164\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (local\_registered\_.count(\textcolor{keywordtype}{id})\ !=\ 0)\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ comm\_.template\ send<\&ThisType::existsResponse>(}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{true},\ this\_node\_}
+\DoxyCodeLine{00167\ \ \ \ \ );}
+\DoxyCodeLine{00168\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ comm\_.template\ send<\&ThisType::existsResponse>(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{false},\ no\_node}
+\DoxyCodeLine{00171\ \ \ \ \ );}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structloc_1_1Coordinator_a5285da59cb300f60cd2c28b78804b8aa}{Coordinator<EntityID,\ Comm>::existsResponse}}(}
+\DoxyCodeLine{00177\ \ \ EntityID\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{bool}\ exists,\ NodeType\ node}
+\DoxyCodeLine{00178\ )\ \{}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordflow}{if}\ (exists)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ recs\_.update(\textcolor{keywordtype}{id},\ makeRec(\textcolor{keywordtype}{id},\ node));}
+\DoxyCodeLine{00181\ \ \ \}}
+\DoxyCodeLine{00182\ \ \ \textcolor{keyword}{auto}\ it\ =\ pending\_exists\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ pending\_exists\_.end())\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ action\ :\ it-\/>second)\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ action(exists,\ node);}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ pending\_exists\_.erase(it);}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00192\ \textcolor{keyword}{auto}\ Coordinator<EntityID,\ Comm>::makeRec(}
+\DoxyCodeLine{00193\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ node}
+\DoxyCodeLine{00194\ )\ \textcolor{keyword}{const}\ -\/>\ LocRecType\ \{}
+\DoxyCodeLine{00195\ \ \ LocRecType\ rec\{id,\ eLocState::Invalid,\ no\_node\};}
+\DoxyCodeLine{00196\ \ \ rec.updateNode(node,\ this\_node\_);}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ rec;}
+\DoxyCodeLine{00198\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ Coordinator<EntityID,\ Comm>::flushPending(}
+\DoxyCodeLine{00202\ \ \ std::unordered\_map<EntityID,\ std::vector<NodeAction>>\&\ map,}
+\DoxyCodeLine{00203\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ node}
+\DoxyCodeLine{00204\ )\ \{}
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{auto}\ it\ =\ map.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ map.end())\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ action\ :\ it-\/>second)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ action(node);}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ map.erase(it);}
+\DoxyCodeLine{00211\ \ \ \}}
+\DoxyCodeLine{00212\ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ EntityID,\ \textcolor{keyword}{typename}\ Comm>}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ Coordinator<EntityID,\ Comm>::announceLocation(}
+\DoxyCodeLine{00216\ \ \ EntityID\ \textcolor{keyword}{const}\&\ \textcolor{keywordtype}{id},\ NodeType\ node}
+\DoxyCodeLine{00217\ )\ \{}
+\DoxyCodeLine{00218\ \ \ recs\_.insert(\textcolor{keywordtype}{id},\ \textcolor{comment}{/*home=*/}this\_node\_,\ makeRec(\textcolor{keywordtype}{id},\ node));}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ Eagerly\ refresh\ caches\ of\ ranks\ we\ have\ already\ answered.}}
+\DoxyCodeLine{00221\ \ \ \textcolor{keyword}{auto}\ ask\_it\ =\ loc\_asks\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordflow}{if}\ (ask\_it\ !=\ loc\_asks\_.end())\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ asker\ :\ ask\_it-\/>second)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ comm\_.template\ send<\&ThisType::resolveResponse>(asker,\ handle\_,\ \textcolor{keywordtype}{id},\ node);}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ Answer\ ranks\ that\ asked\ before\ the\ entity\ was\ known,\ and\ remember\ them}}
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ for\ future\ eager\ refreshes.}}
+\DoxyCodeLine{00230\ \ \ \textcolor{keyword}{auto}\ pend\_it\ =\ pending\_home\_.find(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordflow}{if}\ (pend\_it\ !=\ pending\_home\_.end())\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{auto}\&\ askers\ =\ loc\_asks\_[id];}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ requester\ :\ pend\_it-\/>second)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ comm\_.template\ send<\&ThisType::resolveResponse>(}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ requester,\ handle\_,\ \textcolor{keywordtype}{id},\ node}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ askers.insert(requester);}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ pending\_home\_.erase(pend\_it);}
+\DoxyCodeLine{00240\ \ \ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{//\ Satisfy\ local\ waiters\ on\ this\ (home)\ rank.}}
+\DoxyCodeLine{00243\ \ \ flushPending(pending\_,\ \textcolor{keywordtype}{id},\ node);}
+\DoxyCodeLine{00244\ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \}\ \textcolor{comment}{/*\ end\ namespace\ loc\ */}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_LOC\_COORDINATOR\_IMPL\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

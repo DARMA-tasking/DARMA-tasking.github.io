@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>loc::Coordinator struct | loc</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">loc</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <div class="m-doc-template">template&lt;typename EntityID, typename Comm&gt;</div>
+          <span class="m-breadcrumb"><a href="namespaceloc.html">loc</a>::<wbr/></span>Coordinator <span class="m-thin">struct</span>
+        </h1>
+        <p>Distributed location resolver for a set of migratable entities.</p>
+        <table class="m-table m-fullwidth m-flat">
+          <thead>
+            <tr><th colspan="2">Template parameters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 1%">EntityID</td>
+              <td>serializable, default-constructible, hashable entity id</td>
+            </tr>
+            <tr>
+              <td>Comm</td>
+              <td>a communicator type satisfying comm::Communicator</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+<p>A <code><a href="structloc_1_1Coordinator.html" class="m-doc">Coordinator</a></code> answers the question &quot;which rank currently hosts entity X&quot; and keeps that answer coherent as entities migrate. It is a <em>resolver</em> only: it never forwards the entity&#x27;s own messages. Once a location is resolved the embedder performs the actual send.</p><p>Each entity has a fixed <em>home</em> rank (a deterministic function of its id, chosen by the embedder). The home holds the authoritative record; other ranks cache resolutions and are refreshed eagerly when the location changes.</p><p>All inter-rank traffic goes through the injected <code>Comm</code> (any type satisfying comm::Communicator): the coordinator registers itself as a collective instance and issues point-to-point control messages via <code>Comm::send&lt;&amp;method&gt;</code>. Because registration is collective, every rank must construct its coordinator in the same order so instance handles line up.</p>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper"><a href="#ae4032349d642df94c65c454184916f28" class="m-doc">Coordinator</a>(</span><span class="m-doc-wrap">Comm&amp; in_comm,
+              LocationSizeType in_max_cache_size = default_max_cache_size) <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd>Construct and collectively register with the communicator.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a51dc6feed1ca803fc0bb9370894e6971" class="m-doc">registerEntity</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home)</span>
+            </dt>
+            <dd>Register an entity as living on this rank.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ad0f63dcacc28272e0057f2bd8f86494a" class="m-doc">entityImmigrated</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              NodeType from)</span>
+            </dt>
+            <dd>Register an entity that immigrated here from another rank.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ad1e8df08c9b5859ed6350158e350121b" class="m-doc">entityEmigrated</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType new_node)</span>
+            </dt>
+            <dd>Note that an entity has emigrated off this rank to <code>new_node</code>.</dd>
+            <dt id="a379afc30991eb315849bffce1416b8bf">
+              <span class="m-doc-wrap-bumper">void <a href="#a379afc30991eb315849bffce1416b8bf" class="m-doc-self">unregisterEntity</a>(</span><span class="m-doc-wrap">EntityID const&amp; id)</span>
+            </dt>
+            <dd>Unregister an entity that no longer lives here.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a8d9cb94442526a0b706a8c2c4c30eb04" class="m-doc">getLocation</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              NodeAction action)</span>
+            </dt>
+            <dd>Resolve the current location of an entity.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a3cf7bc34d7133848e70102e22ebc4635" class="m-doc">entityExists</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              ExistsAction action)</span>
+            </dt>
+            <dd>Check whether an entity exists anywhere in the system.</dd>
+            <dt id="a8725a8b017c778194f8eaea96cd0709d">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8725a8b017c778194f8eaea96cd0709d" class="m-doc-self">isCached</a>(</span><span class="m-doc-wrap">EntityID const&amp; id) const -&gt; bool</span>
+            </dt>
+            <dd>Whether a resolved location for <code>id</code> is held locally (local or cached).</dd>
+            <dt id="af29d254af0c105e9282396da0f00db7e">
+              <span class="m-doc-wrap-bumper">void <a href="#af29d254af0c105e9282396da0f00db7e" class="m-doc-self">clearCache</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Drop all cached (non-home) resolutions.</dd>
+            <dt id="ae66cb65fd96dc72dc971f2ee512f054a">
+              <span class="m-doc-wrap-bumper">auto <a href="#ae66cb65fd96dc72dc971f2ee512f054a" class="m-doc-self">thisNode</a>(</span><span class="m-doc-wrap">) const -&gt; NodeType</span>
+            </dt>
+            <dd>This rank.</dd>
+            <dt id="a190a80e3ed408743bbe52aeb2754ac38">
+              <span class="m-doc-wrap-bumper">void <a href="#a190a80e3ed408743bbe52aeb2754ac38" class="m-doc-self">updateHome</a>(</span><span class="m-doc-wrap">EntityID id,
+              NodeType node)</span>
+            </dt>
+            <dd>[home] Learn/refresh where an entity lives.</dd>
+            <dt id="a7655a01b3795f8b1f19716b125787e1a">
+              <span class="m-doc-wrap-bumper">void <a href="#a7655a01b3795f8b1f19716b125787e1a" class="m-doc-self">locationRequest</a>(</span><span class="m-doc-wrap">EntityID id,
+              NodeType requester)</span>
+            </dt>
+            <dd>[home] A rank asks where an entity lives.</dd>
+            <dt id="ab95ba2f44e9de703dcd0669945a48835">
+              <span class="m-doc-wrap-bumper">void <a href="#ab95ba2f44e9de703dcd0669945a48835" class="m-doc-self">resolveResponse</a>(</span><span class="m-doc-wrap">EntityID id,
+              NodeType node)</span>
+            </dt>
+            <dd>[asker] Home answered a location request.</dd>
+            <dt id="a7d972874adb380aae4e181682f790163">
+              <span class="m-doc-wrap-bumper">void <a href="#a7d972874adb380aae4e181682f790163" class="m-doc-self">existsRequest</a>(</span><span class="m-doc-wrap">EntityID id,
+              NodeType requester)</span>
+            </dt>
+            <dd>[home] A rank asks whether an entity exists.</dd>
+            <dt id="a5285da59cb300f60cd2c28b78804b8aa">
+              <span class="m-doc-wrap-bumper">void <a href="#a5285da59cb300f60cd2c28b78804b8aa" class="m-doc-self">existsResponse</a>(</span><span class="m-doc-wrap">EntityID id,
+              bool exists,
+              NodeType node)</span>
+            </dt>
+            <dd>[asker] Home answered an existence request.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="ae4032349d642df94c65c454184916f28"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper"> loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae4032349d642df94c65c454184916f28" class="m-doc-self">Coordinator</a>(</span><span class="m-doc-wrap">Comm&amp; in_comm,
+              LocationSizeType in_max_cache_size = default_max_cache_size) <span class="m-label m-info">explicit</span> </span></span>
+            </h3>
+            <p>Construct and collectively register with the communicator.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">in_comm&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the communicator (must outlive this coordinator)</td>
+                </tr>
+                <tr>
+                  <td>in_max_cache_size&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>max cached (non-home) location records</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a51dc6feed1ca803fc0bb9370894e6971"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a51dc6feed1ca803fc0bb9370894e6971" class="m-doc-self">registerEntity</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home)</span></span>
+            </h3>
+            <p>Register an entity as living on this rank.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the entity id</td>
+                </tr>
+                <tr>
+                  <td>home&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the home rank for <code>id</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ad0f63dcacc28272e0057f2bd8f86494a"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad0f63dcacc28272e0057f2bd8f86494a" class="m-doc-self">entityImmigrated</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              NodeType from)</span></span>
+            </h3>
+            <p>Register an entity that immigrated here from another rank.</p>
+<p>Equivalent to <code>registerEntity</code> for resolution purposes: the entity now lives here and the home is informed.</p>
+          </div></section>
+          <section class="m-doc-details" id="ad1e8df08c9b5859ed6350158e350121b"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad1e8df08c9b5859ed6350158e350121b" class="m-doc-self">entityEmigrated</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType new_node)</span></span>
+            </h3>
+            <p>Note that an entity has emigrated off this rank to <code>new_node</code>.</p>
+<p>The local record is repointed so local queries forward to the new node; the home is refreshed by the destination&#x27;s <code>entityImmigrated</code>.</p>
+          </div></section>
+          <section class="m-doc-details" id="a8d9cb94442526a0b706a8c2c4c30eb04"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8d9cb94442526a0b706a8c2c4c30eb04" class="m-doc-self">getLocation</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              NodeAction action)</span></span>
+            </h3>
+            <p>Resolve the current location of an entity.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the entity id</td>
+                </tr>
+                <tr>
+                  <td>home&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the home rank for <code>id</code></td>
+                </tr>
+                <tr>
+                  <td>action&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>callback invoked with the resolved node</td>
+                </tr>
+              </tbody>
+            </table>
+<p><code>action</code> is invoked (possibly after communication with the home rank) with the resolved node. Progress requires the embedder to pump <code>Comm::poll</code>.</p>
+          </div></section>
+          <section class="m-doc-details" id="a3cf7bc34d7133848e70102e22ebc4635"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;typename EntityID, typename Comm&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">void loc::<wbr />Coordinator&lt;EntityID, Comm&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3cf7bc34d7133848e70102e22ebc4635" class="m-doc-self">entityExists</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
+              NodeType home,
+              ExistsAction action)</span></span>
+            </h3>
+            <p>Check whether an entity exists anywhere in the system.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the entity id</td>
+                </tr>
+                <tr>
+                  <td>home&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>the home rank for <code>id</code></td>
+                </tr>
+                <tr>
+                  <td>action&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>callback invoked with (exists, node)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>loc. Created with <a href="https://doxygen.org/">Doxygen</a> 1.17.0 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
