@@ -1,0 +1,317 @@
+\doxysection{comm\+\_\+mpi.\+h}
+\hypertarget{comm__mpi_8h_source}{}\label{comm__mpi_8h_source}\index{/comm/src/comm/comm/MPI/comm\_mpi.h@{/comm/src/comm/comm/MPI/comm\_mpi.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm\_mpi.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/comm\ =>\ Communicator}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_COMM\_COMM\_MPI\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_COMM\_COMM\_MPI\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ <checkpoint/checkpoint.h>}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ <comm/util/logging.h>}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ <comm/comm/MPI/termination.h>}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ <comm/comm/MPI/class\_handle.h>}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ <comm/comm/MPI/comm\_mpi\_detail.h>}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecomm}{comm}}\ \{}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{struct\ }CommMPI\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{using\ }TagType\ =\ int;}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{using\ }SizeType\ =\ std::size\_t;}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{using\ }RequestType\ =\ MPI\_Request;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{using\ }HandleType\ =\ \doxymbox{\hyperlink{structcomm_1_1ClassHandle}{ClassHandle<T>}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ CommMPI()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00086\ \ \ CommMPI(CommMPI\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00087\ \ \ CommMPI(CommMPI\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00088\ \ \ CommMPI\&\ operator=(CommMPI\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00089\ \ \ CommMPI\&\ operator=(CommMPI\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ CommMPI(MPI\_Comm\ \doxymbox{\hyperlink{namespacecomm}{comm}},\ \textcolor{keywordtype}{int}\ rank,\ \textcolor{keywordtype}{int}\ size)}
+\DoxyCodeLine{00093\ \ \ \ \ :\ comm\_(\doxymbox{\hyperlink{namespacecomm}{comm}}),\ cached\_rank\_(rank),\ cached\_size\_(size)}
+\DoxyCodeLine{00094\ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ initTermination();}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a53f3beb0333a8fa223aafc338507f069}{init}}(\textcolor{keywordtype}{int}\&\ argc,\ \textcolor{keywordtype}{char}**\&\ argv,\ MPI\_Comm\ \doxymbox{\hyperlink{namespacecomm}{comm}}\ =\ MPI\_COMM\_NULL);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00115\ \ \ CommMPI\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a945eddfbdfc6b3c869b71001e0b0de75}{clone}}(\textcolor{keywordtype}{bool}\ dup\_comm\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a2e37c95a0767b274d09c1ad8bf55df54}{numRanks}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_aa60f61df02ab0be5433b85afab3d0a4e}{getRank}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a9121a149c01586cd99426e6cf7df9135}{finalize}}();}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a6092961bd7d5050a4ed3c40cc1f17d86}{barrier}}();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00147\ \ \ \doxymbox{\hyperlink{structcomm_1_1ClassHandle}{ClassHandle<T>}}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a919b5d5d709dbbff6f402b1005b2861d}{registerInstanceCollective}}(T*\ obj)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{auto}\ idx\ =\ next\_class\_index\_++;}
+\DoxyCodeLine{00149\ \ \ \ \ class\_map\_[idx]\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcomm_1_1ClassHandle}{ClassHandle<T>}}\{idx,\ \textcolor{keyword}{this}\};}
+\DoxyCodeLine{00151\ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a04b0fced8a737f589d33d325b7283c8d}{unregisterInstanceCollective}}(std::size\_t\ idx)\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ class\_map\_.erase(idx);}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}*\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a2aa4f41feddc9022fe1ac3186eba549b}{getInstanceCollective}}(std::size\_t\ idx)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ class\_map\_.at(idx);}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ V>}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{void}\ reduce(\textcolor{keywordtype}{int}\ root,\ MPI\_Datatype\ datatype,\ MPI\_Op\ op,\ U\ sendbuf,\ V\ recvbuf,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ MPI\_Request\ request;}
+\DoxyCodeLine{00175\ \ \ \ \ MPI\_Ireduce(sendbuf,\ recvbuf,\ count,\ datatype,\ op,\ root,\ comm\_,\ \&request);}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{while}\ (not\ flag)\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ MPI\_Status\ status;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ MPI\_Test(\&request,\ \&flag,\ \&status);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a8ae8814201884c68cadcecd80a5cd364}{poll}}();}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{void}\ broadcast(\textcolor{keywordtype}{int}\ root,\ MPI\_Datatype\ datatype,\ U\ buffer,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ MPI\_Request\ request;}
+\DoxyCodeLine{00187\ \ \ \ \ MPI\_Ibcast(buffer,\ count,\ datatype,\ root,\ comm\_,\ \&request);}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{while}\ (not\ flag)\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ MPI\_Status\ status;}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ MPI\_Test(\&request,\ \&flag,\ \&status);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a8ae8814201884c68cadcecd80a5cd364}{poll}}();}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ fn,\ \textcolor{keyword}{typename}\ ProxyT,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_ac22e6d77807de4a545cd3990fbe1e3d0}{send}}(\textcolor{keywordtype}{int}\ dest,\ ProxyT\ proxy,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ sendImpl<fn>(dest,\ proxy.getIndex(),\ \textcolor{keyword}{false},\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00206\ \ \ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00211\ \ \ \textcolor{keyword}{class\ }BufferIntInterpreter\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ ptr\_;}
+\DoxyCodeLine{00213\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{explicit}\ BufferIntInterpreter(\textcolor{keywordtype}{char}*\ buf)\ :\ ptr\_(buf)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ assert((\textcolor{keyword}{reinterpret\_cast<}std::uintptr\_t\textcolor{keyword}{>}(buf)\ \%\ \textcolor{keyword}{alignof}(\textcolor{keywordtype}{int}))\ ==\ 0);}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\&\ handlerIndex()\ \{\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{int}*\textcolor{keyword}{>}(ptr\_);\ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{int}\&\ classIndex()\ \{\ \textcolor{keywordflow}{return}\ *(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{int}*\textcolor{keyword}{>}(ptr\_)\ +\ 1);\ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{int}\&\ isTermination()\ \{\ \textcolor{keywordflow}{return}\ *(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{int}*\textcolor{keyword}{>}(ptr\_)\ +\ 2);\ \}}
+\DoxyCodeLine{00220\ \ \ \};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{auto}\ fn,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{void}\ sendImpl(\textcolor{keywordtype}{int}\ dest,\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{bool}\ is\_termination\_msg,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ Layout\ of\ buffer:}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{comment}{//\ \ \ <handler\_index\ :\ int>\ \ \ \ \ \ -\/>\ used\ to\ get\ the\ correct\ registered\ handler}}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{//\ \ \ <class\_index\ :\ int>\ \ \ \ \ \ \ \ -\/>\ used\ to\ dispatch\ to\ the\ correct\ class\ instance}}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{comment}{//\ \ \ <is\_termination\_msg\ :\ int>\ -\/>\ used\ to\ determine\ if\ it\ should\ count\ as\ a\ normal\ message\ or\ termination\ message}}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{//\ \ \ <serialized\ buffer>\ \ \ \ \ \ \ \ -\/>\ the\ actual\ serialized\ buffer\ from\ magistrate}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{comment}{//\ Validate\ destination\ rank}}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{if}\ (dest\ <\ 0\ ||\ dest\ >=\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a2e37c95a0767b274d09c1ad8bf55df54}{numRanks}}())\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ COMM\_LOG(\doxymbox{\hyperlink{conceptcomm_1_1Communicator}{Communicator}},\ terse,\ \textcolor{stringliteral}{"{}Invalid\ destination\ rank\ \{\}\(\backslash\)n"{}},\ dest);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Invalid\ destination\ rank"{}});}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\ handler\_index\ =\ detail::registerMember<fn>();}
+\DoxyCodeLine{00237\ \ \ \ \ std::tuple<std::decay\_t<Args>...>\ tup\{std::forward<Args>(args)...\};}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{char}*\ send\_ptr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00239\ \ \ \ \ std::size\_t\ send\_ptr\_size\ =\ 0;}
+\DoxyCodeLine{00240\ \ \ \ \ std::tuple<MPI\_Request,\ std::unique\_ptr<char[]>>\ pending\_operation;}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{auto}\ ret\ =\ checkpoint::serialize(}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ tup,\ [\&send\_ptr,\ \&send\_ptr\_size,\ \&pending\_operation](std::size\_t\ size)\ -\/>\ \textcolor{keywordtype}{char}*\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{constexpr}\ extra\_size\ =\ 3*\textcolor{keyword}{sizeof}(int);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ send\_ptr\_size\ =\ size\ +\ extra\_size;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ pending\_operation\ =\ std::make\_tuple(MPI\_Request\{\},\ std::make\_unique<char[]>(send\_ptr\_size));}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ send\_ptr\ =\ std::get<1>(pending\_operation).get();}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ send\_ptr\ +\ extra\_size;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ );}
+\DoxyCodeLine{00250\ \ \ \ \ \doxymbox{\hyperlink{classcomm_1_1CommMPI_1_1BufferIntInterpreter}{BufferIntInterpreter}}\ buf\_interpreter(send\_ptr);}
+\DoxyCodeLine{00251\ \ \ \ \ buf\_interpreter.handlerIndex()\ =\ handler\_index;}
+\DoxyCodeLine{00252\ \ \ \ \ buf\_interpreter.classIndex()\ =\ idx;}
+\DoxyCodeLine{00253\ \ \ \ \ buf\_interpreter.isTermination()\ =\ is\_termination\_msg\ ?\ 1\ :\ 0;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ COMM\_LOG(}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ Communicator,\ normal,}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MPI\_Isend\ to\ \{\}\ handler\_index=\{\}\ class\_index=\{\}\ is\_termination=\{\}\(\backslash\)n"{}},}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ dest,}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ buf\_interpreter.handlerIndex(),}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ buf\_interpreter.classIndex(),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ is\_termination\_msg\ ?\ 1\ :\ 0}
+\DoxyCodeLine{00262\ \ \ \ \ );}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ MPI\_Request\ req;}
+\DoxyCodeLine{00265\ \ \ \ \ MPI\_Isend(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ send\_ptr,\ send\_ptr\_size,\ MPI\_BYTE,\ dest,\ 0,\ comm\_,}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \&req}
+\DoxyCodeLine{00268\ \ \ \ \ );}
+\DoxyCodeLine{00269\ \ \ \ \ std::get<0>(pending\_operation)\ =\ req;}
+\DoxyCodeLine{00270\ \ \ \ \ pending\_.emplace\_back(std::move(pending\_operation));}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{if}\ (!is\_termination\_msg)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ termination\_detector\_-\/>notifyMessageSend();}
+\DoxyCodeLine{00273\ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a8ae8814201884c68cadcecd80a5cd364}{poll}}();}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00296\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00297\ \ \ std::unordered\_map<int,\ std::vector<T>>\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a9beda26ec540e9a363958b678ccd88a5}{allgather}}(T\ \textcolor{keyword}{const}*\ sendbuf,\ \textcolor{keywordtype}{int}\ sendcount)\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_trivially\_copyable\_v<T>,\ \textcolor{stringliteral}{"{}CommMPI::allgather\ requires\ trivially\ copyable\ T"{}});}
+\DoxyCodeLine{00299\ \ \ \ \ MPI\_Datatype\ datatype\ =\ deduceDatatype<T>();}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{if}\ (comm\_\ ==\ MPI\_COMM\_NULL)\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CommMPI\ not\ initialized\ (MPI\_Comm\ is\ MPI\_COMM\_NULL)"{}});}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a2e37c95a0767b274d09c1ad8bf55df54}{numRanks}}();}
+\DoxyCodeLine{00306\ \ \ \ \ std::vector<int>\ counts(n,\ 0);}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{comment}{//\ Gather\ local\ counts\ from\ each\ rank\ (block\ for\ small\ metadata)}}
+\DoxyCodeLine{00308\ \ \ \ \ MPI\_Allgather(\&sendcount,\ 1,\ MPI\_INT,\ counts.data(),\ 1,\ MPI\_INT,\ comm\_);}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ std::vector<int>\ displs(n,\ 0);}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{int}\ total\ =\ 0;}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ displs[i]\ =\ total;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ total\ +=\ counts[i];}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ std::vector<T>\ recvbuf;}
+\DoxyCodeLine{00318\ \ \ \ \ recvbuf.resize(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(total));}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ COMM\_LOG(\doxymbox{\hyperlink{conceptcomm_1_1Communicator}{Communicator}},\ normal,\ \textcolor{stringliteral}{"{}MPI\_Iallgatherv\ sendcount=\{\}\ total=\{\}\ ranks=\{\}\(\backslash\)n"{}},\ sendcount,\ total,\ n);}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ MPI\_Request\ req;}
+\DoxyCodeLine{00323\ \ \ \ \ MPI\_Iallgatherv(}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ sendbuf,\ sendcount,\ datatype,}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ recvbuf.data(),\ counts.data(),\ displs.data(),\ datatype,}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ comm\_,\ \&req}
+\DoxyCodeLine{00327\ \ \ \ \ );}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{while}\ (!flag)\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ MPI\_Status\ status;}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ MPI\_Test(\&req,\ \&flag,\ \&status);}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \doxymbox{\hyperlink{structcomm_1_1CommMPI_a8ae8814201884c68cadcecd80a5cd364}{poll}}();}
+\DoxyCodeLine{00334\ \ \ \ \ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ std::unordered\_map<int,\ std::vector<T>>\ by\_rank;}
+\DoxyCodeLine{00337\ \ \ \ \ by\_rank.reserve(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(n));}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ r\ =\ 0;\ r\ <\ n;\ ++r)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cnt\ =\ counts[r];}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ off\ =\ displs[r];}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cnt\ >\ 0)\ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ by\_rank.emplace(}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ r,}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ std::vector<T>(recvbuf.begin()\ +\ off,\ recvbuf.begin()\ +\ off\ +\ cnt)}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ by\_rank.emplace(r,\ std::vector<T>\{\});}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{return}\ by\_rank;}
+\DoxyCodeLine{00352\ \ \ \}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00355\ \ \ \textcolor{keywordtype}{void}\ initTermination();}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \textcolor{comment}{//\ Helper\ to\ trigger\ static\_assert\ for\ unsupported\ types.}}
+\DoxyCodeLine{00358\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}>\ \textcolor{keyword}{struct\ }AlwaysFalse\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \textcolor{comment}{//\ Map\ a\ limited\ set\ of\ basic\ C++\ types\ to\ MPI\_Datatype.}}
+\DoxyCodeLine{00361\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00362\ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ deduceDatatype()\ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ char>)\ \textcolor{keywordflow}{return}\ MPI\_CHAR;}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ signed\ char>)\ \textcolor{keywordflow}{return}\ MPI\_SIGNED\_CHAR;}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ unsigned\ char>)\ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED\_CHAR;}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ short>)\ \textcolor{keywordflow}{return}\ MPI\_SHORT;}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ unsigned\ short>)\ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED\_SHORT;}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ int>)\ \textcolor{keywordflow}{return}\ MPI\_INT;}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ unsigned\ int>)\ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ long>)\ \textcolor{keywordflow}{return}\ MPI\_LONG;}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ unsigned\ long>)\ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED\_LONG;}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ long\ long>)\ \textcolor{keywordflow}{return}\ MPI\_LONG\_LONG;}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ unsigned\ long\ long>)\ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED\_LONG\_LONG;}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ float>)\ \textcolor{keywordflow}{return}\ MPI\_FLOAT;}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ double>)\ \textcolor{keywordflow}{return}\ MPI\_DOUBLE;}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ long\ double>)\ \textcolor{keywordflow}{return}\ MPI\_LONG\_DOUBLE;}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(AlwaysFalse<T>::value,\ \textcolor{stringliteral}{"{}Unsupported\ T\ for\ CommMPI::allgather"{}});}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_DATATYPE\_NULL;\ \textcolor{comment}{//\ unreachable}}
+\DoxyCodeLine{00380\ \ \ \ \ \}}
+\DoxyCodeLine{00381\ \ \ \}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00384\ \ \ \textcolor{keywordtype}{bool}\ interop\_mode\_\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00386\ \ \ MPI\_Comm\ comm\_\ =\ MPI\_COMM\_NULL;}
+\DoxyCodeLine{00388\ \ \ std::list<std::tuple<MPI\_Request,\ std::unique\_ptr<char[]>>>\ pending\_;}
+\DoxyCodeLine{00390\ \ \ \textcolor{keywordtype}{int}\ next\_class\_index\_\ =\ 0;}
+\DoxyCodeLine{00392\ \ \ std::unordered\_map<int,\ void*>\ class\_map\_;}
+\DoxyCodeLine{00394\ \ \ std::unique\_ptr<detail::TerminationDetector>\ termination\_detector\_;}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordtype}{int}\ cached\_rank\_\ =\ -\/1;}
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordtype}{int}\ cached\_size\_\ =\ -\/1;}
+\DoxyCodeLine{00399\ \};}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \}\ \textcolor{comment}{/*\ end\ namespace\ comm\ */}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#include\ "{}comm/comm/MPI/class\_handle.impl.h"{}}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*INCLUDED\_COMM\_COMM\_MPI\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

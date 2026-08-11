@@ -1,0 +1,306 @@
+\doxysection{proxy\+\_\+wrapper.\+impl.\+h}
+\hypertarget{proxy__wrapper_8impl_8h_source}{}\label{proxy__wrapper_8impl_8h_source}\index{/comm/src/comm/comm/vt/proxy\_wrapper.impl.h@{/comm/src/comm/comm/vt/proxy\_wrapper.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ proxy\_wrapper.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DARMA/comm\ =>\ Communicator}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Copyright\ 2019-\/2024\ National\ Technology\ \&\ Engineering\ Solutions\ of\ Sandia,\ LLC}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ (NTESS).\ Under\ the\ terms\ of\ Contract\ DE-\/NA0003525\ with\ NTESS,\ the\ U.S.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Government\ retains\ certain\ rights\ in\ this\ software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ *\ Redistributions\ in\ binary\ form,\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ *\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ OWNER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Questions?\ Contact\ darma@sandia.gov}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ *****************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//@HEADER}}
+\DoxyCodeLine{00042\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ !defined\ INCLUDED\_COMM\_COMM\_PROXY\_WRAPPER\_IMPL\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ INCLUDED\_COMM\_COMM\_PROXY\_WRAPPER\_IMPL\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <vt/transport.h>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespacecomm}{comm}}\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00059\ ProxyWrapper<ProxyT>::ProxyWrapper(ProxyT\ proxy)\ :\ ProxyT(proxy)\ \{}
+\DoxyCodeLine{00060\ \ \ collective\_ctx\_\ =\ std::make\_shared<CollectiveCtx>();}
+\DoxyCodeLine{00061\ \ \ collective\_proxy\_\ =\ vt::theObjGroup()-\/>template\ makeCollective<CollectiveHandlerType>(}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{stringliteral}{"{}CommVT\_CollectiveHandler"{}},\ collective\_ctx\_.get()}
+\DoxyCodeLine{00063\ \ \ );}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}\ ProxyWrapper<ProxyT>::reduceAnonCb(vt::collective::ReduceTMsg<T>*\ msg,\ CollectiveCtx*\ ctx)\ \{}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ val\ =\ msg-\/>getVal();}
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//printf("{}\%d:\ callback\ invoked\(\backslash\)n"{},\ vt::theContext()-\/>getNode());}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (}
+\DoxyCodeLine{00072\ \ \ \ \ std::is\_same\_v<std::decay\_t<T>,\ \textcolor{keywordtype}{int}>\ ||\ std::is\_same\_v<std::decay\_t<T>,\ \textcolor{keywordtype}{double}>\ ||}
+\DoxyCodeLine{00073\ \ \ \ \ std::is\_same\_v<std::decay\_t<T>,\ \textcolor{keywordtype}{float}>\ ||\ std::is\_same\_v<std::decay\_t<T>,\ \textcolor{keywordtype}{long}>\ ||}
+\DoxyCodeLine{00074\ \ \ \ \ std::is\_same\_v<std::decay\_t<T>,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}>}
+\DoxyCodeLine{00075\ \ \ )\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ *\textcolor{keyword}{static\_cast<}std::decay\_t<T>*\textcolor{keyword}{>}(ctx-\/>out\_ptr)\ =\ val;}
+\DoxyCodeLine{00077\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{using\ }ValT\ =\ \textcolor{keyword}{typename}\ T::value\_type;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_trivially\_copyable\_v<ValT>\ ||\ std::is\_arithmetic\_v<ValT>,\ \textcolor{stringliteral}{"{}Reduce\ value\ must\ be\ trivially\ copyable"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ std::memcpy(ctx-\/>out\_ptr,\ val.data(),\ \textcolor{keyword}{sizeof}(ValT)\ *\ std::max<std::size\_t>(1,\ ctx-\/>count));}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ ctx-\/>done.store(\textcolor{keyword}{true},\ std::memory\_order\_release);}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00086\ \textcolor{keyword}{typename}\ ProxyWrapper<ProxyT>::VTOp\ ProxyWrapper<ProxyT>::mapOp(MPI\_Op\ mpio)\ \{}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{if}\ (mpio\ ==\ MPI\_SUM)\ \textcolor{keywordflow}{return}\ VTOp::Plus;}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{if}\ (mpio\ ==\ MPI\_MAX)\ \textcolor{keywordflow}{return}\ VTOp::Max;}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{if}\ (mpio\ ==\ MPI\_MIN)\ \textcolor{keywordflow}{return}\ VTOp::Min;}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{return}\ VTOp::Plus;}
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U,\ \textcolor{keyword}{typename}\ V>}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ ProxyWrapper<ProxyT>::reduce(\textcolor{keywordtype}{int}\ root,\ MPI\_Datatype\ datatype,\ MPI\_Op\ op,\ U\ sendbuf,\ V\ recvbuf,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_INT)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ int*>)\ reduce\_impl<int>(root,\ op,\ sendbuf,\ recvbuf,\ count);}
+\DoxyCodeLine{00098\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_DOUBLE)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ double*>)\ reduce\_impl<double>(root,\ op,\ sendbuf,\ recvbuf,\ count);}
+\DoxyCodeLine{00100\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_FLOAT)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ float*>)\ reduce\_impl<float>(root,\ op,\ sendbuf,\ recvbuf,\ count);}
+\DoxyCodeLine{00102\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_LONG)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ long*>)\ reduce\_impl<long>(root,\ op,\ sendbuf,\ recvbuf,\ count);}
+\DoxyCodeLine{00104\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_LONG\_LONG)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ long\ long*>)\ reduce\_impl<long\ long>(root,\ op,\ sendbuf,\ recvbuf,\ count);}
+\DoxyCodeLine{00106\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ vtAbort(\textcolor{stringliteral}{"{}ProxyWrapper::reduce:\ unsupported\ MPI\_Datatype"{}});}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00112\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ SendBufT,\ \textcolor{keyword}{typename}\ RecvBufT>}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ ProxyWrapper<ProxyT>::reduce\_impl(\textcolor{keywordtype}{int}\ root,\ MPI\_Op\ op,\ SendBufT\ sendbuf,\ RecvBufT\ recvbuf,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00114\ \ \ VTOp\ vk\ =\ mapOp(op);}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{auto}\ ctx\ =\ std::make\_unique<CollectiveCtx>();}
+\DoxyCodeLine{00116\ \ \ ctx-\/>out\_ptr\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(recvbuf);}
+\DoxyCodeLine{00117\ \ \ ctx-\/>count\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(std::max(1,\ count));}
+\DoxyCodeLine{00118\ \ \ ctx-\/>done.store(\textcolor{keyword}{false});}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//printf("{}\%d:\ initiating\ reduce\(\backslash\)n"{},\ vt::theContext()-\/>getNode());}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 1)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ T\ value\ =\ *\textcolor{keyword}{static\_cast<}T\ const*\textcolor{keyword}{>}(sendbuf);}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ vt::collective::ReduceTMsg<T>;}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ vt::theCB()-\/>makeCallbackSingleAnon<MsgT,\ CollectiveCtx>(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ vt::pipe::LifetimeEnum::Once,\ ctx.get(),\ \&ProxyWrapper::reduceAnonCb<T>}
+\DoxyCodeLine{00126\ \ \ \ \ );}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ vt::makeMessage<MsgT>(value);}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (vt::theContext()-\/>getNode()\ ==\ root)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ msg-\/>setCallback(cb);}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ ProxyT\ proxy\ =\ ProxyT(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Plus)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::PlusOp<T>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00140\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Max)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::MaxOp<T>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00148\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Min)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::MinOp<T>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00156\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ VTOp\ in\ reduce\_impl"{}});}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ std::vector<T>\ v(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(count));}
+\DoxyCodeLine{00161\ \ \ \ \ std::memcpy(v.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}\ const*\textcolor{keyword}{>}(sendbuf),\ \textcolor{keyword}{sizeof}(T)\ *\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(count));}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{using\ }MsgT\ =\ vt::collective::ReduceTMsg<std::vector<T>>;}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{auto}\ cb\ =\ vt::theCB()-\/>makeCallbackSingleAnon<MsgT,\ CollectiveCtx>(}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ vt::pipe::LifetimeEnum::Once,\ ctx.get(),\ \&ProxyWrapper::reduceAnonCb<std::vector<T>>}
+\DoxyCodeLine{00165\ \ \ \ \ );}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{auto}\ msg\ =\ vt::makeMessage<MsgT>(std::move(v));}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{if}\ (vt::theContext()-\/>getNode()\ ==\ root)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ msg-\/>setCallback(cb);}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ ProxyT\ proxy\ =\ ProxyT(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Plus)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::PlusOp<std::vector<T>>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00179\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Max)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::MaxOp<std::vector<T>>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00187\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (vk\ ==\ VTOp::Min)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ vt::theObjGroup()-\/>template\ reduce<}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ProxyT::ObjGroupType,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ MsgT,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \&MsgT::template\ msgHandler<}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ MsgT,\ vt::collective::MinOp<std::vector<T>>,\ vt::collective::reduce::operators::ReduceCallback<MsgT>}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ >}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ >(proxy,\ msg,\ vt::collective::reduce::ReduceStamp\{\});}
+\DoxyCodeLine{00195\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ VTOp\ in\ reduce\_impl"{}});}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordflow}{while}\ (vt::theContext()-\/>getNode()\ ==\ root\ \&\&\ !ctx-\/>done.load(std::memory\_order\_acquire))\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ vt::theSched()-\/>runSchedulerOnceImpl();}
+\DoxyCodeLine{00202\ \ \ \}}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ ProxyWrapper<ProxyT>::broadcast(\textcolor{keywordtype}{int}\ root,\ MPI\_Datatype\ datatype,\ T*\ buffer,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_INT)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ int>)\ broadcast\_impl<int>(root,\ buffer,\ count);}
+\DoxyCodeLine{00210\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_DOUBLE)\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ double>)\ broadcast\_impl<double>(root,\ buffer,\ count);}
+\DoxyCodeLine{00212\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_FLOAT)\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ float>)\ broadcast\_impl<float>(root,\ buffer,\ count);}
+\DoxyCodeLine{00214\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_LONG)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ long>)\ broadcast\_impl<long>(root,\ buffer,\ count);}
+\DoxyCodeLine{00216\ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (datatype\ ==\ MPI\_LONG\_LONG)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ long\ long>)\ broadcast\_impl<long\ long>(root,\ buffer,\ count);}
+\DoxyCodeLine{00218\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ vtAbort(\textcolor{stringliteral}{"{}ProxyWrapper::broadcast:\ unsupported\ MPI\_Datatype"{}});}
+\DoxyCodeLine{00220\ \ \ \}}
+\DoxyCodeLine{00221\ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}\ ProxyWrapper<ProxyT>::broadcast\_impl(\textcolor{keywordtype}{int}\ root,\ T*\ buffer,\ \textcolor{keywordtype}{int}\ count)\ \{}
+\DoxyCodeLine{00226\ \ \ collective\_ctx\_-\/>out\_ptr\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(buffer);}
+\DoxyCodeLine{00227\ \ \ collective\_ctx\_-\/>count\ =\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(std::max(1,\ count));}
+\DoxyCodeLine{00228\ \ \ collective\_ctx\_-\/>done.store(\textcolor{keyword}{false});}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordflow}{if}\ (vt::theContext()-\/>getNode()\ ==\ root)\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ ==\ 1)\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ T\ value\ =\ *\textcolor{keyword}{static\_cast<}T\ const*\textcolor{keyword}{>}(buffer);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ collective\_proxy\_.template\ broadcast<\&CollectiveHandlerType::template\ broadcastScalar<T>>(value);}
+\DoxyCodeLine{00234\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ std::vector<T>\ values(buffer,\ buffer\ +\ count);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ collective\_proxy\_.template\ broadcast<\&CollectiveHandlerType::template\ broadcastVector<T>>(values);}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordflow}{while}\ (!collective\_ctx\_-\/>done.load(std::memory\_order\_acquire))\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ vt::theSched()-\/>runSchedulerOnceImpl();}
+\DoxyCodeLine{00242\ \ \ \}}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00246\ \textcolor{keyword}{struct\ }AllReduceContainer\ \{}
+\DoxyCodeLine{00247\ \ \ AllReduceContainer()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{explicit}\ AllReduceContainer(std::vector<T>\ \textcolor{keyword}{const}\&\ in)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ by\_rank[vt::theContext()-\/>getNode()]\ =\ in;}
+\DoxyCodeLine{00250\ \ \ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{keyword}{friend}\ AllReduceContainer<T>\ operator+(}
+\DoxyCodeLine{00253\ \ \ \ \ AllReduceContainer<T>\ lhs,}
+\DoxyCodeLine{00254\ \ \ \ \ AllReduceContainer<T>\ \textcolor{keyword}{const}\&\ rhs}
+\DoxyCodeLine{00255\ \ \ )\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \textcolor{keyword}{const}\&\ kv\ :\ rhs.by\_rank)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ vec\ =\ lhs.by\_rank[kv.first];}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ vec.insert(vec.end(),\ kv.second.begin(),\ kv.second.end());}
+\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00261\ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ SerializerT>}
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{void}\ serialize(SerializerT\&\ s)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ s\ |\ by\_rank;}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ std::unordered\_map<int,\ std::vector<T>>\ by\_rank;}
+\DoxyCodeLine{00269\ \};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ ProxyT>}
+\DoxyCodeLine{00272\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00273\ std::unordered\_map<int,\ std::vector<T>>}
+\DoxyCodeLine{00274\ ProxyWrapper<ProxyT>::allgather(T\ \textcolor{keyword}{const}*\ sendbuf,\ \textcolor{keywordtype}{int}\ sendcount)\ \{}
+\DoxyCodeLine{00275\ \ \ std::unordered\_map<int,\ std::vector<T>>\ out;}
+\DoxyCodeLine{00276\ \ \ collective\_ctx\_-\/>out\_ptr\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\&out);}
+\DoxyCodeLine{00277\ \ \ collective\_ctx\_-\/>done.store(\textcolor{keyword}{false});}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ std::vector<T>\ local\_vec;}
+\DoxyCodeLine{00280\ \ \ \textcolor{keywordflow}{if}\ (sendcount\ >\ 0)\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ local\_vec.resize(\textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(sendcount));}
+\DoxyCodeLine{00282\ \ \ \ \ std::memcpy(local\_vec.data(),\ sendbuf,\ \textcolor{keyword}{sizeof}(T)\ *\ \textcolor{keyword}{static\_cast<}std::size\_t\textcolor{keyword}{>}(sendcount));}
+\DoxyCodeLine{00283\ \ \ \}}
+\DoxyCodeLine{00284\ \ \ AllReduceContainer<T>\ container\{local\_vec\};}
+\DoxyCodeLine{00285\ \ \ collective\_proxy\_.template\ allreduce<}
+\DoxyCodeLine{00286\ \ \ \ \ \&CollectiveHandlerType::template\ allgatherValues<AllReduceContainer<T>>,}
+\DoxyCodeLine{00287\ \ \ \ \ vt::collective::PlusOp}
+\DoxyCodeLine{00288\ \ \ >(}
+\DoxyCodeLine{00289\ \ \ \ \ container}
+\DoxyCodeLine{00290\ \ \ );}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordflow}{while}\ (!collective\_ctx\_-\/>done.load(std::memory\_order\_acquire))\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ vt::theSched()-\/>runSchedulerOnceImpl();}
+\DoxyCodeLine{00294\ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \}\ \textcolor{comment}{//\ namespace\ comm}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INCLUDED\_COMM\_COMM\_PROXY\_WRAPPER\_IMPL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
