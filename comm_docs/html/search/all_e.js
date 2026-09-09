@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['send_0',['send',['../structcomm_1_1CommMPI.html#ac22e6d77807de4a545cd3990fbe1e3d0',1,'comm::CommMPI']]]
+  ['terminationdetector_0',['TerminationDetector',['../structcomm_1_1detail_1_1TerminationDetector.html',1,'comm::detail']]],
+  ['typeregistry_1',['TypeRegistry',['../structcomm_1_1detail_1_1TypeRegistry.html',1,'comm::detail']]]
 ];

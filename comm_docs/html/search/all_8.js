@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loggingstate_0',['LoggingState',['../structcomm_1_1util_1_1LoggingState.html',1,'comm::util']]]
+  ['membertag_0',['MemberTag',['../structcomm_1_1detail_1_1MemberTag.html',1,'comm::detail']]]
 ];

@@ -13,7 +13,10 @@ var annotated_dup =
         [ "TypeRegistry", "structcomm_1_1detail_1_1TypeRegistry.html", null ]
       ] ],
       [ "util", null, [
-        [ "LoggingState", "structcomm_1_1util_1_1LoggingState.html", null ]
+        [ "detail", null, [
+          [ "ComponentState", "structcomm_1_1util_1_1detail_1_1ComponentState.html", null ]
+        ] ],
+        [ "Component", "classcomm_1_1util_1_1Component.html", "classcomm_1_1util_1_1Component" ]
       ] ],
       [ "AllReduceContainer", "structcomm_1_1AllReduceContainer.html", null ],
       [ "ClassHandle", "structcomm_1_1ClassHandle.html", null ],

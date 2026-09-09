@@ -5,6 +5,9 @@ var NAVTREEINDEX0 =
 "class__handle_8impl_8h_source.html":[5,0,0,0,0,0,0,1],
 "classcomm_1_1CommMPI_1_1BufferIntInterpreter.html":[2,0,0,4,0],
 "classcomm_1_1CommMPI_1_1BufferIntInterpreter.html":[4,0,0,6,0],
+"classcomm_1_1util_1_1Component.html":[4,0,0,1,1],
+"classcomm_1_1util_1_1Component.html#ade1d4a43e2fc49ef51943f106c5b0c7d":[4,0,0,1,1,0],
+"classcomm_1_1util_1_1Component.html#afb71dd56dce462b97c9cca1772a53cd2":[4,0,0,1,1,1],
 "classes.html":[4,1],
 "collective__handler_8h_source.html":[5,0,0,0,0,0,1,0],
 "comm__mpi_8h_source.html":[5,0,0,0,0,0,0,2],
@@ -32,6 +35,7 @@ var NAVTREEINDEX0 =
 "files.html":[5,0],
 "functions.html":[4,3,0],
 "functions_func.html":[4,3,1],
+"functions_rela.html":[4,3,2],
 "hierarchy.html":[4,2],
 "index.html":[],
 "logging_8h_source.html":[5,0,0,0,0,1,0],
@@ -91,6 +95,6 @@ var NAVTREEINDEX0 =
 "structcomm_1_1detail_1_1RegisteredInfo.html":[4,0,0,0,6],
 "structcomm_1_1detail_1_1TerminationDetector.html":[4,0,0,0,7],
 "structcomm_1_1detail_1_1TypeRegistry.html":[4,0,0,0,8],
-"structcomm_1_1util_1_1LoggingState.html":[4,0,0,1,0],
+"structcomm_1_1util_1_1detail_1_1ComponentState.html":[4,0,0,1,0,0],
 "termination_8h_source.html":[5,0,0,0,0,0,0,4]
 };

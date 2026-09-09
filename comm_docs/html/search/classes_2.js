@@ -7,5 +7,7 @@ var searchData=
   ['collectivehandler_4',['CollectiveHandler',['../structcomm_1_1CollectiveHandler.html',1,'comm']]],
   ['collectivehandler_3c_20collectivectx_20_3e_5',['CollectiveHandler&lt; CollectiveCtx &gt;',['../structcomm_1_1CollectiveHandler.html',1,'comm']]],
   ['commmpi_6',['CommMPI',['../structcomm_1_1CommMPI.html',1,'comm']]],
-  ['communicatortraits_7',['CommunicatorTraits',['../structcomm_1_1CommunicatorTraits.html',1,'comm']]]
+  ['communicatortraits_7',['CommunicatorTraits',['../structcomm_1_1CommunicatorTraits.html',1,'comm']]],
+  ['component_8',['Component',['../classcomm_1_1util_1_1Component.html',1,'comm::util']]],
+  ['componentstate_9',['ComponentState',['../structcomm_1_1util_1_1detail_1_1ComponentState.html',1,'comm::util::detail']]]
 ];

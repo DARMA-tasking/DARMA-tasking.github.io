@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['proxywrapper_0',['ProxyWrapper',['../structcomm_1_1ProxyWrapper.html',1,'comm']]]
+  ['registeredinfo_0',['RegisteredInfo',['../structcomm_1_1detail_1_1RegisteredInfo.html',1,'comm::detail']]]
 ];

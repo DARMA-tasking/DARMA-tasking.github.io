@@ -10,5 +10,7 @@ var searchData=
   ['comm_7',['comm',['../namespacecomm.html',1,'']]],
   ['commmpi_8',['CommMPI',['../structcomm_1_1CommMPI.html',1,'comm']]],
   ['communicator_9',['Communicator',['../conceptcomm_1_1Communicator.html',1,'comm']]],
-  ['communicatortraits_10',['CommunicatorTraits',['../structcomm_1_1CommunicatorTraits.html',1,'comm']]]
+  ['communicatortraits_10',['CommunicatorTraits',['../structcomm_1_1CommunicatorTraits.html',1,'comm']]],
+  ['component_11',['Component',['../classcomm_1_1util_1_1Component.html',1,'comm::util']]],
+  ['componentstate_12',['ComponentState',['../structcomm_1_1util_1_1detail_1_1ComponentState.html',1,'comm::util::detail']]]
 ];
