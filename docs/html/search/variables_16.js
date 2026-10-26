@@ -1,7 +1,7 @@
 var searchData=
 [
   ['wait_5fcount_5f_0',['wait_count_',['../structvt_1_1group_1_1_info_rooted.html#af4f9a1defdcf2c7242b25c45f319d224',1,'vt::group::InfoRooted']]],
-  ['waiting_5fcont_5f_1',['waiting_cont_',['../structvt_1_1group_1_1_group_manager_t.html#aeb55b62f1e0be23a705290e0ee076b75',1,'vt::group::GroupManagerT']]],
+  ['waiting_5fcont_5f_1',['waiting_cont_',['../structvt_1_1group_1_1_group_manager.html#a852f8356d1a6edc78869d3b4cd79552c',1,'vt::group::GroupManager']]],
   ['waiting_5fglobal_5fmap_5fhandler_5f_2',['waiting_global_map_handler_',['../structvt_1_1location_1_1_entity_location_coord.html#a3cee6dcf23af92b0b09eff2b1997bcb9',1,'vt::location::EntityLocationCoord']]],
   ['wave_3',['wave',['../structvt_1_1term_1_1_term_msg.html#a4090f02c6dae636a0c2b31c101532255',1,'vt::term::TermMsg']]],
   ['whole_5fphase_4',['WHOLE_PHASE',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_phase_offset.html#a0eb2d2db9e2d4329e2f76332c1fb2429',1,'vt::vrt::collection::balance::PhaseOffset']]],

@@ -27,7 +27,5 @@ var searchData=
   ['group_5fready_5f_24',['group_ready_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#afa3f96bdf578c8a188c1aca64bc343d7',1,'vt::vrt::collection::Holder']]],
   ['group_5froot_5f_25',['group_root_',['../structvt_1_1vrt_1_1collection_1_1_holder.html#ade00ee9b6c49770e4ecf0d2920bb841b',1,'vt::vrt::collection::Holder']]],
   ['group_5fstates_5f_26',['group_states_',['../structvt_1_1metrics_1_1_perf_data.html#ab89d770c74ac12a91d893897d15f832d',1,'vt::metrics::PerfData']]],
-  ['groupmanagert_3c_20t_20_3e_3a_3acontinuation_5factions_5ft_5f_27',['continuation_actions_t_',['../namespacevt_1_1group.html#a92202e7baa18478c64a3f731e536d596',1,'vt::group']]],
-  ['groupmanagert_3c_20t_20_3e_3a_3awaiting_5fcont_5f_28',['waiting_cont_',['../namespacevt_1_1group.html#a9014318a70094e002351e8d1b416b125',1,'vt::group']]],
-  ['guarded_5fepoch_5f_29',['guarded_epoch_',['../structvt_1_1_epoch_guard.html#aecd3303d5b5594b0f19791a472ce515c',1,'vt::EpochGuard']]]
+  ['guarded_5fepoch_5f_27',['guarded_epoch_',['../structvt_1_1_epoch_guard.html#aecd3303d5b5594b0f19791a472ce515c',1,'vt::EpochGuard']]]
 ];

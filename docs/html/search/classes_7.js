@@ -49,12 +49,11 @@ var searchData=
   ['groupinfomsg_3c_20groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e_20_3e_46',['GroupInfoMsg&lt; GroupMsg&lt;::vt::PayloadMessage &gt; &gt;',['../structvt_1_1group_1_1_group_info_msg.html',1,'vt::group']]],
   ['grouplistmsg_47',['GroupListMsg',['../structvt_1_1group_1_1_group_list_msg.html',1,'vt::group']]],
   ['groupmanager_48',['GroupManager',['../structvt_1_1group_1_1_group_manager.html',1,'vt::group']]],
-  ['groupmanagert_49',['GroupManagerT',['../structvt_1_1group_1_1_group_manager_t.html',1,'vt::group']]],
-  ['groupmsg_50',['GroupMsg',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
-  ['groupmsg_3c_3a_3avt_3a_3amessage_20_3e_51',['GroupMsg&lt;::vt::Message &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
-  ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e_52',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
-  ['grouprangemsg_53',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
-  ['groupstate_54',['GroupState',['../structvt_1_1metrics_1_1_perf_data_1_1_group_state.html',1,'vt::metrics::PerfData']]],
-  ['groupsyncmsg_55',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
-  ['grouptag_56',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
+  ['groupmsg_49',['GroupMsg',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
+  ['groupmsg_3c_3a_3avt_3a_3amessage_20_3e_50',['GroupMsg&lt;::vt::Message &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
+  ['groupmsg_3c_3a_3avt_3a_3apayloadmessage_20_3e_51',['GroupMsg&lt;::vt::PayloadMessage &gt;',['../structvt_1_1group_1_1_group_msg.html',1,'vt::group']]],
+  ['grouprangemsg_52',['GroupRangeMsg',['../structvt_1_1group_1_1_group_range_msg.html',1,'vt::group']]],
+  ['groupstate_53',['GroupState',['../structvt_1_1metrics_1_1_perf_data_1_1_group_state.html',1,'vt::metrics::PerfData']]],
+  ['groupsyncmsg_54',['GroupSyncMsg',['../structvt_1_1group_1_1global_1_1_group_sync_msg.html',1,'vt::group::global']]],
+  ['grouptag_55',['GroupTag',['../structvt_1_1collective_1_1reduce_1_1detail_1_1_reduce_scope_holder_1_1_group_tag.html',1,'vt::collective::reduce::detail::ReduceScopeHolder&lt; T &gt;::GroupTag'],['../structvt_1_1collective_1_1reduce_1_1detail_1_1tags_1_1_group_tag.html',1,'vt::collective::reduce::detail::tags::GroupTag']]]
 ];

@@ -81,7 +81,7 @@ var searchData=
   ['context_78',['context',['../structvt_1_1config_1_1_configuration.html#afb853fae433b15ebdb22a19a96423b23',1,'vt::config::Configuration']]],
   ['contexts_5f_79',['contexts_',['../structvt_1_1runnable_1_1_runnable_new.html#a067b986e570ea6cb09eeb46720b27971',1,'vt::runnable::RunnableNew']]],
   ['continuation_5factions_5f_80',['continuation_actions_',['../structvt_1_1group_1_1_group_manager.html#a39b9b401f406e473eb073d59fb186e2c',1,'vt::group::GroupManager']]],
-  ['continuation_5factions_5ft_5f_81',['continuation_actions_t_',['../structvt_1_1group_1_1_group_manager_t.html#a7baa86fea1b4a87e6b0c5c56cf0e821d',1,'vt::group::GroupManagerT']]],
+  ['continuation_5factions_5ft_5f_81',['continuation_actions_t_',['../structvt_1_1group_1_1_group_manager.html#a95971f93c401ae9bdff5150e67091fb3',1,'vt::group::GroupManager']]],
   ['control_5fbase_5f_82',['control_base_',['../structvt_1_1rdma_1_1_holder.html#a4f9ee10b09fb58524ac3659f180a4a96',1,'vt::rdma::Holder']]],
   ['control_5fwindow_5f_83',['control_window_',['../structvt_1_1rdma_1_1_holder.html#adfcf34183c7325a69e1ac6f550c471f1',1,'vt::rdma::Holder']]],
   ['converge_5ftolerance_5f_84',['converge_tolerance_',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#ab6659220f4ea4f16b3b995af774da682',1,'vt::vrt::collection::lb::TemperedLB']]],

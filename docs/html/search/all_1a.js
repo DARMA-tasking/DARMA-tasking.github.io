@@ -9,7 +9,7 @@ var searchData=
   ['waitcollective_6',['waitCollective',['../structvt_1_1collective_1_1_collective_scope.html#afae2807ff3adc0f1d6772411168064f9',1,'vt::collective::CollectiveScope']]],
   ['waitcounttype_7',['WaitCountType',['../structvt_1_1group_1_1_info_base.html#a0924de8df3a2ec72ebdd499ad8a28abf',1,'vt::group::InfoBase']]],
   ['waitforhandleready_8',['waitForHandleReady',['../structvt_1_1rdma_1_1_sub_handle.html#a57898faf652b288e75811c7c38e94dc2',1,'vt::rdma::SubHandle']]],
-  ['waiting_5fcont_5f_9',['waiting_cont_',['../structvt_1_1group_1_1_group_manager_t.html#aeb55b62f1e0be23a705290e0ee076b75',1,'vt::group::GroupManagerT']]],
+  ['waiting_5fcont_5f_9',['waiting_cont_',['../structvt_1_1group_1_1_group_manager.html#a852f8356d1a6edc78869d3b4cd79552c',1,'vt::group::GroupManager']]],
   ['waiting_5fglobal_5fmap_5fhandler_5f_10',['waiting_global_map_handler_',['../structvt_1_1location_1_1_entity_location_coord.html#a3cee6dcf23af92b0b09eff2b1997bcb9',1,'vt::location::EntityLocationCoord']]],
   ['walk_5fregion_11',['walk_region',['../structvt_1_1rdma_1_1_group.html#a53c1941f50d8c724ea56c824cd514eee',1,'vt::rdma::Group']]],
   ['warning_12',['warning',['../namespacevt.html#af11de63df5da8fa58bd668f4e5026a72',1,'vt']]],

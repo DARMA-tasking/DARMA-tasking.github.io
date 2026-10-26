@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ackreqlisttype_0',['AckReqListType',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a9d4102aa0577c3b077befc48c1a88842',1,'vt::term::ds::TermDS']]],
-  ['actioncontainerttype_1',['ActionContainerTType',['../structvt_1_1group_1_1_group_manager_t.html#aa490b47879c6a658c7a49adbecc183db',1,'vt::group::GroupManagerT']]],
+  ['actioncontainerttype_1',['ActionContainerTType',['../structvt_1_1group_1_1_group_manager.html#a809ccd1762cee97b58ee5c0c8b7f9811',1,'vt::group::GroupManager']]],
   ['actioncontainertype_2',['ActionContainerType',['../structvt_1_1event_1_1_event_holder.html#ae0e2d5fe3bd5792118116105a0a09db7',1,'vt::event::EventHolder::ActionContainerType'],['../structvt_1_1group_1_1_group_manager.html#a1ed47f8dc44512271cad89f34ffa25ee',1,'vt::group::GroupManager::ActionContainerType'],['../structvt_1_1location_1_1_entity_location_coord.html#afeaaebfc1d7cbdd20cccbd348d96748a',1,'vt::location::EntityLocationCoord::ActionContainerType'],['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a536805fb5c58b557b66e7d7febe87567',1,'vt::vrt::collection::CollectionManager::ActionContainerType']]],
   ['actionconttype_3',['ActionContType',['../structvt_1_1term_1_1_term_action.html#aec4a5ca3c0b2d9ae23defb65d27d2984',1,'vt::term::TermAction']]],
   ['actioncounttype_4',['ActionCountType',['../structvt_1_1rdma_1_1_action.html#a7c893809966c9c8c871002d5283728f0',1,'vt::rdma::Action']]],
@@ -9,12 +9,12 @@ var searchData=
   ['actiondatatype_6',['ActionDataType',['../structvt_1_1rdma_1_1_base_typed_handle.html#a20c231fb671a38c3bb761d613dd42b3c',1,'vt::rdma::BaseTypedHandle']]],
   ['actioneagersend_7',['ActionEagerSend',['../namespacevt_1_1serialization.html#a263682bb93396109e0ae6c8eef1e2997',1,'vt::serialization']]],
   ['actiongrouptype_8',['ActionGroupType',['../structvt_1_1group_1_1_group_manager.html#ae871c5871ad62b530220009c1ee4d4b9',1,'vt::group::GroupManager']]],
-  ['actionlistttype_9',['ActionListTType',['../structvt_1_1group_1_1_group_manager_t.html#a653158254f8de50d4070f0621644a48a',1,'vt::group::GroupManagerT']]],
+  ['actionlistttype_9',['ActionListTType',['../structvt_1_1group_1_1_group_manager.html#a648f7e8156fe7865a69033ccfa7680f0',1,'vt::group::GroupManager']]],
   ['actionlisttype_10',['ActionListType',['../structvt_1_1group_1_1_group_manager.html#a48b2dd05bbdda19c5d6195b8932a2716',1,'vt::group::GroupManager::ActionListType'],['../structvt_1_1location_1_1_entity_location_coord.html#a5b37e5d3bd2956c3e6737ea087ea2618',1,'vt::location::EntityLocationCoord::ActionListType']]],
   ['actionnodesendtype_11',['ActionNodeSendType',['../namespacevt_1_1serialization.html#a4af77db18b3383136dc796dbab921966',1,'vt::serialization']]],
   ['actionnodetype_12',['ActionNodeType',['../namespacevt.html#a6120232f66889de000ccfed71e703ec9',1,'vt']]],
   ['actionproxytype_13',['ActionProxyType',['../structvt_1_1vrt_1_1collection_1_1_collection_manager.html#a98a759caf144277dcd341cdbd5538f59',1,'vt::vrt::collection::CollectionManager::ActionProxyType'],['../namespacevt.html#a1eeed92fd07cb9368d26f73660ec4e7f',1,'vt::ActionProxyType']]],
-  ['actionttype_14',['ActionTType',['../structvt_1_1group_1_1_group_manager_t.html#acb20922687d3165d97de391fdbaf02ca',1,'vt::group::GroupManagerT']]],
+  ['actionttype_14',['ActionTType',['../structvt_1_1group_1_1_group_manager.html#a8dc79f96c671d58b5a37ed48a0d63bff',1,'vt::group::GroupManager']]],
   ['actiontype_15',['ActionType',['../namespacevt.html#a375d9819ae94c16d35afde4bc8e9cb42',1,'vt']]],
   ['actionvectype_16',['ActionVecType',['../structvt_1_1term_1_1_term_action.html#a76d94f79a48ba8367b68f9188784da88',1,'vt::term::TermAction']]],
   ['active_17',['Active',['../namespacevt.html#a492543313196079e88915c5b5b0072f8',1,'vt']]],

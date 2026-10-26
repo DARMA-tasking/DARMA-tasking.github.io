@@ -632,7 +632,7 @@ var searchData=
   ['continuation_629',['Continuation',['../structvt_1_1ctx_1_1_continuation.html',1,'vt::ctx::Continuation'],['../structvt_1_1ctx_1_1_continuation.html#a161c480097907c7cc11f112ea6130a39',1,'vt::ctx::Continuation::Continuation()=default'],['../structvt_1_1ctx_1_1_continuation.html#ad18f8613f142fa3ed0e08f9d8df4e05a',1,'vt::ctx::Continuation::Continuation(ActionType in_cont)']]],
   ['continuation_2eh_630',['continuation.h',['../continuation_8h.html',1,'']]],
   ['continuation_5factions_5f_631',['continuation_actions_',['../structvt_1_1group_1_1_group_manager.html#a39b9b401f406e473eb073d59fb186e2c',1,'vt::group::GroupManager']]],
-  ['continuation_5factions_5ft_5f_632',['continuation_actions_t_',['../structvt_1_1group_1_1_group_manager_t.html#a7baa86fea1b4a87e6b0c5c56cf0e821d',1,'vt::group::GroupManagerT']]],
+  ['continuation_5factions_5ft_5f_632',['continuation_actions_t_',['../structvt_1_1group_1_1_group_manager.html#a95971f93c401ae9bdff5150e67091fb3',1,'vt::group::GroupManager']]],
   ['continuationdeletertype_633',['ContinuationDeleterType',['../namespacevt.html#af115fa46aacfd608ee88b347a6096940',1,'vt']]],
   ['control_634',['Control',['../namespacevt_1_1elm.html#ab2606b4fa55a31961da3b9379b3eb70da3edd375dc89b1e0779fc3339a73d2363',1,'vt::elm::Control'],['../namespacevt.html#af182285b57b225b163d5d8aff03cb8c2a3e3fe7a58187c2288f3c2177be08d4d5',1,'vt::Control']]],
   ['control2_635',['Control2',['../namespacevt_1_1elm.html#aecc441d9d3dee46f8a528484bdc8350ca696c15ff7ed17fa970067d9dca66b102',1,'vt::elm']]],
