@@ -58,6 +58,5 @@ var searchData=
   ['eventstatetype_55',['EventStateType',['../structvt_1_1event_1_1_async_event.html#a35f2dfb3322fc042d4561ce1e119a0c8',1,'vt::event::AsyncEvent']]],
   ['eventtriggerconttype_56',['EventTriggerContType',['../structvt_1_1sched_1_1_scheduler.html#a68203230dc48285d3d50bbb363ed267b',1,'vt::sched::Scheduler']]],
   ['eventtype_57',['EventType',['../namespacevt.html#a7d6df0c1414eb886b0cd8b3ddd491a94',1,'vt']]],
-  ['existslisttype_58',['ExistsListType',['../structvt_1_1location_1_1_entity_location_coord.html#aa45f95f8c77916f9c615c5c3aa97eb8b',1,'vt::location::EntityLocationCoord']]],
-  ['existsnodeactiontype_59',['ExistsNodeActionType',['../namespacevt_1_1location.html#aefac13a42de68d38b279d351013263cc',1,'vt::location']]]
+  ['existsnodeactiontype_58',['ExistsNodeActionType',['../namespacevt_1_1location.html#aefac13a42de68d38b279d351013263cc',1,'vt::location']]]
 ];

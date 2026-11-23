@@ -32,7 +32,6 @@
                 <li><a href="collection.html">Virtual Context Collection</a></li>
                 <li><a href="collective.html">Collectives</a></li>
                 <li><a href="group.html">Group Manager</a></li>
-                <li><a href="location.html">Location Manager</a></li>
                 <li><a href="objgroup.html">Object Group Manager</a></li>
                 <li><a href="pipe.html">Pipe Manager</a></li>
                 <li><a href="pool.html">Memory Pool</a></li>
@@ -109,7 +108,6 @@
             <li>
               Reference
               <ul>
-                <li><a href="#base-classes">Base classes</a></li>
                 <li><a href="#pub-types">Public types</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
                 <li><a href="#pub-methods">Public functions</a></li>
@@ -117,16 +115,7 @@
             </li>
           </ul>
         </nav>
-<p>Allows general registration of an <code>EntityID</code> that is tracked across the system as it migrates. Routes messages to the appropriate node by inheriting from <code><a href="structvt_1_1location_1_1_entity_msg.html" class="m-doc">EntityMsg</a></code> and sending it through the routing algorithm. Manages a distributed table of entities and their location allowing an entity to be found anywhere in the system. Caches locations to speed up resolution once a location is known. Allows migration of an entity at any time; forwards messages if they miss in the cache.</p><p>The <code>registerEntity</code> method allows an external component to locally register an entity as existing on this node. If the entity is deleted, <code>unregisterEntity</code> should be called; if the entity is migrated, <code>entityEmigrated</code> should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling <code>routeMsg</code> to the associated entity.</p>
-        <section id="base-classes">
-          <h2><a href="#base-classes">Base classes</a></h2>
-          <dl class="m-doc">
-            <dt>
-              struct <a href="structvt_1_1location_1_1_location_coord.html" class="m-doc">LocationCoord</a>
-            </dt>
-            <dd><span></span></dd>
-          </dl>
-        </section>
+<p>Allows general registration of an <code>EntityID</code> that is tracked across the system as it migrates. DARMA/loc owns the distributed directory, resolution, and cache-coherence protocol through <code><a href="#a83a6d1c397be6095f13926881b1c8baf" class="m-doc">ResolverType</a></code>. VT retains the entity message delivery, handler dispatch, and termination-epoch integration layered on top of the resolved node.</p><p>The <code>registerEntity</code> method allows an external component to locally register an entity as existing on this node. If the entity is deleted, <code>unregisterEntity</code> should be called; if the entity is migrated, <code>entityEmigrated</code> should be invoked on the node from which the entity is emigrating. A message may arrive for the entity by a location coordinator calling <code>routeMsg</code> to the associated entity.</p>
         <section id="pub-types">
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-doc">
@@ -134,12 +123,12 @@
               using <a href="#a610a93a11a166da3e7114c9fc179504e" class="m-doc-self">ThisType</a> = <a href="#a84d2166e5a2c192b081c222e15e93882" class="m-doc">EntityLocationCoord</a>&lt;EntityID&gt;
             </dt>
             <dd><span></span></dd>
-            <dt id="a685f9eee868b7b9e01072a5b303548bc">
-              using <a href="#a685f9eee868b7b9e01072a5b303548bc" class="m-doc-self">LocRecType</a> = <a href="structvt_1_1location_1_1_loc_record.html" class="m-doc">LocRecord</a>&lt;EntityID&gt;
+            <dt id="a4d1bb349061e39adfad0536c3695bd2e">
+              using <a href="#a4d1bb349061e39adfad0536c3695bd2e" class="m-doc-self">ResolverCommType</a> = <a href="structvt_1_1location_1_1_loc_communicator.html" class="m-doc">LocCommunicator</a>&lt;EntityID&gt;
             </dt>
             <dd><span></span></dd>
-            <dt id="a8824e120b11c3234534a6dce11fe0c69">
-              using <a href="#a8824e120b11c3234534a6dce11fe0c69" class="m-doc-self">LocCacheType</a> = <a href="structvt_1_1location_1_1_loc_lookup.html" class="m-doc">LocLookup</a>&lt;EntityID, <a href="#a685f9eee868b7b9e01072a5b303548bc" class="m-doc">LocRecType</a>&gt;
+            <dt id="a83a6d1c397be6095f13926881b1c8baf">
+              using <a href="#a83a6d1c397be6095f13926881b1c8baf" class="m-doc-self">ResolverType</a> = ::loc::Coordinator&lt;EntityID, <a href="#a4d1bb349061e39adfad0536c3695bd2e" class="m-doc">ResolverCommType</a>&gt;
             </dt>
             <dd><span></span></dd>
             <dt id="ab0db07ed0b9f75712922733dd467b100">
@@ -158,28 +147,8 @@
               using <a href="#a5b37e5d3bd2956c3e6737ea087ea2618" class="m-doc-self">ActionListType</a> = std::vector&lt;<a href="namespacevt_1_1location.html#a804be7bd7f1a880f42e31ab8d1cc9bc6" class="m-doc">NodeActionType</a>&gt;
             </dt>
             <dd><span></span></dd>
-            <dt id="aa45f95f8c77916f9c615c5c3aa97eb8b">
-              using <a href="#aa45f95f8c77916f9c615c5c3aa97eb8b" class="m-doc-self">ExistsListType</a> = std::vector&lt;<a href="namespacevt_1_1location.html#aefac13a42de68d38b279d351013263cc" class="m-doc">ExistsNodeActionType</a>&gt;
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a41b5c3792967e089c7e592b705c266c3">
-              using <a href="#a41b5c3792967e089c7e592b705c266c3" class="m-doc-self">PendingType</a> = <a href="structvt_1_1location_1_1_pending_location_lookup.html" class="m-doc">PendingLocationLookup</a>&lt;EntityID&gt;
-            </dt>
-            <dd><span></span></dd>
             <dt id="a495c5dfc3aa444524af9aede4b20cfdc">
               using <a href="#a495c5dfc3aa444524af9aede4b20cfdc" class="m-doc-self">PendingLocLookupsType</a> = std::unordered_map&lt;EntityID, <a href="#a5b37e5d3bd2956c3e6737ea087ea2618" class="m-doc">ActionListType</a>&gt;
-            </dt>
-            <dd><span></span></dd>
-            <dt id="aba2ef8117e10a1656d2ccbce9f9b96d2">
-              using <a href="#aba2ef8117e10a1656d2ccbce9f9b96d2" class="m-doc-self">PendingExistsLocType</a> = std::unordered_map&lt;EntityID, <a href="#aa45f95f8c77916f9c615c5c3aa97eb8b" class="m-doc">ExistsListType</a>&gt;
-            </dt>
-            <dd><span></span></dd>
-            <dt id="afeaaebfc1d7cbdd20cccbd348d96748a">
-              using <a href="#afeaaebfc1d7cbdd20cccbd348d96748a" class="m-doc-self">ActionContainerType</a> = std::unordered_map&lt;<a href="namespacevt_1_1location.html#a3a369b22101231d87e7bcadc68a836ad" class="m-doc">LocEventID</a>, <a href="#a41b5c3792967e089c7e592b705c266c3" class="m-doc">PendingType</a>&gt;
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a0c871ed0fd13dbe7c3c68a4ee365e314">
-              using <a href="#a0c871ed0fd13dbe7c3c68a4ee365e314" class="m-doc-self">LocAsksType</a> = std::unordered_map&lt;EntityID, std::unordered_set&lt;<a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a>&gt;&gt;
             </dt>
             <dd><span></span></dd>
             <dt id="a69e037fef241a04659b4068c8ae1513f">
@@ -197,9 +166,9 @@
             </dt>
             <dd>Construct a new location manager with defaults.</dd>
             <dt>
-              <span class="m-doc-wrap-bumper"><a href="#a2b56894750d791772b7ae3e8e1c1e8c9" class="m-doc">EntityLocationCoord</a>(</span><span class="m-doc-wrap">bool in_anytime_migration,
+              <span class="m-doc-wrap-bumper"><a href="#a98df2db9630dceabb7d129d0b9a17c0c" class="m-doc">EntityLocationCoord</a>(</span><span class="m-doc-wrap">bool in_anytime_migration,
               bool in_keep_cache_updated,
-              std::size_t in_max_cache_size = default_max_cache_size) <span class="m-label m-flat m-info">explicit</span> </span>
+              std::size_t in_max_cache_size = ::loc::default_max_cache_size) <span class="m-label m-flat m-info">explicit</span> </span>
             </dt>
             <dd>Construct with parameters.</dd>
             <dt id="ab0889dd0a0bfd73e7cccc1a20934c604">
@@ -302,12 +271,6 @@
               <a href="namespacevt.html#a6120232f66889de000ccfed71e703ec9" class="m-doc">ActionNodeType</a> action)</span>
             </dt>
             <dd>Route a message with non-eager protocol.</dd>
-            <dt>
-              <span class="m-doc-wrap-bumper">void <a href="#ade9118aef1a21a90bf9d7ef5725c5281" class="m-doc">updatePendingRequest</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> const&amp; resolved_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> const&amp; home_node)</span>
-            </dt>
-            <dd>Update location.</dd>
             <dt id="a33f2bf9523cfc89fae0f1151fa2d87db">
               <span class="m-doc-wrap-bumper">void <a href="#a33f2bf9523cfc89fae0f1151fa2d87db" class="m-doc-self">printCurrentCache</a>(</span><span class="m-doc-wrap">) const</span>
             </dt>
@@ -321,27 +284,19 @@
             </dt>
             <dd>Clear the cache.</dd>
             <dt>
-              <span class="m-doc-wrap-bumper">void <a href="#a9903f0c4581b9d8a231293e98cf9a11c" class="m-doc">sendEagerUpdate</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> ask_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> home_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> deliver_node)</span>
-            </dt>
-            <dd>Send back an eager update on a discovered location.</dd>
-            <dt>
-              <span class="m-doc-wrap-bumper">void <a href="#a02337c5b5c23bf81b540568107103ef4" class="m-doc">handleEagerUpdate</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> home_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> deliver_node)</span>
-            </dt>
-            <dd>Update cache on eager update received.</dd>
-            <dt>
               <div class="m-doc-template">template&lt;typename MessageT&gt;</div>
               <span class="m-doc-wrap-bumper">auto <a href="#a482a031eb17aba77a9efd946fe3f033c" class="m-doc">useEagerProtocol</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#a4c7d432ffe692c874d21dd78c23b5679" class="m-doc">MsgSharedPtr</a>&lt;MessageT&gt; const&amp; msg) const -&gt; bool</span>
             </dt>
-            <dd>Check if the eager or rendezvous protocol should be used.</dd>
+            <dd>Classify the legacy eager/rendezvous message size.</dd>
             <dt>
               <span class="m-doc-wrap-bumper">void <a href="#af783157df5049135d68ed577d24993f4" class="m-doc">setProxy</a>(</span><span class="m-doc-wrap"><a href="structvt_1_1objgroup_1_1proxy_1_1_proxy.html" class="m-doc">objgroup::<wbr />proxy::<wbr />Proxy</a>&lt;<a href="#a84d2166e5a2c192b081c222e15e93882" class="m-doc">EntityLocationCoord</a>&lt;EntityID&gt;&gt; proxy)</span>
             </dt>
             <dd>Set the proxy for the objgroup.</dd>
+            <dt id="a5a31e81a14177af9e17d8abeb1d4a6c3">
+              <div class="m-doc-template">template&lt;auto Handler, typename... Args&gt;</div>
+              <span class="m-doc-wrap-bumper">void <a href="#a5a31e81a14177af9e17d8abeb1d4a6c3" class="m-doc-self">locControlHandler</a>(</span><span class="m-doc-wrap">Args... args)</span>
+            </dt>
+            <dd><span></span></dd>
             <dt>
               <span class="m-doc-wrap-bumper">auto <a href="#a23783f81bff7baccf6f845863fd655ee" class="m-doc">getLocalEntities</a>(</span><span class="m-doc-wrap">) const -&gt; std::vector&lt;EntityID&gt;</span>
             </dt>
@@ -354,14 +309,14 @@
         </section>
         <section>
           <h2>Function documentation</h2>
-          <section class="m-doc-details" id="a2b56894750d791772b7ae3e8e1c1e8c9"><div>
+          <section class="m-doc-details" id="a98df2db9630dceabb7d129d0b9a17c0c"><div>
             <h3>
               <div class="m-doc-template">
                 template&lt;typename EntityID&gt;
               </div>
-              <span class="m-doc-wrap-bumper"> vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2b56894750d791772b7ae3e8e1c1e8c9" class="m-doc-self">EntityLocationCoord</a>(</span><span class="m-doc-wrap">bool in_anytime_migration,
+              <span class="m-doc-wrap-bumper"> vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a98df2db9630dceabb7d129d0b9a17c0c" class="m-doc-self">EntityLocationCoord</a>(</span><span class="m-doc-wrap">bool in_anytime_migration,
               bool in_keep_cache_updated,
-              std::size_t in_max_cache_size = default_max_cache_size) <span class="m-label m-info">explicit</span> </span></span>
+              std::size_t in_max_cache_size = ::loc::default_max_cache_size) <span class="m-label m-info">explicit</span> </span></span>
             </h3>
             <p>Construct with parameters.</p>
             <table class="m-table m-fullwidth m-flat">
@@ -710,36 +665,6 @@
               </tbody>
             </table>
           </div></section>
-          <section class="m-doc-details" id="ade9118aef1a21a90bf9d7ef5725c5281"><div>
-            <h3>
-              <div class="m-doc-template">
-                template&lt;typename EntityID&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">void vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ade9118aef1a21a90bf9d7ef5725c5281" class="m-doc-self">updatePendingRequest</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> const&amp; resolved_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> const&amp; home_node)</span></span>
-            </h3>
-            <p>Update location.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <thead>
-                <tr><th colspan="2">Parameters</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the entity ID</td>
-                </tr>
-                <tr>
-                  <td>resolved_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the node reported to have the entity</td>
-                </tr>
-                <tr>
-                  <td>home_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the home node for the entity</td>
-                </tr>
-              </tbody>
-            </table>
-          </div></section>
           <section class="m-doc-details" id="a9e6d5b9783f617f4e036ad9f7ba19953"><div>
             <h3>
               <div class="m-doc-template">
@@ -766,71 +691,6 @@
               </tfoot>
             </table>
           </div></section>
-          <section class="m-doc-details" id="a9903f0c4581b9d8a231293e98cf9a11c"><div>
-            <h3>
-              <div class="m-doc-template">
-                template&lt;typename EntityID&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">void vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9903f0c4581b9d8a231293e98cf9a11c" class="m-doc-self">sendEagerUpdate</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> ask_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> home_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> deliver_node)</span></span>
-            </h3>
-            <p>Send back an eager update on a discovered location.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <thead>
-                <tr><th colspan="2">Parameters</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the entity ID</td>
-                </tr>
-                <tr>
-                  <td>ask_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the asking node</td>
-                </tr>
-                <tr>
-                  <td>home_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the home node</td>
-                </tr>
-                <tr>
-                  <td>deliver_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the node discovered which delivered the message</td>
-                </tr>
-              </tbody>
-            </table>
-          </div></section>
-          <section class="m-doc-details" id="a02337c5b5c23bf81b540568107103ef4"><div>
-            <h3>
-              <div class="m-doc-template">
-                template&lt;typename EntityID&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">void vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a02337c5b5c23bf81b540568107103ef4" class="m-doc-self">handleEagerUpdate</a>(</span><span class="m-doc-wrap">EntityID const&amp; id,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> home_node,
-              <a href="namespacevt.html#abda554de809ecd8eeca0429b809f1a1f" class="m-doc">NodeType</a> deliver_node)</span></span>
-            </h3>
-            <p>Update cache on eager update received.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <thead>
-                <tr><th colspan="2">Parameters</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="width: 1%">id&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the entity ID</td>
-                </tr>
-                <tr>
-                  <td>home_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the home node</td>
-                </tr>
-                <tr>
-                  <td>deliver_node&nbsp;<span class="m-label m-flat m-info">in</span></td>
-                  <td>the node discovered which delivered the message</td>
-                </tr>
-              </tbody>
-            </table>
-          </div></section>
           <section class="m-doc-details" id="a482a031eb17aba77a9efd946fe3f033c"><div>
             <h3>
               <div class="m-doc-template">
@@ -839,7 +699,7 @@
               </div>
               <span class="m-doc-wrap-bumper">bool vt::<wbr />location::<wbr />EntityLocationCoord&lt;EntityID&gt;::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a482a031eb17aba77a9efd946fe3f033c" class="m-doc-self">useEagerProtocol</a>(</span><span class="m-doc-wrap"><a href="namespacevt.html#a4c7d432ffe692c874d21dd78c23b5679" class="m-doc">MsgSharedPtr</a>&lt;MessageT&gt; const&amp; msg) const</span></span>
             </h3>
-            <p>Check if the eager or rendezvous protocol should be used.</p>
+            <p>Classify the legacy eager/rendezvous message size.</p>
             <table class="m-table m-fullwidth m-flat">
               <thead>
                 <tr><th colspan="2">Parameters</th></tr>
@@ -857,7 +717,7 @@
                 </tr>
               </tfoot>
             </table>
-<p>The eager protocol, typically used for small messages, forwards the message even if the location is stale or unknown (to the home node). The rendezvous protocol, typically used for large messages, will send a control message to determine the location of the entity before sending the actual data. The threshold between these two modes is controlled by <code>small_msg_max_size</code></p>
+<p>Kept for source compatibility and diagnostics. The loc-backed coordinator resolves both sizes before VT delivers them; the threshold remains <code>small_msg_max_size</code>.</p>
           </div></section>
           <section class="m-doc-details" id="af783157df5049135d68ed577d24993f4"><div>
             <h3>

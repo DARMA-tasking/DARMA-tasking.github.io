@@ -19,7 +19,7 @@ var searchData=
   ['end_5ftime_16',['end_time',['../structvt_1_1trace_1_1_log.html#a577104fb3bef671a4c0129beaecaec2d',1,'vt::trace::Log']]],
   ['engagementmessagecount_17',['engagementMessageCount',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#ad8d11aea5b48de393ba6f94c0ce8ed7e',1,'vt::term::ds::TermDS']]],
   ['entireholder_3c_20indext_20_3e_3a_3aproxy_5fcontainer_5f_18',['proxy_container_',['../namespacevt_1_1vrt_1_1collection.html#a0e38bd1ed2ae8be86d454c12e2bb7e4a',1,'vt::vrt::collection']]],
-  ['entity_5f_19',['entity_',['../structvt_1_1location_1_1_loc_entity.html#ad2d2ed3292e402f3bf8bf0f1f9c7281f',1,'vt::location::LocEntity::entity_'],['../structvt_1_1location_1_1_pending_location_lookup.html#ac35da0e44b6048e6cc893f1498f1aa1d',1,'vt::location::PendingLocationLookup::entity_']]],
+  ['entity_5f_19',['entity_',['../structvt_1_1location_1_1_loc_entity.html#ad2d2ed3292e402f3bf8bf0f1f9c7281f',1,'vt::location::LocEntity']]],
   ['entity_5fid_5f_20',['entity_id_',['../structvt_1_1location_1_1_entity_msg.html#a7c50fcdb28e43633811173c6850380f2',1,'vt::location::EntityMsg']]],
   ['enum_5fto_5fstr_5f_21',['enum_to_str_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html#ab4c64192522847d62019adb796824da3',1,'vt::vrt::collection::balance::LBArgsEnumConverter']]],
   ['enum_5ftype_5f_22',['enum_type_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_args_enum_converter.html#a5e0b1ba18d8083c384c281f0a08567e9',1,'vt::vrt::collection::balance::LBArgsEnumConverter']]],

@@ -22,15 +22,10 @@ var searchData=
   ['loadmsgasync_19',['LoadMsgAsync',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_msg_async.html',1,'vt::vrt::collection::balance']]],
   ['loadsamplerbaselb_20',['LoadSamplerBaseLB',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_load_sampler_base_l_b.html',1,'vt::vrt::collection::lb']]],
   ['loadsummary_21',['LoadSummary',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_summary.html',1,'vt::vrt::collection::balance']]],
-  ['locationcache_22',['LocationCache',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
-  ['locationcache_3c_20elmtype_2c_20locrectype_20_3e_23',['LocationCache&lt; ElmType, LocRecType &gt;',['../structvt_1_1location_1_1_location_cache.html',1,'vt::location']]],
-  ['locationcoord_24',['LocationCoord',['../structvt_1_1location_1_1_location_coord.html',1,'vt::location']]],
-  ['locationmanager_25',['LocationManager',['../structvt_1_1location_1_1_location_manager.html',1,'vt::location']]],
-  ['locentity_26',['LocEntity',['../structvt_1_1location_1_1_loc_entity.html',1,'vt::location']]],
-  ['lockedinfomsg_27',['LockedInfoMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_locked_info_msg.html',1,'vt::vrt::collection::lb::TemperedLB']]],
-  ['lockmpi_28',['LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html',1,'vt::rdma']]],
-  ['loclookup_29',['LocLookup',['../structvt_1_1location_1_1_loc_lookup.html',1,'vt::location']]],
-  ['loclookup_3c_20entityid_2c_20locrectype_20_3e_30',['LocLookup&lt; EntityID, LocRecType &gt;',['../structvt_1_1location_1_1_loc_lookup.html',1,'vt::location']]],
-  ['locrecord_31',['LocRecord',['../structvt_1_1location_1_1_loc_record.html',1,'vt::location']]],
-  ['log_32',['Log',['../structvt_1_1trace_1_1_log.html',1,'vt::trace']]]
+  ['locationmanager_22',['LocationManager',['../structvt_1_1location_1_1_location_manager.html',1,'vt::location']]],
+  ['loccommunicator_23',['LocCommunicator',['../structvt_1_1location_1_1_loc_communicator.html',1,'vt::location']]],
+  ['locentity_24',['LocEntity',['../structvt_1_1location_1_1_loc_entity.html',1,'vt::location']]],
+  ['lockedinfomsg_25',['LockedInfoMsg',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b_1_1_locked_info_msg.html',1,'vt::vrt::collection::lb::TemperedLB']]],
+  ['lockmpi_26',['LockMPI',['../structvt_1_1rdma_1_1_lock_m_p_i.html',1,'vt::rdma']]],
+  ['log_27',['Log',['../structvt_1_1trace_1_1_log.html',1,'vt::trace']]]
 ];

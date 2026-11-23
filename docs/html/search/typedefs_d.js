@@ -18,5 +18,6 @@ var searchData=
   ['operationtype_15',['OperationType',['../structvt_1_1collective_1_1tree_1_1_tree.html#a5ce4242e9580c807baa74168401f381a',1,'vt::collective::tree::Tree']]],
   ['operator_5feq_5ft_16',['operator_eq_t',['../structvt_1_1index_1_1_index_traits.html#afee3f9e254ab4d9b2ccf26d15fef31bf',1,'vt::index::IndexTraits']]],
   ['orderedsettype_17',['OrderedSetType',['../structvt_1_1term_1_1interval_1_1_integral_set_base.html#af29bc3750493c7de4043f43ef7eb2ca2',1,'vt::term::interval::IntegralSetBase']]],
-  ['orop_18',['OrOp',['../namespacevt_1_1collective.html#a0a83c3c5165d1779af6c500f595e25f6',1,'vt::collective']]]
+  ['orop_18',['OrOp',['../namespacevt_1_1collective.html#a0a83c3c5165d1779af6c500f595e25f6',1,'vt::collective']]],
+  ['ownertype_19',['OwnerType',['../structvt_1_1location_1_1_loc_communicator.html#ae7ee03e77fef5417cbc3f49c9efbf088',1,'vt::location::LocCommunicator']]]
 ];

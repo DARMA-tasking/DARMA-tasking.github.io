@@ -7,7 +7,7 @@ var searchData=
   ['handlermanagertype_4',['HandlerManagerType',['../structvt_1_1messaging_1_1_active_messenger.html#ac7e9165df6550ea333f8eb018a5a0e60',1,'vt::messaging::ActiveMessenger::HandlerManagerType'],['../namespacevt_1_1auto__registry.html#a284638b209a012f3f288d2ee10e8b5b5',1,'vt::auto_registry::HandlerManagerType']]],
   ['handlertype_5',['HandlerType',['../namespacevt.html#ac4053a168a8336fbaa330f0014f66b6f',1,'vt']]],
   ['handletomanager_6',['HandleToManager',['../structvt_1_1rdma_1_1_manager.html#aac6e7c58d320c302ea08461941d65f6e',1,'vt::rdma::Manager']]],
-  ['handletype_7',['HandleType',['../structvt_1_1rdma_1_1_handle_set.html#ab3a698ee86bae503dfa84617205b2dd9',1,'vt::rdma::HandleSet::HandleType'],['../structvt_1_1rdma_1_1_sub_handle.html#a782bd6ddc85c6a81d7f55d207fad71cd',1,'vt::rdma::SubHandle::HandleType']]],
+  ['handletype_7',['HandleType',['../structvt_1_1rdma_1_1_handle_set.html#ab3a698ee86bae503dfa84617205b2dd9',1,'vt::rdma::HandleSet::HandleType'],['../structvt_1_1rdma_1_1_sub_handle.html#a782bd6ddc85c6a81d7f55d207fad71cd',1,'vt::rdma::SubHandle::HandleType'],['../structvt_1_1location_1_1_loc_communicator.html#a96b02611b6aea3d646333878c5e1b667',1,'vt::location::LocCommunicator::HandleType']]],
   ['has_8',['has',['../structcheckpoint_1_1serializer_user_traits_1_1_trait_holder.html#a9f9ad754e9b115a901baa5b0c193cf33',1,'checkpoint::serializerUserTraits::TraitHolder']]],
   ['has_5fany_9',['has_any',['../structcheckpoint_1_1serializer_user_traits_1_1_trait_holder.html#a35f80a4c28f6d76921a868e856973843',1,'checkpoint::serializerUserTraits::TraitHolder']]],
   ['has_5fany_5fuser_5ftraits_10',['has_any_user_traits',['../namespacecheckpoint.html#a0b4fad1cc0423fe8b6514bc99e6d10b5',1,'checkpoint']]],

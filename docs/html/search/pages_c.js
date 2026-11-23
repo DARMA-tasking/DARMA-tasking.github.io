@@ -24,6 +24,5 @@ var searchData=
   ['library_21',['Serialization of C++ standard library',['../ckpt_learn_serialize.html#serialize_stl',1,'']]],
   ['list_22',['List',['../deprecated.html',1,'Deprecated List'],['../todo.html',1,'Todo List']]],
   ['load_20balancers_23',['Load balancers',['../lb-manager.html#load-balancers',1,'']]],
-  ['load_20models_24',['Object Load Models',['../lb-manager.html#load-models',1,'']]],
-  ['location_20manager_25',['Location Manager',['../location.html',1,'introduction']]]
+  ['load_20models_24',['Object Load Models',['../lb-manager.html#load-models',1,'']]]
 ];

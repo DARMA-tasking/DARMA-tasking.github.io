@@ -80,9 +80,8 @@ var searchData=
   ['diagnosticvalueformatter_3c_20t_2c_20typename_20std_3a_3aenable_5fif_5ft_3c_20not_28std_3a_3ais_5fsame_3c_20t_2c_20double_20_3e_3a_3avalue_20or_20std_3a_3ais_5fsame_3c_20t_2c_20float_20_3e_3a_3avalue_29_20_3e_20_3e_77',['DiagnosticValueFormatter&lt; T, typename std::enable_if_t&lt; not(std::is_same&lt; T, double &gt;::value or std::is_same&lt; T, float &gt;::value) &gt; &gt;',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0c16739cbdd11176c050f2a393914dcc5.html',1,'vt::runtime::component::detail']]],
   ['diagnosticvalueformatter_3c_20t_2c_20typename_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5fsame_3c_20t_2c_20double_20_3e_3a_3avalue_20or_20std_3a_3ais_5fsame_3c_20t_2c_20float_20_3e_3a_3avalue_20_3e_20_3e_78',['DiagnosticValueFormatter&lt; T, typename std::enable_if_t&lt; std::is_same&lt; T, double &gt;::value or std::is_same&lt; T, float &gt;::value &gt; &gt;',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_formatter_3_01_t_00_01typename_0bcad086822ee42e889667eac274092ae.html',1,'vt::runtime::component::detail']]],
   ['diagnosticvaluewrapper_79',['DiagnosticValueWrapper',['../structvt_1_1runtime_1_1component_1_1detail_1_1_diagnostic_value_wrapper.html',1,'vt::runtime::component::detail']]],
-  ['directory_80',['Directory',['../structvt_1_1location_1_1_directory.html',1,'vt::location']]],
-  ['dispatchcollection_81',['DispatchCollection',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection.html',1,'vt::vrt::collection']]],
-  ['dispatchcollectionbase_82',['DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html',1,'vt::vrt::collection']]],
-  ['dispatchop_83',['DispatchOp',['../structvt_1_1config_1_1_dispatch_op.html',1,'vt::config']]],
-  ['dualloadmapobjectiterator_84',['DualLoadMapObjectIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html',1,'vt::vrt::collection::balance']]]
+  ['dispatchcollection_80',['DispatchCollection',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection.html',1,'vt::vrt::collection']]],
+  ['dispatchcollectionbase_81',['DispatchCollectionBase',['../structvt_1_1vrt_1_1collection_1_1_dispatch_collection_base.html',1,'vt::vrt::collection']]],
+  ['dispatchop_82',['DispatchOp',['../structvt_1_1config_1_1_dispatch_op.html',1,'vt::config']]],
+  ['dualloadmapobjectiterator_83',['DualLoadMapObjectIterator',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_dual_load_map_object_iterator.html',1,'vt::vrt::collection::balance']]]
 ];

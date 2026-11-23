@@ -37,5 +37,5 @@ var searchData=
   ['outstanding_34',['outstanding',['../structvt_1_1term_1_1ds_1_1_term_d_s.html#a345a64aa827f72e541f9725f7ea2cbf8',1,'vt::term::ds::TermDS']]],
   ['override_5ftarget_35',['override_target',['../structvt_1_1rdma_1_1_channel_message.html#a6becb5011a81e9e52210f075406f848c',1,'vt::rdma::ChannelMessage']]],
   ['oversize_36',['oversize',['../structvt_1_1pool_1_1_header.html#ac3271e96a2c67c907795aa172b3f70cb',1,'vt::pool::Header']]],
-  ['owner_5f_37',['owner_',['../structvt_1_1runtime_1_1_runtime_holder.html#ae6ae8cff59755abf98bcbd6709e9652f',1,'vt::runtime::RuntimeHolder']]]
+  ['owner_5f_37',['owner_',['../structvt_1_1runtime_1_1_runtime_holder.html#ae6ae8cff59755abf98bcbd6709e9652f',1,'vt::runtime::RuntimeHolder::owner_'],['../structvt_1_1location_1_1_loc_communicator.html#aed58c588f7db76c481b784d99a984b0b',1,'vt::location::LocCommunicator::owner_']]]
 ];

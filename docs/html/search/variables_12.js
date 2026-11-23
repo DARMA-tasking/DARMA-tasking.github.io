@@ -71,7 +71,7 @@ var searchData=
   ['startup_5fdeps_5f_68',['startup_deps_',['../structvt_1_1runtime_1_1component_1_1registry_1_1_registered_deps.html#a1249e438a3dc7f3851a8ec29fbefdb50',1,'vt::runtime::component::registry::RegisteredDeps']]],
   ['stat_5f_69',['stat_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_load_data.html#a59f6d4e2b150a9e5fe32a375b4a6603d',1,'vt::vrt::collection::balance::LoadData']]],
   ['state_70',['state',['../structvt_1_1rdma_1_1_state_message.html#a9a80ddef962eae297172e1f269a59b7f',1,'vt::rdma::StateMessage']]],
-  ['state_5f_71',['state_',['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a49b9fcaf2f8b76d350d1e3b809add2aa',1,'vt::collective::reduce::Reduce::state_'],['../structvt_1_1location_1_1_loc_record.html#a61f9aee0764759d61b9e3fddebe602cd',1,'vt::location::LocRecord::state_']]],
+  ['state_5f_71',['state_',['../structvt_1_1collective_1_1reduce_1_1_reduce.html#a49b9fcaf2f8b76d350d1e3b809add2aa',1,'vt::collective::reduce::Reduce']]],
   ['state_5flookup_5f_72',['state_lookup_',['../structvt_1_1collective_1_1reduce_1_1_reduce_state_holder.html#ab30bde72498ebf851969c1914c3378c6',1,'vt::collective::reduce::ReduceStateHolder']]],
   ['statistics_5fwriter_5f_73',['statistics_writer_',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a6a5c0370df20ab5adb200fb766b03776',1,'vt::vrt::collection::balance::LBManager']]],
   ['stats_74',['stats',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_manager.html#a1cd6e1eace2e827d04679d2a923d7325',1,'vt::vrt::collection::balance::LBManager::stats'],['../structvt_1_1vrt_1_1collection_1_1lb_1_1_tempered_l_b.html#afa55e2bd7b0bbc336dd66daeb155d09c',1,'vt::vrt::collection::lb::TemperedLB::stats']]],

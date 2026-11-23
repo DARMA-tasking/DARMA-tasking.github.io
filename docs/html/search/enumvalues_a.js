@@ -10,7 +10,7 @@ var searchData=
   ['loadoverlessthan_7',['LoadOverLessThan',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5ea41a33133c182e43b9dfc2599f39eaa94',1,'vt::vrt::collection::lb']]],
   ['loadoveroneeach_8',['LoadOverOneEach',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5eaa3040fb94a8691e32930a5836d830ec4',1,'vt::vrt::collection::lb']]],
   ['loadoverrandom_9',['LoadOverRandom',['../namespacevt_1_1vrt_1_1collection_1_1lb.html#aeb0f47cf4b89bed7ea05462d0c2e5b5eabde3377fc5ba5b092a195c8ac4b6ea09',1,'vt::vrt::collection::lb']]],
-  ['local_10',['Local',['../namespacevt_1_1messaging.html#af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408',1,'vt::messaging::Local'],['../namespacevt_1_1location.html#a7a5c74aad68cf57281515029d8521547a509820290d57f333403f490dde7316f4',1,'vt::location::Local']]],
+  ['local_10',['Local',['../namespacevt_1_1messaging.html#af09e66b5a14598baf7e4b56ad6080ec2a010b35e408e991d56531802665998408',1,'vt::messaging']]],
   ['localinvoke_11',['LocalInvoke',['../namespacevt_1_1elm.html#ab7367fdbe88bdcf329563642147f9ae2ad3b099c32afd358626c571a1c02bd197',1,'vt::elm']]],
   ['location_12',['Location',['../namespacevt_1_1error.html#a4ec28d13574cae1ad715adcf479d3f12ace5bf551379459c1c61d2a204061c455',1,'vt::error']]],
   ['location_13',['location',['../namespacevt_1_1config.html#a6bd1d6215bda0d8ca02811798399f689aa8d8501591ca3859c828489054b17640',1,'vt::config']]],

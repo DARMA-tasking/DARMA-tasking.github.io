@@ -63,7 +63,7 @@ var searchData=
   ['clearall_60',['clearAll',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#abcd78906fca701244f0f13089b5f5057',1,'vt::pipe::signal::SignalHolder']]],
   ['clearalllisteners_61',['clearAllListeners',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a5ef82532eb8d0d65fe7b07f7fb53491d',1,'vt::pipe::signal::SignalHolder']]],
   ['clearallsignals_62',['clearAllSignals',['../structvt_1_1pipe_1_1signal_1_1_signal_holder.html#a9907ff2a131c6aafe6771c09b6ae9415',1,'vt::pipe::signal::SignalHolder']]],
-  ['clearcache_63',['clearCache',['../structvt_1_1location_1_1_entity_location_coord.html#ac20c510b73a5f6f753269b6d05b389aa',1,'vt::location::EntityLocationCoord::clearCache()'],['../structvt_1_1location_1_1_loc_lookup.html#aae2c3e418b59b36c0a53da17fe7fb3b8',1,'vt::location::LocLookup::clearCache()']]],
+  ['clearcache_63',['clearCache',['../structvt_1_1location_1_1_entity_location_coord.html#ac20c510b73a5f6f753269b6d05b389aa',1,'vt::location::EntityLocationCoord']]],
   ['cleardistro_64',['clearDistro',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_l_b_data_restart_reader.html#afc552e9714573f639444437c0b2d6cc1',1,'vt::vrt::collection::balance::LBDataRestartReader']]],
   ['clearlbdata_65',['clearLBData',['../structvt_1_1vrt_1_1collection_1_1balance_1_1_node_l_b_data.html#aca420505505e0da3efd5388c7212d23d',1,'vt::vrt::collection::balance::NodeLBData']]],
   ['clearobj_66',['clearObj',['../structvt_1_1vrt_1_1collection_1_1lb_1_1_hierarchical_l_b.html#a2190300d890419550a28b91e57ffacf6',1,'vt::vrt::collection::lb::HierarchicalLB']]],
